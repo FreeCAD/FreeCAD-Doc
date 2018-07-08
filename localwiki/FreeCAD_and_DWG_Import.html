@@ -1,0 +1,106 @@
+<html><head><title>FreeCAD and DWG Import</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD and DWG Import</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Why_Can.27t_I_Import_DWG_Files_into_FreeCAD.3F"><span class="tocnumber">1</span> <span class="toctext">Why Can't I Import DWG Files into FreeCAD?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#What_Do_I_Need_To_Be_Able_To_Import_DWG_Files.3F"><span class="tocnumber">2</span> <span class="toctext">What Do I Need To Be Able To Import DWG Files?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Teigha_Converter"><span class="tocnumber">2.1</span> <span class="toctext">Teigha Converter</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Installation"><span class="tocnumber">2.1.1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Usage"><span class="tocnumber">2.1.2</span> <span class="toctext">Usage</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#What_Are_The_Alternatives.3F"><span class="tocnumber">3</span> <span class="toctext">What Are The Alternatives?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#DraftSight"><span class="tocnumber">3.1</span> <span class="toctext">DraftSight</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#DoubleCAD_XT"><span class="tocnumber">3.2</span> <span class="toctext">DoubleCAD XT</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Export_Your_AutoCAD_files_in_Friendly_Format"><span class="tocnumber">3.3</span> <span class="toctext">Export Your AutoCAD files in Friendly Format</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#What_Can_I_Do_To_Help.3F"><span class="tocnumber">4</span> <span class="toctext">What Can I Do To Help?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Promote_the_use_of_alternative_formats"><span class="tocnumber">4.1</span> <span class="toctext">Promote the use of alternative formats</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Why_Can.27t_I_Import_DWG_Files_into_FreeCAD.3F">Why Can't I Import DWG Files into FreeCAD?</span></h2>
+<p>The DWG format is a closed source binary file format that is not directly supported by FreeCAD. It requires an external 3rd party file converter to first convert then import the conversion into FreeCAD for use.
+</p><p>Note that at this time, it is not possible to import 3D DWG in FreeCAD. 3D data is embedded as binary .SAT (ACIS) data, a proprietary and undocumented format.
+</p>
+<h2><span class="mw-headline" id="What_Do_I_Need_To_Be_Able_To_Import_DWG_Files.3F">What Do I Need To Be Able To Import DWG Files?</span></h2>
+<h3><span class="mw-headline" id="Teigha_Converter">Teigha Converter</span></h3>
+<ul><li> homepage: <a rel="nofollow" class="external free" href="https://www.opendesign.com/guestfiles/teigha_file_converter">https://www.opendesign.com/guestfiles/teigha_file_converter</a></li>
+<li> license: freeware</li>
+<li> optional, used to enable import and export of DWG files</li></ul>
+<p>The Teigha Converter is a small freely available utility that allows to convert between several versions of DWG and DXF files. FreeCAD can use it to offer DWG import and export, by converting DWG files to the DXF format under the hood,then using its standard DXF importer to import the file contents. The restrictions of the <a href="Draft_DXF.html" title="Draft DXF">DXF importer</a> apply.
+</p>
+<h4><span class="mw-headline" id="Installation">Installation</span></h4>
+<p>On all platforms, only by installing the appropriate package from <a rel="nofollow" class="external free" href="https://www.opendesign.com/guestfiles/teigha_file_converter">https://www.opendesign.com/guestfiles/teigha_file_converter</a> . After installation, if the utility is not found automatically by FreeCAD, you might need to set the path to the converter executable manually. Change workbench to "Draft", than in the menu Edit -&gt; Preferences -&gt; Import/Export -&gt; DWG and fill "Path to Teigha File Converter" appropriately. 
+</p><p>For more detailed instruction see <a rel="nofollow" class="external text" href="http://www.freecadweb.org/wiki/index.php?title=Dxf_Importer_Install#Third_step:">this tutorial</a>.
+</p>
+<h4><span class="mw-headline" id="Usage">Usage</span></h4>
+<p>The program may  be used with the command line interface or the graphical interface.
+Be sure to convert the dwg-files to an ASCII-Format.
+</p><p>Command Line Format is:
+</p>
+<ol><li> Quoted Input Folder</li>
+<li> Quoted Output Folder</li>
+<li> Output_version {"ACAD9","ACAD10","ACAD12", "ACAD13","ACAD14", "ACAD2000","ACAD2004", "ACAD2007","ACAD2010"}</li>
+<li> Output File type {"DWG","DXF","DXB"}</li>
+<li> Recurse Input Folder {"0","1"}</li>
+<li> Audit each file {"0","1"}</li>
+<li> [optional] Input file filter (default:"*.DWG;*.DXF")</li></ol>
+<p><b>Example for Linux</b><br />
+TeighaFileConverter "/home/dwg-data" "/home/dxf-data" "ACAD2010" "DXF" "0" "1" "test.dwg"
+The second number (audit) needs to be 1 otherwise it fails 
+</p><p><b>Example for Windows</b><br />
+"C:\Program Files\ODA\Teigha File Converter 3.08.2\TeighaFileConverter.exe" "Path-To-Input-Directory" "Path-To-Output-Directory" "ACAD2010" "DXF" "0" "1" "Name-Of-A-Test-File.dwg"
+</p>
+<h2><span class="mw-headline" id="What_Are_The_Alternatives.3F">What Are The Alternatives?</span></h2>
+<h3><span class="mw-headline" id="DraftSight">DraftSight</span></h3>
+<p>There is a free commercial program called Draft Sight (<a rel="nofollow" class="external free" href="http://www.3ds.com/products-services/draftsight/overview/">http://www.3ds.com/products-services/draftsight/overview/</a>) that can import most DWG files and can save and export in formats that are friendly to FreeCAD.
+Draftsight runs on
+</p>
+<ul><li> Windows 32 bit</li>
+<li> Windows 64 bit</li>
+<li> Mac OS X</li>
+<li> Linux Fedora</li>
+<li> Linux Ubuntu</li></ul>
+<p>A free registration is required for activation of the program.
+</p>
+<h3><span class="mw-headline" id="DoubleCAD_XT">DoubleCAD XT</span></h3>
+<p>There is also DoubleCAD XT (<a rel="nofollow" class="external free" href="https://www.turbocad.com/content/doublecad-xt-v5">https://www.turbocad.com/content/doublecad-xt-v5</a>) .
+The program is free for personal and commercial use.
+It requires a free sign-up to receive an activation code via E-Mail.
+This Program is windows-only.
+</p>
+<h3><span class="mw-headline" id="Export_Your_AutoCAD_files_in_Friendly_Format">Export Your AutoCAD files in Friendly Format</span></h3>
+<p>Exporting your AutoCAD files in a more FreeCAD friendly format, like DXF R12 or R14, SVG, and if version supports it, IGES. All are better alternatives to the DWG format when using FreeCAD. 
+</p><p>It is important to know that, contrarily to popular belief, there is no difference between the contents of a file saved in DWG or DXF formats, provided it is the same version (ex. DWG 2014 vs. DXF 2014). Both formats are maintained by Autodesk, and they both support exactly the same features. The difference is that DWG is closed (machine-encoded) while DXF is open.
+</p>
+<h2><span class="mw-headline" id="What_Can_I_Do_To_Help.3F">What Can I Do To Help?</span></h2>
+<h3><span class="mw-headline" id="Promote_the_use_of_alternative_formats">Promote the use of alternative formats</span></h3>
+<p>Simply put, stop accepting work done in DWG format. In practice, this is often easier said than done. Still, it would not be bad practice for users and supporters of FreeCAD to avoid and reject the DWG format whenever possible.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_and_DWG_Import&amp;oldid=260330">http://www.freecadweb.org/wiki/index.php?title=FreeCAD_and_DWG_Import&amp;oldid=260330</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,41 @@
+<html><head><title>Sketcher helper constraint</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher helper constraint</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:502px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="image"><img alt="" src="500px-Sketcher_helper_constraint_example1.png" width="500" height="355" class="thumbimage" srcset="/wiki/images/a/ad/Sketcher_helper_constraint_example1.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="internal" title="Enlarge"></a></div>Example of a helper constraint (Constraint5 - point on circle) for a tangent constraint (Constraint6; in tangent-via-point mode). Only one helper constraint is used in this case, since the point of tangency is the endpoint of ellipse's major diameter, which inherently lies on the ellipse.</div></div></div>
+<p>Helper constraint is a regular sketcher constraint that is needed as a part of a more complex constraint, but is exposed in user interface to assist dealing with redundancy. For example, for <a href="Constraint_SnellsLaw.html" title="Constraint SnellsLaw">Snell's Law</a> constraint, the two lines that represent rays of light need to be connected (<a href="Constraint_PointOnPoint.html" title="Constraint PointOnPoint">coincident constraint</a>), and the joint must lie on the interface (<a href="Constraint_PointOnObject.html" title="Constraint PointOnObject">Point On Object constraint</a>). 
+</p><p>Helper constraints are added automatically when they are needed. The decision for if they are needed is currently made by evaluating the helper constraint error for current state of geometry (this may change in future versions). If the error is small enough, the constraint is considered to be unnecessary, and is not added. In some cases, this logic can lead to errors (the constraint can be satisfied by accident, which can easily happen when Sketcher Grid Snapping is on). 
+</p><p>If this happens (a helper constraint is missing, and the required conditions is not satisfied otherwise), the complex constraint will be broken. It will do something, but the actual behavior is undefined. Such a broken constraint can be repaired by adding the missing helper constraint manually.
+</p><p>Helper constraints are currently required for:
+</p>
+<ul><li> <a href="Constraint_Tangent.html" title="Constraint Tangent">Constraint Tangent</a> (in tangent-via-point mode; two point-on-object constraints are needed)</li>
+<li> <a href="Constraint_Perpendicular.html" title="Constraint Perpendicular">Constraint Perpendicular</a> (in perpendicular-via-point mode; two point-on-object constraints are needed)</li>
+<li> <a href="Constraint_InternalAngle.html" title="Constraint InternalAngle">Constraint InternalAngle</a> (in angle-via-point mode; two point-on-object constraints are needed)</li>
+<li> <a href="Constraint_SnellsLaw.html" title="Constraint SnellsLaw">Constraint SnellsLaw</a> (coincident constraint and point-on-object constraint are needed)</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>When constraints requiring helpers are added from Python, no helper constraints are automatically added. One can replicate the automatic decision-making of the UI commands in a script by testing the following functions, specifically added for the purpose and used in the UI routines:
+</p>
+<pre>Sketch.isPointOnCurve(icurve,x,y) </pre>
+<p>isPointOnCurve tests if a virtual point, given by sketch coordinates <tt>x,y</tt> (float values), happens to satisfy a virtual point-on-object constraint - i.e. lies on curve specified by curve index <tt>icurve</tt>. Returns True if the point is on curve, and False if it doesn't.
+</p>
+<pre>Sketch.calculateConstraintError(iconstr) </pre>
+<p>calculateConstraintError evaluates an error function of a constraint specified by its index <tt>iconstr</tt> in the sketch. If there is only one error function in the constraint, the return value is the signed return value of the error function. If there is more than one error function associated with the constraint (i.e. the constraint removes more than one degree of freedom), the return value is the RMS of all the error functions (always positive).
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>Helper constraints were introduced in v0.15.4387
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint&amp;oldid=200650">http://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint&amp;oldid=200650</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

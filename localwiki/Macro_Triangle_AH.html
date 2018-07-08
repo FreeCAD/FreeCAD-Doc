@@ -1,0 +1,133 @@
+<html><head><title>Macro Triangle AH</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Triangle AH</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Triangle_AH"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Triangle AH</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">This macro create one triangle creates a triangle by giving the head angle and the height of the triangle.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.02
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-05-03
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Triangle_AH"><span class="tocnumber">1</span> <span class="toctext">Macro Triangle AH</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Version"><span class="tocnumber">5</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro create one isosceles triangle by giving the head angle and the height of the triangle (the triangle of the head is positioned to the xyz coordinates 0.0.0) 
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Copy the macro <b>Triangle AH</b> complete in the Python console FreeCAD and type:
+</p>
+<pre>triangleAH(angle=90, height=10)
+# or
+triangleAH(90, 10)
+# or
+triangleAH(45, hypo=10)
+# or
+triangleAH(90, base=10) </pre>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_triangleAH.FCMacro</b>
+</p>
+<pre>__title__   = "triangleAH"
+__author__  = "Mario52"
+__version__ = "00.02"
+__date__    = "03/05/2015"
+# Give angle and on choice&#160;: height or base or hypo
+from math import cos, sin, tan, degrees, radians, sqrt
+import Draft, Part
+def triangleAH(angle, height=0.0, base=0.0, hypo=0.0):
+    def line_length(x1 = 0.0, y1 = 0.0, z1 = 0.0, length = 10.0, angle2 = 0.0):  # search coordinates
+        x2 = x1 + (length * cos(radians(angle2)))
+        y2 = y1 + (length * sin(radians(angle2)))
+        z2 = z1 #+ ()
+        return x2,y2,z2                                                          # return coordinates (xyz) to point
+ 
+    x0 = y0 = z0 = 0.0
+    angle = float(angle)
+    height = float(height)
+    base = float(base)
+
+    if base&#160;!= 0:
+        height = ( (base/2) / (tan(radians(angle/2))) )                          # imposing base and calculate height
+    if hypo&#160;!= 0:
+        height = hypo * (cos(radians(angle/2)))                                  # imposing hypo and calculate height 
+    else:
+        hypo = height / cos(radians(angle/2))                                    # calculate hypotenuse
+    if base==0:                                                                  # base of triangle
+        base = (tan(radians(angle/2) ) * height) * 2                             # calculate base
+
+    a0 = line_length(x1=x0,y1=y0,z1=z0,length=height,angle2=0 )                  # coord height of triangle
+    a0 = line_length(x1=x0,y1=y0,z1=z0,length=0, angle2 = angle )                # point 0 (begin vertex)
+    a  = line_length(x1=a0[0],y1=a0[1],z1=a0[2],length= hypo, angle2=-(angle/2)) #
+    b  = line_length(a[0],a[1],a[2],length= (abs(a[1])*2), angle2=90.0)          # base of triangle = (abs(a[1])*2)
+
+    print "angle theet&#160;: ", angle
+    print "angles base&#160;: (", (180-angle)/2,"),(",(180-angle)/2,")"
+    print "height     &#160;: ", height
+    print "base       &#160;: ", base
+    print "hypotenuse &#160;: ", hypo
+    print "surface    &#160;: ", (base * height) / 2
+    print "_________________________"
+    return Draft.makeWire([FreeCAD.Vector(a0),FreeCAD.Vector(a),FreeCAD.Vector(b)],closed=True,face=True,support=None) # create triangle </pre>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>ver 00.02 03/05/2015&#160;: adding "base=0.0", "hypo=0.0" and print data of triangle
+</p><p>ver 00.01 20/03/2015&#160;:
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Triangle_AH&amp;oldid=240674">http://www.freecadweb.org/wiki/index.php?title=Macro_Triangle_AH&amp;oldid=240674</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

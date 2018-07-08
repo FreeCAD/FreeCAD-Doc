@@ -1,0 +1,126 @@
+<html><head><title>Expressions</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Expressions</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span>
+</p><p><br />
+It is now possible to drive properties using mathematical expressions. From the GUI, spin boxes or input fields, that are bound to properties contain a blue icon <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Expressions.png" class="image"><img alt="Sketcher Expressions.png" src="24px-Sketcher_Expressions.png" width="24" height="24" srcset="/wiki/images/thumb/b/b2/Sketcher_Expressions.png/36px-Sketcher_Expressions.png 1.5x, /wiki/images/thumb/b/b2/Sketcher_Expressions.png/48px-Sketcher_Expressions.png 2x" /></a>. Clicking on the icon, or typing the equal sign (=), brings up the expression editor for that particular property.
+</p><p>A FreeCAD expression is a mathematical expression, following normal notation for the standard mathematical operators (+, -, * and /) and functions as described below. In addition, the expression may reference other properties, and also use conditionals. Numbers in an expression may have an optional unit attached to it.
+</p><p>Operators and functions are unit-aware, and require valid combinations of units, if supplied. For example, 2mm+4mm is a valid expression, while 2mm+4 is not (the reason for this is that an expression like 1in + 4 will most likely be interpreted as 1in + 4in by humans, but all units are converted to the SI system internally, and the system is not able to guess this).
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Supported_Functions"><span class="tocnumber">1</span> <span class="toctext">Supported Functions</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Reference_To_CAD-Data"><span class="tocnumber">2</span> <span class="toctext">Reference To CAD-Data</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Document-wide_global_variables"><span class="tocnumber">3</span> <span class="toctext">Document-wide global variables</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Cross-document_linking"><span class="tocnumber">4</span> <span class="toctext">Cross-document linking</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Known_issues_.2F_remaining_tasks"><span class="tocnumber">5</span> <span class="toctext">Known issues / remaining tasks</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Supported_Functions">Supported Functions</span></h2>
+<p>In expressions, the following functions are supported, taking one or two arguments: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh, ceil, floor, trunc, and round.
+</p><p>Aggregate functions: min, max, count, sum, stddev, and average.
+Aggregate functions can take one or more arguments, separated by comma or semicolon. Arguments may include ranges (two cells separated by a colon), e.g =average(B1:B8). These are interpreted as the properties B1, B2, ... B8.
+</p><p>Trigonometric functions use degrees as its default unit; supply "rad" if you want them to use radians.
+</p><p>The constants pi and e are predefined.
+</p><p>The conditional statement works like this: = condition&#160;? resultTrue&#160;: resultFalse
+</p><p>The condition is defined as an expression that evaluates to either 0 (for false) or non-zero for true. The following comparison operators are defined: ==,&#160;!=, &gt;, &lt;, &gt;=, and &lt;=.
+</p><p>Formulas are written as e.g follows: 2 * Length, where Length is a property in the object holding the expression.
+</p>
+<h2><span class="mw-headline" id="Reference_To_CAD-Data">Reference To CAD-Data</span></h2>
+<p>It is possible to use data from other parts of the construction in an expression. The syntax for a reference to a field is as follows: object.property. If the property is a compound of fields, they can be accessed by e.g object.property.field. 
+</p><p>The following table shows some examples:
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>CAD-Data
+</th>
+<th>Call in expression
+</th>
+<th>Result
+</th></tr>
+<tr>
+<td>Parametric Length of a Part-Workbench Cube
+</td>
+<td>Cube.Length
+</td>
+<td>Length with units mm
+</td></tr>
+<tr>
+<td>Volume of the Cube
+</td>
+<td>Cube.Shape.Volume
+</td>
+<td>Volume  in mm&#179; without units
+</td></tr>
+<tr>
+<td>Type of the Cube-shape
+</td>
+<td>Cube.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>Label of the Cube
+</td>
+<td>Cube.Label
+</td>
+<td>String: Cube
+</td></tr>
+<tr>
+<td>x-coordinate of center of mass of the Cube
+</td>
+<td>Cube.Shape.CenterOfMass.x
+</td>
+<td>x-coordinate in mm without units
+</td></tr>
+<tr>
+<td>Value of constraint in a sketch
+</td>
+<td>Constraints.Width
+</td>
+<td>Numeric value of the named constraint 'Width' in the sketch
+</td></tr>
+<tr>
+<td>Value of a spreadsheet alias
+</td>
+<td>Spreadsheet.Depth
+</td>
+<td>Value of the alias "Depth" in the spreadsheet "Spreadsheet"
+</td></tr>
+<tr>
+<td>Value of a local property
+</td>
+<td>Length
+</td>
+<td>Value of the Length property in e.g a Pad object, if the expression is used in e.g Length2 in the same object.
+</td></tr></table>
+<h2><span class="mw-headline" id="Document-wide_global_variables">Document-wide global variables</span></h2>
+<p>There is no concept of global variables in FreeCAD at the moment. Instead, arbitrary variables can be defined as cells in a spreadsheet using the <a href="Spreadsheet_Workbench.html" title="Spreadsheet Workbench">Spreadsheet workbench</a>, and then be given a name using the alias property for the cell (right-click on cell). Then they can be accessed from any expression just as any other object property.
+</p>
+<h2><span class="mw-headline" id="Cross-document_linking">Cross-document linking</span></h2>
+<p>It's possible that you have a spreadsheet in one document and reference values from there in other documents.
+</p><p>Important note: You use a document's name to reference it from other documents. Now, when saving the document the first time you choose a certain file name and this is usually different to "Unnamed1" (or its translated version) and then the links are lost after reopening it. So, it's recommended to create first the master document, create a spreadsheet, save and close it. After reopening the name is set to the above file name. Afterwards you can still make changes  and save the file but you shouldn't rename it.
+</p><p>Then create the further documents where you want to add expressions to. Assuming you named the master document "master" you can access an alias like this: master#Spreadsheet.Length
+</p><p>Unfortunately, the integrated checker is more confusing than helping because it always gives parser errors or claims that this or that doesn't exist. So, just continue on typing. When you are finished and the content is correct the OK suddenly becomes active.
+</p><p>Of course, it's up to you to load the corresponding documents later when you want to change anything.
+</p>
+<h2><span class="mw-headline" id="Known_issues_.2F_remaining_tasks">Known issues / remaining tasks</span></h2>
+<ul><li> The dependency graphs is based on the relationship between document objects, not properties. This means that you cannot provide data to and query the same object in e.g a spreadsheet, even though there are no cyclic dependency when just the properties are considered. As a work-around, use multiple spreadsheets, e.g one to drive your model, and one for reporting.</li>
+<li> There is no expression manager implemented where all expressions in a document are listed, and can be created, deleted, queries, etc.</li>
+<li> Open bugs/tickets for Expressions can be found in the <a rel="nofollow" class="external text" href="https://freecadweb.org/tracker/set_project.php?project_id=4;20">FreeCAD Bugtracker Expressions category</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Expressions&amp;oldid=271753">http://www.freecadweb.org/wiki/index.php?title=Expressions&amp;oldid=271753</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,131 @@
+<html><head><title>Raytracing tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Raytracing tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Raytracing
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">10 minutes + Render time
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven"><a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/index.php?title=User:Drei">Drei</a>
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.16 or above
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Requirements"><span class="tocnumber">3</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Procedure"><span class="tocnumber">4</span> <span class="toctext">Procedure</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Modeling"><span class="tocnumber">4.1</span> <span class="toctext">Modeling</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Preparing_for_the_render"><span class="tocnumber">4.2</span> <span class="toctext">Preparing for the render</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#POV-Ray"><span class="tocnumber">4.2.1</span> <span class="toctext">POV-Ray</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#LuxRender"><span class="tocnumber">4.2.2</span> <span class="toctext">LuxRender</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Setting_the_camera_position"><span class="tocnumber">4.3</span> <span class="toctext">Setting the camera position</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Importing_the_model"><span class="tocnumber">4.4</span> <span class="toctext">Importing the model</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Running_the_Renderer"><span class="tocnumber">4.5</span> <span class="toctext">Running the Renderer</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Viewing_the_results"><span class="tocnumber">4.6</span> <span class="toctext">Viewing the results</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h3><span class="mw-headline" id="Introduction">Introduction</span></h3>
+<p>This tutorial is meant to introduce the reader to the basic workflow of the Raytracing Workbench, as well as most of the tools that are available to create a rendered image.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_tutorial_result.png" class="image"><img alt="Raytracing tutorial result.png" src="480px-Raytracing_tutorial_result.png" width="480" height="270" srcset="/wiki/images/thumb/5/56/Raytracing_tutorial_result.png/720px-Raytracing_tutorial_result.png 1.5x, /wiki/images/thumb/5/56/Raytracing_tutorial_result.png/960px-Raytracing_tutorial_result.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
+<ul><li> FreeCAD version 0.16 or above</li>
+<li> <a rel="nofollow" class="external text" href="http://www.povray.org/">POV-Ray</a> and/or <a rel="nofollow" class="external text" href="http://www.luxrender.net/">LuxRender</a> is installed on the system</li>
+<li> In the case of POV-Ray, it's not enough to have just the binary executable in place, but it also <i><b>requires</b></i> the installation of <i><b>supporting files</b></i>, and in Ubuntu these are provided by the Recommends-flagged package <a rel="nofollow" class="external text" href="https://packages.ubuntu.com/search?keywords=povray-includes">povray-includes</a>. Potential issues have also been seen with Linux installations requiring local configuration files to be manually created in a user's home folder, as discussed <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=27548&amp;start=10#p224576">here</a>.</li>
+<li> In the case of POV-Ray, installation of  <a rel="nofollow" class="external text" href="https://github.com/psicofil/Macros_FreeCAD">psicofil's macro</a> is recommended</li>
+<li> The reader has the basic knowledge to use the Part and PartDesign Workbenches</li></ul>
+<h3><span class="mw-headline" id="Procedure">Procedure</span></h3>
+<h4><span class="mw-headline" id="Modeling">Modeling</span></h4>
+<p>In this example a Cube is used as the study object, but models created in the Part or PartDesign Workbenches can be used instead.
+</p>
+<ol><li> Create a new document</li>
+<li> Activate the Part Workbench</li>
+<li> Create a Cube. You are free to change its properties in any way.</li></ol>
+<p>Now we have a model with which to work.
+</p>
+<h4><span class="mw-headline" id="Preparing_for_the_render">Preparing for the render</span></h4>
+<ol><li> Switch to the Raytracing Workbench</li>
+<li> Change your View to <b>Perspective</b>. Go to <b>View</b> menu and select <b>Perspective</b>.</li>
+<li> Set the location for the renderer. Go to the <b>Edit</b> menu and select <b>Preferences</b>. Click on <b>Raytracing</b> and set the location to the executable. </li>
+<li> Set the size of the rendered image. Go to the <b>Edit</b> menu and select <b>Preferences</b>. Click on <b>Raytracing</b> and set the desired image size.</li></ol>
+<h5><span class="mw-headline" id="POV-Ray">POV-Ray</span></h5>
+<ol><li> Select  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_New.png" class="image"><img alt="Raytracing New.png" src="32px-Raytracing_New.png" width="32" height="32" srcset="/wiki/images/thumb/5/59/Raytracing_New.png/48px-Raytracing_New.png 1.5x, /wiki/images/5/59/Raytracing_New.png 2x" /></a> <a href="Raytracing_New.html" title="Raytracing New">New PovRay project</a>. From the dropdown menu pick <b>RadiosityNormal</b></li></ol>
+<h5><span class="mw-headline" id="LuxRender">LuxRender</span></h5>
+<ol><li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Lux.png" class="image"><img alt="Raytracing Lux.png" src="32px-Raytracing_Lux.png" width="32" height="32" srcset="/wiki/images/thumb/0/05/Raytracing_Lux.png/48px-Raytracing_Lux.png 1.5x, /wiki/images/0/05/Raytracing_Lux.png 2x" /></a> <a href="Raytracing_Lux.html" title="Raytracing Lux">New LuxRender project</a>. From the dropdown menu pick <b>LuxClassic</b></li></ol>
+<h4><span class="mw-headline" id="Setting_the_camera_position">Setting the camera position</span></h4>
+<ol><li> Position the <b>3D View</b> to the desired location and distance from the model. In this case we will use the <b>Axonometric View</b>.</li>
+<li> Select the <b>Project Folder</b> from the <b>Tree View</b></li>
+<li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_ResetCamera.png" class="image"><img alt="Raytracing ResetCamera.png" src="32px-Raytracing_ResetCamera.png" width="32" height="32" srcset="/wiki/images/thumb/9/92/Raytracing_ResetCamera.png/48px-Raytracing_ResetCamera.png 1.5x, /wiki/images/9/92/Raytracing_ResetCamera.png 2x" /></a> <a href="Raytracing_ResetCamera.html" title="Raytracing ResetCamera">Reset camera</a></li></ol>
+<h4><span class="mw-headline" id="Importing_the_model">Importing the model</span></h4>
+<ol><li> Select the model to render.</li>
+<li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_InsertPart.png" class="image"><img alt="Raytracing InsertPart.png" src="32px-Raytracing_InsertPart.png" width="32" height="32" srcset="/wiki/images/thumb/9/9e/Raytracing_InsertPart.png/48px-Raytracing_InsertPart.png 1.5x, /wiki/images/9/9e/Raytracing_InsertPart.png 2x" /></a> <a href="Raytracing_InsertPart.html" title="Raytracing InsertPart">Insert part</a></li></ol>
+<h4><span class="mw-headline" id="Running_the_Renderer">Running the Renderer</span></h4>
+<ol><li> Select  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Render.png" class="image"><img alt="Raytracing Render.png" src="32px-Raytracing_Render.png" width="32" height="32" srcset="/wiki/images/thumb/c/c5/Raytracing_Render.png/48px-Raytracing_Render.png 1.5x, /wiki/images/c/c5/Raytracing_Render.png 2x" /></a> <a href="Raytracing_Render.html" title="Raytracing Render">Render</a>.</li>
+<li> Set the path to which the image will be stored.</li>
+<li> Wait for the rendering to finish. This may take a while.</li></ol>
+<h4><span class="mw-headline" id="Viewing_the_results">Viewing the results</span></h4>
+<p>FreeCAD will immediately open the image after the render is finished.
+</p><p>We are now finished with the basic workflow for the <a href="Raytracing_Module.html" title="Raytracing Module">Raytracing Module</a>.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_tutorial&amp;oldid=271602">http://www.freecadweb.org/wiki/index.php?title=Raytracing_tutorial&amp;oldid=271602</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

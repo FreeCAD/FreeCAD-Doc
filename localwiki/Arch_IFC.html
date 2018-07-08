@@ -1,0 +1,35 @@
+<html><head><title>Arch IFC</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch IFC</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>The <a href="Arch_Module.html" title="Arch Module">Arch Workbench</a> features an <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Industry_Foundation_Classes">Industry Foundation Classes (IFC)</a> importer. The IFC format is a more and more widely spread format to interchange data between <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Building_Information_Modeling">BIM</a> applications, used in architecture and engineering.
+</p><p>The importer is still a work in progress, and depends on an external piece of open-source software, called <a rel="nofollow" class="external text" href="http://ifcopenshell.org">IfcOpenShell</a>, which is not bundled with FreeCAD and must be <a href="Extra_python_modules.html" title="Extra python modules">installed on your system</a>. If IfcOpenShell is correctly installed, it will be detected by FreeCAD and used to import IFC files. It is still possible to force the use of the old python IFC importer, which doesn't depend on IfcOpenShell, by enabling the related option in the Arch preferences settings. But this importer has been discontinued and will only be able to import a small subset of IFC objects.
+</p><p>The use of IfcOpenShell is highly recommended, since it is much faster and more powerful than the internal parser. IfcOpenShell supports all IFC2x3 and IFC4 entities that carry geometry information, not all of them can be converted to <a href="Arch_Module.html" title="Arch Module">Arch</a> objects, those that can't will be imported as simple <a href="Part_Module.html" title="Part Module">Part</a> shapes.
+</p>
+<h2><span class="mw-headline" id="Importing">Importing</span></h2>
+<p>All <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifckernel/lexical/ifcproduct.htm">IfcProduct</a>-based entities from IFC2x3 or IFC4 files will be imported into the FreeCAD document. The IFC preferences settings allow you to set how the IFC objects are imported: as full parametric Arch objects, as non-parametric Arch objects, as non-parametric Part shapes, or as one Part shape per floor. Each of these types looses some information over the previous one, but is lighter on resources, which allows to open bigger files. A last type allows to discard entirely the importing of Arch objects, which is useful for structural analytic models.
+</p><p>If parametric Arch objects are used, for all IFC types that have an equivalent in the Arch Module, the corresponding type is used. For the others, a generic Part shape is created. All Arch objects, parametric and non-parametric, will carry the full set of <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcpropertyresource/lexical/ifcproperty.htm">IfcProperties</a> attached to each object.
+</p><p><a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcproductextension/lexical/ifcannotation.htm">IfcAnnotation</a> objects are also imported, as well as linear and curve-based <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcstructuralanalysisdomain/lexical/ifcstructuralitem.htm">IfcStructuralItem</a>-based entities.
+</p><p>Enabling the <b>show debug messages</b> in the IFC preferences settings will print a report indicating if any object from the IFC file failed to import.
+</p>
+<h2><span class="mw-headline" id="Exporting">Exporting</span></h2>
+<p>Exporting to IFC files will export all the selected objects and their descendants. To export a whole building or a whole floor, it is only needed to select the building or floor object. Arch objects will be exported with the type set in their "Role" property. Their <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcpropertyresource/lexical/ifcproperty.htm">IfcProperties</a> are exported as well, and if these objects have an IFC UID from a previous import, the same UID will be kept at export. Objects that are not Arch objects are exported as <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcsharedbldgelements/lexical/ifcbuildingelementproxy.htm">IfcBuildingElementPRoxy</a>.
+</p><p>IFC files are exported as IFC2x3 or IFC4 depending on your version of IfcOpenShell, which can be compiled with any of the IFC schemas.
+</p><p>If the shape of exported objects is based on an extrusion or a boolean operation, the operation and components will be correctly exported to IFC. If not, the object's shape is exported as <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcgeometricmodelresource/lexical/ifcfacetedbrep.htm">IfcFacetedBrep</a>. If the shape contains curves, these will be faceted.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p>Tutorial <a href="https://www.freecadweb.org/wiki/index.php?title=Import/Export_IFC_-_compiling_IfcOpenShell" title="Import/Export IFC - compiling IfcOpenShell">Import/Export IFC - compiling IfcOpenShell</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_IFC&amp;oldid=273102">http://www.freecadweb.org/wiki/index.php?title=Arch_IFC&amp;oldid=273102</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

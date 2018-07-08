@@ -1,0 +1,192 @@
+<html><head><title>Macro circle</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro circle</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_circle&amp;redirect=no" class="mw-redirect" title="Macro circle">Macro circle</a>)</span></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Circle"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Circle</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Creates a circle or arc with parameters.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.3
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-06-10
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Circle"><span class="tocnumber">1</span> <span class="toctext">Macro Circle</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Memo_of_circle"><span class="tocnumber">5</span> <span class="toctext">Memo of circle</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Version"><span class="tocnumber">6</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This small macro create a circle or arc giving radius, diameter, circumference, area, startangle, endangle, arc, anglecenter, cord, arrow, center (point), placemObject  on choice. 
+</p><p>The circle is still facing the screen (with getCameraOrientation) (or give the placement) 
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Copy the code and paste it in the console Python the FreeCAD the command is used all the time to the disposal FreeCAD open
+give the parameter on choice&#160;: 
+</p>
+<ul><li> <b>x y z</b>&#160;: coordinates of circle if not coordinates the circle is created on point 0,0,0</li>
+<li><b>radius</b>&#160;: radius of cicle</li>
+<li><b>diameter</b>&#160;: diameter of circle</li>
+<li><b>circumference</b>&#160;: circumference of circle</li>
+<li><b>area</b>&#160;: area of circle</li>
+<li><b>startangle</b>&#160;: start angle for arc</li>
+<li><b>endangle</b>&#160;: end angle for arc</li>
+<li><b>arc</b> and <b>anglecenter</b>&#160;: arc in combination with anglecenter
+<ul><li> <b>arc</b> =  length of arc</li>
+<li> <b>anglecenter</b> = angle of center circle to extremities of arc </li></ul></li>
+<li><b>cord</b> and <b>arrow</b>&#160;: cord in combination with arrow of circle
+<ul><li> <b>cord</b>&#160;: length of cord of circle </li>
+<li> <b>arrow</b>&#160;: length of arrow of circle </li></ul></li>
+<li><b>center</b>&#160;: if center as different 0 one point is created on center of circle</li>
+<li><b>placemObject</b>  
+<ul><li> example&#160;:</li>
+<li>     pl=FreeCAD.Placement()</li>
+<li>     pl.Rotation.Q=(0.0,-0.0,-0.0,1.0)</li>
+<li>     pl.Base=FreeCAD.Vector(-1.89847898483,-0.490152746439,0.0)</li>
+<li>     give <b>placemObject = pl</b></li></ul></li></ul>
+<p>if there is no parameter "<b>circle()</b>" a list of functions is displayed in the report view
+<br /><br />
+<b>Example entrance&#160;:</b>
+</p>
+<pre>circle(arc=50,anglecenter=20,center=1)
+circle(cord = 100,arrow = 20,center=1)
+circle(circumference = 100,center=1) </pre>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_circle.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+# creer un cercle ou un arc entierement parametrabel en utilisant&#160;:
+# create a circle or arc fully parametrabel using:
+# x x x coordinates
+#with radius
+#with diameter
+#with circumference
+#with area
+#with startangle
+#with endangle
+#with [arc and anglecenter]      in combination (angle in degrees)
+#with [cord and arrow]           in combination
+#with center (if center as different 0 one point is created on center of circle)
+#give placemObject  
+# ex&#160;:pl=FreeCAD.Placement()
+#     pl.Rotation.Q=(0.0,-0.0,-0.0,1.0)
+#     pl.Base=FreeCAD.Vector(-1.89847898483,-0.490152746439,0.0)
+#     placemObject = pl
+# s'il n'y a pas de parametre "circle()" une liste des fonctions s'affiche dans la Vue rapport
+# if there is no parameter "circle()" a list of functions is displayed in the report view
+
+__title__   = "circle"
+__author__  = "Mario52"
+__date__    = "10/06/2018"
+
+import Draft #, Part
+def circle(x=0.0,y=0.0,z=0.0,radius=0.0,diameter=0.0,circumference=0.0,area=0.0,startangle=0.0,endangle=0.0,arc=0.0,anglecenter=0.0,cord=0.0,arrow=0.0,center=0,placemObject=""):
+    from math import sqrt, pi
+    if placemObject == "":
+        pl = FreeCAD.Placement()
+        pl.Rotation = FreeCADGui.ActiveDocument.ActiveView.getCameraOrientation()   
+        pl.Base = FreeCAD.Vector(x,y,z)
+    else:
+        pl = placemObject                                  # placement imposted
+
+    if diameter&#160;!= 0:                                      # with diameter
+        radius = diameter / 2.0
+    elif circumference&#160;!= 0:                               # with circumference
+        radius = (circumference / pi) / 2.0
+    elif area&#160;!= 0:                                        # with area
+        radius =  sqrt((area / pi))
+    elif (cord&#160;!= 0) and (arrow&#160;!= 0):                     # with cord and arrow
+        radius = ((arrow**2) + (cord**2) / 4.0) / (arrow*2) 
+    elif (arc&#160;!= 0) and (anglecenter&#160;!= 0):                # with arc and anglecenter central in degrees
+        radius = ((360/anglecenter)*arc) / pi/2.0
+        if endangle&#160;!= 0:
+            startangle  = endangle - anglecenter
+        endangle   = anglecenter + startangle
+        startangle  = endangle - anglecenter
+
+    if radius&#160;!= 0:
+        try:
+            Draft.makeCircle(radius,placement=pl,face=False,startangle=startangle,endangle=endangle,support=None)
+            if center&#160;!= 0:
+                Draft.makePoint(x,y,z)
+        except Exception:
+            App.Console.PrintError("Unexpected keyword argument" + "\n")
+    else:
+        App.Console.PrintMessage("Unexpected keyword argument" + "\n")
+        App.Console.PrintMessage("circle(x,y,z,radius,diameter,circumference,area,startangle,endangle,[arc,anglecenter],[cord,arrow],center,placemObject)" + "\n")
+
+#example
+#circle(arc=50,anglecenter=20,center=1) </pre>
+<h2><span class="mw-headline" id="Memo_of_circle">Memo of circle</span></h2>
+<p><b>Examples codes</b>
+</p>
+<pre>circle(radius=10)    # example 1
+circle(x=15,diameter=20)    # example 2
+circle(y=45,circumference=100)    # example 3 </pre>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Circle_01.png" class="image" title="examples 1, 2, 3"><img alt="examples 1, 2, 3" src="640px-Macro_Circle_01.png" width="640" height="293" srcset="/wiki/images/6/61/Macro_Circle_01.png 1.5x" /></a></div></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<pre>circle(y=-15,area=100)    # example 4
+circle(y=-15,x=15,startangle=60,endangle=-20,center=1)    # example 5
+circle(y=-15,x=45,cord=9,arrow=3,center=1)    # example 6 left
+circle(x=65,y=-15,arc=3.5,anglecenter=40,startangle=20,center=1)    # example 6 rigth </pre>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Circle_02.png" class="image" title="examples"><img alt="examples" src="640px-Macro_Circle_02.png" width="640" height="293" srcset="/wiki/images/2/23/Macro_Circle_02.png 1.5x" /></a></div></div>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>ver 0.3 10/06/2018&#160;: replace /2 to /2.0 (float)
+</p><p>ver 0.2 24/02/2015&#160;: adding function "<b>placemObject</b>"
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Circle&amp;oldid=288422">http://www.freecadweb.org/wiki/index.php?title=Macro_Circle&amp;oldid=288422</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

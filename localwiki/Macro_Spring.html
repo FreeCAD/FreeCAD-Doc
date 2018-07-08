@@ -1,0 +1,152 @@
+<html><head><title>Macro Spring</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Spring</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Spring_Simul"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Spring Simul</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Spring simulation.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-09-29
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Spring_Simul"><span class="tocnumber">1</span> <span class="toctext">Spring Simul</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Uses"><span class="tocnumber">2</span> <span class="toctext">Uses</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#The_File"><span class="tocnumber">3</span> <span class="toctext">The File</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Simulates the compression and decompression of a spring.
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spring_00.gif" class="image"><img alt="Spring 00.gif" src="Spring_00.gif" width="425" height="412" /></a></div><div style="clear:both"></div>
+<h2><span class="mw-headline" id="Uses">Uses</span></h2>
+<p>Open the 2 files below (Spring.FCMacro and Spring.FCStd) in FreeCAD with 2 screens (Menu: Windows → Tile) and click in the window and the macro then press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">F6</span> (debug macro) to run the macro or run the macro with <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro-execute.svg" class="image"><img alt="Macro-execute.svg" src="Macro-execute.svg" width="64" height="64" /></a>
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spring_02.png" class="image"><img alt="Spring 02.png" src="300px-Spring_02.png" width="300" height="155" srcset="/wiki/images/thumb/6/6b/Spring_02.png/450px-Spring_02.png 1.5x, /wiki/images/thumb/6/6b/Spring_02.png/600px-Spring_02.png 2x" /></a></div><div style="clear:both"></div>
+<h2><span class="mw-headline" id="The_File">The File</span></h2>
+<p><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=7679">Spring.FCStd</a>
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Spring.FCMacro
+</p>
+<pre>import FreeCAD, FreeCADGui, Draft, Part
+from FreeCAD import Base
+import time
+
+ii = iib = FreeCAD.getDocument("Spring").getObject("Helix001").Pitch
+i = ib = FreeCAD.getDocument("Spring").getObject("Helix001").Height
+
+pas = 1
+
+for ii2 in range(int(60)):
+    if pas == 0:
+        if ii &gt; iib-1:
+            pas = 1
+        else:
+            ii += 1
+            i = (ii * 10)
+    else:
+        if ii &lt; 2:
+            pas = 0
+        else:
+            ii -= 1
+            i = (ii * 10)
+   
+    FreeCAD.getDocument("Spring").getObject("Helix001").Pitch = ii
+    FreeCAD.getDocument("Spring").getObject("Helix001").Height = i
+    App.Console.PrintMessage(str(ii2)+"  " + str(ii)+"  " + str(i)+"  " + str(pas) +"\n")
+    Gui.updateGui()
+    time.sleep(0.1) # modify the time here
+#FreeCAD.getDocument("Spring").getObject("Helix001").Pitch = iib
+#FreeCAD.getDocument("Spring").getObject("Helix001").Height = ib </pre>
+<p><b>Code for FreeCAD version 0.15</b>
+</p>
+<pre># For FreeCAD 0.15
+import FreeCAD, FreeCADGui, Draft, Part
+from FreeCAD import Base
+import time
+
+ii = iib = FreeCAD.getDocument("Spring").getObject("Helix001").Pitch.Value
+i = ib = FreeCAD.getDocument("Spring").getObject("Helix001").Height.Value
+
+pas = 1
+
+for ii2 in range(int(60)):
+    if pas == 0:
+        print pas
+        if ii &gt; iib-1:
+            pas = 1
+        else:
+            ii += 1
+            i = (ii * 10)
+            print i," ",ii," else1"
+    else:
+        print pas
+        if ii &lt; 2:
+            pas = 0
+        else:
+            ii -= 1
+            i = (ii * 10)
+            print i," ",ii," else2"
+    FreeCAD.getDocument("Spring").getObject("Helix001").Pitch.Value = ii
+    FreeCAD.getDocument("Spring").getObject("Helix001").Height.Value = i
+#    App.Console.PrintMessage(str(ii2)+"  " + str(ii)+"  " + str(i)+"  " + str(pas) +"\n")
+    Gui.updateGui()
+    time.sleep(0.1) # modify the time here
+#FreeCAD.getDocument("Spring").getObject("Helix001").Pitch.Value = iib
+#FreeCAD.getDocument("Spring").getObject("Helix001").Height.Value = ib </pre> 
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>The forum discussion page: <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=7449#p62193">scripting animations</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Spring&amp;oldid=239974">http://www.freecadweb.org/wiki/index.php?title=Macro_Spring&amp;oldid=239974</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

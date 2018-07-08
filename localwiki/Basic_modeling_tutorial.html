@@ -1,0 +1,170 @@
+<html><head><title>Basic modeling tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic modeling tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Introduction to modelling
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">15 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Normandc" title="User:Normandc">NormandC</a>
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">any
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">none
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Before_we_begin"><span class="tocnumber">2</span> <span class="toctext">Before we begin</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Modeling_Techniques_Intro"><span class="tocnumber">3</span> <span class="toctext">Modeling Techniques Intro</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#1st_Method_-_By_Constructive_Solid_Geometry"><span class="tocnumber">4</span> <span class="toctext">1st Method - By Constructive Solid Geometry</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#2nd_Method_-_By_extruding_a_profile"><span class="tocnumber">5</span> <span class="toctext">2nd Method - By extruding a profile</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Setting_the_working_plane"><span class="tocnumber">5.1</span> <span class="toctext">Setting the working plane</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Drafting_the_profile"><span class="tocnumber">5.2</span> <span class="toctext">Drafting the profile</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Extruding_the_profile"><span class="tocnumber">5.3</span> <span class="toctext">Extruding the profile</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Note_on_Draft_Working_Plane_Button"><span class="tocnumber">5.4</span> <span class="toctext">Note on Draft Working Plane Button</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>This Basic Modeling Tutorial will show you how to model an iron angle. One thing to know is that FreeCAD is modular by design, and like for many other CAD software, there are always more than one way to do things. We will explore two methods here.
+</p>
+<h2><span class="mw-headline" id="Before_we_begin">Before we begin</span></h2>
+<p>Keep in mind that FreeCAD is still in an early stage of development, so you might not be as productive as with another CAD application, and you will certainly encounter bugs, or experience crashes. FreeCAD now has the ability to save backup files. The number of those backup files can be specified in the preferences dialog. Don't hesitate to allow 2 or 3 backup files until you know well how to deal with FreeCAD.
+</p><p>Save your work often, from time to time save your work under a different name, so you have a "safe" copy to fall back to, and be prepared to the possibility that some commands might not give you the expected results. 
+</p>
+<h2><span class="mw-headline" id="Modeling_Techniques_Intro">Modeling Techniques Intro</span></h2>
+<p>The first (and basic) technique of solid modeling is <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">Constructive Solid Geometry (CSG)</a>. You work with primitive shapes like cubes, cylinders, spheres and cones to construct your geometry by combining them, subtracting one shape from the other, or intersecting them. These tools are part of the <a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">Part Workbench</a>. You can also apply transformations on shapes, like applying rounds or chamfers on edges. These tools are also in the <a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">Part Workbench</a>.
+</p><p>Then there are more advanced tools. You start by drawing a 2D profile which you'll either extrude or revolve.
+</p><p>So let's start by trying to do some iron feet for a table with these 2 methods.
+</p>
+<h2><span class="mw-headline" id="1st_Method_-_By_Constructive_Solid_Geometry">1st Method - By Constructive Solid Geometry</span></h2>
+<ol><li> Start with the <a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">Part Workbench</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Switch_PartWorkbench.JPG" class="image"><img alt="Switch PartWorkbench.JPG" src="Switch_PartWorkbench.JPG" width="197" height="39" /></a>.</li>
+<li> If you haven't opened a new FreeCAD document (most of the FreeCAD window looks greyed-out), from the pull-down menu click File 🡢 New or click the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Document-new.png" class="image"><img alt="Document-new.png" src="Document-new.png" width="32" height="32" /></a> <b>Create a new empty document</b> icon.</li>
+<li> Click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a> <a href="Part_Box.html" title="Part Box">Box</a> button to create a box</li>
+<li> Change its dimensions by selecting it either in the 3D space, or by clicking it in the Project tab to the left, then</li>
+<li> Click on the Data tab at the bottom, and change values for Length, Width and Height to 50mm, 50 and 750 <i>(see Fig. 1.1)</i> <b>Note</b>: <i>back when these captures were taken, the properties were ordered differently, with Height being first</i>.</li>
+<li> The box now fills most of the 3D view. Click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_ViewFitAll.png" class="image"><img alt="Std ViewFitAll.png" src="32px-Std_ViewFitAll.png" width="32" height="32" srcset="/wiki/images/thumb/0/0e/Std_ViewFitAll.png/48px-Std_ViewFitAll.png 1.5x, /wiki/images/0/0e/Std_ViewFitAll.png 2x" /></a> <a href="Std_ViewFitAll.html" title="Std ViewFitAll">Fit All</a> to fit the view to the newly created box.</li>
+<li> Create a second box the same way, but with values L=40, W=40 and H=750mm. By default this box will be superimposed on the first one. <i>(see Fig. 1.2)</i></li>
+<li> You'll now subtract the second box from the first. Select the first shape first (named Box), then the second one (named Box001), the selection order is important! (Make sure that both shapes are selected in the Project tree. One thing to remember: in Inventor navigation mode, Ctrl + click does not work for multiple selection. <a href="Mouse_Model.html" title="Mouse Model">Switch</a> to either CAD or Blender selection.)</li>
+<li> On the Part Workbench toolbar, click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="32px-Part_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/48px-Part_Cut.png 1.5x, /wiki/images/4/4a/Part_Cut.png 2x" /></a> <a href="Part_Cut.html" title="Part Cut">Cut</a> tool.</li></ol>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:491px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand01.jpg" class="image"><img alt="" src="Tutorial-normand01.jpg" width="489" height="490" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.1 The first box</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:603px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand02.jpg" class="image"><img alt="" src="Tutorial-normand02.jpg" width="601" height="494" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.2 The second box on top of the first one, ready to be subtracted</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:577px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand03.jpg" class="image"><img alt="" src="Tutorial-normand03.jpg" width="575" height="484" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.3 After the subtraction</div></div></div></div>
+<p>You now have your first iron angle <i>(Fig. 1.3)</i>. You'll notice that, in the Project tab on the left, both boxes have been replaced by a "Cut" object. Actually, they're not disappeared, but rather grouped under the Cut object. Click on the + in front of it, and you'll see that both boxes are still there, but greyed out <i>(Fig. 1.4)</i>. If you click on either of them and hit the space bar, it will show up. The space bar toggles visibility of selected objects. <i>(Fig. 1.5)</i>
+</p><p>Don't want the angle oriented that way? You just need to change the placement of the Box001 shape. Select it, unhide it, and in the Data tab, click on the + in front of Placement, then expand the Position parameter, and change its X and Y coordinates. Hit Enter, hide the Box001 shape again, and your angle orientation is now different. <i>(Fig. 1.5)</i> You can even change either of your shapes dimensions, and the Cut object will be updated.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:573px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand04.jpg" class="image"><img alt="" src="Tutorial-normand04.jpg" width="571" height="492" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.4 The cut operation retains its original objects (the boxes)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:531px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand05.jpg" class="image"><img alt="" src="Tutorial-normand05.jpg" width="529" height="485" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.5 You can still make the original boxes visible</div></div></div></div>
+<p>By the way, we can add rounds to the angle so it is more realistic, using the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="Part_Fillet.html" title="Part Fillet">Fillet</a> tool. <i>(Fig. 1.6)</i>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand06.jpg" class="image"><img alt="" src="Tutorial-normand06.jpg" width="300" height="259" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.6 The filleted edges</div></div></div></div>
+<h2><span class="mw-headline" id="2nd_Method_-_By_extruding_a_profile">2nd Method - By extruding a profile</span></h2>
+<p>This method requires that you start by drawing a 2D profile. You need to activate the <a href="Draft_Workbench.html" class="mw-redirect" title="Draft Workbench">Draft workbench</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Switch_DraftWorkbench.JPG" class="image"><img alt="Switch DraftWorkbench.JPG" src="Switch_DraftWorkbench.JPG" width="200" height="40" /></a>.
+</p>
+<ul><li> If you haven't opened a new FreeCAD document (most of the FreeCAD window looks greyed-out), from the pull-down menu click File 🡢 New or click the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Document-new.png" class="image"><img alt="Document-new.png" src="Document-new.png" width="32" height="32" /></a> <b>Create a new empty document</b> icon.</li></ul>
+<h3><span class="mw-headline" id="Setting_the_working_plane">Setting the working plane</span></h3>
+<p>First we need to define on which <a href="Draft_SelectPlane.html" title="Draft SelectPlane">working plane</a> to draft our profile.
+</p>
+<ol><li> Locate the toolbar displayed below. Depending on your Draft preferences, it may be below the main toolbar, to the left or to the right.
+<dl><dd> <a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneAuto.png" class="image"><img alt="DraftPlaneAuto.png" src="DraftPlaneAuto.png" width="412" height="40" /></a></dd></dl></li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Auto</span> button (it may be labeled "None").</li>
+<li> Depending on your Draft preferences, this expands a <b>Select Plane</b> dialog in the Tasks side panel, or a horizontal toolbar labeled "active command: <b>Select Plane</b>". See the <a href="#Note_on_Draft_Working_Plane_Button">Note on Draft Working Plane Button</a> for screen captures showing the two expanded modes.</li>
+<li> We will leave the <i>Offset</i> field at a value of zero.</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">XY</span> button to set the working plane to XY. This closes the Tasks panel or the expanded buttons. The "Auto" button will now be relabeled as "Top" to show it is the active plane.</li></ol>
+<h3><span class="mw-headline" id="Drafting_the_profile">Drafting the profile</span></h3>
+<ol><li> Select the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Wire.png" class="image"><img alt="Draft Wire.png" src="32px-Draft_Wire.png" width="32" height="32" srcset="/wiki/images/thumb/0/00/Draft_Wire.png/48px-Draft_Wire.png 1.5x, /wiki/images/0/00/Draft_Wire.png 2x" /></a> <a href="Draft_Wire.html" title="Draft Wire">DWire (multiple-point DraftWire)</a> tool.</li>
+<li> Check the "Relative" and "Filled" boxes.</li>
+<li> Rather than drawing the shape in the 3D view, we'll enter coordinates in the <i>Global X</i>, <i>Global Y</i> and <i>Global Z</i> input fields. The process is the following:
+<ol><li> Click in the <i>Global X</i> input field;</li>
+<li> Enter a value as listed in the bullet list below and press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">TAB</span> to go to the <i>Global Y</i> input field;</li>
+<li> Enter the <i>Global Y</i> value and press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">TAB</span> to go to the <i>Global Z</i> input field;</li>
+<li> In the <i>Global Z</i> field, leave the zero value and press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ENTER</span> to validate the coordinates for the point;</li>
+<li> Repeat for the next 5 points.
+<ul><li> <b>Coordinates</b> (X, Y, Z)</li>
+<li> 1st point: 0, 0, 0</li>
+<li> 2nd point: 50, 0, 0</li>
+<li> 3rd point: 0,10, 0</li>
+<li> 4th point: -40, 0, 0 <b>Note:</b> <i>in FreeCAD 0.16, there is a bug that removes the previous point when entering the minus sign in the input field. A workaround is to enter a positive value, then place the cursor before the number and add the minus sign. (This bug is resolved in v0.17)</i></li>
+<li> 5th point: 0, 40, 0</li>
+<li> 6th point: -10, 0, 0</li></ul></li></ol></li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Close</span> button to close the profile. You should now have this profile, titled <b>DWire</b> in the Model tab:</li></ol>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand07.jpg" class="image"><img alt="" src="Tutorial-normand07.jpg" width="300" height="299" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.7 The base DWire</div></div></div></div> 
+<p>Hit the zero key on the numerical keypad to set the view to axonometric.
+</p>
+<h3><span class="mw-headline" id="Extruding_the_profile">Extruding the profile</span></h3>
+<p>Activate the <a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">Part Workbench</a> either from the workbench selector, or from the <b>View 🡢 Workbench 🡢 Part</b> menu.
+</p><p>Click on the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="32px-Part_Extrude.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/48px-Part_Extrude.png 1.5x, /wiki/images/d/df/Part_Extrude.png 2x" /></a> <a href="Part_Extrude.html" title="Part Extrude">Extrude</a></span> tool.
+</p><p>On the Tasks tab on the left, select the <b>Wire</b> object. Then enter the desired length, say 750mm. Leave the direction at Z = 1. Press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span>. You should now have an <b>Extrude</b> object in the Model tab <i>(fig. 1.8)</i>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:512px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand08.jpg" class="image"><img alt="" src="Tutorial-normand08.jpg" width="510" height="276" class="thumbimage" /></a>  <div class="thumbcaption">Fig. 1.8 The extruded object</div></div></div></div>
+<p>This method has a minor caveat compared to the other one: to edit the shape, you need to edit the Wire, it's not as easy to do as the previous method.
+</p><p>And there are a few other ways to do it too! I hope these two examples get you started. You'll sure hit some snags along the way (I did when I first learned FreeCAD, and I do have 3D CAD experience), but don't hesitate to ask questions on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org">FreeCAD forum</a>!
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Note_on_Draft_Working_Plane_Button">Note on Draft Working Plane Button</span></h3>
+<p>The label on your button may be different, depending on your version and also on what you were doing beforehand.  The button label could read: "Top", "Front", "Side", "None" or a Vector representation such as d(0.0,0.0,1.0). It can also be blank. For example:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:326px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneNone.png" class="image"><img alt="" src="DraftPlaneNone.png" width="324" height="40" class="thumbimage" /></a>  <div class="thumbcaption">Select Plane None</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:327px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneTop.png" class="image"><img alt="" src="DraftPlaneTop.png" width="325" height="47" class="thumbimage" /></a>  <div class="thumbcaption">Select Plane Top</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:365px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneView.png" class="image"><img alt="" src="DraftPlaneView.png" width="363" height="44" class="thumbimage" /></a>  <div class="thumbcaption">Select Plane View</div></div></div>
+<div style="clear:both"></div>
+<p>After pressing the button, the options will be expanded into either of the following configurations.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:251px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneTasks.png" class="image"><img alt="" src="DraftPlaneTasks.png" width="249" height="477" class="thumbimage" /></a>  <div class="thumbcaption"><b>Select Plane</b> parameters as shown in Tasks panel mode.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:1066px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneToolbarMode.png" class="image"><img alt="" src="DraftPlaneToolbarMode.png" width="1064" height="47" class="thumbimage" /></a>  <div class="thumbcaption"><b>Select Plane</b> parameters as shown in Toolbar mode.</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+The above instructions will work, no matter what label your button has.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial&amp;oldid=268800">http://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial&amp;oldid=268800</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

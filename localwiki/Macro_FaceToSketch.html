@@ -1,0 +1,79 @@
+<html><head><title>Macro FaceToSketch</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro FaceToSketch</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="FaceToSketch"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> FaceToSketch</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Converts a face into a sketch without constraints.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Jreinhardt&amp;action=edit&amp;redlink=1" class="new" title="User:Jreinhardt (page does not exist)">Jreinhardt</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2013-12-23
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#FaceToSketch"><span class="tocnumber">1</span> <span class="toctext">FaceToSketch</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>This macro breaks down your form with function <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="16px-Draft_Downgrade.png" width="16" height="16" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/24px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/32px-Draft_Downgrade.png 2x" /></a> <a href="Draft_Downgrade.html" title="Draft Downgrade">Draft Downgrade</a></span> and transforms the face selected in a sketch without constraints, and ready to be modified.
+</p><p><br />
+</p>
+<pre>import Draft
+  
+wires,_faces = Draft.downgrade(FreeCADGui.Selection.getSelection(),delete=True)
+  
+sketch = Draft.makeSketch(wires[0:1])
+for wire in wires[1:]:
+    Draft.makeSketch([wire],addTo=sketch)
+  
+for wire in wires:
+    FreeCAD.ActiveDocument.removeObject(wire.Name) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_FaceToSketch&amp;oldid=240097">http://www.freecadweb.org/wiki/index.php?title=Macro_FaceToSketch&amp;oldid=240097</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

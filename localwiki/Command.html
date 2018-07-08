@@ -1,0 +1,75 @@
+<html><head><title>Command</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Command</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>A FreeCAD command is what is being executed when you press a toolbar button or type a keyboard shortcut. It can be a very simple action, like changing the zoom level of the 3D view or rotating the point of view, or a complex system that will open dialog boxes and wait for the user to perform specific tasks.
+</p><p>Each FreeCAD command has a unique name, that appears in the <a href="Command_Reference.html" title="Command Reference">Command_Reference</a> page. Commands can be launched by a toolbar button, a menu item, or from a python script or the python console, by running:
+</p>
+<pre>FreeCADGui.runCommand("my_Command_Name")
+</pre>
+<p>FreeCAD commands are defined per workbench. Workbenches will normally add their command definitions at FreeCAD init time, so the command exists and is available as soon as FreeCAD is started, no matter if the corresponding workbench has been activated yet or not. In some cases, however, the workbench author might have decided, to not overload too much the FreeCAD startup process, to load the command definitions only at workbench init. In those cases, the command will only be available after the workbench has been activated (you have switched to it at least once with the workbench selector).
+</p><p>As most of them require user interaction, FreeCAD commands are only available in GUI-mode, and not in console mode. However, for convenience, most FreeCAD commands will either have a corresponding python function (like Part.makeBox or Draft.makeLine), or will execute code that is very easy to replicate in a python script.
+</p><p>Commands can be defined either in C++ or in Python.
+</p><p>Example of a C++ command definition (usually defined in /Mod/ModuleName/Gui/Command.cpp):
+</p>
+<pre>DEF_STD_CMD_A(StdCmdMyCommand);
+
+StdCmdMyCommand::StdCmdMyCommand()
+ &#160;: Command("Std_My_Command")
+{
+    sGroup        = QT_TR_NOOP("File");
+    sMenuText     = QT_TR_NOOP("My Command");
+    sToolTipText  = QT_TR_NOOP("Runs my command in the active document");
+    sWhatsThis    = "Std_MyCommand";
+    sStatusTip    = QT_TR_NOOP("Runs my command in the active document");
+    sPixmap       = "MyCommand.svg";
+    sAccel        = "Ctrl+A";
+}
+
+void StdCmdExport::activated(int iMsg)
+{
+    // place here the code to be executed when the command is ran
+}
+
+bool StdCmdMyCommand::isActive(void)
+{
+    // here you have a chance to return true or false depending if your command must be shown as active or inactive (greyed).
+}
+
+// the command must be "registered" in FreeCAD's command system
+CommandManager &amp;rcCmdMgr = Application::Instance-&gt;commandManager();
+rcCmdMgr.addCommand(new StdCmdMyCommand()); </pre>
+<p>and a similar command in python (no rule for where it must be done, each python workbench does as it sees fit...)
+</p>
+<pre>class MyCommand:
+
+    def __init__(self):
+        # you can add things here like defining some variables that must exist at all times
+
+    def GetResources(self):
+        return {'Pixmap' &#160;: 'MyCommand.svg',
+                    'Accel'&#160;: "Ctrl+A",
+                    'MenuText': QtCore.QT_TRANSLATE_NOOP("My_Command", "My Command"),
+                   'ToolTip': QtCore.QT_TRANSLATE_NOOP("My_Command", "Runs my command in the active document")}
+
+    def Activated(self):
+        # place here the code to be executed when the command is ran
+
+    def isActive(self):
+        # here you have a chance to return True or False depending if your command must be shown as active or inactive (greyed).
+
+# the command must be "registered" in FreeCAD's command system
+FreeCADGui.addCommand('My_Command',MyCommand()) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Command&amp;oldid=268764">http://www.freecadweb.org/wiki/index.php?title=Command&amp;oldid=268764</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

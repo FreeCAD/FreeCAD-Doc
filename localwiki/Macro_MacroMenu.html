@@ -1,0 +1,99 @@
+<html><head><title>Macro MacroMenu</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro MacroMenu</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_MacroMenu"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro MacroMenu</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Adds the macros found in the macros folder to the FreeCAD Macros menu
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-08-07
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_MacroMenu"><span class="tocnumber">1</span> <span class="toctext">Macro MacroMenu</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p><br />
+This code was part of the <a href="Draft_Module.html" title="Draft Module">Draft Module</a> and has been removed cf <a rel="nofollow" class="external text" href="http://freecadweb.org/tracker/view.php?id=490">issue #490</a>.
+</p><p><br />
+<b>Macro MacroMenu.FCMacro</b>
+</p>
+<pre>import os,FreeCAD,FreeCADGui
+ 
+macrosList = []
+macroPath = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Macro").GetString("MacroPath") 
+ 
+class MacroCommand():
+    "A template for macro commands"
+    def __init__(self,macroname):
+        self.macroname = macroname
+ 
+    def GetResources(self):
+        return {'Pixmap' &#160;: 'Draft_Macro',
+                'MenuText': self.macroname,
+                'ToolTip': 'Executes the '+self.macroname+' macro'}
+ 
+    def Activated(self):
+        target = macroPath+os.sep+self.macroname+'.FCMacro'
+        if os.path.exists(target): execfile(target)
+            
+if macroPath and os.path.isdir(macroPath):
+    macros = []
+    for f in os.listdir(macroPath):
+        if ".FCMacro" in f:
+            macros.append(f[:-8])
+    for m in macros:
+        cmd = 'Macro_'+m
+        FreeCADGui.addCommand(cmd,MacroCommand(m))
+        macrosList.append(cmd) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_MacroMenu&amp;oldid=240956">http://www.freecadweb.org/wiki/index.php?title=Macro_MacroMenu&amp;oldid=240956</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

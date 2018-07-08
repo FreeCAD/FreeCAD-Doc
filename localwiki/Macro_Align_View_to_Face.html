@@ -1,0 +1,121 @@
+<html><head><title>Macro Align View to Face</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Align View to Face</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Align_View_to_Face"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Align View to Face</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">This macro aligns the current view to a selected face
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Rockn" title="User:Rockn">Rockn</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-03-12
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Align_View_to_Face"><span class="tocnumber">1</span> <span class="toctext">Macro Align View to Face</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro rotates the current view to point perpendicularly at a selected face of an existing object.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select a face on an object</li>
+<li> Run the macro</li></ol>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<pre># -*- coding: utf-8 -*-
+# Set the current view perpendicular to the selected face
+# Place la vue perpendiculairement à la face selectionnee
+# 2013 Jonathan Wiedemann, 2016 Werner Mayer
+
+from pivy import coin
+
+def pointAt(normal, up):
+    z = normal
+    y = up
+    x = y.cross(z)
+    y = z.cross(x)
+   
+    rot = App.Matrix()
+    rot.A11 = x.x
+    rot.A21 = x.y
+    rot.A31 = x.z
+   
+    rot.A12 = y.x
+    rot.A22 = y.y
+    rot.A32 = y.z
+   
+    rot.A13 = z.x
+    rot.A23 = z.y
+    rot.A33 = z.z
+
+    return App.Placement(rot).Rotation
+
+s=Gui.Selection.getSelectionEx()
+obj=s[0]
+faceSel = obj.SubObjects[0]
+dir = faceSel.normalAt(0,0)
+cam = FreeCADGui.ActiveDocument.ActiveView.getCameraNode()
+
+if dir.z == 1&#160;:
+    rot = pointAt(dir, App.Vector(0.0,1.0,0.0))
+elif dir.z == -1&#160;:
+    rot = pointAt(dir, App.Vector(0.0,1.0,0.0))
+else&#160;:
+    rot = pointAt(dir, App.Vector(0.0,0.0,1.0))
+
+cam.orientation.setValue(rot.Q)
+Gui.SendMsgToActiveView("ViewSelection") </pre>
+<p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Align_View_to_Face&amp;oldid=239847">http://www.freecadweb.org/wiki/index.php?title=Macro_Align_View_to_Face&amp;oldid=239847</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

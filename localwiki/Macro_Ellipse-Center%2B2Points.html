@@ -1,0 +1,98 @@
+<html><head><title>Macro Ellipse-Center%2B2Points</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Ellipse-Center%2B2Points</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Ellipse-Center.2B2Points"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Ellipse-Center+2Points</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Makes an ellipse by selecting three points (in this order): centre, major radius and minor radius
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Eriossoltero" title="User:Eriossoltero">Eriossoltero</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">01.00
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-12-25
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Ellipse-Center.2B2Points"><span class="tocnumber">1</span> <span class="toctext">Macro Ellipse-Center+2Points</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Makes an ellipse by selecting three points (in this order): centre, major radius and minor radius
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:EllipseCenter2Point.png" class="image"><img alt="EllipseCenter2Point.png" src="EllipseCenter2Point.png" width="534" height="181" /></a>
+</p>
+<div style="clear:both"></div>
+<pre># Macro Begin: Ellipse-Center+2Points.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+# http://freecad-tutorial.blogspot.com/2011/12/engine-9-poly-v-belt.html
+import Part, FreeCAD, math, PartGui, FreeCADGui
+from FreeCAD import Base
+
+# get the selected objects, with first selection for the trajectory and second for the section
+# Adapted from:
+# http://freecad-tutorial.blogspot.com/2011/12/engine-9-poly-v-belt.html
+s = FreeCADGui.Selection.getSelection()
+try:
+sel1=s[0].Shape
+sel2=s[1].Shape
+sel3=s[2].Shape
+except:
+print "Wrong selection"
+
+pt_center = sel1.Point
+pt_radmay = sel2.Point
+pt_radmen = sel3.Point
+
+# create Part object in the current document
+myObject=App.ActiveDocument.addObject("Part::Feature","Ellipse")
+
+# create a shape and assign it to the current document
+ellipse = Part.Ellipse(pt_radmay, pt_radmen, pt_center)
+myObject.Shape = ellipse.toShape()
+# Macro End: Ellipse-Center+2Points.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++ </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Ellipse-Center%2B2Points&amp;oldid=240393">http://www.freecadweb.org/wiki/index.php?title=Macro_Ellipse-Center%2B2Points&amp;oldid=240393</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

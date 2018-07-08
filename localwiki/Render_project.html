@@ -1,0 +1,120 @@
+<html><head><title>Render project</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Render project</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Render_Module"><span class="tocnumber">1</span> <span class="toctext">Render Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Render_Feature"><span class="tocnumber">1.1</span> <span class="toctext">Render Feature</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Render_Material"><span class="tocnumber">1.2</span> <span class="toctext">Render Material</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Using_the_Render_Module:"><span class="tocnumber">1.3</span> <span class="toctext">Using the Render Module:</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Render_Preset"><span class="tocnumber">1.3.1</span> <span class="toctext">Render Preset</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Render_Template"><span class="tocnumber">1.3.2</span> <span class="toctext">Render Template</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#Start_a_Render"><span class="tocnumber">1.4</span> <span class="toctext">Start a Render</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Unbiased_Rendering"><span class="tocnumber">1.5</span> <span class="toctext">Unbiased Rendering</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Render_Speed"><span class="tocnumber">1.5.1</span> <span class="toctext">Render Speed</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Attaching_Materials"><span class="tocnumber">1.6</span> <span class="toctext">Attaching Materials</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Links"><span class="tocnumber">2</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Render_Module">Render Module</span></h2>
+<p>The render module provides a simple, straightforward way to quickly create rendered work of FreeCAD parts. Its philosophy is based on a template system so you can view your work more efficiently. The Render Module intends to hide the complicated Render Process from the user, so you can worry about designing parts. 
+</p><p><br />
+The render module is designed to work with multiple render back ends, but currently only LuxRender is supported. The workflow as follows:
+</p>
+<ul><li> Create a Render Feature. </li>
+<li> Select your desired presets and templates. </li>
+<li> Assign materials to visible parts within your document. </li>
+<li> Position your camera</li>
+<li> Preview the render</li></ul>
+<p><br />
+A brief explanation of the parts in the Render Module:
+</p>
+<h3><span class="mw-headline" id="Render_Feature">Render Feature</span></h3>
+<p>The Render Feature contains the information that will be passed to the Render such as camera and render settings, and materials and also what render plugin to use. This means you can create many different features with different materials, camera settings that are independent from each other. The feature also takes control over the rendering process. 
+</p>
+<h3><span class="mw-headline" id="Render_Material">Render Material</span></h3>
+<p>Each Render Material is based on a Library Material which are stored in separate .XML files. These Render Materials can be assigned properties such as colour or shininess and other parameters. These materials are then attached to an object in the your document.    
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">To use the new Render Workbench, currently you must be able to compile from the developer's branch.</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Using_the_Render_Module:">Using the Render Module:</span></h3>
+<p>First checkout the following repository <a rel="nofollow" class="external text" href="https://github.com/mrlukeparry/FreeCAD_sf_master/tree/raytracing%7Craytracing">raytracing</a> and checkout the 'render' branch. Then ensure you can build this. 
+</p><p>Download or install the latest 1.2.1 Lux Render for your system from <a rel="nofollow" class="external text" href="http://www.luxrender.net/en_GB/download">download</a> and ensure this runs correctly.
+</p><p>Open FreeCAD and start the Raytracing workbench. You must next set the 'Executable Path' for Lux Render. This can be set in Edit-&gt;Preferences-&gt;Raytracing. This must be set to the path of the luxconsole executable.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LuxRenderExecPath.png" class="image"><img alt="LuxRenderExecPath.png" src="LuxRenderExecPath.png" width="641" height="155" /></a>
+</p><p>Create your part(s) within FreeCAD. Then return to Raytracing workbench and create a 'Render Feature'. Editing this feature a new Task View will appear:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:RenderTaskView.png" class="image"><img alt="RenderTaskView.png" src="RenderTaskView.png" width="360" height="705" /></a>
+</p><p>When you create a Render Feature it will store the current position and type of Camera used in your 3D window. You can freely reposition this and click 'Save Camera' to store the current state of the camera into the feature. 
+</p><p>You can set other render settings:
+</p>
+<h4><span class="mw-headline" id="Render_Preset">Render Preset</span></h4>
+<p>Render Presets are specific to the render plugin that are used. They change the render process to improve the quality of the output or it the speed that the output is generated. With Lux Render, 'MLT Unbiased' produces good quality results in reasonable time. 'Direct Lighting Preview' produces a fast but low quality result.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Render_Template">Render Template</span></h4>
+<p>Render Templates are currently specific to the render plugin. By selecting a template, it will generate a preset scene such as lighting, geometry with your parts inside it. Currently 'Lux Classic' correctly works and produces satisfactory results. It will attempt to calculate the scene based on your camera position and the overall size of visible parts.
+</p>
+<h3><span class="mw-headline" id="Start_a_Render">Start a Render</span></h3>
+<p>Once the feature's settings have been set. You can render the scene. For example this is the example scene. Any parts that are not visible in the document will not be included in the Render.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Example.png" class="image"><img alt="Example.png" src="Example.png" width="507" height="408" /></a>
+</p><p>The 'Preview Window' button will render the current view of the 3D window. The 'Preview' button will use the saved camera position and also the size of the output. Only one preview can be run at a time per feature, but you may run several render feature render processes. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:RenderButtons.png" class="image"><img alt="RenderButtons.png" src="RenderButtons.png" width="253" height="183" /></a>
+</p><p>After starting a render. A new preview view will appear. Depending on the complexity of your scene, this may take a few seconds to be created whilst exported and loaded by the external render program. A loading screen will appear.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loading.png" class="image"><img alt="Loading.png" src="Loading.png" width="507" height="408" /></a>
+</p><p>If the render process is successful, the output will be automatically shown. You can freely move the image and zoom in and out.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:SceneOutput.png" class="image"><img alt="SceneOutput.png" src="SceneOutput.png" width="507" height="408" /></a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Unbiased_Rendering">Unbiased Rendering</span></h3>
+<p>Essentially the render program will simulate light rays 'bouncing' through a scene. When this light hits a camera it will be visible in the output. Over time more rays hit the camera and an image builds up. At the beginning the image will look noisy where light hasn't reach the camera. 
+</p><p>When you are happy with the output, press 'Stop Render'. You may now save the output to a desired location (currently stored in a .png format)
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:UnbiasedRendering.png" class="image"><img alt="UnbiasedRendering.png" src="UnbiasedRendering.png" width="507" height="408" /></a>
+</p>
+<h4><span class="mw-headline" id="Render_Speed">Render Speed</span></h4>
+<p>The render process are typically run on the CPU. The time taken for a satisfactory result, depends on the size of the output, the scene, the number and complexity of materials used, the lights and overall system performance. A quick preview for a simple part can take one minute, whilst a high quality output can taken several hours.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Attaching_Materials">Attaching Materials</span></h3>
+<p>Ensure you are currently in edit mode for the Render feature. Click the Add materials in the tool bar. A list of library materials will be shown in the task view.You can scroll through these by dragging the list or using the mousewheel
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:MaterialSelection.png" class="image"><img alt="MaterialSelection.png" src="MaterialSelection.png" width="308" height="476" /></a>
+</p><p>To attach a material to a part in your document. Drag the material icon and drop it onto an part in the 3D view. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:MaterialDragNDrop.png" class="image"><img alt="MaterialDragNDrop.png" src="MaterialDragNDrop.png" width="1017" height="610" /></a>
+</p><p>If the material has editable properties such as colour, a new dialog will appear in the task view. Otherwise the task view return to the Render Feature view.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:MaterialProperties.png" class="image"><img alt="MaterialProperties.png" src="MaterialProperties.png" width="318" height="336" /></a>
+</p><p>When you're happy setting the properties, click 'Save'. 
+</p><p>All materials inside a render feature are displayed in the list view. These can be selected and deleted or if the material has a property it can be edited by double clicking this.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:MaterialListView.png" class="image"><img alt="MaterialListView.png" src="MaterialListView.png" width="291" height="236" /></a>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p>See also <a href="Raytracing_tutorial.html" title="Raytracing tutorial">Raytracing tutorial</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Render_project&amp;oldid=264448">http://www.freecadweb.org/wiki/index.php?title=Render_project&amp;oldid=264448</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

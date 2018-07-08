@@ -1,0 +1,116 @@
+<html><head><title>Part BooleanFragments</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part BooleanFragments</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_BooleanFragments"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanFragments.png" class="image"><img alt="Part BooleanFragments.png" src="32px-Part_BooleanFragments.png" width="32" height="32" srcset="/wiki/images/thumb/f/fc/Part_BooleanFragments.png/48px-Part_BooleanFragments.png 1.5x, /wiki/images/f/fc/Part_BooleanFragments.png 2x" /></a> Part BooleanFragments</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Part → Split → Boolean Fragments
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Module.html" title="Part Module">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Slice.html" title="Part Slice">Part Slice</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_XOR&amp;action=edit&amp;redlink=1" class="new" title="Part XOR (page does not exist)">Part XOR</a>, <a href="Part_CompJoinFeatures.html" title="Part CompJoinFeatures">Join features</a>, <a href="Part_Booleans.html" title="Part Booleans">Part Booleans</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_BooleanFragments"><span class="tocnumber">1</span> <span class="toctext">Part BooleanFragments</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Implementation_details"><span class="tocnumber">5</span> <span class="toctext">Implementation details</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Scripting"><span class="tocnumber">6</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Version"><span class="tocnumber">7</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Tool to compute all fragments that can result from applying Boolean operations between input shapes. For example, for two intersecting spheres, three non-overlapping but touching solids are generated. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanFragments_Demo.png" class="image"><img alt="Part BooleanFragments Demo.png" src="600px-Part_BooleanFragments_Demo.png" width="600" height="334" srcset="/wiki/images/thumb/c/cf/Part_BooleanFragments_Demo.png/900px-Part_BooleanFragments_Demo.png 1.5x, /wiki/images/c/cf/Part_BooleanFragments_Demo.png 2x" /></a>
+</p><p>(on the picture above, the pieces were moved apart manually afterwards, to reveal the slicing)
+</p><p>The output shape is always a compound. The content of the compound depends on input shape types and operation mode. That means, you don't immediately get access to individual pieces of the result - the pieces remain grouped together. The individual pieces can be extracted by exploding the compound (<a href="Draft_Downgrade.html" title="Draft Downgrade">Draft Downgrade</a>).
+</p><p>The tool has three modes: "Standard", "Split", and "CompSolid".
+</p><p>"Standard" and "Split" differ by the action of the tool on wires, shells and compsolids: if "Split", those are separated; if "Standard", they are kept together (get extra segments).
+</p><p>Compounding structure in "Standard" and "Split" modes follows the compounding structure of inputs. That is, if you feed in two compounds, each containing a sphere like on example above, the result will also contain two compounds, each containing the pieces of the originally contained sphere. That means, the common piece will be repeated twice in the result. Only if the input shperes are both not in compounds, the result will contain the common piece once.
+</p><p>In "CompSolid" mode, the solids are joined into a compsolid (compsolid is a set of solids connected by faces; they are related to solids like wires are related to edges, and shells are related to faces; the name is probably a shortened phrase "composite solid"). The output is a non-nested compound of compsolids
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select objects to be intersected. <br /> The order of selection is not important, since the action of the tool is symmetric. It is enough to select one sub-shape of each object (e.g., faces). You can also select a compound containing all the shapes to be connected, e.g. <a href="Draft_Array.html" title="Draft Array">Draft Array</a>.</li>
+<li> Invoke the Part BooleanFragments command.</li></ol>
+<p>A Boolean Fragments parametric object is created. Original objects are hidden, and the result of intersection is shown in 3D view.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Boolean Fragments</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Objects</b>: List of objects to be intersected. Generally, at least two objects are needed, but a single compound containing the shapes to intersect will do as well. (as of FreeCAD v0.17.8053, this property is not displayed in property editor, and can only be accessed via Python).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b>: "Standard", "Split", or "CompSolid". "Standard" is default. Standard and Split differ by the action of the tool on aggregation type shapes: if Split, those are separated; otherwise they are kept together (get extra segments).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tolerance</b>: "fuzziness" value. This is an extra tolerance to apply when searching for intersections, in addition to tolerances stored in the input shapes.</li></ul>
+<h2><span class="mw-headline" id="Implementation_details">Implementation details</span></h2>
+<p>Boolean Fragments tool in "Standard mode" is OpenCascade's General Fuse Operator (GFA). It accepts a combination of probably all shape types, and the logic of output is quite convoluted. See <a rel="nofollow" class="external text" href="https://www.opencascade.com/doc/occt-7.0.0/overview/html/occt_user_guides__boolean_operations.html">OpenCascade user guide: Boolean operations</a>.
+</p><p>For "Split" and "CompSolid" modes, extra post-processing is done by FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The tool can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>BOPTools.SplitFeatures.makeBooleanFragments(name)</b>
+</pre>
+<ul><li> Creates an empty BooleanFragments feature. The 'Objects' property must be assigned explicitly, afterwards.</li>
+<li> Returns the newly created object.</li></ul>
+<p>BooleanFragments can also be applied to plain shapes, without the need to have a document object, via:
+</p>
+<pre>Part.BOPTools.SplitAPI.booleanFragments(list_of_shapes, mode, tolerance = 0.0)
+
+# OR, for Standard mode:
+
+list_of_shapes = [App.ActiveDocument.Sphere.Shape, App.ActiveDocument.Sphere001.Shape]
+pieces, map = list_of_shapes[0].generalFuse(list_of_shapes[1:], tolerance)
+# pieces receives a compound of shapes; map receives a list of lists of shapes, defining list_of_shapes &lt;--&gt; pieces correspondence </pre>
+<p>This can be useful for making custom Python scripted features.
+</p><p><br />
+Example:
+</p>
+<pre>import Part
+j = Part.BOPTools.SplitFeatures.makeBooleanFragments(name= 'BooleanFragments')
+j.Objects = FreeCADGui.Selection.getSelection() </pre>
+<p>The tool itself is implemented in Python, see /Mod/Part/BOPTools/SplitFeatures.py under where FreeCAD is installed.
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.17.8053. FreeCAD needs to be compiled with OCC 6.9.0 or later; otherwise, the tool is unavailable.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_BooleanFragments&amp;oldid=194649">http://www.freecadweb.org/wiki/index.php?title=Part_BooleanFragments&amp;oldid=194649</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

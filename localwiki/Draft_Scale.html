@@ -1,0 +1,90 @@
+<html><head><title>Draft Scale</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft Scale</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Draft_Scale"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Scale.png" class="image"><img alt="Draft Scale.png" src="32px-Draft_Scale.png" width="32" height="32" srcset="/wiki/images/thumb/c/c9/Draft_Scale.png/48px-Draft_Scale.png 1.5x, /wiki/images/c/c9/Draft_Scale.png 2x" /></a> Draft Scale</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Draft → Scale
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Draft_Module.html" title="Draft Module">Draft</a>, <a href="Arch_Module.html" title="Arch Module">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">S C
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Draft_Clone.html" title="Draft Clone">Draft Clone</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Draft_Scale"><span class="tocnumber">1</span> <span class="toctext">Draft Scale</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Scripting"><span class="tocnumber">5</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This tool scales selected object(s) around a base point. If no object is selected, you will be invited to select one.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Scale_example.jpg" class="image"><img alt="Draft Scale example.jpg" src="400px-Draft_Scale_example.jpg" width="400" height="277" srcset="/wiki/images/a/ad/Draft_Scale_example.jpg 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select objects you wish to scale</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Scale.png" class="image"><img alt="Draft Scale.png" src="16px-Draft_Scale.png" width="16" height="16" srcset="/wiki/images/thumb/c/c9/Draft_Scale.png/24px-Draft_Scale.png 1.5x, 32px-Draft_Scale.png 2x" /></a> <a class="mw-selflink selflink">Draft Scale</a></span> button, or press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">S</span> then <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span> keys</li>
+<li> Click a first point on the 3D view, or type a <a href="Draft_Coordinates.html" title="Draft Coordinates">coordinate</a> to define the base point of the scaling</li>
+<li> Another task dialog with scaling options opens. Fill in the different options, and press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span> to accept</li></ol>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<ul><li> To enter base point coordinates manually, simply enter the numbers, then press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ENTER</span> between each X, Y and Z component.</li>
+<li> Fill in the X, Y and Z scaling value to define the scaling.</li>
+<li> Checking the "Uniform scaling" option will lock the X, Y and Z to the same value</li>
+<li> The "Relative to Working Plane" option will consider X, Y and Z scaling values to be taken along he current <a href="Draft_SelectPlane.html" title="Draft SelectPlane">Working Plane</a>. Otherwise, global X, Y and Z directions are used.</li>
+<li> The result of the scaling operation can be:
+<ul><li> A <a href="Draft_Clone.html" title="Draft Clone">Draft Clone</a> of the original objects, which doesn't modify the original objects, but allow you to change the scaling factor manually later on (works for all object types)</li>
+<li> The original objects have their size modified (will only work with Draft objects or non-parametric Part shapes)</li>
+<li> A scaled copy of the base objects is produced (will work for all object types, but only the copies of Draft objects will be parametric)</li></ul></li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The Scale tool can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre>scale (objects,vector,[center,copy,legacy]) </pre>
+<ul><li> Scales the objects contained in objects (that can be a list of objects or an object) of the given scale factors defined by the given vector (in X, Y and Z directions) around the given center.</li>
+<li> If legacy is True, direct (old) mode is used, otherwise a parametric copy is made. </li>
+<li> If copy is True, the actual objects are not moved, but copies are created instead. </li>
+<li> The objects (or their copies) are returned.</li></ul>
+<p>Example:
+</p>
+<pre>import FreeCAD,Draft
+Draft.scale(FreeCAD.ActiveDocument.ActiveObject,FreeCAD.Vector(2,2,2)) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_Scale&amp;oldid=235822">http://www.freecadweb.org/wiki/index.php?title=Draft_Scale&amp;oldid=235822</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

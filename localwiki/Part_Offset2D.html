@@ -1,0 +1,134 @@
+<html><head><title>Part Offset2D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Offset2D</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_Offset2D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D.png" class="image"><img alt="Part Offset2D.png" src="32px-Part_Offset2D.png" width="32" height="32" srcset="/wiki/images/thumb/8/8e/Part_Offset2D.png/48px-Part_Offset2D.png 1.5x, /wiki/images/thumb/8/8e/Part_Offset2D.png/64px-Part_Offset2D.png 2x" /></a> Part Offset2D</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Part → 2D Offset
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Module.html" title="Part Module">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Offset.html" title="Part Offset">Part Offset 3D</a>, <a href="Part_Thickness.html" title="Part Thickness">Part Thickness</a>, <a href="Draft_Offset.html" title="Draft Offset">Draft Offset</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_Offset2D"><span class="tocnumber">1</span> <span class="toctext">Part Offset2D</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Known_issues"><span class="tocnumber">5</span> <span class="toctext">Known issues</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Scripting"><span class="tocnumber">6</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Version"><span class="tocnumber">7</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D_Demo.png" class="image"><img alt="Part Offset2D Demo.png" src="600px-Part_Offset2D_Demo.png" width="600" height="312" srcset="/wiki/images/thumb/0/07/Part_Offset2D_Demo.png/900px-Part_Offset2D_Demo.png 1.5x, /wiki/images/0/07/Part_Offset2D_Demo.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Part 2D Offset constructs a wire, parallel to the original wire, at a certain distance from it. Or enlarges/shrinks a planar face, similarly.
+</p><p>The wire/face must be planar. There can be multiple wires in one object, not necessarily coplanar.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select an object to offset</li>
+<li> Invoke Part Offset2D command.</li>
+<li> Set up the offset in Task Panel, and accept the dialog.</li></ol>
+<p>A 2D Offset parametric object is created. Original objects are switched to wireframe display mode.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Offset</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Source</b>: Link to original shape</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Value</b> The distance to enlarge the wire/face by. If negative, the wire/face is shrunk instead.</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b> ("Pipe" or "Skin"): sets how non-closed wires are processed. If "Pipe", the wire is outlined as if it was an extremely thin closed contour. If "Skin", an open wire is created.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D_Mode.png" class="image"><img alt="Part Offset2D Mode.png" src="600px-Part_Offset2D_Mode.png" width="600" height="265" srcset="/wiki/images/thumb/5/52/Part_Offset2D_Mode.png/900px-Part_Offset2D_Mode.png 1.5x, /wiki/images/thumb/5/52/Part_Offset2D_Mode.png/1200px-Part_Offset2D_Mode.png 2x" /></a>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Join</b> ("Arc", "Tangent", "Intersection"): sets the behavior around kinks. If "Arc", offset segments are connected with an arc of circle, centered at the vertex. "Tangent" is unsupported on OCC7.0.0. "Intersection": offset segments are extended till they intersect.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D_Join.png" class="image"><img alt="Part Offset2D Join.png" src="600px-Part_Offset2D_Join.png" width="600" height="351" srcset="/wiki/images/thumb/e/ef/Part_Offset2D_Join.png/900px-Part_Offset2D_Join.png 1.5x, /wiki/images/e/ef/Part_Offset2D_Join.png 2x" /></a>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Intersection</b> ("false", "true"): sets if multiple wires are treated collectively or independently. If "false", wires are offset independently, intersections between resulting wires are ignored. If "true", the wires are offset in collective manner. </li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D_Intersection.png" class="image"><img alt="Part Offset2D Intersection.png" src="600px-Part_Offset2D_Intersection.png" width="600" height="379" srcset="/wiki/images/thumb/3/31/Part_Offset2D_Intersection.png/900px-Part_Offset2D_Intersection.png 1.5x, /wiki/images/3/31/Part_Offset2D_Intersection.png 2x" /></a>
+</p><p>Only wires within a compound are coupled. For example, if the structure is like compound(wire1, wire2, compound(wire3, wire4)), wire1 and wire2 will be treated collectively, but independently from wire3 and wire4. Likewise, wire3 and wire4 are treated collectively, but independently of wire1+wire2. 
+</p><p>Also, in collective mode, directions of wires are important, and influence direction of offset. This is in tight relationship with how holes in faces are treated.
+</p><p>Wires being treated collectively must be coplanar. Wires being offset independently don't have to be coplanar.
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Fill</b> ("false", "true"): if "true", the space between original wire/face and the offset is filled with a face.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Offset2D_Fill.png" class="image"><img alt="Part Offset2D Fill.png" src="600px-Part_Offset2D_Fill.png" width="600" height="290" srcset="/wiki/images/thumb/4/4c/Part_Offset2D_Fill.png/900px-Part_Offset2D_Fill.png 1.5x, /wiki/images/4/4c/Part_Offset2D_Fill.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
+<ul><li> Using the tool can crash FreeCAD (see next point). On Windows, these crashes are converted to exceptions and don't generally cause FreeCAD to close; on other OS'es it is not the case. So, it is advised to save project before attempting to use the tool.</li></ul>
+<ul><li> Enlarging faces with circular holes by an amount large enough to cause holes to close up, a crash occurs (OCC 7.0.0). The problem seems to be specific to circles; other shapes seem to close out properly. </li></ul>
+<ul><li> when offsetting circles that have non-zero Placement, the result is placed wrongly. (OCC 7.0.0)</li></ul>
+<ul><li> when offsetting circles, sometimes they are offset in unexpected direction (e.g. inward instead of outward). (OCC 7.0.0)</li></ul>
+<ul><li> Fill="true" doesn't work when collectively offsetting open wires in "Skin" mode</li></ul>
+<ul><li> "Tangent" join mode doesn't work (OCC 7.0.0)</li></ul>
+<ul><li> Offsetting wires made of single line segment is not supported (because line segment doesn't define a plane). Single line segments cannot participate in collective offset either.</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The tool can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre>f = App.ActiveDocument.addObject("Part::Offset2D", "Offset2D")
+f.Source =  #some object
+f.Value = 10.0 </pre>
+<p>2D offset is also available as a method of Part.Shape. Example:
+</p>
+<pre>import Part
+circle = Part.Circle().toShape()
+enlarged_circle = circle.makeOffset2D(10.0)
+Part.show(circle)
+Part.show(enlarged_circle)
+# makeOffset2D(offset, join = 0, fill = False, openResult = false, intersection = false)
+# 
+# * offset: distance to expand the shape by. 
+# 
+# * join: method of offsetting non-tangent joints. 0 = arcs, 1 = tangent, 2 =
+# intersection
+# 
+# * fill: if true, the output is a face filling the space covered by offset. If
+# false, the output is a wire/face.
+# 
+# * openResult: True for "Skin" mode; False for Pipe mode. 
+# 
+# * intersection: collective offset
+# 
+# Returns: result of offsetting (wire or face or compound of those). Compounding
+# structure follows that of source shape. </pre>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.17.8350. Most of non-default modes will only work with OCC 7.0.0 or later.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Offset2D&amp;oldid=227706">http://www.freecadweb.org/wiki/index.php?title=Part_Offset2D&amp;oldid=227706</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

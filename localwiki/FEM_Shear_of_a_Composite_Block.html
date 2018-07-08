@@ -1,0 +1,158 @@
+<html><head><title>FEM Shear of a Composite Block</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM Shear of a Composite Block</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Finite Element Analysis
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner/Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">30 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven"><a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/index.php?title=User:">HarryvL</a>
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.17.12960 or above
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Geometry"><span class="tocnumber">3</span> <span class="toctext">Geometry</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Mesh_and_Mesh_Regions"><span class="tocnumber">4</span> <span class="toctext">Mesh and Mesh Regions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Material_Assignment"><span class="tocnumber">5</span> <span class="toctext">Material Assignment</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Sliding_Support"><span class="tocnumber">6</span> <span class="toctext">Sliding Support</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Fixed_Nodes"><span class="tocnumber">7</span> <span class="toctext">Fixed Nodes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Shear_Forces"><span class="tocnumber">8</span> <span class="toctext">Shear Forces</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#CalculiX_Analysis"><span class="tocnumber">9</span> <span class="toctext">CalculiX Analysis</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#CalculiX_Results"><span class="tocnumber">10</span> <span class="toctext">CalculiX Results</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Further_work"><span class="tocnumber">11</span> <span class="toctext">Further work</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h3><span class="mw-headline" id="Introduction">Introduction</span></h3>
+<p>In this tutorial we analyse the shear deformation of a composite block consisting of a stiff core embedded in a soft matrix. It demonstrates the use of BooleanFragments and CompoundFilter to create solids for the block and the matrix from two concentric cubes. This workflow ensures that separate MeshRegions, Materials and Boundary Conditions can be defined for the block and the surrounding matrix. To select internal regions we make us of the macro by Markus Hovorka (<a rel="nofollow" class="external free" href="https://github.com/drhooves/SelectionTools">https://github.com/drhooves/SelectionTools</a>). The CalculiX results clearly show the effect of the stiff core on the response of the composite block.
+</p>
+<h3><span class="mw-headline" id="Geometry">Geometry</span></h3>
+<p>First we create two concentric cubes, one size 10mm and the other size 5mm. This is done in the workbench "Part". By default the cube is placed at the origin [0, 0, 0], so the smaller cube needs to be scaled down and shifted by changing the settings in the Data tab of the property panel. To make the core visible, the Transparency of the outer block is set to 50 in the View tab of the property panel. The result is shown below.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic1.png" class="image"><img alt="Pic1.png" src="700px-Pic1.png" width="700" height="351" srcset="/wiki/images/thumb/c/c7/Pic1.png/1050px-Pic1.png 1.5x, /wiki/images/thumb/c/c7/Pic1.png/1400px-Pic1.png 2x" /></a>
+</p><p><br />
+Next highlight the two blocks in the tree and create a BooleanFragments object (Part &gt; Split &gt; Boolean Fragments). In the "Property Window - Data Tab" change Mode to CompSolid. Now highlight the BooleanFragments in the Object tree and create a CompoundFilter (Part &gt; Compound &gt; Compound Filter).
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic2.png" class="image"><img alt="Pic2.png" src="700px-Pic2.png" width="700" height="351" srcset="/wiki/images/thumb/5/57/Pic2.png/1050px-Pic2.png 1.5x, /wiki/images/thumb/5/57/Pic2.png/1400px-Pic2.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Mesh_and_Mesh_Regions">Mesh and Mesh Regions</span></h3>
+<p>From workbench FEM we create an Analysis container. This will contain all definitions required for the CalculiX analysis and its results. Note that this Analysis container needs to be activated (right-click and select "Activate analysis") whenever re-loading the file or after switching back from other analyses. To start the meshing process, highlight the CompoundFilter in the Object Tree and activate the meshing dialog "Mesh &gt; FEM mesh from shape by Gmsh". Leave the dialog by clicking OK. 
+</p><p>A Mesh object is now created in the Object Tree. Highlight this object and create a Mesh Region object via "Mesh &gt; FEM mesh region". Open the dialog box for this Mesh Region by double clicking and tick the radio button for Solid. Next click the "Add Reference" button and select the CompoundFilter object in the Graphical Window. This should add a reference to "CompoundFilter:Solid1" in the object list of the Mesh Region. Finally specify the maximum element size for this region (5mm in the current analysis). Leave the dialog by clicking OK.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic3.png" class="image"><img alt="Pic3.png" src="700px-Pic3.png" width="700" height="351" srcset="/wiki/images/thumb/a/a7/Pic3.png/1050px-Pic3.png 1.5x, /wiki/images/thumb/a/a7/Pic3.png/1400px-Pic3.png 2x" /></a>
+</p><p><br />
+Next create a new Mesh object as above and use the selection macro (shortcut S, E) to select the Cube_Core object in the Graphical Window. This time the reference list should show "CompoundFilter:Solid2", as below. We chose a maximum element size of 1mm. 
+</p><p>Note1: Selection of "CompoundFilter:Solid2" requires selection of one of its faces. 
+</p><p>Note2: If you have difficulty selecting "CompoundFilter:Solid2" it may be because you forgot to set the BooleanFragments mode to CompSolid.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic4.png" class="image"><img alt="Pic4.png" src="700px-Pic4.png" width="700" height="351" srcset="/wiki/images/thumb/c/cd/Pic4.png/1050px-Pic4.png 1.5x, /wiki/images/thumb/c/cd/Pic4.png/1400px-Pic4.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Material_Assignment">Material Assignment</span></h3>
+<p>Material is assigned to Mesh Regions via a SolidMaterial object. In this tutorial we assign two materials; one for the Matrix and one for the Core. 
+</p><p><br />
+Start by selecting the CompoundFilter in the object tree. Then create a SolidMaterial object via menu option "Model &gt; FEM material for solid". Open the dialog and tick the radio button for Solid, press "Add Reference" and select the CompoundFilter object from the Graphical Window. The reference list should now show "CompoundFilter:Solid1", as before. We assign ABS material to the Matrix, with a Young's modules approximately 1% that of steel.   
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic5.png" class="image"><img alt="Pic5.png" src="700px-Pic5.png" width="700" height="351" srcset="/wiki/images/thumb/1/16/Pic5.png/1050px-Pic5.png 1.5x, /wiki/images/thumb/1/16/Pic5.png/1400px-Pic5.png 2x" /></a> 
+</p><p><br />
+Repeat the above procedure for the Core ("CompoundFilter:Solid2") with the help of the selection macro. This time we assign CalculiX-Steel, which is much stiffer than the ABS material for the Matrix.
+</p>
+<h3><span class="mw-headline" id="Sliding_Support">Sliding Support</span></h3>
+<p>To create a "Simple Shear" condition for the composite block the deformations at the boundaries need to be unconstrained. To achieve this, the block is placed on a sliding support. This leaves three degrees of freedom in the plane of the support (2 translations and a rotation) and those will be constrained later. (Note: as the plane prevents warping of the face, it still induces a minor constraint, which could be eliminated by a different choice of boundary conditions). To create a sliding boundary condition add a FemConstraintDisplacement object (Model &gt; Mechanical Constraints &gt; Constraint displacement). With the dialog box open first select the face to which the boundary conditions is to be applied and then click the Add button. As the block is allowed to slide in the x-y plane, only the "Fixed" radio button for "Displacement z" is selected and the other radio buttons are all left as "Free".
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic6.png" class="image"><img alt="Pic6.png" src="700px-Pic6.png" width="700" height="351" srcset="/wiki/images/thumb/3/36/Pic6.png/1050px-Pic6.png 1.5x, /wiki/images/thumb/3/36/Pic6.png/1400px-Pic6.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Fixed_Nodes">Fixed Nodes</span></h3>
+<p>To prevent rigid body motion in the plane of sliding, three independent degrees of freedom need to be eliminated. To achieve this, one vertex in the plane of sliding is constrained in x and y direction (eliminating 2 degrees of freedom) and one vertex is fixed in the x direction (eliminating the last degree of freedom). For this purpose two additional FemConstraintDisplacement objects are created and the result is shown below.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic7.png" class="image"><img alt="Pic7.png" src="700px-Pic7.png" width="700" height="351" srcset="/wiki/images/thumb/c/ca/Pic7.png/1050px-Pic7.png 1.5x, /wiki/images/thumb/c/ca/Pic7.png/1400px-Pic7.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Shear_Forces">Shear Forces</span></h3>
+<p>The final step in the Analysis definition is the application of loads. To create a Simple Shear condition, a set of shear loads is applied as shown below. Each load is chosen as 1000 N and considering the directions of application, force and moment equilibrium is achieved for all translation and rotional degrees of freedom. In FC this requires addition of four FemConstraintForce objects (Model &gt; Mechanical Constraints &gt; Constraint force) - one for each face. With the dialog box open first press the Add Reference button and then select the face to which the boundary condition is to be applied (Note: this is a different sequence than with FemConstraintDisplacement). By default, this creates a set of forces perpendicular to the face (i.e. a normal force). To change this to a shear force, press the direction button and select a cube edge that runs in the desired direction. If the resulting force points in opposite direction of what is required, then select the radio button for "Reverse direction".
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic8.png" class="image"><img alt="Pic8.png" src="700px-Pic8.png" width="700" height="351" srcset="/wiki/images/thumb/7/7e/Pic8.png/1050px-Pic8.png 1.5x, /wiki/images/thumb/7/7e/Pic8.png/1400px-Pic8.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="CalculiX_Analysis">CalculiX Analysis</span></h3>
+<p>Now all mesh regions, material and boundary conditions have been defined we are ready to analyse the deformation of the block with CalculiX. Activate the Analysis by right clicking "Activate analysis", open the CalculiX dialog by double clicking the CalculiXccxTools object and select a directory for the temporary files created by both FC and CCX. Write CCX Input file and check for any warning or error messages.  
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PIC9.png" class="image"><img alt="PIC9.png" src="700px-PIC9.png" width="700" height="351" srcset="/wiki/images/thumb/f/fb/PIC9.png/1050px-PIC9.png 1.5x, /wiki/images/thumb/f/fb/PIC9.png/1400px-PIC9.png 2x" /></a>
+</p><p><br />
+After that the analysis can be started by pressing the RunCalculiX button. If all goes well, the CCX output window should show the following messages.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic10.png" class="image"><img alt="Pic10.png" src="700px-Pic10.png" width="700" height="351" srcset="/wiki/images/thumb/a/a7/Pic10.png/1050px-Pic10.png 1.5x, /wiki/images/thumb/a/a7/Pic10.png/1400px-Pic10.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="CalculiX_Results">CalculiX Results</span></h3>
+<p>Upon completion of the analysis double click the "CalculiX_static_results" object and select the "Abs displacement" option. The maximum displacement of ~ 0.08mm will show up in the relevant output box. As the maximum displacement is relatively small compared to the dimensions of the block (&lt;1% of the block size), the displacements need to be scaled up. This can be done under the heading "Displacement" by ticking the "Show" radio button and scaling the displacement by a factor of -say- 20. The maximum displacement will now be exaggerated to approximately 20% of the box size. After closing the dialog window, the deformed mesh can be made visible again by highlighting the Result_mesh object and pressing the space bar. 
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Figure_11_Deformed_Mesh.png" class="image"><img alt="Figure 11 Deformed Mesh.png" src="700px-Figure_11_Deformed_Mesh.png" width="700" height="351" srcset="/wiki/images/thumb/d/d9/Figure_11_Deformed_Mesh.png/1050px-Figure_11_Deformed_Mesh.png 1.5x, /wiki/images/thumb/d/d9/Figure_11_Deformed_Mesh.png/1400px-Figure_11_Deformed_Mesh.png 2x" /></a>
+</p><p><br />
+To investigate the deformation of the core we have to slice the block. This can be done by creating a clip filter. To activate this functionality, we first need to create a "post processing pipeline" by highlighting the "CalculiX_static_results" object and choosing "Results &gt; Post Pipeline from Result" from the menu. Next, with the Pipeline selected create a Warp Filter (Results &gt; Warp filter), set Vector=Displacement and Value=20 to scale the displacement and Display Mode = "Surface with Edges", Coloring Field = "Displacement", Vector = "Magnitude" to show colored displacement contours. Press Apply and OK. As a final step add a Clip Filter (Results &gt; Clip filter) and create a plane with origin [5.0,2.5,5.0] and normal [0,1,0], i.e. at a core face with normal in the y-direction. Tick the "Cut Cells" radio button to create a flat surface. As before set Display Mode = "Surface with Edges", Coloring Field = "Displacement", Vector = "Magnitude" to show colored displacement contours. Press Apply and OK. Finally switch the Warp Filter to invisible to only show the cut block. 
+</p><p><br />
+<a href="/wiki/File:Figure12_Deformed_Mesh_Clipped_View_(2).png" class="image"><img alt="Figure12 Deformed Mesh Clipped View (2).png" src="700px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png" width="700" height="351" srcset="/wiki/images/thumb/3/31/Figure12_Deformed_Mesh_Clipped_View_%282%29.png/1050px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png 1.5x, /wiki/images/thumb/3/31/Figure12_Deformed_Mesh_Clipped_View_%282%29.png/1400px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png 2x" /></a>
+</p><p><br />
+From the result it is clear that the core remains largely undeformed and helps to resist the deformation of the soft matrix (compare the shear angle of the blue colored part to that of the green colored part). What it also highlights though is that under Simple Shear conditions the faces of the composite block do warp, implying that the sliding boundary condition at the base of the cube does provide an undue constraint.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Further_work">Further work</span></h3>
+<p>The following challenges may be interesting to take up as a further exercise:
+</p><p>1) Correct for the undue constraint imposed by the sliding boundary condition
+</p><p>2) Try and create contact boundary conditions between the core and the matrix to see if separation occurs
+</p><p>The FC file for this tutorial is attached below as a starting point.
+</p><p><br />
+<a rel="nofollow" class="external free" href="https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=26517&amp;start=20">https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=26517&amp;start=20</a>
+</p><p><br />
+Have fun&#160;!
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_Shear_of_a_Composite_Block&amp;oldid=249716">http://www.freecadweb.org/wiki/index.php?title=FEM_Shear_of_a_Composite_Block&amp;oldid=249716</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,736 @@
+<html><head><title>Mesh API</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh API</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>The Mesh objects can be manipulated by adding new facets, deleting facets, importing from an STL file, transforming the mesh and much more. For a complete overview of what can be done see also the <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Mesh Module</a> documentation. A mesh object cannot be added to an existing document directly. Therefore the document must create an object with a property class that supports meshes. Example:
+</p>
+<pre>m = Mesh.Mesh()
+... # Manipulate the mesh
+d = FreeCAD.activeDocument() # Get a reference to the actie document
+f = d.addObject("Mesh::Feature", "Mesh") # Create a mesh feature
+f.Mesh = m # Assign the mesh object to the internal property
+d.recompute() </pre>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>addFacet</b></big> ( <i>Facet</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Adds a facet to the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>addFacets</b></big> ( <i>list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Adds a list of facets to the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>addMesh</b></big> ( <i>Mesh</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Combines this mesh with another mesh.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>clear</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Clears the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>coarsen</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Coarsens the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>collapseEdge</b></big> ( <i>Edge</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Removes an edge and both facets that share this edge
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>collapseFacet</b></big> ( <i>Facet</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Removes a facet
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>collapseFacets</b></big> ( <i>list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Removes a list of facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>copy</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a copy of this mesh
+</p><p><small><b>Returns</b>:</small> a Mesh object
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>countComponents</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the number of topological independent areas
+</p><p><small><b>Returns</b>:</small> an integer
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>countNonUniformOrientedFacets</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the number of wrong oriented facets
+</p><p><small><b>Returns</b>:</small> an integer
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>countSegments</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the number of segments which may also be 0
+</p><p><small><b>Returns</b>:</small> an integer
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>crossSections</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get cross-sections of the mesh through several planes
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>difference</b></big> ( <i>Mesh</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Difference of this and the given mesh object.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fillupHoles</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Fillup holes
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fixDeformations</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Repair deformed facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fixDegenerations</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove degenerated facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fixIndices</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Repair any invalid indices
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fixSelfIntersections</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Repair self-intersections
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>flipNormals</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Flip the mesh normals
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>foraminate</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get a list of facet indices and intersection points
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getPlanes</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get all planes of the mesh as segment. In the worst case each triangle can be regarded as single plane if none of its neighbors is coplanar.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSegment</b></big> ( <i>integer</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get a list of facet indices that describes a segment
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSeparateComponents</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns a list containing the different components (separated areas) of the mesh as separate meshes
+</p><p><small><b>Returns</b>:</small> a list
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>harmonizeNormals</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Adjust wrong oriented facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>hasNonManifolds</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Check if the mesh has non-manifolds
+</p><p><small><b>Returns</b>:</small> a boolean
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>hasNonUniformOrientedFacets</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Checks if the mesh has facets with inconsistent orientation
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>hasSelfIntersections</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Check if the mesh intersects itself
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>inner</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the part inside of the intersection
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>insertVertex</b></big> ( <i>Vertex</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Inserts a vertex into a facet
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>intersect</b></big> ( <i>Mesh</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Intersection of this and the given mesh object.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>isSolid</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Check if the mesh is a solid
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>meshFromSegment</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Create a mesh from segment
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>nearestFacetOnRay</b></big> ( <i>tuple, tuple</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the index and intersection point of the nearest facet to a ray. The first parameter is a tuple of three floats the base point of the ray, the second parameter is ut uple of three floats for the direction. The result is a dictionary with an index and the intersection point or an empty dictionary if there is no intersection.
+</p><p><small><b>Returns</b>:</small> a dictionary
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>offset</b></big> ( <i>float</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Move the point along their normals
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>offsetSpecial</b></big> ( <i>float</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Move the point along their normals
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>optimizeEdges</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Optimize the edges to get nicer facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>optimizeTopology</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Optimize the edges to get nicer facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>outer</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get the part outside the intersection
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>printInfo</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Get detailed information about the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>read</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Read in a mesh object from file.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>refine</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Refine the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeComponents</b></big> ( <i>integer</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove components with less or equal to number of given facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeDuplicatedFacets</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove duplicated facets
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeDuplicatedPoints</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove duplicated points
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeFacets</b></big> ( <i>list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove a list of facet indices from the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeFoldsOnSurface</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove folds on surfaces
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>removeNonManifolds</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Remove non-manifolds
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>rotate</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Apply a rotation to the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>setPoint</b></big> ( <i>int, Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Sets the point at index.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>smooth</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Smooth the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>snapVertex</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Insert a new facet at the border
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>splitEdge</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Split edge
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>splitEdges</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Split all edges
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>splitFacet</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Split facet
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>swapEdge</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Swap the common edge with the neighbor
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>transform</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Apply a transformation to the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>transformToEigen</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Transform the mesh to its eigenbase
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>translate</b></big> ( <i>Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Apply a translation to the mesh
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>unite</b></big> ( <i>Mesh</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Union of this and the given mesh object.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>write</b></big> ( <i>string</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Write the mesh object into file.
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>writeInventor</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Write the mesh in OpenInventor format to a string.
+</p><p><small><b>Returns</b>:</small> a string
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Area</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the area of the mesh object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>CountFacets</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the number of facets of the mesh object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>CountPoints</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the number of vertices of the mesh object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Facets</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> A collection of facets; With this attribute it is possible to get access to the facets of the mesh: for f in mesh.Facets: print f. Facet.Points is a list of coordinate-tupels for the vertices. Facet.PointIndices is a list of indice for the vertices of the facet. WARNING! store Facets in a local variable as it is generated on the fly, each time it is accessed.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Points</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> A collection of the mesh points; With this attribute it is possible to get access to the points of the mesh: for p in mesh.Points: print p.x, p.y, p.z,p.Index.WARNING! store Points in a local variable as it is generated on the fly, each time it is accessed.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Topology</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the points and face indices as tuple. Topology[0] is a list of all vertices. Each being a tuple of 3 coordinates. Topology[1] is a list of all polygons. Each being a list of vertex indice into Topology[0] WARNING! store Topology in a local variable as it is generated on the fly, each time it is accessed.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Volume</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the volume of the mesh object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>BoundBox</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the BoundBox of the object
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Matrix</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the current transformation of the object as matrix
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>Placement</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> the current transformation of the object as placement
+</p>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_API&amp;oldid=216835">http://www.freecadweb.org/wiki/index.php?title=Mesh_API&amp;oldid=216835</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

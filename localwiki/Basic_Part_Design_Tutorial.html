@@ -1,0 +1,205 @@
+<html><head><title>Basic Part Design Tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic Part Design Tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Modeling
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">Less than an hour
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">Mark Stephen (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a>)
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.14.3700 to 0.16
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Before_You_Begin"><span class="tocnumber">2</span> <span class="toctext">Before You Begin</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#The_Task"><span class="tocnumber">3</span> <span class="toctext">The Task</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#The_Part"><span class="tocnumber">4</span> <span class="toctext">The Part</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Constructing_The_Part"><span class="tocnumber">5</span> <span class="toctext">Constructing The Part</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Main_part_with_pad"><span class="tocnumber">5.1</span> <span class="toctext">Main part with pad</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Features_with_pocket_and_external_geometry"><span class="tocnumber">5.2</span> <span class="toctext">Features with pocket and external geometry</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Features_with_pad_and_external_geometry"><span class="tocnumber">5.3</span> <span class="toctext">Features with pad and external geometry</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Feature_with_pocket_and_external_geometry"><span class="tocnumber">5.4</span> <span class="toctext">Feature with pocket and external geometry</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Additional_Resources"><span class="tocnumber">6</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>This tutorial is obsolete. It is valid for FC v0.16 and below. For 0.17+, see <a href="Basic_Part_Design_Tutorial_017.html" title="Basic Part Design Tutorial 017">Basic Part Design Tutorial 017</a>.</b></div>
+<p><br />
+This tutorial introduces new user to some of the tools and techniques used in the <a href="PartDesign_Workbench.html" title="PartDesign Workbench">Part Design Workbench</a>. This tutorial is not a complete and comprehensive guide to the Part Design Workbench and many of the tools and capabilities are not covered. This tutorial will take user through the steps needed to model the part shown in the image below using sketches.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial018.png" class="image"><img alt="PD WB Tutorial018.png" src="PD_WB_Tutorial018.png" width="450" height="450" /></a></div></div>
+<h2><span class="mw-headline" id="Before_You_Begin">Before You Begin</span></h2>
+<p>The pictures shown in this tutorial were produced in FreeCAD with "auto refine" turned on, which removes the "extra" unneeded lines in faces. This setting is potentially dangerous, should not be used by new users and can corrupt your models. The best advise is, do not change these settings from their default "off".
+</p>
+<h2><span class="mw-headline" id="The_Task">The Task</span></h2>
+<p>In this tutorial, you will be using the Part Design Workbench to create a 3D solid model of the part shown in the <a href="Drawing_Module.html" title="Drawing Module">Drawing</a> below. All of the necessary dimensions to complete this task are given. You will start by creating a core shape from a base Sketch and then build on that shape, adding what is known as Features. These features will either add material to, or remove material from the solid by use of additional sketches and accompanying feature operations. This Tutorial will not use every feature and tool available within the Part Design Workbench, but should use enough to give the user of this tutorial a basic foundation upon which to build their knowledge and skills. 
+</p>
+<h2><span class="mw-headline" id="The_Part">The Part</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial_Drawing_Sheet.png" class="image"><img alt="Tutorial Drawing Sheet.png" src="Tutorial_Drawing_Sheet.png" width="1488" height="1052" /></a>
+</p>
+<h2><span class="mw-headline" id="Constructing_The_Part">Constructing The Part</span></h2>
+<h3><span class="mw-headline" id="Main_part_with_pad">Main part with pad</span></h3>
+<p>First begin by making sure you are in the Part Design Workbench. Once there, you will want to create a new document if you have not done so already. It is a good habit to save your work often, so before anything else save the new document, giving it any name you might like. Now that it is saved, we will start with out base sketch. To start this Sketch, click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> New sketch icon on the tool bar or from the Part Design menu, New sketch. Once invoked, you should see a dialog that prompts you to choose sketch orientation and provide an offset. We will not be using offset, but for our base sketch we want to pick the YZ plane as shown in the image below. Once the YZ plane is selected click OK and we can start to construct the first sketch.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial001.png" class="image"><img alt="PD WB Tutorial001.png" src="PD_WB_Tutorial001.png" width="270" height="316" /></a></div></div>
+<p>Next you will want to use <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> the Polyline tool and make a shape roughly like that in the next image. It does not need to be perfect as the final shape is done with constraints. Once you have the basic shape, we will start applying the constraints. If you had Auto constraints on, some of these constraints will have been applied automatically, if not, do the following. 
+</p>
+<ol><li> Select the two horizontal lines with your mouse by clicking on them, and once selected, click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> horizontal constraint. </li>
+<li> Select the vertical line on the right and then click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a>vertical constraint. </li>
+<li> Select the start and end points of your polyline and click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> coincident constraint to close the polyline. </li>
+<li> Select the bottom horizontal line and the right vertical line and apply and <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> equal constraint. </li>
+<li> Select either the horizontal or vertical line and apply either a corresponding <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> horizontal or <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> vertical distance constraint and give it a value of 26 mm.</li>
+<li> Select the top horizontal line and apply the horizontal distance constraint and give it a value of 5 mm</li>
+<li> Select the lower left point, (vertice) of the horizontal line and the upper right point of the vertical line, then select the center point of the grid and apply the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> symmetry constraint.</li></ol>
+<p>At this point you should have a fully constrained sketch as indicated by it changing color and the message shown in the Combo View. It should now look just like the image below. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial002.png" class="image"><img alt="PD WB Tutorial002.png" src="PD_WB_Tutorial002.png" width="450" height="450" /></a></div></div>
+<p>Now in the Combo View, click on the Close button to leave the sketch edit mode and select <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> Pad from the toolbar or from the Part Design menu. This will give you a Pad dialog in the Combo View. Using that dialog, first using the Type pulldown menu, select Two dimensions. Drawing presented at the beginning of this tutorial says the part is 53 mm long. We do it by Padding our sketch both ways from the center plane to make up that distance i.e. make the pad symmetric in relation of sketch-plane. The reason for is seen later when creating features. For now, given we want it to be 53 mm long in total we will input 26.5 for Length, and 26.5 again for the Second length. Alternatively, you can provide a single length of 53 mm and click the Symmetric to plane check box. Once that is done we now have our base solid upon which we will add additional features to construct our part.
+</p><p>A video of the steps used in this portion of the tutorial is here:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=UacO5Pa4gIM">https://www.youtube.com/watch?v=UacO5Pa4gIM</a>
+</p>
+<h3><span class="mw-headline" id="Features_with_pocket_and_external_geometry">Features with pocket and external geometry</span></h3>
+<p>Using the mouse or the view icons turn the model around so you can see its back. Once the back of the part is visible, select the back face by clicking on it as seen in the next image. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial003.png" class="image"><img alt="PD WB Tutorial003.png" src="PD_WB_Tutorial003.png" width="450" height="450" /></a></div></div>
+<p>After the face is selected, click on the New sketch icon in the toolbar or from the Part Design menu and that will map our next sketch to the back face of the part. Now select <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="32px-Sketcher_CreateRectangle.png" width="32" height="32" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/48px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/a/ad/Sketcher_CreateRectangle.png 2x" /></a> rectangle tool and place a rectangle on the rear face of the part in a similar fashion as shown below. Now following the steps listed, constrain the sketch.
+</p>
+<ol><li> Select one of the horizontal lines apply a horizontal distance constraint and a value of 5 mm. </li>
+<li> Select one of the vertical lines and give it a vertical distance constraint and a value of 11 mm. </li>
+<li> Use <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.png" class="image"><img alt="Sketcher External.png" src="32px-Sketcher_External.png" width="32" height="32" srcset="/wiki/images/thumb/b/b5/Sketcher_External.png/48px-Sketcher_External.png 1.5x, /wiki/images/b/b5/Sketcher_External.png 2x" /></a> External geometry tool and select the upper right vertex of the face and click it so you are provided a point from the external geometry to link our sketch to. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial004.png" class="image"><img alt="PD WB Tutorial004.png" src="PD_WB_Tutorial004.png" width="450" height="450" /></a></div></div>
+<p>Select that point you just made available with the External geometry tool and then select the upper right vertex of the rectangle and click on the coincident constraint. At this point the sketch should be fully constrained and look like the next image. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial005.png" class="image"><img alt="PD WB Tutorial005.png" src="PD_WB_Tutorial005.png" width="450" height="450" /></a></div></div>
+<p>Once that is done, click the Close button at the top of the Tasks tab in the Combo View window, then select <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> Pocket tool from the toolbar or Part Design menu. Using this tool is the opposite of the Pad tool. As the Pad tool adds material to the part, the Pocket tool removes material from the part. Both operations are called features. In this Pocket operation we want to select Through all from the type pulldown-menu and then click the OK button. 
+</p><p>For the next operation, make sure that “Pocket” is selected in the Model tree view and once done, click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="32px-PartDesign_Mirrored.png" width="32" height="32" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 1.5x, /wiki/images/5/55/PartDesign_Mirrored.png 2x" /></a> the Mirror feature on the toolbar or from the Part Design menu. In the Mirror dialog in the Combo View, select Horizontal sketch axis from the Plane pulldown menu. Then click OK. The Mirror feature works in this way because the base feature of our model was Padded both ways from the horizontal plane in the first operation with the base sketch. If all has gone well, you should now have a part that looks like the image below after you orbit it around to the front. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial006.png" class="image"><img alt="PD WB Tutorial006.png" src="PD_WB_Tutorial006.png" width="450" height="450" /></a></div></div>
+<p>A video of the steps used in this portion of the tutorial is here:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=nnVQDjUpS3o">https://www.youtube.com/watch?v=nnVQDjUpS3o</a>
+</p>
+<h3><span class="mw-headline" id="Features_with_pad_and_external_geometry">Features with pad and external geometry</span></h3>
+<p>After taking a look, orbit back around and once again select the back face of the part and select that face to map the next sketch to. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial007.png" class="image"><img alt="PD WB Tutorial007.png" src="PD_WB_Tutorial007.png" width="450" height="450" /></a></div></div>
+<p>Select New sketch and make a new rectangle in the manner similar to what is shown below in the next image. Then proceed to add dimensional constraints to the rectangle.
+</p>
+<ol><li> Select a horizontal line and apply a horizontal distance constraint with a value of 16.7.</li>
+<li> Select a vertical line and apply a vertical distance constraint of 7 mm</li>
+<li> Using the External geometry tool, select the upper left vertex of the part face.</li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial008.png" class="image"><img alt="PD WB Tutorial008.png" src="PD_WB_Tutorial008.png" width="450" height="450" /></a></div></div>
+<p>Now selecting the upper left vertex of the rectangle and the external geometry point, click on the coincident constraint to fully constrain the sketch. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial009.png" class="image"><img alt="PD WB Tutorial009.png" src="PD_WB_Tutorial009.png" width="450" height="450" /></a></div></div>
+<p>Next we will click on the Pad feature and in the Pad dialog in the Combo View we want a length of 26 mm leaving the type as Dimension and then placing a check on the Reversed checkbox. Using the Reversed checkbox will cause the Pad to go into the part instead of away from the part. This operation provides with the following result. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial010.png" class="image"><img alt="PD WB Tutorial010.png" src="PD_WB_Tutorial010.png" width="450" height="450" /></a></div></div>
+<p>Once again use the Mirror feature to get the second pad. First ensure that created Pad is selected in the tree view, then click on Mirror in the toolbar of select it from the Part Design menu. We will repeat the operation we did for Pocket above and select Horizontal sketch axis from the Plane pulldown menu.
+</p><p>A video of the steps used in this portion of the tutorial is here:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=DZOF21fNVDs">https://www.youtube.com/watch?v=DZOF21fNVDs</a>
+</p>
+<h3><span class="mw-headline" id="Feature_with_pocket_and_external_geometry">Feature with pocket and external geometry</span></h3>
+<p>At this point orbiting the part around to the front, we can see that our part is now starting to look like the part in the dimensioned drawing at the beginning of this tutorial. Once you have the view of the front, click on the sloped face with your mouse to select the face we will use for the next sketch.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial011.png" class="image"><img alt="PD WB Tutorial011.png" src="PD_WB_Tutorial011.png" width="450" height="450" /></a></div></div>
+<p>Here we will use the rectangle tool and place a rectangle in our sketch and once having done so, apply the following constraints. 
+</p>
+<ol><li> Select a horizontal line and a vertical line, and after both are selected, click on the Equals constraint. </li>
+<li> Select either a horizontal or vertical line and apply a corresponding horizontal or vertical distance constraint with a value of 17 mm</li>
+<li> Using the External geometry tool, select the top right vertex as shown in the image below. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial012.png" class="image"><img alt="PD WB Tutorial012.png" src="PD_WB_Tutorial012.png" width="450" height="450" /></a></div></div>
+<p>Now using the dimensions from the drawing, apply the following constraints.
+</p>
+<ol><li> Select the external geometry point and the upper right vertex of the now square sketch and apply a horizontal distance constraint of 7 mm</li>
+<li> Select the external geometry point and the upper right vertex of the now square sketch and apply a vertical distance constraint of 11 mm</li></ol>
+<p>The result should be as follows. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial013.png" class="image"><img alt="PD WB Tutorial013.png" src="PD_WB_Tutorial013.png" width="450" height="450" /></a></div></div>
+<p>At this point if we were to simply Pocket this sketch, the resulting hole would be perpendicular to the sloped face that it is mapped to, and this is not what we want. We want the hole to be perpendicular to the back face, but it's projected dimensions are not the 17 mm x 17 mm dimensions that are given in the  drawing. Now we could do the math and calculate the dimensions needed, or we can use the tools provided in FreeCAD to make that projection for us. To do that, we are going to create a small Pad feature from the sketch we just made as a helper. We will use the External geometry tool to project the points of the base of that helper Pad on to the back face where we will place our final sketch that will pocket the hole through to finish the model.
+</p><p>So first, after clicking Close to exit the Sketch edit dialog, select Pad and provide a distance of 1 mm. Click OK and you should see the following result. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial014.png" class="image"><img alt="PD WB Tutorial014.png" src="PD_WB_Tutorial014.png" width="450" height="450" /></a></div></div>
+<p>A video of the steps used in this portion of the tutorial is here:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=a0hsJtbFW4Y">https://www.youtube.com/watch?v=a0hsJtbFW4Y</a>
+</p><p>Next we will orbit back around to see the back face of the part once again and select the back face to map the final sketch to. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial015.png" class="image"><img alt="PD WB Tutorial015.png" src="PD_WB_Tutorial015.png" width="450" height="450" /></a></div></div>
+<p>Select New sketch from the toolbar or Part Design menu. Now in sketch edit mode, we will orbit back around to the front so we can see two perpendicular edges of the Pad we made in the last operation. Using the External geometry tool, select the connected horizontal and vertical edges at the base of the Pad with the External geometry tool. The image below shows the base edges to be selected with the External geometry tool. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial016.png" class="image"><img alt="PD WB Tutorial016.png" src="PD_WB_Tutorial016.png" width="450" height="450" /></a></div></div>
+<p>Now orbiting around to the back face, or alternatively double clicking on the active sketch in the Model tree view, you will see the two external geometry lines that we provided from the front of the model. Make a rectangle and using the coincident constraint, do the following.
+</p>
+<ol><li> Select the upper left vertex of the rectangle and the upper left point of the external geometry and click on the coincident constraint.</li>
+<li> Click on the lower right vertex of the rectangle and the lower right point of the external geometry and click on the coincident constraint.</li></ol>
+<p>And we should end up with this. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial017.png" class="image"><img alt="PD WB Tutorial017.png" src="PD_WB_Tutorial017.png" width="450" height="450" /></a></div></div>
+<p>For the final step in this tutorial, we will select the Pocket feature from the toolbar or from the Part Design menu and from the Type pulldown select Through all and click toe OK button.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial019.png" class="image"><img alt="PD WB Tutorial019.png" src="PD_WB_Tutorial019.png" width="671" height="493" /></a></div></div>
+<p>A video of these steps of the tutorial is here:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=dlQV9OkXWOI">https://www.youtube.com/watch?v=dlQV9OkXWOI</a>
+</p><p>Your model will have some extra lines on it compared to the images in this tutorial.  To remove these extra lines, change to the OpenSCAD workbench, select Pocket001 (in v0.17 and later select Body) from the hierarchy tree, and click the Refine Shape tool: <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RefineShapeFeature.png" class="image"><img alt="OpenSCAD RefineShapeFeature.png" src="32px-OpenSCAD_RefineShapeFeature.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/OpenSCAD_RefineShapeFeature.png/48px-OpenSCAD_RefineShapeFeature.png 1.5x, /wiki/images/9/93/OpenSCAD_RefineShapeFeature.png 2x" /></a>.  This creates a refined version of the model that is parametrically linked to Pocket001 and so is also linked to the entire history of the model.  If we change, for example, the numerical value of a distance constraint the Refined Shape will update.  In contrast, the Part WorkBench also has a Refine Shape tool in the pulldown menu, and it creates a Refined Shape that is more like a snapshot of the model as it existed when the Refine Shape tool was used.  If we change (for example again) the numerical value of a distance constraint, Refine Shape created from the Part Workbench remains the same and does not update.
+</p><p>This tutorial and your model are complete.
+</p>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<ul><li>Links to accompanying video have been included.</li>
+<li>FreeCAD file for comparison (made with 0.16.6706) <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/Examples/blob/master/Basic_Part_Design_Tutorial_Example_Files/Basic_Part_Design_Tutorial.FCStd">Download</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial&amp;oldid=275611">http://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial&amp;oldid=275611</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

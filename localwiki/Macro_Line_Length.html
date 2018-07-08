@@ -1,0 +1,105 @@
+<html><head><title>Macro Line Length</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Line Length</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Line_Length"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Line Length</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Creates a line giving as an argument the XYZ coordinates, length, and angle.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">02.00
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-08-08
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Line_Length"><span class="tocnumber">1</span> <span class="toctext">Macro Line Length</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Use"><span class="tocnumber">2</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Script"><span class="tocnumber">3</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>This small macro create a line giving as an argument the XYZ coordinates, length, and angle
+</p>
+<h3><span class="mw-headline" id="Use">Use</span></h3>
+<p>Can be used from the Freecad macro editor.
+</p><p>If the macro is copied in the Python console, you can you can use it by:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>>>> line_length(x1 = 0, y1 = 0, z1 = 0, length = 10, angle = 45)</pre></div>
+<p>or choice
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>>>> line_length(x1 = 10, y1 = 10, z1 = 0, length = 50)
+
+>>> line_length(length = 50, angle = 45)</pre></div>
+<p>the default values are&#160;: x1 = 0, y1 = 0, z1 = 0, length = 10, angle = 0
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Macro Line_Length.py
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# créer une ligne avec une coordonnée une longueur et un angle sur le plan X Y
+# create line with coordinate length and angle to plane X Y
+import FreeCAD, FreeCADGui, Draft
+from math import cos, sin, radians
+#from FreeCAD import Base
+ 
+def line_length(x1 = 0.0, y1 = 0.0, z1 = 0.0, length = 10.0, angle = 0.0):
+    x2 = x1 + (length * cos(radians(angle)))
+    y2 = y1 + (length * sin(radians(angle)))
+    z2 = z1 #+ ()
+    Draft.makeWire([FreeCAD.Vector(x1,y1,z1),FreeCAD.Vector(x2,y2,z2)])
+ 
+x1 = 0.0          # Edit coordinate x1 origin
+y1 = 0.0          # Edit coordinate y1 origin
+z1 = 0.0          # Edit coordinate z1 origin
+length = 50.0       # Edit length
+angle  = 45.0       # Edit angle plane XY
+ 
+line_length(x1, y1, z1, length, angle)</pre></div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Line_Length&amp;oldid=240641">http://www.freecadweb.org/wiki/index.php?title=Macro_Line_Length&amp;oldid=240641</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

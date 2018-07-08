@@ -1,0 +1,119 @@
+<html><head><title>Part JoinEmbed</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part JoinEmbed</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_JoinEmbed"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_JoinEmbed.png" class="image"><img alt="Part JoinEmbed.png" src="32px-Part_JoinEmbed.png" width="32" height="32" srcset="/wiki/images/thumb/b/bc/Part_JoinEmbed.png/48px-Part_JoinEmbed.png 1.5x, /wiki/images/b/bc/Part_JoinEmbed.png 2x" /></a> Part JoinEmbed</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Part → Join → Embed Object
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Module.html" title="Part Module">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_JoinConnect.html" title="Part JoinConnect">Connect</a>, <a class="mw-selflink selflink">Embed</a>, <a href="Part_JoinCutout.html" title="Part JoinCutout">Cutout</a>, <a href="Part_Booleans.html" title="Part Booleans">Part Booleans</a>, <a href="Part_Thickness.html" title="Part Thickness">Part Thickness</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_JoinEmbed"><span class="tocnumber">1</span> <span class="toctext">Part JoinEmbed</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">5</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Algorithm"><span class="tocnumber">6</span> <span class="toctext">Algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Notes"><span class="tocnumber">6.1</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Scripting"><span class="tocnumber">7</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Version"><span class="tocnumber">8</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Embed tool embeds a walled object (e.g., a pipe) into another walled object.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Embed.png" class="image"><img alt="JoinFeatures Embed.png" src="600px-JoinFeatures_Embed.png" width="600" height="363" srcset="/wiki/images/5/5e/JoinFeatures_Embed.png 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select the base object first, then the object to be embedded. The order of selection is important. It is enough to select one sub-shape of each object (e.g., faces).</li>
+<li> Invoke the Part JoinEmbed command.</li></ol>
+<p>A Part JoinFeature object is created, with Mode set to 'Embed'. Original objects are hidden, and the result of embedding is shown in 3D view.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Base</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>: Reference to base object (the one the other object is to be embedded into). The object should be a single solid.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tool</b>: Reference to tool object (the object to be embedded). The object can be a single solid, or a <a href="Part_MakeCompound.html" title="Part MakeCompound">valid compound</a> of solids.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b>: The mode of operation, equals 'Embed' (Changing that will transform the tool into another Part_JoinXXX). The value of 'bypass' can be used to temporarily disable the long computations (a compound of Base and Tool will be created, which is a fast operation).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Refine</b>: Sets whether to apply <a href="Part_RefineShape.html" title="Part RefineShape">Refine</a> operation or not, to the final shape. The default value is determined by a 'Automatically refine shape after boolean operation' checkbox in PartDesign preferences. When Mode property is 'bypass', Refine is ignored (never applied).</li></ul>
+<h2><span class="mw-headline" id="Example">Example</span></h2>
+<ol><li> Create a pipe by applying <a href="Part_Thickness.html" title="Part Thickness">thickness</a> to a <a href="Part_Cylinder.html" title="Part Cylinder">cylinder</a>:<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step1.png" class="image"><img alt="JoinFeatures Example step1.png" src="320px-JoinFeatures_Example_step1.png" width="320" height="240" srcset="/wiki/images/thumb/f/fb/JoinFeatures_Example_step1.png/480px-JoinFeatures_Example_step1.png 1.5x, /wiki/images/f/fb/JoinFeatures_Example_step1.png 2x" /></a></li>
+<li> Create another, smaller diameter pipe, and <a href="Placement.html" title="Placement">place</a> it so that it pierces the wall of the first pipe:<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step2.png" class="image"><img alt="JoinFeatures Example step2.png" src="320px-JoinFeatures_Example_step2.png" width="320" height="240" srcset="/wiki/images/thumb/d/da/JoinFeatures_Example_step2.png/480px-JoinFeatures_Example_step2.png 1.5x, /wiki/images/d/da/JoinFeatures_Example_step2.png 2x" /></a></li>
+<li> Select the first pipe, then the second pipe (order of selection is important), and click the 'Embed object' option from the Join tools dropdown toolbar button. <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step3_Embed.png" class="image"><img alt="JoinFeatures Example step3 Embed.png" src="320px-JoinFeatures_Example_step3_Embed.png" width="320" height="240" srcset="/wiki/images/thumb/8/8b/JoinFeatures_Example_step3_Embed.png/480px-JoinFeatures_Example_step3_Embed.png 1.5x, /wiki/images/8/8b/JoinFeatures_Example_step3_Embed.png 2x" /></a></li>
+<li> Use some cross-section tool (<a href="Std_ClippingPlane.html" title="Std ClippingPlane">Clipping plane</a>, <a href="Arch_SectionPlane.html" title="Arch SectionPlane">Arch Section Plane</a>, <a href="Arch_CutPlane.html" title="Arch CutPlane">Arch Cut Plane</a>) to reveal internals. On the picture below, Arch Section Plane is used.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step4_Embed.png" class="image"><img alt="JoinFeatures Example step4 Embed.png" src="320px-JoinFeatures_Example_step4_Embed.png" width="320" height="240" srcset="/wiki/images/thumb/5/54/JoinFeatures_Example_step4_Embed.png/480px-JoinFeatures_Example_step4_Embed.png 1.5x, /wiki/images/5/54/JoinFeatures_Example_step4_Embed.png 2x" /></a></li></ol>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span></h2>
+<p>The algorithms behind Join tools are quite simple, and understanding them is important to use the tools correctly.
+</p><p>1. Base object is <a href="Part_Cut.html" title="Part Cut">boolean-cut</a> with Tool object. The resulting shape is a set (<a href="Part_MakeCompound.html" title="Part MakeCompound">compound</a>) of non-intersecting solids (typically, two). 
+</p><p>2. The resulting compound is filtered: only the largest solid is kept.
+</p><p>3. That largest solid is <a href="Part_Union.html" title="Part Union">boolean-fused</a> with Tool object.
+</p><p>4. If Refine property is true, the resulting shape is <a href="Part_RefineShape.html" title="Part RefineShape">refined</a>.
+<br /><br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures-Algo-Embed.png" class="image"><img alt="JoinFeatures-Algo-Embed.png" src="800px-JoinFeatures-Algo-Embed.png" width="800" height="249" srcset="/wiki/images/thumb/8/87/JoinFeatures-Algo-Embed.png/1200px-JoinFeatures-Algo-Embed.png 1.5x, /wiki/images/8/87/JoinFeatures-Algo-Embed.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<ul><li> If after step 1, the object remains in one piece, the result of Embed will be equivalent to <a href="Part_Union.html" title="Part Union">union</a> of Base and Tool, but taking longer to compute.</li>
+<li> Now, the tool will produce unexpected result, if a compound is supplied as Base. This may be changed in the future.</li>
+<li> Because the largest piece is determined by comparing volumes of pieces, the tool can only work with solids. This may be changed in the future.</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The Join tools can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>JoinFeatures.makePartJoinFeature(name = 'Embed', mode = 'Embed')</b>
+</pre>
+<ul><li> Creates an empty Embed feature (or other Join feature, depending on mode passed). The properties Base and Tool must be assigned explicitly, afterwards.</li>
+<li> Returns the newly created object.</li></ul>
+<p>Example:
+</p>
+<pre>import JoinFeatures
+j = JoinFeatures.makePartJoinFeature(name = 'Embed', mode = 'Embed' )
+j.Base = FreeCADGui.Selection.getSelection()[0]
+j.Tool = FreeCADGui.Selection.getSelection()[1] </pre>
+<p>The tool itself is implemented in Python, see /Mod/Part/JoinFeatures.py under where FreeCAD is installed.
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.16.5069
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinEmbed&amp;oldid=200305">http://www.freecadweb.org/wiki/index.php?title=Part_JoinEmbed&amp;oldid=200305</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,177 @@
+<html><head><title>Plot Basic tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Plot Basic tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Plot Workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Plotting_data"><span class="tocnumber">2</span> <span class="toctext">Plotting data</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Creating_plot_document"><span class="tocnumber">2.1</span> <span class="toctext">Creating plot document</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Drawing_functions"><span class="tocnumber">2.2</span> <span class="toctext">Drawing functions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_plot"><span class="tocnumber">3</span> <span class="toctext">Configuring plot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Showing_grid_and_legend"><span class="tocnumber">3.1</span> <span class="toctext">Showing grid and legend</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Setting_series_labels"><span class="tocnumber">3.2</span> <span class="toctext">Setting series labels</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Setting_series_style"><span class="tocnumber">3.3</span> <span class="toctext">Setting series style</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Setting_axes_labels"><span class="tocnumber">3.4</span> <span class="toctext">Setting axes labels</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Saving_plot"><span class="tocnumber">4</span> <span class="toctext">Saving plot</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>In this tutorial we will learn how to perform a basic plot using Plot module and Python console. You can learn more about <a href="Plot_Module.html" title="Plot Module">Plot module here</a>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Trigonometric_Example.png" class="image" title="Basic plot example"><img alt="Basic plot example" src="600px-Plot_Trigonometric_Example.png" width="600" height="267" srcset="/wiki/images/thumb/4/46/Plot_Trigonometric_Example.png/900px-Plot_Trigonometric_Example.png 1.5x, /wiki/images/4/46/Plot_Trigonometric_Example.png 2x" /></a></div></div>
+<center><span style="font-variant:small-caps">Basic plot example.</span></center>
+<p>In previous image you can see the result that we aproximately will obtain. Following this tutorial you will learn:
+</p>
+<ul><li> How to create a Plot from Python Console.</li>
+<li> How to plot some data from Python Console.</li>
+<li> How to show the grid lines.</li>
+<li> How to show the legend.</li>
+<li> How to edit series labels, introducing text in <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>.</li>
+<li> How to edit axes labels, introducing text in <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>.</li>
+<li> How to edit series styles.</li>
+<li> How to save your plot.</li></ul>
+<h2><span class="mw-headline" id="Plotting_data">Plotting data</span></h2>
+<p>In order to plot data you don't need to create a new FreeCAD document, simply show the Python console and start sending commands, or use <a href="Macros.html" title="Macros">macros</a>.
+</p>
+<h3><span class="mw-headline" id="Creating_plot_document">Creating plot document</span></h3>
+<p>Plots are special documents that can be created manually in order to add data later, or allow the module creates one authomatically when you start plotting data. Create your own plot documents have 2 advantages:
+</p>
+<ul><li> You can set the document window label.</li>
+<li> You can control easily on wich document you plot your data.</li></ul>
+<p>In order to create new plot document simply launch following commands:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Plot
+Plot.figure("TrigonometricTest")</pre></div>
+<p>That will create a new tab on main windows called <b>TrigonometricTest</b>. The new created document already have a set of axes. Each plot document have at least one set of axes that can be removed without using fully matplotlib control.
+</p>
+<h3><span class="mw-headline" id="Drawing_functions">Drawing functions</span></h3>
+<p>You can start working here due to plot command will start a new document, but all plot commands that you execute will append series to created plot until you don't create a new document, so ussually is better options control the opened plot documents. First thing that we need to do is create the data for sine and cosine functions that we want to plot:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import math
+t = range(0,101)
+t = [tt/100.0 for tt in t]
+s = [math.sin(2.0*math.pi*tt) for tt in t]
+c = [math.cos(2.0*math.pi*tt) for tt in t]</pre></div>
+<p>That will create 3 arrays of data (with 101 points):
+</p>
+<ul><li> <i>t</i> = Time in seconds.</li>
+<li> <i>s</i> = Sine function.</li>
+<li> <i>c</i> = Cosine function.</li></ul>
+<p>In order to plot both function we only need to launch next commands:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Plot.plot(t,s)
+Plot.plot(t,c)</pre></div>
+<p>That will plot our functions. <b>plot</b> command allows the series label as argument, but since we will edit it later using Plot module tools we don't pass this data yet.
+</p>
+<h2><span class="mw-headline" id="Configuring_plot">Configuring plot</span></h2>
+<h3><span class="mw-headline" id="Showing_grid_and_legend">Showing grid and legend</span></h3>
+<p>Change FreeCAD workbench to <a href="Plot_Module.html" title="Plot Module">Plot module</a> in View/Workbench menu. When module has been loaded use grid tool in order to show it.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Grid.png" class="image" title="Show/hide grid tool icon"><img alt="Show/hide grid tool icon" src="Plot_Grid.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Show/hide grid tool icon.</span></center>
+<p>You can repeat the action in order to hide it. Also you can show the legend with the tool provided.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Legend.png" class="image" title="Show/hide legend tool icon"><img alt="Show/hide legend tool icon" src="Plot_Legend.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Show/hide legend tool icon.</span></center>
+<p>As you can see, legend is empty because we have not set any series label yet. In <a href="Plot_Module.html" title="Plot Module">Plot module</a> series without label are not represented at legend, in order to allow you to draw auxiliar lines.
+</p>
+<h3><span class="mw-headline" id="Setting_series_labels">Setting series labels</span></h3>
+<p>With the series tool you can edit some series parameters.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Series.png" class="image" title="Series configuration tool icon"><img alt="Series configuration tool icon" src="Plot_Series.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Series configuration tool icon.</span></center>
+<p>First for all select the line that you want to edit, for example we will start with the first one. Uncheck <b>No label</b> and set this label:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>$y = \sin \left( 2 \pi t \right)$</pre></div>
+<p>Since <a rel="nofollow" class="external text" href="http://matplotlib.org/">matplotlib</a> supports <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a> you can set all the labels or titles that you want using it. Set the following label to second serie:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>$y = \cos \left( 2 \pi t \right)$</pre></div>
+<h3><span class="mw-headline" id="Setting_series_style">Setting series style</span></h3>
+<p>Series allows you to set a lot of series properties. Try to set the properties shown at the example image, changing series colors and drawing style of the second one.
+</p>
+<h3><span class="mw-headline" id="Setting_axes_labels">Setting axes labels</span></h3>
+<p>With the labels tool you can set labels associated to all created axes.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Labels.png" class="image" title="Labels tool icon"><img alt="Labels tool icon" src="Plot_Labels.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Labels tool icon.</span></center>
+<p>Set this data:
+</p>
+<ul><li> Title = Trigonometric functions example</li>
+<li> X Label = $t$</li>
+<li> Y Label = $y = \mathrm{f} \left( t \right)$</li></ul>
+<p>Also change the size of all of them to 20.
+</p>
+<h2><span class="mw-headline" id="Saving_plot">Saving plot</span></h2>
+<p>With saving plot tool you can save your plot as image file in several formats.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Save.png" class="image" title="Save tool icon"><img alt="Save tool icon" src="Plot_Save.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Save tool icon.</span></center>
+<p>First for all select the path of the output file. You can use file selection dialog using the button at right of the path edition line.
+</p><p>You can set the output image size in inches, for example we can set 11.7x8.3 that is a <b>DIN A4</b> paper size. DPI (Dots per inch) will control the image resolution, for example using 100 dpi you will get an image of 1170x830 pixels.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial&amp;oldid=177511">http://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial&amp;oldid=177511</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

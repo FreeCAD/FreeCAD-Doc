@@ -1,0 +1,200 @@
+<html><head><title>Macro Geneva Wheel</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Geneva Wheel</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Geneva_Wheel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Geneva Wheel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Allows the user to create a Geneva wheel mechanism from scratch. Must edit values within the Macro to alter the size of the object.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Drei" title="User:Drei">Drei</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-09-21
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Geneva_Wheel"><span class="tocnumber">1</span> <span class="toctext">Geneva Wheel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#How_To_Use"><span class="tocnumber">2</span> <span class="toctext">How To Use</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Link"><span class="tocnumber">3</span> <span class="toctext">Link</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Macro"><span class="tocnumber">4</span> <span class="toctext">Macro</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table><a href="https://www.freecadweb.org/wiki/index.php?title=File:Geneva.png" class="image"><img alt="Geneva.png" src="Geneva.png" width="686" height="298" /></a>
+<h2><span class="mw-headline" id="How_To_Use">How To Use</span></h2>
+<p>This Macro creates the main parts of a Geneva Wheel Mechanism. It depends on six values that must be altered in the code, read the comments in the code. The variables are:
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>Input
+</th>
+<th>Output
+</th></tr>
+<tr>
+<td>
+<ul><li>a = Drive Crank Radius</li>
+<li>b = Geneva Wheel Radius</li>
+<li>n = Driven Slot Quantity</li>
+<li>p = Drive Pin Diameter</li>
+<li>t = Tolerance</li>
+<li>h = Height</li></ul>
+</td>
+<td>
+<ul><li>c = Distance Between Centers</li>
+<li>s = Slot Center Width</li>
+<li>w = Slot Width</li>
+<li>y = Stop Arc Radius</li>
+<li>z = Stop Disc Radius</li>
+<li>v = Clearance Arc</li></ul>
+</td></tr></table>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p><a href="Macro_Geneva_Wheel_GUI.html" title="Macro Geneva Wheel GUI">Macro Geneva Wheel GUI</a>:  A GUI front end based on this macro that allows the user to create a Geneva wheel  mechanism from scratch. 
+</p>
+<h2><span class="mw-headline" id="Macro">Macro</span></h2>
+<pre>#Creation of a Geneva Wheel with Parametric values  By: Isaac Ayala (drei)
+#This Macro creates the main parts of a Geneva Wheel Mechanism 
+
+#It depends on six values that must be altered in the following code
+#The variables are a, b, n, p, t and h. 
+
+#Definition for each variable
+#    Input
+#a = Drive Crank Radius
+#b = Geneva Wheel Radius
+#n = Driven Slot Quantity
+#p = Drive Pin Diameter
+#t = Tolerance
+#h = Height
+#    Output
+#c = Distance Between Centers
+#s = Slot Center Width
+#w = Slot Width
+#y = Stop Arc Radius
+#z = Stop Disc Radius
+#v = Clearance Arc
+
+#Please note that you can alter the code so it depends on five values exclusively
+#Just replace c, and either a or b with the following
+#    Keep value for a
+#c = a/math.sin(math.pi/n)
+#b = math.sqrt((math.pow(c,2))-(math.pow(a,2)))
+#    Keep value for b
+#c = b/math.cos(math.pi/n)
+#a = math.sqrt((math.pow(c,2))-(math.pow(b,2)))
+
+from __future__ import division
+import time
+import math
+from PySide import QtCore, QtGui
+from FreeCAD import Base
+import Part
+
+#Inputs
+a = 25.0
+b = 60.0
+n = 6
+p = 4
+t = 0.01
+h = 5
+T = 60
+
+#Outputs
+c = math.sqrt(pow(a,2) + pow(b,2))
+s = a + b - c
+w = p + t
+y = a - (1.5 * p)
+z = y - t
+v = (b * z)/a 
+
+#    Create the Drive Crank (Will be placed on the origin)
+driveCrank = Part.makeCylinder(z, h)
+driveCrank.translate(Base.Vector(0,0,0))
+
+genevaWheelClearanceCut = Part.makeCylinder(b, h)
+genevaWheelClearanceCut.translate(Base.Vector(-c,0,0))
+
+driveCrank = driveCrank.cut(genevaWheelClearanceCut)
+
+driveCrankBase = Part.makeCylinder((1.5*a), h)
+driveCrankBase.translate(Base.Vector(0,0,-h))
+
+driveCrank = driveCrank.fuse(driveCrankBase)
+
+drivePin = Part.makeCylinder(p,h)
+drivePin.translate(Base.Vector(-a,0,0))
+
+driveCrank = driveCrank.fuse(drivePin)
+
+#    Create the Geneva  Wheel (Will be placed on the x-axis on the left side)
+genevaWheel = Part.makeCylinder(b,h)
+genevaWheel.translate(Base.Vector(-c,0,0))
+
+stopArc = Part.makeCylinder(y, h)
+stopArc.translate(Base.Vector(((y-(b/2)),0,0)))
+stopArc.rotate(Base.Vector(-c,0,0),Base.Vector(0,0,1),30)
+
+for i in range(6):
+    stopArc.rotate(Base.Vector(-c,0,0),Base.Vector(0,0,1),60)
+    genevaWheel = genevaWheel.cut(stopArc)
+
+slotLength = Part.makeBox(s,(2*w),h)
+slotLength.translate(Base.Vector(-a,-w,0))
+
+slotRadius = Part.makeCylinder(w,h)
+slotRadius.translate(Base.Vector(-a,0,0))
+
+slot=slotLength.fuse(slotRadius)
+
+for i in range(6):
+    slot.rotate(Base.Vector(-c,0,0),Base.Vector(0,0,1),60)
+    genevaWheel = genevaWheel.cut(slot)
+
+#    Display Result
+
+Part.show(driveCrank)
+Part.show(genevaWheel) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Geneva_Wheel&amp;oldid=241110">http://www.freecadweb.org/wiki/index.php?title=Macro_Geneva_Wheel&amp;oldid=241110</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

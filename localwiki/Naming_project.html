@@ -1,0 +1,107 @@
+<html><head><title>Naming project</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Naming project</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>This template is the guideline for a FreeCAD development project. It follows the rules of the <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Getting_Things_Done#Methodology">Getting Things Done (GTD)</a> process. The projects are collected in the <a href="Development_roadmap.html" title="Development roadmap">Development roadmap</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Others"><span class="tocnumber">3.1</span> <span class="toctext">Others</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Literature_.26_Papers"><span class="tocnumber">3.2</span> <span class="toctext">Literature &amp; Papers</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Summary_of_Work_To-Date"><span class="tocnumber">3.3</span> <span class="toctext">Summary of Work To-Date</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Information_about_TNaming"><span class="tocnumber">4.1</span> <span class="toctext">Information about TNaming</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Next_actions"><span class="tocnumber">5</span> <span class="toctext">Next actions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Next_Steps_.28as_of_June_13th.2C_2016.29"><span class="tocnumber">5.1</span> <span class="toctext">Next Steps (as of June 13th, 2016)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>This is an development and design effort to implement a robust topological naming in FreeCAD. 
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<ol><li> <b>Interface</b> in (Part::TopoShape) to robustly reference (name) shapes and sub-shapes (faces, edges, vertexes) through a string (sub-element name like "Face1") <p> Here we need a interface to provide Part::TopoShape with all information need to do the Naming, e.g. NewShape, additional information from a algos like deleted faces, modeling step (for 2.) and ...... </p></li>
+<li> <b>Association</b> of modeling steps with the resulting faces/edges. <p> In case of a big model the user is lost if he/she has hundreds of fillets or bore hole. So if the faces/edges would know what modeling step  it created we could implement a double click on edge/face opens the right feature! </p> </li>
+<li> An <b>algorithm</b> to keep the naming stable throughout changes in modeling history, like splitting edge/faces and moving vertexes <p> <a href="https://www.freecadweb.org/wiki/index.php?title=File:NamingExample.jpg" class="image"><img alt="NamingExample.jpg" src="NamingExample.jpg" width="640" height="357" /></a></li>
+<li> (optional) <b>memory optimized data structure</b> to keep only changed faces/edges in each modeling feature. &lt;p&gt; This will become important when the models get bigger. Its not efficient to copy most of the shape just through. Would be much more effective to share the unchanged faces/edges between Feautures and copy only whats changed.</li></ol>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<p>A lot was discussed in the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2656">"Robust Reference" Post</a>
+of jrheinlaender.
+</p>
+<h3><span class="mw-headline" id="Others">Others</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.maruf.ca/files/caadoc/CAATopTechArticles/JournalMethodology.htm#Definition">Catia V5 and Topology Naming</a> and <a rel="nofollow" class="external text" href="http://www.maruf.ca/files/caadoc/CAAMmrTechArticles/CAAMmrGenericNaming.htm">CAAMmrGenericNaming</a></li>
+<li> <a rel="nofollow" class="external text" href="http://opencascade.sourcearchive.com/documentation/6.3.0.dfsg.1-1/TNaming_8hxx-source.html">Naming in OpenCasCade OCAF</a></li></ul>
+<h3><span class="mw-headline" id="Literature_.26_Papers">Literature &amp; Papers</span></h3>
+<ul><li> J Kripac, "A mechanism for persistently naming topological entities in history-based parametric solid models"</li></ul>
+<dl><dd> Describes a method to do the first three points in the List. Would say the is the approach used by Catia and OCC-TNaming. At least the interface looks the same. The paper was nowhere to download. I had to buy it. If someone is interested I can send it via E-Mail. </dd></dl>
+<ul><li> <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.29.2836&amp;rep=rep1&amp;type=pdf">Dago AGBODAN, David MARCHEIX and Guy PIERRA, "PERSISTENT NAMING FOR PARAMETRIC MODELS"</a></li></ul>
+<dl><dd> Interesting approach via shell-graphs, tackles the point four on the list by reusing faces/edges not changed. </dd></dl>
+<ul><li> <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.106.3087&amp;rep=rep1&amp;type=pdf">Duhwan Mun and Soonhung Han, "Identification of Topological Entities and Naming Mapping for Parametric CAD Model Exchanges"</a></li></ul>
+<dl><dd> Very good overview and Examples</dd></dl>
+<ul><li> and some more to come....</li></ul>
+<h3><span class="mw-headline" id="Summary_of_Work_To-Date">Summary of Work To-Date</span></h3>
+<p>As of June 13th, 2016, here is a summary of the work that has been done for this project:
+</p>
+<ul><li> jrheinlaender produced a lot of code in 2012 that relies heavily on the Sketch workbench for resolving "Robust References"</li>
+<li> ickby had taken a stab at incorporating some or jrheinlaender's code into modern freecad. <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2656&amp;start=60#p124844">This post</a> has a link to his github repo.</li>
+<li> In 2016, ezzieyguywuf revived jrheinlaender's thread and subsequently started his own. You can see it <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=15847">here</a></li>
+<li> ezzieyguywuf developed a "light weight" opencascade program for duplicating the Topological Naming issue and for testing potential solutions. See his github repo <a rel="nofollow" class="external text" href="https://github.com/ezzieyguywuf/freecadTopoTesting">here</a></li>
+<li> ezzieyguywuf incorporated the opencascade TNaming toolkit into his test code, and showed how this could help resolve some of the Topological Naming issues. See the github repo</li></ul>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<h3><span class="mw-headline" id="Information_about_TNaming">Information about TNaming</span></h3>
+<p>See <a rel="nofollow" class="external text" href="https://github.com/ezzieyguywuf/freecadTopoTesting/blob/master/TNaming_Writeup.md">here</a> for a decent write-up on ezzieyguywuf's github repo. Here are some highlights:
+</p>
+<ul><li> opencascade's TNaming relies upon the TDF_Data data framework.</li>
+<li> TDF_Data is a key component of the opencascade OCAF thing, but can be used independent of it</li>
+<li> TDF_Data is essentially a tree in which data is added and then read at a later date</li>
+<li> Whenever a TNaming_NamedShape attribute is added to a node on the TDF_Data tree, a TNaming_UsedShapes attribute is added to the root of the tree
+<ul><li><b>NOTE:</b> this TNaming_UsedShapes attribute is critical to the utility of the TNaming toolkit. It contains a history of all the TopoDS_Shape used during the 'history' of the part</li></ul></li>
+<li> TNaming_Builder is used to add information to the TDF_Data tree. It adds a TNaming_NamedShape to a given node on the tree, as well as updating the TNaming_UsedShapes database as necessary.</li>
+<li> Any time the TopoDS_Shape is changed, it must be logged in the TDF_Data structure
+<ul><li> Again, TNaming_Builder is used for this</li>
+<li> See <a rel="nofollow" class="external text" href="http://www.opencascade.com/doc/occt-7.0.0/overview/html/occt_user_guides__ocaf.html#occt_ocaf_5_6_1">here</a> in the opencascade documentation for a table listing what must be stored in the database. <b>NOTE:</b> this table appears to be incomplete. Some additional testing may need to be done</li>
+<li> In short, any time the TopoDS_Shape is modified, any modified/generated/deleted features must be logged. For the most part, since we're dealing with solids, this means we must log the modified/generated/deleted Faces on the solid</li></ul></li>
+<li> The TNaming_Selector class is used to "select" a feature that is being tracked on the TDF_Data tree
+<ul><li> a "selected" feature is one that opencascade's TNaming algorithm will maintain a constant reference to, regardless of topological changes</li></ul></li></ul>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Defining the scope</li>
+<li> Python test cases</li>
+<li> Interface in Part::TopoShape (+ python binding)</li></ul>
+<h3><span class="mw-headline" id="Next_Steps_.28as_of_June_13th.2C_2016.29">Next Steps (as of June 13th, 2016)</span></h3>
+<ol><li> Determine if opencascade TNaming toolkit fully resolves Topological Naming issue in FreeCAD
+<ul><li> What are all instances where Topological Naming is a problem?</li>
+<li>What are complex scenarios where this approach will need to work?</li></ul></li>
+<li> Incorporate TNaming code into FreeCAD
+<ol><li> Start with a bare-bones approach, i.e. Make a Cube and a Cylinder, Fuse, Fillet, and then re-size the Cylinder. Fillet should not move</li>
+<li> Gradually add more functionality</li></ol></li>
+<li> Determine if TNaming will be the solution long-term</li>
+<li> Whether or not TNaming is the long-term solution, figure out a way to 'serialize/deserialize' the data that TNaming uses for persistence across sessions</li></ol>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div></p>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Naming_project&amp;oldid=188424">http://www.freecadweb.org/wiki/index.php?title=Naming_project&amp;oldid=188424</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

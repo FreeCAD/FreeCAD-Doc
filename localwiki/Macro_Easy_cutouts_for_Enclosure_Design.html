@@ -1,0 +1,322 @@
+<html><head><title>Macro Easy cutouts for Enclosure Design</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Easy cutouts for Enclosure Design</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Easy_cutouts_for_Enclosure_Design"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Easy_cutouts_for_Enclosure_Design_icon.png" class="image"><img alt="Macro Easy cutouts for Enclosure Design icon.png" src="Macro_Easy_cutouts_for_Enclosure_Design_icon.png" width="32" height="31" /></a> Easy cutouts for Enclosure Design</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">This macro makes Cutouts for Enclosures in a very handy way
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Maurice&amp;action=edit&amp;redlink=1" class="new" title="User:Maurice (page does not exist)">maurice</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.25
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-11-26
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Easy_cutouts_for_Enclosure_Design"><span class="tocnumber">1</span> <span class="toctext">Easy cutouts for Enclosure Design</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro makes Cutouts for Enclosures in a very handy way
+<br />
+Just select a face of the object that is the base for the cutout and the macro will create a clone of the external outline with a margin of 0.5mm (set in the macro)
+<br />here a demo with an Arduino Uno enclosure
+</p>
+<div style="clear:both"></div>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Easy-cutouts.gif" class="image"><img alt="Easy-cutouts.gif" src="Easy-cutouts.gif" width="1600" height="852" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Just select a face of the object that is the base for the cutout and the macro will create a clone of the external outline with a margin of 0.5mm (set in the macro)
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>The Icon for you ToolBar <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Easy_cutouts_for_Enclosure_Design_icon.png" class="image"><img alt="Macro Easy cutouts for Enclosure Design icon.png" src="Macro_Easy_cutouts_for_Enclosure_Design_icon.png" width="32" height="31" /></a>
+</p><p>Macro_Center Faces of Parts.FCMacro
+</p><p><br />
+</p>
+<pre># -*- coding: utf-8 -*-
+# clone, enlarge &amp; center clone-obj to selected obj
+#
+ 
+__title__   = "Clone-Enlarge-Center Face for cutouts"
+__author__  = "maurice"
+__url__     = "kicad stepup"
+__version__ = "0.25"
+__date__    = "11.2016"
+
+import FreeCAD, FreeCADGui, Draft, Part, DraftTools
+from FreeCAD import Base
+
+
+def say(msg):
+    FreeCAD.Console.PrintMessage(msg)
+    FreeCAD.Console.PrintMessage('\n')
+
+def sayw(msg):
+    FreeCAD.Console.PrintWarning(msg)
+    FreeCAD.Console.PrintWarning('\n')
+ 
+def getNormal(self):
+    return self.Object.Shape.Faces[0].normalAt(0,0)
+
+#Init        
+if Gui.ActiveDocument &lt;&gt; None:
+    #say (Gui.ActiveDocument)
+
+    cx = 1  # center x -&gt; 1  
+    cy = 1  # center y -&gt; 1 
+    cz = 1  # center z -&gt; 1 
+    
+    # scaleX = 1.1 # scale factor for Clone
+    # scaleY = 1.1 # scale factor for Clone
+    # scaleZ = 1.1 # scale factor for Clone
+    
+    margin = 0.5 #margin in mm
+    extrudeLenght = 10 #10mm    
+    #selEx = FreeCADGui.Selection.getSelectionEx()
+    sel = FreeCADGui.Selection.getSelection()
+    
+    #print sel[0].Label
+    #objs = [selobj.Object for selobj in selEx]
+    selF = FreeCADGui.Selection.getSelectionEx()
+    
+    #if len(Gui.Selection.getSelectionEx()[0].SubElementNames) &lt;1:
+    #    stop
+    
+    if len(sel) &gt; 0:
+        FreeCADGui.Selection.removeSelection(sel[0])
+    #for o in FreeCADGui.ActiveDocument.getObjects():
+    #    FreeCADGui.Selection.removeSelection(o.Name)
+    coords = []
+    j = 0
+    #if len(sel) == 1: # only 1 object selected
+    #if len(selF) == 1: # only 1 object selected
+    if len(sel) &gt; 0:
+        if len(selF[0].SubElementNames) ==1:
+            f_names=[]
+            f = Draft.makeFacebinder(selF)
+            f1=App.ActiveDocument.getObject(f.Name)
+            face=0
+            try:
+                norm = f1.Shape.Faces[0].normalAt(0,0)
+                say (norm)
+                face=1
+            except:
+                App.Console.PrintMessage("Select ONLY one single Face of object!"+"\n")
+                # stop
+            if face==1:
+                l = Draft.downgrade(f,delete=False)
+                k = 0; bbM = 0
+                for o in l:
+                    for w in o:
+                        #print w.Name
+                        f_names.append (w.Name)
+                        say(w.Name)
+                        if "Facebinder" not in w.Name:
+                            bb=w.Shape.BoundBox
+                            bbX=float(bb.XLength)
+                            bbY=float(bb.YLength)
+                            bbZ=float(bb.ZLength)
+                            say (str(bbX)+";"+str(bbY)+";"+str(bbZ))
+                            if bbX &gt; bbM:
+                                bbM = bbX; m = k
+                            if bbY &gt; bbM:
+                                bbM = bbY; m = k
+                            if bbZ &gt; bbM:
+                                bbM = bbZ; m = k
+                        k=k+1
+                print f_names
+                k = 0
+                #f_names=[]
+                for o in l:
+                    for w in o:
+                        say(w.Name)
+                        #f_names.append (w.Name)
+                        if k!=m:
+                            say ( "deleting "+f_names[k] )
+                            FreeCAD.ActiveDocument.removeObject(f_names[k])
+                        else:
+                            FreeCADGui.ActiveDocument.getObject(f_names[k]).Visibility=False
+                            f = FreeCAD.ActiveDocument.addObject('Part::Extrusion', 'Extrude_for_cut')
+                            f = FreeCAD.ActiveDocument.getObject(f.Name)
+                            f.Base = FreeCAD.ActiveDocument.getObject(f_names[k])
+                            f.Dir = norm * extrudeLenght * -1
+                            f.Solid = (True)
+                            f.TaperAngle = (0)
+                        k=k+1        
+                #FreeCAD.ActiveDocument.removeObject(f_names[len(l)])
+                say( f_names )
+                say( f_names[m] )
+                say( bbM )
+                
+                FreeCADGui.Selection.addSelection(FreeCAD.ActiveDocument.getObject(f.Name))
+                FreeCAD.ActiveDocument.recompute()
+                
+                sel = FreeCADGui.Selection.getSelection()   
+                #objs = [selobj.Object for selobj in selEx]
+                
+                coords = []
+                j = 0
+                s = sel[0].Shape
+                
+                bb=s.BoundBox
+                
+                bbX=float(bb.XLength)
+                bbY=float(bb.YLength)
+                bbZ=float(bb.ZLength)
+                # boundBox
+                boundBox_ = s.BoundBox
+                
+                a = str(boundBox_)
+                a,b = a.split('(')
+                c = b.split(',')
+                oripl_X = float(c[0])
+                oripl_Y = float(c[1])
+                oripl_Z = float(c[2])
+                coords.append ([oripl_X+bbX/2, oripl_Y+bbY/2, oripl_Z+bbZ/2])
+                App.Console.PrintMessage(str(boundBox_)+"\r\n")
+                App.Console.PrintMessage("BBox          &#160;: "+str(bbX)+" x "+str(bbY)+" x "+str(bbZ)+"\r\n")
+                App.Console.PrintMessage("Base Pos      &#160;: "+str(oripl_X)+" x "+str(oripl_Y)+" x "+str(oripl_Z)+"\r\n")
+                App.Console.PrintMessage("Center Pos    &#160;: "+str(oripl_X+bbX/2)+" x "+str(oripl_Y+bbY/2)+" x "+str(oripl_Z+bbZ/2)+"\r\n")
+                App.Console.PrintMessage("Coords        &#160;: "+str(coords[j])+"\r\n")
+            
+                #objC = FreeCAD.ActiveDocument.addObject('Part::AttachableObjectPython', 'Clone_for_cut')
+                #objC = FreeCAD.ActiveDocument.getObject(objC.Name)
+                objC=Draft.clone(sel)
+                if bbX!=0:
+                    scaleX = (bbX + 2*margin) / bbX
+                else:
+                    scaleX = 1
+                if bbY!=0:
+                    scaleY = (bbY + 2*margin) / bbY
+                else:
+                    scaleY = 1
+                if bbZ!=0:
+                    scaleZ = (bbZ + 2*margin) / bbZ
+                else:
+                    scaleZ = 1
+                objC.Scale = (scaleX,scaleY,scaleZ)
+                #Draft.scale(objC,delta=App.Vector(scaleX,scaleY,scaleZ),center=App.Vector(0,0,0),copy=True,legacy=True)
+                
+                oL = sel[0].Label + "_enlarged"
+                objC.Label = oL
+                FreeCADGui.Selection.addSelection(objC)
+                
+                FreeCAD.ActiveDocument.recompute()
+            
+                selEx = FreeCADGui.Selection.getSelectionEx()
+                objs = [selobj.Object for selobj in selEx]
+                coords = []
+                j = 0
+                if len(objs) &gt;= 1:
+                    for obj in objs:
+                        #s = objs[0].Shape
+                        s = obj.Shape
+                        
+                        # boundBox
+                        boundBox_ = s.BoundBox
+                        boundBoxLX = boundBox_.XLength
+                        boundBoxLY = boundBox_.YLength
+                        boundBoxLZ = boundBox_.ZLength
+                        
+                        a = str(boundBox_)
+                        a,b = a.split('(')
+                        c = b.split(',')
+                        oripl_X = float(c[0])
+                        oripl_Y = float(c[1])
+                        oripl_Z = float(c[2])
+                        coords.append ([oripl_X+boundBox_.XLength/2, oripl_Y+boundBox_.YLength/2, oripl_Z+boundBox_.ZLength/2])
+                        App.Console.PrintMessage(str(boundBox_)+"\r\n")
+                        App.Console.PrintMessage("BBox          &#160;: "+str(boundBox_.XLength)+" x "+str(boundBox_.YLength)+" x "+str(boundBox_.ZLength)+"\r\n")
+                        App.Console.PrintMessage("Base Pos      &#160;: "+str(oripl_X)+" x "+str(oripl_Y)+" x "+str(oripl_Z)+"\r\n")
+                        App.Console.PrintMessage("Center Pos    &#160;: "+str(oripl_X+boundBox_.XLength/2)+" x "+str(oripl_Y+boundBox_.YLength/2)+" x "+str(oripl_Z+boundBox_.ZLength/2)+"\r\n")
+                        App.Console.PrintMessage("Coords        &#160;: "+str(coords[j])+"\r\n")
+                        if j&gt;0:
+                            if cx==1:
+                                coordNx=coords[0][0]-coords[j][0]
+                            else:
+                                coordNx=0
+                            if cy==1:
+                                coordNy=coords[0][1]-coords[j][1]
+                            else:
+                                coordNy=0
+                            if cz==1:
+                                coordNz=coords[0][2]-coords[j][2]
+                            else:
+                                coordNz=0
+                            obj.Placement.move(App.Vector(coordNx,coordNy,coordNz))
+                            App.Console.PrintMessage("Moved    &#160;: "+str(coordNx)+" "+str(coordNy)+" "+str(coordNz)+"\r\n")
+                        j=j+1
+                    
+                        App.Console.PrintMessage("_____________________"+"\r\n")
+                        
+                    FreeCADGui.Selection.removeSelection(objs[0])
+                    FreeCADGui.ActiveDocument.getObject(objs[0].Name).Visibility=False
+                    FreeCADGui.ActiveDocument.getObject(objs[1].Name).Transparency=70
+                    App.ActiveDocument.recompute() 
+            
+        else:
+            App.Console.PrintMessage("Select ONLY one single Face of object!"+"\n")
+    else:
+        App.Console.PrintMessage("Select ONLY one single Face of object!"+"\n")
+else:
+    sayw("no document to work with")   
+    #http://forum.freecadweb.org/viewtopic.php?t=4625 </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>Forum&#160;:  <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=18488">Easy cutouts for Enclosure Design Macro</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Easy_cutouts_for_Enclosure_Design&amp;oldid=240948">http://www.freecadweb.org/wiki/index.php?title=Macro_Easy_cutouts_for_Enclosure_Design&amp;oldid=240948</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

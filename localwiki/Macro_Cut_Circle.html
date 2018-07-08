@@ -1,0 +1,153 @@
+<html><head><title>Macro Cut Circle</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Cut Circle</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Cut_Circle"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Cut Circle</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Cut a circle or arc in x arcs.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.02
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-03-09
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Cut_Circle"><span class="tocnumber">1</span> <span class="toctext">Macro Cut Circle</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Project"><span class="tocnumber">5</span> <span class="toctext">Project</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Version"><span class="tocnumber">6</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro cut a circle(s) or arc(s) in multiple arcs, the arcs can be coloured alternately to distinguish.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_CutCircle_00.png" class="image" title="CutCircle"><img alt="CutCircle" src="400px-Macro_CutCircle_00.png" width="400" height="300" srcset="/wiki/images/thumb/6/69/Macro_CutCircle_00.png/600px-Macro_CutCircle_00.png 1.5x, /wiki/images/6/69/Macro_CutCircle_00.png 2x" /></a>
+</p>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Copy the macro <b>cutCirle</b> complete in the Python console FreeCAD select the circle(s) and (or) arc(s) type in the console:
+</p>
+<pre>cutCircle(5, 1)  # here with 5 arcs and coloured
+cutCircle(4)     # </pre>
+<p>to see the circles and arcs cut here in the example 5 contiguous arcs. 
+</p><p>The original object is not deleted.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_Cut_Circle.FCMacro</b>
+</p>
+<pre>__title__= "cutCircle"
+__author__= "Mario52"
+__date__= "09/03/2015"
+__version__= "00.02"
+
+# selection circle(s) (circles and arcs)
+# give number of cut, biColor 0/1
+# cut the circle to x arcs
+# if biColor is &lt;&gt; 0 the arcs are colored alternately Red White Red White ....
+# 
+
+import Draft
+global biscolor&#160;; biscolor = 0
+def cutCircle(number = 2, biColor = 0):
+    global biscolor
+    def defbiColor(objet):
+        global biscolor
+        if biscolor == 0:
+            FreeCADGui.ActiveDocument.getObject(objet.Name).LineColor = (1.0,0.0,0.0) # 255 = 1 (10 = (1/255 * 10 ))
+            biscolor = 1
+        else:
+            FreeCADGui.ActiveDocument.getObject(objet.Name).LineColor = (1.0,1.0,1.0) # 255 = 1 (10 = (1/255 * 10 ))
+            biscolor = 0
+    selection = FreeCADGui.Selection.getSelection()
+    for piece in selection:
+        nom = piece.Name
+        if (nom[:6] == "Circle") or (nom[:8] == "Cylinder"):
+            circonference = piece.Shape.Length
+            rayon = piece.Radius
+            placem = piece.Placement
+ 
+            if (nom[:8] == "Cylinder"):
+                pivot0 = float(piece.Angle/number)
+                FreeCAD.Console.PrintMessage("Cylinder"+"\n")
+            else:
+                pivot0 = float(360/number)
+                FreeCAD.Console.PrintMessage("Circle"+"\n")
+            pivot1 = 0.0
+            for i in range(number):
+                cercle = Draft.makeCircle(radius=rayon,placement=placem,face=False,startangle=(pivot1),endangle=(pivot0+pivot1),support=None)
+                if biColor&#160;!= 0:
+                    defbiColor(cercle)
+                pivot1 += pivot0
+        elif nom[:3] == "Arc":
+            FreeCAD.Console.PrintMessage("Arc"+"\n")
+            circonference = piece.Shape.Length
+            rayon = piece.Radius
+            placem = piece.Placement
+            First = float(piece.FirstAngle)
+            Last  = float(piece.LastAngle)
+            pivot0 = abs((First - Last) / number)
+            pivot1 = 0.0
+            for i in range(number):
+                cercle = Draft.makeCircle(radius=rayon,placement=placem,face=False,startangle=(pivot1+First),endangle=(pivot0+pivot1+First),support=None)
+                if biColor&#160;!= 0:
+                    defbiColor(cercle)
+                pivot1 += pivot0 </pre>
+<h2><span class="mw-headline" id="Project">Project</span></h2>
+<p>Cut circle to cylinder
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>ver 00.02 09/03/2015&#160;: adding create arcs coloured altenat alternately Red White Red White .... or not
+</p><p>ver 00.01 24/02/2015&#160;:
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Cut_Circle&amp;oldid=240667">http://www.freecadweb.org/wiki/index.php?title=Macro_Cut_Circle&amp;oldid=240667</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

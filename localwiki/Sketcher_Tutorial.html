@@ -1,0 +1,271 @@
+<html><head><title>Sketcher Tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher Tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Sketcher
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">Ulrich
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#First_sketch:_a_triangle"><span class="tocnumber">3</span> <span class="toctext">First sketch: a triangle</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#More_about_Constraints"><span class="tocnumber">4</span> <span class="toctext">More about Constraints</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Problematic_combination_of_constraints"><span class="tocnumber">5</span> <span class="toctext">Problematic combination of constraints</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Construction_Lines_-_Step_by_Step_Example"><span class="tocnumber">6</span> <span class="toctext">Construction Lines - Step by Step Example</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exercise:_resilient_sketch"><span class="tocnumber">7</span> <span class="toctext">Exercise: resilient sketch</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>The Sketcher is a tool to generate 2D-objects for usage in parts design. The sketcher is different to traditional drawing tools. A way to show the difference is the construction of a triangle. A triangle is fully defined by 3 values, which can be any from the following list: side length, angle, height, area. The one exception is three angles, which will not define the size.
+</p><p>In order to construct a triangle from 3 lengths in the traditional way, the following has to be done: 
+</p>
+<ul><li> draw the base line</li>
+<li> make two circles with a radius given by the other two side lengths, or alternatively calculate the coordinates of the third vertex </li>
+<li> draw the missing two sides from the endpoints of the base line to the crossing point of the two circles or the calculated vertex.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Traditional_triangle.png" class="image"><img alt="Traditional triangle.png" src="Traditional_triangle.png" width="325" height="190" /></a>
+</p><p>The <a href="http://en.wikipedia.org/wiki/Triangle" class="extiw" title="wikipedia:Triangle">wikipedia:Triangle</a> page shows a collection of formulas to calculate the missing information in order to draw a triangle from the minimum specification. Those are needed, if the triangle has to be defined by pre-calculated coordinates.
+</p><p>The Sketcher is different. The formulas and the above helper constructions are not needed. In order to understand the difference, it is best to construct a triangle by yourself.
+</p>
+<h2><span class="mw-headline" id="First_sketch:_a_triangle">First sketch: a triangle</span></h2>
+<p>An open document is needed in order to make a sketch. When there is no open document, a new one will be created by clicking on <a href="https://www.freecadweb.org/wiki/index.php?title=File:Document-new.png" class="image"><img alt="Document-new.png" src="Document-new.png" width="32" height="32" /></a> The sketcher workbench has to be selected: 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Workbench_select_sketcher.png" class="image"><img alt="Workbench select sketcher.png" src="Workbench_select_sketcher.png" width="400" height="200" /></a>
+</p><p>A new sketch will be created by clicking at <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a>. A dialog appears, where the orientation of the new sketch in the 3D-space can be selected. It doesn't matter in this case, so the xy-plane can be confirmed. A new empty sketch will be created and opened in edit mode. A grid with a coordinate system will be shown with a red point at the origin.
+</p><p>In the Sketcher it is ok to draw an arbitrary triangle with the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a>polyline tool and define its properties in a later step. Each click in the drawing plane sets a vertex. The triangle needs to be closed. So for the last line a click is needed on the first created vertex. A red point should be visible near the mouse pointer before clicking.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Closed_triangle_with_pointer_small.png" class="image"><img alt="Closed triangle with pointer small.png" src="Closed_triangle_with_pointer_small.png" width="400" height="200" /></a>
+</p><p>This will make sure that the last vertex is identical to the first one and the profile is closed. Those symbols that appear beneath the drawing pointer do indicate auto-constraints. They are set automatically at clicking at this location. The red dot beneath the drawing pointer indicates a coincidence constraint between two vertices, i.e. the vertices of this different drawing elements are constrained to an identical location.
+</p><p>The created triangle is flexible. A vertex can be touched with the mouse and dragged around. The sides of the triangle follow the vertex. The same can be done with a line.
+</p><p>Each length of the side is now easily defined by selecting it with the mouse: selected item turns into green.  When clicking on the<a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="32px-Constraint_Length.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/48px-Constraint_Length.png 1.5x, /wiki/images/a/a3/Constraint_Length.png 2x" /></a> length tool, a dialog opens and the desired length can be put in. The picture below shows a triangle with side lengths set to 35 mm, 27 mm and 25 mm. The baseline was set horizontally by selecting it and clicking on the horizontal constraint tool<a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a>.
+</p><p><br /> 
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_triangle3_small.png" class="image"><img alt="Sketcher triangle3 small.png" src="Sketcher_triangle3_small.png" width="400" height="200" /></a>
+</p><p>These length-definitions are called constraints. Constraints are used to define a fixed design from the flexible geometric input. The sketcher provides all constraints needed to define any kind of triangle. Only the area can not be used to define one. So the created triangle can be redefined by changing the value of a constraint or by deleting constraints and add other ones. Here comes a list of triangles with other given properties. It is no problem to turn the just created triangle into one of these.
+</p>
+<ul><li> One or two angles given:  Two sides of the triangle needs to be selected. A click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAngle.png" class="image"><img alt="Constraint InternalAngle.png" src="32px-Constraint_InternalAngle.png" width="32" height="32" srcset="/wiki/images/thumb/7/75/Constraint_InternalAngle.png/48px-Constraint_InternalAngle.png 1.5x, /wiki/images/7/75/Constraint_InternalAngle.png 2x" /></a> opens a dialog to define the angle.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Triangel_angle_small.png" class="image"><img alt="Triangel angle small.png" src="Triangel_angle_small.png" width="400" height="200" /></a>
+</p>
+<ul><li> Right triangle:  Two sides of the triangle needs to be selected. A click on<a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Perpendicular.png" class="image"><img alt="Constraint Perpendicular.png" src="32px-Constraint_Perpendicular.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Constraint_Perpendicular.png/48px-Constraint_Perpendicular.png 1.5x, /wiki/images/3/39/Constraint_Perpendicular.png 2x" /></a> sets a right angle between the two sides.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Right_triangle_sketcher.png" class="image"><img alt="Right triangle sketcher.png" src="Right_triangle_sketcher.png" width="400" height="200" /></a>
+</p>
+<ul><li> Equilateral: One side has to be set to a defined length. Then all sides needs to be selected. A click on<a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> defines two equal length constrains in order to give all sides the same length.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Triangle_equilateral_small.png" class="image"><img alt="Triangle equilateral small.png" src="Triangle_equilateral_small.png" width="400" height="200" /></a>
+</p>
+<ul><li> Isoscales triangle (two identical length) with given height: Select first the two sides with the equal length. A click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> sets a equality between the two sides. Then select the base line and the top vertex and click the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="32px-Constraint_Length.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/48px-Constraint_Length.png 1.5x, /wiki/images/a/a3/Constraint_Length.png 2x" /></a> length tool.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Triangle_isosceles_small.png" class="image"><img alt="Triangle isosceles small.png" src="Triangle_isosceles_small.png" width="400" height="200" /></a>
+</p><p>Constraints can be selected by clicking on the symbol or by clicking in the constraint-list. They can be deleted or in case of constraints with a value edited after a double click. A given triangle can be later changed into another type of triangle by editing or changing the constraints. The sketcher is a part of the parametric FreeCAD-modelling approach. What you have created, can be easily changed at a later time, if for example a variant of the design is needed.
+</p><p>The above shown triangles have white lines. This is an indication that the sketch has some degrees of freedom left. It can be tested by dragging on some lines or points. If the line or point moves, this item is not fully defined. A sketch with no degrees of freedom left turns green.
+</p><p>The isoscele triangle is missing the length setting for the base line and it can move and rotate freely in the sketcher drawing plane.
+</p><p>If the triangle properties are defined, it still needed to be fixed in the drawing plane. The sketcher drawing plane has a coordinate system. The origin of the coordinate system is visible as the red dot in the center of the pink x-axis and light-green y-axis. The easiest way to fix it, is selecting a vertex and clicking at <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Lock.png" class="image"><img alt="Constraint Lock.png" src="32px-Constraint_Lock.png" width="32" height="32" srcset="/wiki/images/thumb/a/a7/Constraint_Lock.png/48px-Constraint_Lock.png 1.5x, /wiki/images/a/a7/Constraint_Lock.png 2x" /></a>. This adds a horizontal and a vertical distance from the vertex to the origin of the coordinate system. The triangle may still have an degree of freedom for rotation. So one sides needs a horizontal or vertical constraint or an defined angle to one of the coordinate system axes. The next picture shows a fully constraint sketch. All lines and vertices have now a green color.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_triangle3_fc_small.png" class="image"><img alt="Sketcher triangle3 fc small.png" src="Sketcher_triangle3_fc_small.png" width="400" height="200" /></a>
+</p>
+<h2><span class="mw-headline" id="More_about_Constraints">More about Constraints</span></h2>
+<p>The sketcher does not know the triangle formulas from the wikipedia. Instead it sets up a system of equation for the 2-dimensional coordinates based on the given constraints. This system of equations is then solved numerically.
+</p><p>In this way a wide variety of geometric problem can be solved. But there is also a disadvantage. If the set of equations has multiple solutions, we may get something totally different from what we expect. This is especially annoying, if the same design should be used for different dimensions. The typical symptom is, that after a change of a length constraint, the sketch flips to something totally different. A simple example is the division of a distance into three equal partitions. The following picture shows three lines in a row with equality and parallel constraint set. The total distance is set to 10 mm.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Dimension_partitions_parallel.png" class="image"><img alt="Dimension partitions parallel.png" src="Dimension_partitions_parallel.png" width="600" height="400" /></a>
+</p><p>This works well, as long as only larger distances are put in. When the distance is reduced above a certain ratio, the lines are folding together. So we do not get any more a third of the given distance but the distance itself or two third of it. Some lines of our row have changed their orientation. This gives still a valid solution for the set of constraints, but is not what was intended. So following image of the same sketch shows this. The length constraint was set to 1000 mm and then reduced to 5 mm.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Dimension_partitions_flipped.png" class="image"><img alt="Dimension partitions flipped.png" src="Dimension_partitions_flipped.png" width="600" height="400" /></a>
+</p><p>The solution is to define an angle of 180° between the partition lines as replacement of the parallel constraint. The 180°-constraint has only one solution. The sketch is now robust against large changes of the distance. It has to be said, that also a 0°-constraint serves for the same purpose, where appropriate.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint180_600x400.png" class="image"><img alt="Constraint180 600x400.png" src="Constraint180_600x400.png" width="600" height="400" /></a>
+</p><p>The 180°-constraint is a solution for a lot of problems. Some older versions of FreeCAD have problems to show the 180°-constraint in the sketcher plane. In most of the cases the 180°-arc is <b>not</b> shown as expected in the sketcher drawing plane. This is a known issue for FreeCAD before version 14.3613.
+</p><p>In case of several incremental dimensions in a straight line, it may be advisable to draw a zig-zag-line first and then set the 180°-constraints. This helps, not forgetting one, or setting one twice.
+</p><p><br />
+</p><p><br />
+The following table shows some constraints combinations for the definition of a simple elbow. The combination was tested by enlarging the 10 mm length horizontal dimension to greater values until the elbow flips its orientation. The table documents for each shown constraint combination the changed length where the flipping occurs. 
+</p>
+<table border="1" cellspacing="0" cellpadding="2" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;" width="100%">
+
+<tr>
+<th>Constraints Combination
+</th>
+<th>Remarks
+</th></tr>
+<tr>
+<td>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Elbow_equality_horizontal_vertical.png" class="image"><img alt="Elbow equality horizontal vertical.png" src="Elbow_equality_horizontal_vertical.png" width="600" height="400" /></a>
+</p>
+</td>
+<td>
+<p>Definition of length: Equality constraint for definition of length<br /><br />
+Definition of orientation: horizontal and vertical constraints<br /><br />
+Flips at 51 mm
+</p>
+</td></tr>
+<tr>
+<td>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Elbow_fix_point_onto_object_52mm.png" class="image"><img alt="Elbow fix point onto object 52mm.png" src="Elbow_fix_point_onto_object_52mm.png" width="600" height="400" /></a>
+</p>
+</td>
+<td>
+<p>Definition of length: Equality constraint for definition of vertical length, arc for definition of horizontal length.<br /><br />
+Definition of orientation: two points for definition of orientation of horizontal line and vertical constraints<br /><br />
+Flips at 52 mm
+</p>
+</td></tr>
+<tr>
+<td>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Elbow_equality_perpendicular_vertical.png" class="image"><img alt="Elbow equality perpendicular vertical.png" src="Elbow_equality_perpendicular_vertical.png" width="600" height="400" /></a>
+</p>
+</td>
+<td>
+<p>Definition of length: Equality constraint for definition of length<br /><br />
+Definition of orientation: horizontal line perpendicular to Y-axis and vertical line with vertical constraint<br /><br />
+Flips at 51 mm
+</p>
+</td></tr>
+<tr>
+<td>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Elbow_dimension_length_82_mm.png" class="image"><img alt="Elbow dimension length 82 mm.png" src="Elbow_dimension_length_82_mm.png" width="600" height="400" /></a>
+</p>
+</td>
+<td>
+<p>Definition of length: Horizontal length defined with the <b>general</b> length constraint. Equality constraint for definition of vertical length.<br /><br />
+Definition of orientation: horizontal and vertical constraints<br /><br />
+Flips at 82 mm<br /><br />
+Definition of length: Horizontal length defined with the <b>horizontal</b> length constraint. Equality constraint for definition of vertical length.<br /><br />
+Definition of orientation: horizontal and vertical constraints<br /><br />
+The horizontal line does not flip at a test of 10 km, but the vertical line was flipped!<br /><br />
+</p>
+</td></tr>
+<tr>
+<td>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Elbow_equality_90%C2%B0to_vertical.png" class="image"><img alt="Elbow equality 90°to vertical.png" src="Elbow_equality_90%C2%B0to_vertical.png" width="600" height="440" /></a>
+</p>
+</td>
+<td>
+<p>Definition of length: Equality constraint for definition of length<br /><br />
+Definition of orientation: horizontal line 90°-angle to vertical line and vertical line with vertical constraint<br /><br />
+Flips not, tested up to 10 km
+</p>
+</td></tr></table>
+<p>The test showed the following: larger changes of dimension constraints may cause a flipping of some lines of the sketch due to multiple solutions of the underlying system of equations. The only constraints that do preserve the orientation of the elements they are applied to, are the angle constraint and the horizontal and vertical dimension constraints. 
+The differences between the other constraints regarding maintaining orientation are minor.
+</p><p>Recommendation: <b> Use angle constraints and horizontal and vertical dimension constraints at critical places in order to make a sketch robust against dimension changes. </b>
+</p>
+<h2><span class="mw-headline" id="Problematic_combination_of_constraints">Problematic combination of constraints</span></h2>
+<p>Sometimes two or more constraints define the same property. An example can be made of two connected lines, where the connection point is the center point of a symmetry constraint for the endpoints of the lines. Those lines now have equal length and are parallel. All this is the consequence of the symmetry constraint.
+</p><p>What happens, if those two lines already have an equality constraint and a parallel constraint and the symmetry constraint is added too? Now the parallel property is defined by two constraints and the equal length is also defined by two constraints. In principle the underlying system of equations should have a solution. But there may be numerical problems. This can be tested by trying to move the lines. In most cases the lines are frozen, even if the sketcher still reports several degrees of freedom.
+</p><p>The above case shows a problem that seems to be difficult to solve for the sketcher programmers. So the user has to take care, to avoid such situations. Sketches with redundant constraints do behave unexpected and problematic. Symptoms of those redundant constraints are the above frozen state or reported redundant constraints after modifying a different object in the sketch.
+</p><p>In general the sketcher gives a warning, when redundant constraints are detected. But this detection mechanism seems not to work in all cases. When the problem is recognized, it can be avoided by just deleting the redundant constraints. Sometimes it is necessary to choose a different combination of constraints.  
+</p><p>The following cases are sources for redundant constraints:
+</p>
+<ul><li> An equality constraint for two radii of the same arc</li>
+<li> An symmetry constraint for two radii of the same arc</li>
+<li> A symmetry constraint in combination with parallel, equality and or perpendicular constraints</li></ul>
+<p>A different problematic case are parallels with an intersection point in infinity. It is possible to set a 180°-constraint for two parallel lines without an intersection point. This is <b>not</b> recommended. An angle to an other line or axis should be used instead.
+</p><p><br />
+A different problem is the change of orientation of angles. This can happen if, angle changes above 180° are made. Doing this in smaller steps avoid the problem.
+</p>
+<h2><span class="mw-headline" id="Construction_Lines_-_Step_by_Step_Example">Construction Lines - Step by Step Example</span></h2>
+<p>In the first part was shown, that helper constructions are not necessary for the triangle. But nevertheless the sketcher provides construction geometry, which is useful for more complex problems. Any line can be converted to a construction line with the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_AlterConstruction.png" class="image"><img alt="Sketcher AlterConstruction.png" src="32px-Sketcher_AlterConstruction.png" width="32" height="32" srcset="/wiki/images/thumb/2/2a/Sketcher_AlterConstruction.png/48px-Sketcher_AlterConstruction.png 1.5x, /wiki/images/2/2a/Sketcher_AlterConstruction.png 2x" /></a> button. The construction lines are shown in the sketch as blue lines. They can be used for constraints in the same way as other lines, but are not shown and not used when the sketch is closed.
+</p><p>Giving the task to make a rectangle with the side length having the golden ratio. Wikipedia shows how to construct two lines with a length ratio of the golden ratio. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Goldener_Schnitt_Konstr_beliebt.svg" class="image"><img alt="Goldener Schnitt Konstr beliebt.svg" src="Goldener_Schnitt_Konstr_beliebt.svg" width="645" height="404" /></a>
+</p><p>The sketcher is a perfect tool to construct a rectangle with the golden ratio for the side length. The size of the rectangle can be later changed without making a new construction. The construction steps for the golden ratio according to Wikipedia are:
+</p>
+<ol><li> Having a line segment AB, construct a perpendicular BC at point B, with BC half the length of AB. Draw the hypotenuse AC.</li>
+<li> Draw an arc with center C and radius BC. This arc intersects the hypotenuse AC at point D.</li>
+<li> Draw an arc with center A and radius AD. This arc intersects the original line segment AB at point S. Point S divides the original segment AB into line segments AS and SB with lengths in the golden ratio.</li></ol>
+<p><br />
+</p><p>Here is a step by step explanation, how this can be done.
+</p>
+<ul><li> Make a new sketch as explained at the triangle example.</li>
+<li> Draw a rectangle in the sketch. Use the button <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Rectangle.png" class="image"><img alt="Sketcher Rectangle.png" src="Sketcher_Rectangle.png" width="32" height="29" /></a> The following picture shows the rectangle. FreeCAD did add horizontal and vertical constraints to the rectangle. This rectangle can not be rotated.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step1_rectangle_600x400.png" class="image"><img alt="Step1 rectangle 600x400.png" src="Step1_rectangle_600x400.png" width="600" height="400" /></a>
+</p><p>The rectangle should stay in the center of the coordinate system. To achieve this, a symmetry constraint is added to a horizontal line. This is done by selecting first the two vertices of the horizontal line and then the vertical axis of the coordinate system. The symmetry constraint is added by clicking on the button <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a>. The same is done for a vertical line, but instead now the horizontal axis is selected as symmetry axis. The picture below shows the result. The rectangle stays now at the center and can only be resized but not moved.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step2_rectangle_with_symmetry_600x400.png" class="image"><img alt="Step2 rectangle with symmetry 600x400.png" src="Step2_rectangle_with_symmetry_600x400.png" width="600" height="400" /></a>
+</p><p>This was the preparation for the rectangle. The top horizontal line should be the distance AS of the golden ration construction. An additional line is needed to represent the SB-distance. It is drawn a little bit skewed as shown below. This avoids the auto-constraining to horizontal. This line should instead be constrained later with a 180°-angle, in order to avoid the existence of multiple solutions to the constructed constrain-combination. If the line is drawn with an horizontal constrained, the sketcher will complain later at adding the 180°-angle constrained. The horizontal constrained has to be removed in such a case. The picture shows how to add an angle-constraint by selecting two lines and clicking at <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAngle.png" class="image"><img alt="Constraint InternalAngle.png" src="24px-Constraint_InternalAngle.png" width="24" height="24" srcset="/wiki/images/thumb/7/75/Constraint_InternalAngle.png/36px-Constraint_InternalAngle.png 1.5x, /wiki/images/thumb/7/75/Constraint_InternalAngle.png/48px-Constraint_InternalAngle.png 2x" /></a>. After adding a line, it is often advisable to drag at the line with the mouse. This will easily show, if a line is not attached to the other drawn elements. If a line is not connected right to the other lines, problems may arise in later steps of the part construction.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step3_making_SB_600x400.png" class="image"><img alt="Step3 making SB 600x400.png" src="Step3_making_SB_600x400.png" width="600" height="399" /></a>
+</p><p>The last line is not part of the rectangle. It is therefore necessary to convert it into a construction line. Selecting the line and clicking at the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_AlterConstruction.png" class="image"><img alt="Sketcher AlterConstruction.png" src="32px-Sketcher_AlterConstruction.png" width="32" height="32" srcset="/wiki/images/thumb/2/2a/Sketcher_AlterConstruction.png/48px-Sketcher_AlterConstruction.png 1.5x, /wiki/images/2/2a/Sketcher_AlterConstruction.png 2x" /></a> button does the conversion. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step4_make_SB_construction_line_600x400.png" class="image"><img alt="Step4 make SB construction line 600x400.png" src="Step4_make_SB_construction_line_600x400.png" width="600" height="400" /></a>
+</p><p>The line has now a blue color as visible below. The recipe from Wikipedia for the golden ratio requires a line half of the distance AB. In order to get a reference point for this, an additional vertex is set at the line with the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Point.png" class="image"><img alt="Sketcher Point.png" src="32px-Sketcher_Point.png" width="32" height="32" srcset="/wiki/images/thumb/8/83/Sketcher_Point.png/48px-Sketcher_Point.png 1.5x, /wiki/images/8/83/Sketcher_Point.png 2x" /></a> tool. This is shown below.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step5_helper_vertex.png" class="image"><img alt="Step5 helper vertex.png" src="Step5_helper_vertex.png" width="600" height="400" /></a>
+</p><p>The reference point should stay at the center of the distance AB. This will be achieved by selecting first the two endpoints of the distance AB and third selecting the center point. When all three points are selected in the right sequence, the symmetry constraint can be set at clicking at the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> button, as shown below.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step6_symmetry_setting.png" class="image"><img alt="Step6 symmetry setting.png" src="Step6_symmetry_setting.png" width="600" height="400" /></a>
+</p><p>The Picture below shows already the second side BC of the construction triangle. This line was drawn as described above and converted to a construction line. This line must have a vertical constraint as visible in the picture. This can be easily achieved by drawing the line nearly vertical. If the line is nearly vertical a vertical constraint symbol is shown and set by the Sketcher when finishing the line at this state.
+</p><p>The line BC must have half of the length of AB. There is only a reference point available for this purpose, so the equality constraint can not be used. The equality constraint would need a line with this length as reference, which is not available in the construction. Therefore the classical arc is used to define the length BC. The picture below shows the drawing of the arc. The arc-tool [[Image:|24px]] is used. First the center point is set at B. The point should be visible beneath the arc-tool at clicking at B. Often the arc-tool has not has to be not directly over the target point but a little beneath, in order to get the coincidence point visible. Second the radius of the arc is defined by setting the next point at the reference point. The last point of the arc is set in the neighborhood of the point C. It is important, that the first two points are fixed to C and the center point. This should be tested with dragging at the arc after finishing it.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step7_arc_defining_BC.png" class="image"><img alt="Step7 arc defining BC.png" src="Step7_arc_defining_BC.png" width="600" height="400" /></a>
+</p><p>In order to define the length of BC, the line must end at the arc. This will be done by setting a coincidence constraint between the last arc point and the C point as shown below. Both points have to be selected and the create a coincidence button <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> has to be clicked.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step8_arc_BC_finishing.png" class="image"><img alt="Step8 arc BC finishing.png" src="Step8_arc_BC_finishing.png" width="600" height="400" /></a>
+</p><p>The next picture shows the ready triangle. The hypotenuse AC is already drawn and converted to a construction line.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step9_triangle_ready.png" class="image"><img alt="Step9 triangle ready.png" src="Step9_triangle_ready.png" width="600" height="400" /></a>
+</p><p>Now step 2 of the Wikipedia recipe has to be constructed. A second arc has to be drawn with the center point at C and the starting point at B. The last point should be end at the hypotenuse as shown in the picture below. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step10_second_arc.png" class="image"><img alt="Step10 second arc.png" src="Step10_second_arc.png" width="600" height="400" /></a>
+</p><p>The drawn arc was converted to a construction line. Now step 3 of the Wikipedia recipe starts with drawing the last arc as shown in the picture below. The radius of this arc has to be defined with the above constructed point on the hypotenuse. The last point will usually not end at a corner of the rectangle. But this is not a problem, as it will be fixed later. The last point may set as shown below.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step11_last_arc.png" class="image"><img alt="Step11 last arc.png" src="Step11_last_arc.png" width="600" height="400" /></a>
+</p><p>Now the final step has to be made, in order to made the horizontal line of the rectangle equal to the distance AS. This is shown below by setting a coincidence constraint between the end of the last arc and the corner of the rectangle. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step12_define_ratio.png" class="image"><img alt="Step12 define ratio.png" src="Step12_define_ratio.png" width="600" height="400" /></a>
+</p><p>Now the vertical line has to be made the length of the distance SC. Setting an equality constraint by selecting the button <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> as shown below, will do this.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step12_define_rectangle.png" class="image"><img alt="Step12 define rectangle.png" src="Step12_define_rectangle.png" width="600" height="400" /></a>
+</p><p>The next picture shows the rectangle with a side length ratio equal to the golden ratio. The rectangle should have only left one degree of freedom. So at dragging at it, it should only change its size but not move. If a certain size of one side is needed, a length constraint can be added to this side. Other wise the sketch is ready and can be closed. Only a rectangle should than be visible in the FreeCAD window.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Step14_rectangle_with_golden_ratio.png" class="image"><img alt="Step14 rectangle with golden ratio.png" src="Step14_rectangle_with_golden_ratio.png" width="600" height="400" /></a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Exercise:_resilient_sketch">Exercise: resilient sketch</span></h2>
+<p>The above example introduced construction lines. Now some important things to make resilient sketches are discussed. Here is an exercise to get some practice at working with the sketcher. The goal is to make a sketch for something like a special frame as shown below.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Frame_erxercise_pad.png" class="image"><img alt="Frame erxercise pad.png" src="Frame_erxercise_pad.png" width="600" height="400" /></a>
+</p><p>There should be only three dimensions needed to define the frame. In order to make changing dimensions easier, the constraints can be renamed to something memorable. Just select the constraint in the list view and press &lt;F2&gt;. The constraint can be named for example to "Thickness". 
+The drawing below shows the dimensions. The peak at the right side should have two times the wall thickness.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Frame_exercise_dimensions.png" class="image"><img alt="Frame exercise dimensions.png" src="Frame_exercise_dimensions.png" width="600" height="400" /></a>
+</p><p>The sketch should look as intended also after changing the key dimensions for example to 2000 mm and back to 30. You may need to use angle constraints at certain places to reach this goal. The picture below shows a sketch, which was not robust against such changes. It is unusable now. In order to get the original state back, the undo-button <a href="https://www.freecadweb.org/wiki/index.php?title=Special:Upload&amp;wpDestFile=Edit-undo.png" class="new" title="File:Edit-undo.png">32px</a> can be used.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Frame_erxercise_failed_sketch.png" class="image"><img alt="Frame erxercise failed sketch.png" src="Frame_erxercise_failed_sketch.png" width="600" height="400" /></a>
+</p><p>The above sketch is unusable for the Part-Design Workbench. Only Profile without intersecting lines are allowed. Construction lines may intersect. Those are not used for making solids.
+</p><p><br />
+One of the main usage of the Sketcher is the construction of parts in the Part-Design-workbench. The already existing geometry can be used similar to construction lines. As this tutorial takes its focus more on the basic sketcher functionality, have a look here for usage of external geometry: <a href="Sketcher_External.html" title="Sketcher External">Sketcher External</a>
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Tutorial&amp;oldid=243763">http://www.freecadweb.org/wiki/index.php?title=Sketcher_Tutorial&amp;oldid=243763</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

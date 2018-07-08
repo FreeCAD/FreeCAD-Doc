@@ -1,0 +1,197 @@
+<html><head><title>Thread for Screw Tutorial</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Thread for Screw Tutorial</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Modeling
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Advanced
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:DeepSOIC" title="User:DeepSOIC">DeepSOIC</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=User:Murdic&amp;action=edit&amp;redlink=1" class="new" title="User:Murdic (page does not exist)">Murdic</a>
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.14 or above (depends on method)
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Method_0._Obtain_one_from_library_of_parts"><span class="tocnumber">3</span> <span class="toctext">Method 0. Obtain one from library of parts</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Method_1._Using_macros."><span class="tocnumber">4</span> <span class="toctext">Method 1. Using macros.</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Method_2._Cheating_by_stacking_disks."><span class="tocnumber">5</span> <span class="toctext">Method 2. Cheating by stacking disks.</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Method_3._Sweeping_a_vertical_profile."><span class="tocnumber">6</span> <span class="toctext">Method 3. Sweeping a vertical profile.</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Idea"><span class="tocnumber">6.1</span> <span class="toctext">Idea</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Tricks_to_success"><span class="tocnumber">6.2</span> <span class="toctext">Tricks to success</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Pros_and_cons"><span class="tocnumber">6.3</span> <span class="toctext">Pros and cons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Method_4._Sweeping_a_horizontal_profile"><span class="tocnumber">7</span> <span class="toctext">Method 4. Sweeping a horizontal profile</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Idea_2"><span class="tocnumber">7.1</span> <span class="toctext">Idea</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Generating_the_profile"><span class="tocnumber">7.2</span> <span class="toctext">Generating the profile</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Profile_for_triangular_thread"><span class="tocnumber">7.2.1</span> <span class="toctext">Profile for triangular thread</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Profile_for_arbitrary_cross-section"><span class="tocnumber">7.2.2</span> <span class="toctext">Profile for arbitrary cross-section</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Pros_and_cons_2"><span class="tocnumber">7.3</span> <span class="toctext">Pros and cons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Method_5._Lofting_between_helical_extruded_faces"><span class="tocnumber">8</span> <span class="toctext">Method 5. Lofting between helical extruded faces</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Idea_3"><span class="tocnumber">8.1</span> <span class="toctext">Idea</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h3><span class="mw-headline" id="Introduction">Introduction</span></h3>
+<p>This tutorial is a collection of techniques to model screw threads in FreeCAD. 
+</p><p>Modeling threads is discouraged, because it puts big load on modeling kernel, as well as on rendering side. Thread shapes take a lot of memory, and having just one thread in a FreeCAD project can easily blow the file size into megabyte range. However, there are some situations, where it is essential to model the thread to its full details, and this is what the tutorial is for.
+</p>
+<h3><span class="mw-headline" id="Method_0._Obtain_one_from_library_of_parts">Method 0. Obtain one from library of parts</span></h3>
+<p>Using models that other people have made is easy and saves time. Check out <a href="Macro_BOLTS.html" title="Macro BOLTS">Macro BOLTS</a>, which is an interface for inserting standard parts from BOLTS library.
+</p>
+<h3><span class="mw-headline" id="Method_1._Using_macros.">Method 1. Using macros.</span></h3>
+<p>There is a famous <a href="Macro_screw_maker1_2.html" title="Macro screw maker1 2">Screw Maker macro</a>, made by ulrich1a, and a whole <a rel="nofollow" class="external text" href="http://theseger.com/projects/2015/06/fasteners-workbench-for-freecad/">Fasteners Workbench</a> made by shaise (<a rel="nofollow" class="external text" href="https://github.com/shaise/FreeCAD_FastenersWB">link to GitHub</a>). These have an option to generate a thread. 
+These are aimed at standard thread profiles (triangular-ish).
+</p>
+<h3><span class="mw-headline" id="Method_2._Cheating_by_stacking_disks.">Method 2. Cheating by stacking disks.</span></h3>
+<p>This is a very good way for visualizing threads, yet keeping the geometry simple. 
+</p><p>The idea is to create a non-helical thread (which is just a revolution of a sawtooth profile, or a stack of disks with tapered edges). Such a fake thread is hard to tell apart from the real helical one by just looking at it. This may work for FEM, too. However, if you want to 3d-print it, this isn't going to work.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-stack-vs-proper.png" class="image"><img alt="Thread-stack-vs-proper.png" src="500px-Thread-stack-vs-proper.png" width="500" height="197" srcset="/wiki/images/thumb/9/9a/Thread-stack-vs-proper.png/750px-Thread-stack-vs-proper.png 1.5x, /wiki/images/thumb/9/9a/Thread-stack-vs-proper.png/1000px-Thread-stack-vs-proper.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Method_3._Sweeping_a_vertical_profile.">Method 3. Sweeping a vertical profile.</span></h3>
+<h4><span class="mw-headline" id="Idea">Idea</span></h4>
+<p>The idea is pretty simple: draw the profile of the thread, and then <a href="Part_Sweep.html" title="Part Sweep">sweep</a> it along a <a href="Part_Helix.html" title="Part Helix">helix</a>. When sweeping, make sure to tick Solid and Frenet checkboxes. Solid is the key to be able to perform <a href="Part_Union.html" title="Part Union">union</a> or <a href="Part_Cut.html" title="Part Cut">cut</a> operations on it. Frenet will keep the profile from twisting (more info on that is available in <a href="Part_Sweep.html" title="Part Sweep">Part Sweep</a> documentation).
+</p><p>This generates a coil of the thread, without the rod or the hole. To make a thread on a rod or a hole, one has to <a href="Part_Union.html" title="Part Union">union</a> or <a href="Part_Cut.html" title="Part Cut">cut</a> this coil with a cylinder. Additional Boolean operations are needed to shape up the ugly abrupt ends of the coil.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:502px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-vertical-profile.png" class="image"><img alt="" src="500px-Thread-by-vertical-profile.png" width="500" height="252" class="thumbimage" srcset="/wiki/images/thumb/c/c2/Thread-by-vertical-profile.png/750px-Thread-by-vertical-profile.png 1.5x, /wiki/images/thumb/c/c2/Thread-by-vertical-profile.png/1000px-Thread-by-vertical-profile.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-vertical-profile.png" class="internal" title="Enlarge"></a></div>Creating a thread coil by sweeping a vertical profile. 1 - the profile (a <a href="Sketcher_Workbench.html" title="Sketcher Workbench">sketch</a>). 2 - sweep path (<a href="Part_Helix.html" title="Part Helix">Part Helix</a>). 3 - the result of sweeping (<a href="Part_Sweep.html" title="Part Sweep">Part Sweep</a>)</div></div></div>
+<h4><span class="mw-headline" id="Tricks_to_success">Tricks to success</span></h4>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-vertical-profile-rule1.png" class="image"><img alt="Thread-by-vertical-profile-rule1.png" src="300px-Thread-by-vertical-profile-rule1.png" width="300" height="207" srcset="/wiki/images/thumb/a/a6/Thread-by-vertical-profile-rule1.png/450px-Thread-by-vertical-profile-rule1.png 1.5x, /wiki/images/a/a6/Thread-by-vertical-profile-rule1.png 2x" /></a>
+</p><p>Rule 1. The sweep must not self-intersect. A self-intersecting sweep is an invalid solid. Attempts to fuse it or cut it are very likely to fail. Nevertheless, this may be OK for 3d-printing and visualization purposes to leave the coil and the cylinder unfused (intersecting).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-vertical-profile-rule2.png" class="image" title="1000"><img alt="1000" src="Thread-by-vertical-profile-rule2.png" width="1245" height="204" /></a>
+</p><p>Rule 2. Remember that helix in FreeCAD is an imprecise thing. As a consequence, a cylinder made to mate with the thread precisely is very likely to fail to fuse to the thread. In general, avoid geometry coincident to elements of the sweep, such as tangent faces, edges tangent to faces they are not connected to, coincident and tangent edges, etc.
+</p><p>Tip 1. The radius of the helix does not matter (unless the helix is tapered). All that matters is the pitch and the height of the helix. This means that you can use a generic helix to generate a number of threads with equal pitch.
+</p><p>Tip 2. Keep it short (low number of turns). Long threads tend to fail in Boolean operations. Consider stacking the thread from short pieces using <a href="Draft_Array.html" title="Draft Array">Draft Array</a>, if a long thread proves problematic.
+</p>
+<h4><span class="mw-headline" id="Pros_and_cons">Pros and cons</span></h4>
+<p>+ Very natural way of defining thread profile
+</p><p>+ easy to understand
+</p><p>+ no problems with mesh generation, unlike method 4
+</p><p>- due to invalidity of self-intersecting sweeps, it is next to impossible to generate a gapless thread (that is, with no cylindrical faces at the outer or inner sides of the thread)
+</p><p>- Boolean operations are required to obtain meaningful results. These take long time and fail often.
+</p><p>- Threads with high number of turns are problematic.
+</p>
+<h3><span class="mw-headline" id="Method_4._Sweeping_a_horizontal_profile">Method 4. Sweeping a horizontal profile</span></h3>
+<h4><span class="mw-headline" id="Idea_2">Idea</span></h4>
+<p>The idea is to sweep a horizontal cross-section of the thread along the helix. The main problem here is figuring out, what profile to use to obtain a certain thread.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-horz-profile.png" class="image"><img alt="Thread-by-horz-profile.png" src="600px-Thread-by-horz-profile.png" width="600" height="470" srcset="/wiki/images/thumb/f/f7/Thread-by-horz-profile.png/900px-Thread-by-horz-profile.png 1.5x, /wiki/images/f/f7/Thread-by-horz-profile.png 2x" /></a>
+</p><p>If one uses a circle as a horizontal profile (the circle has to be placed off the origin, that offset defines the depth of the thread), thread profile will be sinusoidal. 
+</p><p>To obtain a standard sawtooth profile, a pair of mirrored archimedean spirals need to be fused into a wire. The resulting figure is a heart shape, which becomes barely distinguishable from a circle when the depth of the thread is small compared to its diameter (this is why such a "thick" thread is shown on the picture above).
+</p>
+<h4><span class="mw-headline" id="Generating_the_profile">Generating the profile</span></h4>
+<p>Figuring out, what the horizontal profile needs to be made for obtaining a certain vertical profile is not easy. For simple cases like triangular or trapezoidal, it can be constructed manually. Alternatively, it can be constructed by creating a short thread with method 3, and getting a slice of it by doing a <a href="Part_Common.html" title="Part Common">common</a> between a horizontal plane face and the thread.
+</p>
+<h5><span class="mw-headline" id="Profile_for_triangular_thread">Profile for triangular thread</span></h5>
+<ol><li> Create a spiral (archimedian) in XY plane. 
+<ol><li> Set number of turns to 0.5, </li>
+<li> the radius to the inner radius of the thread (outer radius will be this + depth of cut)</li>
+<li> and growth to double the depth of cut of the thread.</li></ol></li>
+<li> <a href="Part_Mirror.html" title="Part Mirror">Part Mirror</a> the spiral against XY plane</li>
+<li> <a href="Part_Union.html" title="Part Union">Part Union</a> the spiral and the mirror to obtain a closed wire, shaped like a heart. Done!</li></ol>
+<h5><span class="mw-headline" id="Profile_for_arbitrary_cross-section">Profile for arbitrary cross-section</span></h5>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Thread-by-horz-profile-profileMake.png" class="image"><img alt="Thread-by-horz-profile-profileMake.png" src="1000px-Thread-by-horz-profile-profileMake.png" width="1000" height="510" srcset="/wiki/images/thumb/2/2d/Thread-by-horz-profile-profileMake.png/1500px-Thread-by-horz-profile-profileMake.png 1.5x, /wiki/images/2/2d/Thread-by-horz-profile-profileMake.png 2x" /></a>
+</p>
+<ol><li> make a (vertical) cut profile. Make sure that the height of the sketch matches the pitch of the thread you need.</li>
+<li> make a helix1 with height identical to the pitch and the pitch identical to the thread pitch and a helix radius of 0.42*nominal diameter of the thread.</li>
+<li> Sweep the cut profile along the helix1. Set make solid and frenet to true.</li>
+<li> Make a circle with nominal radius of the thread in the x-y-plane.</li>
+<li> Make a face from the circle. (Part-workbench: advanced utility to create shapes, or <a href="Draft_Upgrade.html" title="Draft Upgrade">Draft Upgrade</a> then MakeFace = true)</li>
+<li> cut the face with the sweep profile</li>
+<li> make a clone from the cut (Draft workbench)</li>
+<li> Downgrade the clone in order to get a wire. (Draft workbench) This wire is the horizontal profile needed for this method.</li>
+<li> Make a helix with radius of nominal radius of the thread and a pitch of the thread and the height of the needed thread.</li>
+<li> Sweep the wire along the helix. Set solid and frenet to true.</li></ol>
+<p>You are done. 
+</p><p>Credit: step-by-step guide from a <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=6506#p52558">forum post by Ulrich1a</a>, slightly modified.
+</p><p>The steps are also shown in action on this video by Gaurav Prabhudesai: <a rel="nofollow" class="external free" href="http://www.youtube.com/watch?v=fxKxSOGbDYs">http://www.youtube.com/watch?v=fxKxSOGbDYs</a>
+</p>
+<h4><span class="mw-headline" id="Pros_and_cons_2">Pros and cons</span></h4>
+<p>+ A ready-to-use thread-on-a-rod solid shape is created by the sweep directly. 
+</p><p>+ Less or even no Boolean operations required, generation speed is very high compared to Method 3.
+</p><p>+ Thread ends are nicely cut straight away
+</p><p>+ Long threads are not a problem, unless a Boolean operation is needed. Otherwise, it is not going to be much better than Method 3.
+</p><p>+ Gapless threads are not a problem.
+</p><p>- Defining thread profile is complicated.
+</p><p>- Standard mesher generates ugly meshes, which can lead to problems. Other meshers are better, Mefisto seems to give the best results.
+</p><p>- large memory footprint <a rel="nofollow" class="external autonumber" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=12593&amp;start=10#p101197">[1]</a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Method_5._Lofting_between_helical_extruded_faces">Method 5. Lofting between helical extruded faces</span></h3>
+<h4><span class="mw-headline" id="Idea_3">Idea</span></h4>
+<p>Helical splines will extrude coaxial faces that are able to be lofted, while FreeCAD's parametric helix won't.    It takes two helical splines to define a thread.  Those two can be scaled from a library spline, then located and extruded appropriately to get the form right. 
+</p><p><br />
+FreeCAD's parametric helixes aren't truly helical, but helical b-splines aren't difficult to lay out. One manual method is to array dodecagons (12-sided polygons) with 5mm radius/10mm diameter at 1/12mm (0.08333.mm) z intervals and trace splines from vertex to vertex in ascending and rotating order, and to consider doing it once with, say, 10 turns, so that that spline can be re-used as a library file for import and reuse.   It's convenient to use 10mm diameter/1mm pitch for ease of scaling.  If you are doing it manually, drawing a Dwire and then converting it to a b-spline is easier than drawing a spline. Dwires don't have curvature computed while being drawn, so they follow the cursor and snap more obediently.
+</p><p>Once the splines are scaled to the right size and located so that the loft will have the right included angle between the thread flanks, they're extruded along their axis, a pitch length's worth for the inner spline, the outer pitch/8.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Splineextrudeloft.png" class="image"><img alt="Splineextrudeloft.png" src="Splineextrudeloft.png" width="912" height="489" /></a> 
+</p><p><br />
+ISO and other threads have relieved, ie flat,  inner and outer edges rather than sharp, which suits FreeCAD users with this method, because we can loft to the helical face at the nominal fastener size, while an inner face can't be lofted to an outer edge spline because a face is a closed profile, a spline is open.  ISO standard says the nominal size of external threads have a face width pitch/8.  The picture shows how the geometry is arranged, and the helical faces that result.  Then, loft between the faces, and then a cylinder that gives the inner helical face, which ISO puts at pitch/4 width, is added to the threads. 
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Threadform.PNG" class="image" title="761PX"><img alt="761PX" src="Threadform.PNG" width="761" height="491" /></a>
+</p><p><br />
+This method produces reliable solids that boolean properly.  While it doesn't produce "parametric" screw threads in standard sizes in the sense of having simple access to form by fastener size, it's an easy way of producing an accurate library for reuse, and models of specialised forms like ACME, or Archimedian screws, are also uncomplicated as one-offs.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Thread_for_Screw_Tutorial&amp;oldid=200324">http://www.freecadweb.org/wiki/index.php?title=Thread_for_Screw_Tutorial&amp;oldid=200324</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

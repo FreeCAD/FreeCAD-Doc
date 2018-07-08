@@ -1,0 +1,141 @@
+<html><head><title>Macro Toggle Visibility2</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Toggle Visibility2</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Toggle_Visibility"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_SelectVisible2.png" class="image"><img alt="Macro SelectVisible2.png" src="32px-Macro_SelectVisible2.png" width="32" height="32" srcset="48px-Macro_SelectVisible2.png 1.5x, /wiki/images/thumb/d/d7/Macro_SelectVisible2.png/64px-Macro_SelectVisible2.png 2x" /></a> Toggle Visibility</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Hidden all objects not selected.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Openfablab&amp;action=edit&amp;redlink=1" class="new" title="User:Openfablab (page does not exist)">openfablab</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.02b
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-07-27
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Toggle_Visibility"><span class="tocnumber">1</span> <span class="toctext">Toggle Visibility</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_To_Use"><span class="tocnumber">3</span> <span class="toctext">How To Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#ToggleVisibility"><span class="tocnumber">4</span> <span class="toctext">ToggleVisibility</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#DisplayAll"><span class="tocnumber">5</span> <span class="toctext">DisplayAll</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Link"><span class="tocnumber">6</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This is a set of four related macros for managing the visibility of objects in the Object Model:
+</p>
+<ol><li> objects that are selected in a document are made visible while objects that are not selected are made invisible
+<ul><li>if no objects are selected then all objects are hidden;</li>
+<li>if all objects are selected then all objects are made visible</li></ul></li>
+<li> make all objects visible</li></ol>
+<h2><span class="mw-headline" id="How_To_Use">How To Use</span></h2>
+<p>Copy the macros and the icons in your folder macros and run (see <a href="How_to_install_macros.html" title="How to install macros">How to install macros</a>)
+</p>
+<h2><span class="mw-headline" id="ToggleVisibility">ToggleVisibility</span></h2>
+<p>Using the selection of objects in the one of the FreeCAD views, this macro makes all selected objects visible and hides all objects which are not selected.
+</p><p>If no object(s) are selected then all objects are hidden 
+</p><p>If all objects are hidden and there is no selection in ComboView then all object are made visible
+</p><p>The code <b>Macro_ToggleSelectedObjectVisibility2.FCMacro</b> the icon <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_SelectVisible2.png" class="image"><img alt="Macro SelectVisible2.png" src="48px-Macro_SelectVisible2.png" width="48" height="48" srcset="/wiki/images/thumb/d/d7/Macro_SelectVisible2.png/72px-Macro_SelectVisible2.png 1.5x, /wiki/images/thumb/d/d7/Macro_SelectVisible2.png/96px-Macro_SelectVisible2.png 2x" /></a>
+</p>
+<pre>import FreeCAD
+# Macro_ToggleSelectedObjectVisibility2
+__title__="Macro_ToggleSelectedObjectVisibility2"
+__author__ = "openfablab"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.02b"
+__date__    = "27/07/2017"
+FreeCAD.actual=[]
+try: 
+    compt = 0
+    for ShapeNameObj in FreeCAD.ActiveDocument.Objects:                                   # list alls objet for test if alls hidden
+        if (FreeCADGui.ActiveDocument.getObject(ShapeNameObj.Name).Visibility == False) and (Gui.Selection.isSelected(ShapeNameObj) == False):
+            compt += 1                                                                    # if hidden&#160;: compt += 1
+            #print "False&#160;: ",ShapeNameObj.Name
+        elif Gui.Selection.isSelected(ShapeNameObj) == False:
+            FreeCAD.actual.append(ShapeNameObj.Name)
+            #print "Actual&#160;: ",ShapeNameObj.Name
+    if compt == len(FreeCAD.ActiveDocument.Objects):                                      # if (compt = Alls objects hidden) then Visibility = True
+        for ShapeNameObj in FreeCAD.ActiveDocument.Objects:
+            FreeCADGui.ActiveDocument.getObject(ShapeNameObj.Name).Visibility = True      # Visibility = True
+            #print "True &#160;: ",ShapeNameObj.Name
+        compt = 0
+    else&#160;:
+        for ShapeNameObj in FreeCAD.ActiveDocument.Objects:                               # hidde objects not selecteds
+            if Gui.Selection.isSelected(ShapeNameObj) == False:
+                FreeCADGui.ActiveDocument.getObject(ShapeNameObj.Name).Visibility = False # if objects is not selected then Visibility = False (Hidden)
+                #print "False&#160;: ",ShapeNameObj.Name
+            else:
+                FreeCADGui.ActiveDocument.getObject(ShapeNameObj.Name).Visibility = True  # if objects are hidden and selected then Visibility = True and hidden alls objects visibles
+                #print "True &#160;: ",ShapeNameObj.Name
+except Exception:
+    None </pre>
+<h2><span class="mw-headline" id="DisplayAll">DisplayAll</span></h2>
+<p>This macro makes all objects visible respecting the original visible and hidden objects after use the Macro_ToggleSelectedObjectVisibility macro.
+</p><p>The code <b>Macro_DisplayAllObjects2</b> the icon <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_VisibleAlls2.png" class="image"><img alt="Macro VisibleAlls2.png" src="48px-Macro_VisibleAlls2.png" width="48" height="48" srcset="/wiki/images/thumb/e/ec/Macro_VisibleAlls2.png/72px-Macro_VisibleAlls2.png 1.5x, /wiki/images/thumb/e/ec/Macro_VisibleAlls2.png/96px-Macro_VisibleAlls2.png 2x" /></a>
+</p>
+<pre>import FreeCAD
+#Macro_VisibleAlls
+__title__="Macro_DisplayAllObjects2"
+__author__ = "openfablab"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.00b"
+__date__    = "27/07/2017"
+
+try:
+    for ShapeNameObj in FreeCAD.actual:   # displyed alls objects
+        #print ShapeNameObj
+        FreeCADGui.ActiveDocument.getObject(ShapeNameObj).Visibility = True
+except Exception:
+    None </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>The discussion on the forum <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=8&amp;t=13152&amp;start=10#p184056">Re: Proposal: select one or more pieces, hide the others.</a>
+</p><p>Original idea <a rel="nofollow" class="external text" href="Macro_Toggle_Visibility.html">Macro_Toggle_Visibility</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Toggle_Visibility2&amp;oldid=239919">http://www.freecadweb.org/wiki/index.php?title=Macro_Toggle_Visibility2&amp;oldid=239919</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,273 @@
+<html><head><title>Source Code Management</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Source Code Management</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Source_Code_Management&amp;redirect=no" class="mw-redirect" title="Source Code Management">Source Code Management</a>)</span></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Our main source code management tool is <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Git_%28software%29">git</a>. This article explains how to use it and how some general rules apply in the case of FreeCAD. You are highly advised to learn how git works first (there are a lot of tutorials and docs available for git on the internet) before working with the FreeCAD source code.
+</p><p>There are also many good graphical clients to git, such as <a rel="nofollow" class="external text" href="http://github.com/git-cola/git-cola">git-cola</a>, that make the whole process of managing git repositories easier. FYI there also exists a cursory intro to <a href="Developing_FreeCAD_with_GitKraken.html" title="Developing FreeCAD with GitKraken">Developing FreeCAD with GitKraken</a>.  
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Source_Code_Access"><span class="tocnumber">1</span> <span class="toctext">Source Code Access</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Official_GitHub_Repo"><span class="tocnumber">1.1</span> <span class="toctext">Official GitHub Repo</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Setting_your_git_username"><span class="tocnumber">1.2</span> <span class="toctext">Setting your git username</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#A_note_about_Remotes"><span class="tocnumber">1.2.1</span> <span class="toctext">A note about Remotes</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#1st_Method:_Fork_on_GitHub_and_clone_your_fork_locally"><span class="tocnumber">1.2.2</span> <span class="toctext">1st Method: Fork on GitHub and clone your fork locally</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#2nd_Method:_Clone_Official_FreeCAD_git_repo_to_your_local_machine"><span class="tocnumber">1.2.3</span> <span class="toctext">2nd Method: Clone Official FreeCAD git repo to your local machine</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Git_Development_Process"><span class="tocnumber">2</span> <span class="toctext">Git Development Process</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Branching"><span class="tocnumber">2.1</span> <span class="toctext">Branching</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Committing"><span class="tocnumber">2.2</span> <span class="toctext">Committing</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Publishing_your_work_on_your_GitHub_repository"><span class="tocnumber">2.3</span> <span class="toctext">Publishing your work on your GitHub repository</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Writing_good_commit_messages"><span class="tocnumber">2.4</span> <span class="toctext">Writing good commit messages</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Advanced_git_operations"><span class="tocnumber">3</span> <span class="toctext">Advanced git operations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Resolving_Merge_Conflicts"><span class="tocnumber">3.1</span> <span class="toctext">Resolving Merge Conflicts</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Applying_patches_via_git"><span class="tocnumber">3.2</span> <span class="toctext">Applying patches via git</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Apply_a_patch_via_curl"><span class="tocnumber">3.2.1</span> <span class="toctext">Apply a patch via curl</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#Creating_patches_from_git"><span class="tocnumber">3.3</span> <span class="toctext">Creating patches from git</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#What_is_the_latest_FreeCAD_Dev_Revision"><span class="tocnumber">4</span> <span class="toctext">What is the latest FreeCAD Dev Revision</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Alternative_repositories"><span class="tocnumber">5</span> <span class="toctext">Alternative repositories</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Using_git_in_a_Graphical_User_Interface"><span class="tocnumber">6</span> <span class="toctext">Using git in a Graphical User Interface</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Further_reading"><span class="tocnumber">7</span> <span class="toctext">Further reading</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Source_Code_Access">Source Code Access</span></h2>
+<p>Everybody can access and get a copy of the FreeCAD source code, but only the FreeCAD project managers have write access to it. You can get a copy of the code, study it and modify it as you wish, but if you make a change that you wish to see included in the official source code, you need to ask for a pull request on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewforum.php?f=17">pull requests</a> section of the FreeCAD forum.
+</p>
+<div class="note"><b>NOTE</b>
+<p>In all examples below, "GITHUB_USERNAME" represents your GitHub user account.
+</p>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Official_GitHub_Repo">Official GitHub Repo</span></h3>
+<p>An easy way to start with the FreeCAD source code is using the official FreeCAD repository at
+<b><a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a></b>
+</p>
+<h3><span class="mw-headline" id="Setting_your_git_username">Setting your git username</span></h3>
+<p>Users should commit to their project repository using their GitHub username. 
+If that is not already set globally, you can set it locally for the current Git repository like this:
+</p>
+<pre>git config user.name "YOUR NAME"
+git config user.email "GITHUB_USERNAME@users.noreply.github.com"
+</pre>
+<p>You can now use some combination of "<b>git add</b>" and "<b>git commit</b>" commands to create one or more 
+commits in your local repository.
+</p>
+<h4><span class="mw-headline" id="A_note_about_Remotes">A note about Remotes</span></h4>
+<p>Please read some <a rel="nofollow" class="external text" href="https://stackoverflow.com/questions/9257533/what-is-the-difference-between-origin-and-upstream-on-github#9257901">background</a> to help you understand better the difference between what <b>origin</b> and <b>upstream</b> mean in the context of git. This section explains how to set the correct upstream and origin remote git repos. 
+Essentially: 
+</p>
+<ul><li> <b>origin</b> = Your fork of the FreeCAD git repo AKA <a rel="nofollow" class="external free" href="https://github.com/GITHUB_USERNAME/FreeCAD.git">https://github.com/GITHUB_USERNAME/FreeCAD.git</a></li>
+<li> <b>upstream</b> = The official FreeCAD git repo AKA <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD.git">https://github.com/FreeCAD/FreeCAD.git</a></li></ul>
+<p>This is important to understand because if you git clone directly from upstream then confusingly, your origin will be listed as <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD.git">https://github.com/FreeCAD/FreeCAD.git</a>
+So, based on the above, there are 2 main ways to setup your git environment:
+</p>
+<ul><li> <a href="/wiki/Source_code_management#Clone_Official_FreeCAD_git_repo_to_your_local_machine" title="Source code management">1st Method: Fork on GitHub and clone your fork locally</a></li>
+<li> <a href="/wiki/Source_code_management#Clone_Official_FreeCAD_git_repo_to_your_local_machine" title="Source code management">2nd Method: Clone FreeCAD official directly to your local machine</a></li></ul>
+<p>We recommend the 1st method for the reason mentioned above.
+</p>
+<h4><span class="mw-headline" id="1st_Method:_Fork_on_GitHub_and_clone_your_fork_locally">1st Method: Fork on GitHub and clone your fork locally</span></h4>
+<div class="note"><b>Important Note</b>
+<p>You will need to re-configure  'remote upstream' as mentioned above in "<a href="/wiki/Source_code_management#A_note_about_Remotes" title="Source code management">A note about Remotes</a>"
+</p>
+</div>
+<p>This method is the recommended way since it takes less steps. You will essentially fork the FreeCAD repo on your own GitHub account and then clone said GitHub fork locally. Then you will set your <b>upstream</b> repo in git. The procedure is as follows:
+</p>
+<ol>
+ <li><a rel="nofollow" class="external text" href="https://github.com/join">Sign up</a> for a GitHub account if you don't already have one </li>
+ <li>Go to the FreeCAD repo:  <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a></li>
+ <li>In the top right of the page find and press the "Fork" button (this will essentially git clone the official FreeCAD repo to your personal GitHub repo: <a rel="nofollow" class="external free" href="https://github.com/GITHUB_USERNAME/FreeCAD.git">https://github.com/GITHUB_USERNAME/FreeCAD.git</a>)  </li>
+ <li>On your machine, clone your newly created FreeCAD fork by opening a terminal and typing:
+   <pre>git clone https://github.com/GITHUB_USERNAME/FreeCAD.git</pre></li>
+ <li>Once the clone process is complete, now set your <b>upstream</b> remote repo (see "<a href="/wiki/Source_code_management#A_note_about_Remotes" title="Source code management">A note about Remotes</a>"). Find out what and where your remote git repositories are set to. Type <b>git remote -v</b> and the output should look similiar to:
+   <pre> [foo@bar FreeCAD]$ git remote -v
+     originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (fetch)
+     originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (push)</pre></li>
+ <li>Great. Now set your <b>upstream</b> repo
+  <pre>[foo@bar FreeCAD]$ git remote add upstream https://github.com/FreeCAD/FreeCAD.git</pre></li>
+ <li>Check your remotes again, they should look similiar to this:
+    <pre> [foo@bar FreeCAD]$ git remote -v
+    originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (fetch)
+    originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (push)
+    upstreamhttps://github.com/FreeCAD/FreeCAD.git (fetch)
+    upstreamhttps://github.com/FreeCAD/FreeCAD.git (push)</pre></li>
+ </li>
+  <li>Now we can start developing. Please refer to "<a href="/wiki/Source_code_management#Git_Development_Process" title="Source code management">Git Development Process</a>"</li>
+</ol>
+<h4><span class="mw-headline" id="2nd_Method:_Clone_Official_FreeCAD_git_repo_to_your_local_machine">2nd Method: Clone Official FreeCAD git repo to your local machine</span></h4>
+<div class="note"><b>Important Note</b>
+<p>You will need to re-configure both 'remote origin' and 'remote upstream' please refer to above "<a href="/wiki/Source_code_management#A_note_about_Remotes" title="Source code management">A note about Remotes</a>"
+</p>
+</div>
+<p>This method of setuping your git environment takes a few more steps then the 1st method. You will clone the FC git repo directly to your local machine and then alter your remotes via the terminal. The procedure is as follows:
+</p>
+<ol>
+ <li>Clone the FreeCAD code with git: 
+   <pre>git clone https://github.com/FreeCAD/FreeCAD.git</pre></li>
+ <li>Create an account on a public git server (GitHub, GitLab, etc... for our purposes we're assuming it's GitHub)</li> 
+ <li>Find out what and where your remote git repositories are set to:
+    <pre>git remote -v</pre></li>
+  <li>This will return something that looks like the following:
+    <pre>[foo@bar FreeCAD]$ git remote -v
+    origin https://github.com/FreeCAD/FreeCAD.git (fetch)
+    origin https://github.com/FreeCAD/FreeCAD.git (push)</pre></li>
+  <li>As was explained above in "<a href="/wiki/Source_code_management#A_note_about_Remotes" title="Source code management">A note about Remotes</a>" you need to modify these remote git repo addresses.<br /> 
+So first set up your <b>origin</b> remote:
+    <pre>[foo@bar FreeCAD]$ git remote add origin https://github.com/GITHUB_USERNAME/FreeCAD.git</pre></li>
+  <li>Then we set up our <b>upstream</b> remote:
+    <pre>[foo@bar FreeCAD]$ git remote add upstream https://github.com/FreeCAD/FreeCAD.git</pre></li>
+  <li>Check your remotes again, they should look similiar to this:
+    <pre> [foo@bar FreeCAD]$ git remote -v
+    originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (fetch)
+    originhttps://github.com/GITHUB_USERNAME/FreeCAD.git (push)
+    upstreamhttps://github.com/FreeCAD/FreeCAD.git (fetch)
+    upstreamhttps://github.com/FreeCAD/FreeCAD.git (push)</pre></li>
+   <li>Now we can start developing. Please refer to "<a href="/wiki/Source_code_management#Git_Development_Process" title="Source code management">Git Development Process</a>"</li>
+</ol>
+<h2><span class="mw-headline" id="Git_Development_Process">Git Development Process</span></h2>
+<p>First of all <b>NEVER DEVELOP ON THE <i>master</i> BRANCH!</b> 
+Instead, create a local branch for development. You can learn in more depth by reading <a rel="nofollow" class="external text" href="https://book.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">Git-Branching-Basic-Branching-and-Merging chapter on git-scm</a>. Below is a summary:
+</p>
+<h3><span class="mw-headline" id="Branching">Branching</span></h3>
+<p>An important feature of Git is that it is extremely easy to work with branches and merge 
+them together. Best practices recommend to create a new branch whenever you want to work 
+on a new feature. Creating a branch is done with:
+</p>
+<pre>git branch myNewBranch
+git checkout myNewBranch
+</pre>
+<p>or you can combine both git branch &amp;&amp; git checkout together by using the <i>-b</i> flag
+</p>
+<pre>git checkout -b myNewBranch
+</pre>
+<p>How do you know which branch you are currently using? Easy, type:
+</p>
+<pre>git branch
+</pre>
+<h3><span class="mw-headline" id="Committing">Committing</span></h3>
+<p>Once you did some work, you commit them with:
+</p>
+<pre>git commit -a</pre>
+<p>Unlike SVN, you need to specifically tell which files to commit (or all with the 
+-a option). Your text editor will open to allow you to write a commit message.<br />
+Please read more about <a href="/wiki/Source_code_management#Writing_good_commit_messages" title="Source code management">Writing good commit messages</a> in the below section.
+</p>
+<h3><span class="mw-headline" id="Publishing_your_work_on_your_GitHub_repository">Publishing your work on your GitHub repository</span></h3>
+<div class="note"><b>Important Note</b>
+<p>If you have code you wish to see merged into the FreeCAD source code, please post a note in the Pull Request section of the FreeCAD forum
+</p>
+</div>
+<p>After you're correctly branched made some modifications to your local branch and commit them 'locally', you can push your repository to your remote git server (in this example we're assuming GitHub). This opens your branch to the public and allows the main developers to review and integrate your branch into <i>master</i>. 
+</p>
+<pre>git push  &lt;REMOTENAME&gt; &lt;BRANCHNAME&gt; 
+git push origin my-branch
+</pre>
+<p><small>For further info on this subject please read <a rel="nofollow" class="external free" href="https://help.github.com/articles/pushing-to-a-remote/">https://help.github.com/articles/pushing-to-a-remote/</a></small>
+</p>
+<h3><span class="mw-headline" id="Writing_good_commit_messages">Writing good commit messages</span></h3>
+<p>You should try to work in small chunks.  If you cannot summarize your changes in one 
+sentence, then it has probably been too long since you have made a commit.  It is also 
+important that you have helpful and useful descriptions of your work. For commit messages, 
+FreeCAD has adopted a format mentioned in book Pro Git (see <a href="#Further_Reading">#Further Reading</a>).
+</p>
+<pre>Short (50 chars or less) summary of changes
+
+More detailed explanatory text, if necessary.  Wrap it to about 72
+characters or so.  In some contexts, the first line is treated as the
+subject of an email and the rest of the text as the body.  The blank
+line separating the summary from the body is critical (unless you omit
+the body entirely); tools like rebase can get confused if you run the
+two together.
+
+Further paragraphs come after blank lines. 
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded by a
+   single space, with blank lines in between, but conventions vary here
+</pre>
+<p>If you are doing a lot of related work, it has been suggested 
+<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2062&amp;p=14887#p14886">here</a> 
+that one should make as many commits large or small as makes sense for what you are working 
+on using the short one sentence commit messages. When you want to merge,  do a
+</p>
+ <pre>git log master..BRANCH</pre> 
+<p>and use the output as a basis for your quality commit message. 
+Then when you merge to master use the --squash option and commit with your quality commit message. 
+This will allow you to be very liberal with your commits and help to provide a good level of detail 
+in commit messages without so many distinct descriptions.
+</p>
+<h2><span class="mw-headline" id="Advanced_git_operations">Advanced git operations</span></h2>
+<h3><span class="mw-headline" id="Resolving_Merge_Conflicts">Resolving Merge Conflicts</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="https://git-scm.com/docs/git-merge#_how_conflicts_are_presented">git-scm explanation on how conflicts are presented</a> </li>
+<li> <a rel="nofollow" class="external text" href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">GitHub article on resolving merge conflicts via the command-line</a></li>
+<li> <a rel="nofollow" class="external text" href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_external_merge_tools">Customize your preferred merge tool</a> when you encounter a git conflict.</li></ul>
+<h3><span class="mw-headline" id="Applying_patches_via_git">Applying patches via git</span></h3>
+<p>Git has the capability to merge patches/diffs. To read more about this read the following reference: <a rel="nofollow" class="external free" href="https://www.drupal.org/node/1399218">https://www.drupal.org/node/1399218</a>
+</p>
+<ul><li> Useful tip:  Just add .diff or .patch at the end of the URL for a GitHub commit page, Pull Request, or Compare View and it'll show you the plaintext view of that page. Example:</li></ul>
+<p>Regular GitHub page: 
+<small><a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621">https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621</a></small>
+</p><p>'Diffed' GitHub page: 
+<small><a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.diff">https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.diff</a></small>
+</p><p>'Patched' GitHub page: 
+<small><a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.patch">https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.patch</a></small>
+</p>
+<h4><span class="mw-headline" id="Apply_a_patch_via_curl">Apply a patch via curl</span></h4>
+<pre>curl <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.patch">https://github.com/FreeCAD/FreeCAD/commit/c476589652a0f67b544735740e20ff702e8d0621.patch</a> | git apply -
+</pre>
+<h3><span class="mw-headline" id="Creating_patches_from_git">Creating patches from git</span></h3>
+<p>There are times when one may need to create a patch instead of submitting a PR. The following workflow explains how to do this:
+</p>
+<ol>
+   <li>Make sure you are in the correct branch (i.e. not the master branch) by checking with
+  <pre>git branch -v</pre></li> 
+  <li>Create the patch: we do this by using the <b>git format-patch</b> command which we patch against the master branch and redirect to STDOUT. We create the patch in the directory outside of the source build (in order not to pollute the source dir itself, this is optional as you can decide the location wherever you want the patch to be created)
+  <pre>git format-patch master --stdout &gt; ../patch.name.patch</pre></li>
+</ol>
+<h2><span class="mw-headline" id="What_is_the_latest_FreeCAD_Dev_Revision">What is the latest FreeCAD Dev Revision</span></h2>
+<p>There are 2 ways to do this:
+</p>
+<ul><li> 1st method: In your cloned git directory type: </li></ul>
+<pre>git rev-list --count master
+</pre>
+<ul><li> 2nd method: Browse <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a> and read the amount of commits FreeCAD is at.</li></ul>
+<h2><span class="mw-headline" id="Alternative_repositories">Alternative repositories</span></h2>
+<p>The beauty of git is that everybody can clone a project, and start modifying the code. Several frequent collaborators of the FreeCAD project have their own git repository, where they build up their work before it is ready to be included in the official source code, or simply where they experiment new ideas. In certain cases, you might want to clone your FreeCAD code from one of these, instead of the official repos, to benefit from the changes their users did.
+</p><p>Be warned, though, that this is at your own risk, and only the official repository above is fully guaranteed to work and contain clean code.
+</p><p>It is also possible to attach several remote repositories to a same local FreeCAD git code, using the "git remote" command. This is useful to keep in sync with the master code branch, but keep an eye on the work of different developers.
+</p>
+<h2><span class="mw-headline" id="Using_git_in_a_Graphical_User_Interface">Using git in a Graphical User Interface</span></h2>
+<ul><li> <a href="Developing_FreeCAD_with_GitKraken.html" title="Developing FreeCAD with GitKraken">Developing FreeCAD with GitKraken</a></li></ul>
+<h2><span class="mw-headline" id="Further_reading">Further reading</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://wiki.spheredev.org/Git_for_the_lazy">Git for the lazy</a></li>
+<li> <a rel="nofollow" class="external text" href="http://progit.org/book/">Git pro on-line book</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Source_code_management&amp;oldid=243449">http://www.freecadweb.org/wiki/index.php?title=Source_code_management&amp;oldid=243449</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

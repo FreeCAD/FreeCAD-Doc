@@ -1,0 +1,248 @@
+<html><head><title>Material data model</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Material data model</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Material_data_model"><span class="tocnumber">4.1</span> <span class="toctext">Material data model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Name"><span class="tocnumber">4.1.1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Family"><span class="tocnumber">4.1.2</span> <span class="toctext">Family</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Manufacturer"><span class="tocnumber">4.1.3</span> <span class="toctext">Manufacturer</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#URL"><span class="tocnumber">4.1.4</span> <span class="toctext">URL</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Properties"><span class="tocnumber">4.1.5</span> <span class="toctext">Properties</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="#Description"><span class="tocnumber">4.1.5.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#Example_1:_Cost_per_tonne"><span class="tocnumber">4.1.5.2</span> <span class="toctext">Example 1: Cost per tonne</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="#Example_2:_Yield_strength"><span class="tocnumber">4.1.5.3</span> <span class="toctext">Example 2: Yield strength</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="#Example_3:_Strain_hardening"><span class="tocnumber">4.1.5.4</span> <span class="toctext">Example 3: Strain hardening</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-15"><a href="#Chemical_composition"><span class="tocnumber">4.1.6</span> <span class="toctext">Chemical composition</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Appearance"><span class="tocnumber">4.1.7</span> <span class="toctext">Appearance</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Notes"><span class="tocnumber">4.1.8</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#Material_data_model_applications:_some_examples"><span class="tocnumber">4.2</span> <span class="toctext">Material data model applications: some examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Example_1:_Brick_masonry"><span class="tocnumber">4.2.1</span> <span class="toctext">Example 1: Brick masonry</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="#Name_2"><span class="tocnumber">4.2.1.1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="#Family_2"><span class="tocnumber">4.2.1.2</span> <span class="toctext">Family</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="#Properties_2"><span class="tocnumber">4.2.1.3</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="#Manufacturer_2"><span class="tocnumber">4.2.1.4</span> <span class="toctext">Manufacturer</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="#URL_2"><span class="tocnumber">4.2.1.5</span> <span class="toctext">URL</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="#Notes_2"><span class="tocnumber">4.2.1.6</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Next_actions"><span class="tocnumber">5</span> <span class="toctext">Next actions</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>By storing material properties in an unified data structure, one aims to ease data retrieval that can be carried out in different contexts:
+</p>
+<ul><li> when building a finite element model</li>
+<li> when rendering a 3D model</li>
+<li> to be able to track changes in a material of a <i>component</i> created in FreeCAD, for <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Data_Management">PDM</a> applications,</li>
+<li> BIM application (architecture and construction industry)</li></ul>
+<p>To manage material properties, it is proposed to create a specific data model that will be instanced when a new material is created whithin FreeCAD.
+</p><p>It will be possible to create a material either by defining by hand its properties through a material workbench, or by reading material properties from a file. The formats of such files is to be defined (some already exist, like MatML, STEP AP235 &amp; IGR45...).
+</p><p>Also, it will be possible to save the material properties in a collection of files in a format still to be chosen as well. The collection of files that can be stored in a common directory will form the FreeCAD material database.
+</p><p>Through this data model, material can be defined in FreeCAD without the need to define a <i>component</i>.
+</p><p>A new pointer will be created in the <i>component</i> data model, to link to a material that has been defined through the material data model.
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<p>Through this material data model, it is proposed to offer a tool to manage easily material data within FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<p>Different kinds of data need to be managed to describe a material.
+A material data model is proposed below.
+Some examples of the data that can be stored within this structure are given as well.
+</p>
+<h3><span class="mw-headline" id="Material_data_model">Material data model</span></h3>
+<p>In addition to classical "string" attributes like a name, and a family, 3 different specific kinds of information need to be managed to describe a material in FreeCAD.
+</p>
+<ul><li> properties: generic structure to store data describing the engineering properties of the material</li>
+<li> chemical composition: chemical composition of the material</li>
+<li> appearance: information describing how the material will look like in FreeCAD (color, shininess...)</li></ul>
+<p>All of these kind of information do not need necessarily to be defined for the material to exist. Finally, below is the list of attributes retained to describe a material in FreeCAD.
+</p>
+<h4><span class="mw-headline" id="Name">Name</span></h4>
+<p>A string indicating the name of the material. It is its designation.
+</p>
+<h4><span class="mw-headline" id="Family">Family</span></h4>
+<p>A string indicating the family of the material, such as for instance:
+</p>
+<ul><li> metal</li>
+<li> plastic</li>
+<li> ...</li></ul>
+<p>Additionnally, it is proposed to create a map between the families (for instance stored in a XML file) so as to be able to browse the FreeCAD material database. 
+</p><p>Such a map could for instance contain a tree presenting relationships between families, like:
+</p>
+<ul><li> metal -&gt; steel -&gt; flat carbon steel -&gt; advanced high strength steel</li>
+<li> metal -&gt; aluminium -&gt; casted aluminium</li></ul>
+<h4><span class="mw-headline" id="Manufacturer">Manufacturer</span></h4>
+<p>A string indicating the manufacturer of the material.
+</p>
+<h4><span class="mw-headline" id="URL">URL</span></h4>
+<p>A string indicating the web page presenting the material.
+</p>
+<h4><span class="mw-headline" id="Properties">Properties</span></h4>
+<h5><span class="mw-headline" id="Description">Description</span></h5>
+<p>The material data model includes a collection of properties.
+The size of such a collection is not fixed and may be extended with new user-defined properties.
+</p><p>A property contains the following attributes.
+</p>
+<ul><li> name: string</li>
+<li> symbol: string to write the symbol of the properties (?in Latex math format?)</li>
+<li> type: "scalar" or "array"</li>
+<li> value: scalar (if it is a scalar)</li>
+<li> values: array (if it is an array)</li>
+<li> parameterNames: array of strings (for "array" type property)</li>
+<li> parameterValues: array of scalars (for "array" type property)</li>
+<li> unit &amp; unitMagnitude (specific object described in <a href="Units.html" title="Units">Units</a>) (to be noted: examples include unitMagnitude, while I am not completely sure that this should be defined at property level. The unit system may be defined at material level)</li>
+<li> direction: a vector indicating in which direction is to be understood the property value. The vector is itself a FreeCAD object expressed in the global coordinate system or in a user-defined coordinate system</li>
+<li> notes: string that can be used to describe a bit more the property like what is its meaning, how has it been measured... It can also help to understand the name of the properties</li></ul>
+<p>Material properties will be identified thanks to their name in order to process them, i.e. for instance writing the Yield strength in a finite element model. In order to ease material data creation within FreeCAD, a standardized list of property names along with their standard units will be proposed to the user. Nonetheless, the user is free to create new properties, with new names, new units, and so on...
+</p><p>Below is proposed the dictionary of standard properties. Feel free to add new ones.
+</p>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;MatPropDictionary LastUpdate="2011-10-24T09:00:00"&gt;
+   &lt;Property Name="Yield Stress" Symbol="YS" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Ultimate tensile strength" Symbol="UTS" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Mean Lankford coefficient" Symbol="r_{mean}" UnitSignature="0 0 0 0 0 0 0" /&gt;        
+   &lt;Property Name="Hardening coefficient" Symbol="n" UnitSignature="0 0 0 0 0 0 0" /&gt;     
+   &lt;Property Name="Strain hardening" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Elastic modulus" Symbol="E" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Density" Symbol="\rho" UnitSignature="-3 1 0 0 0 0 0" /&gt;
+   &lt;Property Name="Poisson coefficient" Symbol="\nu" UnitSignature="0 0 0 0 0 0 0" /&gt;
+   &lt;Property Name="Uniform elongation" Symbol="UE" UnitSignature="0 0 0 0 0 0 0" /&gt;
+   &lt;Property Name="Total elongation" Symbol="TE" UnitSignature="0 0 0 0 0 0 0" /&gt;
+&lt;/MatPropDictionary&gt;
+</pre>
+<p>Notes: "Mean Lankford coefficient is representative of the anisotropy of a thin metal sheet." "The Hardening coefficient is representative of the hardening capacity of a metal. It appears in Hollomon formula that can relates cumulated plastic strain to stress."
+</p>
+<h5><span class="mw-headline" id="Example_1:_Cost_per_tonne">Example 1: Cost per tonne</span></h5>
+<p>A first example is given below to show how a <i>Cost per tonne</i> property can be stored.
+</p>
+<ul><li> name: Cost per tonne</li>
+<li> symbol: not applicable</li>
+<li> type: scalar</li>
+<li> value: 500</li>
+<li> values: not applicable (but could be: for instance different cost values per different countries)</li>
+<li> parameterNames: not applicable (but could be: for instance different cost values for different countries)</li>
+<li> parameterValues: not applicable (but could be: for instance different cost values for different countries)</li>
+<li> parameterUnits: not applicable</li>
+<li> unit &amp; unitMagnitude: [[ 0, -3, 0, 0, 0, 0, 0], 1]
+<ul><li> meaning m^(-3) (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: not applicable</li></ul>
+<h5><span class="mw-headline" id="Example_2:_Yield_strength">Example 2: Yield strength</span></h5>
+<p>A second example is given below to show how the <i>Yield strength</i> property can be stored.
+</p>
+<ul><li> name: Yield stress</li>
+<li> symbol: YS</li>
+<li> type: scalar</li>
+<li> value: 450</li>
+<li> values: not applicable</li>
+<li> parameterNames: not applicable</li>
+<li> parameterValues: not applicable</li>
+<li> parameterUnits: not applicable</li>
+<li> unit &amp; unitMagnitude: [[ -1, 1, -2, 0, 0, 0, 0], 1]
+<ul><li> meaning Pa (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: [ 1, 0, 0] in global coordinate system
+<ul><li> given a steel sheet, this means that the <i>Yield strength</i> given is expressed in <i>x</i> direction, that can be for instance the rolling direction</li></ul></li></ul>
+<h5><span class="mw-headline" id="Example_3:_Strain_hardening">Example 3: Strain hardening</span></h5>
+<p>A third example is given below to show how the <i>Strain hardening</i> property can be stored.
+This is a more complex example because <i>Strain hardening</i> is represented by a serie of curves.
+The curves represent the stress evolution with respect to plastic strain.
+3 curves have been obtained at different strain rates.
+All curves have been obtained at room temperature.
+</p>
+<ul><li> name: Strain hardening</li>
+<li> symbol: not applicable</li>
+<li> type: scalar</li>
+<li> value: not applicable</li>
+<li> values: [[0., 100, 150, 200], [ 0., 120, 180, 210], [ 0., 140, 190, 220]]</li>
+<li> parameterNames: [Plastic strain, Strain rate, Temperature]</li>
+<li> parameterValues:
+<ul><li> The 1st three arrays represents plastic strain evolutions</li>
+<li> The 2nd serie of three arrays represents the strain rate evolutions. A single value is given in each of the arrays, meaning that the strain rate doesn't change for each the corresponding stress evolutions.</li>
+<li> The last serie of a single array represents temperature evolutions. This time a single value is written in a single array, meaning that temperature doesn't change for a given array of stress, and this applies for all stress arrays.
+<ol><li>1st serie: [[[0. , 0.4, 0.8, 1], [ 0, 0.4, 0.8, 1], [ 0, 0.4, 0.8, 1]],</li>
+<li>2nd serie: [[0.]              , [100]            , [1000.]          ],</li>
+<li>3rd serie: [[18.]                                                   ],]</li></ol></li></ul></li>
+<li> parameterUnits  &amp; parameterUnitMagnitudes: [[[ 0, 0, 0, 0, 0, 0, 0], 1], [[ 0, 0, -1, 0, 0, 0, 0], 1], [[ 0, 0, 0, 0, 1, 0, 0], 1]]
+<ul><li> meaning none, s^(-1) and, K (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> unit &amp; unitMagnitude: [[ -1, 1, -2, 0, 0, 0, 0], 1]
+<ul><li> meaning Pa (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: not applicable</li></ul>
+<h4><span class="mw-headline" id="Chemical_composition">Chemical composition</span></h4>
+<p>[Yet to be filled up]
+</p>
+<h4><span class="mw-headline" id="Appearance">Appearance</span></h4>
+<p>[Yet to be filled up]
+</p>
+<h4><span class="mw-headline" id="Notes">Notes</span></h4>
+<p>A string where the user can add its own comments about the material.
+</p>
+<h3><span class="mw-headline" id="Material_data_model_applications:_some_examples">Material data model applications: some examples</span></h3>
+<h5><span class="mw-headline" id="Example_1:_Brick_masonry">Example 1: Brick masonry</span></h5>
+<h6><span class="mw-headline" id="Name_2">Name</span></h6>
+<p>Brick masonry
+</p>
+<h6><span class="mw-headline" id="Family_2">Family</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="Properties_2">Properties</span></h6>
+<ul><li><i>Weight</i>: 1kg/m³</li>
+<li><i>Cost per cubic meter</i>: 1€/m³</li>
+<li><i>Number of bricks por base unit</i>:&#160;?float?</li>
+<li><i>Volume of mortar por base unit</i>:&#160;?float?</li>
+<li><i>Mortar type</i>:&#160;?string?</li>
+<li><i>Brick type</i>:&#160;?string?</li>
+<li><i>Fire resistance class</i>:&#160;?string?</li>
+<li><i>Thermal conductivity</i>: 1 W/mK</li></ul>
+<h6><span class="mw-headline" id="Manufacturer_2">Manufacturer</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="URL_2">URL</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="Notes_2">Notes</span></h6>
+<p>Notes about maintainance, special cares to be taken, etc...
+</p><p>CSI/MasterFormat code (as there are several systems used in the industry which give to all material a special code, I propose to enter it in the notes, because it doesn't appear to me relevant create a specific properties that we won't be able to name exactly).
+</p>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Define a set of names for classical properties, that we can define in a dictionary (FreeCAD configuration file). These properties will most notably be re-used in other contexts like the FEM module.</li>
+<li> Fill up <i>Chemical composition</i> section.</li>
+<li> Fill up <i>Appearance</i> section.</li>
+<li> Define a set of default chemical components.</li>
+<li> Review by other people.</li>
+<li> Implement in C++ data model and ability to write/read in a file (ISO 10303-45 through SCL?).</li>
+<li> Implement XML dictionaries to store default properties, with their units, that can be used by the user.</li>
+<li> Implement python GUI to handle this data.</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Material_data_model&amp;oldid=124459">http://www.freecadweb.org/wiki/index.php?title=Material_data_model&amp;oldid=124459</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

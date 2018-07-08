@@ -1,0 +1,131 @@
+<html><head><title>Macro WireXYZ</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro WireXYZ</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="WireXYZ"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> WireXYZ</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Creates a wire with coordinate x y z.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-09-06
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#WireXYZ"><span class="tocnumber">1</span> <span class="toctext">WireXYZ</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Description">Description</span></h3>
+<p>This macro creates a wire (or points) with the coordinates extracted from a file. The coordinates X Y Z are separated by a space. 
+</p>
+<h3><span class="mw-headline" id="Use">Use</span></h3>
+<p>The file must have three coordinates X Y Z in ascii format without header
+</p><p><b>Ex:</b>
+</p><p><code>
+0 240.42686 0
+</p><p>20 243.83054 0
+</p><p>40 247.33677 0
+</p><p>60 250.94702 0
+</p><p>80 254.66283 0
+</p><p>100 258.48575 0
+</p><p>...
+</code>
+</p><p>Modify your path and name of file, save and load the macro and run.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>fichier = "C:\yourPath\cloud.asc"                          # path and name of file.txt</pre></div>
+<p>If you want a close wire modify this line (closed=False):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Draft.makeWire(wire,closed=False,face=False,support=None)   # create the wire open</pre></div>
+<p>and replace with (closed=True):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Draft.makeWire(wire,closed=True,face=False,support=None)   # create the wire closed</pre></div>
+<p>same for the face, False or True (face=True).
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Macro_WireXYZ.FCMacro
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# created a wire with coordinate x y z separated (in the file)
+#EX:
+#0 0 0
+#10 10 10
+#15 20 25
+#. . . .
+
+from __future__ import unicode_literals
+from FreeCAD import Base
+import Draft, Part
+
+fichier = "C:\yourPath\cloud.asc"                          # path and name of file.txt
+
+file = open(fichier, "r")                                  # open the file read
+wire = []
+X=Y=Z = 0.0
+
+for ligne in file:
+    coordinates = ligne.split()
+    X,Y,Z = coordinates                                     # separate the coordinates
+#    Draft.makePoint(float(X),float(Y),float(Z))            # create points (uncomment for use)
+    print X," ",Y," ",Z
+    wire.append(FreeCAD.Vector(float(X),float(Y),float(Z))) # append the coordinates
+
+file.close()
+Draft.makeWire(wire,closed=False,face=False,support=None)   # create the wire open
+#Draft.makeWire(wire,closed=True,face=False,support=None)   # create the wire closed (uncomment for use)</pre></div>
+<h3><span class="mw-headline" id="Links">Links</span></h3>
+<p>The discussion <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=7828">How do I transform a point cloud to a line?</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_WireXYZ&amp;oldid=240709">http://www.freecadweb.org/wiki/index.php?title=Macro_WireXYZ&amp;oldid=240709</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

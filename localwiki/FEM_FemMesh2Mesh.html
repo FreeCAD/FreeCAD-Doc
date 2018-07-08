@@ -1,0 +1,104 @@
+<html><head><title>FEM FemMesh2Mesh</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM FemMesh2Mesh</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="FEM_FemMesh2Mesh"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FemMesh2Mesh.png" class="image"><img alt="FEM FemMesh2Mesh.png" src="32px-FEM_FemMesh2Mesh.png" width="32" height="32" srcset="/wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/48px-FEM_FemMesh2Mesh.png 1.5x, /wiki/images/5/5f/FEM_FemMesh2Mesh.png 2x" /></a> FEM FemMesh2Mesh</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Mesh → FEM mesh to mesh
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Fem_Workbench.html" class="mw-redirect" title="Fem Workbench">FEM</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven"><a href="FEM_tutorial.html" title="FEM tutorial">FEM tutorial</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#FEM_FemMesh2Mesh"><span class="tocnumber">1</span> <span class="toctext">FEM FemMesh2Mesh</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripting"><span class="tocnumber">4</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Converting_2D_elements"><span class="tocnumber">5</span> <span class="toctext">Converting 2D elements</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This tool converts surfaces of 3D elements of a selected FEM mesh to mesh. Internally it picks FEM mesh element faces which are unique (not shared by two elements) and uses them to create faces of a mesh. Optionally it allows to create a deformed mesh caused by the action of the defined forces. This is done by adding the displacement of the FEM results to the mesh nodes.
+</p><p>Two dimensional elements from the FEM mesh are not taken into account. If you need to convert them, you can use a python script below.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select a FEM mesh object (optionally select additionally the FEM results)</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FemMesh2Mesh.png" class="image"><img alt="FEM FemMesh2Mesh.png" src="24px-FEM_FemMesh2Mesh.png" width="24" height="24" srcset="/wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/36px-FEM_FemMesh2Mesh.png 1.5x, /wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/48px-FEM_FemMesh2Mesh.png 2x" /></a>FEM mesh to mesh</span> button</li></ol>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>Example:
+</p>
+<ul><li> Load FreeCAD's 3D FEM example from the Start Workbench and run the following code</li></ul>
+<pre>femmesh_obj = App.ActiveDocument.getObject("Result_mesh").FemMesh
+result = App.ActiveDocument.getObject("CalculiX_static_results")
+import femmesh.femmesh2mesh
+out_mesh = femmesh.femmesh2mesh.femmesh_2_mesh(femmesh_obj, result)
+import Mesh
+Mesh.show(Mesh.Mesh(out_mesh)) </pre>
+<h2><span class="mw-headline" id="Converting_2D_elements">Converting 2D elements</span></h2>
+<p>Select a mesh and run the following python script
+</p>
+<pre>import Mesh
+
+def extend_by_triangle(i, j, k):
+    triangle = [input_mesh.getNodeById(element_nodes[i]),
+                input_mesh.getNodeById(element_nodes[j]),
+                input_mesh.getNodeById(element_nodes[k])]
+    return output_mesh.extend(triangle) 
+
+selection = FreeCADGui.Selection.getSelection()
+input_mesh = App.ActiveDocument.getObject(selection[0].Name).FemMesh
+output_mesh = []
+for element in input_mesh.Faces:
+    element_nodes = input_mesh.getElementNodes(element)
+    if len(element_nodes) in [3, 6]:  # tria3 or tria6 (ignoring mid-nodes)
+        extend_by_triangle(0, 1, 2)
+    elif len(element_nodes) in [4, 8]:  # quad4 or quad8 (ignoring mid-nodes)
+        extend_by_triangle(0, 1, 2)
+        extend_by_triangle(2, 3, 0)
+
+obj = Mesh.Mesh(output_mesh)
+Mesh.show(obj) </pre>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_FemMesh2Mesh&amp;oldid=257599">http://www.freecadweb.org/wiki/index.php?title=FEM_FemMesh2Mesh&amp;oldid=257599</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

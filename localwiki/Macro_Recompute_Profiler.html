@@ -1,0 +1,260 @@
+<html><head><title>Macro Recompute Profiler</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Recompute Profiler</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Recompute_Profiler"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Recompute Profiler</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Measures time it takes to recompute each feature in your project
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:DeepSOIC" title="User:DeepSOIC">DeepSOIC</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-04-03
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Recompute_Profiler"><span class="tocnumber">1</span> <span class="toctext">Macro Recompute Profiler</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Post-processing_results"><span class="tocnumber">4</span> <span class="toctext">Post-processing results</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Macro"><span class="tocnumber">5</span> <span class="toctext">Macro</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#FC_version"><span class="tocnumber">6</span> <span class="toctext">FC version</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro is to help you find, what features cause long delays in updates to the project. It performs a recompute, measuring the time it takes to recompute each feature.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<p>This macro requires FreeCAD no less than 0.17.10644
+</p><p>Save the macro to a file.
+</p><p>1. Open your project
+</p><p>2. Right-click an object in model tree, pick "Mark to recompute"
+</p><p>3. Run this macro.
+</p><p>A progress bar will appear. As each object is recomputed, a line is printed to Report View, containing the time and the label of the object. If any object fails to recompute, the macro will display an error message and terminate the process.
+</p>
+<h2><span class="mw-headline" id="Post-processing_results">Post-processing results</span></h2>
+<p>The output of the macro will be interleaved with general messages produced by recomputing features. It generally looks like this:
+</p>
+<pre>Recomputing... (time in seconds, label)
+Sketcher::setUpSketch()-T:0
+Sketcher::Solve()-DogLeg-T:0
+0.00999999046326Sketch - master section
+0.0199999809265Clone of Sketch - master section (2D)001
+Sketcher::setUpSketch()-T:0
+Sketcher::Solve()-DogLeg-T:0
+0.00999999046326Sketch013
+Sketcher::setUpSketch()-T:0
+Sketcher::Solve()-DogLeg-T:0
+0.00999999046326Sketch011
+0.0Clone of Sketch - master section (2D)
+Sketcher::setUpSketch()-T:0
+Sketcher::Solve()-DogLeg-T:0
+0.0Sketch008
+0.130000114441LinearArray
+Sketcher::setUpSketch()-T:0
+Sketcher::Solve()-DogLeg-T:0
+... </pre>
+<p>The result lines have an easy signature to separate them off: they start with a tab. So, if you copy-paste the whole chunk to a spreadsheet program, generic messages will end up in column 1, while the results are in columns 2 and 3. So, you can sort by column 2, to get a nice table like that:
+</p>
+<pre>0.59100008Slice
+0.352999926Populate LinearArray with Compound
+0.160000086CompoundFilter
+0.138999939Cut
+0.130000114LinearArray
+0.108999968Fusion
+0.069999933Moved CompoundFilter
+0.067000151Module - spokes
+0.029999971Sweep
+0.019999981Clone of Sketch - master section (2D)001
+0.010999918ArrayFilter003
+... </pre>
+<p>(For MS-Excel, pasting right after copying text from report view doesn't split it into columns, don't know why... pasting the text to Notepad and re-copying it from Notepad and pasting to excel helps.)
+</p>
+<h2><span class="mw-headline" id="Macro">Macro</span></h2>
+<p><b>RecomputeProfiler.FCMacro</b>
+</p>
+<pre>__Title__="Macro Recompute Profiler"
+__Author__ = "DeepSOIC"
+__Version__ = "0.1"
+__Date__    = "03.04.2017"
+
+__Comment__ = "Measures time it takes to recmpute features in a project"
+__Wiki__ = "https://www.freecadweb.org/wiki/index.php?title=Macro_Recompute_Profiler"
+__Help__ = "Right-click an object, and pick 'Mark to recompute', then run this macro. This will only profile recomputing the subgraph. To profile the whole project, right-click the project in tree view, and pick 'Mark to recompute', then run this macro. Results will be printed to report view."
+__Status__ = "experimental"
+__Requires__ = "freecad 0.17.10644"
+__Communication__ = "https://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3888" 
+
+import FreeCAD as App
+
+import FreeCADGui as Gui
+
+class ExecutionError(Exception):
+    pass
+
+class CancelError(Exception):
+    pass
+
+def execute(feature):
+    feature.recompute()
+    if 'Invalid' in feature.State:
+        raise ExecutionError("Feature '{label}' failed to recompute".format(label= feature.Label))
+
+def msgbox(title, text):
+    from PySide import QtGui
+    mb = QtGui.QMessageBox()
+    mb.setIcon(mb.Icon.Information)
+    mb.setText(text)
+    mb.setWindowTitle(title)
+    mb.exec_()
+
+def log(string):
+    App.Console.PrintWarning(string+"\n")
+
+def getAllDependent(feat_list):
+    '''getAllDependent(feat_list): gets all features that depend on features in feat_list, directly or indirectly.
+    Returns a set. Features from feat_list are not included, unless there are interdependencies between them.'''
+
+    list_traversing_now = feat_list
+    set_of_deps = set()
+    list_of_deps = []
+
+    while len(list_traversing_now) &gt; 0:
+        list_to_be_traversed_next = []
+        for feat in list_traversing_now:
+            for dep in feat.InList:
+                if not (dep in set_of_deps):
+                    set_of_deps.add(dep)
+                    list_of_deps.append(dep)
+                    list_to_be_traversed_next.append(dep)
+
+        list_traversing_now = list_to_be_traversed_next
+
+    return set_of_deps
+
+
+def run():
+    touched = [obj for obj in App.ActiveDocument.Objects if 'Touched' in obj.State]
+
+    if len(touched) == 0:
+        App.ActiveDocument.RecomputesFrozen = True
+        msgbox("Macro Recompute Profiler", "Project was switched to suspend recomputes. Please modify an object that triggers a recompute, and run this macro again. The macro will perform a step-by-step recompute, and measure the time it takes to recompute features.")
+        return
+
+    log("{n} features are touched".format(n= len(touched)))
+
+    log("Generating execution order...")
+
+    to_be_executed = set.union(getAllDependent(touched), set(touched))
+    log("Number of features to execute: {n}".format(n= len(to_be_executed)))
+
+    exec_list = []
+    for obj in App.ActiveDocument.TopologicalSortedObjects[::-1]:
+        if obj in to_be_executed:
+            exec_list.append(obj)
+    assert(len(exec_list) == len(to_be_executed))
+    n = len(exec_list)
+
+    log("Execution order:")
+    for obj in exec_list:
+        log("    "+obj.Label)
+
+
+    import PySide
+    progress = PySide.QtGui.QProgressDialog(u"Preparing to recompute....", u"Abort", 0, n+1)
+    progress.setModal(True)
+    progress.show()
+    
+    try:
+        log("Recomputing... (time in seconds, label)")
+        import time
+        for obj in exec_list:
+            progress.setValue(progress.value()+1)
+            progress.setLabelText("Recomputing {feature}...".format(feature= obj.Label))
+            if progress.wasCanceled():
+                raise CancelError()
+
+            time_start = time.time()
+            try:
+                execute(obj)
+            finally:
+                exec_time = time.time()-time_start
+                log("\t{time}\t{label}".format(time= exec_time, label= obj.Label))
+
+        progress.setValue(n+1)
+        msgbox("Macro Recompute Profiler", "Recompute completed. Results are in report view.")
+
+        for obj in exec_list:
+            obj.purgeTouched()
+
+    except Exception as err:
+        msgbox("Macro Recompute Profiler", "An error occured: {err}".format(err= str(err)))
+    finally:
+        progress.hide()
+        App.ActiveDocument.RecomputesFrozen = False
+
+run() </pre>
+<h2><span class="mw-headline" id="FC_version">FC version</span></h2>
+<p>This macro requires FreeCAD no less than 0.17.10644, which was the version where App.ActiveDocument.RecomputesFrozen became available. It might be functional with a bit older FreeCAD, but certainly won't work with v0.16.
+</p><p>This macro was created using this version of FreeCAD:
+</p>
+<pre>OS: Windows 10
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.17.10665 (Git)
+Build type: Release
+Branch: master
+Hash: 47847513a85ff6615774ef628230f79e37471daf
+Python version: 2.7.8
+Qt version: 4.8.7
+Coin version: 4.0.0a
+OCC version: 7.0.0 </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Recompute_Profiler&amp;oldid=244726">http://www.freecadweb.org/wiki/index.php?title=Macro_Recompute_Profiler&amp;oldid=244726</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,131 @@
+<html><head><title>Python 3</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Python 3</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>The port of FreeCAD to Python 3 support is currently underway and progress is being tracked in <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=10&amp;t=12534">this forum thread</a>. The master branch of FreeCAD is already usable with python3. Tests are passing, but there are still many little incompatibilities. TESTERS WANTED!
+</p><p>This document is a placeholder for various platforms' build instructions and a checklist to monitor progress.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Building_FreeCAD_w.2F_Python_3"><span class="tocnumber">1</span> <span class="toctext">Building FreeCAD w/ Python 3</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Ubuntu"><span class="tocnumber">1.1</span> <span class="toctext">Ubuntu</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Pivy"><span class="tocnumber">1.1.1</span> <span class="toctext">Pivy</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Pysidse"><span class="tocnumber">1.1.2</span> <span class="toctext">Pysidse</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Test_builds_on_anaconda_.28linux64.29"><span class="tocnumber">2</span> <span class="toctext">Test builds on anaconda (linux64)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Alternate_Install"><span class="tocnumber">2.1</span> <span class="toctext">Alternate Install</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Conda"><span class="tocnumber">2.1.1</span> <span class="toctext">Conda</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Links"><span class="tocnumber">3</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Building_FreeCAD_w.2F_Python_3">Building FreeCAD w/ Python 3</span></h2>
+<h3><span class="mw-headline" id="Ubuntu">Ubuntu</span></h3>
+<p>The first step in building FreeCAD for Python 3 is ensuring you can build normally. 
+<b>Tip</b>: It's also helpful to have a cmake GUI tool like <b>cmake-qt-gui</b> or <b>cmake-curses-gui</b>.
+</p><p>The following instructions are adapted from a post by looo in the Python 3 porting thread:
+Note: tested only with linux/ubuntu.
+</p><p>Download the current master of FreeCAD 
+</p>
+<pre> git clone <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a>
+</pre>
+<p>If python3 is your default python then there shouldn't be much to do. If not I think the easiest is to do:
+Set the python relevant cmake variables with cmake-gui which are:
+</p>
+<pre> - PYTHON_EXECUTABLE
+ - PYTHON_INCLUDE_DIR
+ - PYTHON_LIBRARY
+ - PYTHON_BASENAME (=PySideConfigPYTHON_SUFFIX.cmake) -&gt; for me on ubuntu this would be this: .cpython-35m-x86_64-linux-gnu
+ - PYTHON_SUFFIX (=ShibokenConfigPYTHON_SUFFIX.cmake) -&gt; eg.: .cpython-35m-x86_64-linux-gnu
+</pre>
+<h4><span class="mw-headline" id="Pivy">Pivy</span></h4>
+<p>python3 builds for freecad are available with this <a rel="nofollow" class="external text" href="https://launchpad.net/~sppedflyer/+archive/ubuntu/mytestppa1">ppa</a>
+</p>
+<pre> sudo add-apt-repository ppa:sppedflyer/mytestppa1
+ sudo apt-get update
+ sudo apt-get install python3-pivy
+</pre>
+<h4><span class="mw-headline" id="Pysidse">Pysidse</span></h4>
+<p>PySide for python3.5 isn't officially available, but I think ubuntu provides a build.
+</p>
+<pre> sudo apt-get install python3-pyside
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Test_builds_on_anaconda_.28linux64.29">Test builds on anaconda (linux64)</span></h2>
+<pre>wget -c <a rel="nofollow" class="external free" href="http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh">http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh</a>
+bash Miniconda-latest-Linux-x86_64.sh
+</pre>
+<p>and follow the instructions
+</p><p>once miniconda is installed we have to configure conda to have access to the freecad-builds:
+</p>
+<pre>conda config --add channels conda-forge
+conda config --add channels freecad
+</pre>
+<p>now we create a new enviroment and install freecad
+</p>
+<pre>conda create --name freecad_py3 python=3.6 freecad
+</pre>
+<p>this will download all the necessary packages. When done activate the enviroment and start FreeCAD
+</p>
+<pre>source activate freecad_py3
+FreeCAD
+</pre>
+<p>the first time you launch freecad, matplotlib loads some modules, and therefore FreeCAD will need some time to show up. 
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Alternate_Install">Alternate Install</span></h3>
+<h4><span class="mw-headline" id="Conda">Conda</span></h4>
+<pre> Install miniconda: <a rel="nofollow" class="external free" href="http://conda.pydata.org/miniconda.html">http://conda.pydata.org/miniconda.html</a> 
+</pre>
+<p>Install conda-build: 
+</p>
+<pre> conda install conda_build
+</pre>
+<p>Add channels: 
+</p>
+<pre> conda config --add channels freecad
+ conda config --add channels conda-forge
+</pre>
+<p>Clone the current Python 3 port of FreeCAD
+</p>
+<pre> git clone <a rel="nofollow" class="external free" href="https://github.com/looooo/FreeCAD/tree/py3-27">https://github.com/looooo/FreeCAD/tree/py3-27</a>
+</pre>
+<p>Clone the conda-recipes for FreeCAD
+</p>
+<pre> git clone <a rel="nofollow" class="external free" href="https://github.com/looooo/FreeCAD_Conda">https://github.com/looooo/FreeCAD_Conda</a>
+</pre>
+<p>- go to FreeCAD_Conda/.FreeCAD_debug
+</p><p>- set the variables on top of the script (the path to FreeCAD, and if you want to build with calling cmake)  
+</p>
+<pre> conda build . --python=3.6 --dirty
+</pre>
+<p>(the dirty flag isn't necessary if you build the first time. If it isn't set conda does a full build all the time. The python option is not necessary if you have installed python3.6 miniconda version. But then you have to set this flag to build with python2.7....)
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> Follow latest Pyside developments: </li></ul>
+<dl><dd><ul><li> Progress Notes: <a rel="nofollow" class="external free" href="https://wiki.qt.io/PySide2#Pyside_Development_Progress_Notes">https://wiki.qt.io/PySide2#Pyside_Development_Progress_Notes</a></li>
+<li> Git commits: <a rel="nofollow" class="external free" href="http://code.qt.io/cgit/pyside/pyside.git/log/">http://code.qt.io/cgit/pyside/pyside.git/log/</a></li></ul></dd></dl>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Python_3&amp;oldid=234795">http://www.freecadweb.org/wiki/index.php?title=Python_3&amp;oldid=234795</a>"</div>
+<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

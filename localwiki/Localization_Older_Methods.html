@@ -1,0 +1,145 @@
+<html><head><title>Localization Older Methods</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Localization Older Methods</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>This is a collection of old localization techniques used by FreeCAD in the past.  They show some of the internals of the processs, <b>but the techniques on the <a href="Localisation.html" title="Localisation">Localisation</a> page should be used from now on.</b>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Translating_with_Qt-Linguist_.28old_way.29"><span class="tocnumber">1</span> <span class="toctext">Translating with Qt-Linguist (old way)</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Preparing_your_own_modules.2Fapplications_for_translation"><span class="tocnumber">2</span> <span class="toctext">Preparing your own modules/applications for translation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Prerequisites"><span class="tocnumber">2.1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Project_Setup"><span class="tocnumber">2.2</span> <span class="toctext">Project Setup</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Setting_up_python_files_for_translation"><span class="tocnumber">2.3</span> <span class="toctext">Setting up python files for translation</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Translating_with_Qt-Linguist_.28old_way.29">Translating with Qt-Linguist (old way)</span></h3>
+<p>The following information doesn't need to be used anymore and will likely become obsolete.
+It is being kept here so that programmers may familiarize themselves with how it works.
+-
+</p>
+<ul><li> Open all of the language folders of FreeCAD shown below</li>
+<li> Verify that a .ts file with your language code doesn't exist ("fr" for french, "de" for german, etc...)</li>
+<li> If it exists, you can download that file, if you want to modify/review/better the translation (click the file, then download)</li>
+<li> If it doesn't exist, download the .ts file without language code (or any other .ts available, it will work too)</li>
+<li> Rename that file with your language code</li>
+<li> Open it with the Qt-Linguist program</li>
+<li> Start translating (Qt Linguist is very easy to use)</li>
+<li> Once it's completely done, save your file</li>
+<li> <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/main_page.php">send the files to us</a> so we can include them in the freecad source code so they benefit other users too.<br /></li></ul>
+<p><b> Available translation files </b><br />
+</p>
+<ul><li> The following links all direct to the sourceforge which is no longer used by FreeCAD. The code is hosted at <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a>.</li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Gui/Language/">FreeCAD main GUI</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Complete/Gui/Resources/translations/">Complete Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Drawing/Gui/Resources/translations/">Drawing Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Draft/Resources/translations/">Draft Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/ReverseEngineering/Gui/Resources/translations/">Reverse Engineering Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Fem/Gui/Resources/translations/">FEM Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Robot/Gui/Resources/translations/">Robot Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Image/Gui/Resources/translations/">Image Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Sketcher/Gui/Resources/translations/">Sketcher Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Mesh/Gui/Resources/translations/">Mesh Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Test/Gui/Resources/translations/">Test Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Points/Gui/Resources/translations/">Points Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Raytracing/Gui/Resources/translations/">Raytracing Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Part/Gui/Resources/translations/">Part Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/PartDesign/Gui/Resources/translations/">PartDesign Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Assembly/Gui/Resources/translations/">Assembly Workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/MeshPart/Gui/Resources/translations/">MeshPart Workbench</a></li>
+<li> There is a very good Forum post about the old way of translation, but it is in German. See <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/viewtopic.php?f=13&amp;t=19496&amp;start=60#p152655">http://forum.freecadweb.org/viewtopic.php?f=13&amp;t=19496&amp;start=60#p152655</a></li></ul>
+<h2><span class="mw-headline" id="Preparing_your_own_modules.2Fapplications_for_translation">Preparing your own modules/applications for translation</span></h2>
+<h3><span class="mw-headline" id="Prerequisites">Prerequisites</span></h3>
+<p>To localise your application module your need to helpers that come with <i>Qt</i>. You can download them from the <a rel="nofollow" class="external text" href="http://www.trolltech.com/products/qt/downloads">Trolltech-Website</a>, but they are also contained in the <a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a>:
+</p>
+<dl><dt>qmake</dt>
+<dd> Generates project files</dd>
+<dt>lupdate</dt>
+<dd> Extracts or updates the original texts in your project by scanning the source code</dd>
+<dt>Qt-Linguist</dt>
+<dd> The <i>Qt-Linguist</i> is very easy to use and helps you translating with nice features like a phrase book for common sentences.</dd></dl>
+<h3><span class="mw-headline" id="Project_Setup">Project Setup</span></h3>
+<p>To start the localisation of your project go to the GUI-Part of you module and type on the command line:
+</p>
+<pre>
+qmake -project
+</pre>
+<p>This scans your project directory for files containing text strings and creates a project file like the following example:
+</p>
+<pre>
+ ######################################################################
+ # Automatically generated by qmake (1.06c) Do 2. Nov 14:44:21 2006
+ ######################################################################
+ 
+ TEMPLATE = app
+ DEPENDPATH += .\Icons
+ INCLUDEPATH += .
+ 
+ # Input
+ HEADERS += ViewProvider.h Workbench.h
+ SOURCES += AppMyModGui.cpp \
+            Command.cpp \
+            ViewProvider.cpp \
+            Workbench.cpp
+ TRANSLATIONS += MyMod_de.ts
+</pre>
+<p>You can manually add files here. The section <tt>TRANSLATIONS</tt> contains a list of files with the translation for each language. In the above example <i>MyMod_de.ts</i> is the german translation.
+</p><p>Now you need to run <tt>lupdate</tt> to extract all string literals in your GUI. Running <tt>lupdate</tt> after changes in the source code is allways safe since it never deletes strings from your translations files. It only adds new strings.
+</p><p>Now you need to add the <tt>.ts</tt>-files to your VisualStudio project. Specifiy the following custom build method for them:
+</p>
+<pre>python ..\..\..\Tools\qembed.py "$(InputDir)\$(InputName).ts"
+                 "$(InputDir)\$(InputName).h" "$(InputName)" </pre>
+<p>Note: Enter this in one command line, the line break is only for layout purpose. 
+</p><p>By compiling the <tt>.ts</tt>-file of the above example, a header file <i>MyMod_de.h</i> is created. The best place to include this is in <i>App&lt;Modul&gt;Gui.cpp</i>. In our example this would be <i>AppMyModGui.cpp</i>. There you add the line
+</p>
+<pre>new Gui::LanguageProducer("Deutsch", &lt;Modul&gt;_de_h_data, &lt;Modul&gt;_de_h_len); </pre>
+<p>to publish your translation in the application.
+</p>
+<h3><span class="mw-headline" id="Setting_up_python_files_for_translation">Setting up python files for translation</span></h3>
+<p>To ease localization for the py files you can use the tool "pylupdate4" which accepts one or more py files. With the -ts option you can prepare/update one or more .ts files. For instance to prepare a .ts file for French simply enter into the command line:
+</p>
+<pre>
+pylupdate4 *.py -ts YourModule_fr.ts 
+</pre>
+<p>the pylupdate tool will scan your .py files for translate() or tr() functions and create a YourModule_fr.ts file. That file can the be translated with QLinguist and a YourModule_fr.qm file produced from QLinguist or with the command
+</p>
+<pre>
+lrelease YourModule_fr.ts
+</pre>
+<p>Beware that the pylupdate4 tool is not very good at recognizing translate() functions, they need to be formatted very specifically ( see the Draft module files for examples). Inside your file, you can then setup a translator like this (after loading your QApplication but BEFORE creating any qt widget):
+</p>
+<pre>
+translator = QtCore.QTranslator()
+translator.load("YourModule_"+languages[ln])
+QtGui.QApplication.installTranslator(translator)
+</pre>
+<p>Optionally, you can also create the file XML Draft.qrc with this content:
+</p>
+<pre>  
+&lt;RCC&gt;
+&lt;qresource prefix="/translations" &gt; 
+&lt;file&gt;Draft_fr.qm&lt;/file&gt; 
+&lt;/qresource&gt; 
+&lt;/RCC&gt; 
+</pre>
+<p>and running pyrcc4 Draft.qrc -o qrc_Draft.py creates a big Python containing all resources. BTW this approach also works to put icon files in one resource file
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Localization_Older_Methods&amp;oldid=247187">http://www.freecadweb.org/wiki/index.php?title=Localization_Older_Methods&amp;oldid=247187</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

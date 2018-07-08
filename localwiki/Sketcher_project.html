@@ -1,0 +1,122 @@
+<html><head><title>Sketcher project</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher project</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>This is the FreeCAD Sketcher development project. It follows the rules of the <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Getting_Things_Done#Methodology%7C">Getting things done</a> process. The projects are collected in the <a href="Development_roadmap.html" title="Development roadmap">Development roadmap</a>.
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Next_actions"><span class="tocnumber">5</span> <span class="toctext">Next actions</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>This is a software development project aimed to implement a Constraint Sketcher capabilities. Its about
+implementing some Gui elements and the binding to the constraint solver. 
+</p><p>The development steps are planed here and tracked in the Issue tracking system to get a well formed <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/">Change Log.</a>
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<p>In order to improve the solving performance of the sketcher, a graph-based partitioning of the constraints system can take place. The set of the constraints and the set of the unknown parameters can be represented in a <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Bipartite_graph">bipartite graph</a> with constraints corresponding to left nodes and unknowns to right nodes. <b>DONE</b>
+</p><p>A simple but often very useful preprocessing step is to recognize any disjoint subgroups so that they can be treated separately in the solver. <b>DONE</b>
+</p><p>Moreover one could reduce the number of the unknown parameters that are taken into account in the solution. At the beginning of a solution it should be checked which constraints are not already satisfied. By graph analysis one could find a minimum set of unknown parameters that should be taken into account in order to satisfy all unsatisfied constraints.
+</p><p>Going one step further, rigid sub-parts of a sketch could be detected and reduced to 3 degrees of freedom (x,y,rotation).
+</p>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<p>For 0.14:
+</p>
+<ol><li> Mouse Dragging for multiple selection</li>
+<li> List of Geometries in the task panel (similar to the list of Constraints)</li>
+<li> Add a popup menu option to convert a coincident points constraint to tangency constraints </li>
+<li> Polygon tool (convenience)</li>
+<li> Update wiki documentation on Symmetry constraint and Polyline tool (m-key)</li></ol>
+<p><br />
+Idea Brainstorm:
+</p><p>User Interface&#160;:
+</p>
+<ol><li> Full Screen Grid (Units aware)</li>
+<li> Smarter Auto-constraints:
+<ol><li> Algorithm only considers geometry that is on the screen to increase performance and improve selection</li>
+<li> Prevent constraint conflicts</li></ol></li>
+<li> Hint Lines: horizontal, vertical, perpendicular, tangent constraints?</li>
+<li> Overhaul of constraint icons by merging into one SoNode
+<ol><li> Merge into one SoNode to improve performance</li>
+<li> Remove need for ray pick to increase performance</li>
+<li> Share texture memory more efficiently. </li>
+<li> Improve algorithm for preventing overlap</li>
+<li> Tool Bar for toggling constraint visuals independently </li></ol></li>
+<li> Datum Label Improvements:
+<ol><li> Radius label can be positioned at any angle</li>
+<li> Remove need for storing in SoImage which isn't needed any more</li></ol></li>
+<li> Fix Grid Edge</li>
+<li> Auto constraints whilst dragging (Point on Point, Point on Line Coincident)?</li>
+<li> Highlight entities or zoom to over constrained area of sketch</li>
+<li> Related to part design (transparent support objects)</li>
+<li> Implement Sketch Plane Feature with introduction of Assembly module</li>
+<li> Improve Point Selection by implementing new custom node.</li>
+<li> Construction lines use dashes instead of solid lines.</li></ol>
+<p><br />
+For 0.13:
+</p>
+<ol><li> support for arc/arc and arc/circle in the tangent constraint - <b>DONE</b> [logari81]</li>
+<li> support for arcs in the perpendicular constraint - <b>DONE</b> [logari81]</li>
+<li> zoom-independent arrows (symmetry constraint) / dimension lines - <b>DONE</b> [mrlukeparry]</li>
+<li> external geometry / constraints -  <b>DONE</b> [logari81]</li>
+<li> box selection -  <b>DONE</b> [mrlukeparry]</li>
+<li> mouse dragging of multiple selection - <b>SKIPPED for 0.14</b></li>
+<li> better constrainess diagnostics <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/view.php?id=691">(Issue #691)</a>- <b>DONE</b> [logari81]</li>
+<li> list of Geometries in the task panel (similar to the list of Constraints) - <b>SKIPPED for 0.14</b></li>
+<li> support for points as construction geometry - <b>DONE</b> [logari81]</li>
+<li> add a popup menu option to convert a coincident points constraint to tangency constraints - <b>SKIPPED for 0.14</b></li>
+<li> make symmetry constraint to work with symmetry points instead of symmetry lines (useful e.g. for midpoint definition) - <b>DONE</b> [logari81]</li></ol>
+<p><br />
+For 0.12:
+</p>
+<ol><li> constraint parameters (datums) editable in the 3D view <b>DONE</b> [jriegel]</li>
+<li> synchronization between listwidgetview selection - 3D view selection - <b>DONE</b> [wmayer]</li>
+<li> avoid overlapping of constraints symbols <b>DONE</b> - [mrlukeparry]
+<ol><li> make constraints symbols smaller, selectable and avoid overlapping when zooming out <b>DONE</b> - [mrlukeparry]</li>
+<li> create constraint icons for 3D Inventor view <b>DONE</b> - [mrlukeparry]</li>
+<li> make datum text size dependant on zoom <b>DONE</b> - [mrlukeparry]</li>
+<li> make datum text easier to select <b>DONE</b> - [mrlukeparry]</li>
+<li> Prevent text overlap on Datum Labels <b>DONE</b> - [mrlukeparry]</li></ol></li>
+<li> testing the new solver in stand alone mode</li>
+<li> external constraints (having constraints with references outside the sketch, some edge of the 3D model e.g.) <b>0.13</b> [jriegel]</li>
+<li> auto-constraining <b>DONE</b> [jriegel]
+<ol><li> auto-constraint for perpendicular <b>DONE</b> - [mrlukeparry]</li></ol></li>
+<li> visualize tangency constraints <b>DONE</b> - [mrlukeparry]</li>
+<li> visualize point to line distance constraints and point to point distance constraints <b>DONE</b> - [logari81]</li>
+<li> add indexes to the constraints symbols in 3D view in order to distinguish between constraints of the same kind <b>DONE</b> - [mrlukeparry]</li>
+<li> radius constraint (including visualization) <b>DONE</b> - [logari81]</li>
+<li> angle constraint (including visualization) <b>DONE</b> - [logari81]</li>
+<li> implement a fillet tool in the sketcher <b>DONE</b> [mrlukeparry]
+<ol><li> provide a method of setting fillet radius <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/view.php?id=437">(Issue #437)</a></li></ol></li>
+<li> implement a trim/extend tool in the sketcher <b>DONE</b> [logari81]
+<ol><li> implement an extend tool <b>SKIPPED</b> [logari81]</li>
+<li> trim support on arcs <b>DONE</b> [mrlukeparry]</li></ol></li>
+<li> equal lengths constraint (including visualization) <b>DONE</b> - [logari81]</li>
+<li> constrainess diagnostics - degree of freedom counting <b>DONE</b> - [logari81] </li>
+<li> symmetry constraint (including visualization) <b>DONE</b> -  [logari81]</li>
+<li> implement point on object constraint <b>DONE</b> - [mrlukeparry]</li>
+<li> Make Snap-Grid less 'greedy' <b>DONE</b> [mrlukeparry]</li>
+<li> Wiki page for the Sketcher Workbench <b>DONE</b> [normandc]</li></ol>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_project&amp;oldid=121579">http://www.freecadweb.org/wiki/index.php?title=Sketcher_project&amp;oldid=121579</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

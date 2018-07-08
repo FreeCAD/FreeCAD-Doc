@@ -1,0 +1,79 @@
+<html><head><title>Raytracing project</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Raytracing project</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>This is the FreeCAD Raytracing development project. It follows the rules of the <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/GTD#GTD_methodology%7C">Getting things done</a> process. The projects are collected in the <a href="Development_roadmap.html" title="Development roadmap">Development roadmap</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organising"><span class="tocnumber">4</span> <span class="toctext">Organising</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Next_actions"><span class="tocnumber">5</span> <span class="toctext">Next actions</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>This project is to update the current render module <a href="Raytracing_Module.html" title="Raytracing Module">Raytracing</a> that currently uses povray, a biased renderer which gives satisfactory results and allow more modern renderers such as Lux Render, Yafaray, Indigo renderers to be used.
+</p><p>Also to provide a generic interface to allow multiple render back-ends to be used to visualise Features within FreeCad. Providing a more generic programming interface will allow render plugins to be created more easily. 
+</p><p>The interface will allow both open source and proprietary external renderers to be used by generating a compatible scene file and launching a separate process in the background. The output can then be previewed inside Freecad directly by opening the temporary output file (if available).
+</p><p>Each renderer will be a plugin into a generic interface and provide compatible materials and rendering modes.
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<p>Nice Visuals!!! Produce high quality outputs of parts within the Freecad document and provide a very simple interface with presets to allow quick initialisation for rendering and previews.
+</p><p>The user interface should allow more complex situations to be created and possibly previewed such as changing and modifying lights and positions. However, the aim is to not provide a full featured render suite.
+</p>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<p>A library of material 'must' be created for each render plugin along with presets. Material properties can be changed. 
+Scene presets should allow users with inexperience with Rendering to produce nice visuals in little time.
+</p>
+<h2><span class="mw-headline" id="Organising">Organising</span></h2>
+<p>The generic inteface is currently being created and to test the integration <a rel="nofollow" class="external text" href="http://www.luxrender.net/en_GB/index">Lux render</a>, an unbiased renderer will be first implemented. 
+Current work is being completed by mrlukeparry on his render branch <a rel="nofollow" class="external text" href="https://github.com/mrlukeparry/FreeCAD_sf_master/tree/raytracing">Github Render Branch</a>. 
+</p><p><b>Currently it is possible to render objects to Lux Render:</b>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LuxRenderOutput.png" class="image"><img alt="LuxRenderOutput.png" src="LuxRenderOutput.png" width="800" height="600" /></a>
+</p><p>Featured is a part that was creating using PartDesign/Sketcher then rendered using the new render workbench being developed in Lux Render. Lux Render allows nice effects such as DOF to be created to improve realism.
+</p>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Create the Abstraction to provide the interface between renderers <b>(Done)</b></li>
+<li>Implement an interface for describing generic materials and collecting these <b>(Done)</b></li>
+<li>Implement an interface for describing render presets <b>(Done)</b></li>
+<li>Implement an interface for describing templates <b>(Done)</b></li>
+<li>Implement a feature to store all this information permanently <b>(WIP)</b></li>
+<li>Create a workbench environment for displaying the output <b>(Done)</b></li>
+<li>Create workbench tools for changing render properties <b>(Done)</b></li>
+<li>Create workbench tools for browsing, changing and applying materials to part features <b>(Done)</b></li>
+<li>Create automake scripts (WIP)</li>
+<li> Remove any GUI dependencies from Raytracing/App <b>(Done)</b>
+<ul><li> Bounding Box data structure should not use coin3d SbBox3f <b>(Done)</b></li>
+<li> QWidget Included in QProcess for some reason <b>(Fixed)</b></li></ul></li>
+<li> Test compatibility with Windows (in progress)
+<ul><li> Update Libpack to include QT 4.7 - QT 4.8</li>
+<li> Remove compiler warnings and errors</li></ul></li>
+<li> Implement saving of Material Properties <b>(Done)</b></li>
+<li> Tidying the QML interface <b>(WIP)</b></li>
+<li> Creating Render Templates / Render Materials / Render Presets</li>
+<li> Create a blender scene to lux template converter</li>
+<li> Convert LuxBlender Materials .lbm (<a rel="nofollow" class="external free" href="http://www.luxrender.net/lrmdb/en/material/">http://www.luxrender.net/lrmdb/en/material/</a>) to useful Render Materials</li>
+<li> Create python bindings for Render Materials, Cameras, Lights</li>
+<li> Create a RenderCamera Document object</li>
+<li> Allow scene template to be imported into the render feature. </li>
+<li> User defined preset/material/template directories</li>
+<li> Improve the View Provider</li>
+<li> Convert Povray/Yafaray to use the new Render Module Infrastructure</li>
+<li> Testing</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_project&amp;oldid=123427">http://www.freecadweb.org/wiki/index.php?title=Raytracing_project&amp;oldid=123427</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

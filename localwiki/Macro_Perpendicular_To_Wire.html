@@ -1,0 +1,163 @@
+<html><head><title>Macro Perpendicular To Wire</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Perpendicular To Wire</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Perpendicular_To_Wire"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire.png" class="image"><img alt="Macro Perpendicular To Wire.png" src="32px-Macro_Perpendicular_To_Wire.png" width="32" height="36" srcset="/wiki/images/thumb/0/0c/Macro_Perpendicular_To_Wire.png/48px-Macro_Perpendicular_To_Wire.png 1.5x, Macro_Perpendicular_To_Wire.png 2x" /></a> Macro Perpendicular To Wire</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">This macro positioned your object perpendicularly to wire selected.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.01
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-01-29
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Perpendicular_To_Wire"><span class="tocnumber">1</span> <span class="toctext">Macro Perpendicular To Wire</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Options"><span class="tocnumber">5</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Example"><span class="tocnumber">6</span> <span class="toctext">Example</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro positioned your object perpendicularly to wire selected.
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<ol><li>&#160;: select the path (May be an element or sub-element)</li>
+<li>&#160;: select the object to align</li>
+<li>&#160;: run the macro</li></ol>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>The icon toolBar <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire.png" class="image"><img alt="Macro Perpendicular To Wire.png" src="Macro_Perpendicular_To_Wire.png" width="62" height="69" /></a>
+</p><p><b>Macro Perpendicular To Wire.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+__title__   = "Macro Perpendicular To Wire"
+__author__  = "Mario52"
+__url__     = "https://www.freecadweb.org/wiki/index.php?title=Macro_Perpendicular_To_Wire"
+__version__ = "00.01"
+__date__ = "29/01/2017"
+
+import Draft, Part
+
+try:
+    sel = FreeCADGui.Selection.getSelection()                               # Select an object
+    
+    lineSelected = FreeCADGui.Selection.getSelectionEx()[0].SubObjects[0]   # first object the Path object or SubObjects
+    myCircle     = sel[1]                                                   # second object
+    
+    pointsDirection  = []
+    
+    pointsDirection = lineSelected.discretize(Number=500)                   # discretize the path line first selection
+    
+    v=pointsDirection[0].sub(pointsDirection[1])                            # avec vecteurs 1 et 2 (direction debut ligne)
+    r=App.Rotation(App.Vector(0,0,1),v)
+    
+    pl=FreeCAD.Placement()                                                  # placement object
+    pl.Rotation.Q = r.Q
+    pl.Base = pointsDirection[0]
+    myCircle.Placement = pl
+    
+    del pointsDirection[:]
+    FreeCAD.ActiveDocument.recompute()
+except Exception:
+    print "Select twoo objects 1:The path 2:The objet to align" </pre>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<p>Principle&#160;: 
+</p><p>the line is cut in x points with "discretize()" (here Number=500 cuts begin 0 to 499 you can modify)
+</p>
+<pre>pointsDirection = lineSelected.Shape.discretize(Number=500)             # discretize the path line first selection </pre>
+<p>the perpendicularity is calculate between 2 points modify&#160;:
+</p><p>1:
+</p>
+<pre>v=pointsDirection[0].sub(pointsDirection[1])          # perpendicular of first &gt; second point </pre>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire_01.png" class="image"><img alt="Macro Perpendicular To Wire 01.png" src="Macro_Perpendicular_To_Wire_01.png" width="420" height="265" /></a>
+</p>
+<div style="clear:both"></div>
+<p>2:
+</p>
+<pre>v=pointsDirection[-1].sub(pointsDirection[-2])       # perpendicular of last &gt; before last point
+pl.Base = pointsDirection[-1]                        # position base last point </pre>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire_02.png" class="image"><img alt="Macro Perpendicular To Wire 02.png" src="Macro_Perpendicular_To_Wire_02.png" width="420" height="265" /></a>
+</p>
+<div style="clear:both"></div>
+<p>3:
+</p>
+<pre>v=pointsDirection[100].sub(pointsDirection[101])   # perpendicular of point 100 &gt; point 101
+pl.Base = pointsDirection[100]                     # position base point 100 </pre>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire_03.png" class="image"><img alt="Macro Perpendicular To Wire 03.png" src="Macro_Perpendicular_To_Wire_03.png" width="420" height="265" /></a>
+</p>
+<div style="clear:both"></div>
+<p>4:
+</p>
+<pre>v=pointsDirection[0].sub(pointsDirection[-1])         # perpendicular of first point &gt; last point
+pl.Base = pointsDirection[0]                          # position base first point </pre>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire_04.png" class="image"><img alt="Macro Perpendicular To Wire 04.png" src="Macro_Perpendicular_To_Wire_04.png" width="420" height="265" /></a>
+</p>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Example">Example</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Perpendicular_To_Wire.gif" class="image"><img alt="Macro Perpendicular To Wire.gif" src="Macro_Perpendicular_To_Wire.gif" width="744" height="697" /></a>
+</p><p>for discretize other parameters
+</p>
+<pre>#http://forum.freecadweb.org/viewtopic.php?f=12&amp;t=16336#p129468
+#Discretizes the edge and returns a list of points.
+#The function accepts keywords as argument:
+#discretize(Number=n) =&gt; gives a list of 'n' equidistant points
+#discretize(QuasiNumber=n) =&gt; gives a list of 'n' quasi equidistant points (is faster than the method above)
+#discretize(Distance=d) =&gt; gives a list of equidistant points with distance 'd'
+#discretize(Deflection=d) =&gt; gives a list of points with a maximum deflection 'd' to the edge
+#discretize(QuasiDeflection=d) =&gt; gives a list of points with a maximum deflection 'd' to the edge (faster)
+#discretize(Angular=a,Curvature=c,[Minimum=m]) =&gt; gives a list of points with an angular deflection of 'a'
+#and a curvature deflection of 'c'. Optionally a minimum number of points
+#can be set which by default is set to 2. </pre>
+<p>The discussion on the forum [<a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=13&amp;t=19899&amp;start=20">Spiralbohrer</a>]
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Perpendicular_To_Wire&amp;oldid=259929">http://www.freecadweb.org/wiki/index.php?title=Macro_Perpendicular_To_Wire&amp;oldid=259929</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

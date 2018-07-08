@@ -1,0 +1,117 @@
+<html><head><title>Developing FreeCAD with GitKraken</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Developing FreeCAD with GitKraken</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="note"><b>Please Read</b>
+<p>This guide is not written to teach users how to use git in it's totality, far from it. git is super handy tool with <b>a lot</b> of functionality that goes way beyond the scope of this intro. This is just a cursory introduction highlighting on how to work with git in a GUI environment. It also serves as a means to enourage FreeCAD users to contribute to FreeCAD. This tutorial uses GitKraken, proprietary software that is free to use for non-commercial use.
+</p>
+</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Setup_git_Development"><span class="tocnumber">1</span> <span class="toctext">Setup git Development</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Deciphering_the_GitKraken_Interface"><span class="tocnumber">2</span> <span class="toctext">Deciphering the GitKraken Interface</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Rebasing"><span class="tocnumber">3</span> <span class="toctext">Rebasing</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Branches"><span class="tocnumber">4</span> <span class="toctext">Branches</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Resolving_Merge_Conflicts"><span class="tocnumber">5</span> <span class="toctext">Resolving Merge Conflicts</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Squashing_Commits"><span class="tocnumber">6</span> <span class="toctext">Squashing Commits</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Follow_Other_FreeCADers_Branches"><span class="tocnumber">7</span> <span class="toctext">Follow Other FreeCADers Branches</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Setup_git_Development">Setup git Development</span></h2>
+<ol> 
+  <li> Download GitKraken (There are different ways to download GitKraken depending on your OS. I use an Arch Linux based distro called Manjaro and added it through my package manager)</li> 
+  <li> In your web browser go to: <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD">https://github.com/FreeCAD/FreeCAD</a></li>
+  <li> Click the Fork button. This will clone the FreeCAD/FreeCAD repo to your own account. In other words the URL to access your fork of FreeCAD is: 
+   <pre>https://github.com/GITUBUSERNAME/FreeCAD.git</pre></li>
+  <li> Open GitKraken and go to <b>File &gt; Clone Repo</b></li>
+<pre> <a href="https://www.freecadweb.org/wiki/index.php?title=File:GitKraken-Clone-Repo-dialogue.png" class="image"><img alt="GitKraken-Clone-Repo-dialogue.png" src="GitKraken-Clone-Repo-dialogue.png" width="997" height="287" /></a>
+</pre>
+  <li> GitKraken will now git clone your repository 
+   <ul>
+     <li> Now an important point: Please read the different between <a rel="nofollow" class="external text" href="https://stackoverflow.com/questions/9257533/what-is-the-difference-between-origin-and-upstream-on-github#9257901">origin vs. upstream</a> remote repos. Essentially your fork of FreeCAD is the <i>origin</i> repo. The official FreeCAD git repo FreeCAD/FreeCAD is your <b>upstream</b>. You now need to set the upstream repo as FreeCAD.</li></ul></li>
+ <li> Go to <b>File &gt; Open Terminal</b></li> 
+ <li> Enter the following to set up your <i>upstream</i> remote repo
+   <pre>git remote add upstream https://github.com/YOURGITUHUBUSERNAME/FreeCAD.git</pre></li>
+ <li> Now check what remote branches you have set by typing:
+   <pre>git remote -v</pre></li>
+ <li> You should see something like this in the terminal:
+  <pre>originhttps://github.com/foobar/FreeCAD (fetch)
+originhttps://github.com/foobar/FreeCAD (push)
+upstreamhttps://github.com/FreeCAD/FreeCAD.git (fetch)
+upstreamhttps://github.com/FreeCAD/FreeCAD.git (push)</pre></li>
+ <li> Switch back to GitKraken interface.</li>
+ <li> On the left side of the screen you will see a sidebar with a section labled <b>Local</b> double click on the <b>master</b> branch (this will make sure you're on the master branch AKA <pre>git checkout master</pre> </li>
+ <li> Click on the <b><a rel="nofollow" class="external text" href="https://support.gitkraken.com/repositories/remote#Push">Push</a>]</b> icon on the top right side of the interface. This will push your <b>Local master</b> to your <b>Remote origin master</b></li>
+</ol>
+<hr />
+<h2><span class="mw-headline" id="Deciphering_the_GitKraken_Interface">Deciphering the GitKraken Interface</span></h2>
+<p><small>For more in-depth understanding of the GitKraken interface checkout the <a rel="nofollow" class="external text" href="https://support.gitkraken.com/getting-started/guide">Getting Started Guide</a>.</small>
+</p>
+<ul><li>Orientation: 
+<ul><li> Local = local machine 
+<ul><li> Local master = your local copy FreeCAD &lt;= symbolized as <b>Blue</b> in Screenshot)</li></ul></li>
+<li> Remote = Remote GitHub repos
+<ul><li> Remote Upstream = Official FreeCAD repo (AKA FreeCAD/FreeCAD) &lt;= Symbolized as <b>Green</b> in Screenshot </li>
+<li> Remote Origin = Fork of FreeCAD/FreeCAD (should look something like: github.com/YourGitHubUsername/FreeCAD) &lt;= Symbolized as <b>Red</b> in Screenshot </li></ul></li></ul></li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:GitKraken-Main-Screen-sm.jpg" class="image"><img alt="GitKraken-Main-Screen-sm.jpg" src="GitKraken-Main-Screen-sm.jpg" width="879" height="616" /></a>
+</p>
+<div class="note"><b>Notice</b>
+<p>That both <b>remote origin master</b> and <b>local master</b> are a few commits behind upstream in the above screenshot. You can remedy this by <a href="/wiki/Sandbox:Developing_FreeCAD_with_GitKraken#Rebasing" class="mw-redirect" title="Sandbox:Developing FreeCAD with GitKraken">Rebasing</a>
+</p>
+</div>
+<hr />
+<h2><span class="mw-headline" id="Rebasing">Rebasing</span></h2>
+<ul><li> Checkout the Local Master branch by double clicking on it (this is the equivalent of typing <b>git branch master</b> in the terminal)</li>
+<li> Move the mouse to the where latest Upstream commit is, right click mouse and choose <b>Rebase master on upstream/master</b> (this will pull down the Upstream changes in to your Local master)</li>
+<li> Move the mouse and press the <b>Push</b> button. GitKraken (This pushes from your 'Local master' to 'Remote Origin master')</li></ul>
+<p><b>Now all your repos are in sync!</b>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:GitKraken-Rebasing.gif" class="image"><img alt="GitKraken-Rebasing.gif" src="GitKraken-Rebasing.gif" width="1280" height="692" /></a>
+</p>
+<hr />
+<h2><span class="mw-headline" id="Branches">Branches</span></h2>
+<h2><span class="mw-headline" id="Resolving_Merge_Conflicts">Resolving Merge Conflicts</span></h2>
+<div class="note"><b>Notice</b>
+<p>GitKraken has a special merge conflict tool that is only accessible in the GitKraken Pro version. But there are workarounds to use external git merge 3rd party tools
+</p>
+</div>
+<ul><li> <a rel="nofollow" class="external text" href="https://support.gitkraken.com/repositories/local#external-merge-tools">GitKraken compatible 3rd party external merge tools</a></li>
+<li> If none of the above options in GitKraken work for you, it's possible to specify  <a rel="nofollow" class="external text" href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_external_merge_tools">3rd party git merge tools</a> within your ~/.gitconfig</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Squashing_Commits">Squashing Commits</span></h2>
+<p>Squashing is when you have several commits you want to condense down in to one commit. From the <a rel="nofollow" class="external text" href="https://support.gitkraken.com/working-with-files/commits#squashing-commits">GitKraken manual</a>:
+Squashing is available for commits that meet the following requirements:
+</p>
+<pre>   Selection contains more than one commit
+   The youngest commit (by commit date) is also the current HEAD commit
+   Genealogically consecutive
+   Chronologically consecutive
+   The oldest commit in the list has a parent
+</pre>
+<p>If all these conditions are met, the Squash option appears when you right click the commit node.
+See screencast at: <a rel="nofollow" class="external free" href="https://support.gitkraken.com/img/documentation/working-with-files/commits/squash.gif">https://support.gitkraken.com/img/documentation/working-with-files/commits/squash.gif</a>
+</p>
+<h2><span class="mw-headline" id="Follow_Other_FreeCADers_Branches">Follow Other FreeCADers Branches</span></h2>
+<p><b>Remotes</b> are forked repositories of FreeCAD/FreeCAD by fellow FreeCADers. You can use Gitkraken to follow how FreeCAD devs code and commit to their own branches before they send git Pull Requests to the main FC repo. 
+Here is how you can follow other users:
+</p>
+<ol><li> In the left side panel there is a <b>Remotes</b> category. Press the <b>+</b></li>
+<li> A dialogue will come up that can give you the option to choose which remote you want to follow. Recommended remotes are: wmayer, yorikvanhavre, ickby, sliptonic, kkremitzki etc....</li>
+<li> Choose 'Add Remote'</li></ol>
+<p>Whenever new commits are made or branches are rebased by said user you will see it represented in the gui. 
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Gitkraken-add-remote.gif" class="image"><img alt="Gitkraken-add-remote.gif" src="Gitkraken-add-remote.gif" width="1280" height="692" /></a>
+</p>
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Developing_FreeCAD_with_GitKraken&amp;oldid=235424">http://www.freecadweb.org/wiki/index.php?title=Developing_FreeCAD_with_GitKraken&amp;oldid=235424</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

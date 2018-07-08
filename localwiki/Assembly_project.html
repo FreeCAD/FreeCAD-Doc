@@ -1,0 +1,175 @@
+<html><head><title>Assembly project</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Assembly project</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Here the project plan for the <b>Assembly</b> modul as part of the <a href="Development_roadmap.html" title="Development roadmap">Development roadmap</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Multi_model"><span class="tocnumber">3.1</span> <span class="toctext">Multi model</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Project_management"><span class="tocnumber">3.2</span> <span class="toctext">Project management</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Copyright"><span class="tocnumber">3.3</span> <span class="toctext">Copyright</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#ISO_10303"><span class="tocnumber">3.4</span> <span class="toctext">ISO 10303</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Assembly_constraints"><span class="tocnumber">3.5</span> <span class="toctext">Assembly constraints</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Kinematics"><span class="tocnumber">3.6</span> <span class="toctext">Kinematics</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Revision_control"><span class="tocnumber">3.7</span> <span class="toctext">Revision control</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Infrastructure"><span class="tocnumber">4.1</span> <span class="toctext">Infrastructure</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Multi_model_2"><span class="tocnumber">4.1.1</span> <span class="toctext">Multi model</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Part-Trees"><span class="tocnumber">4.1.2</span> <span class="toctext">Part-Trees</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Unified_Drag.2FDrop.2FCopy.2FPaste_interface"><span class="tocnumber">4.1.3</span> <span class="toctext">Unified Drag/Drop/Copy/Paste interface</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#External_resources"><span class="tocnumber">4.1.4</span> <span class="toctext">External resources</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="Material.html"><span class="tocnumber">4.2</span> <span class="toctext">Material</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Object_model"><span class="tocnumber">4.3</span> <span class="toctext">Object model</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#STEP_check_loop"><span class="tocnumber">5</span> <span class="toctext">STEP check loop</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="#Assembly_constraint_solver"><span class="tocnumber">5.1</span> <span class="toctext">Assembly constraint solver</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Physics_simulation_interface"><span class="tocnumber">5.2</span> <span class="toctext">Physics simulation interface</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="#Next_actions"><span class="tocnumber">6</span> <span class="toctext">Next actions</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="#Tutorial"><span class="tocnumber">7</span> <span class="toctext">Tutorial</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>This is a software development project aimed to implement a Assembly and product creation capabilities. Its about implementing some <b>core features</b> into the CAD modules of FreeCAD, <b>Part and Assembly</b>.
+</p><p>The development steps are planed here and tracked in the Issue tracking system to get a well formed change log: 
+<a rel="nofollow" class="external text" href="http://apps.sourceforge.net/mantisbt/free-cad/my_view_page.php">Issue tracker</a>
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<p>Aim of the project is to enable FreeCAD accomplish a design task like this one:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Gripper.jpg" class="image"><img alt="Gripper.jpg" src="400px-Gripper.jpg" width="400" height="355" srcset="/wiki/images/thumb/7/78/Gripper.jpg/600px-Gripper.jpg 1.5x, /wiki/images/thumb/7/78/Gripper.jpg/800px-Gripper.jpg 2x" /></a>
+</p><p>This will be achived by using the <b>Assembly</b> to put all the different kind of parts together with constraints and stay as close as possible to the ISO 10303 specification to allow easy model exchange. 
+</p><p>Another aim is to utilize <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Dynamics_Engine">ODE</a> for kinematics.
+</p>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<h3><span class="mw-headline" id="Multi_model">Multi model</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:MultiModel.png" class="image"><img alt="MultiModel.png" src="600px-MultiModel.png" width="600" height="341" srcset="/wiki/images/thumb/7/70/MultiModel.png/900px-MultiModel.png 1.5x, /wiki/images/thumb/7/70/MultiModel.png/1200px-MultiModel.png 2x" /></a></div>
+<p>A key feature to real world designs is the ability to split a design into handleable pieces. Its impossible to work on all aspects of a design at the same time or alone. That is true for the geometry and also for engineering tasks like FEM or CAM. There for FreeCAD need the ability to split models. That opens some possibilities: 
+</p>
+<ul><li> <b>Late loading</b> - Only need resources like Graphics and main memory for the piece you work on.</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Concurrent_engineering"><b>Concurrent engineering</b></a> - allows many people to work on the same design</li>
+<li> Fine grained <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Version_control"><b>Version control</b></a> -  better control over various aspects of the design</li>
+<li> and many more....</li></ul>
+<p>A multi model design could look like that:
+</p>
+<h3><span class="mw-headline" id="Project_management">Project management</span></h3>
+<p>Multi model means a lot of files belonging to one project, most likely under a common directory. A project file and a project browser can help organizing the files. Also it can save additional information about the project or a project website.
+</p><p>1. Two modes, the "Simple" and the "Project" mode. Simple mean only one document and all the assemblies and parts go in one document. If a Project is opened or created FreeCAD is in project mode.
+</p><p>2. Projects. The position of the FCPrj file on the drive defines a root directory. All Files below this dir are defined with relative paths to the root dir. A additional view on the left side will hold the ProjectExplorer which shows the dir tree with the handled files. This root dir is also used as root for a SVN sand box, which allows later ease sharing and Version control. External references (towards a dir outside root, a sever share or a web resource) will handled and showed separably in the ProjectExplorer (one pseudo dir for each file server or web server). This makes it possible to get a fast overview about external references and re-route them.
+</p>
+<h3><span class="mw-headline" id="Copyright">Copyright</span></h3>
+<p>Now copyright of 3D models is a interesting field. 3D models do fall under the copyright. The copyright falls to the <b>creator</b> of the model. Its only possible to protect the shape, which is represented by the model, by a patent or a design patent (US). But patents cover only the creation of a physical part to earn money. As an example the <a rel="nofollow" class="external text" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=D464,651.PN.&amp;OS=PN/D464,651&amp;RS=PN/D464,651">Microsoft Mouse design patent</a>.
+</p><p>So we have to remember the creator (copyright holder) and any kind of license for each model/product/file of a design. 
+For the license I would use the CC type licenses. <a rel="nofollow" class="external free" href="http://creativecommons.org/">http://creativecommons.org/</a>
+</p><p>Abbreviation Keys for CC licenses:
+</p>
+<ul><li> BY = Attribution only</li>
+<li> BY-ND = Attribution-NoDerivatives</li>
+<li> BY-NC-ND = Attribution-NonCommercial- NoDerivatives</li>
+<li> BY-NC = Attribution-NonCommercial</li>
+<li> BY-NC-SA = Attribution-NonCommercial- ShareAlike</li>
+<li> BY-SA = Attribution-ShareAlike</li>
+<li> PD = Dedicated to or marked as being in the public domain via one of our public domain tools, or other public domain work; adaptations of works in the public domain may be built upon and licensed by the creator under any license terms desired </li></ul>
+<p>Additional a URL link to the full license document (in case of custom licenses)
+</p>
+<h3><span class="mw-headline" id="ISO_10303">ISO 10303</span></h3>
+<p>The ISO 10303 (STEP) is very important in this field. Its the only good standardized and widely discussed and recognized definition of product structures I know of. 
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Product_structure_modeling_Process-Data_diagram.gif" class="image"><img alt="Product structure modeling Process-Data diagram.gif" src="500px-Product_structure_modeling_Process-Data_diagram.gif" width="500" height="556" srcset="/wiki/images/thumb/f/f7/Product_structure_modeling_Process-Data_diagram.gif/750px-Product_structure_modeling_Process-Data_diagram.gif 1.5x, /wiki/images/f/f7/Product_structure_modeling_Process-Data_diagram.gif 2x" /></a></div>
+<p>Here some links with info:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/ISO_10303">ISO 10303 on Wikipedia</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Main_Page">WikiStep.org</a> with a lot of basic info but mostly toward STEP-NC</li>
+<li> The <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Product_Basics">product structure</a> in STEP</li>
+<li> Some <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/STEP_Tutorial">examples</a> about STEP</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/ISO_10303-11">ISO 10303-11</a> about the modeling language (EXPRESS)</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Structure_Modeling">A Wikipedia article</a> about product modeling</li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part41">Overview of Part 41 -- Fundamentals of Product Description and Support</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part44">Overview of Part 44 (edition 2) -- Product Structure Configuration</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/ap214/index.html">Examples of small AP 214 files</a></li></ul>
+<h3><span class="mw-headline" id="Assembly_constraints">Assembly constraints</span></h3>
+<p>An important role in building up large models and products take the assembly constraints, which formulate certain rules how parts assemble a product. Mainly these are Fix, FaceToFace, Angle, Offset and some kind of pattern instantiation. This constraints need a specialized solver to keep them up if the parts change. This solver is fundamentally different to the Sketch solver. I think we have to go for a graph based approach on this...
+</p>
+<h3><span class="mw-headline" id="Kinematics">Kinematics</span></h3>
+<p>A further step would be to use <a rel="nofollow" class="external text" href="http://ode.org/">ODE</a>, or similar libs, to put the parts and the assembly constraints together to do a kinematic simulation of machines. That would allow checking for collisions and exploring the conditions of 
+a mechanical system.
+</p>
+<h3><span class="mw-headline" id="Revision_control">Revision control</span></h3>
+<p>An important point is the version control and distributed development. With multi model design we are able to split designs in smaller pieces and can distribute work among a team. For a software developer "distributed" and "Version" sounds familiar, so why not use a <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Distributed_Version_Control_System">DVCS</a>. A good comparison is <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comparison_of_revision_control_software#Technical_information">here</a>.
+</p><p>Since we deal with big data, and data which can not be easily diffed, we are limited to those which use the snapshot persistence model. Any system storing just diffs will have grave problems with our data (personally tested with Mercurial and Catia files). After sorting out commercial and non-free, basically only <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Git_%28software%29">Git</a> and <a rel="nofollow" class="external text" href="http://subversion.apache.org/">SVN</a> remains.
+</p><p>Using Git for the task leaves us with two big frontiers:
+</p>
+<ul><li> Git is very complicated; Branching merging and tagging along a non linear development path let alone merging with remote repositories (push, pull) </li></ul>
+<p>will put a lot of complexity in that matter. To hide it from the user will be a challenging task. 
+</p>
+<ul><li> Git allow Merge and Diff handlers for certain file types; We need one for .fcstd. This handler has to examine two FreeCAD </li></ul>
+<p>documents and show and merge differences in the objects, features and parameters. Also not easy.
+</p><p>But using git would open a lot of possibilities even high class PLM system would dream of...
+</p>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<p>Here some development task needed for a decent Assembly/Product design: 
+</p>
+<h3><span class="mw-headline" id="Infrastructure">Infrastructure</span></h3>
+<p>The assembly will demand some changes in the base system and infrastructure layer of FreeCAD.
+</p>
+<h4><span class="mw-headline" id="Multi_model_2">Multi model</span></h4>
+<p>Multi-Model was in mind from the beginning of FreeCADs design. There fore we have a multi document interface and can load unlimited documents. But we need to upgrade especially the 3D-Viewer to handle showing more the one document in its view (Part-Trees).
+</p>
+<h4><span class="mw-headline" id="Part-Trees">Part-Trees</span></h4>
+<p>Since in Assembly the composition of parts and sub-assemblies is the main workflow, the tools to stack (group) Parts in a tree have to be implemented. Unlike a DocumentObjectGroup the Assembly group has to deal with visibility and placement of the children. Best done by stacking ViewProvider on each other. That need a kind of ClaimChildren() interface to the ViewProviders. 
+</p>
+<h4><span class="mw-headline" id="Unified_Drag.2FDrop.2FCopy.2FPaste_interface">Unified Drag/Drop/Copy/Paste interface</span></h4>
+<p>A interface allow ViewProvider and Workbenches full control about Drag/Drop/Copy/Paste operations in the tree or the 3D view. 
+</p>
+<h4><span class="mw-headline" id="External_resources">External resources</span></h4>
+<p>Handling of doped links (from internal or external browsers). Means loading resources over (potential) slow connections (http).
+</p>
+<h3><span class="mw-headline" id="Material">Material</span></h3>
+<p>Describing material and its properties is a vital part of a CAD/CAE system. Material has a lot of properties and names heavily dependent on the field its use. E.g. FEM and mechanical engineering have different frameworks and standards to describe Material. 
+</p><p>For the Material description a special article is made: <a href="Material.html" title="Material">Material</a>
+</p>
+<h3><span class="mw-headline" id="Object_model">Object model</span></h3>
+<p>Class tree to deal with concepts needed. References, interfaces, document links, views, compounds, constraints, configurations, and many more...
+</p>
+<h2><span class="mw-headline" id="STEP_check_loop">STEP check loop</span></h2>
+<p>Implementing a first STEP importer for more then geometry and color to check if the object model holds for a wider usage. 
+</p>
+<h3><span class="mw-headline" id="Assembly_constraint_solver">Assembly constraint solver</span></h3>
+<p>Define a interface to a assembly constraint solver, very similar to the Sketcher solver interface.
+</p>
+<h3><span class="mw-headline" id="Physics_simulation_interface">Physics simulation interface</span></h3>
+<p>Interface to allow a (external) (multi)physics simulation software to take control over the positioning of the Parts of a assembly. This would allow to use "bullet" or "ODE" to do kinematic tests and DMU.
+</p>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Object model</li>
+<li> Wait for the 0.12 release branch happened </li></ul>
+<h2><span class="mw-headline" id="Tutorial">Tutorial</span></h2>
+<ul><li> <a href="Assembly_Basic_Tutorial.html" title="Assembly Basic Tutorial">Assembly Basic Tutorial</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Assembly_project&amp;oldid=122006">http://www.freecadweb.org/wiki/index.php?title=Assembly_project&amp;oldid=122006</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

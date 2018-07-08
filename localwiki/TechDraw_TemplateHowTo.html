@@ -1,0 +1,80 @@
+<html><head><title>TechDraw TemplateHowTo</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>TechDraw TemplateHowTo</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+</p>
+<h3><span class="mw-headline" id="How_to_Make_a_TechDraw_Template">How to Make a TechDraw Template</span></h3>
+<p>This HowTo assumes you are familiar with FreeCAD, Inkscape and Svg.
+</p><p>We're going to make a simple template for US Letter size paper in landscape orientation. A copy of the result of this HowTo is available in your FreeCAD Template directory (HowToExample.svg).
+</p>
+<ul><li>open a new document in Inkscape</li>
+<li>in Document Properties
+<ul><li>select a page size (US Letter) &amp; orientation (landscape)</li>
+<li>set default units and page size units to mm (279.4 x 215.9)</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkDocProp.png" class="image"><img alt="InkDocProp.png" src="800px-InkDocProp.png" width="800" height="450" srcset="/wiki/images/thumb/8/87/InkDocProp.png/1200px-InkDocProp.png 1.5x, /wiki/images/8/87/InkDocProp.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>use the XML Editor to add freecad namespace clause to the &lt;svg&gt; item
+<ul><li>xmlns:freecad="<a rel="nofollow" class="external free" href="Svg_Namespace.html">http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace</a> "</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLNameSpace.png" class="image"><img alt="InkXMLNameSpace.png" src="800px-InkXMLNameSpace.png" width="800" height="360" srcset="/wiki/images/thumb/6/6b/InkXMLNameSpace.png/1200px-InkXMLNameSpace.png 1.5x, /wiki/images/6/6b/InkXMLNameSpace.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>draw outlines, zone numbers, centerlines, etc</li>
+<li>draw the boxes and lines for the title block.</li>
+<li>add and position your static text</li>
+<li>add and position your editable text</li>
+<li>you now have your finished artwork - something like this:</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkFinishedArt.png" class="image"><img alt="InkFinishedArt.png" src="800px-InkFinishedArt.png" width="800" height="421" srcset="/wiki/images/thumb/b/b7/InkFinishedArt.png/1200px-InkFinishedArt.png 1.5x, /wiki/images/b/b7/InkFinishedArt.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>use the XML Editor to add "freecad:editable" tag to each editable &lt;text&gt; item
+<ul><li>assign a meaningful field name to each editable text</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLeditableTag.png" class="image"><img alt="InkXMLeditableTag.png" src="800px-InkXMLeditableTag.png" width="800" height="344" srcset="/wiki/images/thumb/b/b2/InkXMLeditableTag.png/1200px-InkXMLeditableTag.png 1.5x, /wiki/images/b/b2/InkXMLeditableTag.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>use XML editor to adjust viewbox to match your page size in mm</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLviewBox.png" class="image"><img alt="InkXMLviewBox.png" src="800px-InkXMLviewBox.png" width="800" height="360" srcset="/wiki/images/thumb/a/a9/InkXMLviewBox.png/1200px-InkXMLviewBox.png 1.5x, /wiki/images/a/a9/InkXMLviewBox.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>your template will now appear much too big.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkMuchTooBig.png" class="image"><img alt="InkMuchTooBig.png" src="800px-InkMuchTooBig.png" width="800" height="421" srcset="/wiki/images/thumb/6/6e/InkMuchTooBig.png/1200px-InkMuchTooBig.png 1.5x, /wiki/images/6/6e/InkMuchTooBig.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li>We need to shrink it. 
+<ul><li>Edit&gt;Select All in All Layers (or box select. make sure you select everything)</li>
+<li>adjust the W: and H: spinboxes to match your artwork's size in mm
+<ul><li>page-size less any applicable margins</li></ul></li>
+<li>use "Align and Distribute" or X/Y spinboxes to position artwork on page if required.</li>
+<li>your template should now look right, just like it did in the finished artwork picture above.</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li>ensure that all your editable texts are "ungrouped" (shift-ctl-g)</li>
+<li>select everything on your page (box select or Edit&gt;SelectAll) and Edit&gt;Copy</li>
+<li>Layer&gt;Delete Current Layer</li>
+<li>Edit&gt;Paste in Place</li></ul>
+<p><br />
+</p>
+<ul><li>Your template should now look right and shouldn't have any unwanted transforms</li>
+<li>Save your template</li>
+<li>try it in FreeCAD.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTemplateHow.png" class="image"><img alt="FCTemplateHow.png" src="FCTemplateHow.png" width="855" height="373" /></a></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>- Don't use Layers until you've mastered template creation without them.  Layers (and Groups) can automatically insert unwanted transforms into your SVG.
+</p><p>Back to <a href="TechDraw_Templates.html" title="TechDraw Templates">Templates</a>.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=TechDraw_TemplateHowTo&amp;oldid=257336">http://www.freecadweb.org/wiki/index.php?title=TechDraw_TemplateHowTo&amp;oldid=257336</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

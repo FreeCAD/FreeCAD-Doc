@@ -63,7 +63,7 @@ Part_RegularPolygon
 Part_Booleans
 # Part_Common
 # Part_Cut
-Part_Fuse
+Part_Union
 # Part_Shapebuilder
 Part_Extrude
 Part_Fillet
@@ -170,6 +170,7 @@ Draft_Dimension
 Draft_BSpline
 Draft_Point
 Draft_ShapeString
+Draft_Drawing
 Draft_Facebinder
 Draft_BezCurve
 Draft_Move
@@ -223,7 +224,6 @@ Drawing_Annotation
 Drawing_Clip
 Drawing_Openbrowser
 Drawing_Symbol
-Drawing_DraftView
 Drawing_Save
 Drawing_ProjectShape
 # Drawing_Othoviews
@@ -492,7 +492,7 @@ def joinpdf():
             title = page.replace("_"," ")
             pdffile = page + ".pdf"
             if exists(pdffile,True):
-                inputfile = PdfFileReader(open(FOLDER + os.sep + pdffile,'rb'))
+                inputfile = PdfFileReader(open(FOLDER + os.sep + pdffile,'rb'), strict=False)
                 numpages = inputfile.getNumPages()
                 for i in range(numpages):
                     result.addPage(inputfile.getPage(i))

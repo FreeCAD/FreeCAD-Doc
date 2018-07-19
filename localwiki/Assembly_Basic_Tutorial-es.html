@@ -1,0 +1,98 @@
+<html><head><title>Assembly Basic Tutorial/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Assembly Basic Tutorial/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>This tutorial is for a very old and no longer available development version of FreeCAD. Is this page still relevant?</b>
+<div style="clear:both"></div>
+Code may possibly be found in the no-longer updated Sourceforge Git repository <a rel="nofollow" class="external free" href="https://sourceforge.net/p/free-cad/code/ci/master/tree/">https://sourceforge.net/p/free-cad/code/ci/master/tree/</a> in either the jriegel/dev-assembly-old or jriegel/dev-assembly2 branch. <a href="Compiling.html" title="Compiling">Compilation</a> of its code will be required as there is no available installer for it.</div>
+<p><br />
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>Este tutorial es para la versión en desarrollo de FreeCAD. Compila la rama jriegel/dev-assembly desde aquí: <a rel="nofollow" class="external free" href="http://git.code.sf.net/p/free-cad/code">http://git.code.sf.net/p/free-cad/code</a></b></div>
+<p><br />
+Este tutorial te dará algunas indicaciones sobre el desarrollo del trabajo actual en el entorno de ensamblajes al tiempo que proporciona una base teórica al usuario final. El objetivo a alcanzar es una buena comprensión del funcionamiento del entorno de ensamblaje, de su estructura y de cómo utilizarlo. 
+</p><p>Este entorno está en un estado inicial de desarrollo, por tanto encontraras comportamiento extraños y todo tipo de errores. Agradeceríamos que informes de los problemas reproducibles en el [<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewforum.php?f=20&amp;sid=ae640f5baed4980a960d27d3dc8b6de0">subforo de ensamblajes</a>] o en el sistema de seguimiento de errores de [<a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/main_page.php">Mantis</a>]. 
+<br clear="all" />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#C.C3.B3mo_mover_cosas:_Sistemas_de_coordenadas"><span class="tocnumber">1</span> <span class="toctext">Cómo mover cosas: Sistemas de coordenadas</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.C2.BFQu.C3.A9_se_puede_ensamblar.3F:_Modelo_de_objetos"><span class="tocnumber">2</span> <span class="toctext">¿Qué se puede ensamblar?: Modelo de objetos</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#How_to_set_Relations:_Assembly_Constraints"><span class="tocnumber">3</span> <span class="toctext">How to set Relations: Assembly Constraints</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Fix"><span class="tocnumber">3.1</span> <span class="toctext">Fix</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Distance"><span class="tocnumber">3.2</span> <span class="toctext">Distance</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="C.C3.B3mo_mover_cosas:_Sistemas_de_coordenadas">Cómo mover cosas: Sistemas de coordenadas</span></h2>
+<p>El objetivo de un entorno de ensamblaje es mover y situar piezas. Por lo tanto es obvio que es necesario un modo de alcanzar esta transformación de piezas, y esta parte de la introducción es sobre esta funcionalidad básica.
+</p>
+<div class="mw-translate-fuzzy">
+<p>En FreeCAD todo objeto en el espacio 3D space tiene su propio sistema de coordenadas. Este sistema local se establece en relación con sus sistemas padre por medio de una transformación, su ubicación. La ubicación de un objeto define cómo se necesita mover y rotar la geometría local para expresarse en los sistemas padre. Así que si mueves una pieza editando su propiedad ubicación, no modificas la pieza, sólo la transformación de su sistema de coordenadas dentro del sistema padre. Imagina un simple cubo creado en el entorno de piezas. Una vez creado, el parámetro longitud cambia las dimensiones del cubo en la dirección local X. Como la ubicación está vacía, también será la dirección global X. Si giras la pieza estableciendo un eje y ángulo de rotación, la longitud seguirá en la dirección local X, sin embargo, visualmente ya no cambiará en la dirección X porque la visualización está presente en el sistema de coordenadas global. La geometría del cubo no ha cambiado, simplemente su visualización se ha transformado.
+</p>
+</div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:252px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Bodycs.png" class="image"><img alt="" src="250px-Bodycs.png" width="250" height="256" class="thumbimage" srcset="/wiki/images/d/d8/Bodycs.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Bodycs.png" class="internal" title="Enlarge"></a></div>Operación de transformación para un cuerpo</div></div></div></div>
+<p><br clear="all" />
+</p><p>Esto debería hacer simple el mover piezas individuales: simplemente adoptar su ubicación. Sin embargo, en FreeCAD la mayoría de diseños se realiza con varias operaciones (extrusiones, cajeras, etc.), ¿cómo manejarlas? ¿moviendo cada operación? ¿sólo la última? Ambos modos introducen algunos comportamientos muy problemáticos de modelado, por tanto se utiliza un tercer método: no mover ningún tipo de operaciones! En su lugar el concepto de Cuerpo se introduce en el modelado general, todo lo que se crea en el diseño de pieza está ahora agrupado debajo de él. Este objeto tiene una propiedad ubicación también y puede transformarse.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Volviendo a los sistemas de coordenadas locales y de los padres: el cuerpo es la perfecta encarnación de dicho concepto! Ninguna operación bajo el cuerpo se puede mover directamente, su ubicación está siempre vacía. Esto significa que, la geometría de la operación no necesita rotarse o trasladarse si queremos expresarla en el sistema de coordenadas del cuerpo. Pero podemos mover el cuerpo dentro del sistema de coordenadas global definiendo su ubicación, y  entonces el valor global de la geometría de las operaciones es calculado aplicando también esta transformación. Recuerda, rotamos sistemas de coordenadas. Esto significa que si transformamos el sistema del cuerpo, todo lo que esté debajo lo utiliza como su sistema global personal. No hay necesidad de mover operaciones. ¿Quieres todo tu diseño en una posición diferente? Simplemente establece la ubicación de su cuerpo!
+</p>
+</div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>Resumiendo: Los sistemas de coordenadas pueden ser apilados, cada objeto utiliza el sistema de sus padres como sistema global personal. Si el sistema de coordenadas de sus padres se transforma, todos sus hijos se transformarán sin cambiar sus sistemas locales.
+<br clear="all" />
+</p>
+</div>
+<h2><span class="mw-headline" id=".C2.BFQu.C3.A9_se_puede_ensamblar.3F:_Modelo_de_objetos">¿Qué se puede ensamblar?: Modelo de objetos</span></h2>
+<div class="mw-translate-fuzzy">
+<p>Con el objeto cuerpo tenemos todo lo que queremos para los ensamblajes: podemos mover diseños complejos de forma comprensible, ¿verdad?. No, espera! Qué pasaría si quieres tener tu diseño varias veces dentro de un ensamblaje? Por ejemplo si diseñas un tornillo, no querrás volverlo a modelar cada vez que lo necesites. El copiarlo puede funcionar, sin embargo, ¿qué pasa si cambias el diseño de tu tornillo? ¿Tendrías que cambiar todas las copias? Eso sería bastante tedioso. Para evitarlo, de nuevo se introduce un nuevo objeto: la Pieza. Una Pieza es un objeto de ensamblaje puro y sólo se puede crear dentro del entorno de ensamblaje. Su propósito es referenciar un objeto cuerpo y proporcionar otro sistema de coordenadas.
+</p>
+</div>
+<p>Para comprender porqué se introduce tenemos que considerar como se mueven las cosas en FreeCAD. Vamos a extender el gráfico del cuerpo con dos piezas referenciando al mismo cuerpo, como se muestra en la imagen de abajo. 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:352px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Partcs.png" class="image"><img alt="" src="350px-Partcs.png" width="350" height="317" class="thumbimage" srcset="/wiki/images/4/45/Partcs.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Partcs.png" class="internal" title="Enlarge"></a></div>Operación de transformación para una Pieza</div></div></div></div>
+<p><br clear="all" />
+</p><p>The bodys local system is the same in both parts, however, the parts have their own placements and therefore can be transformed in respect to the global system. As placements get applied recursively, the very same features can end up on different positions. Imagine you change the parts placement P4 and P5 to different values, your design would appear in two total different places inside the global system without any changes to the features or the body holding them. And then imagine changing the body's coordinate system P3: You would change the position of all incarnations of your design in the same manner! 
+</p><p>You may wonder how you design can be in two places while being only one geometry. Thats simple: The part shows only a visual representation of the geometry inside the body, and you can have many pictures of your single part. Also those visuals representations are transformed if you set the placement. A part holds absolutely no modeling information. 
+</p><p>Back to our use case: if you need 100 screws you will model only one body with your design. Then you can add as much parts as you want holding this one body. By applying different placements to the parts only you can move the screws around as you want. And if you change something in your design, the body gets updated and every part too, as they all reference it. Awesome!
+</p><p><br />
+Now imagine another use case: you have a nice electrical motor assembly consisting of multiple parts, are all moved to the right position. Afterwards you want to create a bigger machine and you need multiple electrical motors for it. What we want is to reuse the motor assembly, the same reasoning as with the multiple body incarnations apply. For simple designs we were able to create multiple parts from one body, however, we can't create a part from multiple parts. Therefore we need another object which can do that! FreeCAD introduces the product object for this. A product is basically a full assembly with multiple parts, but also has a placement property. What does that mean? It becomes clear when we again extend the coordinate system chart with our new product object.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Productcs.png" class="image"><img alt="" src="400px-Productcs.png" width="400" height="427" class="thumbimage" srcset="/wiki/images/f/f2/Productcs.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Productcs.png" class="internal" title="Enlarge"></a></div>Transformation Feature to Product</div></div></div>
+<p>Now our parts are not anymore beneath the global coordinate system, but they are grouped beneath the product. For the parts nothing change: they works as before. And in fact, if  our Product1 would have been the top-level object, absolutely nothing would change at all. The global system is just replaced by a product coordinate system which acts as global one. In  our example however, we added the product to another product, together with a third part. Now it gets interesting: As a product has a placement property, it can be moved! And we already learned that such a transformation is applied to all children. Therefore parts 1 and 2 would move when you change the placement of Product1. 
+</p><p>Back to our example: Product1 would be the electrical motor, Product2 the big machine. Now you can add multiple products to the machine which all reference the same parts as Product1, hence all representing a electrical motor. And as every product can be placed diffrently, you can move all motors to diffrent positions. Combine it with other parts and assemblies and you can build a complex machine. Again, if you update one body, all parts and therefore all products referencing it get updated. 
+</p><p>At last you may ask why there is no global coordinate system in the last picture. Thats because nothing like a global coordinate system exists, it was just a concept for easy explaining. If you assembly your electrical motor, the top-level coordinate system would be the Product1 system. However, this is not a general global one, as you can add it to a another product which is the top-level cs afterwards. And this can be added to another, and so on. There is nothing like a global coordinate system, just a top-level one.
+</p>
+To summarize: In the assembly workbench you can combine parts to assemblies (products). These products can be staked together with other parts in arbitrary numbers.<div style="clear:both"></div>
+<h2><span class="mw-headline" id="How_to_set_Relations:_Assembly_Constraints">How to set Relations: Assembly Constraints</span></h2>
+<p>Up to now we discussed all details of moving things around with placements and the objects involved in it. It is however very tedious to calculate all placements by hand and set them manual via the property editor. It would be more pleasant if it would be possible to set simple relations between parts instead of abstract rotations and translations. Therefore FreeCAD introduces assembly constraints. As the name indicates, they work the same way as in the sketcher: the user applies different attributes to geometries of the parts. This can be for example the distance between two points, or their orientation (parallel, perpendicular) of lines etc. FreeCAD trys then to find placements which satisfy all given constraints.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Geometry.png" class="image"><img alt="" src="250px-Geometry.png" width="250" height="195" class="thumbimage" srcset="/wiki/images/5/58/Geometry.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Geometry.png" class="internal" title="Enlarge"></a></div>Geometry which is supported by FreeCAD assembly constraints</div></div></div>
+<p>To assemble things in the real world, one would use the parts structure to fit the counterpart into its place, for example a bolt which belongs into a hole. Or surfaces which touch each other and therefore define the parts exact position. In FreeCAD it works exactly like that: you use the parts geometry to specify where the second part belongs to. At your disposal are points, straight lines, planes and cylinders. The picture to the right shows them all in the FreeCAD environment. But of course, the geometry alone is not enough to calculate the parts positions, the kind of relation needs to be known too. For example two faces: They can touch each other, or just be parallel, maybe even perpendicular. This relation is set in FreeCAD through the already mentioned assembly constraints. You have 6 diffrent types at your hand: Fix, Distance, Orientation, Angle, Align and Coincident. Lets see what they all do and how to use them.
+</p>
+<h3><span class="mw-headline" id="Fix">Fix</span></h3>
+<p>The fix constraint is the simplest of all constraints. It only needs one part to be selected and then it fixes its position and its rotation. No matter what you do to this part afterwards: it will hold its place. And thats the whole purpose of that type. It's most useful to have always one fixed part per assembly, as it can be annoying if all parts get moved to satisfy other constraints. If you fix the most basic part in your assembly, all other parts will move towards it which gives you a pleasant experience. Note that this constraint works only in the assembly it is created in, the part will not be fixed in any parent assembly (remember: assemblies can be stacked).
+</p>
+<h3><span class="mw-headline" id="Distance">Distance</span></h3>
+<p>As you already guessed from the name, with this constraint you can specify the distance between two geometries. This works for two points, but also for a point and a line, or a line and a cylinder and many more combinations. This constraint is pretty simple, but two points need mentioning: First, if there are multiple possible distances between geometries, for example the last mentioned line and cylinder, then the shortest distance is used. Second, sometimes multiple solutions exist even for the shortest distance. This is the case for the point-plane distance: every value can be satisfied with the point above AND below the plane. So if you only specify the value, it can happen that FreeCAD puts the point at the wrong side of the plane. To control this, the distance constraint has a special option, the solution space. This option allows to reduce the space of possible solutions, so that it matches your wishes. Lets see how this works on our small example: 
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Assembly_Basic_Tutorial/es&amp;oldid=258205">http://www.freecadweb.org/wiki/index.php?title=Assembly_Basic_Tutorial/es&amp;oldid=258205</a>"</div>
+<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

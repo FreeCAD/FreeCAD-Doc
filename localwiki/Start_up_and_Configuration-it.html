@@ -1,0 +1,345 @@
+<html><head><title>Start up and Configuration/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Start up and Configuration/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Questa pagina descrive i diversi modi per avviare FreeCAD e le principali caratteristiche di configurazione. 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Avviare_FreeCAD_dalla_riga_di_comando"><span class="tocnumber">1</span> <span class="toctext">Avviare FreeCAD dalla riga di comando</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Le_opzioni_della_riga_di_comando"><span class="tocnumber">1.1</span> <span class="toctext">Le opzioni della riga di comando</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Risposta_e_file_di_configurazione"><span class="tocnumber">1.2</span> <span class="toctext">Risposta e file di configurazione</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Opzioni_nascoste"><span class="tocnumber">1.3</span> <span class="toctext">Opzioni nascoste</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Eseguire_FreeCAD_senza_interfaccia_grafica"><span class="tocnumber">2</span> <span class="toctext">Eseguire FreeCAD senza interfaccia grafica</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Il_set_di_configurazione"><span class="tocnumber">3</span> <span class="toctext">Il set di configurazione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Informazioni_relative_all.27utente"><span class="tocnumber">3.1</span> <span class="toctext">Informazioni relative all'utente</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Argomenti_della_riga_di_comando"><span class="tocnumber">3.2</span> <span class="toctext">Argomenti della riga di comando</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Relativi_al_sistema"><span class="tocnumber">3.3</span> <span class="toctext">Relativi al sistema</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Informazioni_relative_alla_costruzione"><span class="tocnumber">3.4</span> <span class="toctext">Informazioni relative alla costruzione</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Relative_al_marchio"><span class="tocnumber">3.5</span> <span class="toctext">Relative al marchio</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Avviare_FreeCAD_dalla_riga_di_comando">Avviare FreeCAD dalla riga di comando</span></h2>
+<p>FreeCAD può essere avviato normalmente, facendo doppio clic sulla sua icona sul desktop o selezionandolo dal menu di avvio, ma può anche essere avviato direttamente dalla riga di comando. Ciò consente di modificare alcune delle opzioni di avvio di default.
+</p>
+<h3><span class="mw-headline" id="Le_opzioni_della_riga_di_comando">Le opzioni della riga di comando</span></h3>
+<p>Le opzioni della riga di comando sono soggette a frequenti cambiamenti, quindi è bene verificare le opzioni correnti digitando:
+</p>
+<pre>FreeCAD --help
+</pre>
+<p>Nella risposta sono elencati i parametri utilizzabili:
+</p>
+<pre>Usage:
+FreeCAD [options] File1 File2 .....
+Allowed options:  
+
+Generic options:
+ -v [ --version ]      print version string
+ -h [ --help ]         print help message
+ -c [ --console ]      start in console mode
+ --response-file arg   can be specified with '@name', too
+</pre>
+<pre>Configuration:
+ -l [ --write-log ] arg    write a log file to default location(Run FreeCAD --h to see default location)
+ --log-file arg            Unlike to --write-log this allows to log to an arbitrary file
+ -u [ --user-cfg] arg      User config file to load/save user settings
+ -s [ --system-cfg] arg    System config file to load/save system settings
+ -t [ --run-test ] arg     test level
+ -M [ --module-path ] arg  additional module paths
+ -P [ --python-path ] arg  additional python paths 
+</pre>
+<p>EX: (Windows)
+</p>
+<pre>"C:\Program Files\FreeCAD 0.14\bin\FreeCAD.exe" -M "N:\FreeCAD\Mod\Draft" -M "N:\FreeCAD\Mod\Part" -M "N:\FreeCAD\Mod\Drawing" -u "N:\FreeCAD\Config\user.cfg" -s "N:\FreeCAD\Config\system.cfg" </pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Risposta_e_file_di_configurazione">Risposta e file di configurazione</span></h3>
+<p>FreeCAD può leggere alcune di queste opzioni da un file di configurazione. Questo file deve essere nella directory bin e deve essere nominato FreeCAD.cfg. Tenere presente che le opzioni specificate nella riga di comando sovrascrivono il file di configurazione!
+</p><p>Alcuni sistemi operativi hanno una riga di comando estremamente corta. Il modo più comune per aggirare questa limitazione è quello di usare il file di risposta. Un file di risposta è semplicemente un file di configurazione che utilizza la stessa sintassi della riga di comando. Se la riga di comando specifica un nome di file di risposta da utilizzare, esso viene caricato e analizzato in aggiunta alla linea di comando:
+</p>
+<pre>FreeCAD @ResponseFile.txt </pre>
+<p>oppure: 
+</p>
+<pre>FreeCAD --response-file=ResponseFile.txt </pre>
+<h3><span class="mw-headline" id="Opzioni_nascoste">Opzioni nascoste</span></h3>
+<p>Per l'utente esistono alcune opzioni non visibili. Queste opzioni sono, per esempio, i parametri di X-Window analizzati dal sistema Windows:
+</p>
+<ul><li> -display display, imposta la visualizzazione di X (il valore predefinito è $DISPLAY).</li>
+<li> -geometry geometry, imposta la geometria client della prima finestra che viene visualizzata.</li>
+<li> -fn oppure -font font, definisce il tipo carattere dell'applicazione. Il carattere deve essere specificato utilizzando una descrizione logica dei font di X.</li>
+<li> -bg oppure -background color, imposta il colore di sfondo predefinito e una tavolozza per applicarlo (sono calcolate le tonalità chiare e scure).</li>
+<li> -fg oppure -foreground color, imposta il colore di primo piano predefinito.</li>
+<li> -btn oppure -button color, imposta il colore predefinito dei pulsanti.</li>
+<li> -name name, imposta il nome dell'applicazione.</li>
+<li> -title title, imposta il titolo dell'applicazione.</li>
+<li> -visual TrueColor, forza l'applicazione a utilizzare una visualizzazione TrueColor su un display a 8-bit.</li>
+<li> -ncols count, limita il numero di colori allocati nel cubo di colori su un display a 8 bit, se l'applicazione sta usando la specifica di colore QApplication::ManyColor. Se count è 216 allora è utilizzato un cubo di colori di 6x6x6 (vale a dire 6 livelli di rosso, 6 di verde, e 6 di blu), per altri valori viene utilizzato un cubo approssimativamente proporzionale a un cubo 2x3x1.</li>
+<li> -cmap, obbliga l'applicazione a installare una mappa privata di colori su un display a 8 bit.</li></ul>
+<h2><span class="mw-headline" id="Eseguire_FreeCAD_senza_interfaccia_grafica">Eseguire FreeCAD senza interfaccia grafica</span></h2>
+<p>FreeCAD si avvia normalmente in modalità GUI, ma si può anche forzare l'avvio in modalità console digitando:
+</p>
+<pre>FreeCAD -c
+</pre>
+<p>dalla riga di comando. In modalità console non viene visualizzata nessuna interfaccia utente, e appare un prompt dell'interprete di Python. Da questo prompt di Python, si ha le stesse funzionalità che si ha dall'interprete di Python che viene eseguito all'interno della GUI di FreeCAD e si ha normale accesso a tutti i moduli e plugin di FreeCAD, eccettuato il modulo FreeCADGui. Tenere presente che anche i moduli che dipendono da FreeCADGui potrebbero non essere disponibili.
+</p><p>Gli script Python e i file di macro di FreeCAD possono essere specificati come argomenti della riga di comando di uno dei file eseguibili di cui sopra.
+</p>
+<h2><span class="mw-headline" id="Il_set_di_configurazione">Il set di configurazione</span></h2>
+<p>A ogni avvio FreeCAD esamina i suoi ambienti ed i parametri della riga di comando. Si costruisce un <b>set di configurazione</b> che contiene l'essenza delle informazioni per l'esecuzione. Queste informazioni vengono poi utilizzate per determinare il luogo dove salvare i dati dell'utente o file di log (registro). E' anche molto importante per le analisi post-mortem. Pertanto viene salvato nel file di registro.
+</p>
+<h3><span class="mw-headline" id="Informazioni_relative_all.27utente">Informazioni relative all'utente</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Voci di configurazione utente
+</caption>
+<tr>
+<th> Nome var config      </th>
+<th> Descrizione                         </th>
+<th> Esempio M$                 </th>
+<th> Esempio Posix (Linux)
+</th></tr>
+<tr>
+<td> UserAppData          </td>
+<td> Percorso dove FreeCAD archivia i dati dell'applicazione relativi all'utente. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD </td>
+<td>/home/username/.FreeCAD
+</td></tr>
+<tr>
+<td> UserParameter        </td>
+<td> File in cui FreeCAD  archivia i dati dell'applicazione relativi all'utente. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\user.cfg </td>
+<td>/home/username/.FreeCAD/user.cfg
+</td></tr>
+<tr>
+<td> SystemParameter      </td>
+<td> File in cui FreeCAD  archivia i dati relativi all'applicazione. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\system.cfg </td>
+<td>/home/username/.FreeCAD/system.cfg
+</td></tr>
+<tr>
+<td> UserHomePath         </td>
+<td> Percorso home dell'utente corrente  </td>
+<td>  C:\Documents and Settings\username\My Documents </td>
+<td>/home/username
+</td></tr></table>
+<h3><span class="mw-headline" id="Argomenti_della_riga_di_comando">Argomenti della riga di comando</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Voci di configurazione utente
+</caption>
+<tr>
+<th> Nome var config       </th>
+<th> Descrizione                         </th>
+<th> Esempio
+</th></tr>
+<tr>
+<td> LoggingFile          </td>
+<td> 1 se il logging è attivato </td>
+<td> 1
+</td></tr>
+<tr>
+<td> LoggingFileName      </td>
+<td> Nome del file dove si trova il log </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\FreeCAD.log
+</td></tr>
+<tr>
+<td> RunMode              </td>
+<td> Indica come funzionerà il ciclo principale. <b>"Script"</b> significa che richiama il file di script fornito  e poi esce. <b>"Cmd"</b> esegue l'interprete della riga di comando. <b>"Internal"</b> esegue uno script interno. <b>"Gui"</b> entra nel ciclo di  evento Gui. <b>"Module"</b> carica un dato modulo python. </td>
+<td> "Cmd"
+</td></tr>
+<tr>
+<td> FileName             </td>
+<td> Il suo significato dipende da RunMode </td>
+<td>
+</td></tr>
+<tr>
+<td> ScriptFileName       </td>
+<td> Il suo significato dipende da RunMode </td>
+<td>
+</td></tr>
+<tr>
+<td> Verbose              </td>
+<td> Livello di verbosità di FreeCAD       </td>
+<td> "" o "strict"
+</td></tr>
+<tr>
+<td> OpenFileCount        </td>
+<td>Contiene il numero di file aperti attraverso gli argomenti della riga di comando   </td>
+<td> "12"
+</td></tr>
+<tr>
+<td> AdditionalModulePaths</td>
+<td>Contiene i percorsi di moduli aggiuntivi indicati nella linea di cmd   </td>
+<td> "extraModules/"
+</td></tr></table>
+<h3><span class="mw-headline" id="Relativi_al_sistema">Relativi al sistema</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Voci di configurazione utente
+</caption>
+<tr>
+<th> Nome var config      </th>
+<th> Descrizione                        </th>
+<th> Esempioo M$                 </th>
+<th> Esempio Posix (Linux)
+</th></tr>
+<tr>
+<td> AppHomePath          </td>
+<td> c:/Progam Files/FreeCAD_0.7</td>
+<td> /user/local/FreeCAD_0.7
+</td></tr>
+<tr>
+<td> PythonSearchPath     </td>
+<td> Contiene un elenco di percorsi dove python cerca i moduli. Questo vale all'avvio e può cambiare durante l'esecuzione  </td>
+<td>  </td>
+<td>
+</td></tr></table>
+<p>Alcune librerie hanno bisogno di chiamare le variabili di ambiente del sistema. A volte, quando c'è un problema con un'installazione FreeCAD, è perché qualche variabile d'ambiente è assente o è impostata in modo errato. Pertanto, alcune variabili importanti vengono duplicate in Config e salvate nel file di registro
+</p><p><b>Variabili d'ambiente relative a Python:</b>
+</p>
+<ul><li> PYTHONPATH</li>
+<li> PYTHONHOME</li>
+<li> TCL_LIBRARY</li>
+<li> TCLLIBPATH</li></ul>
+<p><b>Variabili d'ambiente relative a OpenCascade:</b>
+</p>
+<ul><li> CSF_MDTVFontDirectory</li>
+<li> CSF_MDTVTexturesDirectory</li>
+<li> CSF_UnitsDefinition</li>
+<li> CSF_UnitsLexicon</li>
+<li> CSF_StandardDefaults</li>
+<li> CSF_PluginDefaults</li>
+<li> CSF_LANGUAGE</li>
+<li> CSF_SHMessage</li>
+<li> CSF_XCAFDefaults</li>
+<li> CSF_GraphicShr</li>
+<li> CSF_IGESDefaults</li>
+<li> CSF_STEPDefaults</li></ul>
+<p><b>Variabili d'ambiente relative al sistema:</b>
+</p>
+<ul><li> PATH</li></ul>
+<h3><span class="mw-headline" id="Informazioni_relative_alla_costruzione">Informazioni relative alla costruzione</span></h3>
+<p>La tabella seguente mostra le informazioni disponibili relative alla versione di costruzione. La maggior parte proviene dal repositorio di Subversion. Queste cose sono necessarie per ricostruire esattamente la versione!
+</p>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Voci di configurazione utente
+</caption>
+<tr>
+<th> Nome var config      </th>
+<th> Descrizione                         </th>
+<th> Esempio
+</th></tr>
+<tr>
+<td> BuildVersionMajor    </td>
+<td> Numero di versione principale della costruzione. Definito in src/Build/Version.h.in   </td>
+<td> 0
+</td></tr>
+<tr>
+<td> BuildVersionMinor    </td>
+<td> Numero di versione secondario della costruzione. Definito in src/Build/Version.h.in   </td>
+<td> 7
+</td></tr>
+<tr>
+<td> BuildRevision        </td>
+<td> Numero di revisione del repositorio SVN del src nella costruzione. Generato da SVN    </td>
+<td> 356
+</td></tr>
+<tr>
+<td> BuildRevisionRange   </td>
+<td> Gamma di diversi cambiamenti     </td>
+<td>  123-356
+</td></tr>
+<tr>
+<td> BuildRepositoryURL   </td>
+<td> URL del repositorio    </td>
+<td> <a rel="nofollow" class="external free" href="https://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk/src">https://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk/src</a>
+</td></tr>
+<tr>
+<td> BuildRevisionDate    </td>
+<td> Data della revisione precedente    </td>
+<td> 2007/02/03 22:21:18
+</td></tr>
+<tr>
+<td> BuildScrClean        </td>
+<td> Indica se il codice sorgente è stato modificato dopo il suo checkout   </td>
+<td>Src modified
+</td></tr>
+<tr>
+<td> BuildScrMixed        </td>
+<td>       </td>
+<td> Src not mixed
+</td></tr></table>
+<h3><span class="mw-headline" id="Relative_al_marchio">Relative al marchio</span></h3>
+<p>Queste voci di configurazione sono legate al meccanismo di marchiatura di FreeCAD. Vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/it" title="Branding/it">Marchiatura</a> per maggiori dettagli.
+</p>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Voci di configurazione utente
+</caption>
+<tr>
+<th> Nome var config      </th>
+<th> Descrizione                         </th>
+<th> Esempio
+</th></tr>
+<tr>
+<td> ExeName              </td>
+<td> Nome del file di costruzione eseguibile. Può differire da quello di FreeCAD se è utilizzato un diverso main.cpp.     </td>
+<td> FreeCAD.exe
+</td></tr>
+<tr>
+<td> ExeVersion           </td>
+<td> Versione globale mostrata all'inizio   </td>
+<td> V0.7
+</td></tr>
+<tr>
+<td> AppIcon              </td>
+<td> Icona che viene utilizzata per l'eseguibile, mostrata in Application MainWindow.     </td>
+<td> "FCIcon"
+</td></tr>
+<tr>
+<td> ConsoleBanner        </td>
+<td> Banner che viene mostrato in modalità console     </td>
+<td>
+</td></tr>
+<tr>
+<td> SplashPicture        </td>
+<td> Nome dell'icona utilizzata per la schermata iniziale    </td>
+<td> "FreeCADSplasher"
+</td></tr>
+<tr>
+<td> SplashAlignment      </td>
+<td> Allineamento del testo nella finestra di dialogo iniziale    </td>
+<td> "Bottom o Left"
+</td></tr>
+<tr>
+<td> SplashTextColor      </td>
+<td> Colore del testo iniziale    </td>
+<td> "#000000"
+</td></tr>
+<tr>
+<td> StartWorkbench       </td>
+<td> Nome del Workbench che viene attivato automaticamente dopo l'avvio     </td>
+<td> "Part design"
+</td></tr>
+<tr>
+<td> HiddenDockWindow     </td>
+<td> Elenco dei dockwindows (separati da un punto e virgola) che saranno disabilitati </td>
+<td> "Property editor"
+</td></tr></table>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/it&amp;oldid=281875">http://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/it&amp;oldid=281875</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

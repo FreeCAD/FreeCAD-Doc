@@ -1,0 +1,90 @@
+<html><head><title>Pivy/tr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/tr</h1></div>
+
+<div id="mw-content-text" lang="tr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a> is a python binding library for <a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>, the 3D-rendering library used in FreeCAD. When imported in a running python interpreter, it allows to dialog directly with any running Coin3d <a href="Scenegraph.html" title="Scenegraph">scenegraphs</a>, such as the FreeCAD 3D views, or even to create new ones. Pivy is bundled in standard FreeCAD installation.
+</p><p>The coin library is divided into several pieces, coin itself, for manipulating scenegraphs and bindings for several GUI systems, such as windows or, like in our case, qt. Those modules are available to pivy too, depending if they are present on the system. The coin module is always present, and it is what we will use anyway, since we won't need to care about anchoring our 3D display in any interface, it is already done by FreeCAD itself. All we need to do is this:
+</p>
+<pre>from pivy import coin </pre>
+<h2><span class="mw-headline" id="Accessing_and_modifying_the_scenegraph">Accessing and modifying the scenegraph</span></h2>
+<p>We saw in the <a href="Scenegraph.html" title="Scenegraph">Scenegraph</a> page how a typical Coin scene is organized. Everything that appears in a FreeCAD 3D view is a coin scenegraph, organized the same way. We have one root node, and all objects on the screen are its children.
+</p><p>FreeCAD has an easy way to access the root node of a 3D view scenegraph:
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg </pre>
+<p>This will return the root node:
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; </pre>
+<p>We can inspect the immediate children of our scene:
+</p>
+<pre>for node in sg.getChildren():
+    print node </pre>
+<p>Some of those nodes, such as SoSeparators or SoGroups, can have children themselves. The complete list of the available coin objects can be found in the <a rel="nofollow" class="external text" href="http://coin3d.bitbucket.org/Coin/classes.html">official coin documentation</a>.
+</p><p>Let's try to add something to our scenegraph now. We'll add a nice red cube:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>and here is our (nice) red cube. Now, let's try this:
+</p>
+<pre>col.rgb=(1,1,0) </pre>
+<p>See? everything is still accessible and modifiable on-the-fly. No need to recompute or redraw anything, coin takes care of everything. You can add stuff to your scenegraph, change properties, hide stuff, show temporary objects, anything. Of course, this only concerns the display in the 3D view. That display gets recomputed by FreeCAD on file open, and when an object needs recomputing. So, if you change the aspect of an existing FreeCAD object, those changes will be lost if the object gets recomputed or when you reopen the file.
+</p><p>A key to work with scenegraphs in your scripts is to be able to access certain properties of the nodes you added when needed. For example, if we wanted to move our cube, we would have added a SoTranslation node to our custom node, and it would have looked like this:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>Remember that in an openInventor scenegraph, the order is important. A node affects what comes next, so you can say something like: color red, cube, color yellow, sphere, and you will get a red cube and a yellow sphere. If we added the translation now to our existing custom node, it would come after the cube, and not affect it. If we had inserted it when creating it, like here above, we could now do:
+</p>
+<pre>trans.translation.setValue([2,0,0]) </pre>
+<p>And our cube would jump 2 units to the right.
+Finally, removing something is done with:
+</p>
+<pre>sg.removeChild(myCustomNode) </pre>
+<h2><span class="mw-headline" id="Using_callback_mechanisms">Using callback mechanisms</span></h2>
+<p>A <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Callback_%28computer_science%29">callback mechanism</a> is a system that permits a library that you are using, such as our coin library, to call you back, that is, to call a certain function from your currently running python object. This is extremely useful, because that way coin can notify you if some specific event occurs in the scene. Coin can watch very different things, such as mouse position, clicks of a mouse button, keyboard keys being pressed, and many other things.
+</p><p>FreeCAD features an easy way to use such callbacks:
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+ 
+ButtonTest() </pre>
+<p>The callback has to be initiated from an object, because that object must still be running when the callback will occur.
+See also a <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">complete list</a> of possible events and their parameters, or the <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">official coin documentation</a>.
+</p>
+<h2><span class="mw-headline" id="Documentation">Documentation</span></h2>
+<p>Unfortunately pivy itself still doesn't have a proper documentation, but since it is an accurate translation of coin, you can safely use the coin documentation as reference, and use python style instead of c++ style (for example SoFile::getClassTypeId() would in pivy be SoFile.getClassId())
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/tr&amp;oldid=217967">http://www.freecadweb.org/wiki/index.php?title=Pivy/tr&amp;oldid=217967</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

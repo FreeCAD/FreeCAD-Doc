@@ -1,0 +1,62 @@
+<html><head><title>Scenegraph/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scenegraph/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>FreeCAD в основном колаж из разлинчных мощных библиотек, наиболее важной из кототрых является <a rel="nofollow" class="external text" href="http://ru.wikipedia.org/wiki/Open_CASCADE_Technology">openCascade</a>, для управления и построения геометрии, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Coin3D">Coin3d</a> отображает эту геометрию, и <a rel="nofollow" class="external text" href="http://ru.wikipedia.org/wiki/Qt">Qt</a> помещает все это в хороший Графический Интерфейс Пользователя.
+</p><p>Геометрия которая появляется в 3D видах FreeCAD получается с помощью библиотек Coin3D. Coin3D это реализация стандарта <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a> . OpenCascade тоже поддерживает схожую функциональность, но было решено при создании FreeCAD, не использовать встроеный в openCascade просмотрщик и скорее перейти на более производительный coin3D.
+</p><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a> на самом деле язык описания 3D сцены. Сцена описанная в  openInventor затем отрисовывается OpenGL на вашем  экране. Coin3D заботит об этом, поэтому программисту не надо иметь дело со сложными вызовами openGL, он просто должен предоставить корректный(работающий)OpenInventor код. Большим преимуществом является то что openInventor это широко известны и хорошо задокументированный стандарт.
+</p><p>Одну из главных работ, которую FreeCAD делает за вас, в основном это перевод информации о openCascade геометрии в формат языка openInventor.
+</p><p>OpenInventor записывает трехмерную сцену в форме <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Scene_graph">древа сцен</a>, как показано ниже:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scenegraph.gif" class="image"><img alt="Scenegraph.gif" src="Scenegraph.gif" width="422" height="496" /></a>
+рисунок с сайта <a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>
+</p><p>Дерево сцен openInventor описывает все части 3D сцены, такие как геометрия, цвета, материалы, освещение, и.т.д. и организует все эти данные в удобной и четкой структуре. Все что угодно может быть сгруппировано в субструктуры, позволяя вам организовывать содержание вашей сцены тем способом который вам нравится. Вот пример файла в формате openInventor&#160;:
+</p>
+<pre>#Inventor V2.0 ascii
+ 
+Separator { 
+    RotationXYZ {
+       axis Z
+       angle 0
+    }
+    Transform {
+       translation 0 0 0.5
+    }
+    Separator {
+       Material {
+          diffuseColor 0.05 0.05 0.05
+       }
+       Transform {
+          rotation 1 0 0 1.5708
+          scaleFactor 0.2 0.5 0.2
+       }
+       Cylinder {
+       }
+    }
+} </pre>
+<p>Как вы можете видеть, его структура проста. Вы используете разделители(separator) организуя ваши данные в блоки, это немного похоже на то как вы организуете ваши файлы в папках. Каждый оператор влияет на то что будет дальше, например, первые два пункта в ваншем корневом разделителе это поворот и перенос(трансляция), как они повлияют на следующий элемент, котоорый тоже является резделителем. В этом сепараторе, материал определяется, и другого преобразования. Поэтому наш цилиндр будет подвержин обеим трансормациям, то что было применено непосредственно к нем, так и то что было применено к родительскому разделителю.
+</p><p>Мы также обладаем множество элементов других типов , для организации нашей сцены, таких как группы, переключатели и анотации.Мы можем задать очень сложные материалы для ваших объектов, с цветом, текстурой, теневыми режимами и прозрачностью. Мы также можем задать освещение, камеры, и даже движение. Можно даже встроить кусочки сценариев в openInventor файлы, для задания более сложного поведения.
+</p><p>Если вы заинтересованы в получении дополнительной информации о openInventor, отпраляйтесь напрямую к самому известному руководству <a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>.
+</p><p>В FreeCAD, как правило. не нужно напрямуюю взаимодействовать с древом сцен openInventor. Каждый объект в документе FreeCAD, будь то  полигиональная модель(mesh), форма детали или что-нибудь ещё, автоматически преобразуется в openInventor код и вставляется в основное дерево сцен которое вы видите в окне 3D просмотра. Это древо сцен непрерывно обновляется, когда вы делает изменения, добавляете или удаляете объекты из документа. В самом деле каждый объект (в пространстве App) обладает , поставщиком визуального отображения (соответствующий объект в пространстве Gui), ответственного за выдачу openInventor кода.
+</p><p>Но есть множество преимуществ, которые будут возможны при прямом доступе. Например, мы временно можем изменить внешний вид объекты, или мы можем добавить в сцену объекты, которые не обладают реальным представлением в документе FreeCAD, такие как геометрия построений, помощники, графические подсказки или инструменты , такие как манипуляторы или отображающаяся на экране информация.
+</p><p>FreeCAD  обладает несколькими инструментами для просмотра и изменения openInventor кода. На пример, нижеследующий код на python отобразит openInventor представление выбранного объекта:
+</p>
+<pre>obj = FreeCAD.ActiveDocument.ActiveObject
+viewprovider = obj.ViewObject
+print viewprovider.toString() </pre>
+<p>А также мы обладаем модулем python открывает полный доступ к управлению чем угодно в  Coin3D, такому как ваше дерево сцен в FreeCAD. Также читайте об этом на странице <a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/ru" title="Pivy/ru">Pivy</a>.
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/ru&amp;oldid=138226">http://www.freecadweb.org/wiki/index.php?title=Scenegraph/ru&amp;oldid=138226</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

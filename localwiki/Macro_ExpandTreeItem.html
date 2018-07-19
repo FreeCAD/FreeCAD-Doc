@@ -1,0 +1,133 @@
+<html><head><title>Macro ExpandTreeItem</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro ExpandTreeItem</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_ExpandTreeItem"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ExpandTreeItem.png" class="image"><img alt="Macro ExpandTreeItem.png" src="32px-Macro_ExpandTreeItem.png" width="32" height="27" srcset="/wiki/images/thumb/5/58/Macro_ExpandTreeItem.png/48px-Macro_ExpandTreeItem.png 1.5x, Macro_ExpandTreeItem.png 2x" /></a> Macro ExpandTreeItem</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">This macro expands selected tree and all sub trees in the tree view.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Wmayer,_UR&amp;action=edit&amp;redlink=1" class="new" title="User:Wmayer, UR (page does not exist)">wmayer, UR_</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a><br /><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a><br /><a href="Customize_Toolbars.html" title="Customize Toolbars">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.00
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-07-11
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_ExpandTreeItem"><span class="tocnumber">1</span> <span class="toctext">Macro ExpandTreeItem</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use"><span class="tocnumber">3</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Expands selected tree and all sub trees in the tree view.
+</p><p>if selected tree is already expanded this tree and all sub trees are collapsed
+</p><p>if there is no selection all trees are collapse True/False
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Collapsed00.gif" class="image"><img alt="Collapsed00.gif" src="Collapsed00.gif" width="403" height="557" /></a>
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Copy the macro in your macro directory, create your tool bar and launch.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>The icon for the tool bar the .png <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ExpandTreeItem.png" class="image"><img alt="Macro ExpandTreeItem.png" src="Macro_ExpandTreeItem.png" width="58" height="49" /></a> and the .SVG <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ExpandTreeItem.svg" class="image"><img alt="Macro ExpandTreeItem.svg" src="Macro_ExpandTreeItem.svg" width="64" height="64" /></a>
+</p>
+<pre># -*- coding: utf-8 -*-
+#
+# Expands selected tree and all sub trees in the tree view.
+# if selected tree is already expanded this tree and all sub trees are collapsed
+# if there is no selection all trees are collapse True / False
+#
+__Title__    = "Macro ExpandTreeItem"
+__Author__   = "wmayer, UR_"
+__Version__  = "00.00"
+__Date__     = "2018-07-11"
+
+import PySide
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+
+def toggleAll(tree, item, collapse):
+    if collapse == False:
+        tree.expandItem(item)
+    elif collapse == True:  
+        tree.collapseItem(item)
+
+    for i in range(item.childCount()):
+        toggleAll(tree, item.child(i), collapse)
+
+mw = Gui.getMainWindow()
+trees = mw.findChildren(QtGui.QTreeWidget)
+
+for tree in trees:
+    items = tree.selectedItems()
+
+    try:
+        if items == []:
+            #tree.selectAll()                          # select all object
+            for obj in FreeCAD.ActiveDocument.Objects: # select obj.OutList
+                if len(obj.OutList)&#160;!= 0:
+                    Gui.Selection.addSelection(obj)
+                    items = tree.selectedItems()
+    except Exception:
+        None
+
+    for item in items:
+            if item.isExpanded() == True:
+                toggleAll(tree, item, True)
+        #            print ("collapsing")
+            else:
+                toggleAll(tree, item, False)
+        #            print ("expanding") </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p><a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=13&amp;t=29406">Objektbaum mit einem Klick komplett aufklappen?</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_ExpandTreeItem&amp;oldid=289260">http://www.freecadweb.org/wiki/index.php?title=Macro_ExpandTreeItem&amp;oldid=289260</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

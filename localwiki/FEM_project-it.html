@@ -1,0 +1,246 @@
+<html><head><title>FEM project/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM project/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Questa è la pianificazione del progetto per integrare un modulo  <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Metodo_degli_elementi_finiti">FEM</a> in FreeCAD come parte del <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/it" title="Development roadmap/it">Piano di sviluppo</a>.
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Unit.C3.A0_di_misura"><span class="tocnumber">1</span> <span class="toctext">Unità di misura</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Riflessioni"><span class="tocnumber">2</span> <span class="toctext">Riflessioni</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Potenziali_Mesher"><span class="tocnumber">2.1</span> <span class="toctext">Potenziali Mesher</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Potenziali_Solvers"><span class="tocnumber">2.2</span> <span class="toctext">Potenziali Solvers</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#esempi_con_calculix"><span class="tocnumber">2.3</span> <span class="toctext">esempi con calculix</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Applicazioni_Mesh"><span class="tocnumber">2.4</span> <span class="toctext">Applicazioni Mesh</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unit.C3.A0_di_misura">Unità di misura</span></h2>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Units</b>
+</caption>
+<tr>
+<th>Length </th>
+<th>Time </th>
+<th>Mass </th>
+<th>Force </th>
+<th>Pressure </th>
+<th>Velocity </th>
+<th>Density</th>
+<th> Energy </th>
+<th>Gravity
+</th></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>kg m/s2 </td>
+<td> N/m2  </td>
+<td>m/s </td>
+<td> kg/m3 </td>
+<td> kgm2/s2  </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>N </td>
+<td> Pa </td>
+<td> m/s </td>
+<td> m kg/l  </td>
+<td> J </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>g </td>
+<td>mN</td>
+<td> mPa </td>
+<td> m/s </td>
+<td> micro  kg/l </td>
+<td> mJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td>kN </td>
+<td>  kPa </td>
+<td> m/s </td>
+<td> kg/l </td>
+<td> kJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>kg </td>
+<td> MN </td>
+<td> MPa </td>
+<td> km/s </td>
+<td> m  kg/l </td>
+<td> MJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>g </td>
+<td> kN </td>
+<td> kPa </td>
+<td> km/s </td>
+<td> micro kg/l </td>
+<td> kJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>Mg (ton) </td>
+<td> GN </td>
+<td> GPa </td>
+<td> km/s </td>
+<td> kg/l </td>
+<td> GJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td> kg </td>
+<td> mN </td>
+<td> kPa </td>
+<td> mm/s </td>
+<td> M kg/l </td>
+<td> micro J </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm</td>
+<td> s </td>
+<td>g </td>
+<td> micro N </td>
+<td> Pa </td>
+<td> mm/s </td>
+<td> g/mm3 </td>
+<td> nJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td> N </td>
+<td> MPa </td>
+<td> mm/s </td>
+<td> Mg/mm3 </td>
+<td>  mJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> kg </td>
+<td> kN </td>
+<td> GPa </td>
+<td> m/s </td>
+<td> M </td>
+<td> kg/l J </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms </td>
+<td>g </td>
+<td> N </td>
+<td> MPa </td>
+<td> m/s </td>
+<td> k kg/l </td>
+<td> mJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> Mg (ton) </td>
+<td> MN </td>
+<td> TPa </td>
+<td> m/s </td>
+<td> G  kg/l </td>
+<td> kJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>g </td>
+<td> daN </td>
+<td> 10^5 Pa (bar)  </td>
+<td> dam/s </td>
+<td> kg/l </td>
+<td> dJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>kg </td>
+<td> 10^4 N (kdaN) </td>
+<td> 10^8 Pa (kbar) </td>
+<td> dam/s </td>
+<td> k kg/l </td>
+<td> hJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td> Mg (ton) 10^7 </td>
+<td> N(MdaN) </td>
+<td>10^11 Pa (Mbar) </td>
+<td> dam/s </td>
+<td> M kg/l </td>
+<td>10^5 J </td>
+<td>9.81e-4
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Riflessioni">Riflessioni</span></h2>
+<h3><span class="mw-headline" id="Potenziali_Mesher">Potenziali Mesher</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Netgen.jpg" class="image"><img alt="Netgen.jpg" src="300px-Netgen.jpg" width="300" height="229" srcset="/wiki/images/thumb/2/2a/Netgen.jpg/450px-Netgen.jpg 1.5x, /wiki/images/thumb/2/2a/Netgen.jpg/600px-Netgen.jpg 2x" /></a></div>
+<p>Alcune applicazioni disponibili per generare grigliature
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.hpfem.jku.at/netgen/">Netgen</a> un mesher molto buono, LGPL con qualche libreria di supporto</li>
+<li> <a rel="nofollow" class="external text" href="http://www.salome-platform.org/">Salome</a> un pacchetto complicato, difficile ottenere il codice di cui abbiamo bisogno</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> libreria Python che incorpora Salome e Netgen, può essere il modo più veloce e più completo per integrare generatori di griglie</li></ul>
+<h3><span class="mw-headline" id="Potenziali_Solvers">Potenziali Solvers</span></h3>
+<p>Alcune applicazioni di calcolo esistenti
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.calculix.de/">Calculix</a> un software free e open source per l'analisi e la simulazione degli elementi finiti</li>
+<li> <a rel="nofollow" class="external text" href="http://www.code-aster.org">Code-Aster</a> un solutore con ampie parti in Python</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> libreria Python, che (al momento) offre anche l'interfaccia di massima per Code_Aster e che potrebbe anche essere un modo rapido per disporre di una prima soluzione funzionante</li></ul>
+<h3><span class="mw-headline" id="esempi_con_calculix">esempi con calculix</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://dip28p.web.fc2.com/calculix/netgen2calculix/index.html">gut example with contact</a></li></ul>
+<h3><span class="mw-headline" id="Applicazioni_Mesh">Applicazioni Mesh</span></h3>
+<ul><li> Test dei generatori di griglie eseguiti da esperti</li>
+<li> Analizzare la struttura del software e le possibili integrazioni</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_project/it&amp;oldid=186377">http://www.freecadweb.org/wiki/index.php?title=FEM_project/it&amp;oldid=186377</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

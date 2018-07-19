@@ -1,0 +1,105 @@
+<html><head><title>Embedding FreeCAD/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Embedding FreeCAD/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="mw-translate-fuzzy">
+<p>FreeCAD hat die erstaunliche Fähigkeit, wie ein Python-Modul in anderen Programmen importiert zu laufen oder in einer eigenständigen Python-Konsole importiert, zusammen mit all seinen Modulen und Komponenten.
+Es ist sogar möglich, die FreeCAD GUI als Python-Modul zu importieren - mit einigen Einschränkungen allerdings.
+</p>
+</div>
+<h3><span class="mw-headline" id="FreeCAD_benutzen_ohne_GUI">FreeCAD benutzen ohne GUI</span></h3>
+<p>Eine erste, direkte, einfache und nützliche Anwendung die für Sie daraus entsteht, ist, FreeCAD-Dokumente in Ihre Programme zu importieren.
+Im folgenden Beispiel werden wir die Part-Geometrie eines FreeCAD-Dokuments in <a rel="nofollow" class="external text" href="http://www.blender.org">Blender</a> importieren. Hier ist das komplette Skript.
+</p>
+Ich hoffe, Sie werden durch seine Einfachheit beeindruckt sein:<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>FREECADPATH = '/opt/FreeCAD/lib' # path to your FreeCAD.so or FreeCAD.dll file
+import Blender, sys
+sys.path.append(FREECADPATH)
+ 
+def import_fcstd(filename):
+   try:
+       import FreeCAD
+   except ValueError:
+       Blender.Draw.PupMenu('Error%t|FreeCAD library not found. Please check the FREECADPATH variable in the import script is correct')
+   else:
+       scene = Blender.Scene.GetCurrent()
+       import Part
+       doc = FreeCAD.open(filename)
+       objects = doc.Objects
+       for ob in objects:
+           if ob.Type[:4] == 'Part':
+               shape = ob.Shape
+               if shape.Faces:
+                   mesh = Blender.Mesh.New()
+                   rawdata = shape.tessellate(1)
+                   for v in rawdata[0]:
+                       mesh.verts.append((v.x,v.y,v.z))
+                   for f in rawdata[1]:
+                       mesh.faces.append.append(f)
+                   scene.objects.new(mesh,ob.Name)
+       Blender.Redraw()
+
+def main():
+   Blender.Window.FileSelector(import_fcstd, 'IMPORT FCSTD', 
+                        Blender.sys.makename(ext='.fcstd'))    
+ 
+# This lets you import the script without running it
+if __name__=='__main__':
+   main()</pre></div>Der erste und wichtigste Teil ist sicherzustellen, das Python unsere FreeCAD-Bibliothek finden wird.
+<p>Nachdem Python sie findet, werden alle FreeCAD-Module wie Part, dass wir auch nutzen werden, automatisch zur Verfügung stehen.
+Also nehmen wir einfach die sys.path-Variable, wo Python nach Modulen suchen wird, und wir ergänzen Sie um den FreeCAD lib - Pfad.
+Diese Änderungen sind nur temporär und gehen verloren, wenn wir unseren Python-Interpreter schließen.
+Ein anderer Weg wäre, einen Link zu Ihrer FreeCAD-Bibliothek in einem der Python-Suchpfade anzulegen.
+Ich setze den Pfad in einer konstanten (FREECADPATH), so dass es für einen anderen Benutzer des Skripts dann einfacher ist, dieses für sein eigenes System zu konfigurieren.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Sobald wir sicher sind, dass die Bibliothek geladen wird (siehe try/except Sequenz), können wir jetzt auf die gleiche Weise mit FreeCAD arbeiten,
+wie wir es Innerhalb des FreeCAD eigenen Python-Interpreters tun würden.
+Wir öffnen das FreeCAD-Dokument, das uns von der main()-Funktion übergeben wird, und wir erstellen eine Liste der Objekte.
+Da wir uns nur um die Part-geometrie kümmern wollen, überprüfen wir, ob jedes Objekt die Type-Eigenschaft "Part" enthält, dann werden wir es tessellieren. <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Tessellation#Tessellations_and_computer_models">tesselate</a>
+</p>
+</div>
+<p>Die Tesselation erzeugt eine Liste der Knoten und eine Liste der Flächen, die durch Ecken Indizes definiert wird.
+Dies ist Ideal, da es genau auf die gleiche Weise wie Blender Netze definiert.  
+Somit wird unsere Aufgabe lächerlich einfach, wir übergeben einfach beide Listeninhalte an die Punkte und Flächen von einem Blender-Netz.
+Wenn alles fertig ist, lassen wir den Bildschirm neu zeichnen(aufbauen), und das ist alles!
+</p><p>Natürlich ist es ein sehr einfaches Skript(tatsächlich habe ich eine erweiterte Version <a rel="nofollow" class="external text" href="http://yorik.orgfree.com/scripts/import_freecad.py">hier</a>), dass Sie vielleicht erweitern möchten, z. B. auch zum importieren von Mesh-Objekten, oder importieren von Part-Geometrie ohne Flächen, oder Import anderer Dateiformate, die FreeCAD lesen kann. Vielleicht wollen Sie auch Geometrien ein FreeCAD-Dokument exportieren, was auf die gleiche Weise durchgeführt werden kann. Vielleicht wollen Sie auch einen Dialog aufbauen, womit der Benutzer wählen kann, was zu importieren ist, etc...
+Die Schönheit in alle dem liegt in der Tatsache, dass Sie FreeCAD die gesaamte Grundarbeit überlassen, während der Präsentation des Ergebnisses in dem Programm Ihrer Wahl geschiet.
+</p>
+<h3><span class="mw-headline" id="FreeCAD_nutzen_mit_GUI">FreeCAD nutzen mit GUI</span></h3>
+<p>Ab der Version 4.2 hat Qt die faszinierende Fähigkeit, Qt-GUI-abhängige-plugins in nicht-Qt-Host-Anwendungen einzubetten und sich an der Ereignis-Schleife des Gastgebers zu beteiligen.
+</p><p>Insbesondere für FreeCAD bedeutet dies, dass es aus einer anderen Anwendung mit seiner ganzen Oberfläche importiert werden kann, wobei die Host-Anwendung die volle Kontrolle über FreeCAD behält.
+</p><p>Der ganze Python-Code dies zu erreichen, besteht nur aus zwei Zeilen
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> 
+import FreeCADGui 
+FreeCADGui.showMainWindow()</pre></div>
+<p>Wenn die Host-Anwendung auf Qt basiert, dann sollte diese Lösung auf allen Plattformen, die Qt unterstützt arbeiten. Allerdings sollte der Host die gleiche Qt-Version wie FreeCAD nutzen, weil man sonst unerwartete Laufzeitfehler erhalten könnte. 
+</p><p>Für Nicht-Qt-Anwendungen aber, gibt es ein paar Einschränkungen, die Sie beachten müssen. Diese Lösung wird wahrscheinlich nicht mit allen anderen Toolkits funktionieren. 
+Für Windows funktioniert es, solange die Host-Anwendung direkt aufbaut auf Win32 oder andere Toolkits, die intern die Win32-API verwenden, wie z.B. wxWidgets, MFC oder WinForms. Damit es unter X11 arbeitet, muss die Host-Anwendung mit der "glib"-Bibliothek verknüpft sein.
+</p><p>Beachten Sie, für Konsole-Anwendungen wird diese Lösung natürlich nicht funktionieren, weil keine Ereignis-Schleife läuft.
+</p>
+<h3><span class="mw-headline" id="Caveats">Caveats</span></h3>
+<p>Although it is possible to import FreeCAD to an external Python interpreter, this is not a common usage scenario and requires some care.  Generally, it is better to use the Python included with FreeCAD, run FreeCAD via command line, or as a subprocess.  See <a href="Start_up_and_Configuration.html" title="Start up and Configuration">Start up and Configuration</a> for more on the last two options.
+</p><p>Since the FreeCAD Python module is compiled from C++ (rather than being a pure Python module), it can only be imported from a compatible Python interpreter.  Generally this means that the Python interpreter must be compiled with the same C compiler as was used to build FreeCAD.  Information about the compiler used to build a Python interpreter (including the one built with FreeCAD) can be found as follows:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>>>> import sys
+>>> sys.version
+'2.7.13 (default, Dec 17 2016, 23:03:43) \n[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]'</pre></div>
+<p><br />
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/de&amp;oldid=287191">http://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/de&amp;oldid=287191</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

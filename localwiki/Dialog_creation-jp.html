@@ -1,0 +1,209 @@
+<html><head><title>Dialog creation/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Dialog creation/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このページではQtのインナーフェイスデザイン用の公式ツールである<a rel="nofollow" class="external text" href="http://doc.trolltech.com/4.3/designer-manual.html">QtDesigner</a>を使って簡単なQtダイアログを作成し、それをPythonコードに変換してFreeCAD内部で使用する方法について説明します。この例ではPythonスクリプトの編集と実行の仕方、ディレクトリの移動などのターミナルウィンドウでの簡単な操作については既に知っているものとして説明を行います。また当然のことながらpyqtをインストールしてなければなりません。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.AE.E3.83.87.E3.82.B6.E3.82.A4.E3.83.B3"><span class="tocnumber">1</span> <span class="toctext">ダイアログのデザイン</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.AEPython.E3.82.B3.E3.83.BC.E3.83.89.E3.81.B8.E3.81.AE.E5.A4.89.E6.8F.9B"><span class="tocnumber">2</span> <span class="toctext">ダイアログのPythonコードへの変換</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.A7.E5.87.A6.E7.90.86.E3.82.92.E8.A1.8C.E3.81.88.E3.82.8B.E3.82.88.E3.81.86.E3.81.AB.E3.81.99.E3.82.8B"><span class="tocnumber">3</span> <span class="toctext">ダイアログで処理を行えるようにする</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.85.A8.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88"><span class="tocnumber">4</span> <span class="toctext">全スクリプト</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.AE.E3.83.87.E3.82.B6.E3.82.A4.E3.83.B3">ダイアログのデザイン</span></h2>
+<p>CADアプリケーションでは優れたUI（ユーザーインターフェイス）のデザインは非常に重要です。ユーザーが行う操作のほとんど全てがダイアログボックスの文章を読んだり、ボタンを押したり、アイコンを選択したりといったインターフェイスを通じたものになります。従って自分が何をしたいのか、ユーザーにどのような操作をさせたいのか、処理の流れがどのようになるのかを慎重に考えることがとても重要になってきます。
+</p><p>インターフェイスをデザインする際に知っておく必要のある概念がいくつかあります：
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Modal_window">モーダル/モーダレスなダイアログ</a>： モーダルダイアログは画面の前面に表示されメインウィンドウの操作をできなくした上でユーザーにダイアログを操作するように要求します。一方、モーダレスダイアログはメインウィンドウの操作を妨げることはしません。どちらが良いかは時と場合によります。</li>
+<li> 何が必須であり何がオプションであるかを認識する：何をしなければならないユーザーが間違いなくわかるようにします。全てのものに適切な説明が書かれたラベルを付ける、ツールチップを使用するなどの方法があります。</li>
+<li> コマンドとパラメータの分離：通常、これはボタンとテキスト入力フィールドを使って行われます。ボタンをクリックすると処理が行われ、テキストフィールド内部の値を変更すると何かしらのパラメータが変更されるということをユーザーは理解しています。現在ではユーザーは通常、ボタンが何か、入力フィールドが何かといったことを熟知しているのです。私たちが使用するインターフェイスツールキットであるQtは最先端のツールキットです。どうやればわかりやすいものを作れるか悩む必要はほとんどありません。既にそれ自体がわかりやすい様になっているのです。</li></ul>
+<p>さてこれからやることについては十分な定義が終わりました。いよいよQtDesignerを開きます。次の様な非常に簡単なダイアログをデザインしてみましょう：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qttestdialog.jpg" class="image"><img alt="Qttestdialog.jpg" src="Qttestdialog.jpg" width="210" height="216" /></a>
+</p><p>出来上がったらFreeCADできれいな長方形の平面を作成するためにこのダイアログを使うことにします。きれいな長方形の平面を作るのにはこれは不便だということにあなたは気がつくでしょうが、後でもっと複雑なことを行えるように変更することは簡単です。QtDesignerを開くと次のような表示になります：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtdesigner-screenshot.jpg" class="image"><img alt="Qtdesigner-screenshot.jpg" src="Qtdesigner-screenshot.jpg" width="800" height="486" /></a>
+</p><p>使い方は非常に簡単です。左側のバーにはウィジット上にドラッグして置ける要素があります。右側には選択されている要素の編集可能なプロパティ全てが表示されているプロパティパネルがあります。それではまず新しいウィジットを作成することから始めてみましょう。デフォルトのOK/キャンセルボタンはいらないので"Dialog without buttons"を選択します。次に<b>Label</b>ウィジットを3つドラッグしてきます。一つはタイトル、一つは "Height"、一つは"Width"と書くために使います。ラベルはウィジット上に表示されるシンプルなテキストでユーザーに情報を与えるために使います。ラベルを選択すると右側にフォントスタイル、高さなどいくつかの変更可能なプロパティが表示されます。
+</p><p>次にユーザーが入力することが可能なテキストフィールドである<b>LineEdits</b>を2つ追加します。一つは高さ用、もう一つは幅用です。ここでもプロパティを編集することができます。例えばデフォルト値を設定してみてはどうでしょう？それぞれ1.00としてみましょう。こうすればユーザーがダイアログを見た確認した時には既に両方の値が設定されていて、ユーザーがその値に満足していれば直接ボタンを押すことができるので貴重な時間を節約できます。さらにユーザーが2つのフィールドに入力した後に押す必要がある<b>PushButton</b>を追加します。
+</p><p>ここでは非常に簡単なコントロールを選んでいますがQtにもっと多くのオプションがあり、LineEditの代わりにSpinboxeを使ったりすることなどもできます。何が利用可能か見てみてください。きっと他のアイデアが思い浮かぶはずです。
+</p><p>QtDesignerで行うことはこれで全てです。ただし、最後に全ての要素の名前をわかりやすいものに変更しておきましょう。そうすればスクリプトで区別がつきやすくなります：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtpropeditor.jpg" class="image"><img alt="Qtpropeditor.jpg" src="Qtpropeditor.jpg" width="348" height="321" /></a>
+</p>
+<h2><span class="mw-headline" id=".E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.AEPython.E3.82.B3.E3.83.BC.E3.83.89.E3.81.B8.E3.81.AE.E5.A4.89.E6.8F.9B">ダイアログのPythonコードへの変換</span></h2>
+<p>さあ、私たちのウィジットをどこかに保存しましょう。ウィジットは.uiファイルとして保存され、pyuicを使うと簡単にPythonスクリプトに変換できます。Windowsではpyuicはpyqtにバンドルされています（確認してください）。Linuxではパッケージマネージャで個別にインストールする必要があるはずです（Debianベースのパッケージの場合、pyqt4-dev-toolsパッケージに含まれています）。変換のためにはまずターミナルウィンドウ（Windowsの場合はコマンドプロンプトウィンドウ）を開き、.uiファイルを保存した場所に移動して次のコマンドを実行します：
+</p>
+<pre>pyuic mywidget.ui &gt; mywidget.py
+</pre>
+<p>一部のシステムではプログラム名がpyuicではなくpyuic4の場合があります。このコマンドによって.uiファイルがPythonスクリプトに変換されます。mywidget.pyファイルを開いて見てみるとその内容が簡単に理解できるものであることがわかります：
+</p>
+<pre>from PyQt4 import QtCore, QtGui
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(187, 178)
+        self.title = QtGui.QLabel(Dialog)
+        self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+        self.title.setObjectName("title")
+        self.label_width = QtGui.QLabel(Dialog)
+        ...
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+        ...
+</pre>
+<p>見てわかるようにとても簡単な構造です。Ui_Dialogという名前のクラスが作成され、その中にウィジットのインターフェイス要素が保存されています。クラスは二つのメソッドを持っています。一つはウィジットをセットアップするためのもので、もう一つはその内容を翻訳するためのものです。翻訳用のものはインターフェイス要素を翻訳するために用意された一般的なQtの仕組みの一部です。セットアップ用のメソッドは私たちがQtDesignerで定義したウィジットを1つずつ作成し、先に私たちが決めたオプションを設定していきます。それからインターフェイス全体が翻訳され、最後にスロットが接続されます（これについては後で説明します）。
+</p><p>これで新しいウィジットを作成し、そのインターフェイスを作成するためにこのクラスを使用することができます。もう既にウィジットを動かしてみることができます。FreeCADが検索する場所（FreeCADのbinディレクトリまたはModサブディレクトリのどれか）にmywidget.pyファイルを置き、FreeCADのPythonインタプリタで次のコマンドを実行すればいいのです：
+</p>
+<pre>from PyQt4 import QtGui
+import mywidget
+d = QtGui.QWidget()
+d.ui = mywidget.Ui_Dialog()
+d.ui.setupUi(d)
+d.show()
+
+するとダイアログが表示されます！Pythonインタプリタがまだ動作していることに注意してください。私たちはモーダレスダイアログを使っているのです。ダイアログを閉じるには次のコマンドを使ってください（もちろんダイアログの閉じるアイコンをクリックしても閉じられます）：
+d.hide()
+</pre>
+<h2><span class="mw-headline" id=".E3.83.80.E3.82.A4.E3.82.A2.E3.83.AD.E3.82.B0.E3.81.A7.E5.87.A6.E7.90.86.E3.82.92.E8.A1.8C.E3.81.88.E3.82.8B.E3.82.88.E3.81.86.E3.81.AB.E3.81.99.E3.82.8B">ダイアログで処理を行えるようにする</span></h2>
+<p>さてダイアログの表示と非表示はできるようになりました。最後の仕上げを行いましょう：処理を行えるようにするのです！QtDesignerを少しいじっていればすぐに"signals and slots"と呼ばれる機能があることに気がつくでしょう。基本的な動作は次のようになります。ウィジット上の要素（Qtでの用語で言うとこれらの要素自体もウィジットなのです）はシグナルを送信できます。シグナルはウィジットの型によって異なります。例えばボタンは押された時と離された時にシグナルを送れます。このシグナルはスロットにつなげることができます。スロットとしては他のウィジットの特別な機能（例えばダイアログには"閉じる"スロットがあり、閉じるボタンからのシグナルを接続することができます）や自作関数を使うことができます。<a rel="nofollow" class="external text" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">PyQtリファレンスドキュメント</a>には全てのQtウィジット、それを使ってできること、どんなシグナルを送信できるかなどがリストアップされています。
+</p><p>ここで行うことは高さと幅に基いて平面を作成する新しい関数を作成すること、その関数と"Create!"ボタンを押した際に発信されるシグナルとを接続することです。まずFreeCADモジュールをインポートすることから始めましょう。次の行をQtCoreとQtGuiをインポート済みのスクリプトの先頭に書き込むことで可能です：
+</p>
+<pre>import FreeCAD, Part
+</pre>
+<p>次にUi_Dialogクラスに新しい関数を追加しましょう：
+</p>
+<pre>def createPlane(self):
+    try:
+        # まず有効な値が入力されているかをチェック
+        w = float(self.width.text())
+        h = float(self.height.text())
+    except ValueError:
+        print "Error! Width and Height values must be valid numbers!"
+    else:
+        # 4つの点から面を作成
+        p1 = FreeCAD.Vector(0,0,0)
+        p2 = FreeCAD.Vector(w,0,0)
+        p3 = FreeCAD.Vector(w,h,0)
+        p4 = FreeCAD.Vector(0,h,0)
+        pointslist = [p1,p2,p3,p4,p1]
+        mywire = Part.makePolygon(pointslist)
+        myface = Part.Face(mywire)
+        Part.show(myface)
+        self.hide()
+</pre>
+<p>さらにボタンと関数を接続するようにQtに指定する必要があります。次の行をQtCore.QMetaObject.connectSlotsByName(Dialog)の直前に挿入することで可能です：
+</p>
+<pre>QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)
+</pre>
+<p>見てわかるようにこれによって私たちが作成したオブジェクト（"Create!"ボタン）のpressed()シグナルが私たちが定義したcreatePlaneという名前のスロットに接続されます。これで終わりです！最後に呼び出しを簡単に行うためにダイアログを作成するための小さな関数を追加しましょう。Ui_Dialogクラスの外に次のコードを追加します：
+</p>
+<pre>class plane():
+    d = QtGui.QWidget()
+    d.ui = Ui_Dialog()
+    d.ui.setupUi(d)
+    d.show()
+</pre>
+<p>それが終わったらFreeCADから次のコマンドを実行するだけです：
+</p>
+<pre>import mywidget
+mywidget.plane()
+</pre>
+<p>これで終わりです。もうあなたは自分のウィジットをFreeCADのインターフェイスに追加したり、ウィジット上の他の要素を使ってもっと高度な自作ツールを作るといったあらゆることに挑戦できるのです。
+</p>
+<h2><span class="mw-headline" id=".E5.85.A8.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88">全スクリプト</span></h2>
+<p>参考のために全スクリプトを記載しておきます：
+</p>
+<pre># -*- coding: utf-8 -*-
+
+# フォームの実装は読み込んだ'mywidget.ui'ファイルから生成
+#
+# Created: Mon Jun  1 19:09:10 2009
+#      by: PyQt4 UI code generator 4.4.4
+#
+# 警告！このファイルで行った全ての変更が失われます！
+
+from PyQt4 import QtCore, QtGui
+import FreeCAD, Part 
+
+class Ui_Dialog(object):
+   def setupUi(self, Dialog):
+       Dialog.setObjectName("Dialog")
+       Dialog.resize(187, 178)
+       self.title = QtGui.QLabel(Dialog)
+       self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+       self.title.setObjectName("title")
+       self.label_width = QtGui.QLabel(Dialog)
+       self.label_width.setGeometry(QtCore.QRect(10, 50, 57, 16))
+       self.label_width.setObjectName("label_width")
+       self.label_height = QtGui.QLabel(Dialog)
+       self.label_height.setGeometry(QtCore.QRect(10, 90, 57, 16))
+       self.label_height.setObjectName("label_height")
+       self.width = QtGui.QLineEdit(Dialog)
+       self.width.setGeometry(QtCore.QRect(60, 40, 111, 26))
+       self.width.setObjectName("width")
+       self.height = QtGui.QLineEdit(Dialog)
+       self.height.setGeometry(QtCore.QRect(60, 80, 111, 26))
+       self.height.setObjectName("height")
+       self.create = QtGui.QPushButton(Dialog)
+       self.create.setGeometry(QtCore.QRect(50, 140, 83, 26))
+       self.create.setObjectName("create")
+
+       self.retranslateUi(Dialog)
+       QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)
+       QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+       Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+       self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_width.setText(QtGui.QApplication.translate("Dialog", "Width", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_height.setText(QtGui.QApplication.translate("Dialog", "Height", None, QtGui.QApplication.UnicodeUTF8))
+       self.create.setText(QtGui.QApplication.translate("Dialog", "Create!", None, QtGui.QApplication.UnicodeUTF8))
+
+   def createPlane(self):
+       try:
+           # まず有効な値が入力されているかをチェック
+           w = float(self.width.text())
+           h = float(self.height.text())
+       except ValueError:
+           print "Error! Width and Height values must be valid numbers!"
+       else:
+           # 4つの点から面を作成
+           p1 = FreeCAD.Vector(0,0,0)
+           p2 = FreeCAD.Vector(w,0,0)
+           p3 = FreeCAD.Vector(w,h,0)
+           p4 = FreeCAD.Vector(0,h,0)
+           pointslist = [p1,p2,p3,p4,p1]
+           mywire = Part.makePolygon(pointslist)
+           myface = Part.Face(mywire)
+           Part.show(myface)
+
+class plane():
+    d = QtGui.QWidget()
+    d.ui = Ui_Dialog()
+    d.ui.setupUi(d)
+    d.show()
+</pre>
+<p><br />
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/jp&amp;oldid=211456">http://www.freecadweb.org/wiki/index.php?title=Dialog_creation/jp&amp;oldid=211456</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

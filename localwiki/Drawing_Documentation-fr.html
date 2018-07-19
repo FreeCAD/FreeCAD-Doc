@@ -1,0 +1,169 @@
+<html><head><title>Drawing Documentation/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Documentation/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>This page documents jcc242's understanding of the Drawing module. It includes files and features that he is currently working on and may not yet be in the master branch. The source for those files is on <a rel="nofollow" class="external text" href="https://github.com/jcc242/FreeCAD">his Github</a>, but be careful as that is very unstable!
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Base_.28Mod.2FDrawing.29"><span class="tocnumber">1</span> <span class="toctext">Base (Mod/Drawing)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#gdtsvg.py"><span class="tocnumber">1.1</span> <span class="toctext">gdtsvg.py</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#DrawingAlgos.py"><span class="tocnumber">1.2</span> <span class="toctext">DrawingAlgos.py</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#createSVG"><span class="tocnumber">1.2.1</span> <span class="toctext">createSVG</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#App"><span class="tocnumber">2</span> <span class="toctext">App</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#AppDrawing.cpp"><span class="tocnumber">2.1</span> <span class="toctext">AppDrawing.cpp</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#DrawingExport.cpp"><span class="tocnumber">2.2</span> <span class="toctext">DrawingExport.cpp</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#FeatureClip.cpp"><span class="tocnumber">2.3</span> <span class="toctext">FeatureClip.cpp</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#FeaturePage.cpp"><span class="tocnumber">2.4</span> <span class="toctext">FeaturePage.cpp</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#FeatureProjection.cpp"><span class="tocnumber">2.5</span> <span class="toctext">FeatureProjection.cpp</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#FeatureView.cpp"><span class="tocnumber">2.6</span> <span class="toctext">FeatureView.cpp</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#FeatureViewAnnotation.cpp"><span class="tocnumber">2.7</span> <span class="toctext">FeatureViewAnnotation.cpp</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#FeatureViewPart.cpp"><span class="tocnumber">2.8</span> <span class="toctext">FeatureViewPart.cpp</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#PageGroup.cpp"><span class="tocnumber">2.9</span> <span class="toctext">PageGroup.cpp</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Precompiled.cppp"><span class="tocnumber">2.10</span> <span class="toctext">Precompiled.cppp</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#ProjectionAlgos.cpp"><span class="tocnumber">2.11</span> <span class="toctext">ProjectionAlgos.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Gui"><span class="tocnumber">3</span> <span class="toctext">Gui</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#AppDrawingGui.cpp"><span class="tocnumber">3.1</span> <span class="toctext">AppDrawingGui.cpp</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#AppDrawingGuiPy.cpp"><span class="tocnumber">3.2</span> <span class="toctext">AppDrawingGuiPy.cpp</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Command.cpp"><span class="tocnumber">3.3</span> <span class="toctext">Command.cpp</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#DrawingView.cpp"><span class="tocnumber">3.4</span> <span class="toctext">DrawingView.cpp</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#TaskDialog.cpp"><span class="tocnumber">3.5</span> <span class="toctext">TaskDialog.cpp</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#TaskOrthoViews.cpp"><span class="tocnumber">3.6</span> <span class="toctext">TaskOrthoViews.cpp</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#ViewProviderPage.cpp"><span class="tocnumber">3.7</span> <span class="toctext">ViewProviderPage.cpp</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#ViewProviderView.cpp"><span class="tocnumber">3.8</span> <span class="toctext">ViewProviderView.cpp</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Workbench.cpp"><span class="tocnumber">3.9</span> <span class="toctext">Workbench.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="#Workflow"><span class="tocnumber">4</span> <span class="toctext">Workflow</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="#Program_Flow"><span class="tocnumber">4.1</span> <span class="toctext">Program Flow</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Adding_commands_to_the_Drawing_Workbench"><span class="tocnumber">4.2</span> <span class="toctext">Adding commands to the Drawing Workbench</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Base_.28Mod.2FDrawing.29">Base (Mod/Drawing)</span></h2>
+<h3><span class="mw-headline" id="gdtsvg.py">gdtsvg.py</span></h3>
+<p>Python script that generates svg snippets for things such as gd&amp;t symbols, dimension symbols, and basic svg elements such as lines, circles, and paths.
+</p><p>It has several support files that don't really do much. Run DrawingTest.py to create a bunch of svg icons in the icon directory that previews various icons in the gdtsvg.py file. settingslist.py and dimesettings, and convert.py are all deprecated from older settings methods and should probably be removed as the Drawing branch approaches merging into master. 
+</p>
+<h3><span class="mw-headline" id="DrawingAlgos.py">DrawingAlgos.py</span></h3>
+<p>Creates svg lines from a list of vertices, supports both hidden and visible edges. Should probably be merged with gdtsvg.py as that file matures.
+</p>
+<h4><span class="mw-headline" id="createSVG">createSVG</span></h4>
+<p>Accepts part as an argument, projects the part into lines from the Drawing.project object and then draws creates the svg for each line.
+</p>
+<h2><span class="mw-headline" id="App">App</span></h2>
+<p>Contains the backend side of the drawing module.
+</p>
+<h3><span class="mw-headline" id="AppDrawing.cpp">AppDrawing.cpp</span></h3>
+<p>Initializes the various namespaces and modules and stuff used in the drawing module. Will throw an error if it cannot load the Part module.
+</p>
+<h3><span class="mw-headline" id="DrawingExport.cpp">DrawingExport.cpp</span></h3>
+<p>Two classes: SVGOutput and DXFOutput. They both contain methods to put out the code in their respective language. Typically require an object of the appropriate typedef, and sometimes some additional identifier information.
+</p>
+<h3><span class="mw-headline" id="FeatureClip.cpp">FeatureClip.cpp</span></h3>
+<p>Callback (?) methods for the feature clipping gui, so it would seem. Called alone it will create the clip path, if ShowFrame.getValue is TRUE set it will show the frame border as well.
+</p>
+<h3><span class="mw-headline" id="FeaturePage.cpp">FeaturePage.cpp</span></h3>
+<p>Manages the views. 
+</p><p>onChanged() for doing stuff when properties get changed. 
+</p><p>execute() for recalculating a feature view, or so it claims. It seems to have stuff for checking for editable texts and saving drawings. Need to investigate further.
+</p><p>getEditableTextsFromTemplate() for retrieving text that can be edited by FreeCAD from an SVG file.
+</p>
+<h3><span class="mw-headline" id="FeatureProjection.cpp">FeatureProjection.cpp</span></h3>
+<p>Flattens object to a 2D image?
+</p>
+<h3><span class="mw-headline" id="FeatureView.cpp">FeatureView.cpp</span></h3>
+<p>Defines the properties for views.
+</p>
+<h3><span class="mw-headline" id="FeatureViewAnnotation.cpp">FeatureViewAnnotation.cpp</span></h3>
+<p>Defines properties for annotations (right now just text), has an execute method to update the text if changed/moved.
+</p>
+<h3><span class="mw-headline" id="FeatureViewPart.cpp">FeatureViewPart.cpp</span></h3>
+<p>Constructor to add properties. Gets appearance stuff for projected parts.
+</p>
+<h3><span class="mw-headline" id="PageGroup.cpp">PageGroup.cpp</span></h3>
+<p>Just adds a property for a list of pages, does not much else.
+</p>
+<h3><span class="mw-headline" id="Precompiled.cppp">Precompiled.cppp</span></h3>
+<p>Just #include "PreCompiled.h"
+</p>
+<h3><span class="mw-headline" id="ProjectionAlgos.cpp">ProjectionAlgos.cpp</span></h3>
+<p>The constructor just runs the execute() method to update it's stuff
+</p><p>invertY: since SVG does its y-axis backwards to every other coordinate system in the world, we must invert it when converting from a FreeCAD part to an SVG projection for the Drawing view.
+</p><p>getSVG: fetches the SVG code from the DrawingExport stuff. Formats depending on type of line (hidden or not and some other stuff I need to figure out).
+</p><p>getDXF: same as getSVG except for DXF format.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Gui">Gui</span></h2>
+<h3><span class="mw-headline" id="AppDrawingGui.cpp">AppDrawingGui.cpp</span></h3>
+<p>Initializes the drawing gui.
+</p>
+<h3><span class="mw-headline" id="AppDrawingGuiPy.cpp">AppDrawingGuiPy.cpp</span></h3>
+<p>Provides opening, importing, and exporting interfaces? Looks like it is python accessible.
+</p>
+<h3><span class="mw-headline" id="Command.cpp">Command.cpp</span></h3>
+<p>Handles commands (from the toolbar?) such as creating new drawings and stuff. It looks like this handles QT calls from clicking the button to whatever command it needs to go to e.g. clicking the CmdDrawingOrthoViews button will show the Ortho views gui in the task dialog spot.
+</p>
+<h3><span class="mw-headline" id="DrawingView.cpp">DrawingView.cpp</span></h3>
+<p>Does a bunch of qt gui stuff, need to read more on it.
+</p>
+<h3><span class="mw-headline" id="TaskDialog.cpp">TaskDialog.cpp</span></h3>
+<p>Creates the task dialog thing on the side and probably switches to it from the tree view, as appropriate.
+</p>
+<h3><span class="mw-headline" id="TaskOrthoViews.cpp">TaskOrthoViews.cpp</span></h3>
+<p>Creates the task dialog for placing the orthographic views!
+</p><p>Does a lot of the calculations for where to position stuff (automatic calculations as well, it seems).
+</p><p>Takes the input from the TaskOrthoViews gui and does stuff with it. Uses the single inheritance method talked about <a rel="nofollow" class="external text" href="http://doc.qt.digia.com/qt/designer-using-a-ui-file.html">on the qt website</a>.
+</p>
+<h3><span class="mw-headline" id="ViewProviderPage.cpp">ViewProviderPage.cpp</span></h3>
+<p>Constructor adds some properties for the view stuff.
+Destructor does nothing.
+Attaches something (attaches what? attaches the view to the page?) sets and gets display modes (what are display modes? what do they do and what are possible options?)
+Does something about updating some kind of data has a context menu that says "Show drawing", figure out what this means
+Has a thing for double clicking to select the view (I think?)
+</p><p>showDrawingView seems to do some work on settings things up: gets the current document, sets the window icon and title, adds it to the main window (of FreeCAD?)
+</p>
+<h3><span class="mw-headline" id="ViewProviderView.cpp">ViewProviderView.cpp</span></h3>
+<p>Doesn't seem to do much, though I am sure it is important.
+</p>
+<h3><span class="mw-headline" id="Workbench.cpp">Workbench.cpp</span></h3>
+<p>Adds the icons to the toolbars and stuff.
+</p>
+<h1><span class="mw-headline" id="Workflow">Workflow</span></h1>
+<h2><span class="mw-headline" id="Program_Flow">Program Flow</span></h2>
+<p>CanvasView is the actual QGraphicsScene object and DrawingView processes a list of FeatureView that are linked by reference in /App/FeatureViewPage. DrawingView then chooses the appropriate QGraphicsItem class (QGraphicsItemViewPart or QGraphicsItemViewDimension) and then calls a function in CanvasView to create this and add it to the scene.
+</p>
+<h2><span class="mw-headline" id="Adding_commands_to_the_Drawing_Workbench">Adding commands to the Drawing Workbench</span></h2>
+<p>4 simple steps:
+</p>
+<ol><li> Add a class to Command.cpp. Follow the others for an example of the formatting.</li>
+<li> Add a title, icon, tooltip, etc., again, follow the existing classes in command.cpp</li>
+<li> Add your class to the bottom of Command.cpp</li>
+<li> Add your information to Workbench.cpp, this will tell FreeCAD/Drawing module where to place the icons defined in command.cpp  in the actual freecad interface (the toolbars, dropdowns, etc.)</li></ol>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Documentation/fr&amp;oldid=128122">http://www.freecadweb.org/wiki/index.php?title=Drawing_Documentation/fr&amp;oldid=128122</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

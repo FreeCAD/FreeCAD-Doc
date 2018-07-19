@@ -1,0 +1,75 @@
+<html><head><title>PyQt/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>PyQt/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/PyQt">PyQt</a>はPythonで<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Qt_(toolkit)">Qt</a>アプリケーションの作成、アクセス、変更を行うためのPythonモジュールです。これを使用すると例えば独自にQtプログラムを作成したり、FreeCADなど実行中のQtアプリケーションのインターフェイスへのアクセスや変更が可能になります。
+</p><p>FreeCAD内部からPyQtモジュールを使用することでFreeCADのインターフェイスを完全に制御することができます。例えば以下のことを行うことができます。
+</p>
+<ul><li> 独自のパネル、ウィジット、ツールバーの追加</li>
+<li> 既存のパネルへの要素の追加や非表示</li>
+<li> 全ての要素の間のコネクションに対する変更、リダイレクト、追加</li></ul>
+<p>PyQtには豊富な<a rel="nofollow" class="external text" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">APIドキュメント</a>があり、またネット上にはどの様にそれが動作するのか教えてくれるチュートリアルがたくさんあります。
+</p><p>もしFreeCADインターフェイスをいじりたいのであれば一番最初にやるべきことはFreeCADのメインウィンドウの参照を作成することです：
+</p>
+<pre>import sys
+from PyQt4 import QtGui
+app = QtGui.qApp
+mw = app.activeWindow()
+</pre>
+<p>すると例えばインターフェイスの全てのウィジットをブラウジングすることなどができるようになります：
+</p>
+<pre>for child in mw.children():
+   print 'widget name = ', child.objectName(), ', widget type = ', child
+</pre>
+<p>Qtインターフェイスのウィジットは普通、"コンテナ"ウィジット内に入れ子状態になっています。つまりメインウィンドウの子ウィンドウ自体も他の子ウィンドウを収納できるのです。ウィジットのタイプによって行えることは様々です。何ができるのかについてはAPIドキュメントをチェックしてください。
+</p><p>新しいウィジットの追加には例えばdockWidget（FreeCADのサイドパネルの一つに配置できます）が便利です：
+</p>
+<pre>myWidget = QtGui.QDockWidget()
+mw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myWidget)
+</pre>
+<p>さらにいろいろなものをウィジットに直接追加できます：
+</p>
+<pre>myWidget.setObjectName("my Nice New Widget")
+myWidget.resize(QtCore.QSize(300,100)) # ウィジットのサイズ設定
+label = QtGui.QLabel("Hello World", myWidget) # ラベルを作成
+label.setGeometry(QtCore.QRect(50,50,200,24)) # そのサイズを設定
+label.setObjectName("myLabel") # 名前を設定することで名前を使って検索できるようにします
+</pre>
+<p>しかしよく好まれる方法は一度にウィジットの設定を全て行えるUIオブジェクトの作成です。この方法の大きな利点はQt Designerを使うことでこういったUIオブジェクトを<a href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/jp" title="Dialog creation/jp">グラフィカルな方法</a>で作成できるということです。Qt Designerによって生成された標準的なオブジェクトは以下のようになります：
+</p>
+<pre>class myWidget_Ui(object):
+  def setupUi(self, myWidget):
+    myWidget.setObjectName("my Nice New Widget")
+    myWidget.resize(QtCore.QSize(300,100).expandedTo(myWidget.minimumSizeHint())) # ウィジットのサイズを設定
+
+    self.label = QtGui.QLabel(myWidget) # ラベルを作成
+    self.label.setGeometry(QtCore.QRect(50,50,200,24)) # そのサイズを設定
+    self.label.setObjectName("label") # 名前を設定することで名前を使って検索できるようにします
+
+  def retranslateUi(self, draftToolbar): # ウィジットの翻訳を管理する組み込みのQt関数
+    myWidget.setWindowTitle(QtGui.QApplication.translate("myWidget", "My Widget", None, QtGui.QApplication.UnicodeUTF8))
+    self.label.setText(QtGui.QApplication.translate("myWidget", "Welcome to my new widget!", None, QtGui.QApplication.UnicodeUTF8))
+</pre>
+<p>使用するには以下のようにして新しく作成したウィジットに適用するだけで構いません：
+</p>
+<pre>myNewFreeCADWidget = QtGui.QDockWidget() # 新しいウィジットを作成
+myNewFreeCADWidget.ui = myWidget_Ui() # UIスクリプトをロード
+myNewFreeCADWidget.ui.setupUi(myNewFreeCADWidget) # UIを設定
+FCmw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myNewFreeCADWidget) # メインウィンドウにウィジットを追加
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=PyQt/jp&amp;oldid=211439">http://www.freecadweb.org/wiki/index.php?title=PyQt/jp&amp;oldid=211439</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,152 @@
+<html><head><title>Path Workbench/zh-cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Path Workbench/zh-cn</h1></div>
+
+<div id="mw-content-text" lang="zh-CN" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E7.AE.80.E4.BB.8B"><span class="tocnumber">1</span> <span class="toctext">简介</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E4.B8.BA.E6.B2.A1.E6.9C.89.E8.80.90.E5.BF.83.E7.9A.84.E4.BA.BA.E4.BB.95.E5.87.86.E5.A4.87.E7.9A.84.E9.93.BE.E6.8E.A5"><span class="tocnumber">1.1</span> <span class="toctext">为没有耐心的人仕准备的链接</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#.E4.B8.80.E8.88.AC.E6.A6.82.E5.BF.B5"><span class="tocnumber">2</span> <span class="toctext">一般概念</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Units"><span class="tocnumber">3</span> <span class="toctext">Units</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E8.B7.AF.E5.BE.84.E5.91.BD.E4.BB.A4"><span class="tocnumber">4</span> <span class="toctext">路径命令</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.E8.B7.AF.E5.BE.84.E8.A3.85.E9.A5.B0"><span class="tocnumber">4.1</span> <span class="toctext">路径装饰</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E9.83.A8.E5.88.86.E5.91.BD.E4.BB.A4"><span class="tocnumber">4.2</span> <span class="toctext">部分命令</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E8.B7.AF.E5.BE.84.E4.BF.AE.E6.94.B9"><span class="tocnumber">4.3</span> <span class="toctext">路径修改</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E5.85.B6.E5.AE.83"><span class="tocnumber">4.4</span> <span class="toctext">其它</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Preferences"><span class="tocnumber">4.5</span> <span class="toctext">Preferences</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#.E8.84.9A.E6.9C.AC"><span class="tocnumber">5</span> <span class="toctext">脚本</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#FAQ"><span class="tocnumber">6</span> <span class="toctext">FAQ</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E7.AE.80.E4.BB.8B">简介</span></h2>
+<p>路径工作台用于从 FreeCAD 3D模型中生成 <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/CNC_router">数控机床</a> 的机器指令。这些产品在数控机床 (如铣刀、车床、激光切割机或类似设备) 上生产真实世界的 3D 物体。通常，指令集是<a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/G-Code">G 代码</a> 的方言。
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Pathwb.png" class="image"><img alt="Pathwb.png" src="840px-Pathwb.png" width="840" height="472" srcset="/wiki/images/thumb/8/8d/Pathwb.png/1260px-Pathwb.png 1.5x, /wiki/images/8/8d/Pathwb.png 2x" /></a></div></div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>FreeCAD 路径工作台工作流程以以下方式创建机器指令:
+</p>
+<ul><li> 3D 模型是基本对象, 通常使用一个或多个 <a href="PartDesign_Workbench.html" title="PartDesign Workbench">零件设计</a>, <a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">零件</a> 或 <a href="Draft_Workbench.html" class="mw-redirect" title="Draft Workbench">底图</a> 工作台。</li>
+<li> <a href="Path_Job.html" title="Path Job">作业</a> 是在路径工作台中创建的。这包含了所有信息用于生成数控机床上处理作业的必要 G 代码: 有库存材料, 铣削有一个确定的 <a href="Path_EditToolsTable.html" title="Path EditToolsTable">工具集</a>, 它遵循某些命令控制速度和动作 (通常是 G 代码)。</li>
+<li> 根据作业操作的要求选择工具。</li>
+<li> 铣削路径的创建使用例如 <a href="Path_Profile.html" title="Path Profile">轮廓</a> 和 <a href="Path_Pocket_3D.html" title="Path Pocket 3D">袖珍</a> 操作。这些 <a href="Path_objects.html" title="Path objects">路径对象</a> 使用内部 FreeCAD G 代码方言, 独立于数控机床。</li></ul>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".E4.B8.BA.E6.B2.A1.E6.9C.89.E8.80.90.E5.BF.83.E7.9A.84.E4.BA.BA.E4.BB.95.E5.87.86.E5.A4.87.E7.9A.84.E9.93.BE.E6.8E.A5">为没有耐心的人仕准备的链接</span></h3>
+<p>根据你对路径工作台的兴趣, 有不同的主题供进一步阅读:
+</p>
+<ul><li> 如果你作为一个新用户尝试熟悉路径，你可能会对一个快速<a href="Path_Walkthrough_for_the_Impatient.html" title="Path Walkthrough for the Impatient">简易</a>教程会更感兴趣。</li>
+<li> 如果你有一台特别的机器不能使用任何的现有后处理器，你可能会想要学习关于<a href="Path_Postprocessor_Customization.html" title="Path Postprocessor Customization">定制后处理器</a>的内容</li>
+<li> 作为一个富有经验的用户你可能想写一个宏或自动化处理过程则可能需要学习<a href="Path_scripting.html" title="Path scripting">脚本</a>.</li>
+<li> 希望简化工作流的超级用户可以了解<a href="Path_Customization.html" title="Path Customization">定制</a>.</li>
+<li> 希望对路径做出贡献的新开发人员可能希望了解<a href="Path_Core_Concepts.html" title="Path Core Concepts">核心概念</a>.</li></ul>
+<h2><span class="mw-headline" id=".E4.B8.80.E8.88.AC.E6.A6.82.E5.BF.B5">一般概念</span></h2>
+<p>路径工作台生成 G 代码，定义了在目标中铣削由 3D 模型表示的项目所需要的路径—在 <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Path_scripting#FreeCAD.27s_internal_GCode_format">路径作业操作 FreeCAD G 代码方言</a>，然后通过选择合适的后处理器, 将其转换为目标数控控制器的相应方言。
+</p><p>G 代码是从路径作业中包含的指令和操作生成的。 作业工作流按将执行的顺序列出这些任务。通过添加路径操作、路径装饰、路径部分命令和路径修改—从路径菜单或 GUI 按钮。
+</p><p>路径工作台提供了一个工具管理器（库，工具表），和 G 代码检查，和模拟工具。它链接到后处理器，和允许导入和导出工作模板。  
+</p>
+<div class="mw-translate-fuzzy">
+<p>路径工作台有一个外部依赖：
+</p>
+<ol><li> FreeCAD 3D 模型单位是在 Edit-&gt;Preference...-&gt;General-&gt;Units 选项卡的单位进行设置。后处理器配置定义了最终的 G 代码单位。</li>
+<li> 宏文件路径和几何公差是在Edit-&gt;Preferences...-&gt;Path-&gt;Job Preferences 选项卡中定义</li>
+<li> 颜色在 Edit-&gt;Preferences...-&gt;Path-&gt;Path colors 选项卡中设置</li>
+<li> 保存标记参数在 Edit-&gt;Preferences...-&gt;Path-&gt;Dressups 选项卡中设置</li>
+<li> 基本 3D 模型质量支持路径 WB 要求-通过检查几何。</li></ol>
+</div>
+<h2><span class="mw-headline" id="Units">Units</span></h2>
+<p>Unit handling in Path can be confusing.  There are several points to understand:
+</p>
+<ol><li> FreeCAD base units for length and time are 'mm' and 's' respectively. Velocity is thus 'mm/s'. This is what FreeCAD stores internally regardless of anything else</li>
+<li> The default unit schema uses the default units. If you're using the default schema and you enter a feed rate without a unit string, it will get entered as 'mm/s'</li>
+<li> Most CNC machines expect feed rate in the form of either 'mm/min' or 'in/min'.  Most post-processors will automatically convert the unit when generating gcode.</li></ol>
+<p>Schemas:
+</p>
+<ol><li> Changing schema in preferences changes default unit string for the input fields.  If you're a Path user and prefer to design in metric, it's highly recommended that you use the "Metric Small Parts &amp; CNC" schema.  If you design in US units, either the Imperial Decimal and Building US will work</li>
+<li> Changing your preferred unit schema will have no effect on output but will help avoid input errors</li></ol>
+<p>Output:
+</p>
+<ol><li> Generating the correct unit in output is the responsibility of the post-processor and is done only at that time</li>
+<li> Machine output unit is completely unrelated to your selected unit schema</li>
+<li> Post-processors produce either metric (G21) output, Imperial (G20) output or are configurable.</li>
+<li> Configurable post-processors default to metric (G21)</li>
+<li> If you want your configurable post-processor to output imperial gcode (G20), Set the correct argument in your job output configation (ie --inches for linuxcnc).  This can be stored in a job template and set as your default template to make it automatic for all future jobs</li></ol>
+<p>Path Inspection:
+</p>
+<ol><li> If you use the Path Inspect tool to look at g-code, you will see it in 'mm/s' because it is not being post-processed</li></ol>
+<h2><span class="mw-headline" id=".E8.B7.AF.E5.BE.84.E5.91.BD.E4.BB.A4">路径命令</span></h2>
+<p>这些命令用于设置 CNC 项目和管理你的模板.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Job.png" class="image"><img alt="Path-Job.png" src="32px-Path-Job.png" width="32" height="30" srcset="/wiki/images/thumb/b/b6/Path-Job.png/48px-Path-Job.png 1.5x, /wiki/images/b/b6/Path-Job.png 2x" /></a> <a href="Path_Job.html" title="Path Job">Job</a>:  创建一个新的 CNC 作业</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_PostProcess.png" class="image"><img alt="Path PostProcess.png" src="32px-Path_PostProcess.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Path_PostProcess.png/48px-Path_PostProcess.png 1.5x, /wiki/images/3/39/Path_PostProcess.png 2x" /></a> <a href="Path_Post.html" title="Path Post">Post Process</a>: 导出一个项目到 G 代码</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-ExportTemplate.png" class="image"><img alt="Path-ExportTemplate.png" src="32px-Path-ExportTemplate.png" width="32" height="29" srcset="/wiki/images/thumb/0/0d/Path-ExportTemplate.png/48px-Path-ExportTemplate.png 1.5x, /wiki/images/0/0d/Path-ExportTemplate.png 2x" /></a> <a href="Path_ExportTemplate.html" title="Path ExportTemplate">Export Template</a>: 导出当前作业作为一个模板</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Inspect.png" class="image"><img alt="Path Inspect.png" src="32px-Path_Inspect.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Path_Inspect.png/48px-Path_Inspect.png 1.5x, /wiki/images/9/9f/Path_Inspect.png 2x" /></a> <a href="Path_Inspect.html" title="Path Inspect">G-Code Inspector</a>: 显示 G 代码以便检查</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Simulator.png" class="image"><img alt="Path Simulator.png" src="32px-Path_Simulator.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/Path_Simulator.png/48px-Path_Simulator.png 1.5x, /wiki/images/a/ab/Path_Simulator.png 2x" /></a> <a href="Path_Simulator.html" title="Path Simulator">Simulator</a>: 显示铣削操作, 就像在机器上做的那样</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_ToolLibraryEdit.png" class="image"><img alt="Path ToolLibraryEdit.png" src="32px-Path_ToolLibraryEdit.png" width="32" height="32" srcset="/wiki/images/thumb/1/19/Path_ToolLibraryEdit.png/48px-Path_ToolLibraryEdit.png 1.5x, /wiki/images/1/19/Path_ToolLibraryEdit.png 2x" /></a> <a href="Path_ToolLibraryEdit.html" title="Path ToolLibraryEdit">Tool Manager</a>: 编辑工作管理器</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-CompleteLoop.png" class="image"><img alt="Path-CompleteLoop.png" src="32px-Path-CompleteLoop.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Path-CompleteLoop.png/48px-Path-CompleteLoop.png 1.5x, /wiki/images/6/68/Path-CompleteLoop.png 2x" /></a> <a href="Path_SelectLoop.html" title="Path SelectLoop">Complete Loop</a>: 从两个选定的边完成一个循环</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Contour.png" class="image"><img alt="Path Contour.png" src="32px-Path_Contour.png" width="32" height="32" srcset="/wiki/images/thumb/d/de/Path_Contour.png/48px-Path_Contour.png 1.5x, /wiki/images/d/de/Path_Contour.png 2x" /></a> <a href="Path_Contour.html" title="Path Contour">Contour</a>: 创建基对象的轮廓的路径</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Profile-Face.png" class="image"><img alt="Path-Profile-Face.png" src="32px-Path-Profile-Face.png" width="32" height="32" srcset="/wiki/images/thumb/a/a9/Path-Profile-Face.png/48px-Path-Profile-Face.png 1.5x, /wiki/images/a/a9/Path-Profile-Face.png 2x" /></a> <a href="Path_ProfileFace.html" title="Path ProfileFace">Profile from Face</a>: 从选定的面创建分析路径</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Profile-Edges.png" class="image"><img alt="Path-Profile-Edges.png" src="32px-Path-Profile-Edges.png" width="32" height="32" srcset="/wiki/images/thumb/b/b7/Path-Profile-Edges.png/48px-Path-Profile-Edges.png 1.5x, /wiki/images/b/b7/Path-Profile-Edges.png 2x" /></a> <a href="Path_ProfileEdges.html" title="Path ProfileEdges">Profile from Edges</a>: 从所选边创建分析路径</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Pocket.png" class="image"><img alt="Path Pocket.png" src="32px-Path_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/c/c2/Path_Pocket.png/48px-Path_Pocket.png 1.5x, /wiki/images/c/c2/Path_Pocket.png 2x" /></a> <a href="Path_Pocket_Shape.html" title="Path Pocket Shape">Pocket</a>: Creates a pocketing operation from one ore more selected pocket(s)</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Drilling.png" class="image"><img alt="Path Drilling.png" src="32px-Path_Drilling.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/Path_Drilling.png/48px-Path_Drilling.png 1.5x, /wiki/images/9/93/Path_Drilling.png 2x" /></a> <a href="Path_Drilling.html" title="Path Drilling">Drilling</a>: 执行钻孔循环</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Engrave.png" class="image"><img alt="Path-Engrave.png" src="32px-Path-Engrave.png" width="32" height="32" srcset="/wiki/images/thumb/2/21/Path-Engrave.png/48px-Path-Engrave.png 1.5x, /wiki/images/2/21/Path-Engrave.png 2x" /></a> <a href="Path_Engrave.html" title="Path Engrave">Engrave</a>: Creates a engraving path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Face.png" class="image"><img alt="Path-Face.png" src="32px-Path-Face.png" width="32" height="32" srcset="/wiki/images/thumb/2/2e/Path-Face.png/48px-Path-Face.png 1.5x, /wiki/images/2/2e/Path-Face.png 2x" /></a> <a href="Path_MillFace.html" title="Path MillFace">Mill Face</a>: Creates a surfacing path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Helix.png" class="image"><img alt="Path-Helix.png" src="32px-Path-Helix.png" width="32" height="32" srcset="/wiki/images/thumb/6/64/Path-Helix.png/48px-Path-Helix.png 1.5x, /wiki/images/6/64/Path-Helix.png 2x" /></a> <a href="Path_Helix.html" title="Path Helix">Helix</a>: Creates a helical path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-3DPocket.png" class="image"><img alt="Path-3DPocket.png" src="32px-Path-3DPocket.png" width="32" height="32" srcset="/wiki/images/thumb/a/a9/Path-3DPocket.png/48px-Path-3DPocket.png 1.5x, /wiki/images/a/a9/Path-3DPocket.png 2x" /></a> <a href="Path_Pocket_3D.html" title="Path Pocket 3D">3D Pocket</a>: Creates a path for a 3D pocket</li></ul>
+<h3><span class="mw-headline" id=".E8.B7.AF.E5.BE.84.E8.A3.85.E9.A5.B0">路径装饰</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="Path_DressupDogbone.html" title="Path DressupDogbone">Dogbone Dressup</a>: Adds a dogbone dressup modification to a selected path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="Path_DressupDragKnife.html" title="Path DressupDragKnife">Dragknife Dressup</a>: Adds a dragknife dressup modification to a selected path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupLeadInOut&amp;action=edit&amp;redlink=1" class="new" title="Path DressupLeadInOut (page does not exist)">Lead In Dressup</a>: Adds a lead-in and/or lead-out point to a selected path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="Path_DressupRampEntry.html" title="Path DressupRampEntry">Ramp Entry Dressup</a>: Adds ramp entry dressup modification to a selected path</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="Path_DressupTag.html" title="Path DressupTag">Tag Dressup</a>: Adds a holding tag dressup modification to a selected path</li></ul>
+<h3><span class="mw-headline" id=".E9.83.A8.E5.88.86.E5.91.BD.E4.BB.A4">部分命令</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Fixture.png" class="image"><img alt="Path Fixture.png" src="32px-Path_Fixture.png" width="32" height="32" srcset="/wiki/images/thumb/6/62/Path_Fixture.png/48px-Path_Fixture.png 1.5x, /wiki/images/6/62/Path_Fixture.png 2x" /></a> <a href="Path_Fixture.html" title="Path Fixture">Fixture</a>: 改变夹具的位置</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Comment.png" class="image"><img alt="Path Comment.png" src="32px-Path_Comment.png" width="32" height="32" srcset="/wiki/images/thumb/f/fe/Path_Comment.png/48px-Path_Comment.png 1.5x, /wiki/images/f/fe/Path_Comment.png 2x" /></a> <a href="Path_Comment.html" title="Path Comment">Comment</a>: 插入一个注释到路径的 G 代码中</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Stop.png" class="image"><img alt="Path Stop.png" src="32px-Path_Stop.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Path_Stop.png/48px-Path_Stop.png 1.5x, /wiki/images/d/d6/Path_Stop.png 2x" /></a> <a href="Path_Stop.html" title="Path Stop">Stop</a>: 插入一个全部停止机器指令</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Custom.png" class="image"><img alt="Path Custom.png" src="32px-Path_Custom.png" width="32" height="32" srcset="/wiki/images/thumb/9/9e/Path_Custom.png/48px-Path_Custom.png 1.5x, /wiki/images/9/9e/Path_Custom.png 2x" /></a> <a href="Path_Custom.html" title="Path Custom">Custom</a>: 插入自定义 G 代码</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_GcodeFromShape.png" class="image"><img alt="Path GcodeFromShape.png" src="32px-Path_GcodeFromShape.png" width="32" height="32" srcset="/wiki/images/thumb/1/1c/Path_GcodeFromShape.png/48px-Path_GcodeFromShape.png 1.5x, /wiki/images/1/1c/Path_GcodeFromShape.png 2x" /></a> <a href="Path_FromShapes.html" title="Path FromShapes">Gcode From a Shape</a>: 从选择部分对象创建路径对象</li></ul>
+<h3><span class="mw-headline" id=".E8.B7.AF.E5.BE.84.E4.BF.AE.E6.94.B9">路径修改</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Copy.png" class="image"><img alt="Path Copy.png" src="32px-Path_Copy.png" width="32" height="32" srcset="/wiki/images/thumb/1/19/Path_Copy.png/48px-Path_Copy.png 1.5x, /wiki/images/1/19/Path_Copy.png 2x" /></a> <a href="Path_Copy.html" title="Path Copy">Copy</a>: 创建选定路径对象的参数化副本</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Array.png" class="image"><img alt="Path Array.png" src="32px-Path_Array.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/Path_Array.png/48px-Path_Array.png 1.5x, /wiki/images/c/c7/Path_Array.png 2x" /></a> <a href="Path_Array.html" title="Path Array">Array</a>: 通过复制选定路径创建数组</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_SimpleCopy.png" class="image"><img alt="Path SimpleCopy.png" src="32px-Path_SimpleCopy.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Path_SimpleCopy.png/48px-Path_SimpleCopy.png 1.5x, /wiki/images/d/d6/Path_SimpleCopy.png 2x" /></a> <a href="Path_SimpleCopy.html" title="Path SimpleCopy">Simple Copy</a>: 创建选定路径对象的非参数副本</li></ul>
+<h3><span class="mw-headline" id=".E5.85.B6.E5.AE.83">其它</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-3DSurface.png" class="image"><img alt="Path-3DSurface.png" src="32px-Path-3DSurface.png" width="32" height="32" srcset="/wiki/images/thumb/e/e0/Path-3DSurface.png/48px-Path-3DSurface.png 1.5x, /wiki/images/e/e0/Path-3DSurface.png 2x" /></a> <a href="Path_Surface.html" title="Path Surface">3D Surface</a>: 为 3D 表面创建路径</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Area.png" class="image"><img alt="Path-Area.png" src="32px-Path-Area.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Path-Area.png/48px-Path-Area.png 1.5x, /wiki/images/0/0f/Path-Area.png 2x" /></a> <a href="Path_Area.html" title="Path Area">Feature area</a>: 从从所选对象创建一个特征区域</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Area-Workplane.png" class="image"><img alt="Path-Area-Workplane.png" src="32px-Path-Area-Workplane.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Path-Area-Workplane.png/48px-Path-Area-Workplane.png 1.5x, /wiki/images/6/68/Path-Area-Workplane.png 2x" /></a> <a href="Path_Area_Workplane.html" title="Path Area Workplane">Feature area workplane</a>: 创建一个特征区域工作面</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Sanity.png" class="image"><img alt="Path Sanity.png" src="32px-Path_Sanity.png" width="32" height="32" srcset="/wiki/images/thumb/0/06/Path_Sanity.png/48px-Path_Sanity.png 1.5x, /wiki/images/0/06/Path_Sanity.png 2x" /></a> <a href="Path_Sanity.html" title="Path Sanity">Path Errors</a>: 检查已选择的作业是否有缺失值</li></ul>
+<h3><span class="mw-headline" id="Preferences">Preferences</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_DlgParameter.png" class="image"><img alt="Std DlgParameter.png" src="32px-Std_DlgParameter.png" width="32" height="32" srcset="/wiki/images/thumb/6/6d/Std_DlgParameter.png/48px-Std_DlgParameter.png 1.5x, /wiki/images/6/6d/Std_DlgParameter.png 2x" /></a> <a href="Path_Preferences.html" title="Path Preferences">Preferences...</a>: Preferences disposable in Path Tools.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".E8.84.9A.E6.9C.AC">脚本</span></h2>
+<p>路径工作台提供了一个广泛的 <a href="Path_scripting.html" title="Path scripting">python 脚本 API</a>。使用它, 您可以从 python 脚本中创建和修改路径, 或者扩展工作台的可用功能。
+</p>
+<h2><span class="mw-headline" id="FAQ">FAQ</span></h2>
+<p><a href="Path_FAQ.html" title="Path FAQ">FAQ</a>
+</p><p>路径工作台与其它 CAM 软件包共享很多概念但是它有自己的特性。如果有什么不对劲的地方, 这可能是一个很好的开始。
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Path_Workbench/zh-cn&amp;oldid=283556">http://www.freecadweb.org/wiki/index.php?title=Path_Workbench/zh-cn&amp;oldid=283556</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,136 @@
+<html><head><title>Plot Basic tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Plot Basic tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このチュートリアルではプロットモジュールとPythonコンソールを使った基本的なプロットの行い方を学びます。
+ここでは<a href="Plot_Module.html" title="Plot Module">プロットモジュール</a>をより詳しく学ぶことができます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Trigonometric_Example.png" class="image" title="基本的なプロットの例"><img alt="基本的なプロットの例" src="600px-Plot_Trigonometric_Example.png" width="600" height="267" srcset="/wiki/images/thumb/4/46/Plot_Trigonometric_Example.png/900px-Plot_Trigonometric_Example.png 1.5x, /wiki/images/4/46/Plot_Trigonometric_Example.png 2x" /></a></div></div>
+<center><span style="font-variant:small-caps">基本的なプロットの例</span></center>
+<p>上の画像はこれから行う作業で得られるおおまかな結果を示しています。以降のこのチュートリアルでは以下について学びます：
+</p>
+<ul><li> PythonコンソールからのPlotの作成方法</li>
+<li> Pythonコンソールからのデータのプロット方法</li>
+<li> グリッド線の表示方法</li>
+<li> 凡例の表示方法</li>
+<li> <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>のテキストを取り込んで系列ラベルを編集する方法</li>
+<li> <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>のテキストを取り込んで軸ラベルを編集する方法</li>
+<li> 系列のスタイルの編集方法</li>
+<li> プロット結果の保存方法</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.83.87.E3.83.BC.E3.82.BF.E3.81.AE.E3.83.97.E3.83.AD.E3.83.83.E3.83.88"><span class="tocnumber">1</span> <span class="toctext">データのプロット</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">1.1</span> <span class="toctext">プロットドキュメントの作成</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E8.A3.BD.E5.9B.B3.E9.96.A2.E6.95.B0"><span class="tocnumber">1.2</span> <span class="toctext">製図関数</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#.E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.81.AE.E8.A8.AD.E5.AE.9A"><span class="tocnumber">2</span> <span class="toctext">プロットの設定</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.82.B0.E3.83.AA.E3.83.83.E3.83.89.E3.81.A8.E8.AA.AC.E6.98.8E.E6.96.87"><span class="tocnumber">2.1</span> <span class="toctext">グリッドと説明文</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E7.B3.BB.E5.88.97.E3.83.A9.E3.83.99.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A"><span class="tocnumber">2.2</span> <span class="toctext">系列ラベルの設定</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E7.B3.BB.E5.88.97.E3.82.B9.E3.82.BF.E3.82.A4.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A"><span class="tocnumber">2.3</span> <span class="toctext">系列スタイルの設定</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E8.BB.B8.E3.83.A9.E3.83.99.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A"><span class="tocnumber">2.4</span> <span class="toctext">軸ラベルの設定</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#.E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.81.AE.E4.BF.9D.E5.AD.98"><span class="tocnumber">3</span> <span class="toctext">プロットの保存</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.83.87.E3.83.BC.E3.82.BF.E3.81.AE.E3.83.97.E3.83.AD.E3.83.83.E3.83.88">データのプロット</span></h2>
+<p>データをプロットするために新しいFreeCADドキュメントを作成する必要はありません。たんにPythonコンソールを表示してコマンド送信を始めるか、<a href="https://www.freecadweb.org/wiki/index.php?title=Macros/jp" title="Macros/jp">マクロ</a>を使いましょう。
+</p>
+<h3><span class="mw-headline" id=".E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.81.AE.E4.BD.9C.E6.88.90">プロットドキュメントの作成</span></h3>
+<p>プロットは特別なドキュメントで後でデータを追加するために手動で作成することができます。またデータのプロット開始時に自動的に作成されるようにモジュールに設定することも可能です。プロットドキュメントの独自作成には2つの利点があります：
+</p>
+<ul><li> ドキュメントのウィンドウラベルを設定することができる</li>
+<li> どのドキュメントに自分のデータをプロットするかを簡単にコントロールできる</li></ul>
+<p>新しいプロットドキュメントを作成するには以下のコマンドを実行します：
+</p>
+<pre>import Plot
+Plot.figure("TrigonometricTest")
+</pre>
+<p>このコマンドによって<b>TrigonometricTest</b>という名前の新しいタブがメインウィンドウに作成されます。新しく作成されたドキュメントには既に座標軸のセットが存在します。各プロットドキュメントには少なくとも1セットの軸が存在しますがmatplotlibコントロールを全く使わないでもこれらを取り除くことができます。
+</p>
+<h3><span class="mw-headline" id=".E8.A3.BD.E5.9B.B3.E9.96.A2.E6.95.B0">製図関数</span></h3>
+<p>プロットコマンドが新しいドキュメントを作成したら作業を始めることができますが、実行するプロットコマンドは全て作成されたプロットに追加されていき、それは新しいドキュメントを作成するまで続きます。従って通常は開かれたプロットドキュメントを使った方がいいでしょう。まず行う必要があるのはデータの作成です。今回はサイン関数、コサイン関数のプロットを行いたいのでそのためのデータを作成します：
+</p>
+<pre>import math
+t = range(0,101)
+t = [tt/100.0 for tt in t]
+s = [math.sin(2.0*math.pi*tt) for tt in t]
+c = [math.cos(2.0*math.pi*tt) for tt in t]
+</pre>
+<p>これによって3つのデータ配列が作成されます（点の数は101個です）：
+</p>
+<ul><li> <i>t</i> = 秒単位での時間</li>
+<li> <i>s</i> = サイン関数</li>
+<li> <i>c</i> = コサイン関数</li></ul>
+<p>両方の関数をプロットするためには次のコマンドを実行する必要があります：
+</p>
+<pre>Plot.plot(t,s)
+Plot.plot(t,c)
+</pre>
+<p>これによって関数がプロットされます。<b>plot</b>コマンドには引数として系列ラベルを渡すこともできますが今回は後でプロットモジュールツールを使って編集するのでここではまだそのデータを渡しません。
+</p>
+<h2><span class="mw-headline" id=".E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.81.AE.E8.A8.AD.E5.AE.9A">プロットの設定</span></h2>
+<h3><span class="mw-headline" id=".E3.82.B0.E3.83.AA.E3.83.83.E3.83.89.E3.81.A8.E8.AA.AC.E6.98.8E.E6.96.87">グリッドと説明文</span></h3>
+<p>View/WorkbenchメニューでFreeCADのワークベンチを<a href="Plot_Module.html" title="Plot Module">プロットモジュール</a>に変更します。モジュールが読み込まれたらグリッドツールを使ってグリッドを表示します。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Grid.png" class="image" title="グリッドの表示/非表示ツールのアイコン"><img alt="グリッドの表示/非表示ツールのアイコン" src="Plot_Grid.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">グリッドの表示/非表示ツールのアイコン</span></center>
+<p>同じ操作で非表示にすることもできます。また用意されたツールで説明文を表示することもできます：
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Legend.png" class="image" title="凡例の表示/非表示ツールのアイコン"><img alt="凡例の表示/非表示ツールのアイコン" src="Plot_Legend.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">凡例の表示/非表示ツールのアイコン</span></center>
+<p>まだ系列ラベルを一つも設定していないので凡例にはなにもありません。<a href="Plot_Module.html" title="Plot Module">プロットモジュール</a> ではラベルのない系列は凡例に表示されません。これは補助線を引く場合を考えた仕様です。
+</p>
+<h3><span class="mw-headline" id=".E7.B3.BB.E5.88.97.E3.83.A9.E3.83.99.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A">系列ラベルの設定</span></h3>
+<p>系列ツールを使って系列のパラメーターを編集することができます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Series.png" class="image" title="系列設定ツールのアイコン"><img alt="系列設定ツールのアイコン" src="Plot_Series.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">系列設定ツールのアイコン</span></center>
+<p>まず編集したい行を全て選択してください。例として最初の一つからはじめてみましょう。<b>No label</b>のチェックを外してこのラベルの設定をおこないます：
+</p>
+<pre>$y = \sin \left( 2 \pi t \right)$
+</pre>
+<p><a rel="nofollow" class="external text" href="http://matplotlib.org/">matplotlib</a>であ<a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>をサポートしているので全てのラベル、タイトルでLaTexを使った設定が可能です。二つ目の系列には次のラベルを設定してください：
+</p>
+<pre>$y = \cos \left( 2 \pi t \right)$
+</pre>
+<h3><span class="mw-headline" id=".E7.B3.BB.E5.88.97.E3.82.B9.E3.82.BF.E3.82.A4.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A">系列スタイルの設定</span></h3>
+<p>系列には設定可能なたくさんのプロパティがあります。系列の色と二番目の系列の製図スタイルを変更してサンプルの画像で示したプロパティに設定してみましょう。
+</p>
+<h3><span class="mw-headline" id=".E8.BB.B8.E3.83.A9.E3.83.99.E3.83.AB.E3.81.AE.E8.A8.AD.E5.AE.9A">軸ラベルの設定</span></h3>
+<p>ラベルツールを使うと作成された全ての軸に関連付けられたラベルを設定することができます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Labels.png" class="image" title="ラベルツールのアイコン"><img alt="ラベルツールのアイコン" src="Plot_Labels.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">ラベルツールのアイコン</span></center>
+<p>次のデータを設定して下さい：
+</p>
+<ul><li> Title = Trigonometric functions example</li>
+<li> X Label = $t$</li>
+<li> Y Label = $y = \mathrm{f} \left( t \right)$</li></ul>
+<p>またサイズは全て20に変更してください。
+</p>
+<h2><span class="mw-headline" id=".E3.83.97.E3.83.AD.E3.83.83.E3.83.88.E3.81.AE.E4.BF.9D.E5.AD.98">プロットの保存</span></h2>
+<p>プロット保存ツールを使うとプロット結果をいくつかのフォーマットで画像として保存できます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Save.png" class="image" title="プロット保存ツールのアイコン"><img alt="プロット保存ツールのアイコン" src="Plot_Save.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">プロット保存ツールのアイコン</span></center>
+<p>まず最初に出力ファイルのパスを選択します。ファイル選択ダイアログを使用することができます。パス編集ボックスの右側のボタンを使ってください。
+</p><p>出力画像のサイズはインチ単位で設定することができます。例えば11.7x8.3と設定します。これは<b>DIN A4</b>のペーパーサイズです。DPI （Dots per inch）で画像の解像度をコントロールできます。例えば100 dpiとすれば1170x830ピクセルの画像が得られます。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/jp&amp;oldid=15326">http://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/jp&amp;oldid=15326</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

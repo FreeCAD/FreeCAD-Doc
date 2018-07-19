@@ -1,0 +1,213 @@
+<html><head><title>Python scripting tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Python scripting tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Python_%28programming_language%29">Python</a>はプログラミング言語で使い方はとても簡単、すぐに修得することができます。オープンソースかつマルチプラットフォームで簡単なシェルスクリプトから非常に複雑なプログラムのプログラミングまでさまざま用途で使用できます。ですがもっとも広く使われている用途はスクリプト言語として使うというものです。これは他のアプリケーションに簡単に組み込むことができるためです。FreeCAD内部でもまさにその様にして使用されています。Pythonコンソール、または自作のスクリプトからFreeCADを操作したり、まだグラフィカルユーザーインターフェイスのツールがない非常に複雑な動作を行わせることもできます。
+</p><p>例えばPythonスクリプトからは次の様な操作を行うことができます；
+</p>
+<ul><li> 新しいオブジェクトの作成</li>
+<li> 既存のオブジェクトの変更</li>
+<li> それらのオブジェクトの3D表示の変更</li>
+<li> FreeCADのインターフェイスの変更</li></ul>
+<p>FreeCADではPythonを使う複数の方法が存在します：
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp" title="FreeCAD Scripting Basics/jp">FreeCAD Pythonインタープリター</a>。"コマンドライン"スタイルのインターフェイスでシンプルなコマンドを実行することができます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/jp" title="Macros/jp">マクロ</a>。存在しないツールをFreeCADインターフェイスに手軽に追加するのには便利な方法です。</li>
+<li> 外部スクリプト。より複雑なプログラムに使用できます。例えば<a href="https://www.freecadweb.org/wiki/index.php?title=Workbenches/jp" title="Workbenches/jp">ワークベンチ</a>全体といったものです。</li></ul>
+<p>このチュートリアルでは入門的なサンプルスクリプトをいくつか作成しますが、このWikiにはこれ以外にもたくさんの利用可能な<a href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/jp" title="Power users hub/jp">Pythonスクリプトについてのドキュメント</a>があります。もしPythonを使うのが初めてでその機能を知りたいのであれば基礎的な<a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/jp" title="Introduction to Python/jp">Pyton入門</a>もあります。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Python.E3.81.AE.E3.82.B3.E3.83.BC.E3.83.89.E3.82.92.E6.9B.B8.E3.81.8F"><span class="tocnumber">1</span> <span class="toctext">Pythonのコードを書く</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#FreeCAD.E3.81.AE.E8.AA.BF.E6.9F.BB"><span class="tocnumber">2</span> <span class="toctext">FreeCADの調査</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.83.99.E3.82.AF.E3.83.88.E3.83.AB.E3.81.A8.E9.85.8D.E7.BD.AE"><span class="tocnumber">3</span> <span class="toctext">ベクトルと配置</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#App.E3.81.A8Gui"><span class="tocnumber">4</span> <span class="toctext">AppとGui</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB"><span class="tocnumber">5</span> <span class="toctext">モジュール</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Mesh"><span class="tocnumber">6</span> <span class="toctext">Mesh</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Part"><span class="tocnumber">7</span> <span class="toctext">Part</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Draft"><span class="tocnumber">8</span> <span class="toctext">Draft</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Interface"><span class="tocnumber">9</span> <span class="toctext">Interface</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#.E3.83.9E.E3.82.AF.E3.83.AD"><span class="tocnumber">10</span> <span class="toctext">マクロ</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Python.E3.81.AE.E3.82.B3.E3.83.BC.E3.83.89.E3.82.92.E6.9B.B8.E3.81.8F">Pythonのコードを書く</span></h2>
+<p>FreeCADでPythonのコードを書く場合には二つの手軽な方法があります：Pythonコンソール（View -&gt; Views -&gt; Python consoleメニューから利用可能）、またはマクロエディター（Tools -&gt; Macros）です。コンソールの場合Pythonコマンドを一つ一つ書いていき、コマンドはリターンキーを押したタイミングで実行されます。一方、マクロでは複数行からできたより複雑なスクリプトを保存できます。このスクリプトはマクロが実行されたタイミングでだけ実行されます。
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:616px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_pythoninterpreter.jpg" class="image"><img alt="" src="Screenshot_pythoninterpreter.jpg" width="614" height="228" class="thumbimage" /></a>  <div class="thumbcaption">FreeCADのPythonコンソール</div></div></div></div>
+<p>このチュートリアルでは両方の方法を使うことができます。各行を一行ずつPythonコンソールにコピー/ペーストして各行ごとに<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Return</span>キーを押すか、コード全体を新しいマクロウィンドウにコピー/ペーストしてください。
+</p>
+<h2><span class="mw-headline" id="FreeCAD.E3.81.AE.E8.AA.BF.E6.9F.BB">FreeCADの調査</span></h2>
+<p>さてまずは新しい空のドキュメントを作成しましょう：
+</p>
+<pre>doc = FreeCAD.newDocument()
+</pre>
+<p>このコマンドをPythonコンソールに入力すると"FreeCAD."と入力した直後に行の残りをすばやく自動補完できるようにウィンドウがポップアップします。さらには自動補完リストの各エントリーにはそれが何を行うものかの説明のツールチップさえ備わっているのです。これを使えば利用可能な関数を簡単に調べることができます。"newDocument"を選択する前に他の利用可能なオプションも見ておいてください。
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:616px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_classbrowser.jpg" class="image"><img alt="" src="Screenshot_classbrowser.jpg" width="614" height="228" class="thumbimage" /></a>  <div class="thumbcaption">FreeCADのPythonコンソールの自動補完機能</div></div></div></div>
+<p>さて新しいドキュメントが作成されました。これはツールバーの"新しいドキュメント"ボタンを押した場合と同じです。実際はFreeCADのボタンのほとんどは一、二行のPythonコードを実行しているだけに過ぎません。Edit -&gt; Preferences -&gt; General -&gt; Macroにある"show script commands in python console"オプションを設定するとよくわかります。こうするとボタンを押した時に実行されるPythonコードが全てコンソールに表示されます。Pythonで操作を再現する方法を学ぶのにとても便利です。
+</p><p>さあ、ドキュメントに戻りましょう。ドキュメントを使って何ができるのかを確認してみましょう。
+</p>
+<pre>doc.
+</pre>
+<p>利用可能なオプションを調べてください。通常、大文字から始まる名前は値が保持されている属性で、小文字から始まる名前は"処理を行うための"関数（メソッドとも呼ばれます）です。アンダースコアで始まる名前は通常はモジュールの内部動作のためのもので、気にする必要はありません。それではドキュメントに新しいオブジェクトを追加するためのメソッドの一つを使って見ましょう。
+</p>
+<pre>box = doc.addObject("Part::Box","myBox")
+</pre>
+<p>何も起きません。なぜでしょう？これはFreeCADが大きな展望に立って作られているからです。いつの日かそれぞれ独立した数百もの複雑なオブジェクトをFreeCADで操作できる時が来るでしょう。どこかを少し変更するだけで大きな影響が現れ、ドキュメント全体を再計算しなければならなくなるかもしれません。それには長い時間がかかることでしょう・・・こういった事情からほとんどのコマンドではシーンが自動的に更新されることはありません。手動で更新を行う必要があるのです：
+</p>
+<pre>doc.recompute()
+</pre>
+<p>見えましたか？作成したボックスが表示されました！FreeCADのオブジェクト追加ボタンの多くは実のところ2つの処理を行います。オブジェクトの追加と再計算です。もし上で説明した"show script commands in python console"オプションを有効にしていれば今度はGUIのボタンで球を追加してみてください。二行のPythonコードが順番に実行されるのが見て取れるでしょう。
+</p><p>"Part::Box"は何かですって？どうすれば他の種類のオブジェクトを追加できるかですって？これを使うとわかります：
+</p>
+<pre>doc.supportedTypes()
+</pre>
+<p>さて、作成したボックスの中身を調べてみましょう：
+</p>
+<pre>box.
+</pre>
+<p>すぐにとても興味をそそられるものがいくつか見つかるでしょう。例えばこれです：
+</p>
+<pre>box.Height
+</pre>
+<p>これを使うとボックスの現在の高さを表示できます。変更してみましょう：
+</p>
+<pre>box.Height = 5
+</pre>
+<p>マウスでボックスを選択するとプロパティパネルの"Data"タブに"Height"プロパティが表示されているのがわかるでしょう。ここ（と後で説明する"View"タブ）に表示されるFreeCADオブジェクトのプロパティは全てPythonによって直接アクセスすることができます。アクセスは先ほど"Height"プロパティでやったように名前で行います。ボックスの別の寸法も変更してみてください。
+</p>
+<h2><span class="mw-headline" id=".E3.83.99.E3.82.AF.E3.83.88.E3.83.AB.E3.81.A8.E9.85.8D.E7.BD.AE">ベクトルと配置</span></h2>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euclidean_vector">ベクトル</a>は3Dアプリケーションにおいて非常に基礎的な概念です。ベクトルとは3つの数字（x、y、z）のリストで、3D空間ないでの点や位置を表します。ベクトルを使うと加算、減算、投影や<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Vector_space">その他</a>にも色々なことを行うことができます。FreeCADでは次のようにしてベクトルを使用します：
+</p>
+<pre>myvec = FreeCAD.Vector(2,0,0)
+myvec
+myvec.x
+myvec.y
+othervec = FreeCAD.Vector(0,3,0)
+sumvec = myvec.add(othervec)
+</pre>
+<p>FreeCADオブジェクトに共通する機能の一つが<a href="https://www.freecadweb.org/wiki/index.php?title=Placement/jp&amp;action=edit&amp;redlink=1" class="new" title="Placement/jp (page does not exist)">配置</a>です。各オブジェクトはPlacement属性を持ち、そこにはオブジェクトの位置（Base）と方向（Rotation）が保持されています。操作は簡単です。一例として私たちのオブジェクトを動かしてみましょう。
+</p>
+<pre>box.Placement.
+box.Placement.Base
+box.Placement.Base = sumvec
+
+otherpla = FreeCAD.Placement()
+box.Placement = otherpla
+</pre>
+<p>さて、さらに進む前にいくつかの重要な概念を理解しておく必要があります。
+</p>
+<h2><span class="mw-headline" id="App.E3.81.A8Gui">AppとGui</span></h2>
+<p>FreeCADは最初、ユーザーインターフェイス無しのコマンドラインアプリケーションとして動作するように作成されていました。その結果、ほとんど全ての物が"幾何"コンポーネントと"表示"コンポーネントに分割されています。コマンドラインモードで動作させている際には幾何部分は存在しますが表示部分は無効化されるています。こうした理由からFreeCADのほとんどのオブジェクトは二つの部分、つまりObjectとViewObjectから構成されています。
+</p><p><br />
+このコンセプトの説明のために私たちの立方体を見てください。寸法や位置など立方体の幾何プロパティはObjectの中に保持されています。一方、色や線の太さなどの表示プロパティはViewObjecの中に保持されています。そしてそれがプロパティウィンドウの"Data"タブと"View"タブに対応しているのです。オブジェクトのViewObjecには次のようにしてアクセスすることができます：
+</p>
+<pre>vo = box.ViewObject
+</pre>
+<p>これで"View"タブのプロパティを変更することもできるようになりました：
+</p>
+<pre>vo.Transparency = 80
+vo.hide()
+vo.show()
+</pre>
+<p>FreeCADが起動するとすぐにPythonコンソールは2つの基本モジュールをロードします。FreeCADとFreeCADGuiです（これらにも短縮名のAppとGuiによってアクセスることが可能です）。この二つにはドキュメントとそのオブジェクトを操作するための一般的な機能が保持されています。このコンセプトの説明のためにFreeCADとFreeCADGuiの両方にActiveDocument属性があることを確認してください。これが現在、開かれているドキュメントです。FreeCAD.ActiveDocumentとFreeCADGui.ActiveDocumentは同じオブジェクトではありません。FreeCADドキュメントを￥の二つのコンポーネントであり、異なる属性とメソッドが保持されています。例えばFreeCADGui.ActiveDocument にはActiveViewがありますが、これは現在開かれている3Dビューです。
+</p>
+<h2><span class="mw-headline" id=".E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB">モジュール</span></h2>
+<p>あなたはきっと今、"Part::Box"以外には何ができるんだろう？と思っているに違いありません。FreeCADベースのアプリケーションは多少の違いはあれ空の入れ物です。モジュールがなければできることは新しい空のドキュメントを作ることがせいぜいです。FreeCADの真価はそれに付き従うモジュールなのです。それぞれのモジュールはインターフェイスに新しいワークベンチを付け加えるだけでなく、新しいPythonコマンドや新しいオブジェクト型の追加も行います。それによって複数の異なるオブジェクト型、場合によっては全く互換性のないオブジェクト型まで同じドキュメントに共存させることができるのです。後でこのチュートリアルでも見ていきますが、FreeCADで最も重要なモジュールは<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Part</a>、<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">Mesh</a>、<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/jp" title="Sketcher Workbench/jp">Sketcher</a>、そして<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">Draft</a>です。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/jp" title="Sketcher Workbench/jp">Sketcher</a>と<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">Draft</a>は両方とも形状の作成と制御に<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Part</a>モジュールを使用しています。これらで扱われる形状はBRepですが一方の<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">Mesh</a>は完全に独立し、独自のオブジェクトを制御します。詳細については下記にあります。
+</p><p>現在のドキュメントでの利用可能な基底オブジェクト型は次のようにしてチェックすることができます：
+</p>
+<pre>doc.supportedTypes()
+</pre>
+<p>さまざまなFreeCADモジュールはFreeCADに独自のオブジェクト型を追加しますがpythonコンソールでは自動的に読み込まれません。これは起動が遅くなることを防ぐためです。モジュールはそれが必要になった時にのみ読み込まれます。例えばPartモジュールの内部を調べたい時は以下のようにします：
+</p>
+<pre>import Part
+Part.
+</pre>
+<p>しかし今はここまでにしておいてPartモジュールについては後で詳しく説明します。
+</p><p>さて、FreeCADのさまざまなモジュールについて多少は理解できたと思います。コアモジュール（FreeCAD、FreeCADGui）とワークベンチモジュール（Part、Mesh、Sketcher）です。それ以外にも3Dシーンモジュール（pivy）とインターフェイスモジュール（pyqt）という重要なモジュールがありますが、それについても後で説明を行います。
+</p><p>さあ重要なワークベンチモジュールの一つについてもう少し詳しく見て行くことにしましょう。
+</p>
+<h2><span class="mw-headline" id="Mesh">Mesh</span></h2>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Polygon_mesh">メッシュ</a>は非常に単純な3Dオブジェクトで例えば<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/SketchUp">Sketchup</a>、<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Blender_%28software%29">Blender</a>、<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Autodesk_3ds_Max">3D studio Max</a>で使用されています。メッシュは3つの要素でできています。点（頂点とも呼ばれます）、線（エッジとも呼ばれます）、そして面です。FreeCADを含む多くのアプリケーションでは面は点を三つだけ持つことができます。しかし、もちろん同一平面上にある複数の三角形からなるもっと大きな平面を作ることができます
+</p><p>メッシュは非常に単純なのでそれが短所になることもありますが上にあげたような多くのアプリケーションではむしろ利点になります。単純ゆえに一つのドキュメントの中に数百万ものメッシュを持つことが容易にできるからです。しかしFreeCAD内部ではあまり使われず、ほとんどの場合は他のアプリケーションから出力されたメッシュ形式（.stl、.obj）のオブジェクトをインポートする用途に使われます。またFreeCADが誕生した初めの一ヶ月間はメインテストモジュールとして広く使われました。
+</p><p>MeshオブジェクトとFreeCADオブジェクトは別物です。FreeCADオブジェクトをMeshオブジェクトの入れ物と考えるといいでしょう（後で見るようにPartオブジェクトについても同じことが言えます）。FreeCADにメッシュオブジェクトを追加するためにはまず最初にFreeCADオブジェクトとMeshオブジェクトを作成しなければなりません。それが終わったらFreeCADオブジェクトにMeshオブジェクトを追加します：
+</p>
+<pre>import Mesh
+mymesh = Mesh.createSphere()
+mymesh.
+mymesh.Facets
+mymesh.Points
+
+meshobj = doc.addObject("Mesh::Feature","MyMesh")
+meshobj.Mesh = mymesh
+doc.recompute()
+</pre>
+<p>標準的な例です。createSphere()メソッドを使って自動で球を作成していますが、もちろん頂点と面を定義してゼロから自作のメッシュを作成することもできます。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp" title="Mesh Scripting/jp">メッシュのスクリプト処理についてもっと読む・・・</a>
+</p>
+<h2><span class="mw-headline" id="Part">Part</span></h2>
+<p>FreeCAD全体で最も強力なモジュールが<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>です。これを使うと<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Boundary_representation">BRep</a>オブジェクトを作成し、操作することができます。メッシュと異なりこのオブジェクトには幅広いコンポーネントが用意されています。すこし説明しておくとBrepとは境界表現（Boundary Representation）を意味します。つまりこのオブジェクトは内部体積を定義する閉じた表面によって定義されるのです。これらの表面は平面から非常に複雑なNURBS面までさまざまに変化します。またこれに体積の概念はこれらの表面に基づきます。
+</p><p>Partモジュールは強力な機能を持つ<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE_Technology">OpenCasCade</a>ライブラリをその基盤としています。このライブラリはブーリアン演算、フィレット処理、ロフト処理などの幅広い複雑な操作を簡単にそのオブジェクトに対して行うための機能を提供しています。
+</p><p>Partモジュールの使い方はMeshモジュールと同じです。FreeCADオブジェクトとPartオブジェクトを作成し、PartオブジェクトをFreeCADオブジェクトに追加します：
+</p>
+<pre>import Part
+myshape = Part.makeSphere(10)
+myshape.
+myshape.Volume
+myshape.Area
+
+shapeobj = doc.addObject("Part::Feature","MyShape")
+shapeobj.Shape = myshape
+doc.recompute()
+</pre>
+<p>（Meshモジュールと同様に）Partモジュールにも自動でFreeCADオブジェクトを作成して形状を追加するためのシュートカットが存在します。それを使えば上のコードの最後の3行を省略することができます：
+</p>
+<pre>Part.show(myshape)
+</pre>
+<p>myshapeの中身を調べるとFaces、Edges、Vertexes、Solids、Shellsといったたくさんの興味をそそられる利用可能サブコンポーネントや切り取り（減算）、共通集合（交差）、フューズ（結合）といった幅広い形状操作があることに気がつくでしょう。<a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp" title="Topological data scripting/jp">幾何データスクリプト処理</a>のページではこれら全てについて詳細に説明を行なっています。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp" title="Topological data scripting/jp">パートのスクリプト処理についてもっと読む・・・</a>
+</p>
+<h2><span class="mw-headline" id="Draft">Draft</span></h2>
+<p>FreeCADには<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/jp" title="Sketcher Workbench/jp">Sketcher</a>や<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">Draft</a>といったさらに多くのモジュールが備わっています。これらのモジュールはPartオブジェクトを作成するだけでなくそれにパラメーターを追加していたり、そのPartの形状を制御するための全く新しい手段を持っていることさえあります。上のボックスのサンプルはちょうどパラメトリックオブジェクトの良い例になっています。ボックスを定義するために必要なことは高さや幅といったいくつかのパラメーターを指定することだけです。パラメーターに基いてオブジェクトはPart形状を自動で計算します。FreeCADでは<a href="Scripted_objects.html" title="Scripted objects">Pythonを使ってこういったオブジェクトを作成する手段</a>が用意されています。
+</p>
+<pre><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">Draftモジュール</a>ではlines、circlesといったいくつかの2Dパラメトリックオブジェクト型が追加されており（全Partオブジェクトも含まれています）、またDraft製オブジェクトだけでなく、全てのPartオブジェクトに対して使用可能なジェネリック関数もいくつか用意されています。何が利用可能か調べるためには次の様にするだけです：
+</pre>
+<pre>import Draft
+Draft.
+rec = Draft.makeRectangle(5,2)
+mvec = FreeCAD.Vector(4,4,0)
+Draft.move(rec,mvec)
+Draft.move(box,mvec)
+</pre>
+<h2><span class="mw-headline" id="Interface">Interface</span></h2>
+<p>FreeCADのユーザーインターフェイスは<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Qt_%28framework%29">Qt</a>によって作られています。Qtは強力なグラフィカルインターフェイスシステムであり、3Dビューの周りに配置されたメニュー、ツールバー、ボタンといった全てのコントロールの描画と制御を行なっています。QtにはPyQtと呼ばれるモジュールが用意されています。これを使うとPythonでFreeCADで採用されているようなQtインターフェイスへアクセスしたり変更を加えることができます。Qtインターフェイスをいじって簡単なダイアログを作成してみることにしましょう：
+</p>
+<pre>from PyQt4 import QtGui
+QtGui.QMessageBox.information(None,"Apollo program","Houston, we have a problem")
+</pre>
+<p>ツールバーにFreeCADのアイコンがあるダイアログが表示されます。つまりQtはこの命令がFreeCADアプリケーション内部から発行されたものであることをわかっているのです。従って私たちはFreeCADのインターフェイスのどの部分でも簡単に直接操作することが可能なのです。
+</p><p>Qtは非常に強力なインターフェイスシステムで非常に複雑なことも可能です。またそれだけでなくQt Designerのように簡単に使えるツールもいくつか提供されています。Qt Designerを使えばグラフィカルにダイアログをデザインすることができ、数行のPythonコードを書くだけでそれをFreeCADのインターフェイスに追加することができます。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=PyQt/jp" title="PyQt/jp">pyqtについてもっと読む・・・</a>
+</p>
+<h2><span class="mw-headline" id=".E3.83.9E.E3.82.AF.E3.83.AD">マクロ</span></h2>
+<p>さて基本的なことについて十分理解できたかと思います。それではPythonスクリプトの保存はどこでできるのでしょうか？またどうやればFreeCADから簡単にそれを起動できるのでしょうか？そのための簡単な仕組みがあり、<a href="Macros.html" title="Macros">マクロ</a>と呼ばれています。マクロはたんなるPythonスクリプトで、ツールバーに追加してマクスクリックするだけで起動することが可能です。FreeCADには簡単なテキストエディター（Macro -&gt; Macros -&gt; Create）が用意されており、それを使ってスクリプトを書いたり、ペーストすることができます。それができたらTools -&gt; Customize -&gt; Macrosを使ってスクリプトに対してボタンを設定してツールバーに追加することができます。
+</p><p>これでFreeCADのスクリプト処理についてもっと詳細に知る準備ができました。<a href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/jp" title="Power users hub/jp">パワーユーザーハブ</a>へ進んでください！
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/jp&amp;oldid=88658">http://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/jp&amp;oldid=88658</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

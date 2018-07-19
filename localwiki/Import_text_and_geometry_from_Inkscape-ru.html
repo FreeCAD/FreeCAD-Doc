@@ -1,0 +1,108 @@
+<html><head><title>Import text and geometry from Inkscape/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Import text and geometry from Inkscape/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Import text and geometry from Inkscape
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">30 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">r-frank
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6704
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#General_tips_for_importing_from_inkscape"><span class="tocnumber">3</span> <span class="toctext">General tips for importing from inkscape</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Importing_text_from_inkscape"><span class="tocnumber">4</span> <span class="toctext">Importing text from inkscape</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Importing_geometry_from_inkscape"><span class="tocnumber">5</span> <span class="toctext">Importing geometry from inkscape</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Credits"><span class="tocnumber">6</span> <span class="toctext">Credits</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>This tutorial is supposed to show how to import text or geometry created with inkscape via svg-format into FreeCAD.<br />
+Inkscape 0.91 and FreeCAD 0.16.6704 on Windows are used for these operations.<br />
+</p>
+<h2><span class="mw-headline" id="General_tips_for_importing_from_inkscape">General tips for importing from inkscape</span></h2>
+<ul><li>the svg-import in FreeCAD cannot handle a svg file with a resolution of more than 45 dpi, so check the settings in inkscape</li>
+<li>when importing path objects which show up in the 3D view in FreeCAD not very smooth it may be a matter of the FreeCAD-settings for the shape view.
+<ul><li>in FreeCAD choose <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Edit</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Preferences</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part Design</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Shape View</span></li>
+<li>as for "Tesselation", the "Maximum deviation depending on the model bounding box" the default value is "0,5&#160;%"</li>
+<li>setting this to a lower value will increase smoothness of the model in the 3D view (and use more PC performance)</li>
+<li>don't use values lower than "0,01&#160;%", this will most likely crash FreeCAD</li>
+<li>in that case deleting "system.cfg" and "user.cfg" in your FreeCAD-user-directory will solve this problem</li></ul></li></ul>
+<h2><span class="mw-headline" id="Importing_text_from_inkscape">Importing text from inkscape</span></h2>
+<ul><li>after inserting text in inkscape (and perhaps applying effects like bending or something else to it) make sure to
+<ul><li>select your text and choose <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Path</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Object to path</span></li>
+<li>ungroup your objects</li>
+<li>save as "Plain SVG (*.svg)" file format</li></ul></li>
+<li>open the file in FreeCAD, choosing the option "SVG as geometry (importSVG)"</li>
+<li>a path object for each letter/number/sign will be created in the tree view</li>
+<li>use <a href="Draft_Upgrade.html" title="Draft Upgrade">draft upgrade</a> on each path object to create faces</li>
+<li>use pad or extrude on the faces to get solids</li>
+<li>you can fuse your objects or use compound on them depending on your intended further work</li></ul>
+<h2><span class="mw-headline" id="Importing_geometry_from_inkscape">Importing geometry from inkscape</span></h2>
+<p>Since inkscape and FreeCAD seem to have different approaches on how to apply dimensions on svg-object, the recommended workflow seems to be:
+</p>
+<ul><li>ungroup all objects in inkscape</li>
+<li>select all objects in inkscape</li>
+<li>apply a stroke style with a width of 0 mm (yes, that is zero millimeter) to all objects</li>
+<li>save as "Inkscape SVG (*.svg)" or "Plain SVG (*.svg)" file format</li>
+<li>open the file in FreeCAD, choosing the option "SVG as geometry (importSVG)"</li>
+<li>the dimensions of the objects in inkscape and in FreeCAD should now be identical</li></ul>
+<h2><span class="mw-headline" id="Credits">Credits</span></h2>
+<p>Thanks to users "freecad-heini-1" and "herbk" for testing and providing valuable feedback.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Import_text_and_geometry_from_Inkscape/ru&amp;oldid=196824">http://www.freecadweb.org/wiki/index.php?title=Import_text_and_geometry_from_Inkscape/ru&amp;oldid=196824</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

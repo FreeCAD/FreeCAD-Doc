@@ -1,0 +1,95 @@
+<html><head><title>Spreadsheet Controller/pl</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Spreadsheet Controller/pl</h1></div>
+
+<div id="mw-content-text" lang="pl" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">This tool has been deprecated in version 0.15 because of the switch to the new C++-based spreadsheet workbench. This functionality will be reintroduced at a later time.</div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Spreadsheet_Controller"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_Controller.png" class="image"><img alt="Spreadsheet Controller.png" src="32px-Spreadsheet_Controller.png" width="32" height="32" srcset="/wiki/images/thumb/4/4f/Spreadsheet_Controller.png/48px-Spreadsheet_Controller.png 1.5x, /wiki/images/4/4f/Spreadsheet_Controller.png 2x" /></a> Spreadsheet Controller</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Lokalizacja menu
+</th></tr>
+<tr>
+<td class="ctEven">Spreadsheet -&gt; Controller
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Module/pl" class="mw-redirect" title="Spreadsheet Module/pl">Spreadsheet</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Domyślny skrót
+</th></tr>
+<tr>
+<td class="ctEven">żaden
+</td></tr>
+<tr>
+<th class="ctOdd">Zobacz także
+</th></tr>
+<tr>
+<td class="ctEven">żaden
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Spreadsheet_Controller.html"><span class="tocnumber">1</span> <span class="toctext">Spreadsheet Controller</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Properties"><span class="tocnumber">5</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Scripting"><span class="tocnumber">6</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Limitations"><span class="tocnumber">7</span> <span class="toctext">Limitations</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+</div>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This tool adds a new cell controller object to a selected <a href="Spreadsheet_Create.html" title="Spreadsheet Create">spreadsheet</a> object. The controller can then extract certain values from certain objects in the active document, and fill a cells range of the host spreadsheet with these values.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select an existing <a href="Spreadsheet_Create.html" title="Spreadsheet Create">spreadsheet</a> object</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_Controller.png" class="image"><img alt="Spreadsheet Controller.png" src="16px-Spreadsheet_Controller.png" width="16" height="16" srcset="/wiki/images/thumb/4/4f/Spreadsheet_Controller.png/24px-Spreadsheet_Controller.png 1.5x, 32px-Spreadsheet_Controller.png 2x" /></a> <a href="Spreadsheet_Controller.html" title="Spreadsheet Controller">Spreadsheet Controller</a></span> button</li>
+<li> Adjust the needed properties</li></ol>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<ul><li> As soon as the needed properties are set, and objects corresponding to the filter properties are found, the values of the host spreadsheet are filled. There is no way to undo this operation at the moment.</li>
+<li> The best way to set the properties of a cell controller object is to start from the bottom, setting the filter options first, and finishing with the starting cell. This way, you won't write to the spreadsheet before all the needed settings are set.</li></ul>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base Cell</b>: The cell address to start automatic filling (ex: A5)</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Direction</b>: Specifies if the values will fill cells horizontally or vertically from the starting cell</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Data</b>: If "Data Type" is set to "Get Property", you can indicate here a property of the filtered objects to be retrieved. You can specify nested properties by using a dot (ex: Shape.Volume)</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Data Type</b>: Specifies if you want to retrieve a property of the filtered objects, or to count them</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Filter</b>: A pattern to look for in the label or type of the objects in the document. For example, setting this value to "Struct" will get all objects containing Struct in their name, such as Structure001</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Filter Type</b>: Specifies if the filter must be applied to the object label or type.</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>Spreadsheets can be created from python scripts and <a href="Macros.html" title="Macros">macros</a> using the makeSpreadsheetController() function:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Spreadsheet
+ mySpreadsheet = Spreadsheet.makeSpreadsheet()
+ controller = Spreadsheet.makeSpreadsheetController(mySpreadsheet)</pre></div>
+<h2><span class="mw-headline" id="Limitations">Limitations</span></h2>
+<ul><li> This tool is not available below FreeCAd version 0.14</li>
+<li> Currently it is not possible to undo the changes that a controller does to its host spreadsheet.</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Controller/pl&amp;oldid=282385">http://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Controller/pl&amp;oldid=282385</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

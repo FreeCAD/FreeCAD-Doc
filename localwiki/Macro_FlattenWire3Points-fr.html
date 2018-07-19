@@ -1,0 +1,99 @@
+<html><head><title>Macro FlattenWire3Points/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro FlattenWire3Points/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="FlattenWire3Points"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> FlattenWire3Points</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro aplatit les fils (Wire) du projet qui ne sont pas plan à la médiane de leurs coordonnées z
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-02-06
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#FlattenWire3Points"><span class="tocnumber">1</span> <span class="toctext">FlattenWire3Points</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Cette macro aplatit les fils qui ne sont pas planaires sur un plan défini par 3 points. Pour utiliser cette macro, sélectionnez les 3 premiers sommets d'un seul <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Wire/fr" title="Draft Wire/fr">Draft Wire</a>.
+</p>
+<pre>import FreeCAD,FreeCADGui,Draft
+ 
+ # check selection
+ sel = FreeCADGui.Selection.getSelectionEx()
+ ok = True
+ if len(sel)&#160;!= 1:
+    FreeCAD.Console.PrintError("Please select 3 vertices from one Draft wire\n")
+    ok = False
+ sel = sel[0]
+ if Draft.getType(sel.Object) not in ["Wire","BSpline"]:
+    FreeCAD.Console.PrintError("Please select 3 vertices from one Draft wire\n")
+    ok = False
+ if len(sel.SubElementNames)&#160;!= 3:
+    FreeCAD.Console.PrintError("Please select 3 vertices from one Draft wire\n")
+    ok = False
+ for e in sel.SubElementNames:
+    if not "Vertex" in e:
+        FreeCAD.Console.PrintError("Please select 3 vertices from one Draft wire\n")
+        ok = False
+ 
+ if ok:
+    # define a plane
+    p1 = getattr(sel.Object.Shape,sel.SubElementNames[0]).Point
+    p2 = getattr(sel.Object.Shape,sel.SubElementNames[1]).Point
+    p3 = getattr(sel.Object.Shape,sel.SubElementNames[2]).Point
+    p4 = p2.sub(p1).cross(p3.sub(p1))
+    
+    # project wire points
+    points = []
+    for p in sel.Object.Points:
+        points.append(p.projectToPlane(p1,p4))
+    sel.Object.Points = points </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_FlattenWire3Points/fr&amp;oldid=240783">http://www.freecadweb.org/wiki/index.php?title=Macro_FlattenWire3Points/fr&amp;oldid=240783</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

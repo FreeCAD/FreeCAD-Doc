@@ -1,0 +1,165 @@
+<html><head><title>Basic modeling tutorial/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic modeling tutorial/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Introduction to modelling
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">15 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Ne.C5.BE_za.C4.8Dneme"><span class="tocnumber">2</span> <span class="toctext">Než začneme</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.C3.9Avod_do_modelovac.C3.ADch_technik"><span class="tocnumber">3</span> <span class="toctext">Úvod do modelovacích technik</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#1.metoda_-_Konstruk.C4.8Dn.C3.AD_geometrie_t.C4.9Bles"><span class="tocnumber">4</span> <span class="toctext">1.metoda - Konstrukční geometrie těles</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#2.metoda_-_Vysunut.C3.AD_profilu"><span class="tocnumber">5</span> <span class="toctext">2.metoda - Vysunutí profilu</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Tento Výukový program základního modelování Vám ukáže jak vymodelovat ocelový úhelník. Měli byste vědět že FreeCAD je modulární při konstruování a jako mnoho jiných CAD programů má vždy více než jednu možnost jak věci dělat. Zde si projdeme dvě metody.
+</p>
+<h2><span class="mw-headline" id="Ne.C5.BE_za.C4.8Dneme">Než začneme</span></h2>
+<p>Mějte na mysli, že FreeCAD je stále v ranné fázi vývoje a proto nemůže být zatím tak produktivní jako jiné CAD aplikace a určitě se setkáte s chybami nebo si vyzkoušíte pády aplikace. FreeCAD už má možnost ukládat záložní soubory. Počet těchto záložních souborů může být specifikován v dialogovém okně předvoleb. Neváhejte použít 2 až 3 záložní soubory dokud nebudete umět s FreeCADem dobře pracovat.
+</p><p>Rozdělanou práci ukládejte často a občas ji uložte pod jiným jménem, získáte tak "bezpečnou" kopii, abyste se mohli vrátit k použitelné verzi Vašeho modelu a byli tak připraveni na možnost, že některé příkazy nevrátí očekávané výsledky. 
+</p>
+<h2><span class="mw-headline" id=".C3.9Avod_do_modelovac.C3.ADch_technik">Úvod do modelovacích technik</span></h2>
+<p>První (a základní) technika modelování těles je <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">Constructive Solid Geometry (CSG)</a>. Pracujete se základními tvary jako jsou kostky, válce, koule a kužely a konstruujete z nich požadované tvary jejich kombinací, odečítáním jednoho tvaru od druhého nebo jejich protínáním. Tyto nástroje jsou součástí <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/cs" class="mw-redirect" title="Part Workbench/cs">Pracovní plochy Díl</a>. Můžete také uplatnit transformace tvarů, jako jsou zaoblení nebo úkosy hran. Tyto nástroje jsou také v <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/cs" class="mw-redirect" title="Part Workbench/cs">Pracovní ploše Díl</a>.
+</p><p>Potom jsou zde také další pokročilé nástroje. Začnete kreslením 2D profilů, které potom vysunete nebo obtočíte.
+</p><p>Takže začněme tak, že si vyzkoušíme udělat nějaké železné nohy ke stolu pomocí těchto dvou metod.
+</p>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="1.metoda_-_Konstruk.C4.8Dn.C3.AD_geometrie_t.C4.9Bles">1.metoda - Konstrukční geometrie těles</span></h2>
+<ul><li> Začněte na <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/cs" class="mw-redirect" title="Part Workbench/cs">pracovní ploše Díl</a> (menu <b>Pohled &gt; Pracovní plocha &gt; Díl</b>)</li>
+<li> Klikněte na tlačítko <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Box/cs" title="Part Box/cs">Box</a> pro vytvoření boxu (kostky)</li>
+<li> Změnte jho rozměry tak, že jej vyberete buď ve 3D prostoru nebo kliknutím na něj v záložce Projektu vlevo, potom</li>
+<li> klikněte na záložku Data dole v okně Projektu a změňte hodnoty výšky, délky a šířky na 750mm, 50 a 50  <i>(viz. Obr. 1.1)</i></li>
+<li> Stejným způsobem vytvořte druhý box, ale s hodnotami 750, 40 a 40mm. Ve výchozím postavení bude tento box překrývat ten první. <i>(viz. Obr. 1.2)</i></li>
+<li> Teď odečtete druhý box od prvního. Vyberte ten první (nazvaný Box), potom druhý (nazvaný Box001), pozor, pořadí výběru je důležitét! (ujistěte se, že oba tvary jsou vybrány v okně stromu projektu. Pamatujte si jednu věc: v navigačním módu Invertor - Vynálezce, nefunguje kombinace Ctrl + klik pro vícenásobný výběr. <a href="Mouse_Model.html" title="Mouse Model">Switch</a> to either CAD or Blender selection.)</li>
+<li> On the Part Workbench toolbar, click on the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="32px-Part_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/48px-Part_Cut.png 1.5x, /wiki/images/4/4a/Part_Cut.png 2x" /></a> <a href="Part_Cut.html" title="Part Cut">Cut</a> tool.</li></ul>
+</div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:491px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand01.jpg" class="image"><img alt="" src="Tutorial-normand01.jpg" width="489" height="490" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.1 První box</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:603px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand02.jpg" class="image"><img alt="" src="Tutorial-normand02.jpg" width="601" height="494" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.2 Druhý box na prvním, připraven k odečtení</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:577px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand03.jpg" class="image"><img alt="" src="Tutorial-normand03.jpg" width="575" height="484" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.3 Po odečtení</div></div></div></div>
+<p>Nyní máte Váš první železný úhelník <i>(Obr. 1.3)</i>. všimněte si, že v okně stromu projektu vlevo byly oba boxy přepsány objektem "Cut". Ve skutečnosti nezmizely, ale jsou seskupeny pod objektem Cut. Klikněte na + před nimi a uvidíte, že oba boxy jsou stále zde, ale zbarveny šedě <i>(Obr. 1.4)</i>. Když kliknete na některý z nich a stisknete klávesu mezerník, tak se ukáže. Mezerník přepíná viditelnost vybraných objektů. <i>(Obr. 1.5)</i>
+</p><p>Nechcete úhelník orientovaný takto? Potřebujete pouze změnit umístění boxu Box001. Vyberte jej, mezerníkem zviditelněte a v záložce Data klikněte na + před Umístěním a potom rozbalte parametr Pozice a změňte jeho souřadnice X a Y. Stiskněte ENTER, opět skryjte Box001 a orientace Vašeho úhelníku je nyní jiná. <i>(Obr. 1.5)</i> Můžete změnit i rozměry tvaru a objekt Cut bude aktualizován.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:573px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand04.jpg" class="image"><img alt="" src="Tutorial-normand04.jpg" width="571" height="492" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.4 Operace odečtení ponechá její původní objekty (boxy)</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:531px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand05.jpg" class="image"><img alt="" src="Tutorial-normand05.jpg" width="529" height="485" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.5 Stále ještě můžete objekty zviditelnit</div></div></div></div>
+<p>Mimochodem, můžeme přidat zaoblení, tak bude úhelník více realistický. Použijeme nástroj <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/cs" title="Part Fillet/cs">Zaoblení</a>. <i>(Obr. 1.6)</i>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand06.jpg" class="image"><img alt="" src="Tutorial-normand06.jpg" width="300" height="259" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.6 Zaoblené hrany</div></div></div></div>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="2.metoda_-_Vysunut.C3.AD_profilu">2.metoda - Vysunutí profilu</span></h2>
+<p>Tato metoda vyžaduje začít kreslení 2D profilu. Musíte aktivovat <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Workbench/cs" class="mw-redirect" title="Draft Workbench/cs">pracovní plocha 2D Kreslení</a> (menu <b>Pohled &gt; Pracovní plocha &gt; 2D Kreslení</b>).
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Dále potřebujeme nastavit <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_SelectPlane/cs" title="Draft SelectPlane/cs">pracovní rovinu</a>. Podle verze FreeCADu máte přímo pod nástrojovým pruhem vpravo tlačítko "None". Klikněte na ně a vlevo se objeví hned za "aktivní příkaz": Vyberte rovinu Odstup, potom textové pole a několik dalších tlačítek. Předpokládejme, že chcete začít profil v půdorysu, stiskněte XY. Tlačítko "None" nyní bude ukazovat "Top" jako aktivní rovinu.
+<a href="#DraftPlaneButton">Podívejte se na poznámku.</a>
+</p><p>Vyberte nástroj <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Wire.png" class="image"><img alt="Draft Wire.png" src="Draft_Wire.png" width="64" height="64" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Wire/cs" title="Draft Wire/cs">Drát (lomená čára)</a>, potom začněte kreslit tvar použitím textových polí pro pozice X a Y. Mělo by být zakliknuto políčko "Relativně" i políčko "Vyplněno".
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<ul><li> 1. bod: 0,0</li>
+<li> 2. bod: 50,0</li>
+<li> 3. bod: 0,10</li>
+<li> 4. bod: -40,0</li>
+<li> 5. bod: 0,40</li>
+<li> 6. bod: -10,0</li>
+<li> 7. bod nebudeme zadávat, lepší je kliknout na tlačítko "Uzavřít" pro uzavření profilu. Teď bychom měli mít profil, označený "Drát" v záložce okna stromu projektu:</li></ul>
+</div>
+<div class="mw-translate-fuzzy">
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand07.jpg" class="image"><img alt="" src="Tutorial-normand07.jpg" width="300" height="299" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.7 Základní drát</div></div></div></div>
+</div> 
+<div class="mw-translate-fuzzy">
+<p>Na numerické klávesnici stiskněte nulu a nasatvíte axonometrický pohled.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Aktivujte <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/cs" class="mw-redirect" title="Part Workbench/cs">pracovní plochu Díl</a>.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Klikněte na nástroj <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="32px-Part_Extrude.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/48px-Part_Extrude.png 1.5x, /wiki/images/d/df/Part_Extrude.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Extrude/cs" title="Part Extrude/cs">Vysunout</a>.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Na záložce Úkoly vlevo vyberte objekt <b>Drát</b>. Potom zadejte požadovanou délku, třeba 750mm. Směr ponechte na Z. Klikněte na Použít. Nyní bychom měli mít <b>Vysunutý</b> objekt v záložce stromu projektu <i>(Obr. 1.8)</i>
+</p>
+</div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:512px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand08.jpg" class="image"><img alt="" src="Tutorial-normand08.jpg" width="510" height="276" class="thumbimage" /></a>  <div class="thumbcaption">Obr. 1.8 Vysunutý objekt</div></div></div></div>
+<p>U této metody mám drobné varování ve srovnání s první: pro úpravu tvaru musíte upravit Drát a to není tak jednoduché jako u předešlé metody.
+</p>
+<div class="mw-translate-fuzzy">
+<p>A je ještě několik dalších způsobů jak to udělat! Doufám, že tyto dva příklady Vám pomohou začít. Určitě cestou narazíte na pár zádrhelů (I já jsem narazil, když jsem se učil FreeCAD a to mám zkušenosti s 3D CAD aplikacemi), ale neváhejte se zeptat na <a rel="nofollow" class="external text" href="http://forum.freecadweb.org">FreeCAD fóru</a>!
+</p>
+</div>
+<p><br />
+</p>
+<div id="DraftPlaneButton">Poznámka k tlačítku Pracovní rovina Kreslení:</div>
+<p>Označení na tlačítku Vašeho FreeCADu může být jiné v závislosti na verzi a také na tom co jste dělali předtím. Označení tlačítka může být: "top", "front", "side", "None" nebo Vektor reprezentovaný jako d(0.0,0.0,1.0). Také může být prázdný, Například:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:326px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneNone.png" class="image"><img alt="" src="DraftPlaneNone.png" width="324" height="40" class="thumbimage" /></a>  <div class="thumbcaption">Výběr roviny None</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:327px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneTop.png" class="image"><img alt="" src="DraftPlaneTop.png" width="325" height="47" class="thumbimage" /></a>  <div class="thumbcaption">Výběr roviny Top</div></div></div>
+<div class="mw-translate-fuzzy">
+<div class="thumb tleft"><div class="thumbinner" style="width:365px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DraftPlaneView.png" class="image"><img alt="" src="DraftPlaneView.png" width="363" height="44" class="thumbimage" /></a>  <div class="thumbcaption">Výběr roviny View</div></div></div>
+<div style="clear:both"></div>
+</div>
+<p>Instrukce uvedené výše budou fungovat bez ohledu na to co je tlačítku.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial/cs&amp;oldid=268791">http://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial/cs&amp;oldid=268791</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

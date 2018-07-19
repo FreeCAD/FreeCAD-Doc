@@ -1,0 +1,86 @@
+<html><head><title>Mesh Workbench/zh-tw</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Workbench/zh-tw</h1></div>
+
+<div id="mw-content-text" lang="zh-TW" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p>The <b>Mesh Workbench</b> handles <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">triangle meshes</a>. Meshes are a special type of 3D object, composed of triangles connected by their edges and their corners (also called vertices).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="An example of a mesh object"><img alt="An example of a mesh object" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>An example of a mesh object
+</p><p>Many 3D applications use meshes as their primary type of 3D object, like <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Sketchup">sketchup</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Blender_(software)">blender</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Maya_(software)">maya</a> or <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/3d_max">3d studio max</a>. Since meshes are very simple objects, containing only vertices (points), edges and (triangular) faces, they are very easy to create, modify, subdivide, stretch, and can easily be passed from one application to another without any loss. Besides, since they contain very simple data, 3D applications can usually manage very large quantities of them without any problem. For those reasons, meshes are often the 3D object type of choice for applications dealing with movies, animation, and image creation.
+</p><p>In the field of engineering, however, meshes present one big limitation: They are very dumb objects, only composed of points, lines and faces. They are only made of surfaces, and have no mass information, so they don't behave as solids. In a mesh there is no automatic way to know if a point is inside or outside the object. This means that all solid-based operations, such as addition or subtraction, are always a bit difficult to perform on meshes, and return errors often.
+</p><p>In FreeCAD, since it is an engineering application, we would obviously prefer to work with more intelligent types of 3D objects, that can carry more information, such as mass, solid behaviour, or even custom parameters. The mesh module was first created to serve as a testbed, but to be able to read, manipulate and convert meshes is also highly important for FreeCAD. Very often, in your workflow, you will receive 3D data in mesh format. You will need to handle that data, analyse it to detect errors or other problems that prevent converting them to more intelligent objects, and finally, convert them to more intelligent objects, handled by the <a href="Part_Module.html" title="Part Module">Part Module</a>.
+</p>
+<h2><span class="mw-headline" id="Using_the_mesh_module">Using the mesh module</span></h2>
+<p>The mesh module has currently a very simple interface, all its functions are grouped in the <b>Mesh</b> menu entry. The most important operations you can currently do with meshes are:
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ImportMesh.png" class="image"><img alt="Mesh ImportMesh.png" src="32px-Mesh_ImportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Mesh_ImportMesh.png/48px-Mesh_ImportMesh.png 1.5x, /wiki/images/2/27/Mesh_ImportMesh.png 2x" /></a> <a href="Mesh_Import.html" title="Mesh Import">Import Mesh</a>: Import meshes in several file formats</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ExportMesh.png" class="image"><img alt="Mesh ExportMesh.png" src="32px-Mesh_ExportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_ExportMesh.png/48px-Mesh_ExportMesh.png 1.5x, /wiki/images/0/0f/Mesh_ExportMesh.png 2x" /></a> <a href="Mesh_Export.html" title="Mesh Export">Export Mesh</a>: Export meshes in several file formats</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MeshFromShape.png" class="image"><img alt="Mesh MeshFromShape.png" src="32px-Mesh_MeshFromShape.png" width="32" height="32" srcset="/wiki/images/thumb/2/24/Mesh_MeshFromShape.png/48px-Mesh_MeshFromShape.png 1.5x, /wiki/images/2/24/Mesh_MeshFromShape.png 2x" /></a> <a href="Mesh_MeshFromShape.html" title="Mesh MeshFromShape">Create Mesh from shape</a>: Convert <a href="Part_Module.html" title="Part Module">Part</a> objects into meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_HarmonizeNormals.png" class="image"><img alt="Mesh HarmonizeNormals.png" src="32px-Mesh_HarmonizeNormals.png" width="32" height="32" srcset="/wiki/images/thumb/0/01/Mesh_HarmonizeNormals.png/48px-Mesh_HarmonizeNormals.png 1.5x, /wiki/images/0/01/Mesh_HarmonizeNormals.png 2x" /></a> <a href="Mesh_HarmonizeNormals.html" title="Mesh HarmonizeNormals">Harmonize Normals</a>: Harmonize normals</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FlipNormals.png" class="image"><img alt="Mesh FlipNormals.png" src="32px-Mesh_FlipNormals.png" width="32" height="32" srcset="/wiki/images/thumb/3/31/Mesh_FlipNormals.png/48px-Mesh_FlipNormals.png 1.5x, /wiki/images/3/31/Mesh_FlipNormals.png 2x" /></a> <a href="Mesh_FlipNormals.html" title="Mesh FlipNormals">Flip Normals</a>: Flip <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">normals</a></li>
+<li> <a href="Mesh_FillHoles.html" title="Mesh FillHoles">Fill Holes...</a>: Fill up holes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> <a href="Mesh_FillInteractiveHole.html" title="Mesh FillInteractiveHole">Close hole</a>: Close holes in meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RemoveComponents.png" class="image"><img alt="Mesh RemoveComponents.png" src="32px-Mesh_RemoveComponents.png" width="32" height="32" srcset="/wiki/images/thumb/b/b0/Mesh_RemoveComponents.png/48px-Mesh_RemoveComponents.png 1.5x, /wiki/images/b/b0/Mesh_RemoveComponents.png 2x" /></a> <a href="Mesh_RemoveComponents.html" title="Mesh RemoveComponents">Remove components...</a>: Remove components of meshes</li>
+<li> <a href="Mesh_RemoveCompByHand.html" title="Mesh RemoveCompByHand">Remove components by hand...</a>: Remove components of meshes by hand</li>
+<li> <a href="Mesh_AddTriangle.html" title="Mesh AddTriangle">Add triangle</a>: Add triangle</li>
+<li> <a href="Mesh_Smooth.html" title="Mesh Smooth">Smooth...</a>: Smooth mesh</li></ul>
+<p><br />
+</p>
+<ul><li> <b>Analyze</b> curvature, faces, and check if a mesh can be safely converted into a solid
+<ul><li> <a href="Mesh_EvaluateRepair.html" title="Mesh EvaluateRepair">Evaluate &amp; Repair mesh...</a>: Evaluates and repairs meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_EvaluateFacet.png" class="image"><img alt="Mesh EvaluateFacet.png" src="32px-Mesh_EvaluateFacet.png" width="32" height="32" srcset="/wiki/images/thumb/9/96/Mesh_EvaluateFacet.png/48px-Mesh_EvaluateFacet.png 1.5x, /wiki/images/9/96/Mesh_EvaluateFacet.png 2x" /></a> <a href="Mesh_EvaluateFacet.html" title="Mesh EvaluateFacet">Face Info</a>: Gives info on faces</li>
+<li> <a href="Mesh_EvaluateCurvature.html" title="Mesh EvaluateCurvature">Curvature Info</a>: Gives info on curvature</li>
+<li> <a href="Mesh_EvaluateSolid.html" title="Mesh EvaluateSolid">Check solid mesh</a>: Checks the solid if it can be converted to a mesh</li>
+<li> <a href="Mesh_BoundingBox.html" title="Mesh BoundingBox">Boundings info...</a>: Evaluates the bounding box of a mesh</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.png" class="image"><img alt="Mesh Regular Solid.png" src="32px-Mesh_Regular_Solid.png" width="32" height="32" srcset="/wiki/images/thumb/d/d9/Mesh_Regular_Solid.png/48px-Mesh_Regular_Solid.png 1.5x, /wiki/images/d/d9/Mesh_Regular_Solid.png 2x" /></a> <a href="Mesh_BuildRegularSolid.html" title="Mesh BuildRegularSolid">Regular solid...</a> Create mesh primitives, like cubes, cylinders, cones, or spheres:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.png" class="image"><img alt="Mesh Cube.png" src="32px-Mesh_Cube.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cube.png/48px-Mesh_Cube.png 1.5x, /wiki/images/d/df/Mesh_Cube.png 2x" /></a> Create a mesh cube</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.png" class="image"><img alt="Mesh Cylinder.png" src="32px-Mesh_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/2/26/Mesh_Cylinder.png/48px-Mesh_Cylinder.png 1.5x, /wiki/images/2/26/Mesh_Cylinder.png 2x" /></a> Create a mesh cylinder</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.png" class="image"><img alt="Mesh Cone.png" src="32px-Mesh_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cone.png/48px-Mesh_Cone.png 1.5x, /wiki/images/d/df/Mesh_Cone.png 2x" /></a> Create a mesh cone</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.png" class="image"><img alt="Mesh Sphere.png" src="32px-Mesh_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/Mesh_Sphere.png/48px-Mesh_Sphere.png 1.5x, /wiki/images/9/98/Mesh_Sphere.png 2x" /></a> Create a mesh sphere</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.png" class="image"><img alt="Mesh Ellipsoid.png" src="32px-Mesh_Ellipsoid.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Mesh_Ellipsoid.png/48px-Mesh_Ellipsoid.png 1.5x, /wiki/images/9/9f/Mesh_Ellipsoid.png 2x" /></a> Create a mesh ellipsoid</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.png" class="image"><img alt="Mesh Torus.png" src="32px-Mesh_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/3/36/Mesh_Torus.png/48px-Mesh_Torus.png 1.5x, /wiki/images/3/36/Mesh_Torus.png 2x" /></a> Create a mesh torus</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Do <b>Boolean</b> operations with meshes
+<ul><li> <a href="Mesh_Union.html" title="Mesh Union">Union</a>: Does a union (fusion) on meshes</li>
+<li> <a href="Mesh_Intersection.html" title="Mesh Intersection">Intersection</a>: Does an intersection (common) on meshes</li>
+<li> <a href="Mesh_Difference.html" title="Mesh Difference">Difference</a>: Does a difference (cut) on meshes</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="Mesh_Merge.html" title="Mesh Merge">Merge</a>: Merges meshes</li>
+<li> <a href="Mesh_SelectMesh.html" title="Mesh SelectMesh">Select Mesh</a>: Selects meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cut.png" class="image"><img alt="Mesh Cut.png" src="32px-Mesh_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/7/73/Mesh_Cut.png/48px-Mesh_Cut.png 1.5x, /wiki/images/7/73/Mesh_Cut.png 2x" /></a> <a href="Mesh_Cut.html" title="Mesh Cut">Cut mesh</a>: Cut meshes along a line</li>
+<li> <a href="Mesh_SplitMesh.html" title="Mesh SplitMesh">Split Mesh</a>: Splits meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MakeSegment.png" class="image"><img alt="Mesh MakeSegment.png" src="32px-Mesh_MakeSegment.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_MakeSegment.png/48px-Mesh_MakeSegment.png 1.5x, /wiki/images/0/0f/Mesh_MakeSegment.png 2x" /></a> <a href="Mesh_MakeSegment.html" title="Mesh MakeSegment">Make segment</a>: Makes a segment</li>
+<li> <a href="Mesh_TrimMesh.html" title="Mesh TrimMesh">Trim mesh</a>: Trims meshes</li>
+<li> <a href="Mesh_TrimMeshWithPlane.html" title="Mesh TrimMeshWithPlane">Trim mesh with a plane</a>: Trims meshes with a plane</li>
+<li> <a href="Mesh_CreateMeshSegment.html" title="Mesh CreateMeshSegment">Create mesh segments...</a>: Creates mesh segments</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_CurvaturePlot.png" class="image"><img alt="Mesh CurvaturePlot.png" src="32px-Mesh_CurvaturePlot.png" width="32" height="32" srcset="/wiki/images/thumb/3/3b/Mesh_CurvaturePlot.png/48px-Mesh_CurvaturePlot.png 1.5x, /wiki/images/3/3b/Mesh_CurvaturePlot.png 2x" /></a> <a href="Mesh_CurvaturePlot.html" title="Mesh CurvaturePlot">Curvature Plot</a>: Creates a curvature plot</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<p>These are only some of the basic operations currently present in the Mesh module interface.
+<br />
+More mesh tools are available in the <a href="OpenSCAD_Workbench.html" class="mw-redirect" title="OpenSCAD Workbench">OpenSCAD Workbench</a>.
+<br />
+But the FreeCAD meshes can also be handled in many more ways by <a href="Mesh_Scripting.html" title="Mesh Scripting"> scripting</a>.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="Mesh_Import.html" title="FreeCAD and Mesh Import">FreeCAD and Mesh Import</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/zh-tw&amp;oldid=290018">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/zh-tw&amp;oldid=290018</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

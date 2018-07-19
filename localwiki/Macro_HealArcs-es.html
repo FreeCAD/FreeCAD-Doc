@@ -1,0 +1,90 @@
+<html><head><title>Macro HealArcs/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro HealArcs/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="HealArcs"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> HealArcs</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descripción
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">A veces los arcos se transforman en BSplines, por ejemplo cuando se les aplica operaciones de escala. Esta macro vuelve a crear arcos válidos a partir de ellos. Útil antes de exportar a DXF
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Vista
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/es" title="Macros recipes/es">Macros recipes</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/es" title="How to install macros/es">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/es" title="Customize Toolbars/es">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Fecha de la última modificación
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2011-09-24
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#HealArcs"><span class="tocnumber">1</span> <span class="toctext">HealArcs</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>A veces los arcos se transforman en BSplines, por ejemplo cuando se les aplica operaciones de escala. Esta macro vuelve a crear arcos válidos a partir de ellos. Útil antes de exportar a DXF
+</p><p><br />
+</p>
+<pre>try:
+    import DraftGeomUtils as fcgeo
+except:
+    from draftlibs import fcgeo
+import FreeCAD,FreeCADGui,Part
+
+sel = FreeCADGui.Selection.getSelection()
+if not sel:
+    FreeCAD.Console.PrintWarning("Select something first!")
+else:
+    removeList = []
+    for obj in sel:
+        ed = obj.Shape.Edges[0]
+        arc = fcgeo.arcFromSpline(ed)
+        if arc:
+            Part.show(arc)
+            removeList.append(obj.Name)
+    FreeCAD.ActiveDocument.recompute()
+    print "removing ",removeList
+    for n in removeList:
+        FreeCAD.ActiveDocument.removeObject(n) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_HealArcs/es&amp;oldid=240843">http://www.freecadweb.org/wiki/index.php?title=Macro_HealArcs/es&amp;oldid=240843</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

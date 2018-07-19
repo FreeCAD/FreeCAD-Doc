@@ -1,0 +1,140 @@
+<html><head><title>Macro Align Object to View/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Align Object to View/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Align_Object_to_View"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Align Object to View</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro aligne l'objet sélectonné sur la vue 3D.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-01-16
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Align_Object_to_View"><span class="tocnumber">1</span> <span class="toctext">Macro Align Object to View</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Comment_l.27utiliser"><span class="tocnumber">3</span> <span class="toctext">Comment l'utiliser</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Exemple"><span class="tocnumber">5</span> <span class="toctext">Exemple</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Credits"><span class="tocnumber">6</span> <span class="toctext">Credits</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro aligne l'objet sélectionné sur la vue 3D.
+</p>
+<h2><span class="mw-headline" id="Comment_l.27utiliser">Comment l'utiliser</span></h2>
+<ul><li> Dirigez votre vue, sélectionnez votre objet et lancez la macro</li>
+<li> Votre objet est dirigé sur la position de la caméra</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro Align Object to View.FCMacro</b>
+</p>
+<pre># This macro place your object selected to the position ActiveView (camera)
+# extact
+# 16/01/2015
+
+__title__="FCCamera"
+__author__ = "Mario52"
+
+import pivy
+from pivy import coin
+
+sel = FreeCADGui.Selection.getSelection()
+Nameelement = sel[0].Name
+App.Console.PrintMessage(str(Nameelement)+"\n")
+
+pl = FreeCAD.Placement()
+pl.Rotation = FreeCADGui.ActiveDocument.ActiveView.getCameraOrientation()
+pl.Base = FreeCAD.Vector(0.0,0.0,0.0)
+
+App.ActiveDocument.getObject(Nameelement).Placement=pl </pre>
+<h2><span class="mw-headline" id="Exemple">Exemple</span></h2>
+<center>
+<ul class="gallery mw-gallery-traditional" style="max-width: 686px;_width: 686px;">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Align_Object_to_View_01.png" class="image"><img alt="" src="296px-Macro_Align_Object_to_View_01.png" width="296" height="200" srcset="/wiki/images/thumb/1/15/Macro_Align_Object_to_View_01.png/444px-Macro_Align_Object_to_View_01.png 1.5x, /wiki/images/1/15/Macro_Align_Object_to_View_01.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Votre objet dans sa position originale XY.
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Align_Object_to_View_02.png" class="image"><img alt="" src="296px-Macro_Align_Object_to_View_02.png" width="296" height="200" srcset="/wiki/images/thumb/5/5d/Macro_Align_Object_to_View_02.png/444px-Macro_Align_Object_to_View_02.png 1.5x, /wiki/images/5/5d/Macro_Align_Object_to_View_02.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Faites une rotation de l'écran X? Y? Z? ou utilisez cette macro <a href="Macro_Rotate_View.html" title="Macro Rotate View">Macro_Rotate_View</a> pour une rotation précise.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional" style="max-width: 686px;_width: 686px;">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Align_Object_to_View_03.png" class="image"><img alt="" src="296px-Macro_Align_Object_to_View_03.png" width="296" height="200" srcset="/wiki/images/thumb/b/b7/Macro_Align_Object_to_View_03.png/444px-Macro_Align_Object_to_View_03.png 1.5x, /wiki/images/b/b7/Macro_Align_Object_to_View_03.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Sélectionnez l'objet et lancez la macro (l'objet fait face à l'écran).
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Align_Object_to_View_04.png" class="image"><img alt="" src="296px-Macro_Align_Object_to_View_04.png" width="296" height="200" srcset="/wiki/images/thumb/e/e5/Macro_Align_Object_to_View_04.png/444px-Macro_Align_Object_to_View_04.png 1.5x, /wiki/images/e/e5/Macro_Align_Object_to_View_04.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Votre objet vient de prendre les positions XY et (Placement, Angle)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<h2><span class="mw-headline" id="Credits">Credits</span></h2>
+<p>Merci rentlau_64 pour avoir simplifié le code
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Align_Object_to_View/fr&amp;oldid=239862">http://www.freecadweb.org/wiki/index.php?title=Macro_Align_Object_to_View/fr&amp;oldid=239862</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

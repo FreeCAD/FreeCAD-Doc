@@ -1,0 +1,105 @@
+<html><head><title>Mesh Scripting/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Scripting/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introducci.C3.B3n"><span class="tocnumber">1</span> <span class="toctext">Introducción</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Creaci.C3.B3n_y_Carga"><span class="tocnumber">2</span> <span class="toctext">Creación y Carga</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Modelado"><span class="tocnumber">3</span> <span class="toctext">Modelado</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Examen_y_pruebas"><span class="tocnumber">4</span> <span class="toctext">Examen y pruebas</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Escribe_tus_propios_algoritmos"><span class="tocnumber">5</span> <span class="toctext">Escribe tus propios algoritmos</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exportaci.C3.B3n"><span class="tocnumber">6</span> <span class="toctext">Exportación</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Interfaces_gr.C3.A1ficas_de_usuario_relacionadas"><span class="tocnumber">7</span> <span class="toctext">Interfaces gráficas de usuario relacionadas</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Ajustes_y_pruebas"><span class="tocnumber">8</span> <span class="toctext">Ajustes y pruebas</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Introducci.C3.B3n">Introducción</span></h3>
+<p>En primer lugar tienes que importar el módulo Malla:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Mesh</pre></div>
+<p>Después de eso, ya tendrás acceso al módulo Malla y la clase Malla, que ofrecen las funciones del nucleo FreeCAD C++ Mesh-Kernel.
+</p>
+<h3><span class="mw-headline" id="Creaci.C3.B3n_y_Carga">Creación y Carga</span></h3>
+<p>Para crear un objeto malla vacío sólo tienes que utilizar el constructor estándar:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mesh = Mesh.Mesh()</pre></div>
+<p>También puedes crear un objeto desde un archivo
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mesh = Mesh.Mesh('D:/temp/Something.stl')</pre></div>
+<p>(Una lista de formatos de archivo compatibles se puede encontrar bajo 'Mallas' <a href="/wiki/Feature_list/es#IO" title="Feature list/es">aquí</a>.)
+</p><p>O también puedes crear la malla a partir de un conjunto de triángulos descrito por sus vértices:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>planarMesh = [
+# triangle 1
+[-0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],[-0.5000,0.5000,0.0000],
+#triangle 2
+[-0.5000,-0.5000,0.0000],[0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],
+]
+planarMeshObject = Mesh.Mesh(planarMesh)
+Mesh.show(planarMeshObject)</pre></div>
+<p>El núcleo de mallas, Mesh-Kernel, se encarga de crear una estructura topológica de datos correcta, ordenando conjuntamente los puntos coincidentes y los bordes. 
+</p><p>Más adelante podrás ver cómo examinar y revisar los datos de la malla.
+</p>
+<h3><span class="mw-headline" id="Modelado">Modelado</span></h3>
+<p>Para crear geometrías regulares puedes utilizar el script de Python BuildRegularGeoms.py.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import BuildRegularGeoms</pre></div>
+<p>Esta secuencia de comandos proporciona métodos para definir cuerpos de revolución sencillos, como esferas, elipsoides, cilindros, toroides y conos. Y también tiene un método para crear un cubo simple.
+Para crear un toroide, por ejemplo, se puede hacer de la siguiente manera:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>t = BuildRegularGeoms.Toroid(8.0, 2.0, 50) # list with several thousands triangles
+m = Mesh.Mesh(t)</pre></div>
+<p>Los dos primeros parámetros definen los radios del toroide y el tercer parámetro es un factor de submuestreo relacionado con el número de triángulos que se han de crear. Cuanto mayor sea este valor, más suave es la forma y mejor acabado tiene el cuerpo.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>m1, m2              # are the input mesh objects
+m3 = Mesh.Mesh(m1)  # create a copy of m1
+m3.unite(m2)        # union of m1 and m2, the result is stored in m3
+m4 = Mesh.Mesh(m1)
+m4.intersect(m2)    # intersection of m1 and m2
+m5 = Mesh.Mesh(m1)
+m5.difference(m2)   # the difference of m1 and m2
+m6 = Mesh.Mesh(m2)
+m6.difference(m1)   # the difference of m2 and m1, usually the result is different to m5</pre></div>
+<p>Por último, un ejemplo completo que calcula la intersección entre una esfera y un cilindro que corta a la esfera.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Mesh, BuildRegularGeoms
+sphere = Mesh.Mesh( BuildRegularGeoms.Sphere(5.0, 50) )
+cylinder = Mesh.Mesh( BuildRegularGeoms.Cylinder(2.0, 10.0, True, 1.0, 50) )
+diff = sphere
+diff = diff.difference(cylinder)
+d = FreeCAD.newDocument()
+d.addObject("Mesh::Feature","Diff_Sphere_Cylinder").Mesh=diff
+d.recompute()</pre></div>
+<h3><span class="mw-headline" id="Examen_y_pruebas">Examen y pruebas</span></h3>
+<h3><span class="mw-headline" id="Escribe_tus_propios_algoritmos">Escribe tus propios algoritmos</span></h3>
+<h3><span class="mw-headline" id="Exportaci.C3.B3n">Exportación</span></h3>
+<p>Puedes incluso escribir la malla en un módulo de Python:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>m.write("D:/Develop/Projekte/FreeCAD/FreeCAD_0.7/Mod/Mesh/SavedMesh.py")
+import SavedMesh
+m2 = Mesh.Mesh(SavedMesh.faces)</pre></div>
+<h3><span class="mw-headline" id="Interfaces_gr.C3.A1ficas_de_usuario_relacionadas">Interfaces gráficas de usuario relacionadas</span></h3>
+<h3><span class="mw-headline" id="Ajustes_y_pruebas">Ajustes y pruebas</span></h3>
+<p>Una extensa, aunque dificil de usar, librería de archivos de guión relacionados con mallas son los scripts de prueba del módulo Malla.
+En esta unidad, literalmente todos los métodos son invocados, y se ajustan todas las propiedades y atributos.
+Así que si eres lo suficientemente audaz, echa un vistazo al <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Mesh/App/MeshTestsApp.py?view=markup">Módulo de prueba de unidades</a>.
+</p><p>See also <a href="Mesh_API.html" title="Mesh API">Mesh API</a>
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/es&amp;oldid=143819">http://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/es&amp;oldid=143819</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

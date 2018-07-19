@@ -1,0 +1,135 @@
+<html><head><title>Debugging/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Debugging/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Test_First"><span class="tocnumber">1</span> <span class="toctext">Test First</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Command_Line"><span class="tocnumber">2</span> <span class="toctext">Command Line</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Generating_a_Backtrace"><span class="tocnumber">3</span> <span class="toctext">Generating a Backtrace</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#For_Linux"><span class="tocnumber">3.1</span> <span class="toctext">For Linux</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#For_MacOSX"><span class="tocnumber">3.2</span> <span class="toctext">For MacOSX</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Python_Debugging"><span class="tocnumber">4</span> <span class="toctext">Python Debugging</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Test_First">Test First</span></h2>
+<p>Before you go through the pain of debugging use the <a href="Testing.html" title="Testing">Test framework</a> to check if the standard tests work properly. If they do not run complete there is possibly a broken installation.
+</p>
+<h2><span class="mw-headline" id="Command_Line">Command Line</span></h2>
+<p>The <i>debugging</i> of FreeCAD is supported by a few internal mechanisms. The command line version of FreeCAD provides some options for debugging support.
+</p><p>These are the currently recognized options in FreeCAD 0.15:
+</p><p>Generic options:
+</p>
+<pre> -v [ --version ]      Prints version string
+ -h [ --help ]         Prints help message
+ -c [ --console ]      Starts in console mode
+ --response-file arg   Can be specified with '@name', too
+</pre>
+<p>Configuration:
+</p>
+<pre> -l [ --write-log ]       Writes a log file to:
+                          $HOME/.FreeCAD/FreeCAD.log
+ --log-file arg           Unlike to --write-log this allows to log to an 
+                          arbitrary file
+ -u [ --user-cfg ] arg    User config file to load/save user settings
+ -s [ --system-cfg ] arg  Systen config file to load/save system settings
+ -t [ --run-test ] arg    Test level
+ -M [ --module-path ] arg Additional module paths
+ -P [ --python-path ] arg Additional python paths
+</pre>
+<h2><span class="mw-headline" id="Generating_a_Backtrace">Generating a Backtrace</span></h2>
+<p>If you are running a version of FreeCAD from the bleeding edge of the development curve, it may "crash".  You can help solve such problems by providing the developers with a "backtrace".  To do this, you need to be running a "debug build" of the software. "Debug build" is a parameter that is set at compile time, so you'll either need to compile FreeCAD yourself, or obtain a pre-compiled "debug" version.  
+</p>
+<h3><span class="mw-headline" id="For_Linux">For Linux</span></h3>
+<p>Prerequisites: 
+</p>
+<ul><li> software package gdb installed</li>
+<li> a debug build of FreeCAD (at this time only available by <a href="/wiki/CompileOnUnix#For_a_Debug_build" title="CompileOnUnix">building from source</a>)</li>
+<li> a FreeCAD model that causes a crash</li></ul>
+<p>Steps:
+Enter the following in your terminal window:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ gdb FreeCAD
+</pre>
+<p>GNUdebugger will output some initializing information. The (gdb) shows GNUDebugger is running in the terminal, now input:
+</p>
+<pre>
+(gdb) handle SIG33 noprint nostop
+(gdb) run
+</pre>
+<p>FreeCAD will now start up.  Perform the steps that cause FreeCAD to crash or freeze, then enter in the terminal window:
+</p>
+<pre>
+(gdb) bt
+</pre>
+<p>This will generate a lengthy listing of exactly what the program was doing when it crashed or froze. Include this with your problem report.
+</p>
+<h3><span class="mw-headline" id="For_MacOSX">For MacOSX</span></h3>
+<p>Prerequisites: 
+</p>
+<ul><li> software package lldb installed</li>
+<li> a debug build of FreeCAD</li>
+<li> a FreeCAD model that causes a crash</li></ul>
+<p>Steps:
+Enter the following in your terminal window:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ lldb FreeCAD
+</pre>
+<p>LLDB will output some initializing information. The (lldb) shows the debugger is running in the terminal, now input:
+</p>
+<pre>
+(lldb) run
+</pre>
+<p>FreeCAD will now start up.  Perform the steps that cause FreeCAD to crash or freeze, then enter in the terminal window:
+</p>
+<pre>
+(lldb) bt
+</pre>
+<p>This will generate a lengthy listing of exactly what the program was doing when it crashed or froze. Include this with your problem report.
+</p>
+<h2><span class="mw-headline" id="Python_Debugging">Python Debugging</span></h2>
+<p>Here is an example of using winpdb inside FreeCAD:
+</p>
+<ol><li> Run winpdb and set the password (e.g. test)</li>
+<li> Create a Python file with this content</li></ol>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import rpdb2
+ rpdb2.start_embedded_debugger("test")
+ import FreeCAD
+ import Part
+ import Draft
+ print "hello"
+ print "hello"
+ import Draft
+ points=[FreeCAD.Vector(-3.0,-1.0,0.0),FreeCAD.Vector(-2.0,0.0,0.0)]
+ Draft.makeWire(points,closed=False,face=False,support=None)</pre></div>
+<ol><li> Start FreeCAD and load the above file into FreeCAD</li>
+<li> Press F6 to execute it</li>
+<li> Now FreeCAD will become unresponsive because the Python debugger is waiting</li>
+<li> Switch to the Windpdb GUI and click on "Attach". After a few seconds an item "&lt;Input&gt;" appears where you have to double-click</li>
+<li> Now the currently executed script appears in Winpdb.</li>
+<li> Set a break at the last line and press F5</li>
+<li> Now press F7 to step into the Python code of Draft.makeWire</li></ol>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Debugging/es&amp;oldid=221209">http://www.freecadweb.org/wiki/index.php?title=Debugging/es&amp;oldid=221209</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

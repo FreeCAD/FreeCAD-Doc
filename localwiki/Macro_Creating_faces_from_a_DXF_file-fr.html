@@ -1,0 +1,98 @@
+<html><head><title>Macro Creating faces from a DXF file/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Creating faces from a DXF file/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Creating_faces_from_a_DXF_file"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Creating faces from a DXF file</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro crée des faces à partir d'objets d'un fichier DXF.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Shoogen&amp;action=edit&amp;redlink=1" class="new" title="User:Shoogen (page does not exist)">shoogen</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-10-29
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Creating_faces_from_a_DXF_file"><span class="tocnumber">1</span> <span class="toctext">Creating faces from a DXF file</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Liens"><span class="tocnumber">5</span> <span class="toctext">Liens</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro crée des faces à partir des dessins extraits d' un fichier au format DXF, les <b>Layer</b> sont reconnus séparés et traités comme des groupes.
+</p><p>There must be groups in the file.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Lancer la macro tous les objets sont analysés et transformés en face(s).
+</p><p>Note&#160;: un objet non fermé retourne une erreur.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro Creating faces from a DXF file.FCMacro</b>
+</p>
+<pre>import FreeCAD,Part,OpenSCAD2Dgeom
+doc = App.ActiveDocument
+for group in doc.findObjects('App::DocumentObjectGroup'):
+    try:
+        edges=sum((obj.Shape.Edges for obj in group.Group \
+                if hasattr(obj,'Shape')),[])
+        face = OpenSCAD2Dgeom.edgestofaces(edges)
+        faceobj = doc.addObject('Part::Feature','face_%s'&#160;% group.Name)
+        faceobj.Label = 'face_%s'&#160;% group.Label
+        faceobj.Shape = face
+    except Part.OCCError: # Exception: # 
+        FreeCAD.Console.PrintError('Error in Group&#160;%s (%s)'&#160;% (group.Name,group.Label)+"\n") </pre>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<p>La discussion sur le forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=8144">Creating faces from a DXF file</a>
+</p><p>Ici un exemple d'utilisation de transformation d'une feuille 2D en objet 3D <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=8280&amp;p=67863#p67840">Generate 3D solid from intersection of three imported 2D</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Creating_faces_from_a_DXF_file/fr&amp;oldid=240424">http://www.freecadweb.org/wiki/index.php?title=Macro_Creating_faces_from_a_DXF_file/fr&amp;oldid=240424</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

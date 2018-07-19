@@ -1,0 +1,43 @@
+<html><head><title>MIBA/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>MIBA/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id=".C3.9Avod">Úvod</span></h2>
+<p>Miba je způsob jak vložit informace o 3D prostoru do 2D obrázku. Často se to realizuje použitím 2D obrázků místo 3D prohlížeče. Pomocí Miba informací jste schopni vypočítat pozici 3D umístění ve 2D obrazu. To Vám umožňuje později doladit obraz libovolnými 3D informacemi. Můžete vzít obraz v ranném stádiu (plán) a použít jej později (např. výroba). Nemusíte znát druh 3D dat nebo pozici, když berete obraz. Takže obraz je kompletně oddělen od dat.
+</p><p>Detailnější specifikaci můžete nalézt zde: <a rel="nofollow" class="external free" href="http://miba.juergen-riegel.net/">http://miba.juergen-riegel.net/</a>
+</p>
+<h2><span class="mw-headline" id="Miba_ve_FreeCADu">Miba ve FreeCADu</span></h2>
+<p>Jestliže si vyberete souborový formát, který umožňuje komentáře ( JPG and PNG), můžete do komentářových polí zapsat komentář nebo vložit MIBA informace (default):
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Save_picture.png" class="image"><img alt="Save picture.png" src="Save_picture.png" width="811" height="412" /></a>
+</p>
+<h2><span class="mw-headline" id="Vytv.C3.A1.C5.99en.C3.AD_Miba_obr.C3.A1zk.C5.AF_skriptem">Vytváření Miba obrázků skriptem</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Part,PartGui
+ # loading test part
+ Part.open("C:/Documents and Settings/jriegel/My Documents/Projects/FreeCAD/data/Blade.stp")
+ OutDir = 'c:/temp/'
+ Gui.ActiveDocument.ActiveView.setAnimationEnabled(False)
+ 
+ # creating images with different Views, Cameras and sizes
+ for p in ["PerspectiveCamera","OrthographicCamera"]:
+   Gui.SendMsgToActiveView(p)
+   for f in ["ViewAxo","ViewFront","ViewTop"]:
+     Gui.SendMsgToActiveView(f)
+     for x,y in [[500,500],[1000,3000],[3000,1000],[3000,3000],[8000,8000]]:
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".jpg",x,y,"White")
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".png",x,y,"Transparent")
+ 
+ # close active document
+ App.closeDocument(App.ActiveDocument.Name)</pre></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=MIBA/cs&amp;oldid=84038">http://www.freecadweb.org/wiki/index.php?title=MIBA/cs&amp;oldid=84038</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

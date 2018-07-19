@@ -1,0 +1,89 @@
+<html><head><title>Draft Upgrade/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft Upgrade/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id=".7B.7B.7BName.2Fes.7D.7D.7D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="32px-Draft_Upgrade.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/48px-Draft_Upgrade.png 1.5x, /wiki/images/b/be/Draft_Upgrade.png 2x" /></a> {{{Name/es}}}</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Ubicación en el Menú
+</th></tr>
+<tr>
+<td class="ctEven">Croquis → Promocionar
+</td></tr>
+<tr>
+<th class="ctOdd">Entornos de trabajo
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/es" title="Draft Module/es">Croquis</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/es" title="Arch Module/es">Arquitectura</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Atajo de teclado por defecto
+</th></tr>
+<tr>
+<td class="ctEven">U P
+</td></tr>
+<tr>
+<th class="ctOdd">Ver también
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.7B.7B.7BName.2Fes.7D.7D.7D"><span class="tocnumber">1</span> <span class="toctext">{{{Name/es}}}</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descripci.C3.B3n"><span class="tocnumber">2</span> <span class="toctext">Descripción</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilizaci.C3.B3n"><span class="tocnumber">3</span> <span class="toctext">Utilización</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Opciones"><span class="tocnumber">4</span> <span class="toctext">Opciones</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Programaci.C3.B3n"><span class="tocnumber">5</span> <span class="toctext">Programación</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Descripci.C3.B3n">Descripción</span></h2>
+<p>Esta herramienta promociona (convertir en un tipo de objeto más complejo) los objetos seleccionados de diversas formas. Si no se ha seleccionado ningún objeto, te invitará a seleccionar uno.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade_example.jpg" class="image"><img alt="Draft Upgrade example.jpg" src="400px-Draft_Upgrade_example.jpg" width="400" height="165" srcset="/wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/600px-Draft_Upgrade_example.jpg 1.5x, /wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/800px-Draft_Upgrade_example.jpg 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Utilizaci.C3.B3n">Utilización</span></h2>
+<ol><li> Selecciona uno o más objetos que desees promocionar</li>
+<li> Presiona el botón <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="16px-Draft_Upgrade.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/24px-Draft_Upgrade.png 1.5x, 32px-Draft_Upgrade.png 2x" /></a> <a class="mw-selflink selflink">Promocionar</a></span> o presiona las teclas <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">U</span> y <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">P</span></li></ol>
+<h2><span class="mw-headline" id="Opciones">Opciones</span></h2>
+<p>Los objetos seleccionados son modificados/promocionados de acuerdo con las siguientes condiciones (en orden):
+</p>
+<ul><li> Si hay más de una cara seleccionada, las caras se fusionan (unión)</li>
+<li> Si sólo hay una cara seleccionada, no hace nada</li>
+<li> Si sólo hay un contorno abierto seleccionado, lo cierra</li>
+<li> Si solo hay aristas seleccionadas, se juntan todas las aristas en un contorno o wire (cerrado si es posible)</li>
+<li> Si ninguna de las opciones anteriores es posible, crea un objeto compuesto</li></ul>
+<h2><span class="mw-headline" id="Programaci.C3.B3n">Programación</span></h2>
+<p>The upgrade tool can be used from python scripts and <a href="Macros.html" title="Macros">macros</a> like this:
+</p>
+<pre>Draft.upgrade(objects, delete=False, force=None) </pre>
+<ul><li> Upgrades the given object(s) (can be an object or a list of objects). </li>
+<li> If delete is True, old objects are deleted.</li>
+<li> The force attribute can be used to force a certain way of upgrading. It can be: makeCompound, closeGroupWires, makeSolid, closeWire, turnToParts, makeFusion, makeShell, makeFaces, draftify, joinFaces, makeSketchFace, makeWires</li>
+<li> Returns a dictionnary containing two lists, a list of new objects and a list of objects to be deleted</li></ul>
+<p>Some of the operations of the Upgrade tool can also be made with the <a href="Part_Union.html" title="Part Union">Part Union</a> or <a href="Draft_Wire.html" title="Draft Wire">Draft Wire</a> tools.
+</p><p>Ejemplo:
+</p>
+<pre>import Draft
+mycircle = Draft.makeCircle(2)
+face1 = Draft.upgrade([mycircle],True) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/es&amp;oldid=200273">http://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/es&amp;oldid=200273</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

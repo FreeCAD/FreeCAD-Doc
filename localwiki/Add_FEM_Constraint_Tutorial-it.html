@@ -1,0 +1,308 @@
+<html><head><title>Add FEM Constraint Tutorial/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Add FEM Constraint Tutorial/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:M42kus&amp;action=edit&amp;redlink=1" class="new" title="User:M42kus (page does not exist)">M42kus</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Sommario"><span class="tocnumber">2</span> <span class="toctext">Sommario</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Create_Document_Object"><span class="tocnumber">3</span> <span class="toctext">Create Document Object</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Create_GUI_command"><span class="tocnumber">4</span> <span class="toctext">Create GUI command</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Create_a_Task_Panel"><span class="tocnumber">5</span> <span class="toctext">Create a Task Panel</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Extend_Elmers_Writer"><span class="tocnumber">6</span> <span class="toctext">Extend Elmers Writer</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>In questo tutorial aggiungeremo a FreeCAD il vincolo di velocità del flusso e implementeremo il supporto per il risolutore elmer. Prima di leggere questo tutorial è necessario aver letto e compreso il tutorial <a href="https://www.freecadweb.org/wiki/index.php?title=Extend_FEM_Module/it" title="Extend FEM Module/it"> Estendere il modulo FEM</a>.
+</p><p>This tutorial only covers how to implement constraints in python. In contrast to solver and equations constraints follow the classic FEM module structure. That is, all modules of a constraint have there place in eather the PyObjects or PyGui package.
+</p>
+<h2><span class="mw-headline" id="Sommario">Sommario</span></h2>
+<ol><li> <b>Create document object:</b> The docuemnt object that resides inside the analysis and though which the constraint can be parametrized and attached to boundaries.</li>
+<li> <b>Create GUI command:</b> Add a command to the FEM workbench that adds a flow constriant to the active analysis.</li>
+<li> <b>Create a task panel:</b> The task panel is nessecary to allow the user to set the boundaries at which he wants to set the velocity constraint. It also makes entering the paramters a little more user friendly.</li>
+<li> <b>Extend elmers writer:</b> Add support for the new constraint to elmer by extinging its sif file exporter.</li></ol>
+<h2><span class="mw-headline" id="Create_Document_Object">Create Document Object</span></h2>
+<p>In this step we are going to modify the following files:
+</p>
+<ul><li> src/Mod/Fem/CMakeLists.txt</li>
+<li> src/Mod/Fem/App/CMakeLists.txt</li>
+<li> src/Mod/Fem/ObjectsFem.py</li></ul>
+<p>and add the following files:
+</p>
+<ul><li> src/Mod/Fem/PyObjects/_FemConstraintFlowVelocity.py</li>
+<li> src/Mod/Fem/PyGui/_ViewProviderFemConstraintFlowVelocity.py</li></ul>
+<p>A document proxy and a view proxy are required for the new constraint. Those reside in separate modules. The document proxy in PyObjects and the view proxy in PyGui. Just copy the modules from an existing constraint e.g.
+</p>
+<ul><li> PyObjects/_FemConstraintSelfWeight.py</li>
+<li> PyGui/_ViewProviderFemConstraintSelfWeight.py</li></ul>
+<p>Adjust the Type variable and the properties to your needs. The document proxy of the flow constraint looks like the following:
+</p>
+<pre>class Proxy(FemConstraint.Proxy):
+    Type = &quot;Fem::ConstraintFlowVelocity&quot;
+    def __init__(self, obj):
+        super(Proxy, self).__init__(obj)
+        obj.addProperty(
+            &quot;App::PropertyFloat&quot;, &quot;VelocityX&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyBool&quot;, &quot;VelocityXEnabled&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyFloat&quot;, &quot;VelocityY&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyBool&quot;, &quot;VelocityYEnabled&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyFloat&quot;, &quot;VelocityZ&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyBool&quot;, &quot;VelocityZEnabled&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)
+        obj.addProperty(
+            &quot;App::PropertyBool&quot;, &quot;NormalToBoundary&quot;,
+            &quot;Parameter&quot;, &quot;Body heat flux&quot;)</pre>
+<p>The module containing the view proxy might look a little more complicated. But for now just adjust the icon path. We are going to come back to this file in later steps of the tutorial.
+</p>
+<pre>class ViewProxy(FemConstraint.ViewProxy):
+    def getIcon(self):
+        return &quot;:/icons/fem-constraint-flow-velocity.svg&quot;</pre>
+<p>Add the two new modules to the build system like descripted in <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Extend_FEM_Module">Extend FEM Module</a>. Locate the correct list be searching for constraint modules.
+</p><p>As all objects of the FEM workbench the velocity constraint must be registerd in <code>ObjectsFem.py</code>. The following method adds a velocity constraint to the active document. This method will be used by the GUI command to add the constraint. It must be inserted somewhere in <code>ObjectsFem.py</code>.
+</p>
+<pre>def makeConstraintFlowVelocity(name=&quot;FlowVelocity&quot;):
+    obj = FreeCAD.ActiveDocument.addObject(&quot;Fem::ConstraintPython&quot;, name)
+    import PyObjects._FemConstraintFlowVelocity
+    PyObjects._FemConstraintFlowVelocity.Proxy(obj)
+    if FreeCAD.GuiUp:
+        import PyGui._ViewProviderFemConstraintFlowVelocity
+        PyGui._ViewProviderFemConstraintFlowVelocity.ViewProxy(obj.ViewObject)
+    return obj</pre>
+<h2><span class="mw-headline" id="Create_GUI_command">Create GUI command</span></h2>
+<p>In this step we are going to modify the following files:
+</p>
+<ul><li> src/Mod/Fem/CMakeLists.txt</li>
+<li> src/Mod/Fem/App/CMakeLists.txt</li>
+<li> src/Mod/Fem/Gui/Workbench.cpp</li></ul>
+<p>and add the following new file:
+</p>
+<ul><li> src/Mod/Fem/PyGui/_CommandFemConstraintFlowVelocity.py</li></ul>
+<p>The command allows the user to actually add the constraint to the active analysis. Just copy a command from an existing constraint. Commands reside in the <code>PyGui</code> package. Adjust the resources attribute and the make method called in Activated to your needs. Also use a different command id in the addCommand call on the bottom of the module. The following class is the command class of the velocity constraint.
+</p>
+<pre>class Command(FemCommands.FemCommands):
+
+    def __init__(self):
+        super(Command, self).__init__()
+        self.resources = {
+            'Pixmap': 'fem-constraint-flow-velocity',
+            'MenuText': QtCore.QT_TRANSLATE_NOOP(
+                &quot;FEM_ConstraintFlowVelocity&quot;,
+                &quot;Constraint Velocity&quot;),
+            'ToolTip': QtCore.QT_TRANSLATE_NOOP(
+                &quot;FEM_ConstraintFlowVelocity&quot;,
+                &quot;Creates a FEM constraint body heat flux&quot;)}
+        self.is_active = 'with_analysis'
+
+    def Activated(self):
+        App.ActiveDocument.openTransaction(
+            &quot;Create FemConstraintFlowVelocity&quot;)
+        Gui.addModule(&quot;ObjectsFem&quot;)
+        Gui.doCommand(
+            &quot;FemGui.getActiveAnalysis().Member += &quot;
+            &quot;[ObjectsFem.makeConstraintFlowVelocity()]&quot;)
+
+Gui.addCommand('FEM_AddConstraintFlowVelocity', Command())</pre>
+<p>Add the new command file to the build system as decripted in <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Extend_FEM_Module">Extend FEM Module</a>. Locate the correct list be searching for existing command modules.
+</p><p>Put the command into Gui/Workbench.cpp to add it to the toolbar and menu. Search for an existing constraint of the same category as the new one (e.g. Flow) copy-paste it and adjust the command id. This should be done two times. Once for the menu and again for the toolbar.
+</p>
+<h2><span class="mw-headline" id="Create_a_Task_Panel">Create a Task Panel</span></h2>
+<p>In this step we are going to modify the following file:
+</p>
+<ul><li> src/Mod/Fem/PyGui/_ViewProviderFemConstraintFlowVelocity.py</li></ul>
+<p>In FreeCAD constraint objects benefit greatly from task panels. Task panels can make use of more powerful input widgets which expose the unit of entered values directely to the user. The velocity constraint even requires the use of a task panel since a task panel is the only way of specifieing the face(s) on which the constraint shall be applied.
+</p><p>The location of the module in which task panels are implemented is not strictely defined. For the velocity constraint we are just going to put the task panel in the same module we put the view proxy. The task panel is quite complicated. It makes use of the FemSolectionWidgets.BoundarySelector(). Thats a qt widget which allows the user to select the boundaries on which the constraint shall be applied. In addition to this widget it generates another one by loading a ui file specifically created for the velocity constraint. Via this widget the velocity vector can be specified.
+</p><p>Most of the time is should be sufficient to just copy this class, use a suitable ui file (instead of TaskPanelFemFlowVelocity.ui) and adjust _initParamWidget() as well as _applyWidgetChanges(). If the new constraint requires bodies as references instead of boundaries just replace the BoundarySelector object with the SolidSelector.
+</p>
+<pre>class _TaskPanel(object):
+
+    def __init__(self, obj):
+        self._obj = obj
+        self._refWidget = FemSelectionWidgets.BoundarySelector()
+        # self._refWidget = FemSelectionWidgets.SolidSelector()
+        self._refWidget.setReferences(obj.References)
+        self._paramWidget = Gui.PySideUic.loadUi(
+            App.getHomePath() + &quot;Mod/Fem/PyGui/TaskPanelFemFlowVelocity.ui&quot;)
+        self._initParamWidget()
+        self.form = [self._refWidget, self._paramWidget]
+        analysis = FemMisc.findAnalysisOfMember(obj)
+        self._mesh = FemMisc.getSingleMember(analysis, &quot;Fem::FemMeshObject&quot;)
+        self._part = self._mesh.Part if self._mesh is not None else None
+        self._partVisible = None
+        self._meshVisible = None
+
+    def open(self):
+        if self._mesh is not None and self._part is not None:
+            self._meshVisible = self._mesh.ViewObject.isVisible()
+            self._partVisible = self._part.ViewObject.isVisible()
+            self._mesh.ViewObject.hide()
+            self._part.ViewObject.show()
+
+    def reject(self):
+        self._restoreVisibility()
+        return True
+
+    def accept(self):
+        if self._obj.References&#160;!= self._refWidget.references():
+            self._obj.References = self._refWidget.references()
+        self._applyWidgetChanges()
+        self._obj.Document.recompute()
+        self._restoreVisibility()
+        return True
+
+    def _restoreVisibility(self):
+        if self._mesh is not None and self._part is not None:
+            if self._meshVisible:
+                self._mesh.ViewObject.show()
+            else:
+                self._mesh.ViewObject.hide()
+            if self._partVisible:
+                self._part.ViewObject.show()
+            else:
+                self._part.ViewObject.hide()
+
+    def _initParamWidget(self):
+        unit = &quot;m/s&quot;
+        self._paramWidget.velocityXTxt.setText(
+            str(self._obj.VelocityX) + unit)
+        self._paramWidget.velocityYTxt.setText(
+            str(self._obj.VelocityY) + unit)
+        self._paramWidget.velocityZTxt.setText(
+            str(self._obj.VelocityZ) + unit)
+        self._paramWidget.velocityXBox.setChecked(
+            not self._obj.VelocityXEnabled)
+        self._paramWidget.velocityYBox.setChecked(
+            not self._obj.VelocityYEnabled)
+        self._paramWidget.velocityZBox.setChecked(
+            not self._obj.VelocityZEnabled)
+        self._paramWidget.normalBox.setChecked(
+            self._obj.NormalToBoundary)
+
+    def _applyWidgetChanges(self):
+        unit = &quot;m/s&quot;
+        self._obj.VelocityXEnabled = \
+            not self._paramWidget.velocityXBox.isChecked()
+        if self._obj.VelocityXEnabled:
+            quantity = Units.Quantity(self._paramWidget.velocityXTxt.text())
+            self._obj.VelocityX = float(quantity.getValueAs(unit))
+        self._obj.VelocityYEnabled = \
+            not self._paramWidget.velocityYBox.isChecked()
+        if self._obj.VelocityYEnabled:
+            quantity = Units.Quantity(self._paramWidget.velocityYTxt.text())
+            self._obj.VelocityY = float(quantity.getValueAs(unit))
+        self._obj.VelocityZEnabled = \
+            not self._paramWidget.velocityZBox.isChecked()
+        if self._obj.VelocityZEnabled:
+            quantity = Units.Quantity(self._paramWidget.velocityZTxt.text())
+            self._obj.VelocityZ = float(quantity.getValueAs(unit))
+        self._obj.NormalToBoundary = self._paramWidget.normalBox.isChecked()</pre>
+<p>The view proxy must be extended to support the task panel we just implemented. The following extended view proxy opens the task panel when the user makes a double click on the constraint object in the tree view.
+</p>
+<pre>class ViewProxy(FemConstraint.ViewProxy):
+
+    def getIcon(self):
+        return &quot;:/icons/fem-constraint-flow-velocity.svg&quot;
+
+    def setEdit(self, vobj, mode=0):
+        task = _TaskPanel(vobj.Object)
+        Gui.Control.showDialog(task)
+
+    def unsetEdit(self, vobj, mode=0):
+        Gui.Control.closeDialog()
+
+    def doubleClicked(self, vobj):
+        if Gui.Control.activeDialog():
+            Gui.Control.closeDialog()
+        Gui.ActiveDocument.setEdit(vobj.Object.Name)
+        return True</pre>
+<h2><span class="mw-headline" id="Extend_Elmers_Writer">Extend Elmers Writer</span></h2>
+<p>In this step we are going to modify the following file:
+</p>
+<ul><li> src/Mod/Fem/FemSolver/Elmer/Writer.py</li></ul>
+<p>The writer module contains methods for all equation types. Depending on the type of the constriant, boundary condition, initial condition or body force one has to modifiy different methods. For our flow velocity we have to adjust _handleFlowBndConditions(...).
+</p>
+<pre>def _handleFlowBndConditions(self):
+    for obj in self._getMember(&quot;Fem::ConstraintFlowVelocity&quot;):
+        if obj.References:
+            for name in obj.References[0][1]:
+                if obj.VelocityXEnabled:
+                    velocity = getFromUi(obj.VelocityX, &quot;m/s&quot;, &quot;L/T&quot;)
+                    self._boundary(name, &quot;Velocity 1&quot;, velocity)
+                if obj.VelocityYEnabled:
+                    velocity = getFromUi(obj.VelocityY, &quot;m/s&quot;, &quot;L/T&quot;)
+                    self._boundary(name, &quot;Velocity 2&quot;, velocity)
+                if obj.VelocityZEnabled:
+                    velocity = getFromUi(obj.VelocityZ, &quot;m/s&quot;, &quot;L/T&quot;)
+                    self._boundary(name, &quot;Velocity 3&quot;, velocity)
+                if obj.NormalToBoundary:
+                    self._boundary(name, &quot;Normal-Tangential Velocity&quot;, True)
+            self._handled(obj)</pre>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Add_FEM_Constraint_Tutorial/it&amp;oldid=261192">http://www.freecadweb.org/wiki/index.php?title=Add_FEM_Constraint_Tutorial/it&amp;oldid=261192</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

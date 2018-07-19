@@ -1,0 +1,119 @@
+<html><head><title>Compile on Windows with VS2013/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Compile on Windows with VS2013/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>La procédure suivante crée une compilation dans l'environnement Windows Vista/7/8, pour XP un autre ensemble d'outils VS est nécessaire pour VS 2012 et 2013, qui n'a pas été testé avec succès sur les Libpacks actuelles. Pour cibler XP (x32 et x64 fois), il est recommandé d'utiliser VS2008 et Libpack FreeCADLibs_11.0_x86_VC9.7z
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext"><b>Prerequisites</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Windows_Libpack"><span class="tocnumber">1.1</span> <span class="toctext">Windows Libpack</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Source_Code"><span class="tocnumber">1.2</span> <span class="toctext">Source Code</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Using_Git.28Preferred.29"><span class="tocnumber">1.2.1</span> <span class="toctext">Using Git(Preferred)</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Download_Snapshot_.zip.28Alternate.29This_is_Source_Cade_Snapshot_not_Development_Snapshot_pre-compiled_binaries."><span class="tocnumber">1.2.2</span> <span class="toctext">Download Snapshot .zip(Alternate)This is Source Cade Snapshot not Development Snapshot pre-compiled binaries.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Cmake"><span class="tocnumber">1.3</span> <span class="toctext">Cmake</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Visual_Studio"><span class="tocnumber">1.4</span> <span class="toctext">Visual Studio</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Configuring_and_Generating_with_Cmake"><span class="tocnumber">2</span> <span class="toctext"><b>Configuring and Generating with Cmake</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#First_Pass"><span class="tocnumber">2.1</span> <span class="toctext">First Pass</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Configure_and_Generate"><span class="tocnumber">2.2</span> <span class="toctext">Configure and Generate</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Dependencies"><span class="tocnumber">3</span> <span class="toctext"><b>Dependencies</b></span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Building_with_Visual_Studio"><span class="tocnumber">4</span> <span class="toctext"><b>Building with Visual Studio</b></span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Prerequisites"><b>Prerequisites</b></span></h2>
+<h3><span class="mw-headline" id="Windows_Libpack">Windows Libpack</span></h3>
+<p>FreeCAD is built upon a number of third party libraries. For the users convenience FreeCAD supplies Libpacks that contain all the necessary dependencies so you don't have to compile them yourself.
+</p><p>First you'll need to download a Windows Libpack. FreeCAD Windows Libpacks are available here:
+<a rel="nofollow" class="external free" href="http://sourceforge.net/projects/free-cad/files/FreeCAD%20LibPack/">http://sourceforge.net/projects/free-cad/files/FreeCAD%20LibPack/</a>
+</p><p>Libpacks are available for x32 and x64 for VC12(Visual Studio 2013), VC11(Visual Studio 2012), and VC9(Visual Studio 2008)
+The Libpacks will work with both the Professional and Express/Community Editions of Visual Studio. Choose the Libpack relevant to your system architecture and Compiler.
+</p><p>Assuming that your Win Vista or later, x64, and planning to use VS2013 Community Edition choose:
+</p><p>FreeCADLibs_11.0_x64_VC12.7z
+</p><p>Extract the Libpack to a directory on your hard drive.
+</p><p>You can download 7-zip if you need it here: <a rel="nofollow" class="external free" href="http://www.7-zip.org/">http://www.7-zip.org/</a>
+</p>
+<h3><span class="mw-headline" id="Source_Code">Source Code</span></h3>
+<h4><span class="mw-headline" id="Using_Git.28Preferred.29">Using Git(Preferred)</span></h4>
+<p>Next you will need to install git to be able to download the source code. You can get Git here:
+<a rel="nofollow" class="external free" href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>
+</p><p>Some information how to set-up a local tracking branch and a working branch can be found here:
+</p><p><a rel="nofollow" class="external free" href="Source_code_management.html">http://www.freecadweb.org/wiki/index.php?title=Source_code_management</a>
+</p><p><br />
+To create a local tracking branch and download the source code you need to open a terminal(command prompt) and cd to the directory you want the source, then type:
+</p><p>git clone <a rel="nofollow" class="external free" href="git://git.code.sf.net/p/free-cad/code">git://git.code.sf.net/p/free-cad/code</a> free-cad-code
+</p><p>Now you have the source code and the tools you'll need to compile FreeCAD on Windows.
+</p>
+<h4><span class="mw-headline" id="Download_Snapshot_.zip.28Alternate.29This_is_Source_Cade_Snapshot_not_Development_Snapshot_pre-compiled_binaries.">Download Snapshot .zip(Alternate)This is Source Cade Snapshot not Development Snapshot pre-compiled binaries.</span></h4>
+<p><a rel="nofollow" class="external free" href="http://sourceforge.net/p/free-cad/code/ci/master/tarball">http://sourceforge.net/p/free-cad/code/ci/master/tarball</a>
+</p><p>You will need to extract this to a directory using 7zip or Window's default .zip extractor.
+</p><p><b>NOTE: In order for Cmake to properly update your "About FreeCAD" information git must be installed and be present in your PATH environment variable, Therefore downloading with git is preferred.</b>
+</p>
+<h3><span class="mw-headline" id="Cmake">Cmake</span></h3>
+<p>Next you will need Cmake, you can get it here:
+<a rel="nofollow" class="external free" href="http://www.cmake.org/download/">http://www.cmake.org/download/</a>
+</p><p>FreeCAD 0.15.xxxx master will configure and generate with Cmake 2.x.x or 3.x.x, you can download the latest version. Older versions of FreeCAD require Cmake 2.x.x
+You should choose the non-default option to add Cmake to your system PATH environment variable.
+</p>
+<h3><span class="mw-headline" id="Visual_Studio">Visual Studio</span></h3>
+<p>Lastly you will need the C-compiler. MS VS 12 2013 Community Edition Update 4 is Free for personal and Open Source Projects. It can be downloaded here:
+</p><p><a rel="nofollow" class="external free" href="http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx">http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx</a>
+</p>
+<h2><span class="mw-headline" id="Configuring_and_Generating_with_Cmake"><b>Configuring and Generating with Cmake</b></span></h2>
+<h3><span class="mw-headline" id="First_Pass">First Pass</span></h3>
+<p>Start the CMake GUI by double-clicking on the desktop icon created during installation.
+</p><p>Specify source folder (This is where you cloned or extracted the source code)
+</p><p>Specify build folder (This is where you want to build the source, if it doesn't exist Cmake will prompt you to create it)
+</p><p>Click Configure
+</p><p>Specify the generator as Visual Studio 12 x64(or the alternate C-Compiler you are using)
+</p><p>This will begin configuration and should fail because the location of FREECAD_LIBPACK_DIR is unset.
+</p><p>Expand the FREECAD category and set:
+</p>
+<pre>FREECAD_LIBPACK_DIR          "...\Path\to\Libpack" (Ex: C:\user\USERNAME\FreeCADLibs_11.0_x64_VC12)
+FREECAD_USE_EXTERNAL_PIVY    (Check)
+FREECAD_USE_FREETYPE         (Check) </pre>
+<p>FREETYPE is optional. It is necessary to take advantage of the DRAFT Work Bench's Shape String functionality. Under normal situations it is a desirable option.
+</p>
+<h3><span class="mw-headline" id="Configure_and_Generate">Configure and Generate</span></h3>
+<p>Click Configure again (There should be no errors)
+</p><p>Click Generate (missing doxgen is OK, unless you are a developer and need the source documentation)
+</p><p>Close Cmake
+</p>
+<h2><span class="mw-headline" id="Dependencies"><b>Dependencies</b></span></h2>
+<p><b>Copy The Libpack\bin folder into the new build folder CMake created.</b>
+</p><p><br />
+You could put the Libpack in your system PATH environment variable. but you still are required to copy some files?
+</p>
+<h2><span class="mw-headline" id="Building_with_Visual_Studio"><b>Building with Visual Studio</b></span></h2>
+<p>Start Visual Studio 12 2013 by clicking on the desktop icon created at installation.
+</p><p>Open the project by:
+File -&gt; Open -&gt; Project/Solution
+</p><p>Open FreeCAD_Trunk.sln from the build folder CMake created
+</p><p>Switch the Solutions Configuration drop down at the top to <b>Release</b> <b>X64</b>
+</p><p>Build -&gt; Build Solution
+</p><p>This will take a long time... 
+</p><p>If you don't get any errors your done. Exit Visual Studio and start FreeCAD by double clicking the FreeCAD icon in the bin folder of the build directory.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Compile_on_Windows_with_VS2013/fr&amp;oldid=173988">http://www.freecadweb.org/wiki/index.php?title=Compile_on_Windows_with_VS2013/fr&amp;oldid=173988</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

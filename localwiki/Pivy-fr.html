@@ -1,0 +1,109 @@
+<html><head><title>Pivy/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a> is a python binding library for <a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>, the 3D-rendering library used in FreeCAD. When imported in a running python interpreter, it allows to dialog directly with any running Coin3d <a href="Scenegraph.html" title="Scenegraph">scenegraphs</a>, such as the FreeCAD 3D views, or even to create new ones. Pivy is bundled in standard FreeCAD installation.
+</p><p>La bibliothèque d'outils est divisée en plusieurs parties,
+</p>
+<ul><li> <b>coin:</b> pour manipuler formes graphiques (projet) et gérer le système graphique (GUI), tels que plusieurs fenêtres ou, dans notre cas, </li>
+<li> <b>qt  &#160;:</b> pour les interfaces.<br /></li></ul>
+<p>Ces modules sont aussi  accessibles à pivy, s'ils sont présents sur le système bien sûr.<br />
+Le module <b>coin</b> est toujours présent, et de toute façon c'est lui que nous allons utiliser, nous n'aurons pas besoin de nous occuper de l'affichage 3D dans une interface, FreeCAD  s'en occupe lui-même.<br />
+Tout ce que nous aurons à faire, c'est:
+</p>
+<pre>from pivy import coin </pre>
+<h2><span class="mw-headline" id="Acc.C3.A9der_et_modifier_une_sc.C3.A8ne_graphique">Accéder et modifier une scène graphique</span></h2>
+<p>Nous avons vu dans la page <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/fr" title="Scenegraph/fr">Scenegraph</a> comment coin organise une scène. Tout ce qui est affiché en 3D dans FreeCAD est construit et géré par <b>coin</b>.<br /> Nous avons une <b>racine</b>, et tous les objets sur l'écran sont ses <b>enfants</b>, reliés par des <b>nodes</b> (noeuds). Les enfants aussi peuvent avoir une descendance.
+</p><p>FreeCAD a un moyen facile d'accéder a la racine d'une scène 3D:
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg </pre>
+<p>La racine de la scène 3D sera:
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; </pre>
+<p>Vous pouvez inspecter immédiatement les enfants (branches) de la scène 3D:
+</p>
+<pre>for node in sg.getChildren():
+    print node </pre>
+<p>Certains de ces nodes, comme <b>SoSeparators</b> ou <b>SoGroups</b>, peuvent avoir des enfants eux-mêmes. La liste complète des <b>coin objets</b> disponibles peut être trouvée dans la documentation <a rel="nofollow" class="external text" href="http://coin3d.bitbucket.org/Coin/classes.html">official coin documentation</a>.
+</p><p>Maintenant essayons d'ajouter quelque chose à notre scène (projet).<br />
+Nous allons ajouter un beau cube rouge:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>et voici notre (beau) cube rouge.<br />
+Maintenant, nous allons essayer ceci:
+</p>
+<pre>col.rgb=(1,1,0) </pre>
+<p>Vu&#160;? Tout est encore accessible et modifiable à la volée.<br />
+Pas besoin de recalculer ou redessiner quoi que ce soit, <b>coin</b> s'occupe de tout. Vous pouvez ajouter ce que vous voulez à votre scène (projet), propriétés de changements, cacher des objets, montrer des objets temporairement, faire n'importe quoi.<br />
+Bien sûr, cela ne concerne que l'affichage de la vue 3D. L'affichage du document ouvert est recalculé par FreeCAD, et recalcule un objet quand il a besoin de l'être.<br />
+Donc, si vous changez l'aspect d'un objet existant dans FreeCAD, ces modifications seront perdues si l'objet est recalculé, ou lorsque vous rouvrez le fichier.
+</p><p>Un truc, pour travailler avec scenegraphs dans vos scripts, vous pouvez, lorsque c'est nécessaire accéder à certaines propriétés des nodes que vous avez ajoutés.<br />
+Par exemple, si nous voulions faire évoluer notre cube, nous aurions ajouté un <b>node SoTranslation</b> à notre node personnalisé et,<br />
+il aurait ressemblé à ceci:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>Souvenez-vous que dans une scène graphique <b>OpenInventor</b>, l'ordre est très important. Un noeud affecte ce qui suit, de sorte que, si vous dites: couleur rouge, cube, couleur jaune, sphère&#160;! vous obtiendrez un cube rouge et une sphère jaune.<br />
+Si nous traduisons maintenant notre noeud personnalisé, il vient après le cube, et ne l'affecte pas.<br />
+Si nous l'avions inséré lors de sa création, comme l'exemple ci-dessus,<br />
+nous pourrions faire maintenant:
+</p>
+<pre>trans.translation.setValue([2,0,0]) </pre>
+<p>Et notre cube sauterait de 2 unités vers la droite.<br />
+Enfin, pour supprimer quelque chose, nous ferons:
+</p>
+<pre>sg.removeChild(myCustomNode) </pre>
+<h2><span class="mw-headline" id="Utilisation_des_m.C3.A9canismes_de_rappel_.28callback.29">Utilisation des mécanismes de rappel (callback)</span></h2>
+<p>Un <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Fonction_de_rappel">mécanisme de rappel</a> est un système qui permet à la bibliothèque que vous utilisez, comme notre bibliothèque <b>coin</b> de faire un rappel comme, rappeler une certaine fonction pour l'Objet Python en cours d'exécution.<br />
+Cela est extrêmement utile, car, de cette manière coin peut vous avertir si un événement particulier survient dans la scène.<br />
+Coin peut voir des choses très différentes, comme, la position de la souris, les clics sur un bouton de la souris, les touches du clavier qui sont pressées, et bien d'autres choses.
+</p><p>FreeCAD dispose d'un moyen facile pour utiliser ces rappels:
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+ 
+ButtonTest() </pre>
+<p>Le rappel doit être initiée à partir d'un objet, et, cet objet doit <b>toujours</b> être actif au moment du rappel.<br />
+Voir aussi une <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/fr" title="Code snippets/fr">liste complète des événements possibles et leurs paramètres</a> <a href="Code_snippets.html" title="Code snippets">(en)</a>, ou dans la <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">documentation officielle de coin</a>.
+</p>
+<h2><span class="mw-headline" id="Documentation">Documentation</span></h2>
+<p>Malheureusement, pivy ne dispose pas encore d'une documentation appropriée, mais puisqu'il s'agit d'une traduction exacte de coin, vous pouvez utiliser en toute sécurité la documentation révérencielle de <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">coin</a>, et utiliser le style Python au lieu du style c ++ ( par exemple <b>SoFile::getClassTypeId()</b>  en c++, serait <b>SoFile.getClassId()</b> en pivy )
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/fr&amp;oldid=217988">http://www.freecadweb.org/wiki/index.php?title=Pivy/fr&amp;oldid=217988</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

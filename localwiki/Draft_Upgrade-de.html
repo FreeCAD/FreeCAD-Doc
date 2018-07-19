@@ -1,0 +1,89 @@
+<html><head><title>Draft Upgrade/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft Upgrade/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 200px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Hochstufen"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="32px-Draft_Upgrade.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/48px-Draft_Upgrade.png 1.5x, /wiki/images/b/be/Draft_Upgrade.png 2x" /></a> Hochstufen</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menüeintrag
+</th></tr>
+<tr>
+<td class="ctEven">Draft -&gt; Upgrade
+</td></tr>
+<tr>
+<th class="ctOdd">Arbeitsbereich
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/de" title="Draft Module/de">Draft</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/de" title="Arch Module/de">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Standardtastenkürzel
+</th></tr>
+<tr>
+<td class="ctEven">U P
+</td></tr>
+<tr>
+<th class="ctOdd">Siehe auch
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/de" title="Draft Downgrade/de">Herabstufen</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Hochstufen"><span class="tocnumber">1</span> <span class="toctext">Hochstufen</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Scripting"><span class="tocnumber">5</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This tool upgrades selected objects in different ways. If no object is selected, you will be invited to select one.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade_example.jpg" class="image"><img alt="Draft Upgrade example.jpg" src="400px-Draft_Upgrade_example.jpg" width="400" height="165" srcset="/wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/600px-Draft_Upgrade_example.jpg 1.5x, /wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/800px-Draft_Upgrade_example.jpg 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select one or more objects you wish to upgrade</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="16px-Draft_Upgrade.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/24px-Draft_Upgrade.png 1.5x, 32px-Draft_Upgrade.png 2x" /></a> <a href="Draft_Upgrade.html" title="Draft Upgrade">Draft Upgrade</a></span> button or press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">U</span> then <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">P</span> keys</li></ol>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<p>The selected objects are modified/upgraded according to the following conditions (in order):
+</p>
+<ul><li> if there are more than one face in the selection, the faces are merged (union)</li>
+<li> if there is only one face in the selection, nothing is done</li>
+<li> if there is only one open wire in the selection, it gets closed</li>
+<li> if there are only edges in the selection, all edges are joined into a wire (closed if possible)</li>
+<li> if none of the above is possible, a compound object is created</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The upgrade tool can be used from python scripts and <a href="Macros.html" title="Macros">macros</a> like this:
+</p>
+<pre>Draft.upgrade(objects, delete=False, force=None) </pre>
+<ul><li> Upgrades the given object(s) (can be an object or a list of objects). </li>
+<li> If delete is True, old objects are deleted.</li>
+<li> The force attribute can be used to force a certain way of upgrading. It can be: makeCompound, closeGroupWires, makeSolid, closeWire, turnToParts, makeFusion, makeShell, makeFaces, draftify, joinFaces, makeSketchFace, makeWires</li>
+<li> Returns a dictionnary containing two lists, a list of new objects and a list of objects to be deleted</li></ul>
+<p>Some of the operations of the Upgrade tool can also be made with the <a href="Part_Union.html" title="Part Union">Part Union</a> or <a href="Draft_Wire.html" title="Draft Wire">Draft Wire</a> tools.
+</p><p>Example:
+</p>
+<pre>import Draft
+mycircle = Draft.makeCircle(2)
+face1 = Draft.upgrade([mycircle],True) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/de&amp;oldid=209074">http://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/de&amp;oldid=209074</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

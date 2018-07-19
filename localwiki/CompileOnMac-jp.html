@@ -1,0 +1,204 @@
+<html><head><title>CompileOnMac/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnMac/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Mac OS X は BSD(UNIX)ベースなので、Mac上でのFreeCADのコンパイルは<a href="CompileOnUnix.html" title="CompileOnUnix">CompileOnUnix</a>と大きく違いませんが、すべての機能を適切に動かすには、Mac特有の重要な点がいくつかあります。
+この説明内容は、Lion(10.7)でテストしていますが、(Snow) Leopardが動くIntel Macでも同様に"動くはず"です。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#FreeCAD_sources_.E3.81.AE.E3.83.80.E3.82.A6.E3.83.B3.E3.83.AD.E3.83.BC.E3.83.89"><span class="tocnumber">1</span> <span class="toctext">FreeCAD sources のダウンロード</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E4.BE.9D.E5.AD.98.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB"><span class="tocnumber">2</span> <span class="toctext">依存パッケージのインストール</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E9.81.B8.E6.8A.9E.E8.82.A2_1:_Homebrew"><span class="tocnumber">2.1</span> <span class="toctext">選択肢 1: Homebrew</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E9.81.B8.E6.8A.9E.E8.82.A2_2:_MacPorts.2FFink"><span class="tocnumber">2.2</span> <span class="toctext">選択肢 2: MacPorts/Fink</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#OpenCASCADE.E3.81.AE.E6.A7.8B.E7.AF.89"><span class="tocnumber">3</span> <span class="toctext">OpenCASCADEの構築</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#FreeCAD.app.E3.83.86.E3.83.B3.E3.83.97.E3.83.AC.E3.83.BC.E3.83.88.E3.81.AE.E3.83.80.E3.82.A6.E3.83.B3.E3.83.AD.E3.83.BC.E3.83.89.E3.81.A8.27.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB.27"><span class="tocnumber">4</span> <span class="toctext">FreeCAD.appテンプレートのダウンロードと'インストール'</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB"><span class="tocnumber">5</span> <span class="toctext">コンパイル</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E5.AE.9F.E8.A1.8C"><span class="tocnumber">6</span> <span class="toctext">実行</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#PyQt4"><span class="tocnumber">7</span> <span class="toctext">PyQt4</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Pivy"><span class="tocnumber">8</span> <span class="toctext">Pivy</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="FreeCAD_sources_.E3.81.AE.E3.83.80.E3.82.A6.E3.83.B3.E3.83.AD.E3.83.BC.E3.83.89">FreeCAD sources のダウンロード</span></h3>
+<p>FreeCADのsourceの最新リビジョンをSourceforge subversion リポジトリからチェックアウトします。
+</p>
+<pre>svn co <a rel="nofollow" class="external free" href="http://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk">http://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk</a> free-cad
+</pre>
+<h3><span class="mw-headline" id=".E4.BE.9D.E5.AD.98.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB">依存パッケージのインストール</span></h3>
+<p>Mac OS X 10.7上では、以下の依存パッケージがバンドルされていないので、FreeCADのビルドの前にインストールする必要があります。
+</p>
+<ul><li>sip</li>
+<li>fortran</li>
+<li>xerces-c</li>
+<li>boost</li>
+<li>eigen</li>
+<li>ftgl</li>
+<li>coin3d</li>
+<li>OpenCASCADE</li>
+<li>Qt</li>
+<li>pyqt</li>
+<li>soqt</li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id=".E9.81.B8.E6.8A.9E.E8.82.A2_1:_Homebrew">選択肢 1: Homebrew</span></h4>
+<p>"注意"&#160;: このセクションは、現在修正中です！フォーラムで最新の投稿を確認してください。
+</p>
+<dl><dd><a rel="nofollow" class="external free" href="https://forum.freecadweb.org/viewtopic.php?f=4&amp;t=2064&amp;p=15405">https://forum.freecadweb.org/viewtopic.php?f=4&amp;t=2064&amp;p=15405</a></dd></dl>
+<p>Homebrewパッケージマネージャをダウンロードし、インストールします。:
+</p>
+<dl><dd><a rel="nofollow" class="external free" href="http://mxcl.github.com/homebrew/">http://mxcl.github.com/homebrew/</a></dd></dl>
+<p>FreeCADのほとんどの依存パッケージをコンパイルし、インストールします。:
+</p>
+<pre>brew install sip gfortran xerces-c boost eigen coin qt pyqt soqt ftgl
+</pre>
+<p><a href="/wiki/CompileOnMac/jp#OpenCASCADE.E3.81.AE.E6.A7.8B.E7.AF.89" title="CompileOnMac/jp">CompileOnMac/jp#OpenCASCADEの構築</a>を確認します。
+</p>
+<h4><span class="mw-headline" id=".E9.81.B8.E6.8A.9E.E8.82.A2_2:_MacPorts.2FFink">選択肢 2: MacPorts/Fink</span></h4>
+<p><b>注意：このセクションは更新する必要があります。</b>
+</p><p>(まだMacPortsをインストールしていない場合は) MacPortsをインストールします。
+MacPortsは、1つのコマンドで一般的なオープンソースのアプリケーションをダウンロード、コンパイル、インストールできます。UNIX/Linuxの世界では、PKCSRCやAPTに似ているアプリケーションです。インストールするには、MacPortsサイトからディスクイメージをダウンロードして、指示に従ってください。:
+</p>
+<dl><dd><a rel="nofollow" class="external free" href="http://www.macports.org/install.php">http://www.macports.org/install.php</a></dd></dl>
+<p>MacPortsをインストールした直後かどうかにかかわらず、MacPortsが最新かどうかを確認したくなるでしょう。以下を実行します。:
+</p>
+<pre>sudo port selfupdate
+</pre>
+<p>そうすると、MacPortsがインストールされ、最新版になり、FreeCADが必要とするパッケージのインストールをはじめることができます。:
+</p>
+<ul><li>xercesc</li>
+<li>boost</li>
+<li>py-sip</li>
+<li>ftlg</li>
+<li>f2c</li>
+<li>eigen3</li>
+<li>py-pyqt4</li></ul>
+<p>以下のコマンドで、上記のライブラリをコンパイル/インストールできます。もしMacPortsがエラーを出力したら、それらを一つずつ試すことになるでしょう。
+</p>
+<pre>sudo port install xercesc boost ftgl f2c eigen3 py-sip py-pyqt4
+</pre>
+<p>py-sipやpy-pyqt4のようなpythonパッケージは各MacPortsのPythonのバージョンに対応したパッケージが1つずつあるため、複数のパッケージがあることに注意が必要です。
+</p><p>boostは大きなパッケージです。また、py-pyqt4にはqt4-macが必要でこれも大きなパッケージです。
+長いビルドの間に、何が起こっているかを確認するために、port -v instsall を実行したくなるでしょう。
+</p><p>QT4はQtウェブサイトからMac用のバイナリインストーラも利用可能です。
+この方法がFreeCADのコンパイルにどのようにうまくいくかは、よくわかりません。
+</p><p><br />
+<b>Fortran コンパイラのインストール</b>
+</p><p>FOATRANコンパイラも必要です。Appleで分岐したOSX上のgccはFORTRANが付属していません。
+</p><p>GFortranのコンパイラはここにあり、うまく動作するでしょう:
+</p><p><a rel="nofollow" class="external free" href="http://gcc.gnu.org/wiki/GFortranBinaries#MacOS">http://gcc.gnu.org/wiki/GFortranBinaries#MacOS</a>
+</p><p>もしfinkを使っているならば、他の方法としては、次のコマンドを利用することです。(Shaneyfelt 2100.Nov.14)
+</p>
+<pre> sudo fink selfupdate
+ sudo fink install gcc46
+</pre>
+<p><i>これは、appleのgccコンパイラコレクションと名前の衝突を避けるために、別のgccコンパイラコレクションをgcc-4という名前でインストールします。</i>
+</p><p>MacPortsのgcc4xパッケージもFORTRANコンパイラを含んでいるので、これでも動作するはずです:
+</p>
+<pre>sudo port install gcc46
+</pre>
+<p><br />
+他の候補となるMacPortsパッケージはg95です。これは有効なFORTRAN90コンパイラと思われ、FreeCADのcmakeコンフィグレーションテストを通るはずですが、実際の構築ではgcc固有のオプションを尋ねられると思われます。そのため、gcc4xを使うのが簡単です。
+</p><p><b>Eigen3のインストール</b>
+</p><p>最新版のeigen3ライブラリを以下からダウンロードし、解凍します:
+</p><p><a rel="nofollow" class="external free" href="https://www.freecadweb.org/wiki/index.php?title=Main_Page">http://eigen.tuxfamily.org/index.php?title=Main_Page</a>
+</p><p>これらはソルバー機能のために必要です。解凍すると、'Eigen'という名前のフォルダが以下に作成されます。
+</p><p><b>/usr/local/include/eigen3/</b>
+</p>
+<h3><span class="mw-headline" id="OpenCASCADE.E3.81.AE.E6.A7.8B.E7.AF.89">OpenCASCADEの構築</span></h3>
+<p>現在、OS X上でのOpenCASCADEの構築で最も簡単な方法は、コミュニティ版(oce)を使うことです。ソースコードをダウンロードするか、以下のGitレポジトリからチェックアウトしてください:
+</p>
+<dl><dd><a rel="nofollow" class="external free" href="https://github.com/tpaviot/oce">https://github.com/tpaviot/oce</a></dd></dl>
+<p>それから、端末で以下を実行します:
+</p>
+<pre>mkdir build
+cd build
+cmake ..
+cd ..
+make
+make install/strip
+</pre>
+<h3><span class="mw-headline" id="FreeCAD.app.E3.83.86.E3.83.B3.E3.83.97.E3.83.AC.E3.83.BC.E3.83.88.E3.81.AE.E3.83.80.E3.82.A6.E3.83.B3.E3.83.AD.E3.83.BC.E3.83.89.E3.81.A8.27.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB.27">FreeCAD.appテンプレートのダウンロードと'インストール'</span></h3>
+<p>次のアーカイブはFreeCAD用のアプリケーションバンドルのテンプレートを含んでいます。これは必ずしも必要ではありませんが、デフォルトのインストール構成よりも便利にFreeCADを操作できます。バンドルの推奨インストール場所は/Applicationsフォルダですが、あなたはどこにでもそれを置くことができるはずです - FreeCADがさらに修正されずにコンパイルとインストールされた後では、バンドルが移動できないことを覚えておいてください。次のステップでコンフィグレーションを使用して、make installを実行すると、このバンドルにインストールされます。
+</p>
+<dl><dd><a rel="nofollow" class="external free" href="http://dl.getdropbox.com/u/103808/FreeCAD/FreeCAD_bundle_template_20091128.tar.gz">http://dl.getdropbox.com/u/103808/FreeCAD/FreeCAD_bundle_template_20091128.tar.gz</a></dd></dl>
+<h3><span class="mw-headline" id=".E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB">コンパイル</span></h3>
+<p>FreeCADルートフォルダ内から、以下のコマンドでFreeCADのコンフィグレーション、コンパイル、インストールします。もし、FreeCAD.appバンドルを /Application以外のどこかに置く(もしくはバンドルを使わない)場合は、'PREFIX'引数を適宜変更してください。
+</p>
+<pre>./autogen.sh
+
+PREFIX=/Applications/FreeCAD.app/Contents
+</pre>
+<p>If you installed dependencies using Option 1 (Homebrew):
+選択肢１(Homebrew)を利用して依存関係パッケージをインストールした場合:
+</p><p><i>注意</i>: このコンフィグレーションコマンドは検証しておらず、エラーを含んでいるかもしれません！
+</p>
+<pre>./configure --with-xercesc-lib=/usr/local/lib --with-xercesc-include=/usr/local/include \
+--with-boost-lib=/usr/local/lib --with-boost-include=/usr/local/include \
+--with-qt4-dir=/usr/local--with-qt4-lib=/usr/local/lib --with-qt4-include=/usr/local/include \
+--with-qt4-framework=/usr/local/lib --with-qt4-bin=/usr/local/bin --with-occ-lib=/usr/local/lib \
+--with-occ-include=/usr/local/include/oce  --with-coin=/usr/local/lib --with-soqt=/usr/local/lib \
+--prefix=/Applications/FreeCAD.app/Contents --bindir=/Applications/FreeCAD.app/Contents/MacOS \
+--libdir=/Applications/FreeCAD.app/Contents/Frameworks/FreeCAD \
+--includedir=/Applications/FreeCAD.app/Contents/Resources/include \
+--datarootdir=/Applications/FreeCAD.app/Contents/Resources/share --enable-debug=no  \
+--with-python-include=/System/Library/Frameworks/Python.framework/Versions/2.5/Headers
+</pre>
+<p>もしくは、選択肢２(MacPorts/Fink)を利用して依存関係パッケージをインストールした場合:
+</p>
+<pre>./configure --with-xercesc-lib=/opt/local/lib --with-xercesc-include=/opt/local/include \
+--with-boost-lib=/opt/local/lib --with-boost-include=/opt/local/include \
+--with-qt4-dir=/usr/local/Trolltech/Qt-4.8.0 --with-qt4-lib=/usr/local/Trolltech/Qt-4.8.0/lib \
+--with-qt4-include=/usr/local/Trolltech/Qt-4.8.0/include --with-qt4-framework=/Library/Frameworks \
+--with-qt4-bin=/usr/local/Trolltech/Qt-4.8.0/bin --with-occ-lib=/usr/local/lib \
+--with-occ-include=/usr/local/include/oce  --with-coin=/Library/Frameworks \
+--with-soqt=/Library/Frameworks --prefix=/Applications/FreeCAD.app/Contents \
+--bindir=/Applications/FreeCAD.app/Contents/MacOS --libdir=/Applications/FreeCAD.app/Contents/Frameworks/FreeCAD \
+--includedir=/Applications/FreeCAD.app/Contents/Resources/include \
+--datarootdir=/Applications/FreeCAD.app/Contents/Resources/share --enable-debug=no  \
+--with-python-include=/System/Library/Frameworks/Python.framework/Versions/2.5/Headers
+</pre>
+<p>その後、以下を実行します:
+</p>
+<pre>make
+make install
+</pre>
+<p>あなたのマシンの処理能力に応じて、makeのステップにはしばらく時間がかかります。
+</p>
+<h3><span class="mw-headline" id=".E5.AE.9F.E8.A1.8C">実行</span></h3>
+<p>全てが上手く入ったら、.appバンドルをダブルクリックするとFreeCADが起動するはずです。もし何か問題が生じたら、以下に詳細を投稿してください
+<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewforum.php?f=4">help forum</a>.
+</p>
+<h3><span class="mw-headline" id="PyQt4">PyQt4</span></h3>
+<p>一部のユーザは、FreeCADの起動時に "No Module named PyQt4" というメッセージに直面すると報告しています。以下はそれを修正する回避策です:
+</p>
+<pre>cd /Library/Python/2.6/site-packages
+sudo ln -s /contrib/lib/python2.6/site-packages/PyQt4 .
+sudo ln -s /contrib/lib/python2.6/site-packages/sip* .
+cd /volatile/FreeCAD-r5443-ser/bin/pivy
+cp _coin.dylib _coin.so
+cd /volatile/FreeCAD-r5443-ser/lib
+for i in *.dylib; do j=`basename $i .dylib`; cp $i $j.so; done
+</pre>
+<h3><span class="mw-headline" id="Pivy">Pivy</span></h3>
+<p>FreeCADのコンポーネントの一部は、Pivyが無いと動きません。 部分的な構築の説明として、<a href="/wiki/Extra_python_modules#Pivy" title="Extra python modules">ここ</a>を見てください。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnMac/jp&amp;oldid=211361">http://www.freecadweb.org/wiki/index.php?title=CompileOnMac/jp&amp;oldid=211361</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,327 @@
+<html><head><title>Placement/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Placement/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">1</span> <span class="toctext">Descrizione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Accedere_agli_attributi_di_Placement"><span class="tocnumber">1.1</span> <span class="toctext">Accedere agli attributi di Placement</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Tipi_di_posizionamento"><span class="tocnumber">2</span> <span class="toctext">Tipi di posizionamento</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Angolo.2C_Assi_e_Posizione"><span class="tocnumber">2.1</span> <span class="toctext">Angolo, Assi e Posizione</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Posizione_con_Imbardata.2C_Beccheggio_e_Rollio"><span class="tocnumber">2.1.1</span> <span class="toctext">Posizione con Imbardata, Beccheggio e Rollio</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Matrice"><span class="tocnumber">2.1.2</span> <span class="toctext">Matrice</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#La_finestra_di_dialogo_Posizionamento"><span class="tocnumber">2.2</span> <span class="toctext">La finestra di dialogo Posizionamento</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Esempi"><span class="tocnumber">2.3</span> <span class="toctext">Esempi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Esempio"><span class="tocnumber">3</span> <span class="toctext">Esempio</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Placement.Base_vs_Shape_Definition"><span class="tocnumber">3.1</span> <span class="toctext">Placement.Base vs Shape Definition</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Controllare_l.27asse_di_rotazione_con_Centro_di_Posizionamento"><span class="tocnumber">3.2</span> <span class="toctext">Controllare l'asse di rotazione con <b>Centro</b> di <b>Posizionamento</b></span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Note"><span class="tocnumber">3.3</span> <span class="toctext">Note</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Limitazioni"><span class="tocnumber">3.4</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Per_saperne_di_pi.C3.B9"><span class="tocnumber">3.5</span> <span class="toctext">Per saperne di più</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Descrizione">Descrizione</span></h3>
+<p><b> Placement</b> (Posizionamento) è la funzione utilizzata da FreeCAD per specificare la localizzazione (dove si trova) e l'assetto (orientamento) di un oggetto nello spazio.  Placement può essere specificato in diversi modi e manipolato tramite <a href="/wiki/Python_scripting_tutorial/it#Vettori_e_posizionamenti" title="Python scripting tutorial/it">script</a>, tramite la scheda delle Proprietà oppure il dialogo <b>Placement</b> del menu <b>Modifica</b>.
+</p>
+<h4><span class="mw-headline" id="Accedere_agli_attributi_di_Placement">Accedere agli attributi di Placement</span></h4>
+<p>Gli attributi di Posizionamento di un oggetto sono accessibili in tre modi:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacementPropertiesv10-800x800.png" class="image"><img alt="" src="PlacementPropertiesv10-800x800.png" width="800" height="468" class="thumbimage" /></a>  <div class="thumbcaption">Placement nella scheda delle Proprietà</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:904px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacePyConv10.png" class="image"><img alt="" src="PlacePyConv10.png" width="902" height="230" class="thumbimage" /></a>  <div class="thumbcaption">Script Placement con y/p/r, Matrix e la sua <a href="Placement_API.html" title="Placement API">API</a>.</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+Il menu Modifica Posizionamento
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD_Menu_Edition_Positionnement.png" class="image" title="Il menu Modifica Posizionamento"><img alt="Il menu Modifica Posizionamento" src="256px-FreeCAD_Menu_Edition_Positionnement.png" width="256" height="324" srcset="/wiki/images/9/98/FreeCAD_Menu_Edition_Positionnement.png 1.5x" /></a>
+</p><p><br />
+che apre e mostra lo strumento <b>Azioni di Posizionamento</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:451px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacementDialogv10.png" class="image"><img alt="" src="PlacementDialogv10.png" width="449" height="604" class="thumbimage" /></a>  <div class="thumbcaption">La finestra di dialogo di Placement Rotazione con angolo</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Tipi_di_posizionamento">Tipi di posizionamento</span></h2>
+<p>Internamente il posizionamento viene memorizzato come una posizione, e una rotazione (asse di rotazione e angolo trasformati in un quaternione <a rel="nofollow" class="external autonumber" href="https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">[1]</a>). Sebbene ci siano diversi modi di specificare una rotazione, per esempio con un centro di rotazione, questo è usato solo per influenzare il calcolo della rotazione e non viene memorizzato per le operazioni successive. Allo stesso modo, se viene specificato un asse di rotazione (1,1,1), esso può essere normalizzato se conservato nel quaternione e in seguito apparire nella forma (0.58, 0.58, 0.58) durante l'esplorazione dell'oggetto
+</p>
+<h3><span class="mw-headline" id="Angolo.2C_Assi_e_Posizione">Angolo, Assi e Posizione</span></h3>
+<p><b>Placement=[Angle, Axis, Position]</b>
+</p><p>La prima forma di <b>Placement</b> stabilisce la Posizione di un oggetto nello spazio e descrive il suo orientamento come una singola rotazione attorno ad un asse.
+</p><p><b>Angle = r</b>&#160;: è uno scalare che indica la quantità di rotazione dell'oggetto su Axis. Inserito in gradi, ma memorizzato internamente in radianti.
+</p><p><b>Axis = (ax,ay,az)</b>&#160;: è un vettore unitario che descrive un asse di rotazione (vedere <a href="#Note">Nota</a> relativa all'asse di rotazione).
+</p><p>Esempi:
+</p>
+<pre>   (1,0,0)       ==&gt; sull'asse <b>X</b>
+   (0,1,0)       ==&gt; sull'asse <b>Y</b>
+   (0,0,1)       ==&gt; sull'asse <b>Z</b>
+   (0.71,0.71,0) ==&gt; sulla linea <b>y=x</b>
+                                        
+</pre>
+<p><b>Position = (x,y,z)</b> è un vettore che descrive il punto da cui sarà calcolata la geometria dell'oggetto (di fatto, una "origine locale" per l'oggetto). 
+Notare che negli script, Placement.Base è usato per indicare il componente di Posizione di un Placement. 
+Il Property Editor chiama questo valore "Position" e la finestra di dialogo Placement lo chiama "Traslazione".
+</p>
+<h4><span class="mw-headline" id="Posizione_con_Imbardata.2C_Beccheggio_e_Rollio">Posizione con Imbardata, Beccheggio e Rollio</span></h4>
+<div class="thumb tleft"><div class="thumbinner" style="width:448px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacementDialogv10b.png" class="image"><img alt="" src="PlacementDialogv10b.png" width="446" height="600" class="thumbimage" /></a>  <div class="thumbcaption">Placement Dialogo per gli Angoli di Eulero</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+<b>Placement = [Position, Yaw-Pitch-Roll]</b>
+</p><p>La seconda forma di <b>Placement</b> fissa la posizione di un oggetto nello spazio con Position (come nella prima forma), ma descrive il suo orientamento con gli angoli di imbardata, beccheggio e rollio. 
+Questi angoli sono anche denominati angoli <b>Tait-Bryan</b> o  <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Angoli_di_Eulero">angoli di Eulero</a>. 
+Imbardata, beccheggio e rollio sono termini comuni nel settore dell'aviazione per descrivere l'orientamento (assetto) del veicolo. 
+</p><p><b>Position = (x,y,z)</b> è un vettore che descrive il punto da cui sarà calcolata la geometria dell'oggetto (di fatto, una "origine locale" per l'oggetto).
+</p><p><b>Yaw-Pitch-Roll = (y,p,r)</b> è una tupla che definisce l'assetto dell'oggetto. I valori di <b>y, p, r</b>, specificano i gradi di rotazione intorno agli assi <b>z, y, x</b>, vedere le Note.
+</p>
+<div style="clear:both"></div>
+<pre>&gt;&gt;&gt; App.getDocument("Sans_nom").Cylinder.Placement=App.Placement(App.Vector(0,0,0), App.Rotation(10,20,30), App.Vector(0,0,0)) </pre>
+<p>App.Rotation(10,20,30) = Angoli di Eulero
+</p><p><b>Yaw</b> = 10 gradi (<b>Z</b>)
+</p><p><b>Pitch</b> = 20 gradi (<b>Y</b>)
+</p><p><b>Roll</b> = 30 gradi (<b>X</b>)
+</p><p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Lacet_fr_Mini.gif" class="image"><img alt="Tache Placement Lacet fr Mini.gif" src="Tache_Placement_Lacet_fr_Mini.gif" width="450" height="325" /></a></div><b>Yaw</b> è la rotazione intorno all'asse  <b>Z</b>, destra sinistra e viceversa. <br />Angolo <b>Psi ψ</b>.
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Tangage_fr_Mini.gif" class="image"><img alt="Tache Placement Tangage fr Mini.gif" src="Tache_Placement_Tangage_fr_Mini.gif" width="445" height="355" /></a></div><b>Pitch</b> è la rotazione intorno all'asse <b>Y</b>, alzare o abbassare il naso. <br />Angolo <b>Phi φ</b>.
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Roulis_fr_Mini.gif" class="image"><img alt="Tache Placement Roulis fr Mini.gif" src="Tache_Placement_Roulis_fr_Mini.gif" width="445" height="355" /></a></div><b>Roll</b> è la rotazione intorno all'asse <b>X</b>, dondolare le ali. <br />Angolo <b>Thêta θ</b>.
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Matrice">Matrice</span></h4>
+<p><b>Placement = Matrix</b>
+</p><p>La terza forma di <b>Placement</b> descrive la posizione dell'oggetto e l'orientamento con una matrice 4x4 di  <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Trasformazione_affine">Trasformazione Affine</a>.
+</p><p><b>Matrix</b> = 
+</p>
+<pre>  ((r11,r12,r13,t1),
+   (r21,r22,r23,t2),
+   (r31,r32,r33,t3),
+   (0,0,0,1)) , dove rij specifica la rotazione e ti specifica la traslazione. 
+</pre>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="La_finestra_di_dialogo_Posizionamento">La finestra di dialogo Posizionamento</span></h3>
+<p>La finestra di dialogo Posizionamento viene richiamata dal menu <b>Modifica</b>. E' utilizzata per ruotare o traslare con precisione gli oggetti. E' anche usata quando si deve creare uno schizzo su un piano "non standard" o per modificare l'orientamento di un disegno in un nuovo piano.
+</p><p>La sezione <b>Traslazione</b> regola la posizione degli oggetti nello spazio.
+</p><p>La sezione <b>Centro</b> imposta singolarmente gli assi di rotazione che non passano attraverso il punto di riferimento dell'oggetto. La sezione <b>Rotazione</b> imposta l'angolo, o gli angoli di rotazione e il metodo per specificare tali angoli.
+</p><p>Selezionare la casella <b>Applica le modifiche incrementali al posizionamento dell'oggetto</b> è utile quando le traslazioni o le rotazioni devono essere effettuate rispetto alla posizione o all'assetto relativo corrente dell'oggetto, invece che rispetto alla posizione o all'assetto originale. Quando questa casella viene selezionata i valori dei campi di input della finestra di dialogo vengono reimpostati a zero, ma non si modifica l'orientamento dell'oggetto o la sua posizione. Successivi reimpostamenti modificano l'orientamento o la posizione, ma vengono applicati a partire dalla posizione corrente dell'oggetto.  
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Esempi">Esempi</span></h3>
+<p>PS: poiché la versione 0.17 introduce una nuova parte dell'oggetto, questo oggetto ha il suo posizionamento e l'oggetto di posizionamento creato nell'oggetto Part viene incrementato con il Posizionamento del obietto Part. <span style="font-size:x-small;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.17/it" title="Release notes 0.17/it">disponibile dalla versione 0.17</a></span>
+</p><p>Per ottenere il piazzamento del obietto Part usa questo codice:
+</p>
+<pre>import Draft, Part
+sel = FreeCADGui.Selection.getSelection()
+print sel[0].Placement
+print sel[0].getGlobalPlacement()   # return the GlobalPlacement
+print sel[0].getParentGeoFeatureGroup() # return the GeoFeatureGroup, ex:  Body or a Part.
+print  "____________________" </pre>
+<h2><span class="mw-headline" id="Esempio">Esempio</span></h2>
+<p>Rotazione su un singolo asse:
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 735px"><div style="width: 735px">
+<div class="thumb" style="width: 730px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutZBefore.png" class="image"><img alt="" src="683px-RotationAboutZBefore.png" width="683" height="400" srcset="/wiki/images/thumb/9/96/RotationAboutZBefore.png/1024px-RotationAboutZBefore.png 1.5x, /wiki/images/9/96/RotationAboutZBefore.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Prima della rotazione (Vista dall'alto)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutZAfter.png" class="image"><img alt="" src="342px-RotationAboutZAfter.png" width="342" height="200" srcset="/wiki/images/thumb/e/e2/RotationAboutZAfter.png/512px-RotationAboutZAfter.png 1.5x, /wiki/images/thumb/e/e2/RotationAboutZAfter.png/683px-RotationAboutZAfter.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Dopo la rotazione rispetto all'asse Z (Vista dall'alto)
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutYXAfter.png" class="image"><img alt="" src="342px-RotationAboutYXAfter.png" width="342" height="200" srcset="/wiki/images/thumb/b/bd/RotationAboutYXAfter.png/512px-RotationAboutYXAfter.png 1.5x, /wiki/images/thumb/b/bd/RotationAboutYXAfter.png/683px-RotationAboutYXAfter.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Prima della rotazione rispetto a y=x (Vista da destra)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p>Rotazione con scostamento del punto centrale:
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationOffsetBefore.png" class="image"><img alt="" src="342px-RotationOffsetBefore.png" width="342" height="200" srcset="/wiki/images/thumb/2/21/RotationOffsetBefore.png/512px-RotationOffsetBefore.png 1.5x, /wiki/images/thumb/2/21/RotationOffsetBefore.png/683px-RotationOffsetBefore.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Prima della rotazione (Vista dall'alto)
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationOffsetAfter.png" class="image"><img alt="" src="342px-RotationOffsetAfter.png" width="342" height="200" srcset="/wiki/images/thumb/7/71/RotationOffsetAfter.png/512px-RotationOffsetAfter.png 1.5x, /wiki/images/thumb/7/71/RotationOffsetAfter.png/683px-RotationOffsetAfter.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Dopo la rotazione rispetto all'asse Z (Vista dall'alto)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p>Rotazione con impiego degli angoli di Eulero:
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationEulerBefore.png" class="image"><img alt="" src="342px-RotationEulerBefore.png" width="342" height="200" srcset="/wiki/images/thumb/c/c6/RotationEulerBefore.png/512px-RotationEulerBefore.png 1.5x, /wiki/images/thumb/c/c6/RotationEulerBefore.png/683px-RotationEulerBefore.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Prima della rotazione
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 385px"><div style="width: 385px">
+<div class="thumb" style="width: 380px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationEulerAfter.png" class="image"><img alt="" src="342px-RotationEulerAfter.png" width="342" height="200" srcset="/wiki/images/thumb/c/c4/RotationEulerAfter.png/512px-RotationEulerAfter.png 1.5x, /wiki/images/thumb/c/c4/RotationEulerAfter.png/683px-RotationEulerAfter.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Dopo la rotazione
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<h3><span class="mw-headline" id="Placement.Base_vs_Shape_Definition">Placement.Base vs Shape Definition</span></h3>
+<p>Placement non è l'unico modo per posizionare una forma nello spazio. Notare la console Python in questa immagine: 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:2Placements800.png" class="image"><img alt="" src="2Placements800.png" width="800" height="468" class="thumbimage" /></a>  <div class="thumbcaption">2 Forme con Stesso Placement</div></div></div><div style="clear:both"></div>
+<p><br />
+Entrambi i cubi hanno lo stesso valore per il Placement, ma si trovano in luoghi diversi!  Questo perché le due forme sono definite da differenti vertici (curve in forme complesse).  Per le due forme della figura sopra: 
+</p>
+<pre>   &gt;&gt;&gt; ev = App.ActiveDocument.Extrude.Shape.Vertexes
+ &gt;&gt;&gt; for v in ev: print v.X,",",v.Y,",",v.Z
+ ... 
+ 30.0,30.0,0.0
+ 30.0,30.0,10.0
+ 40.0,30.0,0.0
+ 40.0,30.0,10.0
+ 40.0,40.0,0.0
+ 40.0,40.0,10.0
+ 30.0,40.0,0.0
+ 30.0,40.0,10.0
+ &gt;&gt;&gt; e1v = App.ActiveDocument.Extrude001.Shape.Vertexes
+ &gt;&gt;&gt; for v in e1v: print v.X,",",v.Y,",",v.Z
+ ... 
+ 0.0,10.0,0.0
+ 0.0,10.0,10.0
+ 10.0,10.0,0.0
+ 10.0,10.0,10.0
+ 10.0,0.0,0.0
+ 10.0,0.0,10.0
+ 0.0,0.0,0.0
+ 0.0,0.0,10.0
+ &gt;&gt;&gt; 
+
+</pre>
+<p>I Vertices (o Vectors) che definiscono la forma usano gli attributi  Placement.Base per la loro origine.
+</p><p>Quindi, se si desidera spostare una forma di 10 unità lungo l'asse <b>X</b>, si può aggiungere 10 alla coordinata <b>X</b> di tutti i Vertices oppure è possibile impostare Placement.Base a (10,0,0).
+</p>
+<h3><span class="mw-headline" id="Controllare_l.27asse_di_rotazione_con_Centro_di_Posizionamento">Controllare l'asse di rotazione con <b>Centro</b> di <b>Posizionamento</b></span></h3>
+<p>Per impostazione predefinita, l'asse di rotazione non è effettivamente l'asse x, y o z. Si tratta di una linea parallela all'asse selezionato che passa per il punto definito da <b>Placement.Base</b> dell'oggetto da ruotare. Questa impostazione può essere modificata utilizzando i campi <b>Centro</b> della finestra di dialogo <b>Posizionamento</b> oppure, negli script, utilizzando il parametro <b>centre</b> nella costruzione di <b>FreeCAD.Placement</b>.
+</p><p>Si supponga, ad esempio, di avere un cubo (figura sotto) posizionato in (20,20,10).  
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:503px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:LocalZBefore2.png" class="image"><img alt="" src="LocalZBefore2.png" width="501" height="356" class="thumbimage" /></a>  <div class="thumbcaption">Prima della rotazione</div></div></div></div><div style="clear:both"></div>
+<p>Volendo ruotare il cubo attorno al proprio asse verticale (l'asse locale Z), mantenendolo nella stessa posizione.  E' possibile ottenere facilmente questo specificando nei campi Centro un valore corrispondente alle coordinate del punto centrale del cubo (25,25,15).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:503px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:LocalZAfter2.png" class="image"><img alt="" src="LocalZAfter2.png" width="501" height="356" class="thumbimage" /></a>  <div class="thumbcaption">Dopo la rotazione</div></div></div></div><div style="clear:both"></div>
+<pre>import FreeCAD
+obj = App.ActiveDocument.Box                       # our box
+rot = FreeCAD.Rotation(FreeCAD.Vector(0,0,1),45)   # 45° about Z
+#rot = FreeCAD.Rotation(FreeCAD.Vector(1,0,1),45)   # 45° about X and 45° about Z
+#rot = FreeCAD.Rotation(10,20,30)                   # here example with Euler angle Yaw = 10 degrees (Z), Pitch = 20 degrees (Y), Roll = 30 degrees (X) 
+centre = FreeCAD.Vector(25,25,15)                  # central point of box 
+pos = obj.Placement.Base                           # position point of box
+newplace = FreeCAD.Placement(pos,rot,centre)       # make a new Placement object
+obj.Placement = newplace                           # spin the box </pre>  
+<p>Alcuni script con i file di esempio: <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=1651">RotateCoG2.fcstd</a> (discussion on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=3950#p31052">forum</a>)
+</p>
+<pre>import FreeCAD
+obj = App.ActiveDocument.Extrude                    # our box
+rot = FreeCAD.Rotation(FreeCAD.Vector(0,0,1),45)    # 45 about Z
+#rot = FreeCAD.Rotation(FreeCAD.Vector(1,0,1),45)    # 45° about X and 45° about Z
+#rot = FreeCAD.Rotation(10,20,30)                    # here example with Euler angle Yaw = 10 degrees (Z), Pitch = 20 degrees (Y), Roll = 30 degrees (X) 
+centre = FreeCAD.Vector(25,25,0)                    # "centre" of rotation (where local Z cuts XY)
+pos = obj.Placement.Base                            # original placement of obj
+newplace = FreeCAD.Placement(pos,rot,centre)        # make a new Placement object
+obj.Placement = newplace                            # spin the box </pre>
+<h3><span class="mw-headline" id="Note">Note</span></h3>
+<ul><li> Assi e Angolo possono anche essere espressi con un <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Rotazioni_spaziali_con_i_quaternioni">quaternione</a>.</li>
+<li> Il punto di riferimento di un oggetto varia a seconda dell'oggetto. Alcuni esempi di oggetti di uso comune: </li></ul>
+<table class="wikitable" border="1">
+<tr>
+<th>Oggetto</th>
+<th>Punto di riferimento
+</th></tr>
+<tr align="left">
+<td>Part.Box </td>
+<td>vertice sinistro (minimo x), frontale (minimo y), in basso (minimo z)
+</td></tr>
+<tr align="left">
+<td>Part.Sphere</td>
+<td>centro della sfera (centro del suo contenitore cubico)
+</td></tr>
+<tr align="left">
+<td>Part.Cylinder</td>
+<td>centro della faccia di base
+</td></tr>
+<tr align="left">
+<td>Part.Cone</td>
+<td>centro della faccia di base (o superiore se il raggio della faccia di base vale <b>0</b>)
+</td></tr>
+<tr align="left">
+<td>Part.Torus</td>
+<td>centro del toro
+</td></tr>
+<tr align="left">
+<td>Caratteristiche derivate ​​da Sketch</td>
+<td>la caratteristica eredita la posizione dello schizzo sottostante. Lo schizzo inizia sempre con Position = (0,0,0).
+</td></tr></table>
+<h3><span class="mw-headline" id="Limitazioni">Limitazioni</span></h3>
+<ul><li> A partire dalla versione 0.13, l'aggiornamento delle proprietà <b>Placement</b> nella scheda <b>Dati</b> è stato disattivato per gli oggetti creati con <b>PartDesign</b>, fatta eccezione per il disegno iniziale da cui il solido verrà creato.</li></ul>
+<p>Pertanto, il posizionamento di un solido creato in PartDesign da uno schizzo può essere modificato solo regolando i parametri di posizionamento del disegno di costruzione iniziale (il primo schizzo) da cui il solido viene creato.
+</p>
+<ul><li> Le funzionalità di Posizionamento saranno eventualmente trattate nell'ambiente <b>Assemblaggio</b>. </li></ul>
+<h3><span class="mw-headline" id="Per_saperne_di_pi.C3.B9">Per saperne di più</span></h3>
+<ul><li> Il tutorial <a href="https://www.freecadweb.org/wiki/index.php?title=Aeroplane/it" title="Aeroplane/it">Aeroplano</a> tratta ampiamente sul meccanismo di modifica dell'assetto di un oggetto.</li>
+<li> Una descrizione dettagliata della funzione <b>Placement</b> si trova nella pagina <a href="https://www.freecadweb.org/wiki/index.php?title=Tasks_Placement/it" title="Tasks Placement/it">Azioni di Posizionamento</a>.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Placement/it&amp;oldid=282765">http://www.freecadweb.org/wiki/index.php?title=Placement/it&amp;oldid=282765</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

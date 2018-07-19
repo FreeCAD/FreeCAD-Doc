@@ -1,0 +1,163 @@
+<html><head><title>PySide Beginner Examples/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>PySide Beginner Examples/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#D.C3.A9claration_d.27importation"><span class="tocnumber">2</span> <span class="toctext">Déclaration d'importation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Exemple_simple"><span class="tocnumber">3</span> <span class="toctext">Exemple simple</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Oui_ou_Non"><span class="tocnumber">4</span> <span class="toctext">Oui ou Non</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Zone_de_texte"><span class="tocnumber">5</span> <span class="toctext">Zone de texte</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Plus_de_2_boutons"><span class="tocnumber">6</span> <span class="toctext">Plus de 2 boutons</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Le but de cette page est de couvrir les exemples de niveau débutant du gestionnaire de l'interface graphique utilisateur <a href="https://www.freecadweb.org/wiki/index.php?title=PySide/fr" title="PySide/fr">PySide</a> (voir ensuite les pages <a href="https://www.freecadweb.org/wiki/index.php?title=PySide_Medium_Examples/fr" title="PySide Medium Examples/fr">Medium PySide Examples</a> et <a href="https://www.freecadweb.org/wiki/index.php?title=PySide_Advanced_Examples/fr" title="PySide Advanced Examples/fr">Advanced PySide Examples</a>).
+</p><p>Les nouveaux arrivants à la programmation GUI peuvent trébucher sur le mot "widget". Sa signification en dehors de l'informatique est généralement donnée comme
+</p>
+<blockquote>"un petit gadget ou dispositif mécanique, en particulier celui dont le nom est inconnu ou non spécifié"</blockquote>
+<p>Pour les gestionnaires d'interfaces graphique tel que PySide, le terme «widget» est le plus souvent utilisé pour désigner les éléments visibles de l'interface graphique - fenêtres, boîtes de dialogue et fonctions d'entrée / sortie. Tous les éléments visibles de PySide sont appelés widgets, et, pour ceux qui sont intéressés, ils descendent tous d'une classe parente commune, QWidget. En plus des éléments visibles, PySide propose également des widgets pour la mise en réseau, XML, multimédia et l'intégration de bases de données.
+</p><p>Un widget qui n'est pas intégré dans un widget parent est appelé une fenêtre et généralement les fenêtres ont un cadre et une barre de titre. Les types de fenêtres les plus courants sont la "fenêtre principale" (de la classe QMainWindow) et les différentes sous-classes de la boîte de dialogue (de la classe QDialog). Une grande différence est que QDialog est modal (c'est-à-dire que l'utilisateur ne peut rien faire en dehors de la fenêtre Dialog alors qu'il est ouvert) et que QMainWindow est non modal, ce qui permet à l'utilisateur d'interagir avec d'autres fenêtres en parallèle.
+</p><p>Ce guide est une liste de raccourcis pour faire rapidement faire fonctionner un programme PySide sous FreeCAD, il n'est pas destiné à enseigner Python ou PySide. Voici une liste de certains sites qui font cela&#160;:
+/!\ attention /!\ sites en anglais
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://zetcode.com/gui/pysidetutorial/">PySide tutorial</a> at zetcode.com</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythoncentral.io/series/python-pyside-pyqt-tutorial/">PySide/PyQt Tutorial</a> at PythonCentral.io</li>
+<li> <a rel="nofollow" class="external text" href="http://srinikom.github.io/">PySide 1.0.7 Reference</a> at Srinikom.github.io (note this is a reference, not a tutorial)</li></ul>
+<h2><span class="mw-headline" id="D.C3.A9claration_d.27importation">Déclaration d'importation</span></h2>
+<p>PySide n'est pas chargé avec Python par défaut, il doit être importé avant de l'utiliser. La commande suivante:
+</p>
+<pre>from PySide import QtGui, QtCore </pre>
+<p>provoque le chargement des deux parties de PySide - QtGui contient des classes pour la gestion de l'interface graphique utilisateur tandis que QtCore contient des classes qui ne sont pas directement liées à la gestion de l'interface graphique (par exemple les minuteurs et la géométrie). Bien qu'il soit possible d'importer seulement celui qui est nécessaire, généralement ils sont tous deux nécessaires et donc importés.
+</p><p><strong>Note</strong>: l'instruction 'import' n'est pas répétée dans chaque extrait de code ci-dessous, elle est supposée être déjà au début du fichier Python.
+</p>
+<h2><span class="mw-headline" id="Exemple_simple">Exemple simple</span></h2>
+<p>L'interaction la plus simple avec PySide est de présenter à l'utilisateur un message qu'il ne peut que accepter&#160;:
+</p>
+<pre>reply = QtGui.QMessageBox.information(None,"","Houston, we have a problem") </pre>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PySideScreenSnapshot5.jpg" class="image"><img alt="PySideScreenSnapshot5.jpg" src="PySideScreenSnapshot5.jpg" width="325" height="163" /></a>
+</p>
+<h2><span class="mw-headline" id="Oui_ou_Non">Oui ou Non</span></h2>
+<p>L'interaction simple suivante consiste à demander de répondre oui ou non&#160;:
+</p>
+<pre>reply = QtGui.QMessageBox.question(None, "", "This is your chance to answer, what do you think?",
+         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+if reply == QtGui.QMessageBox.Yes:
+         # this is where the code relevant to a 'Yes' answer goes
+         pass
+if reply == QtGui.QMessageBox.No:
+         # this is where the code relevant to a 'No' answer goes
+         pass </pre>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PySideScreenSnapshot6.jpg" class="image"><img alt="PySideScreenSnapshot6.jpg" src="PySideScreenSnapshot6.jpg" width="400" height="155" /></a>
+</p>
+<h2><span class="mw-headline" id="Zone_de_texte">Zone de texte</span></h2>
+<p>L'extrait de code suivant demande à l'utilisateur un texte - notez qu'il peut s'agir de n'importe quelle touche du clavier&#160;:
+</p>
+<pre>reply = QtGui.QInputDialog.getText(None, "Ouija Central","Enter your thoughts for the day:")
+if reply[1]:
+# user clicked OK
+replyText = reply[0]
+else:
+# user clicked Cancel
+replyText = reply[0] # which will be "" if they clicked Cancel </pre>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PySideScreenSnapshot7.jpg" class="image"><img alt="PySideScreenSnapshot7.jpg" src="PySideScreenSnapshot7.jpg" width="243" height="137" /></a>
+</p><p>Souvenez-vous que même si l'utilisateur ne saisit que des chiffres, "1234" par exemple, ce sont des chaînes de caractères et doivent être converties en représentation numérique avec l'un des éléments suivants:
+</p>
+<pre>anInteger = int(userInput) # to convert to an integer from a string representation
+
+aFloat = float(userInput) # to convert to a float from a string representation </pre>
+<h2><span class="mw-headline" id="Plus_de_2_boutons">Plus de 2 boutons</span></h2>
+<p>L'exemple final du niveau débutant est de savoir comment construire une boîte de dialogue avec un nombre arbitraire de boutons. Cet exemple est trop complexe par programme pour pouvoir être invoqué à partir d'une seule instruction Python. Par conséquent, il devrait être à la page suivante, qui est un exemple de PySide Intermédiaire. Mais d'un autre côté, c'est souvent tout ce qui est nécessaire sans entrer dans des définitions d'interface graphique complexes, donc le code est placé à la fin de cette page PySide Débutant plutôt que le début de la page PySide Intermédiaire suivante.
+</p>
+<pre>from PySide import QtGui, QtCore
+
+class MyButtons(QtGui.QDialog):
+""""""
+def __init__(self):
+super(MyButtons, self).__init__()
+self.initUI()
+def initUI(self):      
+option1Button = QtGui.QPushButton("Option 1")
+option1Button.clicked.connect(self.onOption1)
+option2Button = QtGui.QPushButton("Option 2")
+option2Button.clicked.connect(self.onOption2)
+option3Button = QtGui.QPushButton("Option 3")
+option3Button.clicked.connect(self.onOption3)
+option4Button = QtGui.QPushButton("Option 4")
+option4Button.clicked.connect(self.onOption4)
+option5Button = QtGui.QPushButton("Option 5")
+option5Button.clicked.connect(self.onOption5)
+#
+buttonBox = QtGui.QDialogButtonBox()
+buttonBox = QtGui.QDialogButtonBox(QtCore.Qt.Horizontal)
+buttonBox.addButton(option1Button, QtGui.QDialogButtonBox.ActionRole)
+buttonBox.addButton(option2Button, QtGui.QDialogButtonBox.ActionRole)
+buttonBox.addButton(option3Button, QtGui.QDialogButtonBox.ActionRole)
+buttonBox.addButton(option4Button, QtGui.QDialogButtonBox.ActionRole)
+buttonBox.addButton(option5Button, QtGui.QDialogButtonBox.ActionRole)
+#
+mainLayout = QtGui.QVBoxLayout()
+mainLayout.addWidget(buttonBox)
+self.setLayout(mainLayout)
+# define windowxLoc,yLoc,xDim,yDim
+self.setGeometry(250, 250, 0, 50)
+self.setWindowTitle("Pick a Button")
+self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+def onOption1(self):
+self.retStatus = 1
+self.close()
+def onOption2(self):
+self.retStatus = 2
+self.close()
+def onOption3(self):
+self.retStatus = 3
+self.close()
+def onOption4(self):
+self.retStatus = 4
+self.close()
+def onOption5(self):
+self.retStatus = 5
+self.close()
+
+def routine1():
+print 'routine 1'
+
+form = MyButtons()
+form.exec_()
+if form.retStatus==1:
+routine1()
+elif form.retStatus==2:
+routine2()
+elif form.retStatus==3:
+routine3()
+elif form.retStatus==4:
+routine4()
+elif form.retStatus==5:
+routine5() </pre>
+<p>Chaque morceau de code à tester serait dans une fonction avec le nom 'routine1()', 'routine2()', etc. Vous pouvez utiliser autant de boutons que vous pouvez adapter à l'écran. Suivez les modèles dans l'exemple de code et ajoutez des boutons supplémentaires au besoin - la boîte de dialogue définira sa largeur en conséquence, jusqu'à la largeur de l'écran.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PySideScreenSnapshot8.jpg" class="image"><img alt="PySideScreenSnapshot8.jpg" src="PySideScreenSnapshot8.jpg" width="526" height="82" /></a>
+</p><p>Il y a cette ligne de code&#160;:
+</p>
+<pre>buttonBox = QtGui.QDialogButtonBox(QtCore.Qt.Horizontal) </pre>
+<p>qui fait que les boutons sont dans une ligne horizontale. Pour les mettre dans une ligne verticale, changez la ligne de code en remplaçant Horizontal en Vertical&#160;:
+</p>
+<pre>buttonBox = QtGui.QDialogButtonBox(QtCore.Qt.Vertical) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=PySide_Beginner_Examples/fr&amp;oldid=262846">http://www.freecadweb.org/wiki/index.php?title=PySide_Beginner_Examples/fr&amp;oldid=262846</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

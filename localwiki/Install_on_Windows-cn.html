@@ -1,0 +1,149 @@
+<html><head><title>Install on Windows/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Install on Windows/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>最简单的<b>把 FreeCAD 安装到 Windows</b>的方式是使用 installer。本文介绍了 <i>Microsoft Installer</i>的使用和其他安装功能。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E7.AE.80.E5.8D.95.E5.AE.89.E8.A3.85"><span class="tocnumber">1</span> <span class="toctext">简单安装</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.91.BD.E4.BB.A4.E8.A1.8C.E5.AE.89.E8.A3.85"><span class="tocnumber">2</span> <span class="toctext">命令行安装</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E9.9D.9E.E4.BA.A4.E4.BA.92.E5.BC.8F.E5.AE.89.E8.A3.85"><span class="tocnumber">2.1</span> <span class="toctext">非交互式安装</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E6.9C.89.E9.99.90.E7.94.A8.E6.88.B7.E4.BA.A4.E4.BA.92"><span class="tocnumber">2.2</span> <span class="toctext">有限用户交互</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E5.AE.89.E8.A3.85.E7.9B.AE.E5.BD.95"><span class="tocnumber">2.3</span> <span class="toctext">安装目录</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E4.B8.BA.E6.89.80.E6.9C.89.E7.94.A8.E6.88.B7.E5.AE.89.E8.A3.85"><span class="tocnumber">2.4</span> <span class="toctext">为所有用户安装</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E5.8A.9F.E8.83.BD.E9.80.89.E6.8B.A9"><span class="tocnumber">2.5</span> <span class="toctext">功能选择</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#.E5.8D.B8.E8.BD.BD"><span class="tocnumber">3</span> <span class="toctext">卸载</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.E7.AE.A1.E7.90.86.E5.91.98.E6.9D.83.E9.99.90.E5.AE.89.E8.A3.85"><span class="tocnumber">4</span> <span class="toctext">管理员权限安装</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#.E5.B9.BF.E5.91.8A.E6.96.B9.E5.BC.8F"><span class="tocnumber">5</span> <span class="toctext">广告方式</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#.E8.87.AA.E5.8A.A8.E5.90.91.E6.9C.BA.E7.BE.A4.E5.AE.89.E8.A3.85"><span class="tocnumber">6</span> <span class="toctext">自动向机群安装</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#.E4.BD.BF.E7.94.A8_Crossover_Office_.E6.8A.8A_Windows_.E7.89.88.E6.9C.AC.E7.9A.84_FreeCAD_.E5.AE.89.E8.A3.85.E5.88.B0_Linux"><span class="tocnumber">7</span> <span class="toctext">使用 Crossover Office 把 Windows 版本的 FreeCAD 安装到 Linux</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E7.AE.80.E5.8D.95.E5.AE.89.E8.A3.85">简单安装</span></h3>
+<p>FreeCAD 安装文件为 .msi 格式。你可以从 <a rel="nofollow" class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=49159&amp;package_id=206659">official FreeCAD 下载页面</a> 下载它。下载后，只需要双击开始安装。
+</p>
+<h3><span class="mw-headline" id=".E5.91.BD.E4.BB.A4.E8.A1.8C.E5.AE.89.E8.A3.85">命令行安装</span></h3>
+<p>通过 <i>msiexec.exe</i> 命令工具，可以实现其它一些如非交互式安装，管理员权限安装。
+</p>
+<h4><span class="mw-headline" id=".E9.9D.9E.E4.BA.A4.E4.BA.92.E5.BC.8F.E5.AE.89.E8.A3.85">非交互式安装</span></h4>
+<p>使用命令
+</p>
+<pre> msiexec /i FreeCAD&lt;版本号&gt;.msi
+</pre>
+<p>启动安装。其它参数可以放置在后边，如：
+</p>
+<pre> msiexec /i FreeCAD-2.5.msi TARGETDIR=r:\FreeCAD25
+</pre>
+<h4><span class="mw-headline" id=".E6.9C.89.E9.99.90.E7.94.A8.E6.88.B7.E4.BA.A4.E4.BA.92">有限用户交互</span></h4>
+<p>安装时用户交互可以用以参数式控制:
+</p>
+<ul><li> /qn - 无用户交互</li>
+<li> /qb - 基本用户交互——只显示一个过程对话框。</li>
+<li> /qb! - 像 /qb，但是隐藏撤销按钮。</li>
+<li> /qr - 减少接口 - 显示所有不需要用户交互的对话框(跳过所有强制回应对话框)。</li>
+<li> /qn+ - 像 /qn，但是最后显示“安装完成”对话框。</li>
+<li> /qb+ - 像 /qb，但是最后显示“安装完成”对话框。</li></ul>
+<h4><span class="mw-headline" id=".E5.AE.89.E8.A3.85.E7.9B.AE.E5.BD.95">安装目录</span></h4>
+<p>属性 TARGETDIR 决定 FreeCAD 安装的根目录。例如，可以指定不同的安装分区： 
+</p>
+<pre>TARGETDIR=R:\FreeCAD25
+</pre>
+<p>默认 TARGETDIR 是 [WindowsVolume\Programm Files\]FreeCAD&lt;版本号&gt;.
+</p>
+<h4><span class="mw-headline" id=".E4.B8.BA.E6.89.80.E6.9C.89.E7.94.A8.E6.88.B7.E5.AE.89.E8.A3.85">为所有用户安装</span></h4>
+<p>添加参数
+</p>
+<pre> ALLUSERS=1
+</pre>
+<p>为所有用户安装。默认非交互式安装仅当前用户，如果用户是管理员权限那么交互式安装会提供“所有用户”的选项。
+</p>
+<h4><span class="mw-headline" id=".E5.8A.9F.E8.83.BD.E9.80.89.E6.8B.A9">功能选择</span></h4>
+<p>FreeCAD 安装器提供了安装，重装，卸载选项：
+</p>
+<ul><li> DefaultFeature - 安装适当的软件，再加上核心库。</li>
+<li> Documentation - 安装文档。</li>
+<li> Source code - 安装源码</li>
+<li> ... ToDo</li></ul>
+<p>此外，ALL 指定的所有功能。所有的特性依赖于默认功能 DefaultFeature，所以安装任何功能都会安装 DefaultFeature，下面的参数为指定重装或者卸载
+</p>
+<ul><li> ADDLOCAL - 指定需要安装的功能</li>
+<li> REMOVE - 指定需要卸载的功能</li>
+<li> ADDDEFAULT - list of features added in their default configuration (which is local for all FreeCAD features)</li>
+<li> REINSTALL - 指定需要重装／修复的功能</li>
+<li> ADVERTISE - 指定需要广告方式安装的功能</li></ul>
+<p>其他属性参见 MSDN 文档。
+</p><p>添加
+</p>
+<pre> ADDLOCAL=Extensions
+</pre>
+<p>安装解释器和和仅注册扩展，但是不安装扩展(扩展使用时安装)。
+</p>
+<h3><span class="mw-headline" id=".E5.8D.B8.E8.BD.BD">卸载</span></h3>
+<p>使用
+</p>
+<pre> msiexec /x FreeCAD&lt;version&gt;.msi
+</pre>
+<p>来卸载 FreeCAD。卸载并不需要 MSI 文件; 你可以在开始菜单中找到卸载 FreeCAD 的快捷方式。
+</p>
+<h3><span class="mw-headline" id=".E7.AE.A1.E7.90.86.E5.91.98.E6.9D.83.E9.99.90.E5.AE.89.E8.A3.85">管理员权限安装</span></h3>
+<p>使用
+</p>
+<pre> msiexec /a FreeCAD&lt;版本号&gt;.msi
+</pre>
+<p>启动管理员(网络)安装。文件解压缩到一个(网络)路径，但对本地系统没有改动。另外在目标文件夹生成了一个小 msi 文件，客户机可以使用它本地安装(未来版本将提供网络启动分区共享功能)。
+</p><p>暂时没有管理员权限的用户交互模式卸载，所以目标路径必须要在命令行中设定。
+没有为管理员权限安装的卸载方式——如果没有用户使用了，直接删除即可。
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id=".E5.B9.BF.E5.91.8A.E6.96.B9.E5.BC.8F">广告方式</span></h3>
+<p>使用命令
+</p>
+<pre> msiexec /jm FreeCAD&lt;version&gt;.msi
+</pre>
+<p>原则上，(使用 /ju)可以把 FreeCAD “广告”到一台机器。这样 FreeCAD 的图标将显示在开始菜单中，扩展登记但未安装。当首次使用某功能时使该功能安装。
+</p>
+<pre>FreeCAD 安装器现在提供了“广告” 开始菜单项，还不能“广告”快捷方式。
+</pre>
+<h3><span class="mw-headline" id=".E8.87.AA.E5.8A.A8.E5.90.91.E6.9C.BA.E7.BE.A4.E5.AE.89.E8.A3.85">自动向机群安装</span></h3>
+<p>使用 Windows 组策略，可以自动安装 FreeCAD 到一组机器。要做到这一点，请执行以下步骤：
+登录到网域控制站
+</p>
+<ol><li>把MSI文件复制到一个所有目标机器都夹授予访问权限的共享文件夹。</li></ol>
+<p>＃打开MMC管理单元的“Active Directory 用户和计算机”
+＃浏览到需要 FreeCAD的计算机组
+＃打开属性
+＃打开“组策略”
+＃添加一个新的组策略，并对其进行编辑
+＃在计算机配置/软件安装，选择“新建/包”，通过网络的路径选择MSI文件
+＃(可选)如果要有不安装 FreeCAD 的计算机，使其离开组策略范围。
+</p><p>组策略传播通常需要一段时间 - 可靠地部署包后，所有机器重新启动。
+</p>
+<h3><span class="mw-headline" id=".E4.BD.BF.E7.94.A8_Crossover_Office_.E6.8A.8A_Windows_.E7.89.88.E6.9C.AC.E7.9A.84_FreeCAD_.E5.AE.89.E8.A3.85.E5.88.B0_Linux">使用 Crossover Office 把 Windows 版本的 FreeCAD 安装到 Linux</span></h3>
+<p>实际上，完全没有这样做的必要，因为有原生的 Linux 版本的 FreeCAD。
+</p><p>You can install the windows version of FreeCAD on a Linux system using <i>CXOffice 5.0.1</i>.  Run <i>msiexec</i> from the CXOffice command line, assuming that the install package is placed in the "software" directory which is mapped to the drive letter "Y:":
+</p>
+<pre>msiexec /i Y:\\software\\FreeCAD&lt;version&gt;.msi
+</pre>
+<p>FreeCAD is running, but it has been reported that the OpenGL display does not work, like with other programms running under <a href="http://en.wikipedia.org/wiki/Wine_(software)" class="extiw" title="wikipedia:Wine (software)">Wine</a> i.e. Google <a href="http://en.wikipedia.org/wiki/SketchUp" class="extiw" title="wikipedia:SketchUp">SketchUp</a>.
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/cn&amp;oldid=211333">http://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/cn&amp;oldid=211333</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,126 @@
+<html><head><title>Scripting/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scripting/ru</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/ru&amp;redirect=no" class="mw-redirect" title="Scripting/ru">Scripting/ru</a>)</span></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crystal_Clear_app_terminal.png" class="image" title="150"><img alt="150" src="Crystal_Clear_app_terminal.png" width="128" height="128" /></a></div>
+<p>Это место для тех кто хочет глубже понять FreeCAD. Здесь вы можете узнать о настройке FreeCAD под ваши нужды. 
+</p><p>Эти страницы находятся в ранней стадии развития. Если вы не смогли найти интересующую вас информацию, или вы нашли где-то полезную информацию, не связанную с нами, пожалуйста оставьте комментарий на <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">форуме</a>, или..., а почему бы и нет?! <a href="https://www.freecadweb.org/wiki/index.php?title=Help_FreeCAD/ru" title="Help FreeCAD/ru"> Добавьте дополнительное содержание самостоятельно!</a>
+</p><p>Одной из самых приятных особенностей FreeCAD, это то что вы можете написать сценарий и расширить его по максимуму, без какой либо компиляции исходного кода. Вся сценарная часть пишется на языке <a rel="nofollow" class="external text" href="https://ru.wikipedia.org/wiki/Python">python</a>, очень мощном, но простом языке программирования. С помощью простых python сценариев, вы получаете полный доступ к любой части Freecad. Например, вы можете:
+</p>
+<ul><li> <b>Создавать и изменять геометрию</b>: Существует специальный объект нужный вам но не входящий в стандартную комплектацию FreeCAD? Вы легко можете создать новый вид объекта, либо с нуля, либо адаптировав существующий тип.</li>
+<li> <b>Создавать собственные инструменты и команды</b>: На сегодняшний день, FreeCAD уже обладает широкими функциональными возможностями, но пока не хватает многих инструментов и команд для удобства конечного пользователя. Но теперь создавать ваши собственные наборы инструментов стало уже легко.</li>
+<li> <b>Изменять интерфейс</b>: Пользовательский интерфейс FreeCAD на данном этапе простоват. Но у Вас есть все, что нужно для расширения его под ваши нужды. Вы можете, к примеру, создать панель инструментов и пометить туда ваши инструменты, создавать специальные панели для взаимодействия с вашими инструментами и.т.д.</li>
+<li><b>Изменять представление на сцене</b>: В FreeCAD есть разделение процессов построения и вычисления геометрии и отрисовки этой геометрии на вашем экране. У Вас есть полный доступ к способу отображения содержимого на экране, поэтому вы можете изменить представление, взаимодействовать с ним, или добавить различные виды взаимодействия объекта с пользователем и экранные виджеты, как например информационные, перетаскиватели (draggers), якоря (привязки) или временные объекты (для быстрого предпросмотра операции).</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.D0.9D.D0.B0.D1.81.D1.82.D1.80.D0.BE.D0.B9.D0.BA.D0.B0_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">Настройка FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2_FreeCAD"><span class="tocnumber">2</span> <span class="toctext">Написание сценариев FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.D0.9C.D0.BE.D0.B4.D1.83.D0.BB.D0.B8"><span class="tocnumber">2.1</span> <span class="toctext">Модули</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#API_.D0.A4.D1.83.D0.BD.D0.BA.D1.86.D0.B8.D0.B8"><span class="tocnumber">3</span> <span class="toctext">API Функции</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.D0.9F.D1.80.D0.BE.D0.B4.D0.B2.D0.B8.D0.BD.D1.83.D1.82.D1.8B.D0.B5_.D0.BC.D0.BE.D0.B4.D0.B8.D1.84.D0.B8.D0.BA.D0.B0.D1.86.D0.B8.D0.B8"><span class="tocnumber">4</span> <span class="toctext">Продвинутые модификации</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8_.D0.BF.D0.BE_Python"><span class="tocnumber">5</span> <span class="toctext">Учебники по Python</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.D0.9F.D1.80.D0.BE.D0.B5.D0.BA.D1.82.D1.8B_.D1.81.D0.BE.D0.BE.D0.B1.D1.89.D0.B5.D1.81.D1.82.D0.B2.D0.B0"><span class="tocnumber">6</span> <span class="toctext">Проекты сообщества</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".D0.9D.D0.B0.D1.81.D1.82.D1.80.D0.BE.D0.B9.D0.BA.D0.B0_FreeCAD">Настройка FreeCAD</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Interface_Customization/ru" title="Interface Customization/ru">Настройка Интерфейса</a>: Начиная с начала: Панели инструментов и ярлыки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/ru" title="Macros/ru">Работа с макросами</a>: Легкая запись часто повторяющихся задач или python кода</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/ru" title="Macros recipes/ru">Рецепты макросов</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/ru" title="Customize Toolbars/ru">Кустомизация панелей инструментов</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Installing_more_workbenches/ru&amp;action=edit&amp;redlink=1" class="new" title="Installing more workbenches/ru (page does not exist)">Установка дополнительных верстаков</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?t=10556">Plugin Loader</a></li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-addons">Addons installer.FCMacro</a></li></ul>
+<h2><span class="mw-headline" id=".D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2_FreeCAD">Написание сценариев FreeCAD</span></h2>
+<p><b>Основы</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/ru" title="Introduction to Python/ru">Введение в python</a> - См. также другие учебники Python в нижней части этой страницы</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/ru" title="FreeCAD Scripting Basics/ru">основы написания сценариев для FreeCAD</a>: Что сказать, основы ...</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Gui_Command/ru" title="Gui Command/ru">Gui Команды</a>&#160;: Добавление пользовательских команд в GUI</li>
+<li> Использование смешанных <a href="Units.html" title="Units">Единиц измерения</a> в FreeCAD</li></ul>
+<h3><span class="mw-headline" id=".D0.9C.D0.BE.D0.B4.D1.83.D0.BB.D0.B8">Модули</span></h3>
+<p>Функциональность FreeCAD разделена между модулями, работающими со своими типами данных и приложениями. У FreeCADа есть встроенные модули и модули расширения (plug-ins). Когда модули расширений установлены, они становятся доступны вам как встроенные модули. Описываемые ниже модули модули по умолчанию, включённые в любую установку FreeCAD.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Builtin_modules/ru&amp;action=edit&amp;redlink=1" class="new" title="Builtin modules/ru (page does not exist)">Встроенные модули</a> это принципиальные модули FreeCAD. Они содержат инструменты для манипулирования общими конфигурациями FreeCAD, документами и их содержимым.</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Workbench_creation/ru&amp;action=edit&amp;redlink=1" class="new" title="Workbench creation/ru (page does not exist)">Создание верстаков</a> покажет Вам как создать собственных верстак.</li></ul>
+<p><b>Работа с полигиональными сетками</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/ru" title="Mesh Scripting/ru">Написание сценариев для Mesh</a>: Как с ними взаимодействовать смотри в <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/ru" class="mw-redirect" title="Mesh Module/ru">Mesh Модуль</a></li></ul>
+<p><b>Использование OpenCasCade</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модуль Деталей</a>: Как инструменты и структуры OpenCasCade используются в FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/ru" title="Topological data scripting/ru">Сценарии модуля Деталей</a>: Как взаимодействовать с Модулем Деталей</li>
+<li> <a href="PythonOCC.html" title="PythonOCC">pythonOCC</a>: Как раскрыть всю мощь OpenCasCade</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/ru" title="Mesh to Part/ru">Mesh to Part</a>: Преобразование между типами объектов</li></ul>
+<p><b>Получение доступа к отрисовщику сцен - Coin</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/ru" title="Scenegraph/ru">The Coin/Inventor scenegraph</a>: Как работает представление сцен в FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/ru" title="Pivy/ru">Pivy</a>: Как получить доступ и изменить графческое представление сцены</li></ul>
+<p><b>Управление Qt интерфейсом</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=PySide/ru" title="PySide/ru">PySide</a>: Как получить доступ к интерфейсу и изменить его содержание</li>
+<li> <a href="Embedding_FreeCADGui.html" title="Embedding FreeCADGui">Использование FreeCAD GUI</a> в различных Qt приложениях с помощью PyQt</li></ul>
+<p><b>Работа с параметрическими объектами</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/ru" title="Scripted objects/ru">Сценарные объекты</a>: Как создать 100% python-сценарные объекты в FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/ru" title="Drawing Module/ru">Модуль Проецирования</a>: Автоматизация процессов перегона 3D в 2D</li></ul>
+<p><b>Примеры</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/ru" title="Code snippets/ru">Фрагменты кода</a>&#160;: Коллекция фрагментов FreeCAD python кода, в качестве ингредиентов ваших сценариев...</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/ru" title="Line drawing function/ru">Функция отрисовки линии</a>: Как собрать простой инструмент для отрисовки линий</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/ru" title="Dialog creation/ru">Создание диалога</a>: Как сконструировать диалог в Qt designer, и использовать его в FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/ru" title="Embedding FreeCAD/ru">Встраивание FreeCAD</a>: Как импортировать FreeCAD в виде python модуля в другие приложения</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/ru" title="Draft Module/ru">Модуль черчения</a>добавляет основные функции 2d рисования в freecad. Он полностью написан на python, так что может быть хорошим примером если вы хотите писать ваши собственные модули.</li>
+<li> <a href="FreeCAD_vector_math_library.html" title="FreeCAD vector math library">FreeCAD векторная библиотека</a>&#160;: Пара полезных функций для работы с векторами в FreeCAD. Эта библиотека также включена в Чертежный Модуль.</li></ul>
+<h2><span class="mw-headline" id="API_.D0.A4.D1.83.D0.BD.D0.BA.D1.86.D0.B8.D0.B8">API Функции</span></h2>
+<p>Полное описание API можно найти в <a rel="nofollow" class="external free" href="http://www.freecadweb.org/api/">http://www.freecadweb.org/api/</a> . Он содержит программный интерфейс как на C++, так и на Python, и пока не совсем хорошо форматирован, что может мешать при просмотре кода Python. Более простая для просмотра версия доступна <a href="https://www.freecadweb.org/wiki/index.php?title=Category:API/ru" title="Category:API/ru">здесь</a>.  Заметим что он может быть неполным, так как обновляется вручную. Для получения более точной информации, просматривайте модули напрямую из консоли Python FreeCADа.
+</p>
+<h2><span class="mw-headline" id=".D0.9F.D1.80.D0.BE.D0.B4.D0.B2.D0.B8.D0.BD.D1.83.D1.82.D1.8B.D0.B5_.D0.BC.D0.BE.D0.B4.D0.B8.D1.84.D0.B8.D0.BA.D0.B0.D1.86.D0.B8.D0.B8">Продвинутые модификации</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/ru" title="Start up and Configuration/ru">Запуск и настройка</a>: Запуск и параметры командной строки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/ru" title="Install on Windows/ru">Установка в Windows</a>: Использование установщика windows </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/ru" title="CompileOnWindows/ru">Компиляция FreeCAD в Windows</a> и <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/ru" title="CompileOnUnix/ru">Компиляция FreeCAD в Unix</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/ru" title="Branding/ru">Маркирование</a>: Простые изменения, которые вы можете сделать с исходными кодами для изменения некоторых аспектов FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/ru" title="Extra python modules/ru">Дополнительные модули Python</a>&#160;: Расширение интерпретатора python в FreeCAD этими мощными модулями!</li></ul>
+<h2><span class="mw-headline" id=".D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8_.D0.BF.D0.BE_Python">Учебники по Python</span></h2>
+<p>Здесь представлены хорошие общие учебники, без специфики FreeCAD, они могут вас заинтересовать, если для вас python, это что-то свовершенно новое.
+</p><p><b>Python</b>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://docs.python.org/tut/tut.html">Официальный учебник python</a> - весьма полный учебник для знакомства с Python</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python">Учебник по python для не программистов</a> - отличная wikiкнига</li>
+<li> <a rel="nofollow" class="external text" href="http://npt.cc.rsu.ru/user/wanderer/ODP/Python_for_Newbies.htm">Python для новичков</a> - один большой учебник, полностью охватывающий основы</li></ul>
+<p><b>PyQt</b> - Как создавать и управлять FreeCADовским Qt UI интерфейсом с помощью python
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://zetcode.com/gui/pysidetutorial/">PySide tutorial</a>&#160;: Платформонезависимый учебник, показывающий использование PySide с примерами</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythoncentral.io/series/python-pyside-pyqt-tutorial/">PySide/PyQt tutorial</a>&#160;: Легкий в чтении учебник по PySide и PyQt, с примерами</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySideDocumentation">Документация PySide</a>&#160;: от проекта Qt (от тех, кто его написал)</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/QtCreator_and_PySide">Использование QtCreator в PySide</a>&#160;: так же от проекта Qt</li>
+<li> <a rel="nofollow" class="external text" href="http://srinikom.github.io/pyside-docs/index.html">Справка по PySide</a>&#160;: бесконечные детали о minutiae PySide и Qt, надежный источник для справки</li>
+<li> <a rel="nofollow" class="external text" href="http://nullege.com/codes/search?cq=PySide">Примеры кода PySide</a>&#160;: база данных кода PySide с возможностью поиска</li></ul>
+<p>Дальнейшие два ссылаются на специффичные для PyQt (не PySide), но могут предложить некоторую полезную информацию:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.cs.usfca.edu/~afedosov/qttut/">Basic PyQt tutorial</a>&#160;: Простое и короткое, ориентированное на linux руководство, объясняющее работу с PyQt и Qt Designer</li>
+<li> <a rel="nofollow" class="external text" href="http://vizzzion.org/?id=pyqt">Programming Qt applications in python</a>&#160;: Более глубокое руководство, описывающее все процессы работы с qt и python.</li></ul>
+<p><b>Pivy</b> - Как взаимодействовать с  в 3D сценой FreeCADа
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/documentation/pycon">Учебник по основам Pivy</a>&#160;: Очень простой учебник с официального сайта Pivy</li>
+<li> <a rel="nofollow" class="external text" href="http://www.google.com.br/url?sa=U&amp;start=3&amp;q=http://studierstube.icg.tu-graz.ac.at/doc/pdf/PivyStudierstubeTutorial.pdf&amp;ei=XyC1Sc2wOeCKmQem_eHnBQ&amp;usg=AFQjCNEYhb-0DcUc6OxFVijAe1epBb-4aA">Представление Pivy в studiersturbe</a>&#160;: Документ, на самом деле не учебник, но он прекрасно иллюстрирует как работает Pivy</li></ul>
+<h2><span class="mw-headline" id=".D0.9F.D1.80.D0.BE.D0.B5.D0.BA.D1.82.D1.8B_.D1.81.D0.BE.D0.BE.D0.B1.D1.89.D0.B5.D1.81.D1.82.D0.B2.D0.B0">Проекты сообщества</span></h2>
+<p>На <a href="FreeCAD_Community_Portal.html" title="FreeCAD Community Portal">портале Сообщества</a>, вы можете найти другие основанные на FreeCAD проекты запущенные сообществом пользователей FreeCAD. Если вы начинаете новый проект FreeCAD, убедитесь что его нет в списке! У нас также есть страница, с описанием вещей, которые вы могли бы сделать, если хотите <a href="https://www.freecadweb.org/wiki/index.php?title=Help_FreeCAD/ru" title="Help FreeCAD/ru">Помочь FreeCAD</a>.
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/ru&amp;oldid=229614">http://www.freecadweb.org/wiki/index.php?title=Power_users_hub/ru&amp;oldid=229614</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

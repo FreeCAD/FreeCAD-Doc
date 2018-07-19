@@ -1,0 +1,584 @@
+<html><head><title>Macro Guitar fretboard/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Guitar fretboard/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tastiera_per_chitarra"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Tastiera per chitarra</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Crea una tastiera per chitarra.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Ryback08&amp;action=edit&amp;redlink=1" class="new" title="User:Ryback08 (page does not exist)">ryback08</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.2
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-01-25
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tastiera_per_chitarra"><span class="tocnumber">1</span> <span class="toctext">Tastiera per chitarra</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Codice"><span class="tocnumber">3</span> <span class="toctext">Codice</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Link"><span class="tocnumber">4</span> <span class="toctext">Link</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Versioni"><span class="tocnumber">5</span> <span class="toctext">Versioni</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table><a href="https://www.freecadweb.org/wiki/index.php?title=File:Fretboard_freecad2.png" class="image"><img alt="Fretboard freecad2.png" src="480px-Fretboard_freecad2.png" width="480" height="333" srcset="/wiki/images/thumb/f/f1/Fretboard_freecad2.png/720px-Fretboard_freecad2.png 1.5x, /wiki/images/thumb/f/f1/Fretboard_freecad2.png/960px-Fretboard_freecad2.png 2x" /></a>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Guitar Fretboard Maker (Macro), Python scrpit is unbelievable to make complexe form....
+</p><p>This macro creates a conical compound (or not) fretboard with nut and fret slot to export in CAM software
+</p>
+<h2><span class="mw-headline" id="Codice">Codice</span></h2>
+<p><b>Macro Guitar fretboard.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'dialog.ui'
+#
+# Created: Sat Jan 14 00:33:37 2012
+#      by: PyQt4 UI code generator 4.9
+#      
+# WARNING! All changes made in this file will be lost!
+#
+#
+###################################### FREECAD Macro - Draw fretboard guitar #############################################
+# ressource&#160;:                                                                                                            #
+# Freecad dialog creation&#160;: http://sourceforge.net/apps/mediawiki/free-cad/index.php?title=Dialog_creation               #
+# Topological data scripting&#160;: http://sourceforge.net/apps/mediawiki/free-cad/index.php?title=Topological_data_scripting #
+# Fret slot theory&#160;: http://www.jpbourgeois.org/guitar/frets.htm                                                         #
+#                                                                                                                        #
+# For personal use only and / or non-profit use                                                                          #
+# (C)2012 By LEPINE Florent                                                                                              #
+# V0.1  -  2012/03/18                                                                                                    #
+# V0.2  -  2018/01/25&#160;: PySide                                                                                           #
+# Special thanks to FreeCAD team                                                                                         #
+#                                                                                                                        #
+##########################################################################################################################
+#                                                                                                                        #
+#  ### English ###                                                                                                       #
+#  This macro creates a conical compound (or not) fretboard with nut and fret slot to export in CAM software             #                       
+#                                                                                                                        #
+#  ### Francais ###                                                                                                      #
+#  Cette macro creer une touche a radius progressif (ou pas) avec les défonces du sillet et l'emplacement des frettes    #
+#  afin d'etre exporter dans un module de parcourt d'outil CAM                                                           #          
+#                                                                                                                        #
+##########################################################################################################################
+
+
+
+from PySide import QtCore, QtGui
+import FreeCAD, Part
+from FreeCAD import Base
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
+
+   ################################################################################################
+   ######### begin of dialog box definition / debut de la definition de la boite de dialogue ######
+   ################################################################################################
+
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName(_fromUtf8("Dialog"))
+        Dialog.resize(380, 491)
+        self.label_scalelength = QtGui.QLabel(Dialog)
+        self.label_scalelength.setGeometry(QtCore.QRect(10, 30, 271, 21))
+        self.label_scalelength.setToolTip(_fromUtf8(""))
+        self.label_scalelength.setWhatsThis(_fromUtf8(""))
+        self.label_scalelength.setObjectName(_fromUtf8("label_scalelength"))
+        self.lineEdit_scalelength = QtGui.QLineEdit(Dialog)
+        self.lineEdit_scalelength.setGeometry(QtCore.QRect(280, 30, 51, 20))
+        self.lineEdit_scalelength.setWhatsThis(_fromUtf8(""))
+        self.lineEdit_scalelength.setObjectName(_fromUtf8("lineEdit_scalelength"))
+        self.lineEdit_nutwidth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_nutwidth.setGeometry(QtCore.QRect(280, 90, 51, 20))
+        self.lineEdit_nutwidth.setObjectName(_fromUtf8("lineEdit_nutwidth"))
+        self.label_nutwidth = QtGui.QLabel(Dialog)
+        self.label_nutwidth.setGeometry(QtCore.QRect(10, 90, 271, 21))
+        self.label_nutwidth.setToolTip(_fromUtf8(""))
+        self.label_nutwidth.setObjectName(_fromUtf8("label_nutwidth"))
+        self.lineEdit_nutradius = QtGui.QLineEdit(Dialog)
+        self.lineEdit_nutradius.setGeometry(QtCore.QRect(280, 110, 51, 20))
+        self.lineEdit_nutradius.setObjectName(_fromUtf8("lineEdit_nutradius"))
+        self.label_nutradius = QtGui.QLabel(Dialog)
+        self.label_nutradius.setGeometry(QtCore.QRect(10, 110, 271, 21))
+        self.label_nutradius.setToolTip(_fromUtf8(""))
+        self.label_nutradius.setObjectName(_fromUtf8("label_nutradius"))
+        self.lineEdit_bodywidth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_bodywidth.setGeometry(QtCore.QRect(280, 150, 51, 20))
+        self.lineEdit_bodywidth.setObjectName(_fromUtf8("lineEdit_bodywidth"))
+        self.label_bodywidth = QtGui.QLabel(Dialog)
+        self.label_bodywidth.setGeometry(QtCore.QRect(10, 150, 271, 21))
+        self.label_bodywidth.setToolTip(_fromUtf8(""))
+        self.label_bodywidth.setObjectName(_fromUtf8("label_bodywidth"))
+        self.lineEdit_bodyradius = QtGui.QLineEdit(Dialog)
+        self.lineEdit_bodyradius.setGeometry(QtCore.QRect(280, 190, 51, 20))
+        self.lineEdit_bodyradius.setObjectName(_fromUtf8("lineEdit_bodyradius"))
+        self.label_bodyradius = QtGui.QLabel(Dialog)
+        self.label_bodyradius.setGeometry(QtCore.QRect(10, 190, 271, 21))
+        self.label_bodyradius.setToolTip(_fromUtf8(""))
+        self.label_bodyradius.setObjectName(_fromUtf8("label_bodyradius"))
+        self.label_thicknessboard = QtGui.QLabel(Dialog)
+        self.label_thicknessboard.setGeometry(QtCore.QRect(10, 230, 271, 21))
+        self.label_thicknessboard.setToolTip(_fromUtf8(""))
+        self.label_thicknessboard.setObjectName(_fromUtf8("label_thicknessboard"))
+        self.lineEdit_thicknessboard = QtGui.QLineEdit(Dialog)
+        self.lineEdit_thicknessboard.setGeometry(QtCore.QRect(280, 230, 51, 20))
+        self.lineEdit_thicknessboard.setObjectName(_fromUtf8("lineEdit_thicknessboard"))
+        self.label_nfret = QtGui.QLabel(Dialog)
+        self.label_nfret.setGeometry(QtCore.QRect(10, 50, 271, 21))
+        self.label_nfret.setToolTip(_fromUtf8(""))
+        self.label_nfret.setObjectName(_fromUtf8("label_nfret"))
+        self.lineEdit_nfret = QtGui.QLineEdit(Dialog)
+        self.lineEdit_nfret.setGeometry(QtCore.QRect(280, 50, 51, 20))
+        self.lineEdit_nfret.setObjectName(_fromUtf8("lineEdit_nfret"))
+        self.label_fretslotdepth = QtGui.QLabel(Dialog)
+        self.label_fretslotdepth.setGeometry(QtCore.QRect(10, 270, 271, 21))
+        self.label_fretslotdepth.setToolTip(_fromUtf8(""))
+        self.label_fretslotdepth.setObjectName(_fromUtf8("label_fretslotdepth"))
+        self.lineEdit_fretslotdepth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_fretslotdepth.setGeometry(QtCore.QRect(280, 270, 51, 20))
+        self.lineEdit_fretslotdepth.setObjectName(_fromUtf8("lineEdit_fretslotdepth"))
+        self.lineEdit_fretslotwidth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_fretslotwidth.setGeometry(QtCore.QRect(280, 290, 51, 20))
+        self.lineEdit_fretslotwidth.setObjectName(_fromUtf8("lineEdit_fretslotwidth"))
+        self.label_fretslotwidth = QtGui.QLabel(Dialog)
+        self.label_fretslotwidth.setGeometry(QtCore.QRect(10, 290, 271, 21))
+        self.label_fretslotwidth.setToolTip(_fromUtf8(""))
+        self.label_fretslotwidth.setObjectName(_fromUtf8("label_fretslotwidth"))
+        self.label_fretslotmarging = QtGui.QLabel(Dialog)
+        self.label_fretslotmarging.setGeometry(QtCore.QRect(10, 310, 271, 21))
+        self.label_fretslotmarging.setToolTip(_fromUtf8(""))
+        self.label_fretslotmarging.setObjectName(_fromUtf8("label_fretslotmarging"))
+        self.lineEdit_fretslotmarging = QtGui.QLineEdit(Dialog)
+        self.lineEdit_fretslotmarging.setGeometry(QtCore.QRect(280, 310, 51, 20))
+        self.lineEdit_fretslotmarging.setObjectName(_fromUtf8("lineEdit_fretslotmarging"))
+        self.label_nutslotwidth = QtGui.QLabel(Dialog)
+        self.label_nutslotwidth.setGeometry(QtCore.QRect(10, 350, 271, 21))
+        self.label_nutslotwidth.setToolTip(_fromUtf8(""))
+        self.label_nutslotwidth.setObjectName(_fromUtf8("label_nutslotwidth"))
+        self.lineEdit_nutslotwidth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_nutslotwidth.setGeometry(QtCore.QRect(280, 350, 51, 20))
+        self.lineEdit_nutslotwidth.setObjectName(_fromUtf8("lineEdit_nutslotwidth"))
+        self.label_nutslotdepth = QtGui.QLabel(Dialog)
+        self.label_nutslotdepth.setGeometry(QtCore.QRect(10, 370, 271, 21))
+        self.label_nutslotdepth.setToolTip(_fromUtf8(""))
+        self.label_nutslotdepth.setObjectName(_fromUtf8("label_nutslotdepth"))
+        self.lineEdit_nutslotdepth = QtGui.QLineEdit(Dialog)
+        self.lineEdit_nutslotdepth.setGeometry(QtCore.QRect(280, 370, 51, 20))
+        self.lineEdit_nutslotdepth.setObjectName(_fromUtf8("lineEdit_nutslotdepth"))
+        self.OK = QtGui.QPushButton(Dialog)
+        self.OK.setGeometry(QtCore.QRect(150, 440, 75, 23))
+        self.OK.setObjectName(_fromUtf8("OK"))
+        self.lineEdit_lastfretlenght = QtGui.QLineEdit(Dialog)
+        self.lineEdit_lastfretlenght.setGeometry(QtCore.QRect(280, 170, 51, 20))
+        self.lineEdit_lastfretlenght.setObjectName(_fromUtf8("lineEdit_lastfretlenght"))
+        self.label_lastfretlenght = QtGui.QLabel(Dialog)
+        self.label_lastfretlenght.setGeometry(QtCore.QRect(10, 170, 271, 21))
+        self.label_lastfretlenght.setToolTip(_fromUtf8(""))
+        self.label_lastfretlenght.setObjectName(_fromUtf8("label_lastfretlenght"))
+        self.lineEdit_lengthbeforenut = QtGui.QLineEdit(Dialog)
+        self.lineEdit_lengthbeforenut.setGeometry(QtCore.QRect(280, 390, 51, 20))
+        self.lineEdit_lengthbeforenut.setObjectName(_fromUtf8("lineEdit_lengthbeforenut"))
+        self.label_lengthbeforenut = QtGui.QLabel(Dialog)
+        self.label_lengthbeforenut.setGeometry(QtCore.QRect(10, 390, 271, 21))
+        self.label_lengthbeforenut.setToolTip(_fromUtf8(""))
+        self.label_lengthbeforenut.setObjectName(_fromUtf8("label_lengthbeforenut"))
+        self.label_mm_01 = QtGui.QLabel(Dialog)
+        self.label_mm_01.setGeometry(QtCore.QRect(340, 30, 21, 21))
+        self.label_mm_01.setToolTip(_fromUtf8(""))
+        self.label_mm_01.setWhatsThis(_fromUtf8(""))
+        self.label_mm_01.setObjectName(_fromUtf8("label_mm_01"))
+        self.label_mm_02 = QtGui.QLabel(Dialog)
+        self.label_mm_02.setGeometry(QtCore.QRect(340, 90, 21, 21))
+        self.label_mm_02.setToolTip(_fromUtf8(""))
+        self.label_mm_02.setWhatsThis(_fromUtf8(""))
+        self.label_mm_02.setObjectName(_fromUtf8("label_mm_02"))
+        self.label_pouces_2 = QtGui.QLabel(Dialog)
+        self.label_pouces_2.setGeometry(QtCore.QRect(340, 110, 41, 21))
+        self.label_pouces_2.setToolTip(_fromUtf8(""))
+        self.label_pouces_2.setWhatsThis(_fromUtf8(""))
+        self.label_pouces_2.setObjectName(_fromUtf8("label_pouces_2"))
+        self.label_pouces_1 = QtGui.QLabel(Dialog)
+        self.label_pouces_1.setGeometry(QtCore.QRect(340, 190, 41, 21))
+        self.label_pouces_1.setToolTip(_fromUtf8(""))
+        self.label_pouces_1.setWhatsThis(_fromUtf8(""))
+        self.label_pouces_1.setObjectName(_fromUtf8("label_pouces_1"))
+        self.label_mm_03 = QtGui.QLabel(Dialog)
+        self.label_mm_03.setGeometry(QtCore.QRect(340, 170, 21, 21))
+        self.label_mm_03.setToolTip(_fromUtf8(""))
+        self.label_mm_03.setWhatsThis(_fromUtf8(""))
+        self.label_mm_03.setObjectName(_fromUtf8("label_mm_03"))
+        self.label_mm_04 = QtGui.QLabel(Dialog)
+        self.label_mm_04.setGeometry(QtCore.QRect(340, 230, 21, 21))
+        self.label_mm_04.setToolTip(_fromUtf8(""))
+        self.label_mm_04.setWhatsThis(_fromUtf8(""))
+        self.label_mm_04.setObjectName(_fromUtf8("label_mm_04"))
+        self.label_mm_05 = QtGui.QLabel(Dialog)
+        self.label_mm_05.setGeometry(QtCore.QRect(340, 270, 21, 21))
+        self.label_mm_05.setToolTip(_fromUtf8(""))
+        self.label_mm_05.setWhatsThis(_fromUtf8(""))
+        self.label_mm_05.setObjectName(_fromUtf8("label_mm_05"))
+        self.label_mm_06 = QtGui.QLabel(Dialog)
+        self.label_mm_06.setGeometry(QtCore.QRect(340, 290, 21, 21))
+        self.label_mm_06.setToolTip(_fromUtf8(""))
+        self.label_mm_06.setWhatsThis(_fromUtf8(""))
+        self.label_mm_06.setObjectName(_fromUtf8("label_mm_06"))
+        self.label_mm_07 = QtGui.QLabel(Dialog)
+        self.label_mm_07.setGeometry(QtCore.QRect(340, 310, 21, 21))
+        self.label_mm_07.setToolTip(_fromUtf8(""))
+        self.label_mm_07.setWhatsThis(_fromUtf8(""))
+        self.label_mm_07.setObjectName(_fromUtf8("label_mm_07"))
+        self.label_mm_08 = QtGui.QLabel(Dialog)
+        self.label_mm_08.setGeometry(QtCore.QRect(340, 350, 21, 21))
+        self.label_mm_08.setToolTip(_fromUtf8(""))
+        self.label_mm_08.setWhatsThis(_fromUtf8(""))
+        self.label_mm_08.setObjectName(_fromUtf8("label_mm_08"))
+        self.label_mm_09 = QtGui.QLabel(Dialog)
+        self.label_mm_09.setGeometry(QtCore.QRect(340, 370, 21, 21))
+        self.label_mm_09.setToolTip(_fromUtf8(""))
+        self.label_mm_09.setWhatsThis(_fromUtf8(""))
+        self.label_mm_09.setObjectName(_fromUtf8("label_mm_09"))
+        self.label_mm_10 = QtGui.QLabel(Dialog)
+        self.label_mm_10.setGeometry(QtCore.QRect(340, 390, 21, 21))
+        self.label_mm_10.setToolTip(_fromUtf8(""))
+        self.label_mm_10.setWhatsThis(_fromUtf8(""))
+        self.label_mm_10.setObjectName(_fromUtf8("label_mm_10"))
+        self.label_mm_11 = QtGui.QLabel(Dialog)
+        self.label_mm_11.setGeometry(QtCore.QRect(340, 150, 21, 21))
+        self.label_mm_11.setToolTip(_fromUtf8(""))
+        self.label_mm_11.setWhatsThis(_fromUtf8(""))
+        self.label_mm_11.setObjectName(_fromUtf8("label_mm_11"))
+
+        self.dialog = Dialog  ### Add to close windows at end of macro
+
+
+
+        self.retranslateUi(Dialog)
+        QtCore.QObject.connect(self.OK,QtCore.SIGNAL("pressed()"),self.createFretboard)    ###### See Freecad doc - connect pushbuton #####
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self.lineEdit_scalelength, self.lineEdit_nfret)
+        Dialog.setTabOrder(self.lineEdit_nfret, self.lineEdit_nutwidth)
+        Dialog.setTabOrder(self.lineEdit_nutwidth, self.lineEdit_nutradius)
+        Dialog.setTabOrder(self.lineEdit_nutradius, self.lineEdit_bodywidth)
+        Dialog.setTabOrder(self.lineEdit_bodywidth, self.lineEdit_lastfretlenght)
+        Dialog.setTabOrder(self.lineEdit_lastfretlenght, self.lineEdit_bodyradius)
+        Dialog.setTabOrder(self.lineEdit_bodyradius, self.lineEdit_thicknessboard)
+        Dialog.setTabOrder(self.lineEdit_thicknessboard, self.lineEdit_fretslotdepth)
+        Dialog.setTabOrder(self.lineEdit_fretslotdepth, self.lineEdit_fretslotwidth)
+        Dialog.setTabOrder(self.lineEdit_fretslotwidth, self.lineEdit_fretslotmarging)
+        Dialog.setTabOrder(self.lineEdit_fretslotmarging, self.lineEdit_nutslotwidth)
+        Dialog.setTabOrder(self.lineEdit_nutslotwidth, self.lineEdit_nutslotdepth)
+        Dialog.setTabOrder(self.lineEdit_nutslotdepth, self.lineEdit_lengthbeforenut)
+        Dialog.setTabOrder(self.lineEdit_lengthbeforenut, self.OK)
+
+
+
+
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Fretboard Maker", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_scalelength.setText(QtGui.QApplication.translate("Dialog", "Scale Length - Diapason", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_scalelength.setText(QtGui.QApplication.translate("Dialog", "648", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_nutwidth.setText(QtGui.QApplication.translate("Dialog", "43", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_nutwidth.setText(QtGui.QApplication.translate("Dialog", "Width at nut - Largeur au sillet", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_nutradius.setText(QtGui.QApplication.translate("Dialog", "10", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_nutradius.setText(QtGui.QApplication.translate("Dialog", "Radius at nut - Rayon au sillet", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_bodywidth.setText(QtGui.QApplication.translate("Dialog", "52", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_bodywidth.setText(QtGui.QApplication.translate("Dialog", "Width at body - Largeur au Corps", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_bodyradius.setText(QtGui.QApplication.translate("Dialog", "16", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_bodyradius.setText(QtGui.QApplication.translate("Dialog", "Radius at body - Rayon au Corps", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_thicknessboard.setText(QtGui.QApplication.translate("Dialog", "Board thickness - Epaisseur de touche", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_thicknessboard.setText(QtGui.QApplication.translate("Dialog", "7", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_nfret.setText(QtGui.QApplication.translate("Dialog", "No. of frets - No. de frettes", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_nfret.setText(QtGui.QApplication.translate("Dialog", "24", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_fretslotdepth.setText(QtGui.QApplication.translate("Dialog", "Depth of fret slot - Pronfondeur rainure de frette", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_fretslotdepth.setText(QtGui.QApplication.translate("Dialog", "3", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_fretslotwidth.setText(QtGui.QApplication.translate("Dialog", "0.6", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_fretslotwidth.setText(QtGui.QApplication.translate("Dialog", "Width of fret slot - Largeur rainure de frette", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_fretslotmarging.setText(QtGui.QApplication.translate("Dialog", "Marge  - Marge par rapport au bord", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_fretslotmarging.setText(QtGui.QApplication.translate("Dialog", "2.5", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_nutslotwidth.setText(QtGui.QApplication.translate("Dialog", "Width of nut slot - largeur du sillet", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_nutslotwidth.setText(QtGui.QApplication.translate("Dialog", "15.5", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_nutslotdepth.setText(QtGui.QApplication.translate("Dialog", "depth of nut slot - profondeur du sillet", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_nutslotdepth.setText(QtGui.QApplication.translate("Dialog", "4", None, QtGui.QApplication.UnicodeUTF8))
+        self.OK.setText(QtGui.QApplication.translate("Dialog", "Create&#160;!", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_lastfretlenght.setText(QtGui.QApplication.translate("Dialog", "8", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_lastfretlenght.setText(QtGui.QApplication.translate("Dialog", "length after last fret - Deport apres la dernière frette", None, QtGui.QApplication.UnicodeUTF8))
+        self.lineEdit_lengthbeforenut.setText(QtGui.QApplication.translate("Dialog", "4", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_lengthbeforenut.setText(QtGui.QApplication.translate("Dialog", "length before nut slot - Deport avant le sillet", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_01.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_02.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_pouces_2.setText(QtGui.QApplication.translate("Dialog", "pouces", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_pouces_1.setText(QtGui.QApplication.translate("Dialog", "pouces", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_03.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_04.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_05.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_06.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_07.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_08.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_09.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_10.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_mm_11.setText(QtGui.QApplication.translate("Dialog", "mm", None, QtGui.QApplication.UnicodeUTF8))
+
+
+   ############################################################################################
+   ######### end of dialog box definition / fin de la definition de la boite de dialogue ######
+   ############################################################################################
+
+
+    def createFretboard(self):
+       try:
+           #################################################################
+           ####### first we check if valid numbers have been entered #######
+           #################################################################
+           scalelength = float(self.lineEdit_scalelength.text())# diapason
+           nutwidth = float(self.lineEdit_nutwidth.text())# largeur de la touche au sillet
+           nutradius = float(self.lineEdit_nutradius.text())# radius de la touche au sillet
+           bodywidth = float(self.lineEdit_bodywidth.text())# largeur de la touche à la dernière frette
+           bodyradius = float(self.lineEdit_bodyradius.text())# radius de la touche à la dernière frette
+           thicknessboard = float(self.lineEdit_thicknessboard.text())# epaisseur de la touche
+           nfret = int(self.lineEdit_nfret.text())                          # nombre de frettes
+           fretslotdepth = float(self.lineEdit_fretslotdepth.text())# profondeur du solt des frettes
+           fretslotwidth = float(self.lineEdit_fretslotwidth.text())        # epaisseur du slot des frettes
+           marging = float(self.lineEdit_fretslotmarging.text())            # deport du slot des frettes par rapport au bord
+           nutslotwitdh = float(self.lineEdit_nutslotwidth.text())          # longueur du sillet
+           nutslotdepth = float(self.lineEdit_nutslotdepth.text())          # profondeur du sillet
+           lastfretlenght = float(self.lineEdit_lastfretlenght.text())# espace entre la derniere frette et la fin de la touche
+           lengthbeforenut = float(self.lineEdit_lengthbeforenut.text())# espace restant avant le sillet
+
+
+
+       except ValueError:
+           print "Error! values must be valid numbers!"
+           return None
+
+
+
+
+       else:
+           ##### convert all value in float #####
+           scalelength = float(scalelength)
+           nutwidth = float(nutwidth)
+           nutradius = float(nutradius * 25.4)  # pouces value in mm
+           bodywidth = float(bodywidth)
+           bodyradius = float(bodyradius * 25.4)   # pouces value in mm
+           thicknessboard = float(thicknessboard)
+           nfret = float(nfret)
+           fretslotdepth = float(fretslotdepth)
+           fretslotwidth = float(fretslotwidth)
+           marging = float(marging)
+           nutslotwitdh = float(nutslotwitdh)
+           nutslotdepth = float(nutslotdepth)
+           lastfretlenght = float(lastfretlenght)
+           lengthbeforenut = float(lengthbeforenut)
+           print "ok, All Values are good, Let's go"
+
+
+           ########################################################################
+           print "1 - Create freatboard bottom"
+           ########################################################################
+
+           endfretboard = scalelength * (1 - (1. / 2) ** (nfret / 12)) + lastfretlenght  # distance at last fret (see formule) + lastfretlengt
+
+           ########                   Fretboard Vector                        ######
+           vnb1 = FreeCAD.Vector(0, (nutwidth / 2), 0)                                   # Vector Nut Bottom 1
+           vbb1 = FreeCAD.Vector(endfretboard, (bodywidth / 2), 0)                       # Vector Body Bottom 1
+           vbb2 = FreeCAD.Vector(endfretboard,(-bodywidth / 2), 0)
+           vnb2 = FreeCAD.Vector(0, (-nutwidth / 2), 0)
+
+           ########                      Nut Vector                            ######
+           vbnb1 = FreeCAD.Vector(-(lengthbeforenut + nutslotwitdh), (nutwidth / 2), 0)  # Vector Before Nut Bottom 1
+           vbnb2 = FreeCAD.Vector(-(lengthbeforenut + nutslotwitdh), -(nutwidth / 2), 0)
+
+           ########                         Draw                               ######
+           pointslist = [vbnb1,vnb1,vbb1,vbb2,vnb2,vbnb2,vbnb1]
+           fretboardwire = Part.makePolygon(pointslist)
+           #Part.show(fretboardwire)
+           fretboardbottom = Part.Face(fretboardwire)
+           #Part.show(fretboardbottom)
+           fbextrude=fretboardbottom.extrude(Base.Vector(0,0,thicknessboard*2))
+           #Part.show(fbextrude)
+          
+
+
+           ########################################################################
+           print "2 - Create freatboard top (radius)"
+           ########################################################################
+
+           ########## radius at begin of fretbaord (fefore nut slot) ##############
+           cn1 = Part.makeCircle(nutradius, Base.Vector(-(lengthbeforenut + nutslotwitdh),0,-nutradius + thicknessboard), Base.Vector(1,0,0), 70, 110)
+           #Part.show(cn1)
+
+           ############# radius at end of fretboard - radius en fin de touche #####
+           cn2 = Part.makeCircle(bodyradius, Base.Vector(endfretboard,0,-bodyradius + thicknessboard), Base.Vector(1,0,0), 70, 110)
+           #Part.show(cn2)
+
+           ################## face of 2 radius - assemblage des 2 radius ###########
+           compradius = Part.makeRuledSurface(cn1,cn2)
+           #Part.show(compradius)
+           ftextrude=compradius.extrude(Base.Vector(0,0,-thicknessboard*2))
+           #Part.show(ftextrude)
+
+
+           ########################################################################
+           print "3 - regroup fretboard bottom &amp; top"
+           ########################################################################
+           cleanfretboard = ftextrude.common(fbextrude)
+           #Part.show(cleanfretboard)
+
+           ########################################################################
+           print "4 - make nut"
+           ########################################################################
+           ########                      Nut Vector                          ######
+           vnt1 = FreeCAD.Vector(0, (nutwidth / 2), thicknessboard)
+           vnt2 = FreeCAD.Vector(0, -(nutwidth / 2), thicknessboard)
+           vnt3 = FreeCAD.Vector(-(nutslotwitdh), (nutwidth / 2), thicknessboard)                
+           vnt4 = FreeCAD.Vector(-(nutslotwitdh), -(nutwidth / 2), thicknessboard)
+
+           ########                     Draw nut                             ######
+           pointslist = [vnt1,vnt2,vnt4,vnt3,vnt1]
+           nutwire = Part.makePolygon(pointslist)
+           nutface = Part.Face(nutwire)
+           nutextrude=nutface.extrude(Base.Vector(0,0,-nutslotdepth))
+           #Part.show(nutextrude)
+
+           ########################################################################
+           print "5 - Add nut"
+           ########################################################################
+           fretboardnut = cleanfretboard.cut(nutextrude)
+           #Part.show(fretboardnut)
+
+           ########################################################################
+           print "6 - Add ", int(nfret), " slot fret with ", scalelength, " scale length"
+           ########################################################################
+
+
+           #####################################################################
+           ##############   Radius on fretboard - depth fret slot   ############
+           #####################################################################
+           fretslotradius=compradius.extrude(Base.Vector(0,0,-fretslotdepth))         # radius (top of fretboard) minus fret slot depth 
+
+
+           #####################################################################
+           ##############   outline fretboard - margin fret slot    ############
+           #####################################################################
+           vnb1fs = FreeCAD.Vector(0, (nutwidth / 2) - marging, 0)                    # Vector Nut Bottom 1 Fret slot
+           vbb1fs = FreeCAD.Vector(endfretboard, (bodywidth / 2) - marging, 0)        # Vector Body Bottom 1 Fret slot
+           vbb2fs = FreeCAD.Vector(endfretboard, - ((bodywidth / 2) - marging), 0)
+           vnb2fs = FreeCAD.Vector(0, - ((nutwidth / 2) - marging), 0)
+           pointslistfs = [vnb1fs,vbb1fs,vbb2fs,vnb2fs,vnb1fs]
+           fretboardwirefs = Part.makePolygon(pointslistfs)
+           #Part.show(fretboardwire)
+           fretboardbottomfs = Part.Face(fretboardwirefs)
+           #Part.show(fretboardbottom)
+           fbextrudefs=fretboardbottomfs.extrude(Base.Vector(0,0,thicknessboard*2))   # fretboardbottom with marging
+           i=0
+           incnfret = 0
+           while (incnfret &lt; nfret ):                                                 # draw all fret
+                 incnfret = incnfret + 1                 
+                 nxslot = scalelength * (1 - (1. / 2) ** (float(incnfret) / 12))      # see formule to calcul fret length
+                 print incnfret, " = ", round(nxslot,2) , " mm"                       
+   
+
+                 #####################################################################
+                 ##############             Fret slot n° X                ############
+                 #####################################################################         
+                 vnfs1 = FreeCAD.Vector (nxslot - (fretslotwidth / 2),   bodywidth, 0)      # Vector Nfret slot
+                 vnfs2 = FreeCAD.Vector (nxslot + (fretslotwidth / 2),   bodywidth, 0)
+                 vnfs3 = FreeCAD.Vector (nxslot + (fretslotwidth / 2), - bodywidth, 0)
+                 vnfs4 = FreeCAD.Vector (nxslot - (fretslotwidth / 2), - bodywidth, 0)                 
+                 pointslistvnfs = [vnfs1,vnfs2,vnfs3,vnfs4,vnfs1]
+                 nslotwire = Part.makePolygon(pointslistvnfs)
+                 nslotextrude = Part.Face(nslotwire)
+                 
+                 while (i &lt;= 1 ):
+                        i = i + 1  
+                        nslot = nslotextrude.extrude(Base.Vector(0,0,thicknessboard*2))
+                 else:
+                        nslot2 = nslotextrude.extrude(Base.Vector(0,0,thicknessboard*2))
+                        nslot = nslot.fuse(nslot2) 
+                
+           else:
+
+                  nslot3 = fbextrudefs.common(nslot)                                         # assembling all part (radium, bottom and fret)
+                  nslot4 = fretslotradius.common(nslot3)
+                  fretboardfinal = fretboardnut.cut(nslot4)    
+                  #Part.show(fretboardfinal)
+                  objet_fretboard = App.ActiveDocument.addObject("Part::Feature","Fretboard")
+                  objet_fretboard.Shape = fretboardfinal
+
+
+                  print "end of fretboard"
+                  
+           ########################################################################
+           print "6 - Add Scale Length"
+           ########################################################################
+           Plane_scale_length = Part.makePlane( thicknessboard * 2 , nutwidth * 2 ,Base.Vector(scalelength,nutwidth,0) , Base.Vector(1,0,0)) #makePlane(length,width,[start_pnt,dir_normal])
+           #Part.show (Plane_scale_length)
+           objet_diapason = App.ActiveDocument.addObject("Part::Feature","Diapason")
+           objet_diapason.Shape = Plane_scale_length
+
+           ###### close windows when macro is done #####
+           self.dialog.hide()
+
+
+
+class Fretboard():
+    if App.ActiveDocument is None&#160;:   # create new document call 'Fretboard' if no document is open
+         doc = App.newDocument("Fretboard")
+    dialog = QtGui.QWidget() 
+    dialog.ui = Ui_Dialog()
+    dialog.ui.setupUi(dialog)
+    dialog.show() </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p><a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=24&amp;t=5827">Guitar fretboard macro / guitar body</a>
+</p>
+<h2><span class="mw-headline" id="Versioni">Versioni</span></h2>
+<ul><li>Version 0.1&#160;: 2012-03-16</li>
+<li>Version 0.2&#160;: 2018-01-25&#160;: convert to PySide</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Guitar_fretboard/it&amp;oldid=254424">http://www.freecadweb.org/wiki/index.php?title=Macro_Guitar_fretboard/it&amp;oldid=254424</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

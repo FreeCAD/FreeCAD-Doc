@@ -1,0 +1,130 @@
+<html><head><title>Macro Rectellipse/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Rectellipse/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Rectellipse_Macro"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Rectellipse Macro</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descripción
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Crea una rectelipse paramétrica
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Fcaponi78&amp;action=edit&amp;redlink=1" class="new" title="User:Fcaponi78 (page does not exist)">fcaponi78</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Vista
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/es" title="Macros recipes/es">Macros recipes</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/es" title="How to install macros/es">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/es" title="Customize Toolbars/es">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Fecha de la última modificación
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2013-12-24
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Rectellipse_Macro"><span class="tocnumber">1</span> <span class="toctext">Rectellipse Macro</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Crea una rectelipse paramétrica
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Rectellipse.png" class="image"><img alt="Rectellipse.png" src="Rectellipse.png" width="379" height="236" /></a>
+</p>
+<div style="clear:both"></div>
+<pre>from __future__ import division # allows floating point division from integers
+import FreeCAD, Part, math
+from FreeCAD import Base
+
+class RectEllipseShape:
+   def __init__(self, obj):
+      ''' Add the properties: Radius, Eccentricity, Height, Segments (see Property View) '''
+      obj.addProperty("App::PropertyLength","a","Rectellipse","A - horizontal radius").a = 16.0
+      obj.addProperty("App::PropertyLength","b","Rectellipse","B - vertical radius").b = 9.0
+      obj.addProperty("App::PropertyFloat","n","Rectellipse","N ").n=0.2
+      obj.addProperty("App::PropertyBool","createFace","Rectellipse","Wheter to create a face or not").createFace=True
+      obj.Proxy = self
+
+   def onChanged(self, fp, prop):
+      if prop == "a" or prop == "b" or prop == "n" or prop == "segments" or prop == "height" or prop == "createFace":
+         #if one of these is changed
+         self.execute(fp)
+
+   def execute(self, fp):
+      r1=fp.a
+      r2=fp.b
+      s=fp.n
+      z=0.0
+      p=1.0
+      ####w=2**0.5/2.0 #Ellipse
+      w=2**0.5/2.0/(1-s**p)
+      curve=Part.BSplineCurve()
+      curve.setPeriodic()
+      curve.increaseDegree(2) #quadratic
+      curve.insertKnots([i*1.0/(4) for i in (1,2,3)],[2]*(3)) #5Knots 8 Poles
+      curve.setPole(1,FreeCAD.Vector(0,-r2,z),1)
+      curve.setPole(2,FreeCAD.Vector(-r1,-r2,z),w)
+      curve.setPole(3,FreeCAD.Vector(-r1,0,z),1)
+      curve.setPole(4,FreeCAD.Vector(-r1,r2,z),w)
+      curve.setPole(5,FreeCAD.Vector(0,r2,z),1)
+      curve.setPole(6,FreeCAD.Vector(r1,r2,z),w)
+      curve.setPole(7,FreeCAD.Vector(r1,0,z),1)
+      curve.setPole(8,FreeCAD.Vector(r1,-r2,z),w)
+      if fp.createFace == True:
+         fp.Shape = Part.Face(Part.Wire(curve.toShape()))
+      else:
+         fp.Shape = curve.toShape()
+
+def makeRectellipseBlock():
+   doc = FreeCAD.activeDocument()
+   if doc == None:
+      doc = FreeCAD.newDocument()
+   obj=doc.addObject("Part::FeaturePython","RectEllipseShape") #add object to document
+   obj.Label = "RectEllipsse"
+   RectEllipseShape(obj)
+   obj.ViewObject.Proxy=0
+   viewObject = Gui.ActiveDocument.getObject(obj.Name)
+   viewObject.ShapeColor = (0.00,0.33,1.00)
+   viewObject.DisplayMode = "Flat Lines"
+   obj.Shape.check()
+
+if __name__ == "__main__":
+   #feature will be generated after macro execution
+   makeRectellipseBlock() </pre>
+<p><a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-macros/blob/master/ParametricObjectCreation/Rectellipse.FCMacro">Get the code from Github here!</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Rectellipse/es&amp;oldid=240350">http://www.freecadweb.org/wiki/index.php?title=Macro_Rectellipse/es&amp;oldid=240350</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

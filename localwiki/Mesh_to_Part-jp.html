@@ -1,0 +1,104 @@
+<html><head><title>Mesh to Part/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh to Part/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><h2><span class="mw-headline" id="Part.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.82.92.E3.83.A1.E3.83.83.E3.82.B7.E3.83.A5.E3.81.AB.E5.A4.89.E6.8F.9B.E3.81.99.E3.82.8B">Partオブジェクトをメッシュに変換する</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Part形状</a>のような上位レベルのオブジェクトを <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">メッシュ</a>のような単純なオブジェクトに変換するのは比較的簡単な処理です。Partオブジェクトの全ての面を三角形に変換して、結果の三角形（モザイク）をメッシュ構築に使用すればいいのです：
+</p>
+<pre># ドキュメントには一つだけPartオブジェクトが入っているとしましょう
+import Mesh
+faces = []
+shape = FreeCAD.ActiveDocument.ActiveObject.Shape
+triangles = shape.tessellate(1) # この数値がモザイクの精度を表します
+for tri in triangles[1]:
+    face = []
+    for i in range(3):
+        vindex = tri[i]
+        face.append(triangles[0][vindex])
+    faces.append(face)
+m = Mesh.Mesh(faces)
+Mesh.show(m)
+</pre>
+<p>ときたまOpenCascadeが出力する特定の面の三角形が非常にいびつな場合があります。もし面に長方形パラメータ空間があり、穴やトリム曲線が無ければ独自にメッシュを作成することもできます：
+</p>
+<pre>import Mesh
+def makeMeshFromFace(u,v,face):
+(a,b,c,d)=face.ParameterRange
+pts=[]
+for j in range(v):
+for i in range(u):
+s=1.0/(u-1)*(i*b+(u-1-i)*a)
+t=1.0/(v-1)*(j*d+(v-1-j)*c)
+pts.append(face.valueAt(s,t))
+
+mesh=Mesh.Mesh()
+for j in range(v-1):
+for i in range(u-1):
+mesh.addFacet(pts[u*j+i],pts[u*j+i+1],pts[u*(j+1)+i])
+mesh.addFacet(pts[u*(j+1)+i],pts[u*j+i+1],pts[u*(j+1)+i+1])
+
+return mesh
+</pre>
+<h2><span class="mw-headline" id=".E3.83.A1.E3.83.83.E3.82.B7.E3.83.A5.E3.82.92Part.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AB.E5.A4.89.E6.8F.9B.E3.81.99.E3.82.8B">メッシュをPartオブジェクトに変換する</span></h2>
+<p>メッシュからPartオブジェクトへの変換はCADでの作業でも非常に重要な操作です。他の人たちからメッシュ形式の3Dデータを受け取ったり、他のアプリケーションからメッシュ形式の3Dデータを出力するというのはよくあることだからです。自由形状や大きな描画シーンを表現する場合にはメッシュは非常に実用的です。とても軽量だからです。しかしCADでの用途を考えた場合、一般的には三角形ではなく曲線で作成された面やソリッドなど、もっと多くの情報を保持できるより上位のオブジェクトの方が好まれます。
+</p><p>メッシュからこういった（FreeCADの<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>で扱われる様な ）上位オブジェクトへの変換は簡単な処理ではありません。メッシュは数千もの三角形で構成されている場合もありますし（例えば3Dスキャナーによって生成されている場合）、面と同じだけの数のソリッドを持った場合には処理がとんでもなく重くなることも考えられます。従って多くの場合、変換時に最適化を施す必要があるのです。
+</p><p>FreeCADでは現在、メッシュをPartオブジェクトに変換する二つのメソッドが用意されています。一つ目は単純なもので何の最適化も施さずに直接変換を行います：
+</p>
+<pre>import Mesh,Part
+mesh = Mesh.createTorus()
+shape = Part.Shape()
+shape.makeShapeFromMesh(mesh.Topology,0.05) # 二つ目の引数は縫い合わせの許容誤差です
+solid = Part.makeSolid(shape)
+Part.show(solid)
+</pre>
+<p>二つ目のメソッドではメッシュの二つのファセットが作る角度が特定の値を下回る場合にその二つを同一面とみなします。これによってより単純な形状が作成できるのです：
+</p>
+<pre># ドキュメントには一つだけMeshオブジェクトが入っているとしましょう
+import Mesh,Part,MeshPart
+faces = []
+mesh = App.ActiveDocument.ActiveObject.Mesh
+segments = mesh.getPlanes(0.00001) # ここではより厳しい許容誤差を使用します
+
+for i in segments:
+  if len(i) &gt; 0:
+     # 線分は内部に穴を持つことができます
+     wires = MeshPart.wireFromSegment(mesh, i)
+     # 外部境界が最大のバウンディングボックスを持つものであると仮定します
+     if len(wires) &gt; 0:
+        ext=None
+        max_length=0
+        for i in wires:
+           if i.BoundBox.DiagonalLength &gt; max_length:
+              max_length = i.BoundBox.DiagonalLength
+              ext = i
+
+        wires.remove(ext)
+        # 内部のワイヤーが全てマークされ、向きが反転されなければなりません。さもなければPart.Faceが失敗します
+        for i in wires:
+           i.reverse()
+
+        # 外部のワイヤーがリストの先頭になっていることを確認してください
+        wires.insert(0, ext)
+        faces.append(Part.Face(wires))
+
+shell=Part.Compound(faces)
+Part.show(shell)
+#solid = Part.Solid(Part.Shell(faces))
+#Part.show(solid)
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/jp&amp;oldid=211436">http://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/jp&amp;oldid=211436</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

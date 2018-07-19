@@ -1,0 +1,246 @@
+<html><head><title>FreeCAD-Ship s60 tutorial/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD-Ship s60 tutorial/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Ambiente Navale
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Base
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Caricare_la_geometria"><span class="tocnumber">2</span> <span class="toctext">Caricare la geometria</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Introduzione"><span class="tocnumber">2.1</span> <span class="toctext">Introduzione</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Loading_Series_60_geometry"><span class="tocnumber">2.2</span> <span class="toctext">Loading Series 60 geometry</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Creare_un.27istanza_barca"><span class="tocnumber">3</span> <span class="toctext">Creare un'istanza barca</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Dati_della_nave"><span class="tocnumber">3.1</span> <span class="toctext">Dati della nave</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Lines_drawing"><span class="tocnumber">4</span> <span class="toctext">Lines drawing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Transversal_cuts"><span class="tocnumber">4.1</span> <span class="toctext">Transversal cuts</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Sezioni_longitudinali"><span class="tocnumber">4.2</span> <span class="toctext">Sezioni longitudinali</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Waterlines"><span class="tocnumber">4.3</span> <span class="toctext">Waterlines</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Tracciare_il_piano_di_costruzione"><span class="tocnumber">4.4</span> <span class="toctext">Tracciare il piano di costruzione</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Curva_delle_aree_trasversali"><span class="tocnumber">5</span> <span class="toctext">Curva delle aree trasversali</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Dati_in_ingresso"><span class="tocnumber">5.1</span> <span class="toctext">Dati in ingresso</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Dati_in_uscita"><span class="tocnumber">5.2</span> <span class="toctext">Dati in uscita</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Idrostatica"><span class="tocnumber">6</span> <span class="toctext">Idrostatica</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Approfondire_le_conoscenze_su_FreeCAD-Ship"><span class="tocnumber">7</span> <span class="toctext">Approfondire le conoscenze su FreeCAD-Ship</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+In questo tutorial lavoreremo con una barca della Serie 60, dell'Università di Iowa. L'esercitazione ha lo scopo di mostrare come lavorare con una imbarcazione monoscafo simmetrica, ma le imbarcazioni multiscafo o non simmetriche possono essere create con la stessa procedura.
+</p><p>You can learn more about <a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship here</a>
+</p>
+<h2><span class="mw-headline" id="Caricare_la_geometria">Caricare la geometria</span></h2>
+<h3><span class="mw-headline" id="Introduzione">Introduzione</span></h3>
+<p>FreeCAD-Ship lavora su delle <b>entità Ship</b> che devono essere create preventivamente sulla base delle geometrie fornite. La geometria deve essere un solido, o un insieme di solidi, e deve rispettare i seguenti criteri:
+</p>
+<ul><li> Deve essere fornita tutta la geometria dello scafo (comprese le barche simmetriche).</li>
+<li> La geometria di dritta, di tribordo, deve essere posizionata nel dominio <i>Y negativa</i>.</li>
+<li> L'origine (0,0,0) si trova nel punto di intersezione della <b>sezione maestra</b> (Punto medio tra la perpendicolare di poppa e quella di prua) e la <b>linea di base</b>.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-SignCriteria.jpg" class="image" title="Schematic view of sign criteria"><img alt="Schematic view of sign criteria" src="FreeCAD-Ship-SignCriteria.jpg" width="400" height="400" /></a></div></div>
+<center><span style="font-variant:small-caps">Descrizione dei requisiti della forma base</span></center>
+<h3><span class="mw-headline" id="Loading_Series_60_geometry">Loading Series 60 geometry</span></h3>
+<p>In order to help new users FreeCAD-Ship includes a geometries examples loader, with the following to choose from:
+</p>
+<ul><li>Series 60 from Iowa University</li>
+<li>Wigley Canonical Ship</li>
+<li>Series 60 Catamaran</li>
+<li>Wigley Catamaran</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-LoadIco.png" class="image" title="Example ship geometries loader icon."><img alt="Example ship geometries loader icon." src="FreeCAD-Ship-LoadIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps"> Ship Geometries Examples loader icon</span></center>
+<p>Eseguendo lo strumento (Caricare una geometria modello di nave) si apre una finestra di dialogo. Selezionare <b>Series 60 da Iowa Università</b> e premere il pulsante OK. Lo strumento carica un nuovo documento con la geometria <b>s60_IowaUniversity</b>
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><center><b>Attenzione, prima di modificare qualsiasi cosa!</b></center>
+<center>Ora si sta lavorando con il file originale del modello.</center>
+<center>Per preservare l'esempio originale, senza modificarlo, <b>è necessario salvarlo come nuovo file, prima di apportare delle modifiche</b></center></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Creare_un.27istanza_barca">Creare un'istanza barca</span></h2>
+<p>Per creare una <b>Ship instance</b> (una istanza della barca) selezionare la geometria s60 ed eseguire lo strumento <b>ship creation</b> (disegna/crea una nuova barca).
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-Ico.png" class="image" title="Ship creation tool."><img alt="Ship creation tool." src="FreeCAD-Ship-Ico.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento <b>ship creation</b></span></center>
+<p>Appare il dialogo per la Creazione della barca e nella vista 3D viene mostrata la sua sagoma con alcune annotazioni. Non preoccupatevi delle annotazioni perché vengono rimosse quando si chiude lo strumento di creazione della nave.
+</p><p>Devono essere introdotti i dati principali della nave (FreeCAD-Ship utilizza un sistema di introduzione dei dati progressivo, in questo modo le operazioni di base possono essere eseguite utilizzando i dati di base della nave, e le ulteriori informazioni sono necessarie solo quando le operazioni diventano più complesse).
+</p>
+<h3><span class="mw-headline" id="Dati_della_nave">Dati della nave</span></h3>
+<p>Le dimensioni principali che devono essere introdotte qui:
+</p>
+<ul><li> <i>Length</i>: lunghezza tra le perpendicolari, 25,5 m per questo scafo.</li>
+<li> <i>Beam</i>: baglio, larghezza massima della barca, 3,389 m per questo scafo.</li>
+<li> <i>Draft</i>: immersione, 1.0 m  per questo scafo.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60ShipCreationFront.png" class="image" title="Front view annotations"><img alt="Front view annotations" src="FreeCAD-Ship-S60ShipCreationFront.png" width="1027" height="126" /></a></div></div>
+<center><span style="font-variant:small-caps">Annotazioni di lunghezza nella vista frontale.</span></center>
+<p>La distanza tra le perpendicolari dipende dall'immersione, quindi se non si conosce la lunghezza tra le perpendicolari è possibile impostare l'immersione e regolare la lunghezza in modo da ottenere l'intersezione del dritto o ruota di prua (linea superiore della prua) con la <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Linea_di_galleggiamento">linea di galleggiamento</a>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60ShipCreationSide.png" class="image" title="Side view annotations"><img alt="Side view annotations" src="FreeCAD-Ship-S60ShipCreationSide.png" width="286" height="180" /></a></div></div>
+<center><span style="font-variant:small-caps">Annotazioni sulla vista laterale.</span></center>
+<p>Lo stesso procedimento è valido per il baglio. Si noti che viene richiesto  il valore del <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Baglio_%28nautica%29">baglio maestro</a> (larghezza massima) , ma l'annotazione si riferisce solo alla metà di dritta della barca.
+</p><p>Quando si preme il pulsante <b>OK</b>, il programma crea la nuova istanza barca, questa nuova istanza è denominata <b>Ship</b> nell'albero <i> Etichette e Attributi</i>. Ora la geometria originale non è più necessaria, quindi è possibile nasconderla.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-ShipInstance.png" class="image" title="Ship instance icon"><img alt="Ship instance icon" src="FreeCAD-Ship-ShipInstance.png" width="32" height="32" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento istanza.</span></center>
+<p>Da questo punto in poi, è necessario che <b>Ship</b> sia sempre selezionata prima di eseguire qualsiasi strumento di FreeCAD-Ship.
+</p>
+<h2><span class="mw-headline" id="Lines_drawing">Lines drawing</span></h2>
+<p>FreeCAD-Ship provides a tool that makes it easy to obtain a Lines Plan from the ship lines drawing
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-OutlineDrawIco.png" class="image" title="Outline draw tool."><img alt="Outline draw tool." src="FreeCAD-Ship-OutlineDrawIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Lines drawing tool icon</span></center>
+<p>Lines drawing is a set of lines from section cuts in all 3 axis,  that will eventually show the hull geometry in a Lines Plan. We need to provide the lines for the 3 following views:
+</p>
+<ul><li>Body Plan (using the Transversal Cuts)</li>
+<li>Sheer Plan (using the Longitudinals Cuts)</li>
+<li>Half-Breadth Plan (using the Waterlines Cuts)</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Transversal_cuts">Transversal cuts</span></h3>
+<p>Usually 21 transversal equidistant sections between perpendiculars must be performed. in order to do it FreeCAD provides an automatic tool in order to do it, simply select <b>Transversal</b> type of sections, go to <b>Auto create</b> box and set <b>21</b> sections, then press <b>Create sections</b>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:S60OutlineTransversal.png" class="image" title="Outline draw transversal sections preview."><img alt="Outline draw transversal sections preview." src="S60OutlineTransversal.png" width="645" height="343" /></a></div></div>
+<center><span style="font-variant:small-caps">Anteprima della vista delle sezioni trasversali</span></center>
+<p>Viene compilata la tabella delle sezioni e si crea un nuovo oggetto chiamato OutlineDraw che permette di visualizzare l'anteprima delle sezioni adottate. Di solito si producono delle sezioni più ravvicinate nelle zone prossime alla poppa e alla prua, dove la curvatura più pronunciata; per fare questo basta andare alla fine della tabella e fare <b>doppio clic</b> nella riga vuota, aggiungere un nuovo valore e premere Invio per confermare. Aggiungere manualmente le seguenti due sezioni:
+</p>
+<ul><li> X<sub>22</sub> = -12.1125 m</li>
+<li> X<sub>23</sub> =  12.1125 m</li></ul>
+<p>Secondo la complessità della geometria dello scafo, l'anteprima delle sezioni può richiedere del tempo per essere elaborata.
+</p>
+<h3><span class="mw-headline" id="Sezioni_longitudinali">Sezioni longitudinali</span></h3>
+<p>Devono essere aggiunte due sezioni longitudinali, quindi selezionare <b>Longitudinal</b> come tipo di sezione, andare nel dialogo <b>Auto create</b> e impostare <b>2</b> nel campo delle sezioni, poi premere <b>Create sections</b>. Viene compilata la tabella delle sezioni e viene aggiornata l'anteprima.
+</p>
+<h3><span class="mw-headline" id="Waterlines">Waterlines</span></h3>
+<p>6 Waterlines between base line and design draft must be added, so select <b>Waterlines</b> type of sections, go to <b>Auto create</b> box and set <b>5</b> (Z = 0 m will not be considered, add it manually if you need it) sections, then press <b>Create sections</b>. Sections table is filled, and sections preview updated.
+</p><p>Several additional waterlines must be added:
+</p>
+<ul><li> Z<sub>6</sub> = 1.2 m</li>
+<li> Z<sub>7</sub> = 1.4 m</li>
+<li> Z<sub>8</sub> = 1.6 m</li>
+<li> Z<sub>9</sub> = 1.8 m</li>
+<li> Z<sub>10</sub> = 2.0 m</li></ul>
+<h3><span class="mw-headline" id="Tracciare_il_piano_di_costruzione">Tracciare il piano di costruzione</span></h3>
+<p>Selezionare una scala <b>1:100</b> e premere <b>Accept</b> per fare in modo che lo strumento generi le sezioni 3D in un nuovo oggetto.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60Outline3DSections.png" class="image" title="Resultant sections."><img alt="Resultant sections." src="FreeCAD-Ship-S60Outline3DSections.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">Sezioni risultanti.</span></center>
+<p>Per disegnare queste sezioni si può utilizzare il modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Workbench/it" class="mw-redirect" title="Drawing Workbench/it">Drawing</a>:
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60OutlinePlot.png" class="image" title="Outline draw plot."><img alt="Outline draw plot." src="FreeCAD-Ship-S60OutlinePlot.png" width="948" height="283" /></a></div></div>
+<center><span style="font-variant:small-caps">Proiezione dei piani.</span></center>
+<h2><span class="mw-headline" id="Curva_delle_aree_trasversali">Curva delle aree trasversali</span></h2>
+<p>Un parametro idrodinamico tipico della progettazione navale è la curva delle aree trasversali che fornisce alcuni indicatori sul comportamento della carena (resistenza all'avanzamento, comportamento in mare, ...). FreeCAD-Ship offre uno strumento semplice per tracciare la curva delle aree trasversali.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-AreaCurveIco.png" class="image" title="Transversal areas curve tool icon."><img alt="Transversal areas curve tool icon." src="FreeCAD-Ship-AreaCurveIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento per tracciare le curve delle aree trasversali.</span></center>
+<p>Quando si esegue questo strumento appare la finestra di dialogo delle azioni e nella vista 3D viene mostrata una anteprima della superficie del mare (l'anteprima della superficie del mare viene rimossa quando lo strumento viene chiuso, quindi non preoccupatevene). Nella finestra di dialogo sono presenti dei dati in ingresso e dei dati in uscita.
+</p>
+<h3><span class="mw-headline" id="Dati_in_ingresso">Dati in ingresso</span></h3>
+<p>Devono essere forniti i valori di Draft e di Trim (Immersione e Assetto) (l'angolo di rotazione dello scafo attorno a <i>y</i> è positivo se l'immersione di poppa può aumentare). Si possono produrre le curve di diverse aree, a seconda delle condizioni di carico della nave, però si devono eseguire due grafici tipici:
+</p>
+<ul><li> Curva dell'area trasversale di progetto: senza angolo di assetto e utilizzando l'immersione di progetto, 1,0 m in questo caso.</li></ul>
+<ul><li> Curva dell'area trasversale massima: senza angolo di assetto e con immersione massima consentita, 2,0 m in questo caso.</li></ul>
+<h3><span class="mw-headline" id="Dati_in_uscita">Dati in uscita</span></h3>
+<p>Alcuni dati rilevanti vengono visualizzati in tempo reale:
+</p>
+<ul><li> <b>L</b>: Lunghezza fra le perpendicolari, valore impostato al momento della creazione dell'istanza nave.</li>
+<li> <b>B</b>: Baglio, larghezza impostata al momento della creazione della nave.</li>
+<li> <b>T</b>: Immersione attuale della sezione maestra.</li>
+<li> <b>Trim</b>: Angolo di assetto.</li>
+<li> <b>T<sub>AP</sub></b>: Immersione nella perpendicolare avanti, prora.</li>
+<li> <b>T<sub>FP</sub></b>: Immersione nella perpendicolare addietro, poppa .</li>
+<li> <b>Displacement</b>: Dislocamento della nave (considerando acqua salata, quindi dividere per 1,025 per conoscere volume spostato).</li>
+<li> <b>XCB</b>: Coordinata X del Centro di carena (relativa alla sezione maestra).</li></ul>
+<p>Quando si preme il pulsante <b>OK</b> viene prodotto il grafico (secondo la complessità della geometria può richiedere del tempo, si può vedere l'avanzamento dell'elaborazione nel terminale e si può fermarla premendo <b>Ctrl + C</b>). Quando l'attività è terminata FreeCAD genera un grafico (vedere la documentazione del modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Plot</a>) e un foglio di calcolo (vedere la documentazione del modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/it" title="Spreadsheet Workbench/it">Spreadsheet</a>).
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-s60Areas-it.png" class="image" title="Design draft transversal areas curve."><img alt="Design draft transversal areas curve." src="FreeCAD-Ship-s60Areas-it.png" width="729" height="503" /></a></div></div>
+<center><span style="font-variant:small-caps">Curva dell'area trasversale dell'immersione di progetto. </span></center>
+<p>In modo analogo è possibile eseguire la curva dell'area trasversale di massima immersione per evidenziare le differenze (per esempio l'area della curva che passa per le perpendicolari di poppa o di prua).
+</p>
+<h2><span class="mw-headline" id="Idrostatica">Idrostatica</span></h2>
+<p>Il calcolo idrostatico è una fase chiave nella progettazione navale, esso fornisce i principali parametri di stabilità dello scafo. Le società di classificazione richiedono tali informazioni per certificare le navi, che, insieme alle informazioni sulle condizioni di carico (pesi e posizione di gravità) forniscono i dati essenziali sulla stabilità della nave. FreeCAD-Ship offre uno strumento per ottenere le principali curve idrostatiche (le curve GZ sono elaborate con un altro strumento).
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-HydrostaticsIco.png" class="image" title="Hydrostatics tool icon."><img alt="Hydrostatics tool icon." src="FreeCAD-Ship-HydrostaticsIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento Idrostatica.</span></center>
+<p>Quando questo strumento viene eseguito appare la finestra di dialogo delle azioni per inserire il valore dell'immersione e l'angolo di assetto. Solitamente le curve idrostatiche sono presentate in un intervallo di immersione per ogni angolo di assetto. In questo tutorial sarà considerato solo l'angolo 0 º con un ampio intervallo di immersione, per ogni condizione di carico possibile. Dato che non si conoscono le condizioni di carico che si possono verificare, si considerano diverse possibilità di immersione (Di solito, al fine di ottenere il maggior numero di risoluzioni possibili, gli architetti navali adottano l'intervallo plausibile per le immersioni).
+</p><p>Quindi impostare i seguenti valori:
+</p>
+<ul><li> <b>Trim</b> = 0º</li>
+<li> <b>Minimum Draft</b> = 0.1 m</li>
+<li> <b>Maximum Draft</b> = 2.0 m</li>
+<li> <b>Number of points</b> = 39. Un gran numero di punti o geometrie molto complesse implicano lunghi tempi di calcolo, in questo caso può essere necessario circa 1 minuto.</li></ul>
+<p>Quando si preme il pulsante <b>OK</b> viene prodotto  un grafico (vedere la documentazione del modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Plot</a>) e un foglio di calcolo (vedere la documentazione del modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/it" title="Spreadsheet Workbench/it">Spreadsheet</a>).
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-HydrostaticsCurves.jpg" class="image" title="Hydrostatics curves."><img alt="Hydrostatics curves." src="FreeCAD-Ship-HydrostaticsCurves.jpg" width="1280" height="303" /></a></div></div>
+<center><span style="font-variant:small-caps">Curve Idrostatiche. </span></center>
+<h2><span class="mw-headline" id="Approfondire_le_conoscenze_su_FreeCAD-Ship">Approfondire le conoscenze su FreeCAD-Ship</span></h2>
+<p>Ora si è pronti per continuare la lettura su <a href="https://www.freecadweb.org/wiki/index.php?title=Ship_Workbench/it" title="Ship Workbench/it">Ship</a>, <a href="/wiki/FreeCAD-Ship_s60_tutorial_(II)/it" title="FreeCAD-Ship s60 tutorial (II)/it">qui</a> c'è il secondo capitolo sulle barche della Serie 60, dell'Università di Iowa.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial/it&amp;oldid=214600">http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial/it&amp;oldid=214600</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

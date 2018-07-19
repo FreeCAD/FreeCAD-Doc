@@ -1,0 +1,193 @@
+<html><head><title>Assembly project/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Assembly project/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Voici, le détail du projet module <b> Assembly </b> (Assemblage) dans le cadre du <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/fr" title="Development roadmap/fr">Development roadmap</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Buts_et_principes"><span class="tocnumber">1</span> <span class="toctext">Buts et principes</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A9sultats"><span class="tocnumber">2</span> <span class="toctext">Résultats</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Des_id.C3.A9es"><span class="tocnumber">3</span> <span class="toctext">Des idées</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Mod.C3.A8le_multiple"><span class="tocnumber">3.1</span> <span class="toctext">Modèle multiple</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Gestion_du_projet"><span class="tocnumber">3.2</span> <span class="toctext">Gestion du projet</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Droits_d.27auteurs"><span class="tocnumber">3.3</span> <span class="toctext">Droits d'auteurs</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#ISO_10303"><span class="tocnumber">3.4</span> <span class="toctext">ISO 10303</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Assemblages_et_contraintes"><span class="tocnumber">3.5</span> <span class="toctext">Assemblages et contraintes</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Cin.C3.A9matique"><span class="tocnumber">3.6</span> <span class="toctext">Cinématique</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Contr.C3.B4le_des_mises_.C3.A0_jour"><span class="tocnumber">3.7</span> <span class="toctext">Contrôle des mises à jour</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Organisation"><span class="tocnumber">4</span> <span class="toctext">Organisation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Infrastructure"><span class="tocnumber">4.1</span> <span class="toctext">Infrastructure</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Multi_mod.C3.A8le"><span class="tocnumber">4.1.1</span> <span class="toctext">Multi modèle</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Part-Arbres"><span class="tocnumber">4.1.2</span> <span class="toctext">Part-Arbres</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Interface_unifi.C3.A9e_Drag.2FDrop.2FCopy.2FPaste"><span class="tocnumber">4.1.3</span> <span class="toctext">Interface unifiée Drag/Drop/Copy/Paste</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Ressources_externes"><span class="tocnumber">4.1.4</span> <span class="toctext">Ressources externes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#Mat.C3.A9riel"><span class="tocnumber">4.2</span> <span class="toctext">Matériel</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Mod.C3.A8les_d.27objets"><span class="tocnumber">4.3</span> <span class="toctext">Modèles d'objets</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#STEP_check_loop"><span class="tocnumber">5</span> <span class="toctext">STEP check loop</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="#Solveur_d.27assemblage_de_constraintes"><span class="tocnumber">5.1</span> <span class="toctext">Solveur d'assemblage de constraintes</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Interface_de_simulation_physique"><span class="tocnumber">5.2</span> <span class="toctext">Interface de simulation physique</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="#Actions_suivantes"><span class="tocnumber">6</span> <span class="toctext">Actions suivantes</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="#Tutorial"><span class="tocnumber">7</span> <span class="toctext">Tutorial</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Buts_et_principes">Buts et principes</span></h2>
+<p>Il s'agit d'un projet de développement logiciel visant à mettre en place un assemblage, et, des capacités de création de produits.
+C'est une implémentation de certaines <b>caractéristiques de base</b> sur les modules CAD de FreeCAD, <b>Part and Assembly</b>.
+</p><p>Les étapes de développement sont planifiées et suivies avec un numéro, pour obtenir un journal des changements bien documenté&#160;: 
+<a rel="nofollow" class="external text" href="http://apps.sourceforge.net/mantisbt/free-cad/my_view_page.php">Issue tracker</a>
+</p>
+<h2><span class="mw-headline" id="R.C3.A9sultats">Résultats</span></h2>
+<p>Le but du projet est de permettre aux utilisateurs de FreeCAD d'accomplir une conception comme celle-ci&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Gripper.jpg" class="image"><img alt="Gripper.jpg" src="400px-Gripper.jpg" width="400" height="355" srcset="/wiki/images/thumb/7/78/Gripper.jpg/600px-Gripper.jpg 1.5x, /wiki/images/thumb/7/78/Gripper.jpg/800px-Gripper.jpg 2x" /></a>
+</p><p>elle sera obtenue à l'aide d'un <b>assemblage</b> avec tous les différents types de pièces et contraintes, et, de rester aussi proche que possible de la spécification <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Standard_pour_l&#39;échange_de_données_de_produit">ISO 10303</a></b> pour permettre l'échange facile de données. 
+</p><p>Un autre objectif, est d'utiliser <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Open_Dynamics_Engine">ODE</a></b> pour la <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Cinématique">cinématique</a>.
+</p>
+<h2><span class="mw-headline" id="Des_id.C3.A9es">Des idées</span></h2>
+<h3><span class="mw-headline" id="Mod.C3.A8le_multiple">Modèle multiple</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:MultiModel.png" class="image"><img alt="MultiModel.png" src="600px-MultiModel.png" width="600" height="341" srcset="/wiki/images/thumb/7/70/MultiModel.png/900px-MultiModel.png 1.5x, /wiki/images/thumb/7/70/MultiModel.png/1200px-MultiModel.png 2x" /></a></div>
+<p>Une caractéristique clé de conception du monde réel, est la capacité de fractionner une conception en morceaux maniables. Il est impossible de travailler sur tous les aspects de la conception en même temps ou séparément. C'est vrai pour les formes géométriques et aussi, pour les tâches d'ingénierie comme <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Méthode_des_éléments_finis">FEM</a> ou <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Fabrication_assistée_par_ordinateur">CAM</a>.<br />
+Il faut que FreeCAD aie la possibilité de fractionner les modèles.<br />
+Cela ouvre quelques possibilités&#160;:<br />
+</p>
+<ul><li> <b>Fin de chargement</b> -seulement besoin de ressources telles que les graphiques et de la mémoire vive pour le projet, sur lequel vous travaillez.</li>
+<li> <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Ingénierie_concourante"><b>ingénierie concourante</b></a>-permet à beaucoup de personnes de travailler sur le même projet.</li>
+<li> <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Gestion_de_versions"><b> Contrôle de Version</b></a>-mieux contrôler les différents aspects de la conception, et bien d'autres choses encore....</li></ul>
+<p>Un multi projet pourrait ressembler à ceci&#160;:
+</p>
+<h3><span class="mw-headline" id="Gestion_du_projet">Gestion du projet</span></h3>
+<p>Multi modèle, signifie, beaucoup de fichiers appartenant à un seul projet, probablement dans un répertoire commun.<br />
+Un fichier de projet, et, un navigateur de projet peuvent être utiles pour organiser les fichiers. Il peut également enregistrer des informations supplémentaires sur le projet ou un site Web du projet.
+</p><p>Deux modes, le mode <b>Simple</b> et le mode <b>Projet</b>.
+</p>
+<ul><li>1. Le mode <b>simple</b>, est un document qui réunit tous les assemblages et pièces dans un seul document. Si un projet est ouvert ou créé, FreeCAD est en mode projet.</li></ul>
+<ul><li>2. Le mode <b>projet</b>, la position du fichier <b>.FCPrj</b> sur le disque est définit dans un répertoire racine.<br /></li></ul>
+<p>Tous les fichiers dans le répertoire ci-dessous sont définis avec les chemins d'accès relatifs à la racine.<br />
+Une vue supplémentaire sur le côté gauche concerne le <b>ProjectExplorer</b> qui montre l’historique des fichiers manipulés.<br />
+Le répertoire racine est également utilisé en tant que root pour, un <b>SVN sand box</b>, ce qui permet de contrôler, la version du fichier et le partager facilement.<br />
+Les références externes, (vers un chemin à l'extérieur de la racine, un partage de serveur ou une ressource web) seront manipulés et montrés de manière indépendantes dans le <b>ProjectExplorer</b> (un pseudo chemin pour chaque serveur de fichiers ou serveur web).<br />
+Cela permet d'obtenir un aperçu rapide, sur les références externes et les réacheminer.
+</p>
+<h3><span class="mw-headline" id="Droits_d.27auteurs">Droits d'auteurs</span></h3>
+<p>Le droit d'auteur des modèles 3D est maintenant un champ intéressant. Les modèles 3D relèvent du droit d'auteur.
+Le droit d'auteur appartient au créateur du projet 3D. IL est seulement possible de protéger la forme géométrique, qui est représentée par le modèle, par un brevet ou un brevet de conception (US).<br />
+Mais les brevets couvrent uniquement la création d'une forme physique pour gagner de l'argent. À titre d'exemple, <a rel="nofollow" class="external text" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=D464,651.PN.&amp;OS=PN/D464,651&amp;RS=PN/D464,651">le brevet de conception de souris Microsoft</a>.
+</p><p>Nous ne devons donc pas oublier le créateur (titulaire du droit d'auteur) et tout type de licence pour chaque modèle/produit/fichier de conception.<br />
+Pour la licence, j'utiliserais les licences de type <a rel="nofollow" class="external text" href="http://creativecommons.org/">Créative Commons</a>.
+</p><p>Abbreviation Keys for CC licenses:
+</p>
+<ul><li> BY = Attribution only</li>
+<li> BY-ND = Attribution-NoDerivatives</li>
+<li> BY-NC-ND = Attribution-NonCommercial- NoDerivatives</li>
+<li> BY-NC = Attribution-NonCommercial</li>
+<li> BY-NC-SA = Attribution-NonCommercial- ShareAlike</li>
+<li> BY-SA = Attribution-ShareAlike</li>
+<li> PD = Dedicated to or marked as being in the public domain via one of our public domain tools, or other public domain work; adaptations of works in the public domain may be built upon and licensed by the creator under any license terms desired </li></ul>
+<p>Additional a URL link to the full license document (in case of custom licenses)
+</p>
+<h3><span class="mw-headline" id="ISO_10303">ISO 10303</span></h3>
+<p>La norme <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/ISO_10303">ISO 10303</a> (STEP) est très importante dans ce domaine. C'est le seul bon standard, largement diffusé et reconnu sur la définition des structures de produits que je connaisse.
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Product_structure_modeling_Process-Data_diagram.gif" class="image"><img alt="Product structure modeling Process-Data diagram.gif" src="500px-Product_structure_modeling_Process-Data_diagram.gif" width="500" height="556" srcset="/wiki/images/thumb/f/f7/Product_structure_modeling_Process-Data_diagram.gif/750px-Product_structure_modeling_Process-Data_diagram.gif 1.5x, /wiki/images/f/f7/Product_structure_modeling_Process-Data_diagram.gif 2x" /></a></div>
+<p>Ici, certains liens avec des info&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/ISO_10303">ISO 10303</a> sur Wikipedia</li>
+<li> <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Main_Page">WikiStep.org</a> avec beaucoup d'informations de base, mais surtout sur <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/STEP-NC">STEP-NC</a></li>
+<li> La <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Product_Basics">structure de base</a> dans STEP</li>
+<li> Certains <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/STEP_Tutorial">exemples</a> sur STEP</li>
+<li> <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Express">ISO 10303-11</a> sur le modeling language (EXPRESS)</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Structure_Modeling">A Wikipedia article</a> sur product modeling</li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part41">Overview of Part 41 -- Principes fondamentaux de la description du produit et du soutien</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part44">Overview of Part 44 (edition 2) -- Produit, Structure, Configuration</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/ap214/index.html">petits exemples AP 214 fichiers</a></li></ul>
+<h3><span class="mw-headline" id="Assemblages_et_contraintes">Assemblages et contraintes</span></h3>
+<p>Un rôle important dans la construction de gros projets prendre les contraintes de l'assemblage, qui formulent certaines règles sur la manière d'assembler les pièces d'un produit. Principalement, ce sont <b>Fix, FaceToFace, Angle, Offset</b> et certains type d'instanciation du modèle.<br />
+Si les pièces changent, un solveur spécialisé de contraintes a besoin de les suivre.
+Ce solveur est fondamentalement différent du solveur de Sketch. Je pense que nous devons avoir une approche graphique basée sur lui...
+</p>
+<h3><span class="mw-headline" id="Cin.C3.A9matique">Cinématique</span></h3>
+<p>Une autre étape serait d'utiliser <a rel="nofollow" class="external text" href="http://ode.org/">ODE</a>, ou librairies similaires, pour assembler les pièces et les contraintes permettant de faire une simulation cinématique du système mécanique. Cela permettrait de visualiser le système mécanique en situation de fonctionnement et de vérifier d'éventuelles collisions.
+</p>
+<h3><span class="mw-headline" id="Contr.C3.B4le_des_mises_.C3.A0_jour">Contrôle des mises à jour</span></h3>
+<p>Un point important est le contrôle de version et de développement distribué. Avec la conception de multi modèle, nous sommes capables de fractionnez des projets en petits morceaux et pouvons distribuer le travail à plusieurs équipes.<br />
+Pour un développeur de logiciels «&#160;distribuer&#160;» et «&#160;Version&#160;» sont familiers, alors pourquoi ne pas utiliser un <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Gestion_de_version_décentralisée#Gestion_de_versions_d.C3.A9centralis.C3.A9e">CVL</a>.
+Une bonne comparaison est <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comparison_of_revision_control_software#Technical_information">ici</a>.
+</p><p>Puisque nous traitons de gros volumes de données, qui ne peuvent pas être facilement comparable, nous sommes limités à ceux qui utilisent le modèle persistant.<br />
+Tout système d'archivage aura de graves problèmes avec nos données (testés personnellement avec les fichiers <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Mercurial">Mercurial</a> et <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/CATIA">Catia</a>).
+Après séparation entre les commerciaux et le non libre, restent essentiellement le <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Git">Git</a> et le <a rel="nofollow" class="external text" href="http://subversion.apache.org/">SVN</a>.
+</p><p>Faire le travail à l'aide de Git, nous laisse avec deux alternatives&#160;:
+</p>
+<ul><li> Git est très complexe&#160;; Fusion des ramifications et de marquage le long d'un chemin de développement non linéaire, sans parler de fusion avec des référentiels distants (push, pull) mettra beaucoup de complexité dans cette affaire. Le cacher à l'utilisateur sera une tâche ardue.</li>
+<li> Git permet la fusion aux gestionnaires et Diff pour certains types de fichiers&#160;; Nous avons besoin d'un gestionnaire pour <b>.fcstd</b>. Ce gestionnaire doit examiner deux documents FreeCAD les inspecte et fusionne les différences dans les objets, les caractéristiques et paramètres. Cela aussi n'est pas facile&#160;!</li></ul>
+<p>Mais, l'utilisation de git ouvre beaucoup de possibilités, nous pourrions même rêver d'un système PLM de première classe...
+</p>
+<h2><span class="mw-headline" id="Organisation">Organisation</span></h2>
+<p>Ici certaines tâches de développement nécessaires à une conception pour un assemblage convenable&#160;: 
+</p>
+<h3><span class="mw-headline" id="Infrastructure">Infrastructure</span></h3>
+<p>l'ensemble demande des changements dans le système de base, et la couche de l'infrastructure de FreeCAD.
+</p>
+<h4><span class="mw-headline" id="Multi_mod.C3.A8le">Multi modèle</span></h4>
+<p>Le multi-modèle est prévu depuis le début de la conception de FreeCAD. Nous avons donc une interface multi documents, et, nous pouvons charger un nombre illimité de documents.<br />
+Mais, nous avons besoin particulièrement de mettre à jour la visionneuse 3D, et de gérer plusieurs documents dans plusieurs vues (Part-Trees).
+</p>
+<h4><span class="mw-headline" id="Part-Arbres">Part-Arbres</span></h4>
+<p>La composition de l'assemblage des pièces et des sous-ensembles est le flux principal du travail, les outils de groupage (stack) des pièces dans un arbre doivent être mis en oeuvre.<br />
+Contrairement à un <b>DocumentObjectGroup</b>, le groupe de l'assemblage doit faire face à la visibilité et le positionnement des "enfants".<br />
+Le mieux est de faire l'empilage ViewProvider l'un sur l'autre. Pour cela nous avons besoin d'une sorte d'interface ClaimChildren() pour les ViewProviders. 
+</p>
+<h4><span class="mw-headline" id="Interface_unifi.C3.A9e_Drag.2FDrop.2FCopy.2FPaste">Interface unifiée Drag/Drop/Copy/Paste</span></h4>
+<p>Une interface permet un contrôle total <b>ViewProvider</b> et regroupe les opérations  <b>glisser/déplacer/copier/coller</b> dans l'arbre ou dans la vue 3D. 
+</p>
+<h4><span class="mw-headline" id="Ressources_externes">Ressources externes</span></h4>
+<p>Manipulation des liens "dopés" (à partir de navigateurs internes ou externes). Moyens de chargement de ressources sur les connexions potentiellements lentes (http).
+</p>
+<h3><span class="mw-headline" id="Mat.C3.A9riel">Matériel</span></h3>
+<p>Décrire le matériel et ses propriétés est un sujet essentiell d'un système de CAO/DAO. Les matériau possèdent beaucoup de propriétés et de noms, fortement dépendants de leurs utilisation. Par exemple FEM et génie mécanique, ont des manières et normes différentes pour décrire le matériel. 
+</p><p>Pour la désignation du matériel, une page spéciale est ouverte&#160;: <a href="https://www.freecadweb.org/wiki/index.php?title=Material/fr" title="Material/fr">Matériel</a>
+</p>
+<h3><span class="mw-headline" id="Mod.C3.A8les_d.27objets">Modèles d'objets</span></h3>
+<p>Arbre de classe pour le traitement avec les concepts nécessaires. Références, interfaces, documents, liens, vues, composés, contraintes, configurations et beaucoup plus...
+</p>
+<h2><span class="mw-headline" id="STEP_check_loop">STEP check loop</span></h2>
+<p>Implementing a first STEP importer for more then geometry and color to check if the object model holds for a wider usage. 
+</p>
+<h3><span class="mw-headline" id="Solveur_d.27assemblage_de_constraintes">Solveur d'assemblage de constraintes</span></h3>
+<p>Définir l'interface d'un solveur d'assemblage de contraintes très similaire à l'interface du solveur d'esquisse.
+</p>
+<h3><span class="mw-headline" id="Interface_de_simulation_physique">Interface de simulation physique</span></h3>
+<p>Interface permettant à un logiciel de simulation physique (externe) (multi), de prendre le contrôle de la position des parties de l'assemblage.<br />
+Cela permettrait d'utiliser le "bullet" ou "ODE" à faire des tests de cinématiques et <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Maquette_numérique">DMU</a> (Digital Mock-Up).
+</p>
+<h2><span class="mw-headline" id="Actions_suivantes">Actions suivantes</span></h2>
+<ul><li> Modeles d'objets </li>
+<li> wait for the 0.12 release branch happened </li></ul>
+<h2><span class="mw-headline" id="Tutorial">Tutorial</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Assembly_Basic_Tutorial/fr" title="Assembly Basic Tutorial/fr">Assembly Basic Tutorial</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Assembly_project/fr&amp;oldid=122365">http://www.freecadweb.org/wiki/index.php?title=Assembly_project/fr&amp;oldid=122365</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,148 @@
+<html><head><title>Path Workbench/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Path Workbench/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduzione"><span class="tocnumber">1</span> <span class="toctext">Introduzione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Link_per_gli_impazienti"><span class="tocnumber">1.1</span> <span class="toctext">Link per gli impazienti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Concetti_generali"><span class="tocnumber">2</span> <span class="toctext">Concetti generali</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Units"><span class="tocnumber">3</span> <span class="toctext">Units</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#I_comandi_di_Path"><span class="tocnumber">4</span> <span class="toctext">I comandi di Path</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Lavorazione"><span class="tocnumber">4.1</span> <span class="toctext">Lavorazione</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Vestizioni"><span class="tocnumber">4.2</span> <span class="toctext">Vestizioni</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Comandi_parziali"><span class="tocnumber">4.3</span> <span class="toctext">Comandi parziali</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Modifica_percorso"><span class="tocnumber">4.4</span> <span class="toctext">Modifica percorso</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Altro"><span class="tocnumber">4.5</span> <span class="toctext">Altro</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#preferenze"><span class="tocnumber">4.6</span> <span class="toctext">preferenze</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Script"><span class="tocnumber">5</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#FAQ"><span class="tocnumber">6</span> <span class="toctext">FAQ</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduzione">Introduzione</span></h2>
+<p>L'ambiente Path viene utilizzato per produrre delle istruzioni macchina di tipo <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/CNC_router">CNC machines</a> da un modello 3D di FreeCAD. Con questo si producono oggetti 3D reali su macchine CNC come fresatrici, torni, macchine a taglio laser o simili. In genere, le istruzioni sono in un dialetto <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/G-Code">G-Code</a>
+</p><p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Pathwb.png" class="image"><img alt="Pathwb.png" src="840px-Pathwb.png" width="840" height="472" srcset="/wiki/images/thumb/8/8d/Pathwb.png/1260px-Pathwb.png 1.5x, /wiki/images/8/8d/Pathwb.png 2x" /></a></div></div>
+<p><br />
+L'ambiente Path di FreeCAD crea le istruzioni macchina con il seguente flusso di lavoro:
+</p>
+<ul><li> L'oggetto base è un modello 3D, che in genere viene creato utilizzando uno o più ambienti quali <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">Part Design</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/it" class="mw-redirect" title="Part Workbench/it">Part</a> o <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Workbench/it" class="mw-redirect" title="Draft Workbench/it">Draft</a>.</li>
+<li> L'ambiente Path crea una <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Job/it" title="Path Job/it">Lavorazione</a>. Essa contiene tutte le informazioni necessarie per generare il codice G necessario per eseguire il lavoro su una fresatrice CNC: c'è il pezzo di base (Stock), la fresatrice possiede un certo <a href="Path_EditToolsTable.html" title="Path EditToolsTable">set di utensili</a> e segue determinati comandi che controllano la velocità ed i movimenti (solitamente G-Code).</li>
+<li> Gli utensili vengono selezionati come richiesto dalle operazioni di lavorazione.</li>
+<li> I percorsi di fresatura sono creati utilizzando, ad es. le operazioni di <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Profile/it" title="Path Profile/it">Contornatura</a> e <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Pocket_3D/it" title="Path Pocket 3D/it">Tasca</a>. Questi <a href="https://www.freecadweb.org/wiki/index.php?title=Path_objects/it" title="Path objects/it">oggetti Path</a> utilizzano il dialetto G-Code interno di FreeCAD, indipendente dalla macchina CNC.</li>
+<li> Esportare la lavorazione con un codice G, corrispondente alla propria macchina.</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Link_per_gli_impazienti">Link per gli impazienti</span></h3>
+<p>Secondo il prorpio interesse per l'ambiente Path sono disponibili diversi argomenti per ulteriori letture:
+</p>
+<ul><li> Un nuovo utente che sta cercando di familiarizzare con Path, può essere interessato ad un tutorial per una <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Walkthrough_for_the_Impatient/it" title="Path Walkthrough for the Impatient/it">Esercitazione rapida</a>.</li>
+<li> Se si dispone di una macchina speciale che non può utilizzare uno dei postprocessori disponibili, si consiglia di leggere come <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Postprocessor_Customization/it&amp;action=edit&amp;redlink=1" class="new" title="Path Postprocessor Customization/it (page does not exist)">Personalizzare il post-processore</a></li>
+<li> Un utente esperto potrebbe voler scrivere una macro o automatizzare un processo che richiede di conoscere lo <a href="https://www.freecadweb.org/wiki/index.php?title=Path_scripting/it" title="Path scripting/it">Scripting di Path</a></li>
+<li> Gli utenti esperti che desiderano semplificare il proprio flusso di lavoro possono aver bisogno di imparare come <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Customization/it&amp;action=edit&amp;redlink=1" class="new" title="Path Customization/it (page does not exist)">Personalizzare Path</a>.</li>
+<li> I nuovi sviluppatori che vogliono contribuire a Path possono voler capire i <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Core_Concepts/it&amp;action=edit&amp;redlink=1" class="new" title="Path Core Concepts/it (page does not exist)">Concetti principali di Path</a>.</li></ul>
+<h2><span class="mw-headline" id="Concetti_generali">Concetti generali</span></h2>
+<p>L'ambiente Path genera un codice G che definisce i percorsi richiesti per fresare il progetto rappresentato dal modello 3D in codice interno, [<a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Path_scripting#FreeCAD.27s_internal_GCode_format">the Path Job Operations FreeCAD G-Code dialect </a>], che viene successivamente tradotto nel dialetto appropriato per il controller CNC di destinazione selezionando il Postprocessore appropriato.
+</p><p>Il codice G è generato dalle direttive e dalle operazioni contenute in un percorso di lavorazione. Il flusso di lavorazione li elenca nell'ordine in cui verranno eseguiti.  L'elenco può essere popolato aggiungendo Operazioni sui percorsi, Vestizioni dei percorsi, Comandi parziali dei percorsi e Modifiche ai percorsi, dal menu Path o dai pulsanti della GUI.
+</p><p>Path offre un Gestore degli utensili (Libreria, Tabella utensili), un ispettore del G-Code e strumenti di simulazione.  Collega il Post Processore e consente di importare ed esportare i modelli di lavoro.  
+</p><p>L'ambiente Path ha dipendenze esterne tra cui:
+</p>
+<ol><li> Le unità del modello 3D di FreeCAD sono definite nelle impostazioni Unità → Preferenze ... → Generale → Unità di misura.  La configurazione del postprocessore definisce le unità G-Code finali.</li>
+<li> Il percorso del file macro e le tolleranze geometriche sono definiti nella scheda Modifica → Preferenze ... → Path → Preferenze lavorazione.</li>
+<li> I colori sono definiti in Modifica → Preferenze ... → Path → scheda Colori Path.</li>
+<li> I parametri dei tag sono definiti nella scheda Modifica → Preferenze ... → Path → Dressups.</li>
+<li> Se la qualità del modello Base 3D supporta i requisiti del Path, supera la Verifica della geometria.</li></ol>
+<h2><span class="mw-headline" id="Units">Units</span></h2>
+<p>Unit handling in Path can be confusing.  There are several points to understand:
+</p>
+<ol><li> FreeCAD base units for length and time are 'mm' and 's' respectively. Velocity is thus 'mm/s'. This is what FreeCAD stores internally regardless of anything else</li>
+<li> The default unit schema uses the default units. If you're using the default schema and you enter a feed rate without a unit string, it will get entered as 'mm/s'</li>
+<li> Most CNC machines expect feed rate in the form of either 'mm/min' or 'in/min'.  Most post-processors will automatically convert the unit when generating gcode.</li></ol>
+<p>Schemas:
+</p>
+<ol><li> Changing schema in preferences changes default unit string for the input fields.  If you're a Path user and prefer to design in metric, it's highly recommended that you use the "Metric Small Parts &amp; CNC" schema.  If you design in US units, either the Imperial Decimal and Building US will work</li>
+<li> Changing your preferred unit schema will have no effect on output but will help avoid input errors</li></ol>
+<p>Output:
+</p>
+<ol><li> Generating the correct unit in output is the responsibility of the post-processor and is done only at that time</li>
+<li> Machine output unit is completely unrelated to your selected unit schema</li>
+<li> Post-processors produce either metric (G21) output, Imperial (G20) output or are configurable.</li>
+<li> Configurable post-processors default to metric (G21)</li>
+<li> If you want your configurable post-processor to output imperial gcode (G20), Set the correct argument in your job output configation (ie --inches for linuxcnc).  This can be stored in a job template and set as your default template to make it automatic for all future jobs</li></ol>
+<p>Path Inspection:
+</p>
+<ol><li> If you use the Path Inspect tool to look at g-code, you will see it in 'mm/s' because it is not being post-processed</li></ol>
+<h2><span class="mw-headline" id="I_comandi_di_Path">I comandi di Path</span></h2>
+<p>Questi comandi sono usati per impostare un progetto CNC e gestire i modelli.
+</p>
+<h3><span class="mw-headline" id="Lavorazione">Lavorazione</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Job.png" class="image"><img alt="Path-Job.png" src="32px-Path-Job.png" width="32" height="30" srcset="/wiki/images/thumb/b/b6/Path-Job.png/48px-Path-Job.png 1.5x, /wiki/images/b/b6/Path-Job.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Job/it" title="Path Job/it">Lavorazione</a>:  Crea una nuova lavorazione CNC</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_PostProcess.png" class="image"><img alt="Path PostProcess.png" src="32px-Path_PostProcess.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Path_PostProcess.png/48px-Path_PostProcess.png 1.5x, /wiki/images/3/39/Path_PostProcess.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Post/it" title="Path Post/it">Post elaborazione</a>: Esporta un progetto in G-code</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-ExportTemplate.png" class="image"><img alt="Path-ExportTemplate.png" src="32px-Path-ExportTemplate.png" width="32" height="29" srcset="/wiki/images/thumb/0/0d/Path-ExportTemplate.png/48px-Path-ExportTemplate.png 1.5x, /wiki/images/0/0d/Path-ExportTemplate.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_ExportTemplate/it" title="Path ExportTemplate/it">Esporta modello</a>: Esporta la lavorazione corrente come modello</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Inspect.png" class="image"><img alt="Path Inspect.png" src="32px-Path_Inspect.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Path_Inspect.png/48px-Path_Inspect.png 1.5x, /wiki/images/9/9f/Path_Inspect.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Inspect/it" title="Path Inspect/it">Ispeziona G-Code</a>: Mostra il codice G per il controllo</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Simulator.png" class="image"><img alt="Path Simulator.png" src="32px-Path_Simulator.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/Path_Simulator.png/48px-Path_Simulator.png 1.5x, /wiki/images/a/ab/Path_Simulator.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Simulator/it" title="Path Simulator/it">Simulatore CAM</a>: Mostra l'operazione di fresatura così come viene eseguita sulla macchina</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_ToolLibraryEdit.png" class="image"><img alt="Path ToolLibraryEdit.png" src="32px-Path_ToolLibraryEdit.png" width="32" height="32" srcset="/wiki/images/thumb/1/19/Path_ToolLibraryEdit.png/48px-Path_ToolLibraryEdit.png 1.5x, /wiki/images/1/19/Path_ToolLibraryEdit.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_ToolLibraryEdit/it" title="Path ToolLibraryEdit/it">Gestione utensili</a>: Gestisce gli utensili</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-CompleteLoop.png" class="image"><img alt="Path-CompleteLoop.png" src="32px-Path-CompleteLoop.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Path-CompleteLoop.png/48px-Path-CompleteLoop.png 1.5x, /wiki/images/6/68/Path-CompleteLoop.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_SelectLoop/it" title="Path SelectLoop/it">Chiudi il ciclo</a>: Completa un ciclo basato su due bordi selezionati</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Contour.png" class="image"><img alt="Path Contour.png" src="32px-Path_Contour.png" width="32" height="32" srcset="/wiki/images/thumb/d/de/Path_Contour.png/48px-Path_Contour.png 1.5x, /wiki/images/d/de/Path_Contour.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Contour/it" title="Path Contour/it">Contornatura</a>: Crea un percorso del contornatura dell'oggetto base</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Profile-Face.png" class="image"><img alt="Path-Profile-Face.png" src="32px-Path-Profile-Face.png" width="32" height="32" srcset="/wiki/images/thumb/a/a9/Path-Profile-Face.png/48px-Path-Profile-Face.png 1.5x, /wiki/images/a/a9/Path-Profile-Face.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_ProfileFace/it" title="Path ProfileFace/it">Profila faccia</a>: Crea un percorso di profilatura da una faccia selezionata</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Profile-Edges.png" class="image"><img alt="Path-Profile-Edges.png" src="32px-Path-Profile-Edges.png" width="32" height="32" srcset="/wiki/images/thumb/b/b7/Path-Profile-Edges.png/48px-Path-Profile-Edges.png 1.5x, /wiki/images/b/b7/Path-Profile-Edges.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_ProfileEdges/it" title="Path ProfileEdges/it">Profila bordi</a>: Crea un percorso di profilatura dai bordi selezionati</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Pocket.png" class="image"><img alt="Path Pocket.png" src="32px-Path_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/c/c2/Path_Pocket.png/48px-Path_Pocket.png 1.5x, /wiki/images/c/c2/Path_Pocket.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Pocket_Shape/it" title="Path Pocket Shape/it">Tasca</a>: Crea un'operazione di scavo da una o più tasche selezionate</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Drilling.png" class="image"><img alt="Path Drilling.png" src="32px-Path_Drilling.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/Path_Drilling.png/48px-Path_Drilling.png 1.5x, /wiki/images/9/93/Path_Drilling.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Drilling/it" title="Path Drilling/it">Foratura</a>: Esegue un ciclo di perforazione</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Engrave.png" class="image"><img alt="Path-Engrave.png" src="32px-Path-Engrave.png" width="32" height="32" srcset="/wiki/images/thumb/2/21/Path-Engrave.png/48px-Path-Engrave.png 1.5x, /wiki/images/2/21/Path-Engrave.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Engrave/it" title="Path Engrave/it">Incisione</a>: Crea un percorso di incisione</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Face.png" class="image"><img alt="Path-Face.png" src="32px-Path-Face.png" width="32" height="32" srcset="/wiki/images/thumb/2/2e/Path-Face.png/48px-Path-Face.png 1.5x, /wiki/images/2/2e/Path-Face.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_MillFace/it" title="Path MillFace/it">Sfacciatura</a>: Crea un percorso di sfacciatura</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Helix.png" class="image"><img alt="Path-Helix.png" src="32px-Path-Helix.png" width="32" height="32" srcset="/wiki/images/thumb/6/64/Path-Helix.png/48px-Path-Helix.png 1.5x, /wiki/images/6/64/Path-Helix.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Helix/it" title="Path Helix/it">Elica</a>: Crea un percorso elicoidale</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-3DPocket.png" class="image"><img alt="Path-3DPocket.png" src="32px-Path-3DPocket.png" width="32" height="32" srcset="/wiki/images/thumb/a/a9/Path-3DPocket.png/48px-Path-3DPocket.png 1.5x, /wiki/images/a/a9/Path-3DPocket.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Pocket_3D/it" title="Path Pocket 3D/it">Cavità 3D</a>: Crea un percorso per una cavità 3D</li></ul>
+<h3><span class="mw-headline" id="Vestizioni">Vestizioni</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupDogbone/it" title="Path DressupDogbone/it">Vestizione Dogbone</a>: Aggiunge una modifica di vestizione osso-di-cane (dogbone) ad un percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupDragKnife/it" title="Path DressupDragKnife/it">Vestizione Dragknife</a>: Aggiunge una modifica di vestizione trascina-lama (dragknife) a un percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupLeadInOut/it&amp;action=edit&amp;redlink=1" class="new" title="Path DressupLeadInOut/it (page does not exist)">Lead In Dressup</a>: Aggiunge un punto di entrata o di uscita a un percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupRampEntry/it" title="Path DressupRampEntry/it">Rampa di ingresso</a>: Aggiunge la modifica di vestizione Rampa di ingresso a un percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Dressup.png" class="image"><img alt="Path Dressup.png" src="32px-Path_Dressup.png" width="32" height="32" srcset="/wiki/images/thumb/f/f9/Path_Dressup.png/48px-Path_Dressup.png 1.5x, /wiki/images/f/f9/Path_Dressup.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_DressupTag/it" title="Path DressupTag/it">Etichetta di vestizione</a>: Adds a holding tag dressup modification to a selected path</li></ul>
+<h3><span class="mw-headline" id="Comandi_parziali">Comandi parziali</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Fixture.png" class="image"><img alt="Path Fixture.png" src="32px-Path_Fixture.png" width="32" height="32" srcset="/wiki/images/thumb/6/62/Path_Fixture.png/48px-Path_Fixture.png 1.5x, /wiki/images/6/62/Path_Fixture.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Fixture/it" title="Path Fixture/it">Fissaggio</a>: Cambia la posizione di fissaggio</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Comment.png" class="image"><img alt="Path Comment.png" src="32px-Path_Comment.png" width="32" height="32" srcset="/wiki/images/thumb/f/fe/Path_Comment.png/48px-Path_Comment.png 1.5x, /wiki/images/f/fe/Path_Comment.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Comment/it" title="Path Comment/it">Commento</a>: Inserisce un commento nel codice G di un percorso</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Stop.png" class="image"><img alt="Path Stop.png" src="32px-Path_Stop.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Path_Stop.png/48px-Path_Stop.png 1.5x, /wiki/images/d/d6/Path_Stop.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Stop/it" title="Path Stop/it">Stop</a>: Inserisce un punto di fermo macchina</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Custom.png" class="image"><img alt="Path Custom.png" src="32px-Path_Custom.png" width="32" height="32" srcset="/wiki/images/thumb/9/9e/Path_Custom.png/48px-Path_Custom.png 1.5x, /wiki/images/9/9e/Path_Custom.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Custom/it" title="Path Custom/it">Personalizza</a>: Inserisce del codice G personalizzato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_GcodeFromShape.png" class="image"><img alt="Path GcodeFromShape.png" src="32px-Path_GcodeFromShape.png" width="32" height="32" srcset="/wiki/images/thumb/1/1c/Path_GcodeFromShape.png/48px-Path_GcodeFromShape.png 1.5x, /wiki/images/1/1c/Path_GcodeFromShape.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_FromShapes/it" title="Path FromShapes/it">Da una Forma</a>: Crea un oggetto percorso da un oggetto Parte selezionato</li></ul>
+<h3><span class="mw-headline" id="Modifica_percorso">Modifica percorso</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Copy.png" class="image"><img alt="Path Copy.png" src="32px-Path_Copy.png" width="32" height="32" srcset="/wiki/images/thumb/1/19/Path_Copy.png/48px-Path_Copy.png 1.5x, /wiki/images/1/19/Path_Copy.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Copy/it" title="Path Copy/it">Copia</a>: Crea una copia parametrica di un oggetto percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Array.png" class="image"><img alt="Path Array.png" src="32px-Path_Array.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/Path_Array.png/48px-Path_Array.png 1.5x, /wiki/images/c/c7/Path_Array.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Array/it" title="Path Array/it">Schiera</a>: Crea una schiera duplicando un percorso selezionato</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_SimpleCopy.png" class="image"><img alt="Path SimpleCopy.png" src="32px-Path_SimpleCopy.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Path_SimpleCopy.png/48px-Path_SimpleCopy.png 1.5x, /wiki/images/d/d6/Path_SimpleCopy.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_SimpleCopy/it" title="Path SimpleCopy/it">Copia semplice</a>: Crea una copia non parametrica di un oggetto percorso selezionato</li></ul>
+<h3><span class="mw-headline" id="Altro">Altro</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-3DSurface.png" class="image"><img alt="Path-3DSurface.png" src="32px-Path-3DSurface.png" width="32" height="32" srcset="/wiki/images/thumb/e/e0/Path-3DSurface.png/48px-Path-3DSurface.png 1.5x, /wiki/images/e/e0/Path-3DSurface.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Surface/it&amp;action=edit&amp;redlink=1" class="new" title="Path Surface/it (page does not exist)">Sfacciatura 3D</a>: Crea un percorso per una sfacciatura 3D</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Area.png" class="image"><img alt="Path-Area.png" src="32px-Path-Area.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Path-Area.png/48px-Path-Area.png 1.5x, /wiki/images/0/0f/Path-Area.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Area/it&amp;action=edit&amp;redlink=1" class="new" title="Path Area/it (page does not exist)">Feature area</a>: Creates a feature area from selected objects</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Area-Workplane.png" class="image"><img alt="Path-Area-Workplane.png" src="32px-Path-Area-Workplane.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Path-Area-Workplane.png/48px-Path-Area-Workplane.png 1.5x, /wiki/images/6/68/Path-Area-Workplane.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Area_Workplane/it&amp;action=edit&amp;redlink=1" class="new" title="Path Area Workplane/it (page does not exist)">Feature area workplane</a>: Creates a feature area workplane</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Sanity.png" class="image"><img alt="Path Sanity.png" src="32px-Path_Sanity.png" width="32" height="32" srcset="/wiki/images/thumb/0/06/Path_Sanity.png/48px-Path_Sanity.png 1.5x, /wiki/images/0/06/Path_Sanity.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Sanity/it&amp;action=edit&amp;redlink=1" class="new" title="Path Sanity/it (page does not exist)">Errori nel percorso</a>: Controlla la lavorazione selezionata alla ricerca di valori mancanti</li></ul>
+<h3><span class="mw-headline" id="preferenze">preferenze</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_DlgParameter.png" class="image"><img alt="Std DlgParameter.png" src="32px-Std_DlgParameter.png" width="32" height="32" srcset="/wiki/images/thumb/6/6d/Std_DlgParameter.png/48px-Std_DlgParameter.png 1.5x, /wiki/images/6/6d/Std_DlgParameter.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Preferences/it&amp;action=edit&amp;redlink=1" class="new" title="Path Preferences/it (page does not exist)">Preferenze...</a>: Preferenze disponibili negli strumenti Path.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>L'ambiente Path offre una vasta gamma di <a href="https://www.freecadweb.org/wiki/index.php?title=Path_scripting/it" title="Path scripting/it">script API in python</a>. Con gli script python è possibile creare e modificare i percorsi, o estendere le funzionalità disponibili nell'ambiente.
+</p>
+<h2><span class="mw-headline" id="FAQ">FAQ</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=Path_FAQ/it" title="Path FAQ/it">Domande frequenti su Path</a>
+</p><p>L'ambiente Path condivide molti concetti con altri pacchetti software CAM ma ha le sue peculiarità. Se qualcosa sembra sbagliato, questo potrebbe essere un buon punto di partenza.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Path_Workbench/it&amp;oldid=283595">http://www.freecadweb.org/wiki/index.php?title=Path_Workbench/it&amp;oldid=283595</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

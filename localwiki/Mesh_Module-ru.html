@@ -1,0 +1,84 @@
+<html><head><title>Mesh Module/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Module/ru</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/ru&amp;redirect=no" class="mw-redirect" title="Mesh Module/ru">Mesh Module/ru</a>)</span></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p><b>Верстак Mesh</b> оперирует <a rel="nofollow" class="external text" href="https://ru.wikipedia.org/wiki/Полигональная_сетка">треугольными сетками</a>. Сетки (Meshes) - это особый тип 3D объектов, составленный из треугольников, соединенных по ребрам и углам (вершинам).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="Пример полигионального (сеточного) объекта"><img alt="Пример полигионального (сеточного) объекта" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>Пример полигионального (сеточного) объекта
+</p><p>Многие 3D приложений используют сетки (meshes) в качестве основного типа 3D объекта, как <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Sketchup">sketchup</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Blender_(software)">blender</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Maya_(software)">maya</a> или <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/3d_max">3d studio max</a>. Сетки это очень простые объекты, содержащие только вершины (точки), ребра и (треугольные) грани, их очень легко создать, модифицировать, разбивать, растягивать, и можно легко передаваться из одного приложения в другое без потерь. Кроме того, поскольку они определяются очень простыми данными, 3D приложения обычно могут управляться с очень большими их количеством без каких либо проблем. По этим причинам сетки как 3D объекты часто выбирают для приложений, работающих с кино, анимацией и созданием изображений.
+</p><p>Для инженерных применений, однако, сетки обладают очень большим ограничением: это очень примитивный объект, состоящий лишь из точек, линий и граней. Они только создают поверхность, и не содержат информацию о массе, так что они не ведут себя как твердые тела. Для сетки нельзя сразу знать, находится ли точка внутри или за пределами объекта. Это означает что все твердотельные операции, такие как сложение, вычитание, на сетках выполнять всегда труднее, и они часто возвращают ошибки.
+</p><p>Во FreeCAD, так как это инженерное приложение, мы, разумеется, предпочитаем работать с более интеллектуальными типами 3D объектов, способными содержать больше информации, такую как масса, твердотельное поведение, или даже пользовательские параметры. Модуль полигонального моделирования был впервые создан для тестирования, но возможность чтения, манипулирования и преобразования сеток также очень важна для FreeCAD. Очень часто в процессе работы вы будете получать 3D данные в полигональном формате. Вам нужно будет обрабатывать эти данные, анализировать их на предмет ошибок и других проблем, которые мешают их преобразованию в более интеллектуальные типы объектов, и наконец преобразовывать их в более интеллектуальные объекты, обрабатываемые <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модулем Part</a>.
+</p>
+<h3><span class="mw-headline" id=".D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BC.D0.BE.D0.B4.D1.83.D0.BB.D1.8F_Mesh">Использование модуля Mesh</span></h3>
+<p>Модуль полигонального моделирования сейчас обладает очень простым интерфейсом, все его функции сгруппированы в меню <b>Сетки</b>. Наиболее важные операции, которые вы можете провести над сеткой:
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ImportMesh.png" class="image"><img alt="Mesh ImportMesh.png" src="32px-Mesh_ImportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Mesh_ImportMesh.png/48px-Mesh_ImportMesh.png 1.5x, /wiki/images/2/27/Mesh_ImportMesh.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Import/ru" title="Mesh Import/ru">Импорт сетки</a>: Импорт сетки в некоторые файловые форматы</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ExportMesh.png" class="image"><img alt="Mesh ExportMesh.png" src="32px-Mesh_ExportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_ExportMesh.png/48px-Mesh_ExportMesh.png 1.5x, /wiki/images/0/0f/Mesh_ExportMesh.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Export/ru" title="Mesh Export/ru">Экспорт сетки</a>: Экспорт сетки из нескольких файловых форматов</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MeshFromShape.png" class="image"><img alt="Mesh MeshFromShape.png" src="32px-Mesh_MeshFromShape.png" width="32" height="32" srcset="/wiki/images/thumb/2/24/Mesh_MeshFromShape.png/48px-Mesh_MeshFromShape.png 1.5x, /wiki/images/2/24/Mesh_MeshFromShape.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_MeshFromShape/ru" title="Mesh MeshFromShape/ru">Создайте сетку из фигуры</a>: Конвертировать <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Деталь</a> в полигональный объект</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_HarmonizeNormals.png" class="image"><img alt="Mesh HarmonizeNormals.png" src="32px-Mesh_HarmonizeNormals.png" width="32" height="32" srcset="/wiki/images/thumb/0/01/Mesh_HarmonizeNormals.png/48px-Mesh_HarmonizeNormals.png 1.5x, /wiki/images/0/01/Mesh_HarmonizeNormals.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_HarmonizeNormals/ru" title="Mesh HarmonizeNormals/ru">Согласовать нормали</a>: Согласование нормалей</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FlipNormals.png" class="image"><img alt="Mesh FlipNormals.png" src="32px-Mesh_FlipNormals.png" width="32" height="32" srcset="/wiki/images/thumb/3/31/Mesh_FlipNormals.png/48px-Mesh_FlipNormals.png 1.5x, /wiki/images/3/31/Mesh_FlipNormals.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FlipNormals/ru" title="Mesh FlipNormals/ru">Развернуть направление нормалей</a>: Меняет направление <a rel="nofollow" class="external text" href="https://ru.wikipedia.org/wiki/Нормаль">нормалей</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FillHoles/ru" title="Mesh FillHoles/ru">Закрыть отверстия...</a>: Закрыть отверстия</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FillInteractiveHole/ru" title="Mesh FillInteractiveHole/ru">Закрыть отверстие</a>: Закрыть отверстия в сетках</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RemoveComponents.png" class="image"><img alt="Mesh RemoveComponents.png" src="32px-Mesh_RemoveComponents.png" width="32" height="32" srcset="/wiki/images/thumb/b/b0/Mesh_RemoveComponents.png/48px-Mesh_RemoveComponents.png 1.5x, /wiki/images/b/b0/Mesh_RemoveComponents.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_RemoveComponents/ru" title="Mesh RemoveComponents/ru">Удалить компоненты...</a>: Удалить компоненты сетей</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_RemoveCompByHand/ru" title="Mesh RemoveCompByHand/ru">Удалить компоненты вручную...</a>: Удалить компоненты сеток вручную</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_AddTriangle/ru" title="Mesh AddTriangle/ru">Добавить треугольник</a>: Добавляет треугольник в сетку</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Smooth/ru" title="Mesh Smooth/ru">Сгладить...</a>: Сгладить сетку</li></ul>
+<p><br />
+</p>
+<ul><li> Анализ кривизны, граней и проверка может ли сетка безопасно преобразована в твердое тело
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_EvaluateRepair/ru" title="Mesh EvaluateRepair/ru">Оценить и отремонтировать сетку...</a>: Анализирует и чинит сетку</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_EvaluateFacet.png" class="image"><img alt="Mesh EvaluateFacet.png" src="32px-Mesh_EvaluateFacet.png" width="32" height="32" srcset="/wiki/images/thumb/9/96/Mesh_EvaluateFacet.png/48px-Mesh_EvaluateFacet.png 1.5x, /wiki/images/9/96/Mesh_EvaluateFacet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_EvaluateFacet/ru" title="Mesh EvaluateFacet/ru">Информация о поверхности</a>: Даёт информацию о поверхностях</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_EvaluateCurvature/ru" title="Mesh EvaluateCurvature/ru">Данные о кривизне</a>: Дайт информацию о кривизне</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_EvaluateSolid/ru" title="Mesh EvaluateSolid/ru">Проверить прочность сетки</a>: Проверить, можно ли тело превратить в сетку</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_BoundingBox/ru" title="Mesh BoundingBox/ru">Информация о структуре...</a>: Вычисляет границы сетки</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.png" class="image"><img alt="Mesh Regular Solid.png" src="32px-Mesh_Regular_Solid.png" width="32" height="32" srcset="/wiki/images/thumb/d/d9/Mesh_Regular_Solid.png/48px-Mesh_Regular_Solid.png 1.5x, /wiki/images/d/d9/Mesh_Regular_Solid.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_BuildRegularSolid/ru" title="Mesh BuildRegularSolid/ru">Правильное геометрическое тело...</a> Создать сеточные примитивы, такие как кубы, сферы, конусы или цилиндры:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.png" class="image"><img alt="Mesh Cube.png" src="32px-Mesh_Cube.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cube.png/48px-Mesh_Cube.png 1.5x, /wiki/images/d/df/Mesh_Cube.png 2x" /></a> Создать полигональный куб</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.png" class="image"><img alt="Mesh Cylinder.png" src="32px-Mesh_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/2/26/Mesh_Cylinder.png/48px-Mesh_Cylinder.png 1.5x, /wiki/images/2/26/Mesh_Cylinder.png 2x" /></a> Создаь полигональный цилиндр</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.png" class="image"><img alt="Mesh Cone.png" src="32px-Mesh_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cone.png/48px-Mesh_Cone.png 1.5x, /wiki/images/d/df/Mesh_Cone.png 2x" /></a> Создать полигональный конус</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.png" class="image"><img alt="Mesh Sphere.png" src="32px-Mesh_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/Mesh_Sphere.png/48px-Mesh_Sphere.png 1.5x, /wiki/images/9/98/Mesh_Sphere.png 2x" /></a> Создать полигональную сферу</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.png" class="image"><img alt="Mesh Ellipsoid.png" src="32px-Mesh_Ellipsoid.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Mesh_Ellipsoid.png/48px-Mesh_Ellipsoid.png 1.5x, /wiki/images/9/9f/Mesh_Ellipsoid.png 2x" /></a> Создать полигональный эллипсоид</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.png" class="image"><img alt="Mesh Torus.png" src="32px-Mesh_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/3/36/Mesh_Torus.png/48px-Mesh_Torus.png 1.5x, /wiki/images/3/36/Mesh_Torus.png 2x" /></a> Создать полигональный тор</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Делать <b>булевы</b> операции над сетками
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Union/ru" title="Mesh Union/ru">Объединение</a>: объединить сетки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Intersection/ru" title="Mesh Intersection/ru">Пересечение</a>: выделить пересечение полигональных сеток</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Difference/ru" title="Mesh Difference/ru">Разность</a>: выполнить вычитание (вырезание) из полигональных сеток</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Merge/ru" title="Mesh Merge/ru">Объединить</a>: Объединить сетки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_SelectMesh/ru" title="Mesh SelectMesh/ru">Выберите сетку</a>: Выделить сетки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cut.png" class="image"><img alt="Mesh Cut.png" src="32px-Mesh_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/7/73/Mesh_Cut.png/48px-Mesh_Cut.png 1.5x, /wiki/images/7/73/Mesh_Cut.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Cut/ru" title="Mesh Cut/ru">Обрезать сетку</a>: Обрезать сетку по линии</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_SplitMesh/ru" title="Mesh SplitMesh/ru">Разделить сетку</a>: Разделить сетку</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MakeSegment.png" class="image"><img alt="Mesh MakeSegment.png" src="32px-Mesh_MakeSegment.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_MakeSegment.png/48px-Mesh_MakeSegment.png 1.5x, /wiki/images/0/0f/Mesh_MakeSegment.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_MakeSegment/ru" title="Mesh MakeSegment/ru">Создать сегмент</a>: Создать сегмент</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_TrimMesh/ru" title="Mesh TrimMesh/ru">Подрезать сетку</a>: Подрезать сетку</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_TrimMeshWithPlane/ru" title="Mesh TrimMeshWithPlane/ru">Подрезать сетку плоскостью</a>: Подрезать сетку плоскостью</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_CreateMeshSegment/ru" title="Mesh CreateMeshSegment/ru">Создание сегментов сетки...</a>: Создание сегментов сетки</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_CurvaturePlot.png" class="image"><img alt="Mesh CurvaturePlot.png" src="32px-Mesh_CurvaturePlot.png" width="32" height="32" srcset="/wiki/images/thumb/3/3b/Mesh_CurvaturePlot.png/48px-Mesh_CurvaturePlot.png 1.5x, /wiki/images/3/3b/Mesh_CurvaturePlot.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_CurvaturePlot/ru" title="Mesh CurvaturePlot/ru">Curvature Plot</a>: Создает цветной график кривизны сетки, отклонения граней относительно соседних.</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<p>Это только некоторые из основных операций, доступных в настоящее время доступные в модуле полигонального моделирования.<br />
+Гораздо больше полигональных инструментов доступно в  <a href="https://www.freecadweb.org/wiki/index.php?title=OpenSCAD_Workbench/ru" class="mw-redirect" title="OpenSCAD Workbench/ru">верстаке OpenSCAD</a>.<br />
+Но в FreeCAD сетки могут быть обработана множеством других способов через <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/ru" title="Mesh Scripting/ru">написание сценариев</a>.
+</p>
+<h2><span class="mw-headline" id=".D0.A1.D1.81.D1.8B.D0.BB.D0.BA.D0.B8">Ссылки</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Import/ru" title="FreeCAD and Mesh Import/ru">Импорт сеток в FreeCAD</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/ru&amp;oldid=289997">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/ru&amp;oldid=289997</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

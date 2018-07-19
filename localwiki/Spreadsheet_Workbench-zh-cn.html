@@ -1,0 +1,155 @@
+<html><head><title>Spreadsheet Workbench/zh-cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Spreadsheet Workbench/zh-cn</h1></div>
+
+<div id="mw-content-text" lang="zh-CN" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.15.html" class="mw-redirect" title="Release notes 0.15">available in version 0.15</a></span>
+电子表格工作台允许您创建和编辑电子表格、执行计算以及从模型中检索数据, 并将其数据导出到其他电子表格应用程序 (如 LibreOffice 或 Microsoft Excel)。
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_screenshot.jpg" class="image"><img alt="Spreadsheet screenshot.jpg" src="Spreadsheet_screenshot.jpg" width="979" height="577" /></a>
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E6.94.AF.E6.8C.81.E7.9A.84.E5.8A.9F.E8.83.BD"><span class="tocnumber">1</span> <span class="toctext">支持的功能</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.AF.B9_CAD_.E6.95.B0.E6.8D.AE.E7.9A.84.E5.BC.95.E7.94.A8"><span class="tocnumber">2</span> <span class="toctext">对 CAD 数据的引用</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E5.8D.95.E5.85.83.E6.A0.BC.E7.9A.84.E5.B1.9E.E6.80.A7"><span class="tocnumber">3</span> <span class="toctext">单元格的属性</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.9C.A8.E8.A1.A8.E8.BE.BE.E5.BC.8F.E4.B8.AD.E7.9A.84.E7.94.B5.E5.AD.90.E8.A1.A8.E6.A0.BC.E6.95.B0.E6.8D.AE"><span class="tocnumber">4</span> <span class="toctext">在表达式中的电子表格数据</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E5.8D.95.E4.BD.8D"><span class="tocnumber">5</span> <span class="toctext">单位</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E5.AF.BC.E5.85.A5.E4.B8.8E.E5.AF.BC.E5.87.BA"><span class="tocnumber">6</span> <span class="toctext">导入与导出</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E5.BD.93.E5.89.8D.E9.99.90.E5.88.B6"><span class="tocnumber">7</span> <span class="toctext">当前限制</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Scripting_Basics"><span class="tocnumber">8</span> <span class="toctext">Scripting Basics</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E6.94.AF.E6.8C.81.E7.9A.84.E5.8A.9F.E8.83.BD">支持的功能</span></h2>
+<p>电子表格提供以下需要一或两个参数的函数: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh
+</p><p>三角函数使用角度作为它的默认单位; 提供 <b>rad</b> 允许使用弧度。 
+</p><p>在 FreeCAD <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span>
+中可用的额外函数: <i>ceil</i>, <i>floor</i>, <i>trunc</i>, 和 <i>round</i>
+</p><p>支持以下的集合函数：<i>average</i>, <i>count</i>, <i>max</i>, <i>min</i>, <i>stddev</i>, <i>sum</i>.
+</p><p>集合函数可以采用一个或多个参数, 用逗号或分号分隔。参数可能包括范围 (由冒号分隔的两个单元格), 例如 "=average(B1: B8)"
+</p><p>常数 "pi" 和 "e" 是预定义的。
+</p><p>条件语句的工作方式如下: "= 条件？真结果: 假结果 "
+</p><p>条件被定义为一个表达式, 计算结果为 0 (false) 或非零为 true。定义了以下比较运算符: ==,! =, &gt;, &lt;, &gt;=, 和 &lt;=。
+</p><p>The conditional statement has actually a bug regarding nested conditional statements. Only the true-result may have another conditional statement. Parentheses are removed after confirming the expression. Trying to put a nested conditional statement in the false-result results in wrong set parentheses with a different result after a saving and reopening of the document. 
+</p><p>公式的写法如下: <i>=A2+A3</i>
+</p><p>注ː 单元格引用必须用大写字母书写。
+</p>
+<h2><span class="mw-headline" id=".E5.AF.B9_CAD_.E6.95.B0.E6.8D.AE.E7.9A.84.E5.BC.95.E7.94.A8">对 CAD 数据的引用</span></h2>
+<p>可以在电子表格中使用结构中的数据。
+下表显示了一些示例, 假设模型有一个名为 "立方体" 的功能 (请注意, 这是功能的内部名称, 而不是用户指定的标签):
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>CAD-Data
+</th>
+<th>在电子表格中调用
+</th>
+<th>结果
+</th></tr>
+<tr>
+<td>零件工作台立方体的参数长度
+</td>
+<td>=Cube.Length
+</td>
+<td>长度单位 mm
+</td></tr>
+<tr>
+<td>立方体的体积
+</td>
+<td>=Cube.Shape.Volume
+</td>
+<td>没有单位 mm&#179; 体积
+</td></tr>
+<tr>
+<td>立方体形状的类型
+</td>
+<td>=Cube.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>立方体的标签
+</td>
+<td>=Cube.Label
+</td>
+<td>String: Cube
+</td></tr>
+<tr>
+<td>立方体质量中心的 x 坐标
+</td>
+<td>=Cube.Shape.CenterOfMass.x
+</td>
+<td>无单位 mm 的 x 坐标
+</td></tr></table>
+<h2><span class="mw-headline" id=".E5.8D.95.E5.85.83.E6.A0.BC.E7.9A.84.E5.B1.9E.E6.80.A7">单元格的属性</span></h2>
+<p>可以使用右键单击单元格来编辑电子表格单元格的属性。以下对话框弹出:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpreadsheetCellPropDialog.png" class="image"><img alt="SpreadsheetCellPropDialog.png" src="SpreadsheetCellPropDialog.png" width="428" height="275" /></a>
+</p><p>它有几个选项卡。可以更改以下属性:
+</p>
+<ul><li> 文本颜色和背景颜色</li>
+<li> 文本水平和垂直对齐 * 文本样式: 粗体、斜体、下划线</li>
+<li> 此单元格的显示单位。请阅读下面的章节。</li>
+<li> 为此单元格定义别名。此别名可用于单元格公式, 也可以在 FreeCAD 表达式中中使用 <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span></li></ul>
+<p><br />
+表达式在这里解释: <a href="Expressions.html" title="Expressions">Expressions</a>
+</p>
+<h2><span class="mw-headline" id=".E5.9C.A8.E8.A1.A8.E8.BE.BE.E5.BC.8F.E4.B8.AD.E7.9A.84.E7.94.B5.E5.AD.90.E8.A1.A8.E6.A0.BC.E6.95.B0.E6.8D.AE">在表达式中的电子表格数据</span></h2>
+<p>在 FreeCAD 的其他部分使用电子表格数据需要一个完全定义的名称。因为有可能文档中有多个电子表格, 则需要电子表格名称以及单元格名称或别名。
+以下图片显示了在零件设计工作台的表达式中使用从电子表格  "MySheet " 中的别名 "number"。
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage1.png" class="image"><img alt="Expression usage1.png" src="Expression_usage1.png" width="414" height="95" /></a>
+</p><p>键入 "M " 显示可用名称的列表。箭头按钮允许选择 "MySheet "。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage2.png" class="image"><img alt="Expression usage2.png" src="Expression_usage2.png" width="414" height="95" /></a>
+</p><p>键入 "n" 现在显示 MySheet 中可用别名的列表, 以 "n" 开头。
+可以使用向下箭头按钮选择 "number"。
+一旦给定了具有可用内容的有效名称, 结果字段将显示计算出的长度。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage3.png" class="image"><img alt="Expression usage3.png" src="Expression_usage3.png" width="414" height="95" /></a>
+</p>
+<h2><span class="mw-headline" id=".E5.8D.95.E4.BD.8D">单位</span></h2>
+<p>电子表格使用单位。如果一个数字有一个单位, 这个单位将用于所有的计算。
+两个单位 mm 的长度相乘将会赋一个以 mm&#178; 为单位的值给区域。
+</p><p>您可以在对话框中将长度单位从 mm 切换到英寸, 然后在单元格上右键单击。
+单元格现在将显示长度 (以英寸为单位)。用于计算的值不会更改。
+当输入的显示单位更改时, 使用该值的公式的结果不会更改。结果仍按 mm 的长度计算。 
+</p><p>单元格属性对话框不能在带单位的数字中更改一个没有单位的数字。
+没有单位的数字可以放在一个单位字符串, 这也将显示, 但单元格仍然只包含一个数字没有单位。
+</p><p>有时是刻意, 以摆脱一个单位。这只能通过乘以1与一个倒数单位来完成。
+</p>
+<h2><span class="mw-headline" id=".E5.AF.BC.E5.85.A5.E4.B8.8E.E5.AF.BC.E5.87.BA">导入与导出</span></h2>
+<p>可以将工作表导入并导出到 <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Comma-separated_values">csv</a> 格式, 这些形式也可以由大多数其他电子表格应用程序 (如 Microsoft Excel 或 LibreOffice 计算器) 读取和写入。将文件导入 FreeCAD 时, 分隔符 (用于分隔列的字符) 必须是 TAB 字符 (可以在从其他应用程序导出时设置)。
+</p><p>Excel 中的电子表格-格式  "xlsx " 可以导入到 FreeCAD 文档中。Excel 电子表格也可以通过 FreeCAD 打开。在这种情况下将创建一个带有电子表格的新文档。支持以下功能:
+</p>
+<ul><li> FreeCAD 电子表格中还提供的所有功能。其他函数在导入后的相应单元格中会出现错误。</li>
+<li> 单元格的别名</li>
+<li> 在 Excel 工作表中有多个表。在这种情况下, 将创建更多的 FreeCAD 电子表格。</li></ul>
+<p>其他功能不会被导入到 FreeCAD 电子表格中。Excel 导入是 FreeCAD <span style="font-size:x-small;"><a href="Release_notes_0.17.html" title="Release notes 0.17">available in version 0.17</a></span>
+</p>
+<pre>的功能。
+</pre>
+<h2><span class="mw-headline" id=".E5.BD.93.E5.89.8D.E9.99.90.E5.88.B6">当前限制</span></h2>
+<p>这是不可能提供一个几何的数据, 例如一个长度, 在电子表格和检索在同一个电子表格中生成形状的体积。这将创建一个循环引用。这是一个设计决定。但是, 可以使用两个不同的电子表格: 一个是几何图形的数据源, 另一个用于报告几何数据。
+</p><p>不可能选择和复制多个单元格。只有输入字段中的单元格内容才能被复制并粘贴到另一个单元格的输入字段中。
+</p><p>对于 FreeCAD 早期版本, 请参见 <a href="Spreadsheet_legacy.html" title="Spreadsheet legacy">Spreadsheet legacy</a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Scripting_Basics">Scripting Basics</span></h2>
+<pre>import Spreadsheet
+sheet = App.ActiveDocument.addObject("Spreadsheet::Sheet")
+sheet.Label = "Dimensions" </pre>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/zh-cn&amp;oldid=282351">http://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/zh-cn&amp;oldid=282351</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

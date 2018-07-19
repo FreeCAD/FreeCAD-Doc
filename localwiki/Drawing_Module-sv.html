@@ -1,0 +1,269 @@
+<html><head><title>Drawing Module/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Module/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<div class="mw-translate-fuzzy">
+<p>Ritnings modulen tillåter dig att lägga ut ditt 3D arbete på papper. Det är, att lägga vyer av dina modeller i ett 2D fönster osh att sätta in det fönstret i en ritning, till exempel ett ark med en ram, en titel och din logotyp och slutligen skriva ut det arket. Ritningsmodulen är för närvarande under konstruktion och är mer eller mindre en teknologisk förhandstitt!
+</p>
+</div>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Development of the Drawing Module has stopped, and a new <a href="TechDraw_Module.html" title="TechDraw Module">TechDraw Module</a> aiming to replace it will be introduced in version 0.17. Both modules will be provided in v0.17, but the Drawing module may be removed in future releases.</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Gr.C3.A4nssnittsverktyg"><span class="tocnumber">1</span> <span class="toctext">Gränssnittsverktyg</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Skript"><span class="tocnumber">2</span> <span class="toctext">Skript</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Enkelt_exempel"><span class="tocnumber">2.1</span> <span class="toctext">Enkelt exempel</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Det_parametriska_s.C3.A4ttet"><span class="tocnumber">2.2</span> <span class="toctext">Det parametriska sättet</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Komma_.C3.A5t_bitarna"><span class="tocnumber">2.3</span> <span class="toctext">Komma åt bitarna</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#General_Dimensioning_and_Tolerancing"><span class="tocnumber">2.4</span> <span class="toctext">General Dimensioning and Tolerancing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Exempel"><span class="tocnumber">3</span> <span class="toctext">Exempel</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Extending_the_Drawing_Module"><span class="tocnumber">4</span> <span class="toctext">Extending the Drawing Module</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Tutorials"><span class="tocnumber">5</span> <span class="toctext">Tutorials</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Gr.C3.A4nssnittsverktyg">Gränssnittsverktyg</span></h2>
+<p>Detta är verktyg för att skapa, konfigurera och exportera 2D ritningsark
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="Drawing_Open_SVG.html" title="Drawing Open SVG">Open scalable vector graphic</a>: Opens a drawing sheet previously saved as an SVG file</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="Drawing_Landscape_A3.html" title="Drawing Landscape A3">New A3 landscape drawing</a>: Creates a new drawing sheet from FreeCAD's default A3 template</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="Drawing_View.html" title="Drawing View">Insert a view</a>: Inserts a view of the selected object in the active drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Annotation.png" class="image"><img alt="Drawing Annotation.png" src="32px-Drawing_Annotation.png" width="32" height="32" srcset="/wiki/images/thumb/7/74/Drawing_Annotation.png/48px-Drawing_Annotation.png 1.5x, /wiki/images/7/74/Drawing_Annotation.png 2x" /></a> <a href="Drawing_Annotation.html" title="Drawing Annotation">Annotation</a>: Adds an annotation to the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Clip.png" class="image"><img alt="Drawing Clip.png" src="32px-Drawing_Clip.png" width="32" height="32" srcset="/wiki/images/thumb/b/b9/Drawing_Clip.png/48px-Drawing_Clip.png 1.5x, /wiki/images/b/b9/Drawing_Clip.png 2x" /></a> <a href="Drawing_Clip.html" title="Drawing Clip">Clip</a>: Adds a clip group to the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Openbrowser.png" class="image"><img alt="Drawing Openbrowser.png" src="32px-Drawing_Openbrowser.png" width="32" height="32" srcset="/wiki/images/thumb/0/02/Drawing_Openbrowser.png/48px-Drawing_Openbrowser.png 1.5x, /wiki/images/0/02/Drawing_Openbrowser.png 2x" /></a> <a href="Drawing_Openbrowser.html" title="Drawing Openbrowser">Open Browser</a>: Opens a preview of the current sheet in the browser</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Orthoviews.png" class="image"><img alt="Drawing Orthoviews.png" src="32px-Drawing_Orthoviews.png" width="32" height="32" srcset="/wiki/images/thumb/7/7f/Drawing_Orthoviews.png/48px-Drawing_Orthoviews.png 1.5x, /wiki/images/7/7f/Drawing_Orthoviews.png 2x" /></a> <a href="Drawing_Orthoviews.html" title="Drawing Orthoviews">Ortho Views</a>: Automatically creates orthographic views of an object on the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Symbol.png" class="image"><img alt="Drawing Symbol.png" src="32px-Drawing_Symbol.png" width="32" height="32" srcset="/wiki/images/thumb/0/0a/Drawing_Symbol.png/48px-Drawing_Symbol.png 1.5x, /wiki/images/0/0a/Drawing_Symbol.png 2x" /></a> <a href="Drawing_Symbol.html" title="Drawing Symbol">Symbol</a>: Adds the contents of a SVG file as a symbol on the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_DraftView.png" class="image"><img alt="Drawing DraftView.png" src="32px-Drawing_DraftView.png" width="32" height="32" srcset="/wiki/images/thumb/f/ff/Drawing_DraftView.png/48px-Drawing_DraftView.png 1.5x, /wiki/images/f/ff/Drawing_DraftView.png 2x" /></a> <a href="Draft_Drawing.html" title="Draft Drawing">Draft View</a>: Inserts a special Draft view of the selected object in the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_SpreadsheetView.png" class="image"><img alt="Drawing SpreadsheetView.png" src="32px-Drawing_SpreadsheetView.png" width="32" height="32" srcset="/wiki/images/thumb/2/2f/Drawing_SpreadsheetView.png/48px-Drawing_SpreadsheetView.png 1.5x, /wiki/images/2/2f/Drawing_SpreadsheetView.png 2x" /></a> <a href="Drawing_SpreadsheetView.html" title="Drawing SpreadsheetView">Spreadsheet View</a>: Inserts a view of a selected spreadsheet in the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="Drawing_Save.html" title="Drawing Save">Save sheet</a>: Saves the current sheet as a SVG file</li></ul>
+<ul><li> <a href="Drawing_ProjectShape.html" title="Drawing ProjectShape">Project Shape</a>: Creates a projection of the selected object (Source) in the 3D view.</li></ul>
+<div class="mw-translate-fuzzy">
+<p><b>Note</b>
+The <a href="Draft_Module.html" title="Draft Module">Draft Module</a> has its own <a href="Draft_Drawing.html" title="Draft Drawing">Draft_Drawing</a> too to place Draft objects on paper. It has a couple of extra capabilities over the standard Drawing tools, and supports specific objects like <a href="Draft_Dimension.html" title="Draft Dimension">Draft dimensions</a>.
+</p>
+</div>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>I bilden så ser du huvudkoncepten av Ritningsmodulen. Dokumentet innehåller ett formobjekt (Schenkel) som vi vill göra en ritning av. Därför så är en "Sida" skapad. Sidan fås genom en mall, i detta fall "A3_Landskap" mallen. Mallen är ett SVG dokument som kan innehålla din vanliga sidram, din logotyp eller så den överensstämmer med dina presentationsstandarder. 
+</p><p>I denna sida så kan vi sätta in en eller fler vyer. Varje vy har en position på sidan (Egenskaper X,Y), en skalfaktor (Egenskap skala) och ytterligare egenskaper. Varje gång som sidan ,eller vyn, eller det refererade objektet ändras så regenereras sidan och visningen uppdateras.
+</p>
+<h2><span class="mw-headline" id="Skript">Skript</span></h2>
+<p>För tillfället så är arbetsflödet för slutanvändaren väldigt begränsat, så skript API't är intressantare. Här följer exempel på hur man använder skript API't för ritningsmodulen.
+</p><p>Here a script that can easily fill the <a href="Macro_CartoucheFC.html" title="Macro CartoucheFC">Macro_CartoucheFC</a> leaf FreeCAD A3_Landscape.
+</p>
+<h3><span class="mw-headline" id="Enkelt_exempel">Enkelt exempel</span></h3>
+<p>Först av allt så behöver du Del och Ritningsmodulen:
+</p>
+<pre>import FreeCAD, Part, Drawing </pre>
+<p>Skapa en liten exempeldel:
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100))) </pre>
+<p>Direkt projektion. G0 innebär hård kant, G1 är kontinuerlig tangent.
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges) </pre>
+<p>Allting projicerades på Z-planet:
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength </pre>
+<p>Annan projectionsvektor
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1)) </pre>
+<p>Projicera till SVG
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG </pre>
+<h3><span class="mw-headline" id="Det_parametriska_s.C3.A4ttet">Det parametriska sättet</span></h3>
+<p>Skapa kroppen
+</p>
+<pre>import FreeCAD
+import Part
+import Drawing
+
+# Create three boxes and a cylinder
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# Fuse two boxes and the cylinder
+App.ActiveDocument.addObject("Part::Fuse","Fusion")
+App.ActiveDocument.Fusion.Base = App.ActiveDocument.Cylinder
+App.ActiveDocument.Fusion.Tool = App.ActiveDocument.Box1
+
+App.ActiveDocument.addObject("Part::Fuse","Fusion1")
+App.ActiveDocument.Fusion1.Base = App.ActiveDocument.Box2
+App.ActiveDocument.Fusion1.Tool = App.ActiveDocument.Fusion
+# Cut the fused shapes from the first box
+App.ActiveDocument.addObject("Part::Cut","Shape")
+App.ActiveDocument.Shape.Base = App.ActiveDocument.Box 
+App.ActiveDocument.Shape.Tool = App.ActiveDocument.Fusion1
+# Hide all the intermediate shapes 
+Gui.ActiveDocument.Box.Visibility=False
+Gui.ActiveDocument.Box1.Visibility=False
+Gui.ActiveDocument.Box2.Visibility=False
+Gui.ActiveDocument.Cylinder.Visibility=False
+Gui.ActiveDocument.Fusion.Visibility=False
+Gui.ActiveDocument.Fusion1.Visibility=False </pre>
+<p>Sätt in ett sid objekt och välj en mall
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
+App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg' </pre>
+<p>Skapa en vy på "Shape" objektet, definiera position och skala och sätt in den i en sida
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','View')
+App.ActiveDocument.View.Source = App.ActiveDocument.Shape
+App.ActiveDocument.View.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.View.X = 10.0
+App.ActiveDocument.View.Y = 10.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.View) </pre>
+<p>Skapa en andra vy på samma objekt men denna gång kommer vyn att vara roterad 90 grader.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewRot')
+App.ActiveDocument.ViewRot.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewRot.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.ViewRot.X = 290.0
+App.ActiveDocument.ViewRot.Y = 30.0
+App.ActiveDocument.ViewRot.Scale = 1.0
+App.ActiveDocument.ViewRot.Rotation = 90.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewRot) </pre>
+<p>Skapa en tredje vy av samma objekt men med en isometrisk vyriktning. Gömda linjer aktiveras också.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewIso')
+App.ActiveDocument.ViewIso.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewIso.Direction = (1.0,1.0,1.0)
+App.ActiveDocument.ViewIso.X = 335.0
+App.ActiveDocument.ViewIso.Y = 140.0
+App.ActiveDocument.ViewIso.ShowHiddenLines = True
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewIso) </pre>
+<p>Ändra något och uppdatera. Uppdateringsprocessen ändrar vyn och sidan.
+</p>
+<pre>App.ActiveDocument.View.X = 30.0
+App.ActiveDocument.View.Y = 30.0
+App.ActiveDocument.View.Scale = 1.5
+App.ActiveDocument.recompute() </pre>
+<h3><span class="mw-headline" id="Komma_.C3.A5t_bitarna">Komma åt bitarna</span></h3>
+<p>Hämte SVG fragment på en enkel vy
+</p>
+<pre>ViewSVG = App.ActiveDocument.View.ViewResult
+print ViewSVG </pre>
+<p>Hämta hela resultatsidan (det är en fil i dokumentets temporära katalog, endast läsrättigheter)
+</p>
+<pre>print "Resulting SVG document: ",App.ActiveDocument.Page.PageResult
+file = open(App.ActiveDocument.Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long" </pre>
+<p>Viktigt: Frigör filen!
+</p>
+<pre>del file </pre>
+<p>Sätt in en vy med ditt eget innehåll:
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureView','ViewSelf')
+App.ActiveDocument.ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;"""
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewSelf)
+App.ActiveDocument.recompute()
+
+del ViewSVG </pre>
+<p>Det leder till följande resultat:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="General_Dimensioning_and_Tolerancing">General Dimensioning and Tolerancing</span></h3>
+<p>Drawing dimensions an tolerances are still under development but you can get some basic functionality with a bit of work.
+</p><p>First you need to get the gdtsvg python module from here (WARNING: This could be broken at any time!): 
+</p><p><a rel="nofollow" class="external free" href="https://github.com/jcc242/FreeCAD">https://github.com/jcc242/FreeCAD</a>
+</p><p>To get a feature control frame, try out the following:
+</p>
+<pre>import gdtsvg as g # Import the module, I like to give it an easy handle
+ourFrame = g.ControlFrame("0","0", g.Perpendicularity(), ".5", g.Diameter(), g.ModifyingSymbols("M"), "A",  
+           g.ModifyingSymbols("F"), "B", g.ModifyingSymbols("L"), "C", g.ModifyingSymbols("I")) </pre>
+<p>Here is a good breakdown of the contents of a feature control frame: <a rel="nofollow" class="external free" href="http://www.cadblog.net/adding-geometric-tolerances.htm">http://www.cadblog.net/adding-geometric-tolerances.htm</a>
+</p><p>The parameters to pass to control frame are: 
+</p>
+<ol><li>X-coordinate in SVG-coordinate system (type string)</li>
+<li>Y-coordinate in SVG-coordinate system (type string)</li>
+<li>The desired geometric characteristic symbol (tuple, svg string as first, width of symbol as second, height of symbol as third)</li>
+<li>The tolerance (type string)</li>
+<li>(optional) The diameter symbol (tuple, svg string as first, width of symbol as second, height of symbol as third)</li>
+<li>(optional) The condition modifying material (tuple, svg string as first, width of symbol as second, height of symbol as third)</li>
+<li>(optional) The first datum (type string)</li>
+<li>(optional) The first datum's modifying condition (tuple, svg string as first, width of symbol as second, height of symbol as third)</li>
+<li>(optional) The second datum (type string)</li>
+<li>(optional) The second datum's modifying condition (tuple, svg string as first, width of symbol as second, height of symbol as third)</li>
+<li>(optional) The third datum (type string)</li>
+<li>(optional) The third datum's material condition (tuple, svg string as first, width of symbol as second, height of symbol as third)</li></ol>
+<p>The ControlFrame function returns a type containing (svg string, overall width of control frame, overall height of control frame)
+</p><p>To get a dimension, try out the following:
+</p>
+<pre>import gdtsvg
+ourDimension = linearDimension(point1, point2, textpoint, dimensiontext, linestyle=getStyle("visible"), 
+               arrowstyle=getStyle("filled"), textstyle=getStyle("text") </pre>
+<p>Inputs for linear dimension are:
+</p>
+<ol><li>point1, an (x,y) tuple with svg-coordinates, this is one of the points you would like to dimension between</li>
+<li>point2, an (x,y) tuple with svg-coordinates, this is the second point you would like to dimension between</li>
+<li>textpoint, an (x,y) tuple of svg-coordinates, this is where the text of your dimension will be</li>
+<li>dimensiontext, a string containing the text you want the dimension to say</li>
+<li>linestyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling the how the lines look</li>
+<li>arrowstyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling how the arrows look</li>
+<li>textstyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling how the text looks </li></ol>
+<p>With those two, you can proceed as above for displaying them on the drawing page. This module is very buggy and can be broken at any given moment, bug reports are welcome on the github page for now, or contact jcc242 on the forums if you post a bug somewhere else.
+</p>
+<h2><span class="mw-headline" id="Exempel">Exempel</span></h2>
+<p>FreeCAD kommer med ett standardset med mallar, men du kan hitta fler på <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/sv" title="Drawing templates/sv">Ritningsmallar</a> sidan.
+</p>
+<h2><span class="mw-headline" id="Extending_the_Drawing_Module">Extending the Drawing Module</span></h2>
+<p>Some notes on the programming side of the drawing module will be added to the <a href="Drawing_Documentation.html" title="Drawing Documentation">Drawing Documentation</a> page. This is to help quickly understand how the drawing module works, enabling programmers to rapidly start programming for it.
+</p>
+<h2><span class="mw-headline" id="Tutorials">Tutorials</span></h2>
+<ul><li> <a href="Drawing_tutorial.html" title="Drawing tutorial">Drawing tutorial</a></li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li>  <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=1Hm5Zyjmjac">Intro to mechanical drawing on Youtube - by Normal Universe</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/sv&amp;oldid=290054">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/sv&amp;oldid=290054</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

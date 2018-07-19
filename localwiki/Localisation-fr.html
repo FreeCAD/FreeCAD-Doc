@@ -1,0 +1,126 @@
+<html><head><title>Localisation/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Localisation/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>La <b>localisation</b> en général, est le processus de fourniture d'un logiciel avec une interface utilisateur en plusieurs langues. Dans FreeCAD vous pouvez définir la langue d'interface utilisateur sous le menu <i>Édition → Préférences → Général → Onglet Général → Général → Langue → Changer la langue</i>. FreeCAD utilise [wikipedia:Qt (toolkit)|Qt] pour activer le support de plusieurs langues. Sur les systèmes Unix/Linux, FreeCAD utilise les paramètres régionaux actuels de votre système par défaut.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aider_.C3.A0_la_traduction_de_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">Aider à la traduction de FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Comment_traduire_.3F"><span class="tocnumber">1.1</span> <span class="toctext">Comment traduire&#160;?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Pr.C3.A9parer_vos_propres_modules_ou_applications_pour_la_traduction"><span class="tocnumber">2</span> <span class="toctext">Préparer vos propres modules ou applications pour la traduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Pr.C3.A9parer_votre_module_de_tierce_partie_ou_macro_pour_la_traduction"><span class="tocnumber">2.1</span> <span class="toctext">Préparer votre module de tierce partie ou macro pour la traduction</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Older_module_translation_techniques"><span class="tocnumber">3</span> <span class="toctext">Older module translation techniques</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Traduire_le_wiki"><span class="tocnumber">4</span> <span class="toctext">Traduire le wiki</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Plugin_de_traduction"><span class="tocnumber">5</span> <span class="toctext">Plugin de traduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Old_translation_instructions"><span class="tocnumber">5.1</span> <span class="toctext">Old translation instructions</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Aider_.C3.A0_la_traduction_de_FreeCAD">Aider à la traduction de FreeCAD</span></h2>
+<p>Une des choses les plus très importantes que vous pouvez faire pour FreeCAD, si vous n'êtes pas programmeur, est de porter votre aide, pour traduire le programme dans votre langue. Pour ce faire, c'est maintenant très facile, avec la collaboration de <a rel="nofollow" class="external text" href="http://crowdin.net">Crowdin</a> et l'utilisation de son système de traduction en ligne.
+</p>
+<h3><span class="mw-headline" id="Comment_traduire_.3F">Comment traduire&#160;?</span></h3>
+<ul><li> Aller à la page du <a rel="nofollow" class="external text" href="http://crowdin.net/project/freecad">projet de traduction de FreeCAD</a> sur Crowdin&#160;;</li>
+<li> Connectez-vous en créant un nouveau profil, ou en utilisant un compte tiers, comme votre adresse GMail;</li>
+<li> Cliquez sur la langue sur laquelle vous souhaitez travailler&#160;;</li>
+<li> Commencez la traduction en cliquant sur ​​le bouton Traduire à côté d'un des fichiers. Par exemple, <i>FreeCAD.ts</i> contient les chaînes de texte pour l'interface principale de FreeCAD.</li>
+<li> Vous pouvez voter pour les traductions existantes, ou vous pouvez créer une nouvelle traduction.</li></ul>
+<pre> <b>P.S.</b>&#160;: Si vous prenez une part active dans la traduction de FreeCAD, et que vous voulez être informé avant le lancement de la prochaine version, afin d'avoir le temps de revoir votre traduction, veuillez s'il vous plaît vous abonnez vous sur <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/view.php?id=137">la page dédiée</a>
+</pre>
+<h2><span class="mw-headline" id="Pr.C3.A9parer_vos_propres_modules_ou_applications_pour_la_traduction">Préparer vos propres modules ou applications pour la traduction</span></h2>
+<p>Voici les parties du processus de traduction de FreeCAD&#160;:
+</p>
+<ul><li> extraire les chaînes de texte du code source dans des fichiers *.ts</li>
+<li> télécharger les fichiers *.ts dans <a rel="nofollow" class="external text" href="http://crowdin.net/project/freecad">le Crowdin FreeCAD</a>.</li>
+<li> traduire les chaînes dans Crowdin</li>
+<li> extraire les nouveau fichiers/ ou fichiers modifiés *.ts de Crowdin</li>
+<li> convertir les fichiers *.ts en fichiers *.qm et mettre à jour le fichier *.qrc de chaque module</li>
+<li> mettre à jour la branche master de FreeCAD</li></ul>
+<p>Toutes les étapes listées ci-dessus sont exécutées par des "scripts de traduction" qui sont lancés périodiquement par un administrateur.
+</p><p>Préparer votre module à la traduction est très facile. D'abord, assurez-vous de créer un répertoire "translations" dans myModule/Gui/Resources. Puis ouvrez une fenêtre de terminal (ou l'équivalent Windows/OSX) dans votre répertoire "translations", et saisissez la commande suivante&#160;:
+</p>
+<pre>lupdate -ts myModule.ts </pre>
+<p>Ceci créé un fichier de traduction vide. Une fois cette tâche complétée, vous devez vous assurer que les scripts de traduction sont mis à jour comme dans cette <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD/pull/810">pull request</a>.  
+</p><p>La suite se fait automatiquement, en ce qui concerne le développeur. L'administrateur fera l,extraction des chaînes de texte, les traducteurs les traduiront, puis l'administrateur extraira les traduction et mettra à jour la branche FreeCAD/master.
+</p>
+<h3><span class="mw-headline" id="Pr.C3.A9parer_votre_module_de_tierce_partie_ou_macro_pour_la_traduction">Préparer votre module de tierce partie ou macro pour la traduction</span></h3>
+<p>Les modules de tierce partie ou macros sont traduits de façon similaire, mais vous devez vous charger d'une partie du travail.
+Cette <a rel="nofollow" class="external text" href="https://www.forum.freecadweb.org/viewtopic.php?f=3&amp;t=25180">discussion sur le forum</a> (en anglais) décrit les détails.
+</p>
+<h2><span class="mw-headline" id="Older_module_translation_techniques">Older module translation techniques</span></h2>
+<p><a href="Localization_Older_Methods.html" title="Localization Older Methods">Localization Older Methods</a> describes the use of translation tools such as Qt Linguist, lupdate, lrelease, pylupdate4, etc in detail.  Most of this is no longer required for FreeCAD/master modules, but may be helpful preparing and updating 3rd party modules.
+</p>
+<h2><span class="mw-headline" id="Traduire_le_wiki">Traduire le wiki</span></h2>
+<p>Ce wiki héberge un contenu volumineux, dont l'essentiel sert à produire le manuel. Vous pouvez naviguer dans la documentation à partir de la <a href="https://www.freecadweb.org/wiki/index.php?title=Main_Page/fr" title="Main Page/fr">Page principale</a>, ou consulter la <a href="https://www.freecadweb.org/wiki/index.php?title=Online_Help_Toc/fr" title="Online Help Toc/fr">table des matières</a> du guide utilisateur. 
+</p>
+<h2><span class="mw-headline" id="Plugin_de_traduction">Plugin de traduction</span></h2>
+<p>Après le départ du Wiki de SourceForge, <a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a> a installé un <a class="external text" href="http://www.mediawiki.org/wiki/Help:Extension:Translate">plugin de traduction</a> qui facilite la traduction entre les pages. par exemple, le titre de page peut maintenant être traduit. D'autres avantages du plugin de traduction est de lier les traductions, notifier quand la page originale a été mise à jour et de synchroniser les traductions avec la page originale anglaise.
+</p><p>L'outil est documenté dans <a class="external text" href="http://www.mediawiki.org/wiki/Help:Extension:Translate">Extension:Translate</a>, et fait partie du <a class="external text" href="http://www.mediawiki.org/wiki/MediaWiki_Language_Extension_Bundle">Language Extension Bundle</a>.
+</p><p>Pour commencer rapidement la préparation d'une page pour la traduction et activer le plugin, veuillez lire l'<a class="external text" href="https://www.mediawiki.org/wiki/Help:Extension:Translate/Page_translation_example/fr">Exemple de traduction de page</a>.
+</p><p>Pour voir un exemple comment l'outil de traduction fonctionne une fois le plugin activé sur une page, vous pouvez visiter la <a href="https://www.freecadweb.org/wiki/index.php?title=Main_Page" title="Main Page">Main Page</a>. Vous verrez une nouvelle barre de menu de langues en bas de page. Elle est générée automatiquement. Cliquez par exemple sur le lien Allemand, et vous serez redirigé sur <a href="https://www.freecadweb.org/wiki/index.php?title=Main_Page/de" title="Main Page/de">Main Page/de</a>. Tout juste sous le titre, vous pourrez lire "Cette page est une <b>version traduite</b> de la page Main Page et la traduction est complétée à xx&#160;%." (xx étant le pourcentage de traduction complété). Cliquez sur le lien "version traduite" pour commencer la traduction, ou pour mettre à jour ou encore corriger une traduction existante.
+</p><p>Vous remarquerez que vous ne pouvez plus éditer directement une page une fois qu'elle a été marquée pour traduction. Vous devez passer par l'outil de traduction.
+</p><p>Lors de l'ajout de nouveau contenu, la page anglaise devrait être créée en premier, puis traduite dans une autre langue. Changer ou ajouter du contenu à une page doit d'abord se faire dans la page anglaise.
+</p><p>Il est recommandé d'avoir des connaissances de base du formatage de style wiki et des directives générales du wiki FreeCAD, parce que vous devrez traiter avec des étiquettes lors de la traduction. Vous trouverez cette information sur la page <a href="WikiPages.html" title="WikiPages">WikiPages</a>.
+</p><p>La barre latérale (le menu de navigation à gauche) peut aussi être traduit. Veuillez suivre les instructions dédiées sur la page <a href="Localisation_Sidebar.html" title="Localisation Sidebar">Localisation Sidebar</a>.
+</p><p><b>REMARQUE&#160;: la première fois que vous basculez une page vers le nouveau système de traduction, elle perd toutes ses anciennes traductions manuelles. Pour récupérer cette traduction, vous devez ouvrir une version plus ancienne depuis l'historique, et copier-coller manuellement les paragraphes vers le nouveau système de traduction.</b>
+</p><p>Remarque&#160;: pour pouvoir traduire le wiki, vous devez bien sûr <a href="/wiki/FAQ/fr#Comment_puis-je_obtenir_la_permission_modifier_sur_le_wiki_.3F" title="FAQ/fr">obtenir les droits d'édition au wiki</a>.
+</p><p><br />
+Si vous ne savez pas comment procéder, n'hésitez pas à demander de l'aide dans le <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>.
+</p>
+<h3><span class="mw-headline" id="Old_translation_instructions">Old translation instructions</span></h3>
+<table class="mw-collapsible mw-collapsed wikitable">
+<tr>
+<td>These instructions are for historical background only, while the pages are being passed to the new translation plugin.
+</td></tr>
+<tr>
+<td>
+<p>So the first step is to <b>check if the manual translation has already been started for your language</b> (look in the left sidebar, under "manual").<br />
+If not, head to the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a> and say that you want to start a new translation, we'll create the basic setup for the language you want to work on.<br />
+You must then <a href="/wiki/FAQ#How_can_I_get_edit_permission_on_the_wiki.3F" title="FAQ">gain wiki edit permission</a>.<br />
+If your language is already listed, see what pages are still missing a translation (they will be listed in red). The technique is simple: <b>go into a red page, and copy/paste the contents of the corresponding English page, and start translating</b>.<br />
+Do not forget to include all the tags and templates from the original English page. Some of those templates will have an equivalent in your language (for example, there is a French Docnav template called Docnav/fr). You should use <b>a slash and your language code</b> in almost all the links. Look at other already translated pages to see how they did it.<br />
+Add a slash and your language code in the categories, like [[Category:Developer Documentation/fr]] <br />
+And if you are unsure, head to the forums and ask people to check what you did and tell you if it's right or not.<br />
+Four templates are commonly used in manual pages. These 4 templates have localized versions (Template:Docnav/fr, Template:fr, etc...)
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Template:GuiCommand" title="Template:GuiCommand">Template:GuiCommand</a>&#160;: is the Gui Command information block in upper-right of command documentation.</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Template:Docnav" title="Template:Docnav">Template:Docnav</a>&#160;: it is the navigation bar at the bottom of the pages, showing previous and next pages.</li></ul>
+<p><b> Page Naming Convention </b><br />
+Please take note that, due to limitations in the Sourceforge implementation of the MediaWiki engine, we require that your pages all keep their original English counterpart's name, appending a slash and your language code. For example, the translated page for About FreeCAD should be About Freecad/es for Spanish, About FreeCAD/pl for polish, etc. The reason is simple: so that if translators go away, the wiki's administrators, who do not speak all languages, will know what these pages are for. This will facilitate maintenance and avoid lost pages.<br />
+If you want the Docnav template to show linked pages in your language, you can use <b>redirect pages</b>. They are basically shortcut links to the actual page. Here is an example with the French page for About FreeCAD.<br />
+</p>
+<ul><li> The page About FreeCAD/fr is the page with content</li>
+<li> The page À propos de FreeCAD contains this code:</li></ul>
+<pre>#REDIRECT [[About FreeCAD/fr]]
+</pre>
+<ul><li> In the About FreeCAD/fr page, the Docnav code will look like this:</li></ul>
+<pre>{{docnav/fr|Bienvenue sur l'aide en ligne|Fonctionnalités}}
+</pre>
+<p>The page "Bienvenue sur l'aide en ligne" redirects to Online Help Startpage/fr, and the page "Fonctionnalités" redirects to Feature list/fr.
+</p>
+</td></tr></table>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Localisation/fr&amp;oldid=248439">http://www.freecadweb.org/wiki/index.php?title=Localisation/fr&amp;oldid=248439</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

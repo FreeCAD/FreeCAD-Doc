@@ -1,0 +1,99 @@
+<html><head><title>Mesh Workbench/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Workbench/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<div class="mw-translate-fuzzy">
+<p><b>Nät arbetsbänken</b> hanterar <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">triangelnät</a>. Nät är en speciell typ av 3D objekt, sammansatt av trianglar som är ihopkopplade via deras kanter och hörn.
+</p>
+</div>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="An example of a mesh object"><img alt="An example of a mesh object" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>Ett exempel på ett nätobjekt
+</p><p>Många 3D applikationer använder nät som deras primära 3D objektstyp, som <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/Sketchup">sketchup</a>, <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/Blender">blender</a>, <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/Maya_(datorprogram)">maya</a> eller <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/3ds_Max">3d studio max</a>. Eftersom nät är mycket simpla objekt, som endast innehåller hörn (punkter), kanter och (triangulära) ytor, så är de mycket lätta att skapa, förändra, dela upp, sträcka ut, och kan lätt flyttas från en applikation till en annan utan några förluster. Eftersom de dessutom innehåller mycket simpel data, så kan 3D applikationer vanligtvis hantera mycket stora kvantiteter av dem utan några problem. Av dessa anledningar, så är nät ofta den valda 3D objekttypen i applikationer för filmer, animeringar, och bildbehandling.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Emellertid har nät en stor begränsning inom konstruktionsfältet: De är mycket 'dumma' objekt, som endast består av punkter, linjer och ytor. De består endast av ytor, och har ingen informationom dess massa, så de beter sig inte som solider. I ett nät så finns det inget automatiskt sätt att avgöra om en punkt är inuti eller utanför objektet. Detta innebär att alla solidbaserade operationer, som addition eller subtraktion, alltid är svåra att utföra på nät, och ofta orsakar fel.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>I FreeCAD, eftersom det är en konstruktionsapplikation, skulle vi givetvis föredra att arbeta med mer intelligenta 3D objekttyper, som kan innehålla mer information, som massa, solidbeteende, eller till och med anpassade parametrar. Nätmodulen skapades först bara för att tjäna som test, men att kunna läsa, manipulera och konvertera nät är också mycket viktigt för FreeCAD. I ditt arbetsflöde kommer du ofta ta emot 3D data i nätformat. Du kommer att behöva kunna hantera denna data, analysera den för att upptäcka fel eller andra problem som förhindrar dem från att konverteras till mer intelligenta objekt, och slutligen, konvertera dem till mer intelligenta objekt, som kan hanteras av <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">Del Modulen</a>.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="Anv.C3.A4nda_n.C3.A4tmodulen">Använda nätmodulen</span></h3>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Nätmodulen har för närvarande ett mycket enkelt gränssnitt, alla dess funktioner är grupperade i <b>Nät</b> menyn. De viktigaste operationerna som du för närvarande kan göra med nät är:
+</p>
+<ul><li> Importera nät i flera filformat</li>
+<li> Exportera nät i flera filformat</li>
+<li> Konvertera <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">Del</a> objekt till nät</li>
+<li> Analysera kurvatur, ytor, och kontrollera om ett nät kan konverteras till en solid på ett säkert sätt</li>
+<li> Vända nät <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/normalvektor">normaler</a></li>
+<li> Stänga hål i nät</li>
+<li> Ta bort ytor i nät</li>
+<li> Förena, subtrahera och skära nät</li>
+<li> Skapa nätprimitiver, som kuber, sfärer, Koner eller cylindrar</li>
+<li> Klippa nät längs en linje</li></ul>
+</div>
+<p><br />
+</p>
+<ul><li> <b>Analyze</b> curvature, faces, and check if a mesh can be safely converted into a solid
+<ul><li> <a href="Mesh_EvaluateRepair.html" title="Mesh EvaluateRepair">Evaluate &amp; Repair mesh...</a>: Evaluates and repairs meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_EvaluateFacet.png" class="image"><img alt="Mesh EvaluateFacet.png" src="32px-Mesh_EvaluateFacet.png" width="32" height="32" srcset="/wiki/images/thumb/9/96/Mesh_EvaluateFacet.png/48px-Mesh_EvaluateFacet.png 1.5x, /wiki/images/9/96/Mesh_EvaluateFacet.png 2x" /></a> <a href="Mesh_EvaluateFacet.html" title="Mesh EvaluateFacet">Face Info</a>: Gives info on faces</li>
+<li> <a href="Mesh_EvaluateCurvature.html" title="Mesh EvaluateCurvature">Curvature Info</a>: Gives info on curvature</li>
+<li> <a href="Mesh_EvaluateSolid.html" title="Mesh EvaluateSolid">Check solid mesh</a>: Checks the solid if it can be converted to a mesh</li>
+<li> <a href="Mesh_BoundingBox.html" title="Mesh BoundingBox">Boundings info...</a>: Evaluates the bounding box of a mesh</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.png" class="image"><img alt="Mesh Regular Solid.png" src="32px-Mesh_Regular_Solid.png" width="32" height="32" srcset="/wiki/images/thumb/d/d9/Mesh_Regular_Solid.png/48px-Mesh_Regular_Solid.png 1.5x, /wiki/images/d/d9/Mesh_Regular_Solid.png 2x" /></a> <a href="Mesh_BuildRegularSolid.html" title="Mesh BuildRegularSolid">Regular solid...</a> Create mesh primitives, like cubes, cylinders, cones, or spheres:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.png" class="image"><img alt="Mesh Cube.png" src="32px-Mesh_Cube.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cube.png/48px-Mesh_Cube.png 1.5x, /wiki/images/d/df/Mesh_Cube.png 2x" /></a> Create a mesh cube</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.png" class="image"><img alt="Mesh Cylinder.png" src="32px-Mesh_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/2/26/Mesh_Cylinder.png/48px-Mesh_Cylinder.png 1.5x, /wiki/images/2/26/Mesh_Cylinder.png 2x" /></a> Create a mesh cylinder</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.png" class="image"><img alt="Mesh Cone.png" src="32px-Mesh_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cone.png/48px-Mesh_Cone.png 1.5x, /wiki/images/d/df/Mesh_Cone.png 2x" /></a> Create a mesh cone</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.png" class="image"><img alt="Mesh Sphere.png" src="32px-Mesh_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/Mesh_Sphere.png/48px-Mesh_Sphere.png 1.5x, /wiki/images/9/98/Mesh_Sphere.png 2x" /></a> Create a mesh sphere</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.png" class="image"><img alt="Mesh Ellipsoid.png" src="32px-Mesh_Ellipsoid.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Mesh_Ellipsoid.png/48px-Mesh_Ellipsoid.png 1.5x, /wiki/images/9/9f/Mesh_Ellipsoid.png 2x" /></a> Create a mesh ellipsoid</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.png" class="image"><img alt="Mesh Torus.png" src="32px-Mesh_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/3/36/Mesh_Torus.png/48px-Mesh_Torus.png 1.5x, /wiki/images/3/36/Mesh_Torus.png 2x" /></a> Create a mesh torus</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Do <b>Boolean</b> operations with meshes
+<ul><li> <a href="Mesh_Union.html" title="Mesh Union">Union</a>: Does a union (fusion) on meshes</li>
+<li> <a href="Mesh_Intersection.html" title="Mesh Intersection">Intersection</a>: Does an intersection (common) on meshes</li>
+<li> <a href="Mesh_Difference.html" title="Mesh Difference">Difference</a>: Does a difference (cut) on meshes</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="Mesh_Merge.html" title="Mesh Merge">Merge</a>: Merges meshes</li>
+<li> <a href="Mesh_SelectMesh.html" title="Mesh SelectMesh">Select Mesh</a>: Selects meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cut.png" class="image"><img alt="Mesh Cut.png" src="32px-Mesh_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/7/73/Mesh_Cut.png/48px-Mesh_Cut.png 1.5x, /wiki/images/7/73/Mesh_Cut.png 2x" /></a> <a href="Mesh_Cut.html" title="Mesh Cut">Cut mesh</a>: Cut meshes along a line</li>
+<li> <a href="Mesh_SplitMesh.html" title="Mesh SplitMesh">Split Mesh</a>: Splits meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MakeSegment.png" class="image"><img alt="Mesh MakeSegment.png" src="32px-Mesh_MakeSegment.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_MakeSegment.png/48px-Mesh_MakeSegment.png 1.5x, /wiki/images/0/0f/Mesh_MakeSegment.png 2x" /></a> <a href="Mesh_MakeSegment.html" title="Mesh MakeSegment">Make segment</a>: Makes a segment</li>
+<li> <a href="Mesh_TrimMesh.html" title="Mesh TrimMesh">Trim mesh</a>: Trims meshes</li>
+<li> <a href="Mesh_TrimMeshWithPlane.html" title="Mesh TrimMeshWithPlane">Trim mesh with a plane</a>: Trims meshes with a plane</li>
+<li> <a href="Mesh_CreateMeshSegment.html" title="Mesh CreateMeshSegment">Create mesh segments...</a>: Creates mesh segments</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_CurvaturePlot.png" class="image"><img alt="Mesh CurvaturePlot.png" src="32px-Mesh_CurvaturePlot.png" width="32" height="32" srcset="/wiki/images/thumb/3/3b/Mesh_CurvaturePlot.png/48px-Mesh_CurvaturePlot.png 1.5x, /wiki/images/3/3b/Mesh_CurvaturePlot.png 2x" /></a> <a href="Mesh_CurvaturePlot.html" title="Mesh CurvaturePlot">Curvature Plot</a>: Creates a curvature plot</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<div class="mw-translate-fuzzy">
+<p>Detta är bara några av de grundläggande operationerna som för närvarande finns i Nätmodulens gränssnitt. Men FreeCAD nät kan också hanteras på många fler sätt med <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/sv" title="Mesh Scripting/sv"> skript</a>.
+</p>
+</div>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="FreeCAD_and_Mesh_Import.html" title="FreeCAD and Mesh Import">FreeCAD and Mesh Import</a></li></ul>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/sv&amp;oldid=289993">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/sv&amp;oldid=289993</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

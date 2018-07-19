@@ -1,0 +1,126 @@
+<html><head><title>Expressions/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Expressions/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">verfügbar in Version 0.16</a></span>
+</p><p><br />
+Seit der Version 0.16 ist es möglich, Modelleigenschaften durch Rechenformeln festzulegen und mit anderen Eigenschaften von der Benutzeroberfläche aus zu verknüpfen. Eingabefelder von Eigenschaften für Zahlen oder Größenangaben enthalten einen blauen Knopf <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Expressions.png" class="image"><img alt="Sketcher Expressions.png" src="24px-Sketcher_Expressions.png" width="24" height="24" srcset="/wiki/images/thumb/b/b2/Sketcher_Expressions.png/36px-Sketcher_Expressions.png 1.5x, /wiki/images/thumb/b/b2/Sketcher_Expressions.png/48px-Sketcher_Expressions.png 2x" /></a>. Wenn man auf dieses Symbol klickt oder das Gleichheitszeichen (=) eingibt, öffnet sich der Formeleditor für die entsprechende Eigenschaft.
+</p><p>Ein Rechenausdruck in FreeCAD ist ein mathematischer Ausdruck in der üblichen Schreibweise für die Standardrechenarten (+, -, * und /) und mathematische Funktionen. (Siehe unten.) Zusätzlich können referenzierte Eigenschaften anderer Objekte und bedingte Ausdrücke verwendet werden. Zahlen in Rechenausdrücken können mit Einheiten verwendet werden.
+</p><p>Die Rechenarten und Funktionen verstehen sich auf Einheiten und erfordern deshalb bei der Verwendung von Einheiten zulässige Einheitenkombinationen. 2mm+4mm ist zum Beispiel ein zulässiger Rechenausdruck, während 2mm+4 nicht zulässig ist. (Der Grund dafür ist, das ein Ausdruck wie 1in + 4 von Menschen wohl als 1in + 4in interpretiert wird, das System dies jedoch nicht erraten kann, da alle Einheiten intern in das SI-System konvertiert werden.)
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Unterst.C3.BCtzte_Funktionen"><span class="tocnumber">1</span> <span class="toctext">Unterstützte Funktionen</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Referenzen_auf_CAD-Daten"><span class="tocnumber">2</span> <span class="toctext">Referenzen auf CAD-Daten</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Dokumentweit_g.C3.BCltige_globale_Variablen"><span class="tocnumber">3</span> <span class="toctext">Dokumentweit gültige globale Variablen</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Dokument.C3.BCbergreifende_Verlinkung"><span class="tocnumber">4</span> <span class="toctext">Dokumentübergreifende Verlinkung</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Bekannte_Probleme_.2F_Verbliebene_Aufgaben"><span class="tocnumber">5</span> <span class="toctext">Bekannte Probleme / Verbliebene Aufgaben</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unterst.C3.BCtzte_Funktionen">Unterstützte Funktionen</span></h2>
+<p>In den Rechenausdrücken werden die folgenden Funktionen mit einem oder zwei Argumenten unterstützt: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh, ceil, floor, trunc und round.
+</p><p>Funktionen mit Mehrfachargumenten: min, max, count, sum, stddev, und average.
+Funktionen mit Mehrfachargumenten können mit einem oder einer ganzen Reihe von Argumenten aufgerufen werden, jeweils durch ein Komma oder Semikolon getrennt. Die Argumente können Bereiche (Zwei Zellreferenzen getrennt durch einen Doppelpunkt) enthalten, z.B =average(B1:B8). Dies wird als Liste der Werte B1, B2, ... B8 ausgewertet.
+</p><p>Trigonometrische Funktionen verwenden Grad als Standardeinheit. Durch Hinzufügen von "<i>rad</i>" kann auch die Einheit Radiant verwendet werden.
+</p><p>Die Konstanten <i>pi</i> und <i>e</i> sind vordefiniert.
+</p><p>Die bedingte Anweisung wird wie folgt benutzt: <i>= Bedingung&#160;? Wahr-Ergebnis&#160;: Falsch-Ergebnis</i>
+</p><p>Die Bedingung muss ein Ausdruck sein, der entweder  0 (für falsch) oder ungleich 0 für wahr ergibt. Die folgenden Vergleichsoperatoren stehen zur Verfügung: ==,&#160;!=, &gt;, &lt;, &gt;=, und &lt;=.
+</p><p>Formeln werden wie folgt eingegeben: 2 * Length, wobei "Length" eine Eigenschaft des Objektes ist, für das der Ausdruck gedacht ist.
+</p>
+<h2><span class="mw-headline" id="Referenzen_auf_CAD-Daten">Referenzen auf CAD-Daten</span></h2>
+<p>Größenangaben von anderen Elementen der Konstruktion können in Rechenausdrücken verwendet werden. Die Syntax für eine Referenz auf ein Eigenschaftenfeld sieht wie folgt aus: Objekt.Eigenschaft. Wenn sich die Eigenschaft aus einer Reihe von Feldern zusammensetzt, kann wie folgt darauf zugegriffen werden: Object.Eigenschaft.Feldname. 
+</p><p>Die folgende Tabelle zeigt einige Beispiele:
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>CAD-Daten
+</th>
+<th>Aufruf im Rechenausdruck
+</th>
+<th>Ergebnis
+</th></tr>
+<tr>
+<td>Parametrische Länge eines Quaders vom Arbeitsbereich Part
+</td>
+<td>Cube.Length
+</td>
+<td>Länge mit der Einheit mm
+</td></tr>
+<tr>
+<td>Volumen des Quaders
+</td>
+<td>Cube.Shape.Volume
+</td>
+<td>Volumen  in mm&#179; Ausgabe ohne Einheiten
+</td></tr>
+<tr>
+<td>Typ des Quader-Shapess (geometrische Figur)
+</td>
+<td>Cube.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>Label des Quader-Objekts
+</td>
+<td>Cube.Label
+</td>
+<td>String: Cube
+</td></tr>
+<tr>
+<td>x-Koordinate des Schwerpunktes des Quaders
+</td>
+<td>Cube.Shape.CenterOfMass.x
+</td>
+<td>x-Koordinate in mm ohne Einheiten
+</td></tr>
+<tr>
+<td>Wert einer Beschränkung in einer Skizze
+</td>
+<td>Constraints.Breite
+</td>
+<td>Numerischer Wert der benannten Beschränkung 'Breite' in der Skizze
+</td></tr>
+<tr>
+<td>Wert eines Alias einer Kalkulationstabelle
+</td>
+<td>Spreadsheet.Tiefe
+</td>
+<td>Wert des Alias "Tiefe" in der Kalkulationstabelle "Spreadsheet"
+</td></tr>
+<tr>
+<td>Wert einer lokalen Eigenschaft des Objekts
+</td>
+<td>Length
+</td>
+<td>Wert der Eigenschaft Length von z. B. einem Pad-Objekt, wenn es in dem Ausdruck z. B. in der Eigenschaft Length2 im gleichen Objekt benutzt wird.
+</td></tr></table>
+<h2><span class="mw-headline" id="Dokumentweit_g.C3.BCltige_globale_Variablen">Dokumentweit gültige globale Variablen</span></h2>
+<p>Es gibt aktuell keine Infrastruktur für globale Variablen in FreeCAD. Stattdessen können beliebige Variablen als Zellwerte innerhalb einer Tabelle des Arbeitsbereiches <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/de" title="Spreadsheet Workbench/de">Tabellenkalkulation (Spreadsheet)</a> definiert werden und ihnen ein Name mittels der Alias-Eigenschaft für Zellen zugeordnet werden(Rechtsklick auf die Zelle). Danach können die Zellwerte in allen Rechenausdrücken verwendet werden, sie wie andere Eigenschaften von Objekten auch.
+</p>
+<h2><span class="mw-headline" id="Dokument.C3.BCbergreifende_Verlinkung">Dokumentübergreifende Verlinkung</span></h2>
+<p>Es ist möglich eine Tabelle der Tabellenkalkulation in einem Dokument zu haben und aus anderen Dokumenten auf Werte dieser Tabelle zu referenzieren.
+</p><p>Wichtiger Hinweis: Der Name des Dokuments muss angegeben werden, um es von einem anderen Dokument aus referenzieren zu können. Wenn ein Dokument nun zum ersten Mal gespeichert wird, muss dem Dokument ein Name gegeben werden, der normalerweise nicht "Unbenannt1" (oder eine anderssprachige Version) ist, und dann sind die Links beim erneuten Öffnen verloren. Deshalb ist es empfehlenswert zuerst das Stammdokument mit der Tabelle zu erstellen, zu speichern und zu schließen. Nach dem erneuten Öffnen wird der interne Name auf den Dateinamen gesetzt. Danach kann das Dokument geändert und gespeichert werden, aber es darf nicht umbenannt werden.
+</p><p>Danach können weitere Dokumente erstellt werden in denen entsprechende Rechenausdrücke eingesetzt werden. Angenommen, dass das Stammdokument "Stammdaten" genannt wurde, können Referenzen auf das Stammdokument wie folgt eingesetzt werden: Stammdaten#Spreadsheet.Length
+</p><p>Unglücklicherweise ist der eingebaute Formelprüfer mehr verwirrend als hilfreich, weil er immer wieder Interpretationsfehler meldet, dass dieses oder jenes nicht existiert. Daher einfach mit dem Eintippen fortfahren. Wenn man fertig ist und der Inhalt stimmt, dann wird plötzlich OK gemeldet.
+</p><p>Bei der Verwendung verknüpfter Dokumente ist der Benutzer dafür verantwortlich, dass alle Dokumente auch geöffnet sind, wenn irgendwelche Änderungen vorzunehmen sind.
+</p>
+<h2><span class="mw-headline" id="Bekannte_Probleme_.2F_Verbliebene_Aufgaben">Bekannte Probleme / Verbliebene Aufgaben</span></h2>
+<ul><li> Der Abhängigkeitsgraph basiert auf der Beziehung zwischen Objekten des Dokuments und nicht auf Beziehungen zwischen Eigenschaften. Das bedeutet, dass man nicht Daten einem Objekt zur Verfügung stellen kann und gleichzeitig Daten von diesem Objekt abfragt, selbst wenn keine zyklische Verknüpfung auf Basis der Eigenschaften besteht. Zur Umgehung des Problems können mehrere Tabellen angelegt werden: Eine Tabelle, die die Objektdaten zur Verfügung stellt und eine andere zur Datenauswertung.</li>
+<li> Es gibt keinen Manager für Rechenausdrücke, mit dem alle vorhandenen Rechenausdrücke aufgelistet werden können oder sonst wie erstellt, gelöscht oder gesucht werden können.</li>
+<li> Offene Fehler/Tickets für die Rechenausdrücke (Expressions) können hier nachgeschlagen werden: <a rel="nofollow" class="external text" href="https://freecadweb.org/tracker/set_project.php?project_id=4;20">FreeCAD Bugtracker Expressions category</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Expressions/de&amp;oldid=273378">http://www.freecadweb.org/wiki/index.php?title=Expressions/de&amp;oldid=273378</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

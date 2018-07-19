@@ -1,0 +1,108 @@
+<html><head><title>PartDesign Workbench/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>PartDesign Workbench/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><b>零件设计工作台</b>是基于<b>特征编辑法</b>用于提供零件复杂实体建模工具的工作台。它与<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/cn" title="Sketcher Workbench/cn">草图工作台</a>密切关联。
+</p><p><br />
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">这个维基页面是基于 FreeCAD 的<b>0.12 版本</b>写的。以前的版本将缺失一些零件设计工具，甚至直接没有零件设计工具。为了获得目前所有的零件设计特征，到<a href="https://www.freecadweb.org/wiki/index.php?title=Download/cn&amp;action=edit&amp;redlink=1" class="new" title="Download/cn (page does not exist)">下载页面</a>更新你的 FreeCAD 版本。</div>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Revolve3_cropped.png" class="image"><img alt="Revolve3 cropped.png" src="Revolve3_cropped.png" width="653" height="356" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.9F.BA.E6.9C.AC.E7.9A.84.E5.B7.A5.E4.BD.9C.E6.B5.81.E7.A8.8B"><span class="tocnumber">1</span> <span class="toctext">基本的工作流程</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.B7.A5.E5.85.B7"><span class="tocnumber">2</span> <span class="toctext">工具</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E8.8D.89.E5.9B.BE.E7.BB.98.E5.88.B6.E5.B7.A5.E5.85.B7"><span class="tocnumber">2.1</span> <span class="toctext">草图绘制工具</span></a>
+<ul>
+<li class="toclevel-3"><a href="#.E8.8D.89.E5.9B.BE.E5.87.A0.E4.BD.95.E7.BB.98.E5.88.B6"><span class="tocnumber">2.1.1</span> <span class="toctext">草图几何绘制</span></a></li>
+<li class="toclevel-3"><a href="#.E8.8D.89.E5.9B.BE.E7.BA.A6.E6.9D.9F"><span class="tocnumber">2.1.2</span> <span class="toctext">草图约束</span></a></li>
+<li class="toclevel-3"><a href="#.E5.85.B6.E5.AE.83"><span class="tocnumber">2.1.3</span> <span class="toctext">其它</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-4"><a href="#.E9.9B.B6.E4.BB.B6.E8.AE.BE.E8.AE.A1.E5.B7.A5.E5.85.B7"><span class="tocnumber">2.2</span> <span class="toctext">零件设计工具</span></a>
+<ul>
+<li class="toclevel-3"><a href="#.E5.BB.BA.E6.A8.A1.E5.B7.A5.E5.85.B7"><span class="tocnumber">2.2.1</span> <span class="toctext">建模工具</span></a></li>
+<li class="toclevel-3"><a href="#.E4.BF.AE.E6.94.B9.E5.B7.A5.E5.85.B7"><span class="tocnumber">2.2.2</span> <span class="toctext">修改工具</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.9F.BA.E6.9C.AC.E7.9A.84.E5.B7.A5.E4.BD.9C.E6.B5.81.E7.A8.8B">基本的工作流程</span></h2>
+<p>草图是用于创建和修改实体零件的，它是实体建模的重要组成部分。零件设计的工作流程可以概述为：首先创建一张二维几何草图，然后利用实体创建工具对二维草图进行三维设计。此时可以利用的工具有：拉伸（对草图进行拉伸），Pocket (which creates a pocket on an existing solid)，旋转（通过绕某个固定轴旋转草图来生成实体）。在未来的发行版本中将会有更多的工具。
+</p>
+<h2><span class="mw-headline" id=".E5.B7.A5.E5.85.B7">工具</span></h2>
+<p>在调用零件设计模块时，零件设计工具都位于<b>零件设计</b>菜单中。
+</p><p>因为零件设计模块对草图有太大的依赖性，所以零件设计工具中也包含了<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/cn" title="Sketcher Workbench/cn">草图工作台</a>工具。
+</p>
+<h3><span class="mw-headline" id=".E8.8D.89.E5.9B.BE.E7.BB.98.E5.88.B6.E5.B7.A5.E5.85.B7">草图绘制工具</span></h3>
+<h4><span class="mw-headline" id=".E8.8D.89.E5.9B.BE.E5.87.A0.E4.BD.95.E7.BB.98.E5.88.B6">草图几何绘制</span></h4>
+<p>这些工具用于创建对象。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Arc.png" class="image"><img alt="Sketcher Arc.png" src="32px-Sketcher_Arc.png" width="32" height="32" srcset="/wiki/images/thumb/1/15/Sketcher_Arc.png/48px-Sketcher_Arc.png 1.5x, /wiki/images/1/15/Sketcher_Arc.png 2x" /></a> <a href="Sketcher_Arc.html" title="Sketcher Arc">圆弧</a>: 用中心、半径、起始角度和终端角度绘制圆弧。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Circle.png" class="image"><img alt="Sketcher Circle.png" src="32px-Sketcher_Circle.png" width="32" height="32" srcset="/wiki/images/thumb/d/da/Sketcher_Circle.png/48px-Sketcher_Circle.png 1.5x, /wiki/images/d/da/Sketcher_Circle.png 2x" /></a> <a href="Sketcher_Circle.html" title="Sketcher Circle">圆</a>: 用圆心和半径绘制圆。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Line.png" class="image"><img alt="Sketcher Line.png" src="32px-Sketcher_Line.png" width="32" height="32" srcset="/wiki/images/thumb/7/72/Sketcher_Line.png/48px-Sketcher_Line.png 1.5x, /wiki/images/7/72/Sketcher_Line.png 2x" /></a> <a href="Sketcher_Line.html" title="Sketcher Line">两点直线</a>: 用两个点绘制一条直线段。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> <a href="Sketcher_Polyline.html" title="Sketcher Polyline">折线 (多点成线)</a>: 绘制一条折线段。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="32px-Sketcher_CreateRectangle.png" width="32" height="32" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/48px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/a/ad/Sketcher_CreateRectangle.png 2x" /></a> <a href="Sketcher_Rectangle.html" title="Sketcher Rectangle">矩形</a>: 通过两个对角顶点绘制矩形。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateFillet.png" class="image"><img alt="Sketcher CreateFillet.png" src="32px-Sketcher_CreateFillet.png" width="32" height="32" srcset="/wiki/images/thumb/f/f0/Sketcher_CreateFillet.png/48px-Sketcher_CreateFillet.png 1.5x, /wiki/images/f/f0/Sketcher_CreateFillet.png 2x" /></a> <a href="Sketcher_Fillet.html" title="Sketcher Fillet">圆角</a>: 对两条相交于一点的直线做圆角处理。先选中两条直线或交点，然后使用此工具处理。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Trimming.png" class="image"><img alt="Sketcher Trimming.png" src="32px-Sketcher_Trimming.png" width="32" height="32" srcset="/wiki/images/thumb/2/2c/Sketcher_Trimming.png/48px-Sketcher_Trimming.png 1.5x, /wiki/images/2/2c/Sketcher_Trimming.png 2x" /></a> <a href="Sketcher_Trimming.html" title="Sketcher Trimming">修剪</a>: 在直线、圆或者圆弧上的所选点处做修剪处理。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_AlterConstruction.png" class="image"><img alt="Sketcher AlterConstruction.png" src="32px-Sketcher_AlterConstruction.png" width="32" height="32" srcset="/wiki/images/thumb/2/2a/Sketcher_AlterConstruction.png/48px-Sketcher_AlterConstruction.png 1.5x, /wiki/images/2/2a/Sketcher_AlterConstruction.png 2x" /></a> <a href="Sketcher_ConstructionMode.html" title="Sketcher ConstructionMode">构建模式</a>: 将某个草图元素切换成构建模式，或者将构建模式切换成草图元素。构建模式的对象不能用于三维几何操作。</li></ul>
+<h4><span class="mw-headline" id=".E8.8D.89.E5.9B.BE.E7.BA.A6.E6.9D.9F">草图约束</span></h4>
+<p>约束用于设置草图元素之间的联系和规则，并将草图锁定在横轴和竖轴的固定位置。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConstrainLock.png" class="image"><img alt="Sketcher ConstrainLock.png" src="32px-Sketcher_ConstrainLock.png" width="32" height="32" srcset="/wiki/images/thumb/6/6c/Sketcher_ConstrainLock.png/48px-Sketcher_ConstrainLock.png 1.5x, /wiki/images/6/6c/Sketcher_ConstrainLock.png 2x" /></a> <a href="Constraint_Lock.html" title="Constraint Lock">锁定</a>: 通过设置相对原始尺寸的垂直和水平尺寸来创建所选对象的锁定约束（之后可以修改尺寸）。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> <a href="Constraint_PointOnPoint.html" title="Constraint PointOnPoint">点重合</a>: 使所选的两个点重合（点位于点上）。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnObject.png" class="image"><img alt="Constraint PointOnObject.png" src="32px-Constraint_PointOnObject.png" width="32" height="32" srcset="/wiki/images/thumb/7/7d/Constraint_PointOnObject.png/48px-Constraint_PointOnObject.png 1.5x, /wiki/images/7/7d/Constraint_PointOnObject.png 2x" /></a> <a href="Constraint_PointOnObject.html" title="Constraint PointOnObject">点位于对象之上</a>: 使所选点位于所选对象上。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> <a href="Constraint_HorizontalDistance.html" title="Constraint HorizontalDistance">水平距离</a>: 确定两点之间或者直线两端点之间的水平距离。如果只选中了一个对象，则距离设置为初始值。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> <a href="Constraint_VerticalDistance.html" title="Constraint VerticalDistance">垂直距离</a>: 确定两点之间或者直线两端点之间的垂直距离。如果只选中了一个对象，则距离设置为初始值。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a> <a href="Constraint_Vertical.html" title="Constraint Vertical">垂直约束</a>: 使所选直线和多线段元素具有垂直约束。可以选择多个对象。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> <a href="Constraint_Horizontal.html" title="Constraint Horizontal">水平约束</a>: 使所选直线和多线段元素具有水平约束。可以选择多个对象。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="32px-Constraint_Length.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/48px-Constraint_Length.png 1.5x, /wiki/images/a/a3/Constraint_Length.png 2x" /></a> <a href="Constraint_Length.html" title="Constraint Length">长度</a>: 设置所选直线的长度。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Radius.png" class="image"><img alt="Constraint Radius.png" src="32px-Constraint_Radius.png" width="32" height="32" srcset="/wiki/images/thumb/5/58/Constraint_Radius.png/48px-Constraint_Radius.png 1.5x, /wiki/images/5/58/Constraint_Radius.png 2x" /></a> <a href="Constraint_Radius.html" title="Constraint Radius">半径</a>: 设置所选圆弧或圆的半径。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Parallel.png" class="image"><img alt="Constraint Parallel.png" src="32px-Constraint_Parallel.png" width="32" height="32" srcset="/wiki/images/thumb/0/0b/Constraint_Parallel.png/48px-Constraint_Parallel.png 1.5x, /wiki/images/0/0b/Constraint_Parallel.png 2x" /></a> <a href="Constraint_Parallel.html" title="Constraint Parallel">平行约束</a>: 使所选的两条直线平行。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Perpendicular.png" class="image"><img alt="Constraint Perpendicular.png" src="32px-Constraint_Perpendicular.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Constraint_Perpendicular.png/48px-Constraint_Perpendicular.png 1.5x, /wiki/images/3/39/Constraint_Perpendicular.png 2x" /></a> <a href="Constraint_Perpendicular.html" title="Constraint Perpendicular">垂直约束</a>: 使所选的两个对象具有垂直约束关系。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAngle.png" class="image"><img alt="Constraint InternalAngle.png" src="32px-Constraint_InternalAngle.png" width="32" height="32" srcset="/wiki/images/thumb/7/75/Constraint_InternalAngle.png/48px-Constraint_InternalAngle.png 1.5x, /wiki/images/7/75/Constraint_InternalAngle.png 2x" /></a> <a href="Constraint_InternalAngle.html" title="Constraint InternalAngle">角度约束</a>: 使所选两条直线具有角度约束关系。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Tangent.png" class="image"><img alt="Constraint Tangent.png" src="32px-Constraint_Tangent.png" width="32" height="32" srcset="/wiki/images/thumb/1/1a/Constraint_Tangent.png/48px-Constraint_Tangent.png 1.5x, /wiki/images/1/1a/Constraint_Tangent.png 2x" /></a> <a href="Constraint_Tangent.html" title="Constraint Tangent">相切</a>: 使所选的两个对象相切，或者使两条直线段共线。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> <a href="Constraint_EqualLength.html" title="Constraint EqualLength">长度相等</a>: 使所选的两个对象具有相同的长度，如果选择的是圆或圆弧，则使半径相等。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> <a href="Constraint_Symmetric.html" title="Constraint Symmetric">对称</a>: 使两点相对一条直线对称。</li></ul>
+<h4><span class="mw-headline" id=".E5.85.B6.E5.AE.83">其它</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> <a href="Sketcher_NewSketch.html" title="Sketcher NewSketch">创建新草图</a>: 在所选的面上创建新草图。如果没有选择任何面，则默认在 XY 平面创建新草图。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_LeaveSketch.png" class="image"><img alt="Sketcher LeaveSketch.png" src="32px-Sketcher_LeaveSketch.png" width="32" height="32" srcset="/wiki/images/thumb/c/ce/Sketcher_LeaveSketch.png/48px-Sketcher_LeaveSketch.png 1.5x, /wiki/images/c/ce/Sketcher_LeaveSketch.png 2x" /></a> <a href="Sketcher_LeaveSketch.html" title="Sketcher LeaveSketch">离开草图</a>: 离开草图编辑模式。</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".E9.9B.B6.E4.BB.B6.E8.AE.BE.E8.AE.A1.E5.B7.A5.E5.85.B7">零件设计工具</span></h3>
+<h4><span class="mw-headline" id=".E5.BB.BA.E6.A8.A1.E5.B7.A5.E5.85.B7">建模工具</span></h4>
+<p>这些工具用于实体建模。
+</p><p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> <a href="PartDesign_Pad.html" title="PartDesign Pad">拉伸</a>: 将选中的草图拉伸成实体。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> <a href="PartDesign_Pocket.html" title="PartDesign Pocket">挖槽</a>: 根据草图将某实体挖一个槽，草图必须被映射到已存的某个实体对象的表面上。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution.png" class="image"><img alt="PartDesign Revolution.png" src="32px-PartDesign_Revolution.png" width="32" height="32" srcset="/wiki/images/thumb/6/6a/PartDesign_Revolution.png/48px-PartDesign_Revolution.png 1.5x, /wiki/images/6/6a/PartDesign_Revolution.png 2x" /></a> <a href="PartDesign_Revolution.html" title="PartDesign Revolution">旋转体</a>: 将一个草图围绕一个轴向旋转成一个实体对象。草图必须为封闭轮廓。</li></ul>
+<h4><span class="mw-headline" id=".E4.BF.AE.E6.94.B9.E5.B7.A5.E5.85.B7">修改工具</span></h4>
+<p>这些工具用于对所选择的对象进行修改。
+</p><p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="PartDesign_Fillet.html" title="PartDesign Fillet">圆角</a>: 将对象的边沿圆角处理。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Chamfer.png" class="image"><img alt="Part Chamfer.png" src="32px-Part_Chamfer.png" width="32" height="32" srcset="/wiki/images/thumb/8/87/Part_Chamfer.png/48px-Part_Chamfer.png 1.5x, /wiki/images/8/87/Part_Chamfer.png 2x" /></a> <a href="PartDesign_Chamfer.html" title="PartDesign Chamfer">倒角</a>: 将对象的边沿倒角处理。</li></ul>
+<p><br />
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/cn&amp;oldid=211342">http://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/cn&amp;oldid=211342</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

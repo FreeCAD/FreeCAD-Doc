@@ -1,0 +1,42 @@
+<html><head><title>Mesh Workbench/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Workbench/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><b>メッシュワークベンチ</b>では<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">三角形メッシュ</a>を取り扱えます。メッシュは3Dオブジェクトの特別なタイプの一つで、エッジと角（頂点とも呼ばれます）によってつながった三角形によって構成されます。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="An example of a mesh object"><img alt="An example of a mesh object" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>メッシュオブジェクトの一例
+</p><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Sketchup">Sketchup</a>、<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Blender_(software)">Blender</a>、 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Maya_(software)">Maya</a>、<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/3d_max">3d studio max</a>といった多くの3Dアプリケーションでは基本となる3Dオブジェクトのタイプとしてメッシュを使用しています。これはメッシュが頂点（点）、エッジ、（三角形）面のみからなる非常にシンプルなオブジェクトで作成や変更、分割、伸縮をとても簡単に行うことができ、劣化なしで容易にアプリケーション間でのやり取りができるためです。また非常にシンプルなデータからできているので3Dアプリケーションは非常に大量のデータであっても普通は問題を起こすことなく扱うことができます。これらの理由からしばしばメッシュは映画やアニメーション、画像作成といったアプリケーションで取り扱う3Dオブジェクトの選択肢となります。
+</p><p>しかしエンジニアリング分野ではメッシュには大きな欠点があります。点とラインと面だけでできているせいで非常に融通がききづらいのです。メッシュは面だけで形づくられ、体積情報がないのでソリッドとして振る舞うことができません。メッシュではある点がオブジェクトの内側にあるのか外側にあるのか自動で判定する方法がありません。つまり加算や減算に代表される全てのソリッドベースの操作はメッシュに対して行うことがかなり難しく、エラーが起きやすいのです。
+</p><p>FreeCADはエンジニアリング用のアプリケーションですから体積、ソリッドとしての振る舞いを表す情報、さらにはカスタマイズしたパラメーターなどもっと多くの情報を持つことのできるより知的な3Dオブジェクトを使いたいと思うのは当然のことでしょう。メッシュモジュールははじめはテスト用ベッドとして使うために作成されました。しかしメッシュを読み込み、操作し、変換できるということがFreeCADにとって非常に重要な機能であることも確かです。作業の中でメッシュ形式の3Dデータを受け取るということは非常によくあることです。そういったデータを取り扱う必要がある場合、それをもっと知的なオブジェクトに変換することを妨げている形状エラーやその他の問題を解析し、最終的にもっと知的なオブジェクトに変換することで<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>で取り扱うことができるようになります。
+</p>
+<h3><span class="mw-headline" id=".E3.83.A1.E3.83.83.E3.82.B7.E3.83.A5.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.81.AE.E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95">メッシュモジュールの使用方法</span></h3>
+<p>メッシュモジュールの現在のインターフェイスは非常にシンプルで全ての機能は<b>Mesh</b>メニューにまとめられています。メッシュに対して行うことのできる操作の中でももっとも重要なものは以下の通りです：
+</p>
+<ul><li> 複数のファイルフォーマットでのメッシュのインポート</li>
+<li> 複数のファイルフォーマットでのメッシュのエクスポート</li>
+<li> <a href="Part_Module.html" title="Part Module">パート</a>オブジェクトのメッシュへの変換</li>
+<li> 曲率、面の解析とメッシュを問題なくソリッドに変換できるかどうかのチェック</li>
+<li> メッシュ<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">法線</a>の反転</li>
+<li> メッシュに開いた穴の穴埋め</li>
+<li> メッシュ面の除去</li>
+<li> メッシュの結合、減算、交差</li>
+<li> 直方体、球、円錐、円筒といったメッシュプリミティブの作成</li>
+<li> ラインに沿ったメッシュの切断</li></ul>
+<p>今のところメッシュモジュールのインターフェイスにはいくつかの基本的な操作しかありません。しかし <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp" title="Mesh Scripting/jp">スクリプト</a>を使用すればさらに多くの処理をFreeCADのメッシュに対して行うこともできます。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/jp&amp;oldid=211349">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/jp&amp;oldid=211349</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

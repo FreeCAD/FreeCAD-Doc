@@ -1,0 +1,231 @@
+<html><head><title>Draft tutorial Outdated/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft tutorial Outdated/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Drafting
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Before_you_begin"><span class="tocnumber">2</span> <span class="toctext">Before you begin</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configurer_votre_espace_de_travail_FreeCAD"><span class="tocnumber">3</span> <span class="toctext">Configurer votre espace de travail FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Importer_des_dessins_CAD"><span class="tocnumber">4</span> <span class="toctext">Importer des dessins CAD</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Drawing_the_plan_view"><span class="tocnumber">5</span> <span class="toctext">Drawing the plan view</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Using_the_drawing_tools"><span class="tocnumber">5.1</span> <span class="toctext">Using the drawing tools</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Une_note_.C3.A0_propos_de_upgrade_et_downgrade"><span class="tocnumber">5.2</span> <span class="toctext">Une note à propos de upgrade  et downgrade</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Une_autre_note.2C_snapping"><span class="tocnumber">5.3</span> <span class="toctext">Une autre note, snapping</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Importation_et_construction_d.27objets_compos.C3.A9s"><span class="tocnumber">5.4</span> <span class="toctext">Importation et construction d'objets composés</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Dimensions_and_annotations"><span class="tocnumber">5.5</span> <span class="toctext">Dimensions and annotations</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Organisation"><span class="tocnumber">5.6</span> <span class="toctext">Organisation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Drawing_the_elevations"><span class="tocnumber">6</span> <span class="toctext">Drawing the elevations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Rotating_the_view.2C_and_creating_macros"><span class="tocnumber">6.1</span> <span class="toctext">Rotating the view, and creating macros</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Drawing_the_rotated_views"><span class="tocnumber">6.2</span> <span class="toctext">Drawing the rotated views</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><br /><b>Le module Projet (Draft) a beaucoup changé depuis l'écriture de ce tutoriel. Plusieurs concepts sont maintenant totalement différents et pourraient ne pas fonctionner de la façon dont ils sont décrits ci-dessous.</b><br /></div>
+<p><br />
+Ce tutorial va vous apprendre à utiliser le <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">module de dessin 2D</a> de FreeCAD (aussi appelé Draft module <b>Projet</b>) pour créer un dessin architectural simple.<br />
+Pour ce faire, nous allons élaborer une simple cabine en maçonnerie. Supposons que nous avons reçu un dessin CAO montrant l'emplacement de la cabine, nous allons l'utiliser pour dessiner notre projet en <b>calquant</b> celui-ci. Nous allons dessiner un plan, une section et deux élévations.
+</p>
+<h2><span class="mw-headline" id="Before_you_begin">Before you begin</span></h2>
+<p>Keep in mind that FreeCAD is still in an early stage of development, so you might not be as productive as with another CAD application, and you will certainly encounter bugs, or experience crashes. FreeCAD now has the ability to save backup files. The number of those backup files can be specified in the preferences dialog. Don't hesitate to allow 2 or 3 backup files until you know well how to deal with FreeCAD. 
+</p><p>Enregistrez souvent votre travail, et de temps en temps, enregistrer votre travail sous un nom différent, comme par exemple "<b>motoculteur_00.FCStd</b>", "<b>motoculteur_01.FCStd</b>", "<b>motoculteur_02.FCStd</b>" vous aurez une copie de "<b>sécurité</b>" <b>et</b> en même temps un "<b>historique</b>" simple de votre projet, et . . . être prêt à un éventuel dysfonctionnement de FreeCAD ou erreur de votre part.<br />
+Un autre truc d'archivage de sécurité, est de changer l'attribut de l'ancien fichier en lecture seule (se poser sur le fichier, clic sur le bouton droit de la souris → Propriétés → Général → Attributs → cocher Lecture seule) et le placer dans un répertoire "Archive" par exemple.
+</p>
+<h2><span class="mw-headline" id="Configurer_votre_espace_de_travail_FreeCAD">Configurer votre espace de travail FreeCAD</span></h2>
+<p>FreeCAD est un modeleur 3D, mais dans ce tutoriel, nous allons l'utiliser uniquement pour un travail en 2D. Donc, nous allons nous en tenir au plan de base, et tout ce que nous aurons, c'est notre coordonnée <b>Z</b> à zéro.<br />
+Alors d'abord, nous allons nous mettre en <b>vue de dessus</b> en appuyant sur ​​le <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> 2 </span> du pavé numérique et être sûr que nous ne sommes pas dans la projection orthographique (touche <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> 0 </span>) autrement, nous pourrions nous laisser tromper par certains effets de perspective.
+</p><p>Another very important thing to do, is to give custom <a href="Interface_Customization.html" title="Interface Customization">hotkeys</a> to your Draft commands. So you can do all the commands from the keyboard, which will drastically improve your speed. Basically you can do about everything from the keyboard, and will need the mouse only to draw points and select objects. Go to menu Customize -&gt; Keyboard -&gt; Category Python and select shortcuts as you like, a good idea is to make them easy to remember. For example, I use L for Line, W for Polyline (also called Wire in FreeCAD), A for Arc, C for Circle, M for Move, R for Rotate, F for Offset (O is already taken by Orthographic), D for Dimension, T for Text, etc...
+</p><p>Now we are set up, we can begin to draw.
+</p>
+<h2><span class="mw-headline" id="Importer_des_dessins_CAD">Importer des dessins CAD</span></h2>
+<p>Si vous importez un dessin de CAO en 2D, les chances sont élevées pour qu'ils soient dans un format propriétaire comme <b>.Dwg</b> (à partir d'<a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/AutoCAD">AutoCAD</a>) ou <b>.Mcd</b> (à partir de <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/VectorWorks">VectorWorks</a>).<br />
+Les spécifications de ces formats de fichiers sont gardés secrets par leurs fournisseurs, il est donc pour FreeCAD extrêmement difficile, voire totalement impossible de les soutenir. Toutefois, un format de fichier universel existe, c'est le format <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Drawing_eXchange_Format">DXF</a> et qui de plus est très bien <a rel="nofollow" class="external text" href="http://images.autodesk.com/adsk/files/acad_dxf2.pdf">documenté</a>, notre module de Projet le prend en charge partiellement.
+</p><p>Almost all CAD applications can export to the DXF format, and you also have several free converters such as openDWG's <a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a> utility, that will allow you to convert your file to the DXF format. For example, <a rel="nofollow" class="external text" href="http://www.doublecad.com/">Doublecad</a> is a free, fully functional CAD program that allows you to export DXF files:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Doublecad.jpg" class="image"><img alt="Doublecad.jpg" src="Doublecad.jpg" width="800" height="500" /></a>
+</p><p>Open your DXF file simply with the File -&gt; Open dialog. Several import settings can be configured in the <a href="Draft_Preferences.html" title="Draft Preferences">Draft Preferences</a> screen. For example, you can configure if you want the DXF file to be imported with original colors and linewidths, or converted to current Draft color, that you see at the right side of the Draft command bar. But in FreeCAD you won't need to attribute ugly colors to your objects to determine their linewidth. Objects all have independent color and linewidth attributes. So, you can very well forget about DXF colors, or convert everything to the colors of your choice.
+</p><p>Après avoir importé votre dessin dans FreeCAD, il ressemblera à ceci:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Situation.jpg" class="image"><img alt="Situation.jpg" src="Situation.jpg" width="800" height="595" /></a>
+</p><p>Let's begin with doing some cleaning. 
+</p><p>Dans FreeCAD, il n'ya pas de couches (<b>layers</b>), comme dans Autocad, nous travaillons avec des groupes. Les groupes sont un autre moyen plus souple pour organiser votre projet.<br />
+Vous pouvez créer de nouveaux groupes avec un clic droit sur ​​l'arborescence, les réorganiser, les déplacer dans d'autres groupes, ou déplacer des objets vers/à partir de groupes simplement par glisser-déposer dans l'arborescence.<br />
+Vous pouvez également attribuer la largeur de la ligne courante et les couleurs à tous les objets dans un groupe, ou les visualiser/aveugler en appuyant sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ESPACE</span>.
+</p><p>Mettons tous nos objets dans un seul nouveau groupe, et rendons "invisible" avec avec la touche <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ESPACE</span> tout ce que nous n'utiliserons pas, comme la végétation et les cotations, afin d'accélérer notre travail.
+</p>
+<h2><span class="mw-headline" id="Drawing_the_plan_view">Drawing the plan view</span></h2>
+<h3><span class="mw-headline" id="Using_the_drawing_tools">Using the drawing tools</span></h3>
+<p>The only thing we'll need at the moment is the area that is assigned to our cabin. It lies in a separate group named "projection". So we can basically turn off everything else with the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SPACE</span> key, and start drawing on top of it. We will draw a small cabin with a guard room and a WC, in very simple structural masonry, so there won't be any need for special concretework in the plan itself. But we'll put a layer of plaster inside, and a layer of ceramics outside.
+</p><p>Donc, nous allons commencer par faire la forme générale de nos murs&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-01.jpg" class="image"><img alt="Draft-tutorial-01.jpg" src="Draft-tutorial-01.jpg" width="800" height="269" /></a>
+</p><p>Our DXF drawing was drawn in meters, so unless we have any reason to change that, we'll continue with the same units. FreeCAD currently does not have a friendly system to work with real-world units, so we simply assume that "one" means "one meter". 
+</p><p>Another good thing to remember is to construct temporary geometry whenever you need. You want a point that lies 2 meters away horizontally? Draw a vertical line, move it 2m away, pass a horizontal line through it, there is your point.
+</p>
+<ul><li> Créer un <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Rectangle/fr" title="Draft Rectangle/fr">rectangle</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Rectangle.png" class="image"><img alt="Draft Rectangle.png" src="20px-Draft_Rectangle.png" width="20" height="20" srcset="/wiki/images/thumb/1/14/Draft_Rectangle.png/30px-Draft_Rectangle.png 1.5x, /wiki/images/thumb/1/14/Draft_Rectangle.png/40px-Draft_Rectangle.png 2x" /></a>&#160;: Enclenchez avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span> les coins de la zone affectée.<br /></li>
+<li> Décalage du <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Rectangle/fr" title="Draft Rectangle/fr">rectangle</a>&#160;: Avec le rectangle sélectionné, appuyez sur <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Offset/fr" title="Draft Offset/fr">décalage</a><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Offset.png" class="image"><img alt="Draft Offset.png" src="20px-Draft_Offset.png" width="20" height="20" srcset="/wiki/images/thumb/e/eb/Draft_Offset.png/30px-Draft_Offset.png 1.5x, /wiki/images/thumb/e/eb/Draft_Offset.png/40px-Draft_Offset.png 2x" /></a>, pressez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span> pour activer le mode copie, déplacez votre souris à l'intérieur du premier rectangle de sorte qu'il sait dans quelle direction aller, et entrez <b>0,20</b>.</li>
+<li> Transformez les en face&#160;: <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/fr" title="Draft Upgrade/fr">Upgrade</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a> le premier rectangle, mettez à niveau le second rectangle, puis sélectionnez le rectangle extérieur avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span>, sélectionnez le rectangle intérieur et appuyez sur <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/fr" title="Draft Downgrade/fr">Downgrade</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="20px-Draft_Downgrade.png" width="20" height="20" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/30px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/40px-Draft_Downgrade.png 2x" /></a>.</li>
+<li> Créez l'ouverture de la porte&#160;: faites un rectangle de <b>1,00 x 0,50</b>, déplacez le vers le coin supérieur de notre mur principal (pressez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span> pour activer le mode copie sur off).</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Move/fr" title="Draft Move/fr">Déplacez</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Move.png" class="image"><img alt="Draft Move.png" src="20px-Draft_Move.png" width="20" height="20" srcset="/wiki/images/thumb/c/c5/Draft_Move.png/30px-Draft_Move.png 1.5x, /wiki/images/thumb/c/c5/Draft_Move.png/40px-Draft_Move.png 2x" /></a> l'ouverture de la porte à la bonne position&#160;: déplacez de <b>0,10</b> vers la gauche. Nous ne mettrons pas notre ouverture directement sur ​​le coin, car la porte  serait difficile à ouvrir.</li>
+<li> Soustraire l'ouverture de porte&#160;: Sélectionnez le mur, avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span>, sélectionnez l'ouverture de la porte, puis appuyez sur <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/fr" title="Draft Downgrade/fr">downgrade</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="20px-Draft_Downgrade.png" width="20" height="20" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/30px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/40px-Draft_Downgrade.png 2x" /></a>.</li></ul>
+<h3><span class="mw-headline" id="Une_note_.C3.A0_propos_de_upgrade_et_downgrade">Une note à propos de upgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="Draft_Upgrade.png" width="64" height="64" /></a> et downgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="Draft_Downgrade.png" width="64" height="64" /></a></span></h3>
+<p>(Monter et descendre d'un niveau)<br />
+Maintenant, vous devez être conscient du fait que le noyau Opencascade que FreeCAD est construit pour la 3D. Il est fait principalement pour des opérations 3D.<br />
+Quand il doit couper ou réunir des faces planes, comme nous le faisons maintenant avec les opérations <b>Upgrade/Downgrade</b>, il fait parfois des choses étranges, et les opérations ultérieures (comme d'autres améliorations ou déclassements) parfois ne donnent pas les résultats escomptés.<br />
+Bien sûr, avec le temps, ces comportements finiront par être corrigés par les développeurs de FreeCAD, mais il est intéressant de connaître d'autres façons de résoudre les problèmes immédiats.
+</p><p>La meilleure façon de résoudre correctement une face qui n'est pas mise à <b>Upgrade / Downgrade / compensée</b>, c'est tout simplement de le <b>Downgrader</b>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="20px-Draft_Downgrade.png" width="20" height="20" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/30px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/40px-Draft_Downgrade.png 2x" /></a> jusqu'à ce qu'il soit complètement explosé, puis mettre à niveau les bords du nouvel ensemble pour en faire une nouvelle face.<br />
+Dans le cas où cela ne fonctionnerais pas non plus, redessinez tout simplement un nouveau fil (polyline <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Wire.png" class="image"><img alt="Draft Wire.png" src="20px-Draft_Wire.png" width="20" height="20" srcset="/wiki/images/thumb/0/00/Draft_Wire.png/30px-Draft_Wire.png 1.5x, /wiki/images/thumb/0/00/Draft_Wire.png/40px-Draft_Wire.png 2x" /></a>) sur le dessus de la face problématique, l'accrocher à ses extrémités, puis supprimer le vielle face et améliorer le nouveau fil.<br />
+Habituellement, la face que vous obtenez est en bien meilleure <b>forme</b> que la face que vous avez obtenu par <b>Upgrade/Downgrade</b>.
+</p><p>Another thing to keep in mind is that when you subtract a shape from another, you can find yourself with one object containing several faces. This might difficult your further work (they don't offset correctly, etc), so a good thing in that case is always to separate them with the downgrade tool.
+</p>
+<h3><span class="mw-headline" id="Une_autre_note.2C_snapping">Une autre note, snapping</span></h3>
+<p>Il existe deux formes de <b>snap</b> dans le module Projet&#160;: <b>snap</b> passive, qui se produit lorsque vous passez simplement le curseur de la souris sur un objet (un symbole cercle ouvert apparaît), et composant logiciel <b>accrochage</b> qui est actif quand vous appuyez sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span>.<br />
+L'accrochage actif vous permet de prendre des points spécifiques sur un objet, comme, les extrémités, les milieux, les centres ou les intersections avec d'autres objets.<br />
+Si vous appuyez sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SHIFT</span>, qui est la <b>clé</b> pour contraindre l'action horizontalement et verticalement, vous gagnerez des points d'accrochage encore plus décisivement. Mais cela a un coût, car FreeCAD doit réaliser de nombreux calculs en temps réel. Si vous avez de nombreux objets, vous allez commencer à voir la différence.<br />
+Ainsi, un bon truc pour accélérer votre travail, est de prendre l'habitude de travailler autant que possible seulement avec les <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SHIFT</span> <b>snap</b> passive. Vous verrez vite que vous obtiendrez des résultats précis et que vous travaillerez beaucoup plus vite.
+</p><p>So let's go back to work:
+</p>
+<ul><li> Créer un mur de 10 cm à l'échelle entre la salle principale et le WC. Le mettre à niveau, puis le mettre à niveau avec la paroi principale de les unir.</li>
+<li> Créer d'autres rectangles pour vos autres ouvertures. Je mets une fenêtre de 60 cm à l'échelle de ce qui deviendra le WC, une porte 80cm entre la salle principale et les toilettes, et pour la grande fenêtre dans la pièce principale, j'ai simplement laissé 40cm de mur sur le côté gauche et droit.</li>
+<li> Déplacez tous les murs de 1cm, faire une couche de ciment/plâtre, puis baissez les copies déplacées pour les transformer en simples fils.</li>
+<li> Créez une couche de céramique sur le côté extérieur, par voie de compensation de nos 2cm de plâtre, puis dessinez une forme de 2cm d'épaisseur entre les deux lignes.</li>
+<li> Supprimez les 2cm de décalage que nous n'avons plus besoin, ainsi que toute la géométrie de construction. Si vous sentez que vous pourriez en avoir besoin plus tard, il suffit de les mettre dans un groupe distinct et de transformer ce groupe <b>off</b> avec (<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ESPACE</span> Visibility=True).</li></ul>
+<p>C'est là que nous sommes maintenant (j'ai gardé la géométrie de construction là-bas, en bleu, à vous de voir):
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-walls.jpg" class="image"><img alt="Draft-tutorial-walls.jpg" src="Draft-tutorial-walls.jpg" width="800" height="474" /></a>
+</p>
+<h3><span class="mw-headline" id="Importation_et_construction_d.27objets_compos.C3.A9s">Importation et construction d'objets composés</span></h3>
+<p>Dans FreeCAD, les objets composés sont des objets fabriqués avec les formes géométriques de plusieurs autres objets. Dans d'autres logiciels, ils sont appelés <b>blocs</b>, <b>symboles</b> ou <b>composants</b>.<br />
+C'est une façon très pratique de grouper les formes géométriques dans un seul objet. Tout les objets créés avec le projet de module peuvent être regroupés en un composant.
+</p><p>La commande pour créer un composant est la commande <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/fr" title="Draft Upgrade/fr">Upgrade</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a>. L'utilisation est simple, sélectionnez tout ce que vous voulez transformer en un composant, et appuyez sur <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a>. Si aucune autre forme plus intelligente peut être créé, ils seront transformés en un composant.<br /><br />
+L'utilisation des formes géométriques composées est spécialement utile pour construire une bibliothèque de symboles sur votre disque, afin que vous puissiez les réutiliser plus tard.<br />
+Une utilisation cool, couplée à la fonction d'importation dxf, c'est que vous pouvez très facilement utiliser des bibliothèques de symboles au format DXF (si vos symboles sont au format dwg, l'application <a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a> peut convertir en un lot toute votre bibliothèque à la fois).
+</p><p>Once you have a library of DXF symbols, just drag one of them and drop it on top of your open FreeCAD window and it will be imported in the current document. It won't be imported as a compound, but all of the symbol geometry will be placed in a separate group, so it is easy to select it all and simply press "Upgrade". Beware that AutoCAD users have the bad habit of drawing things very far from the origin point (0,0,0), your inserted symbol can then lie very far from your drawing zone.
+</p><p>Donc, revenons à notre dessin:<br />
+</p>
+<ul><li> Importer un bloc sanitaire, si vous en avez un, ou en choisir un sur <a rel="nofollow" class="external text" href="http://cben.net/">Cad Exchange</a>, et le convertir en dxf avec le convertisseur <a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a>.</li>
+<li> Créer la géométrie d'une porte, upgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a> l'un des composants, copier à l'emplacement des portes d'autre part, downgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="20px-Draft_Downgrade.png" width="20" height="20" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/30px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/40px-Draft_Downgrade.png 2x" /></a>, ajuster les éléments à la nouvelle taille, et upgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a> à nouveau. Faites de même pour les fenêtres<br /></li>
+<li> Une fois que vous avez une bibliothèque de symboles DXF, il suffit de glisser l'un d'eux et de le déposez sur la fenêtre ouverte de FreeCAD, il sera importé dans le document courant.<br /></li>
+<li> Il ne sera pas importée en tant que composant, mais comme symbole géométrique, et, sera placé dans un groupe distinct, de sorte qu'il est facile de tout sélectionner et d'appuyez simplement sur Upgrade <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="20px-Draft_Upgrade.png" width="20" height="20" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/30px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/40px-Draft_Upgrade.png 2x" /></a>.<br /> </li>
+<li> Faire de même pour les fenêtres.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-blocks.jpg" class="image"><img alt="Draft-tutorial-blocks.jpg" src="Draft-tutorial-blocks.jpg" width="800" height="474" /></a>
+</p>
+<h3><span class="mw-headline" id="Dimensions_and_annotations">Dimensions and annotations</span></h3>
+<p>Now that our plan is more or less ready, we can add <a href="Draft_Dimension.html" title="Draft Dimension">dimensions</a> and <a href="Draft_Text.html" title="Draft Text">texts</a>. This is usually pretty straightforward, so there is probably no need to explain much. Just try to dimension everything, and as a convention, always start the dimension lines from the main wall line, not the finishing layer. One thing is good to know, sometimes you draw a text or a dimension over a filled area, and the filled area will cover your dimension. There is a simple way to fix that, it is by downgrading and upgrading again the filled area. It will then be displayed under the other elements.
+</p><p>The dimension and text will by default have the same text height, which can be changed in the <a href="Draft_Preferences.html" title="Draft Preferences">Draft Preferences</a> page. You can then edit individually each text height.
+</p><p>Malheureusement certains objets non-géométriques tels que textes et cotations ne sont pas toujours sélectionnable dans la vue 3D de FreeCAD, vous devez donc les sélectionner dans l'arbre du projet, et vous ne serez peut être pas en mesure de vous aligner sur eux, ce sera résolu tout en allant.<br />
+Il n'est également pas possible pour le moment de choisir un style de police. Pour aligner les cotations, actuellement, vous devez tracer une ligne, puis coter cette ligne.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-dims.jpg" class="image"><img alt="Draft-tutorial-dims.jpg" src="Draft-tutorial-dims.jpg" width="800" height="602" /></a>
+</p>
+<h3><span class="mw-headline" id="Organisation">Organisation</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-typical-tree.jpg" class="image"><img alt="Draft-tutorial-typical-tree.jpg" src="Draft-tutorial-typical-tree.jpg" width="156" height="250" /></a></div>
+<p>Enfin, nous pouvons ajouter quelques petites choses pour terminer notre plan, comme mettre de la végétation autour de la cabine. Nous pouvons tout simplement copier quelques arbres de notre fichier dxf importé, et, de les réduire avec l'<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Scale/fr" title="Draft Scale/fr">outil échelle</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Scale.png" class="image"><img alt="Draft Scale.png" src="20px-Draft_Scale.png" width="20" height="20" srcset="/wiki/images/thumb/c/c9/Draft_Scale.png/30px-Draft_Scale.png 1.5x, /wiki/images/thumb/c/c9/Draft_Scale.png/40px-Draft_Scale.png 2x" /></a>, par exemple <b>(0.5,0.5)</b>.<br />
+Nous pouvons également changer l'épaisseur du trait d'un couple d'objets, par exemple pour faire des murs plus épais, et changer la couleur de certaines choses. Et nous pouvons organiser l'ensemble de nos éléments dans les groupes. 
+</p><p>La capacité d'organiser votre travail en groupes imbriqués est sûrement plus avantageux que de travailler avec les traditionnelles couches (pages ou layers ou calques).<br /><br />
+Dans ce tutoriel, j'ai regroupé mes objets par type, dans l'intérieur du groupe Plan. Par exemple, au lieu d'avoir un grosse couche avec toutes les cotations de votre projet, chaque parties du dessin contient son propre groupe de cotations, ce qui rend une organisation extrêmement facile de votre dessin.
+</p><p>Dans un premier temps, vous pourriez vous sentir perdu, si vous migrez d'un programme de CAO traditionnel comme AutoCAD, mais vous verrez rapidement la puissance et la souplesse que cette méthode apporte.
+</p><p>For example, all our construction geometry can go in a separate group, that we'll turn off. Maybe later we'll need to make some changes, and it will be handy to have that geometry available.
+</p><p>So, now we are ready to draw other parts...
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Drawing_the_elevations">Drawing the elevations</span></h2>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-elevation.jpg" class="image"><img alt="Draft-tutorial-elevation.jpg" src="Draft-tutorial-elevation.jpg" width="232" height="300" /></a></div>
+<p><br /><br />
+Etant donné que dans cet exercice nous allons rester dans le plus pur 2D, nous tirerons directement nos élévations et sections.<br />
+Dans des environnements d'architecture plus avancés (nous espérons qu'a l'avenir FreeCAD le deviendra), nous n'aurions pas besoin de tirer les élévations.<br />
+Nous modélisons le bâtiment en 3D, puis générons les différents points de vue automatiquement. Mais pour l'amour de dieu (et aussi parce que tous les outils nécessaires ne sont pas encore mis en oeuvre dans FreeCAD), nous allons faire cet exercice à la main, comme au bon vieux temps.
+</p><p>Nous allons commencer par l'élévation de la paroi arrière, parce que la façon dont notre plan est orienté, il peut être prélevé directement ci-dessous, sans la nécessité de faire pivoter la vue.<br />
+Nous allons tout simplement dessiner les lignes de construction du plan, fait de lignes horizontales et de hauteurs désirées (je défini le niveau <b>0,00</b>, le niveau <b>0.15</b> de la dalle, puis la hauteur des fenêtres, et la dalle du toit à <b>2,50</b>).<br />
+Nous pouvons alors tirer notre forme géométrique très rapidement au-dessus de celle-ci.
+</p><p>Nous pouvons maintenant placer nos textes, nos cotations, et améliorer quelques-uns des objets de sorte qu'ils apparaissent colorés et attractifs. Enfin, nous pouvons faire un peu de nettoyage en créant une "élévation au Sud" du groupe, puis sous-grouper notre construction et les textes, ainsi que d’assembler nos nouveaux objets.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Rotating_the_view.2C_and_creating_macros">Rotating the view, and creating macros</span></h3>
+<p>Now, we need to draw other elevations of our little building. The simplest way would be to draw them directly under the plan view, as we did with the south elevation. For this, it would be handy to be able to rotate the view by 90°, so we can continue drawing our elevations "on foot". Unfortunately, FreeCAD has at the moment no "Rotate View" tool. But, fortunately, it has tools for us to easily create our own tools, called Macros. So, this is a good opportunity for us to try something easy.
+</p><p>Macros, as well as all scripting in FreeCAD, is done in a very simple programming language called <a rel="nofollow" class="external text" href="http://www.python.org">python</a>. You can write very complex programs in FreeCAD in python, but you can also use it to perform very simple operations where there still isn't a proper FreeCAD toolbar icon, such as our Rotate The View tool. So, first thing to do, open the Report view, if you closed it, and select the python tab. In there, type (or copy/paste) the following code:
+</p>
+<pre>import math
+ from pivy import coin
+ cam = Gui.ActiveDocument.ActiveView.getCameraNode()
+ rot = coin.SbRotation()
+ rot.setValue(coin.SbVec3f(0,0,1),math.pi/2)
+ cam.orientation = rot </pre>
+<p>Ce petit script va simplement faire pivoter la vue de <b>90°</b> vers la gauche. Pour faire tourner vers la droite faire <b>-90°</b>, vous pouvez tout simplement changer la formule <b>math.pi/2</b> par <b>-math.pi/2</b>.<br />
+Si vous souhaitez en savoir plus sur scripts Python dans FreeCAD, il existe une vaste section <a href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/fr" title="Power users hub/fr">Scripts</a> sur ce wiki.
+</p><p>Now, we need to do one more step, which is save our piece of code in a macro, so we can reuse it later. So, instead of pasting our code in the python interpreter, let's open the macro manager (Tools -&gt; Macros), create a new macro, press the "Edit" button and paste our code in it. Close the macro editor tab, and the macro will be saved.
+</p><p>The macros can behave like any other FreeCAD tool. With the Tools -&gt; Customize menu, we can add an icon to our macro, a keyboard shortcut, and add it to a toolbar.
+</p>
+<h3><span class="mw-headline" id="Drawing_the_rotated_views">Drawing the rotated views</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial05.jpg" class="image"><img alt="Draft-tutorial05.jpg" src="340px-Draft-tutorial05.jpg" width="340" height="250" srcset="/wiki/images/thumb/6/66/Draft-tutorial05.jpg/510px-Draft-tutorial05.jpg 1.5x, /wiki/images/6/66/Draft-tutorial05.jpg 2x" /></a></div>
+<p>Now that we can rotate the view at will, we can draw our other elevations. The easiest way is to draw your elevation at the right place under the plan view, and use a "mirror" (a 45°-oriented line) to push the height lines from another elevation. This way, drawing goes pretty fast.
+</p>
+<div style="clear:both"></div>
+<p>Finally, we draw 2 others elevations, and since the fourth one is the same as the second one (but mirrored), we will skip it. We can then draw a cross section, and our drawing is complete:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Fctutorial-complete.jpg" class="image"><img alt="Fctutorial-complete.jpg" src="Fctutorial-complete.jpg" width="800" height="725" /></a>
+</p><p>To be continued...
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_tutorial_Outdated/fr&amp;oldid=212192">http://www.freecadweb.org/wiki/index.php?title=Draft_tutorial_Outdated/fr&amp;oldid=212192</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

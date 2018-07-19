@@ -1,0 +1,72 @@
+<html><head><title>Draft SVG/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft SVG/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_inkscape.jpg" class="image"><img alt="Screenshot inkscape.jpg" src="Screenshot_inkscape.jpg" width="800" height="448" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Otev.C5.99en.C3.AD"><span class="tocnumber">1</span> <span class="toctext">Otevření</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Import"><span class="tocnumber">2</span> <span class="toctext">Import</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Export"><span class="tocnumber">3</span> <span class="toctext">Export</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#P.C5.99edvolby"><span class="tocnumber">4</span> <span class="toctext">Předvolby</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Pr.C3.A1ce_s_jednotkami"><span class="tocnumber">5</span> <span class="toctext">Práce s jednotkami</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Otev.C5.99en.C3.AD">Otevření</span></h3>
+<p>Tato funkce importuje SVG soubory jako zpracovatelné 2D objekty, jako protějšek zabudovaného kreslicího modulu, který importuje SVG soubory jako výkresy.
+V současnosti jsou importovány následující SVG objekty:
+</p>
+<ul><li> objekty PATH</li>
+<li> objekty PŘÍMKA</li>
+<li> objekty OBDÉLNÍK</li>
+<li> objekty KRUŽNICE</li>
+<li> objekty ELIPSA</li>
+<li> objekty MNOHOÚHELNÍK</li>
+<li> objekty LOMENÁ ČÁRA</li></ul>
+<h3><span class="mw-headline" id="Import">Import</span></h3>
+<p>Funguje stejně jako otevření, ale vytváří objekty v aktivním dokumentu místo vytváření nového dokumentu.
+</p>
+<h3><span class="mw-headline" id="Export">Export</span></h3>
+<p>V SVG souboru mohou být exportovány následující objekty:
+</p>
+<ul><li> Přímky a dráty (lomené čáry)</li>
+<li> Oblouky a kružnice</li>
+<li> Plochy</li>
+<li> Texty</li>
+<li> Kóty</li></ul>
+<p>Mějte na mysli, že SVG je 2D formát, takže všechny Z informace budou ignorovány (všechny objekty budou ploché).
+</p>
+<h3><span class="mw-headline" id="P.C5.99edvolby">Předvolby</span></h3>
+<p>V záložce <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Preferences/cs" title="Draft Preferences/cs">Kreslení Předvolby</a> (menu Úpravy -&gt; Předvolby -&gt; Kreslení) mohou být specifikovány následující parametry:
+</p>
+<ul><li> Import/Export -&gt; Styl Importu: Dává na výběr způsob jakým budou objekty z SVG souboru kresleny ve FreeCADu. Vyběr je mezi:
+<ul><li> Žádný: to je nejrychlejší způsob, nedělají se žádné konverze, všechny objekty jsou černé s defaultní (FreeCAD) tloušťkou čáry 2px</li>
+<li> Použít defaultní barvu a tloušťku čáry: Všechny importované objekty přebírají aktuálně nastavenou barvy a tloušťku čáry z příkazového pruhu kreslení</li>
+<li> Originální barvu a tloušťku čáry: Objekty si podrží barvu a tloušťku čáry (pokud je specifikovaná) takovou jakou mají v SVG souboru</li></ul></li>
+<li> Import/Export -&gt; Styl Exportu: 
+<ul><li> Překlad: Všechny elementy jsou přeloženy tak, že mají kladné souřadnice. To by mělo pomoci při zobrazování a tisku. Výstupní souřadnicový systém NENÍ konzistentní mezi individuálně exportovanými prvky.</li>
+<li> Neupravený: Pozice všech prvků jsou zachovány. Je to zamýšleno pro použití v CAM, např. v PyCAM. Vrstvy nebo řezy, které jsou exportované samostatně budou spolu lícovat.</li></ul></li>
+<li> Základní nastavení -&gt; Interní úroveň přesnosti:
+<ul><li> Tato hodnota je využita pro kontrolu, zda segment Bezierovy křivky musí mít vazbu na přímou čáru. If you import detailed paths, like rendered text, you may want to increase this setting up to 6. Pracujete-li s Inscapem, uvažujte prosím o zvýšení přesnosti v SVG souboru. (Inkscape Menu -&gt; File -&gt; Inkscape Preferences -&gt; SVG Output -&gt; Numeric Precision)</li></ul></li></ul>
+<h3><span class="mw-headline" id="Pr.C3.A1ce_s_jednotkami">Práce s jednotkami</span></h3>
+<p>Při exportu se jedna User Unit (px) rovná jednomu milimetru. 
+</p><p>Při importu jsou respektovány atributy šířky, výšky a viewBoxu. Všechny prvky jsou převedeny na jejich rozměry v milimetrech, což je interní jednotka FreeCADu. Pokud SVG neobsahuje informace o fyzickém rozměru, předpokládá se rozlišení 90 DPI.
+Doporučuje se vyhýbat se použití absolutních jednotek v atributech uvnitř SVG . Relativní jednotky jako jsou em,ex a&#160;% nejsou aktuálně ve FreeCADu podporovány.
+</p><p>SVG editor Inkscapu aktuálně pracuje s dokumenty s rozlišením 90 DPI. Nezáleží na tom jaké jsou v Inkscapu vybrány jednotky. Je třeba počítat s tím, že všechny výstupy jsou konvertovány do rozlišení 90 DPI a zaokrouhleny na 6 desetinných míst. Protože FreeCAD (a SVG standard) nedůvěřuje přesnosti zaokrouhlování v Inkscpau, nebudou tyto hodnoty zaoukrouhlovány na vstupu. Přebytečné informace v milimetrech zbudou.
+Jestliže potřebujete aby SVG import nebyl zaokrouhlován, pracujte v Inkscapu s User Units(px). Přepočet může být dodatečně proveden po importu do FreeCADu nebo změnou atributů šířky, výšky a viewBoxu.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_SVG/cs&amp;oldid=73639">http://www.freecadweb.org/wiki/index.php?title=Draft_SVG/cs&amp;oldid=73639</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,267 @@
+<html><head><title>Draft API/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft API/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Dessa funktioner är en del av Skissmodulen och kan användas i skript och makron eller från pythontolken, när Skissmodulen har importerats.
+</p><p>Exempel:
+</p>
+<pre>import FreeCAD
+from Draft import *
+myrect = makeRectangle(4,3)
+mydistance = FreeCAD.Vector(2,2,0)
+move(myrect,mydistance) </pre>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>cut</b></big> ( <i>FreeCAD.Object, FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returnerar ett klippt objekt som gjorts från skillnaden mellan 2 givna objekt. Originalobjekten göms.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>extrude</b></big> ( <i>FreeCAD.Object, Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Extruderar det givna objektet i den riktning som ges av vektorn. Originalobjektet göms.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>formatObject</b></big> ( <i>FreeCAD.Object, [FreeCAD.Object]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Denna funktion tillämpar de nuvarande egenskaperna som ställts in i Skiss verktygslådan på det givna objektet (linjefärg och linjebredd), eller om ett andra objekt är specificerat så kopieras egenskaperna från det. Det placerar också objektet i konstruktionsgruppen om konstrktion knappen trycks ned.
+</p><p><small><b>Returns</b>:</small> Ingenting
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fuse</b></big> ( <i>FreeCAD.Object, FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returnerar ett objekt som gjorts från föreningen av de 2 givna objekten. Om objekten är koplanära, så används en speciell Skisstråd, annars så är det slutliga objektet an standard Del förening.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getDraftPath</b></big> ( <i>[string]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returnerar användaren eller systemsökvägen varifrån Skissmodulen körs. Om en delsökväg eller filnamn anges, så returneras den fulla sökvägen till delsökvägen inuti Skiismodulen.
+</p><p><small><b>Returns</b>:</small> En filsökväg
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getGroupContents</b></big> ( <i>list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skannar den givna listan rekursivet efter grupper. Om grupper hittas, så adderas dess innehåll till llistan.
+</p><p><small><b>Returns</b>:</small> En lista med FreeCAD Objekt
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getRealName</b></big> ( <i>string</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Tar bort efterföljande nummer fårn ett objektnamn.
+</p><p><small><b>Returns</b>:</small> Det nedkortade objektnamnet
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSelection</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returnerar det nuvarande FreeCAD valet.
+</p><p><small><b>Returns</b>:</small> Det nuvarande FreeCAD valet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeCircle</b></big> ( <i>radius, [placement], [facemode], [startangle], [endangle]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar ett cirkelobjekt med given radie. Om en placering ges, så används den. Om facemode är falskt, så visas cirkeln som en trådram, annars som en yta. Om startangle OCH endangle är givna (i grader), så används de och objektet visas som en cirkelbåge.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeDimension</b></big> ( <i>Vector, Vector, [Vector] or FreeCAD.Object, int, int, [Vector]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar ett Dimensioneringsobjekt som mäter distansen mellan den första och den andra vektorn, med dimensionslinjen passerande genom den tredje vektorn. Nuvarande linjebredd och färg från Skissverktygslådan kommer att användas. Istället för 2 vektorer, så kan du även använda ett FreeCAD objekt, och två heltal (och valfritt, en vektor där dimensionlinjen måste passera). I det fallet, så kommer dimensionen att associeras med objektet, och mäta två av dess hörn, som indikeras av de två givna indexnumren.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeLine</b></big> ( <i>Vector, Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar en linje mellan de två givna vektorerna. Nuvarande linjebredd och färg från Skissverktygslådan kommer att användas.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeRectangle</b></big> ( <i>length, width, [placement], [facemode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar ett Rektangelobjekt med längden i X riktningen och höjden i Y riktningen. Om en placering ges, så navänds den. Om facemode är falskt, så visas rektangeln som en trådram, annars som en yta. Nuvarande linjebredd och färg från Skissverktygslådan kommer att användas.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeText</b></big> ( <i>string or list, [Vector], [screenmode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar ett Textobjekt vid den givna punkten om en vektor finns, som innehåller strängen eller de strängar som ges i listan, en sträng per rad. Nuvarande färg från Skissverktygslådan och texthöjd samt typsnitt som specificerats i alternativ, används. Om screenmode är sant, så kommer texten alltid att visas mot vyriktningen, annars så läggs den på XY planet.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeWire</b></big> ( <i>list or Part.Wire, [closed], [placement], [facemode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar ett trådobjekt från den givna listan med vektorer eller från den givna Tråden. Om closed är sant eller om den första och den sista punkten är identisk, så är tråden sluten. Om facemode är Sant (och tråden är sluten), så kommer tråden att visas fylld. Nuvarande linjebredd och färg från Skissverktygslådan kommer att användas.
+</p><p><small><b>Returns</b>:</small> Det nyligen skapade objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>move</b></big> ( <i>FreeCAD.Object or list, Vector, [copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Flyttar det givna objektet eller objekten som finns i den givna listan, i den riktning och distans som indikeras av den givna vektorn. Om copymode är Sant, så flyttas inte de aktuella objekten, utan kopior skapas istället.
+</p><p><small><b>Returns</b>:</small> Objekt(en) (eller dess kopior om copymode var Sant).
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>precision</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returnerar precisionsvärdet från användarinställningarna i Skiss.
+</p><p><small><b>Returns</b>:</small> Ett heltal.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>rotate</b></big> ( <i>FreeCAD.Object or list, angle, [center], [axis] ,[copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Roterar det givna objektet eller objekten som finns i den givna listan, med given vinkel runt ett givet centrum, och använder axis som rotationsaxel. Om axis är ospecificerat, så kommer rotationen at ske runt den vertikala Z axeln. Om copymode är Sant, så flyttas inte de aktuella objekten, utan kopior skapas istället.
+</p><p><small><b>Returns</b>:</small> Objekt(en) (eller dess kopior om copymode var Sant).
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>scale</b></big> ( <i>FreeCAD.Object or list, vector, [center], [copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skalar det givna objektet eller objekten som finns i den givna listan  med en skalfaktor don definieras av den givna vektorn (i X, Y och Z riktningarna) runt ett givet centrum. Om copymode är Sant, så flyttas inte de aktuella objekten, utan kopior skapas istället.
+</p><p><small><b>Returns</b>:</small> Objekt(en) (eller dess kopior om copymode var Sant).
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>select</b></big> ( <i>FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Avmarkerar allting och markerar bara det givna objektet
+</p><p><small><b>Returns</b>:</small> Ingenting.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>shapify</b></big> ( <i>FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Omvandlar ett parametriskt formobjekt till icke-parametriskt.
+</p><p><small><b>Returns</b>:</small> Det nya objektet.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>draftify</b></big> ( <i>FreeCAD.Object or list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Omvandlar det givna objektet eller varje objekt i den givna listan till Skiss parametriska trådar.
+</p><p><small><b>Returns</b>:</small> Ingenting.
+</p>
+</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSVG</b></big> ( <i>FreeCAD.Object, [linemodifier], [textmodifier], [(u,v)]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Skapar en SVG representation av det givna objektet. linemodifier attributet är en skalfaktor (i procent) för linjebredd, och textmodifier för textstorlek. Du kan alternativt också ange en tupel med vektorer för att definiera ett projektionsplan, annars så kommer geometrin att projiceras på XY planet.
+</p><p><small><b>Returns</b>:</small> en sträng som innehåller en SVG representation av det givna objektet.
+</p>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_API/sv&amp;oldid=133248">http://www.freecadweb.org/wiki/index.php?title=Draft_API/sv&amp;oldid=133248</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

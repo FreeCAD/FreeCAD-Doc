@@ -1,0 +1,246 @@
+<html><head><title>Draft API/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft API/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>These functions are part of the Draft module and can be used in scripts and macros or from the python interpreter, once the Draft module has been imported.
+</p><p>Example:
+</p>
+<pre>import FreeCAD
+from Draft import *
+myrect = makeRectangle(4,3)
+mydistance = FreeCAD.Vector(2,2,0)
+move(myrect,mydistance) </pre>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>cut</b></big> ( <i>FreeCAD.Object, FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns a cut object made from the difference of the 2 given objects. The original objects get hidden.
+</p><p><small><b>Returns</b>:</small> The newly created object
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>extrude</b></big> ( <i>FreeCAD.Object, Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Extrudes the given object in the direction given by the vector. The original object gets hidden.
+</p><p><small><b>Returns</b>:</small> The newly created object
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>formatObject</b></big> ( <i>FreeCAD.Object, [FreeCAD.Object]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> This function applies to the given target object the current properties set on the Draft toolbar (line color and line width), or copies the properties of a second object if provided. It also places the object in construction group if the construction button is pressed.
+</p><p><small><b>Returns</b>:</small> Nothing
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>fuse</b></big> ( <i>FreeCAD.Object, FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns an object made from the union of the 2 given objects. If the objects are coplanar, a special Draft Wire is used, otherwise the final object is a standard Part fuse.
+</p><p><small><b>Returns</b>:</small> The newly created object
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getDraftPath</b></big> ( <i>[string]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns the user or system path where the Draft module is running from. If a subpath or a filename is supplied, the full path to the subpath inside the Draft module is returned.
+</p><p><small><b>Returns</b>:</small> A file path
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getGroupContents</b></big> ( <i>list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Scans recursively the given list for groups. If groups are encountered, their contents are appended to the list.
+</p><p><small><b>Returns</b>:</small> A list of FreeCAD Objects
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getRealName</b></big> ( <i>string</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Strips the trailing numbers from an object name.
+</p><p><small><b>Returns</b>:</small> The stripped object name
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSelection</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns the current FreeCAD selection.
+</p><p><small><b>Returns</b>:</small> The current FreeCAD selection.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeCircle</b></big> ( <i>radius, [placement], [facemode], [startangle], [endangle]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a circle object with given radius. If a placement is given, it is used. If facemode is False, the circle is shown as a wireframe, otherwise as a face. If startangle AND endangle are given (in degrees), they are used and the object appears as an arc.
+</p><p><small><b>Returns</b>:</small> The newly created object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeDimension</b></big> ( <i>Vector, Vector, [Vector] or FreeCAD.Object, int, int, [Vector]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a Dimension object measuring distance between first and second vectors, with the dimension line passign through the third vector if provided. The current line width and color from the Draft toolbar will be used. Instead of 2 vectors, you can also pass a FreeCAD object, and two integers (and optionally a vector where the dimension line must pass). In that case, the dimension will be associated with the object, and measure two of its vertices, indicated by the two given indice numbers.
+</p><p><small><b>Returns</b>:</small> The newly created object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeLine</b></big> ( <i>Vector, Vector</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a line between the two given vectors. The current line width and color from the Draft toolbar will be used.
+</p><p><small><b>Returns</b>:</small> The newly created object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeRectangle</b></big> ( <i>length, width, [placement], [facemode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a Rectangle object with length in X direction and height in Y direction. If a placement is given, it is used. If facemode is False, the rectangle is shown as a wireframe, otherwise as a face. The current line width and color from the Draft toolbar will be used.
+</p><p><small><b>Returns</b>:</small> The newly created object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeText</b></big> ( <i>string or list, [Vector], [screenmode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a Text object, at the given point if a vector is provided, containing the string or the strings given in the list, one string by line. The current color from the Draft toolbar and the text height and font specified in preferences are used. If screenmode is True, the text always faces the view direction, otherwise it lies on the XY plane.
+</p><p><small><b>Returns</b>:</small> The newly created object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>makeWire</b></big> ( <i>list or Part.Wire, [closed], [placement], [facemode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a DWire object from the given list of vectors or from the given Wire. If closed is True or if first and last points are identical, the wire is closed. If facemode is True (and wire is closed), the wire will appear filled. The current line width and color from the Draft toolbar will be used.
+</p><p><small><b>Returns</b>:</small> A new Draft DWire (not a Part Wire).
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>move</b></big> ( <i>FreeCAD.Object or list, Vector, [copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Moves the given object or the objects contained in the given list in the direction and distance indicated by the given vector. If copymode is True, the actual objects are not moved, but copies are created instead.
+</p><p><small><b>Returns</b>:</small> The object(s) (or their copies if copymode was True).
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>precision</b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Returns the precision value from Draft user settings.
+</p><p><small><b>Returns</b>:</small> An integer.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>rotate</b></big> ( <i>FreeCAD.Object or list, angle, [center], [axis] ,[copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Rotates the given object or the objects contained in the given list with the given angle around the given center if provided, using axis as a rotation axis. If axis is omitted, the rotation will be around the vertical Z axis. If copymode is True, the actual objects are not moved, but copies are created instead.
+</p><p><small><b>Returns</b>:</small> The objects (or their copies).
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>scale</b></big> ( <i>FreeCAD.Object or list, vector, [center], [copymode]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Scales the given object or the objects contained in the given list with a scale factors defined by the given vector (in X, Y and Z directions) around the given center if provided. If copymode is True, the actual objects are not moved, but copies are created instead.
+</p><p><small><b>Returns</b>:</small> The objects (or their copies).
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>select</b></big> ( <i>FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Deselects everything and selects only the passed object
+</p><p><small><b>Returns</b>:</small> Nothing.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>shapify</b></big> ( <i>FreeCAD.Object</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Transforms a parametric shape object into non-parametric.
+</p><p><small><b>Returns</b>:</small> The new object.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>draftify</b></big> ( <i>FreeCAD.Object or list</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Turns the given object or each object of the given list into Draft parametric wires.
+</p><p><small><b>Returns</b>:</small> Nothing.
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>getSVG</b></big> ( <i>FreeCAD.Object, [linemodifier], [textmodifier], [(u,v)]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates a SVG representation of the given object. The linemodifier attribute is a scale factor (in percents) for line width, and textmodifier for text size. You can also optionally provide a tuple of vectors to define a projection plane, otherwise the geometry will be projected on the XY plane.
+</p><p><small><b>Returns</b>:</small> a string containing a SVG representation of the given object.
+</p>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_API/de&amp;oldid=133240">http://www.freecadweb.org/wiki/index.php?title=Draft_API/de&amp;oldid=133240</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

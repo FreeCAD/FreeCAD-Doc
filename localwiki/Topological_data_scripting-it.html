@@ -1,0 +1,771 @@
+<html><head><title>Topological data scripting/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Topological data scripting/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Programmazione
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Intermedio
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduzione"><span class="tocnumber">2</span> <span class="toctext">Introduzione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Diagramma_delle_classi"><span class="tocnumber">2.1</span> <span class="toctext">Diagramma delle classi</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Geometria"><span class="tocnumber">2.2</span> <span class="toctext">Geometria</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Topologia"><span class="tocnumber">2.3</span> <span class="toctext">Topologia</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Veloce_esempio:_Creare_una_topologia_base"><span class="tocnumber">3</span> <span class="toctext">Veloce esempio: Creare una topologia base</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Creare_la_geometria"><span class="tocnumber">3.1</span> <span class="toctext">Creare la geometria</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Arco"><span class="tocnumber">3.2</span> <span class="toctext">Arco</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Linea"><span class="tocnumber">3.3</span> <span class="toctext">Linea</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Unire_tutto"><span class="tocnumber">3.4</span> <span class="toctext">Unire tutto</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Creare_un_prisma"><span class="tocnumber">3.5</span> <span class="toctext">Creare un prisma</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Mostrare_il_risultato"><span class="tocnumber">3.6</span> <span class="toctext">Mostrare il risultato</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Creare_forme_di_base"><span class="tocnumber">4</span> <span class="toctext">Creare forme di base</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Importare_i_moduli_necessari"><span class="tocnumber">4.1</span> <span class="toctext">Importare i moduli necessari</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Creare_un_vettore"><span class="tocnumber">4.2</span> <span class="toctext">Creare un vettore</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Creare_un_bordo"><span class="tocnumber">4.3</span> <span class="toctext">Creare un bordo</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Mostrare_la_forma_sullo_schermo"><span class="tocnumber">4.4</span> <span class="toctext">Mostrare la forma sullo schermo</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Creare_un_contorno"><span class="tocnumber">4.5</span> <span class="toctext">Creare un contorno</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Creare_una_faccia"><span class="tocnumber">4.6</span> <span class="toctext">Creare una faccia</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Creare_una_circonferenza"><span class="tocnumber">4.7</span> <span class="toctext">Creare una circonferenza</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Creare_un_arco_attraverso_dei_punti"><span class="tocnumber">4.8</span> <span class="toctext">Creare un arco attraverso dei punti</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Creare_un_poligono"><span class="tocnumber">4.9</span> <span class="toctext">Creare un poligono</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Creare_una_curva_di_Bezier"><span class="tocnumber">4.10</span> <span class="toctext">Creare una curva di Bezier</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Creare_un_piano"><span class="tocnumber">4.11</span> <span class="toctext">Creare un piano</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Creare_una_ellisse"><span class="tocnumber">4.12</span> <span class="toctext">Creare una ellisse</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Creare_un_toro"><span class="tocnumber">4.13</span> <span class="toctext">Creare un toro</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Creare_un_cubo_o_parallelepipedo"><span class="tocnumber">4.14</span> <span class="toctext">Creare un cubo o parallelepipedo</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Creare_una_sfera"><span class="tocnumber">4.15</span> <span class="toctext">Creare una sfera</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Creare_un_cilindro"><span class="tocnumber">4.16</span> <span class="toctext">Creare un cilindro</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Creare_un_cono"><span class="tocnumber">4.17</span> <span class="toctext">Creare un cono</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="#Modificare_delle_forme"><span class="tocnumber">5</span> <span class="toctext">Modificare delle forme</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="#Operazioni_di_trasformazione"><span class="tocnumber">5.1</span> <span class="toctext">Operazioni di trasformazione</span></a>
+<ul>
+<li class="toclevel-3 tocsection-32"><a href="#Traslare_una_forma"><span class="tocnumber">5.1.1</span> <span class="toctext">Traslare una forma</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#Ruotare_una_forma"><span class="tocnumber">5.1.2</span> <span class="toctext">Ruotare una forma</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#Trasformazioni_generiche.2C_con_matrici"><span class="tocnumber">5.1.3</span> <span class="toctext">Trasformazioni generiche, con matrici</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#Scalare_una_forma"><span class="tocnumber">5.1.4</span> <span class="toctext">Scalare una forma</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-36"><a href="#Operazioni_Booleane"><span class="tocnumber">5.2</span> <span class="toctext">Operazioni Booleane</span></a>
+<ul>
+<li class="toclevel-3 tocsection-37"><a href="#Sottrazione"><span class="tocnumber">5.2.1</span> <span class="toctext">Sottrazione</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#Intersezione"><span class="tocnumber">5.2.2</span> <span class="toctext">Intersezione</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#Unione"><span class="tocnumber">5.2.3</span> <span class="toctext">Unione</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#Sezione"><span class="tocnumber">5.2.4</span> <span class="toctext">Sezione</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#Estrusione"><span class="tocnumber">5.2.5</span> <span class="toctext">Estrusione</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-42"><a href="#Esplorare_le_forme"><span class="tocnumber">6</span> <span class="toctext">Esplorare le forme</span></a>
+<ul>
+<li class="toclevel-2 tocsection-43"><a href="#Analizzare_i_bordi"><span class="tocnumber">6.1</span> <span class="toctext">Analizzare i bordi</span></a></li>
+<li class="toclevel-2 tocsection-44"><a href="#Utilizzare_la_selezione"><span class="tocnumber">6.2</span> <span class="toctext">Utilizzare la selezione</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-45"><a href="#Esempio_completo:_La_bottiglia_OCC"><span class="tocnumber">7</span> <span class="toctext">Esempio completo: La bottiglia OCC</span></a>
+<ul>
+<li class="toclevel-2 tocsection-46"><a href="#Lo_script_completo"><span class="tocnumber">7.1</span> <span class="toctext">Lo script completo</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#Spiegazione_dettagliata"><span class="tocnumber">7.2</span> <span class="toctext">Spiegazione dettagliata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-48"><a href="#Cubo_forato"><span class="tocnumber">8</span> <span class="toctext">Cubo forato</span></a>
+<ul>
+<li class="toclevel-2 tocsection-49"><a href="#Caricare_e_salvare"><span class="tocnumber">8.1</span> <span class="toctext">Caricare e salvare</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+Questa pagina descrive i diversi metodi per creare e modificare gli <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">oggetti di tipo Parte</a> tramite Python.
+</p><p>Se non si conosce ancora Python, prima di leggere questa pagina, è meglio leggere la pagina di <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/it" title="Introduction to Python/it">introduzione a Python</a> e quella in cui si descrive <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/it" title="FreeCAD Scripting Basics/it">come funzionano gli script in FreeCAD</a>.
+</p>
+<h3><span class="mw-headline" id="Introduzione">Introduzione</span></h3>
+<p>Qui si spiega come controllare il <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">Modulo Parte</a> direttamente tramite l'interprete Python di FreeCAD, o tramite degli script esterni.
+</p><p>Se avete bisogno di ulteriori informazioni su come funzionano gli script in FreeCAD, potete consultare la sezione <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/it" class="mw-redirect" title="Scripting/it">Script</a> e la sezione <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/it" title="FreeCAD Scripting Basics/it">Concetti base sugli script in FreeCAD</a>.
+</p>
+<h4><span class="mw-headline" id="Diagramma_delle_classi">Diagramma delle classi</span></h4>
+<p>Questa è una panoramica delle classi <a rel="nofollow" class="external text" href="http://it.wikipedia.org/wiki/Unified_Modeling_Language">Linguaggio di Modellazione Unificato (UML)</a> più importanti del modulo Parte:
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Classes.jpg" class="image" title="Python classes of the Part module"><img alt="Python classes of the Part module" src="Part_Classes.jpg" width="744" height="520" /></a></div></div>
+<h4><span class="mw-headline" id="Geometria">Geometria</span></h4>
+<p>Gli oggetti geometrici sono le fondamenta per la costruzione di tutti gli oggetti topologici:
+</p>
+<ul><li> <b>Geom</b> Classe base degli oggetti geometrici</li>
+<li> <b>Line</b> Linea retta in 3D, definita dal punto iniziale e dal punto finale</li>
+<li> <b>Circle</b> Cerchio o arco definito dal centro, dal punto iniziale e dal punto finale</li>
+<li> <b>......</b> E presto ancora altro</li></ul>
+<h4><span class="mw-headline" id="Topologia">Topologia</span></h4>
+<p>Sono disponibili i seguenti tipi di dati topologici:
+</p>
+<ul><li> <b>compound</b> Un gruppo di qualsiasi tipo di oggetto topologico.</li>
+<li> <b>compsolid</b> Un solido composito è un insieme di solidi collegati dalle loro facce. E' una estensione dei concetti <i>wire</i> e <i>shell</i> ai solidi.</li>
+<li> <b>solid</b> Una parte di spazio limitato da shell. E' tridimensionale</li>
+<li> <b>shell</b> Una serie di facce connesse nei loro bordi. Una shell (guscio) può essere aperta o chiusa.</li>
+<li> <b>face</b> In 2D è una parte di un piano; in 3D è una parte di una superficie. La sua geometria è vincolata (delimitata/tagliata) dai suoi bordi.</li>
+<li> <b>wire</b> Una serie di bordi (una polilinea) collegati tra di loro nei vertici. Può essere un profilo aperto o chiuso, secondo se i bordi sono interamente concatenati oppure no.</li>
+<li> <b>edge</b> Un elemento topologico corrispondente ad una curva limitata. Un bordo è generalmente delimitato dai vertici. Ha una dimensione.</li>
+<li> <b>vertex</b> Un elemento topologico corrispondente ad un punto. Esso non  ha dimensioni.</li>
+<li> <b>shape</b> Un termine generico che comprende tutti i precedenti.</li></ul>
+<h3><span class="mw-headline" id="Veloce_esempio:_Creare_una_topologia_base">Veloce esempio: Creare una topologia base</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Wire.png" class="image" title="Wire"><img alt="Wire" src="Wire.png" width="260" height="137" /></a>
+</p><p><br />
+Creeremo ora una topologia tramite la costruzione della semplice geometria. Come caso di studio, utilizzeremo una forma come quella che si vede nella figura, composta da quattro vertici, due cerchi e due linee.
+</p>
+<h5><span class="mw-headline" id="Creare_la_geometria">Creare la geometria</span></h5>
+<p>Per prima cosa dobbiamo creare le singole parti geometriche di questo contorno (wire).
+È necessario che i vertici delle parti geometriche siano nella <b>stessa</b> posizione. In caso contrario, in seguito potremmo non essere in grado di collegare le parti geometriche in una topologia!
+</p><p>Quindi creiamo prima i punti:
+</p>
+<pre>from FreeCAD import Base
+V1 = Base.Vector(0,10,0)
+V2 = Base.Vector(30,10,0)
+V3 = Base.Vector(30,-10,0)
+V4 = Base.Vector(0,-10,0) </pre>
+<h5><span class="mw-headline" id="Arco">Arco</span></h5>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Circel.png" class="image" title="Circle"><img alt="Circle" src="Circel.png" width="111" height="135" /></a>
+</p><p><br />
+Per creare un arco di cerchio prima creiamo un punto di supporto poi creiamo l'arco di cerchio tramite tre punti:
+</p>
+<pre>VC1 = Base.Vector(-10,0,0)
+C1 = Part.Arc(V1,VC1,V4)
+# and the second one
+VC2 = Base.Vector(40,0,0)
+C2 = Part.Arc(V2,VC2,V3) </pre>
+<h5><span class="mw-headline" id="Linea">Linea</span></h5>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Line.png" class="image" title="Line"><img alt="Line" src="Line.png" width="175" height="76" /></a>
+</p><p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>La linea può essere creata molto semplicemente tramite i punti:
+</p>
+</div>
+<pre>L1 = Part.LineSegment(V1,V2)
+# and the second one
+L2 = Part.LineSegment(V3,V4) </pre>
+<p><i>Note: in FreeCAD 0.16 Part.Line was used, for FreeCAD 0.17 Part.LineSegment has to be used</i>
+</p>
+<h5><span class="mw-headline" id="Unire_tutto">Unire tutto</span></h5>
+<p>L'ultimo passaggio consiste nell'unire tutti gli elementi geometrici di base e produrre una forma topologica:
+</p>
+<pre>S1 = Part.Shape([C1,L1,C2,L2]) </pre>
+<h5><span class="mw-headline" id="Creare_un_prisma">Creare un prisma</span></h5>
+<p>Ora si può estrudere il contorno nella direzione voluta e creare una forma 3D reale:
+</p>
+<pre>W = Part.Wire(S1.Edges)
+P = W.extrude(Base.Vector(0,0,10)) </pre>
+<h5><span class="mw-headline" id="Mostrare_il_risultato">Mostrare il risultato</span></h5>
+<p>Per visualizzare il prisma:
+</p>
+<pre>Part.show(P) </pre>
+<h3><span class="mw-headline" id="Creare_forme_di_base">Creare forme di base</span></h3>
+<p>Con i metodi "make...()" del Modulo Parte è possibile creare facilmente oggetti topologici di base (chiamati anche forme primitive). Ad esempio, si può creare un cubo con:
+</p>
+<pre>b = Part.makeBox(100,100,100)
+Part.show(b) </pre>
+<p>Altri metodi make...() disponibili sono:
+</p>
+<ul><li> makeBox(l,w,h) -- Produce un box situato in p e rivolto nella direzione d con le dimensioni (l,w,h)</li>
+<li> makeCircle(raggio) -- Crea un cerchio con un raggio dato</li>
+<li> makeCone(raggio1,raggio2,altezza) -- Restituisce un cono con raggio e altezza dati</li>
+<li> makeCylinder(raggio,altezza) --  Crea un cilindro con raggio e l'altezza prestabilite</li>
+<li> makeLine((x1,y1,z1),(x2,y2,z2)) -- Crea una linea tra due punti</li>
+<li> makePlane(lunghezza,larghezza) -- Crea un piano con lunghezza e larghezza</li>
+<li> makePolygon(lista) -- Restituisce un poligono da una serie di punti</li>
+<li> makeSphere(raggio) -- Crea una sfera di raggio dato</li>
+<li> makeTorus(raggio1,raggio2) -- Crea un toro con raggi determinati</li></ul>
+<p>Per avere un elenco completo dei metodi disponibili con il modulo Parte consultare la pagina <a href="https://www.freecadweb.org/wiki/index.php?title=Part_API/it" title="Part API/it">API di Parte</a> (<a href="Part_API.html" title="Part API">Part API in inglese</a>).
+</p>
+<h5><span class="mw-headline" id="Importare_i_moduli_necessari">Importare i moduli necessari</span></h5>
+<p>In primo luogo è necessario importare il modulo Parte per poter utilizzare i suoi contenuti in Python. Inoltre, importiamo anche il modulo Base dall'interno del modulo FreeCAD:
+</p>
+<pre>import Part
+from FreeCAD import Base </pre>
+<h5><span class="mw-headline" id="Creare_un_vettore">Creare un vettore</span></h5>
+<p>Per la costruzione di forme, i <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euclidean_vector">Vettori</a> sono una delle parti di informazione più importanti. Di solito, ma non necessariamente sempre, essi contengono 3 numeri che sono le coordinate cartesiane x, y e z. È possibile creare un vettore nel modo seguente:
+</p>
+<pre>myVector = Base.Vector(3,2,0) </pre>
+<p>Abbiamo appena creato un vettore nelle coordinate x=3, y=2, z=0. Nel modulo Parte, i vettori sono usati in tutte le parti. Le forme Parte usano anche un altro tipo di rappresentazione del punto, chiamato Vertex (Vertice), che in realtà non è altro che un contenitore per un vettore. Si accede al vettore di un vertice in questo modo:
+</p>
+<pre>myVertex = myShape.Vertexes[0]
+print myVertex.Point
+&gt; Vector (3, 2, 0) </pre>
+<h5><span class="mw-headline" id="Creare_un_bordo">Creare un bordo</span></h5>
+<p>Un bordo non è altro che una linea con due vertici:
+</p>
+<pre>edge = Part.makeLine((0,0,0), (10,0,0))
+edge.Vertexes
+&gt; [&lt;Vertex object at 01877430&gt;, &lt;Vertex object at 014888E0&gt;] </pre>
+<p>Nota: È anche possibile creare un bordo passando due vettori:
+</p>
+<pre>vec1 = Base.Vector(0,0,0)
+vec2 = Base.Vector(10,0,0)
+line = Part.LineSegment(vec1,vec2)
+edge = line.toShape() </pre>
+<p>È possibile trovare la lunghezza e il centro di un bordo in questo modo:
+</p>
+<pre>edge.Length
+&gt; 10.0
+edge.CenterOfMass
+&gt; Vector (5, 0, 0) </pre>
+<h5><span class="mw-headline" id="Mostrare_la_forma_sullo_schermo">Mostrare la forma sullo schermo</span></h5>
+<p>Con le operazioni precedenti abbiamo creato un oggetto bordo, ma esso non è visibile da nessuna parte sullo schermo. Questo perché fino a qui abbiamo manipolato solo oggetti Python. La scena 3D di FreeCAD mostra solo quello che gli si chiede di visualizzare. Per farlo, usiamo questo semplice metodo:
+</p>
+<pre>Part.show(edge) </pre>
+<p>Nel nostro documento FreeCAD viene creato un oggetto, e la nostra forma "edge" viene attribuita ad esso. Utilizzare questo metodo ogni volta che si vuole visulizzare il proprio prodotto sullo schermo. 
+</p>
+<h5><span class="mw-headline" id="Creare_un_contorno">Creare un contorno</span></h5>
+<p>Un contorno è una polilinea e può essere creato da una serie di bordi o anche da una serie di contorni:
+</p>
+<pre>edge1 = Part.makeLine((0,0,0), (10,0,0))
+edge2 = Part.makeLine((10,0,0), (10,10,0))
+wire1 = Part.Wire([edge1,edge2]) 
+edge3 = Part.makeLine((10,10,0), (0,10,0))
+edge4 = Part.makeLine((0,10,0), (0,0,0))
+wire2 = Part.Wire([edge3,edge4])
+wire3 = Part.Wire([wire1,wire2])
+wire3.Edges
+&gt; [&lt;Edge object at 016695F8&gt;, &lt;Edge object at 0197AED8&gt;, &lt;Edge object at 01828B20&gt;, &lt;Edge object at 0190A788&gt;]
+Part.show(wire3) </pre>
+<p>Part.show(wire3) serve per visualizzare i 4 bordi che compongono il nostro contorno. Si possono facilmente recuperare altre informazioni utili con:
+</p>
+<pre>wire3.Length
+&gt; 40.0
+wire3.CenterOfMass
+&gt; Vector (5, 5, 0)
+wire3.isClosed()
+&gt; True
+wire2.isClosed()
+&gt; False </pre>
+<h5><span class="mw-headline" id="Creare_una_faccia">Creare una faccia</span></h5>
+<p>Sono valide solo le facce create da contorni chiusi. Nell'esempio, wire3 è un contorno chiuso, ma wire2 non è un contorno chiuso (vedi esempio precedente)
+</p>
+<pre>face = Part.Face(wire3)
+face.Area
+&gt; 99.999999999999972
+face.CenterOfMass
+&gt; Vector (5, 5, 0)
+face.Length
+&gt; 40.0
+face.isValid()
+&gt; True
+sface = Part.Face(wire2)
+face.isValid()
+&gt; False </pre>
+<p>Solamente le facce hanno un'area, non i contorni né i bordi.
+</p>
+<h5><span class="mw-headline" id="Creare_una_circonferenza">Creare una circonferenza</span></h5>
+<p>Un cerchio può essere creato in questo semplice modo:
+</p>
+<pre>circle = Part.makeCircle(10)
+circle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (0, 0, 0), Direction&#160;: (0, 0, 1)) </pre>
+<p>Se si vuole crearlo in una determinata posizione e con una direzione prestabilita:
+</p>
+<pre>ccircle = Part.makeCircle(10, Base.Vector(10,0,0), Base.Vector(1,0,0))
+ccircle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (10, 0, 0), Direction&#160;: (1, 0, 0)) </pre>
+<p>ccircle verrà creato a distanza 10 dall'origine su x e sarà rivolto verso l'asse x. Nota: makeCircle accetta solo Base.Vector() per la posizione e le normali, ma non tuple. È inoltre possibile creare una parte di cerchio fornendo un angolo iniziale e un angolo finale come:
+</p>
+<pre>from math import pi
+arc1 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 0, 180)
+arc2 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 180, 360) </pre>
+<p>Unendo arc1 con arc2 (sono due semicerchi) si ottiene un cerchio completo.
+Gli angoli devono essere forniti in gradi, se avete angoli in radianti convertirli usando semplicemente la formula: gradi = radianti * 180/PI o utilizzando il modulo matematico di Python (ovviamente, dopo aver importato il modulo math):
+</p>
+<pre>degrees = math.degrees(radians) </pre>
+<div class="mw-translate-fuzzy">
+<h5><span class="mw-headline" id="Creare_un_arco_attraverso_dei_punti">Creare un arco attraverso dei punti</span></h5>
+<p>Purtroppo, per creare un arco lungo tre punti non esiste una funzione makeArc ma si deve usare la funzione Part.Arc. Fondamentalmente si può pensare come un arco che unisce il punto iniziale e finale passando per il punto medio. Part.Arc crea un oggetto arco nel quale deve essere chiamato .toShape() per ottenere un oggetto bordo, allo stesso modo di quando si usa Part.Line al posto di Part.makeLine.
+</p>
+</div>
+<pre>arc = Part.Arc(Base.Vector(0,0,0),Base.Vector(0,5,0),Base.Vector(5,5,0))
+arc
+&gt; &lt;Arc object&gt;
+arc_edge = arc.toShape() </pre>
+<p>Arc accetta solo punti Base.Vector(), ma non tuple. arc_edge è ciò che vogliamo e che possiamo visualizzare con Part.show(arc_edge). Inoltre è possibile ottenere un arco utilizzando una porzione di un cerchio:
+</p>
+<pre>from math import pi
+circle = Part.Circle(Base.Vector(0,0,0),Base.Vector(0,0,1),10)
+arc = Part.Arc(c,0,pi) </pre>
+<p>Gli archi sono bordi validi, come le linee. Quindi possono essere usati anche nei contorni.
+</p>
+<h5><span class="mw-headline" id="Creare_un_poligono">Creare un poligono</span></h5>
+<p>Un poligono è semplicemente un contorno composto da diversi bordi diritti. La funzione makePolygon prende una lista di punti e crea un contorno attraverso questi punti:
+</p>
+<pre>lshape_wire = Part.makePolygon([Base.Vector(0,5,0),Base.Vector(0,0,0),Base.Vector(5,0,0)]) </pre>
+<h5><span class="mw-headline" id="Creare_una_curva_di_Bezier">Creare una curva di Bezier</span></h5>
+<p>Le curve di Bézier sono utilizzate per modellare delle curve <i>morbide</i> utilizzando una serie di Poles (punti) e weight (pesi) opzionali.  La funzione sottostante crea una Part.BezierCurve da una serie di punti FreeCAD.Vector.  (Notare che gli indici di pole e di weight partono da 1, non da 0.)
+</p>
+<pre>def makeBCurveEdge(Points):
+   geomCurve = Part.BezierCurve()
+   geomCurve.setPoles(Points)
+   edge = Part.Edge(geomCurve)
+   return(edge) </pre>
+<h5><span class="mw-headline" id="Creare_un_piano">Creare un piano</span></h5>
+<p>Un Piano è semplicemente una superficie piana rettangolare. Il metodo utilizzato per crearlo è questo: <b>makePlane(lunghezza, larghezza, [start_pnt, dir_normal])</b>. Per impostazione predefinita start_pnt=Vector (0,0,0) e dir_normal=Vector(0,0,1). Utilizzando dir_normal=Vector(0,0,1) creeremo il piano orientato come l'asse z, mentre con dir_normal=Vector(1,0,0) creeremo il piano orientato come l'asse x:
+</p>
+<pre>plane = Part.makePlane(2,2)
+plane
+&gt;&lt;Face object at 028AF990&gt;
+plane = Part.makePlane(2,2, Base.Vector(3,0,0), Base.Vector(0,1,0))
+plane.BoundBox
+&gt; BoundBox (3, 0, 0, 5, 0, 2) </pre>
+<p>BoundBox è il parallelepipedo che racchiude il piano e la cui diagonale parte da (3,0,0) e termina in (5,0,2). Qui lo spessore di BoundBox sull'asse y è zero, poiché la nostra forma è totalmente piatta.
+</p><p>Nota: makePlane accetta solo Base.Vector() per start_pnt e dir_normal e non tuple
+</p>
+<h5><span class="mw-headline" id="Creare_una_ellisse">Creare una ellisse</span></h5>
+<p>Per creare un'ellisse ci sono diversi modi:
+</p>
+<pre>Part.Ellipse() </pre>
+<p>Crea un'ellisse con raggio maggiore 2 e raggio minore 1 con centro in (0,0,0)
+</p>
+<pre>Part.Ellipse(Ellipse) </pre>
+<p>Crea una copia dell'ellisse data
+</p>
+<pre>Part.Ellipse(S1,S2,Center) </pre>
+<p>Crea un'ellisse centrato sul punto Center, in cui il piano dell'ellisse è definito da Center, S1 e S2, il suo asse maggiore è definito da Center e S1, il suo raggio maggiore è la distanza tra Center e S1, e il suo raggio minore è la distanza tra S2 e l'asse maggiore.
+</p>
+<pre>Part.Ellipse(Center,MajorRadius,MinorRadius) </pre>
+<p>Crea un'ellisse con il raggio maggiore e il raggio minore MajorRadius e MinorRadius, e situata nel piano definito da Center e la normale (0,0,1)
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(10,0,0),Base.Vector(0,5,0),Base.Vector(0,0,0))
+Part.show(eli.toShape()) </pre>
+<p>Nel codice precedente abbiamo passato S1, S2 e il centro. Analogamente a Arco, Ellisse crea un oggetto ellisse ma non un bordo, quindi, per visualizzarlo è necessario di convertirlo in bordo utilizzando toShape().
+</p><p>Nota: Arc accetta solo Base.Vector() per i punti, ma non le tuple
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(0,0,0),10,5)
+Part.show(eli.toShape()) </pre>
+<p>per il costruttore Ellisse precedente abbiamo passato il centro, MajorRadius e MinorRadius
+</p>
+<h5><span class="mw-headline" id="Creare_un_toro">Creare un toro</span></h5>
+<p>Utilizzando il metodo <b>makeTorus(radius1,radius2,[pnt,dir,angle1,angle2,angle])</b>. Per impostazione predefinita PNT=Vector(0,0,0), dir=Vector(0,0,1), angle1=0, angle2=360 e angolo=360. Si consideri un toro, come un cerchio piccolo che si muove lungo un cerchio grande. Radius1 è il raggio del cerchio grande, radius2 è il raggio del cerchio piccolo, pnt è il centro del toro e dir è la direzione normale. angle1 e angle2 sono angoli in radianti per il cerchio piccolo cerchio, l'ultimo parametro angolo serve per realizzare una porzione del toro:
+</p>
+<pre>torus = Part.makeTorus(10, 2) </pre>
+<p>Il codice precedente creerà un toro con diametro 20 (raggio 10) e spessore di 4 (raggio del cerchio piccolo 2)
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,180) </pre>
+<p>Il codice sopra creerà una fetta del toro
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,360,180) </pre>
+<p>Il codice precedente creerà un semi toro, solo l'ultimo parametro viene modificato vale a dire l'angolo e gli angoli rimanenti sono predefiniti. Impostare il valore dell'angolo a 180 creerà il toro da 0 a 180, cioè, un mezzo toro.
+</p>
+<h5><span class="mw-headline" id="Creare_un_cubo_o_parallelepipedo">Creare un cubo o parallelepipedo</span></h5>
+<p>Utilizzando <b>makeBox(lunghezza, larghezza, altezza,[pnt,dir])</b>. Per impostazione predefinita pnt=Vector(0,0,0) e dir=Vector(0,0,1)
+</p>
+<pre>box = Part.makeBox(10,10,10)
+len(box.Vertexes)
+&gt; 8 </pre>
+<h5><span class="mw-headline" id="Creare_una_sfera">Creare una sfera</span></h5>
+<p>Utilizzando <b>makeSphere(radius,[pnt, dir, angle1,angle2,angle3])</b>. Per impostazione predefinita pnt=Vector(0,0,0), dir=Vector(0,0,1), angle1=-90, angle2=90 e angle3=360. angle1 e angle2 sono il minimo e il massimo in verticale della sfera, angle3 è il diametro della sfera stessa.
+</p>
+<pre>sphere = Part.makeSphere(10)
+hemisphere = Part.makeSphere(10,Base.Vector(0,0,0),Base.Vector(0,0,1),-90,90,180) </pre>
+<h5><span class="mw-headline" id="Creare_un_cilindro">Creare un cilindro</span></h5>
+<p>Utilizzando <b>makeCylinder(radius,height,[pnt,dir,angle])</b>. Per impostazione predefinita pnt=Vector(0,0,0),dir=Vector(0,0,1) e angle=360
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder = Part.makeCylinder(5,20)
+partCylinder = Part.makeCylinder(5,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)</pre></div>
+<h5><span class="mw-headline" id="Creare_un_cono">Creare un cono</span></h5>
+<p>Utilizzando <b>makeCone(radius1,radius2,height,[pnt,dir,angle])</b>. Per impostazione predefinita pnt=Vector(0,0,0), dir=Vector(0,0,1) e angle=360
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cone = Part.makeCone(10,0,20)
+semicone = Part.makeCone(10,0,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)</pre></div>
+<h3><span class="mw-headline" id="Modificare_delle_forme">Modificare delle forme</span></h3>
+<p>Ci sono diversi modi per modificare le forme. Alcuni sono semplici operazioni di trasformazione come lo spostamento o la rotazione di forme, altri sono più complessi, come ad esempio unire e sottrarre una forma da un'altra. Tenere in considerazione questo. 
+</p>
+<h4><span class="mw-headline" id="Operazioni_di_trasformazione">Operazioni di trasformazione</span></h4>
+<h5><span class="mw-headline" id="Traslare_una_forma">Traslare una forma</span></h5>
+<p>Traslare è l'atto di spostare una forma da un luogo all'altro. Qualsiasi forma (bordo, faccia, cubo, ecc ..) può essere traslata in questo modo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape = Part.makeBox(2,2,2)
+myShape.translate(Base.Vector(2,0,0))</pre></div>
+<p>Questo sposterà la forma "myShape" di 2 unità nella direzione dell'asse x.
+</p>
+<h5><span class="mw-headline" id="Ruotare_una_forma">Ruotare una forma</span></h5>
+<p>Per ruotare una forma, è necessario specificare il centro di rotazione, l'asse e l'angolo di rotazione:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape.rotate(Vector(0,0,0),Vector(0,0,1),180)</pre></div>
+<p>Il codice precedente ruota la forma di 180 gradi attorno all'asse z.
+</p>
+<h5><span class="mw-headline" id="Trasformazioni_generiche.2C_con_matrici">Trasformazioni generiche, con matrici</span></h5>
+<p>Una matrice è un modo molto conveniente per memorizzare le trasformazioni nel mondo 3D. In una matrice singola, è possibile impostare valori di traslazione, rotazione e scala da applicare ad un oggetto. Ad esempio:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat = Base.Matrix()
+myMat.move(Base.Vector(2,0,0))
+myMat.rotateZ(math.pi/2)</pre></div>
+<p>Nota. Le matrici di FreeCAD lavorano in radianti. Inoltre, quasi tutte le operazioni di matrici che accettano un vettore possono anche accettare 3 numeri, quindi le seguenti 2 linee fanno la stessa cosa:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat.move(2,0,0)
+myMat.move(Base.Vector(2,0,0))</pre></div>
+<p>Quando la matrice è impostata, possiamo applicarla alla nostra forma. FreeCAD fornisce 2 metodi per farlo: transformShape() e transformGeometry(). La differenza è che con il primo, si è sicuri che non si verifichino deformazioni (vedi "scalare una forma" più avanti). Quindi possiamo applicare la nostra trasformazione in questo modo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> myShape.trasformShape(myMat)</pre></div>
+<p>oppure
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape.transformGeometry(myMat)</pre></div>
+<h5><span class="mw-headline" id="Scalare_una_forma">Scalare una forma</span></h5>
+<p>Scalare (ridimensionare) una forma è una delle operazioni più pericolose perché, a differenza della traslazione o della rotazione, il ridimensionamento non uniforme (con valori diversi per gli assi x, y, z) può modificare la struttura della forma. Ad esempio, la scalatura di un cerchio con un valore in orizzontale diverso da quello in verticale lo trasformerà in un ellisse, forma che matematicamente si comporta in modo molto diverso. Per il ridimensionamento, non possiamo usare transformShape, ma dobbiamo usare transformGeometry():
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat = Base.Matrix()
+myMat.scale(2,1,1)
+myShape=myShape.transformGeometry(myMat)</pre></div>
+<h4><span class="mw-headline" id="Operazioni_Booleane">Operazioni Booleane</span></h4>
+<h5><span class="mw-headline" id="Sottrazione">Sottrazione</span></h5>
+<p>Nel gergo OCC/FreeCAD, la differenza (sottrazione) di una forma da un altra si chiama "cut" <i>taglia</i> e si esegue così:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+sphere = Part.makeSphere(5,Base.Vector(5,0,0))
+diff = cylinder.cut(sphere)</pre></div>
+<h5><span class="mw-headline" id="Intersezione">Intersezione</span></h5>
+<p>Allo stesso modo, l'intersezione tra le forme 2 è chiamato "common" <i>intersezione</i> e viene eseguita in questo modo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+common = cylinder1.common(cylinder2)</pre></div>
+<h5><span class="mw-headline" id="Unione">Unione</span></h5>
+<p>Unione è chiamata "fuse" <i>fusione</i> e funziona allo stesso modo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+fuse = cylinder1.fuse(cylinder2)</pre></div>
+<h5><span class="mw-headline" id="Sezione">Sezione</span></h5>
+<p>Una sezione è l'intersezione tra una forma solida e una forma piana. Restituisce una curva di intersezione, un composto con i bordi:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+section = cylinder1.section(cylinder2)
+section.Wires
+> []
+section.Edges
+> [&lt;Edge object at 0D87CFE8>, &lt;Edge object at 019564F8>, &lt;Edge object at 0D998458>, 
+ &lt;Edge  object at 0D86DE18>, &lt;Edge object at 0D9B8E80>, &lt;Edge object at 012A3640>, 
+ &lt;Edge object at 0D8F4BB0>]</pre></div>
+<h5><span class="mw-headline" id="Estrusione">Estrusione</span></h5>
+<p>Estrusione è l'atto di "spingere" una forma piatta in una certa direzione per produrre un corpo solido. Ad esempio, pensate di "spingere" un cerchio e di produrre un tubo: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>circle = Part.makeCircle(10)
+tube = circle.extrude(Base.Vector(0,0,2))</pre></div>
+<p>Se il cerchio è vuoto (sola circonferenza), si ottiene un tubo (cavo). Se il cerchio è in realtà un disco, con una faccia piena, si ottiene un cilindro (pieno):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>wire = Part.Wire(circle)
+disc = Part.Face(wire)
+cylinder = disc.extrude(Base.Vector(0,0,2))</pre></div>
+<h3><span class="mw-headline" id="Esplorare_le_forme">Esplorare le forme</span></h3>
+<p>Si può facilmente esplorare la struttura dei dati topologici:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+b = Part.makeBox(100,100,100)
+b.Wires
+w = b.Wires[0]
+w
+w.Wires
+w.Vertexes
+Part.show(w)
+w.Edges
+e = w.Edges[0]
+e.Vertexes
+v = e.Vertexes[0]
+v.Point</pre></div>
+<p>Digitando le righe di cui sopra nell'interprete Python, si otterrà una buona descrizione della struttura degli oggetti Parte. Qui, il nostro comando makeBox() crea una forma solida. Questo solido, come tutti i solidi Parte, contiene delle facce. Le facce contengono sempre delle linee (polilinee), che sono liste di bordi che delimitano la faccia. Ciascuna faccia ha almeno un contorno chiuso (ne può avere più di uno se la faccia presenta dei fori). Nel contorno, possiamo guardare a ciascun bordo separatamente, e all'interno di ogni bordo, possiamo vedere i vertici. Ovviamente, i bordi diritti hanno solo due vertici. 
+</p>
+<h4><span class="mw-headline" id="Analizzare_i_bordi">Analizzare i bordi</span></h4>
+<p>Nel caso in cui il bordo è una curva arbitraria, è più probabile che si voglia fare una discretizzazione. In FreeCAD i bordi sono parametrizzati dalle loro lunghezze. Ciò significa che si può percorrere un bordo/curva con la sua lunghezza:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+box = Part.makeBox(100,100,100)
+anEdge = box.Edges[0]
+print anEdge.Length</pre></div>
+<p>Ora è possibile accedere a un sacco di proprietà del bordo utilizzando la lunghezza come una posizione. Ciò significa che se il bordo è lungo 100 mm la posizione iniziale è 0 e la posizione finale è 100. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>anEdge.tangentAt(0.0)      # tangent direction at the beginning
+anEdge.valueAt(0.0)        # Point at the beginning
+anEdge.valueAt(100.0)      # Point at the end of the edge
+anEdge.derivative1At(50.0) # first derivative of the curve in the middle
+anEdge.derivative2At(50.0) # second derivative of the curve in the middle
+anEdge.derivative3At(50.0) # third derivative of the curve in the middle
+anEdge.centerOfCurvatureAt(50) # center of the curvature for that position
+anEdge.curvatureAt(50.0)   # the curvature
+anEdge.normalAt(50)        # normal vector at that position (if defined)</pre></div>
+<h4><span class="mw-headline" id="Utilizzare_la_selezione">Utilizzare la selezione</span></h4>
+<p>Qui ora vediamo come possiamo usare la selezione che l'utente ha nel visualizzatore. Prima di tutto creiamo una scatola e la mostriamo nel visualizzatore:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+Part.show(Part.makeBox(100,100,100))
+Gui.SendMsgToActiveView("ViewFit")</pre></div>
+<p>Selezionate ora alcune facce o bordi. Con questo script è possibile iterare tutti gli oggetti selezionati e i relativi elementi secondari:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>for o in Gui.Selection.getSelectionEx():
+print o.ObjectName
+for s in o.SubElementNames:
+print "name: ",s
+for s in o.SubObjects:
+print "object: ",s</pre></div>
+<p>Selezionate alcuni bordi e questo script calcolerà la lunghezza:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>length = 0.0
+for o in Gui.Selection.getSelectionEx():
+for s in o.SubObjects:
+length += s.Length
+print "Length of the selected edges:" ,length</pre></div>
+<h3><span class="mw-headline" id="Esempio_completo:_La_bottiglia_OCC">Esempio completo: La bottiglia OCC</span></h3>
+<p>Un esempio tipico si trova nella pagina <a rel="nofollow" class="external text" href="http://www.opencascade.com/doc/occt-6.9.0/overview/html/occt__tutorial.html#sec1">OpenCasCade Technology Tutorial</a> che spiega come costruire una bottiglia. Questo è un buon esercizio anche per FreeCAD. In effetti, si può seguire il nostro esempio qui sotto e la pagina di OCC contemporaneamente, capirete bene come sono implementate le strutture di OCC in FreeCAD. Lo script completo è  anche incluso nell'installazione di FreeCAD (all'interno della cartella Mod/Part) e può essere chiamato dall'interprete python digitando:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+import MakeBottle
+bottle = MakeBottle.makeBottle()
+Part.show(bottle)</pre></div>
+<h4><span class="mw-headline" id="Lo_script_completo">Lo script completo</span></h4>
+<p>Questo è lo script completo MakeBottle:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part, FreeCAD, math
+from FreeCAD import Base
+
+def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)
+   
+   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.LineSegment(aPnt1,aPnt2)
+   aSegment2=Part.LineSegment(aPnt4,aPnt5)
+   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])
+   
+   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # rotate around the z-axis
+   
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])
+   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)
+   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)
+   myBody = myBody.fuse(myNeck)
+   
+   faceToRemove = 0
+   zMax = -1.0
+   
+   for xp in myBody.Faces:
+       try:
+           surf = xp.Surface
+           if type(surf) == Part.Plane:
+               z = surf.Position.z
+               if z > zMax:
+                   zMax = z
+                   faceToRemove = xp
+       except:
+           continue
+   
+   myBody = myBody.makeFillet(myThickness/12.0,myBody.Edges)
+   
+   return myBody
+
+el = makeBottle()
+Part.show(el)</pre></div>
+<h4><span class="mw-headline" id="Spiegazione_dettagliata">Spiegazione dettagliata</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part, FreeCAD, math
+from FreeCAD import Base</pre></div>
+<p>Avremo bisogno, naturalmente, del modulo Parte, ma anche del modulo FreeCAD.Base, che contiene le strutture base di FreeCAD come vettori e matrici.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)</pre></div>
+<p>Qui definiamo la nostra funzione makeBottle. Questa funzione può essere chiamata senza argomenti, come abbiamo fatto in precedenza, nel qual caso si utilizzano i valori di default per la larghezza, l'altezza e lo spessore. Poi, si definisce un paio di punti che verranno utilizzati per costruire il nostro profilo base.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.LineSegment(aPnt1,aPnt2)
+   aSegment2=Part.LineSegment(aPnt4,aPnt5)</pre></div>
+<p>Qui definiamo la geometria effettiva: un arco, creato da 3 punti, e due segmenti di linea, creati da 2 punti.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])</pre></div>
+<p>Ricordate la differenza tra geometria e forme? Qui costruiremo forme partendo dalla nostra geometria di costruzione. Prima costruiremo 3 bordi (i bordi possono essere dritti o curvi), poi costruiremo un contorno con quei tre bordi.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # rotate around the z-axis
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])</pre></div>
+<p>Prima abbiamo costruito solo metà profilo. È più facile che costruire tutto l'intero profilo nello stesso modo, successivamente possiamo semplicemente rispecchiare quello che abbiamo costruito, e poi unire le due parti. Quindi per prima cosa è necessario creare una matrice. Una matrice è un modo molto comune per applicare trasformazioni agli oggetti nel mondo 3D, in quanto essa può contenere in un'unica struttura tutte le trasformazioni di base che gli oggetti 3D possono subire (spostamento, rotazione e scalatura). Qui, dopo aver creato la matrice, la specchiamo e creiamo una copia del nostro contorno  applicando ad esso quella matrice di trasformazione. Ora abbiamo due contorni, e con essi possiamo produrre un terzo profilo, dal momento che i contorni sono in realtà liste di bordi.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)</pre></div>
+<p>Ora che abbiamo un contorno chiuso, esso può essere trasformato in una faccia. Una volta che abbiamo una faccia, possiamo estruderla. In questo modo, abbiamo effettivamente creato un solido. Poi si applica un piccolo arrotondamento al nostro oggetto, perché vogliamo ottenere una forma graziosa, non è vero?
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)</pre></div>
+<p>A questo punto, il corpo della nostra bottiglia è creato, abbiamo ancora bisogno di creare un collo. Così facciamo un nuovo solido, con un cilindro.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   myBody = myBody.fuse(myNeck)</pre></div>
+<p>L'operazione di fusione, che in altre applicazioni a volte è chiamata unione, è molto potente. Si prenderà cura di incollare ciò che deve essere incollato e di rimuovere le parti che devono essere rimosse.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   return myBody</pre></div>
+<div class="mw-translate-fuzzy">
+<p>Poi, otteniamo il nostro solido Parte come risultato della nostra funzione. Questo solido Parte, come qualsiasi altra forma Parte, può essere attribuito a un oggetto in un documento FreeCAD, con:
+</p>
+</div> 
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>el = makeBottle()
+Part.show(el)</pre></div>
+<div class="mw-translate-fuzzy">
+<p>oppure, più semplicemente con:
+</p>
+</div>
+<h2><span class="mw-headline" id="Cubo_forato">Cubo forato</span></h2>
+<p>Ecco un esempio completo della costruzione di una scatola forata.
+</p><p>La costruzione è fatta lato per lato e quando il cubo è finito, viene scavato un foro con cilindro che l'attraversa.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+from math import sqrt, pi, sin, cos, asin
+from FreeCAD import Base
+
+size = 10
+poly = Part.makePolygon( [ (0,0,0), (size, 0, 0), (size, 0, size), (0, 0, size), (0, 0, 0)])
+
+face1 = Part.Face(poly)
+face2 = Part.Face(poly)
+face3 = Part.Face(poly)
+face4 = Part.Face(poly)
+face5 = Part.Face(poly)
+face6 = Part.Face(poly)
+     
+myMat = FreeCAD.Matrix()
+myMat.rotateZ(math.pi/2)
+face2.transformShape(myMat)
+face2.translate(FreeCAD.Vector(size, 0, 0))
+
+myMat.rotateZ(math.pi/2)
+face3.transformShape(myMat)
+face3.translate(FreeCAD.Vector(size, size, 0))
+
+myMat.rotateZ(math.pi/2)
+face4.transformShape(myMat)
+face4.translate(FreeCAD.Vector(0, size, 0))
+
+myMat = FreeCAD.Matrix()
+myMat.rotateX(-math.pi/2)
+face5.transformShape(myMat)
+
+face6.transformShape(myMat)               
+face6.translate(FreeCAD.Vector(0,0,size))
+
+myShell = Part.makeShell([face1,face2,face3,face4,face5,face6])   
+
+mySolid = Part.makeSolid(myShell)
+mySolidRev = mySolid.copy()
+mySolidRev.reverse()
+
+myCyl = Part.makeCylinder(2,20)
+myCyl.translate(FreeCAD.Vector(size/2, size/2, 0))
+
+cut_part = mySolidRev.cut(myCyl)
+
+Part.show(cut_part)</pre></div>
+<h3><span class="mw-headline" id="Caricare_e_salvare">Caricare e salvare</span></h3>
+<p>Nel modulo Parte ci sono diversi modi per salvare il proprio lavoro. Naturalmente, è possibile salvare il documento in formato FreeCAD, ma è anche possibile salvare gli oggetti Parte direttamente nei comuni formati CAD, come ad esempio BREP, IGS, STEP e STL.
+</p><p>Salvare una forma in un file è facile. Per tutti gli oggetti di forma sono disponibili i metodi exportBrep(), exportIges(), exportStl() e exportStep(). Così, facendo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+s = Part.makeBox(0,0,0,10,10,10)
+s.exportStep("test.stp")</pre></div>
+<p>salviamo il nostro box in un file STEP. Per caricare un file BREP, IGES o STEP, basta fare il contrario:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+s = Part.Shape()
+s.read("test.stp")</pre></div>
+<p>Per convertire un file <b>.stp</b> in <b>.igs</b> fare semplicemente&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Part
+ s = Part.Shape()
+ s.read("file.stp")       # incoming file igs, stp, stl, brep
+ s.exportIges("file.igs") # outbound file igs</pre></div>
+<p>Notare che l'importazione o l'apertura di file BREP, IGES o STEP può essere effettuata anche direttamente dal menu File -&gt; Apri o File -&gt; Importa, mentre l'esportazione si esegue con File -&gt; Esporta.
+</p>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/it&amp;oldid=289241">http://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/it&amp;oldid=289241</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,503 @@
+<html><head><title>Scripted objects/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scripted objects/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Oltre ai tipi di oggetti standard, come le Annotazioni, gli oggetti Mesh e gli oggetti Parte, FreeCAD offre anche la straordinaria possibilità di costruire al 100% oggetti in script di Python, chiamati Python Feature (<i>Caratteristiche</i> Python). Questi oggetti si comportano esattamente come un qualsiasi altro oggetto di FreeCAD, e sono salvati e ripristinati automaticamente con salva/apri il file.
+</p><p>Deve essere conosciuta una loro particolarità: questi oggetti vengono salvati in un file FcStd di FreeCAD con il modulo <a rel="nofollow" class="external text" href="http://docs.python.org/2/library/json.html">json</a> di Python. Tale modulo converte un oggetto Python in una stringa, permettendo di aggiungerlo al file salvato. Quando l'oggetto viene caricato, il modulo json utilizza questa stringa per ricreare l'oggetto originale, fornendo l'accesso al codice sorgente da cui ha creato l'oggetto. Questo significa che se si salva un oggetto personalizzato e lo si apre su una macchina in cui non è presente il codice Python che ha generato l'oggetto, l'oggetto non può essere ricreato. Quando si forniscono ad altri utenti questi oggetti, è necessario fornire anche gli script di Python che li hanno creati.
+</p><p>Le Python Features seguono le stesse regole di tutte le altre funzionalità di FreeCAD: sono divise in una parte App e una parte GUI. La parte App, cioè il Document Object (oggetto del documento), definisce la geometria dell'oggetto, mentre la sua parte grafica, cioè il View Provider Object (fornitore della vista dell'oggetto), definisce come l'oggetto viene disegnato sullo schermo. Il View Provider Object, come qualsiasi altro elemento di FreeCAD, è disponibile solo quando si esegue FreeCAD nella sua GUI (interfaccia grafica). Per costruire il proprio oggetto, sono disponibili diversi metodi e proprietà. La Proprietà deve essere una  qualsiasi dei tipi di proprietà predefinite che FreeCAD mette a disposizione. Le proprietà disponibili sono quelle che appaiono nella finestra di visualizzazione delle proprietà per consentire all'utente di modificarle. Con questa procedura, gli oggetti FeaturePython sono realmente e totalmente parametrici. E' possibile definire separatamente le proprietà per l'oggetto e per la sua ViewObject (rappresentazione).
+</p><p><b>Nota</b>. In versioni precedenti abbiamo usato il modulo <a rel="nofollow" class="external text" href="http://docs.python.org/release/2.5/lib/module-cPickle.html">cPickle</a> di Python. Questo modulo, però, esegue un codice arbitrario e provoca quindi un problema di sicurezza. Per questo motivo ora utilizziamo il modulo json di Python. 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Esempio_base"><span class="tocnumber">1</span> <span class="toctext">Esempio base</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Propriet.C3.A0_disponibili"><span class="tocnumber">2</span> <span class="toctext">Proprietà disponibili</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Tipi_di_Propriet.C3.A0"><span class="tocnumber">3</span> <span class="toctext">Tipi di Proprietà</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Altro_esempio_pi.C3.B9_complesso"><span class="tocnumber">4</span> <span class="toctext">Altro esempio più complesso</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Rendere_gli_oggetti_selezionabili"><span class="tocnumber">5</span> <span class="toctext">Rendere gli oggetti selezionabili</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Lavorare_con_le_forme_semplici"><span class="tocnumber">6</span> <span class="toctext">Lavorare con le forme semplici</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Ulteriori_informazioni"><span class="tocnumber">7</span> <span class="toctext">Ulteriori informazioni</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Esempio_base">Esempio base</span></h3>
+<p>L'esempio seguente si trova nel file <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD/blob/master/src/Mod/TemplatePyMod/FeaturePython.py">src/Mod/TemplatePyMod/FeaturePython.py</a>, con molti altri esempi:
+</p>
+<pre>'''Examples for a feature class and its view provider.'''
+
+import FreeCAD, FreeCADGui
+from pivy import coin
+
+class Box:
+    def __init__(self, obj):
+        '''Add some custom properties to our box feature'''
+        obj.addProperty("App::PropertyLength","Length","Box","Length of the box").Length=1.0
+        obj.addProperty("App::PropertyLength","Width","Box","Width of the box").Width=1.0
+        obj.addProperty("App::PropertyLength","Height","Box", "Height of the box").Height=1.0
+        obj.Proxy = self
+   
+    def onChanged(self, fp, prop):
+        '''Do something when a property has changed'''
+        FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
+ 
+    def execute(self, fp):
+        '''Do something when doing a recomputation, this method is mandatory'''
+        FreeCAD.Console.PrintMessage("Recompute Python Box feature\n")
+ 
+class ViewProviderBox:
+    def __init__(self, obj):
+        '''Set this object to the proxy object of the actual view provider'''
+        obj.addProperty("App::PropertyColor","Color","Box","Color of the box").Color=(1.0,0.0,0.0)
+        obj.Proxy = self
+ 
+    def attach(self, obj):
+        '''Setup the scene sub-graph of the view provider, this method is mandatory'''
+        self.shaded = coin.SoGroup()
+        self.wireframe = coin.SoGroup()
+        self.scale = coin.SoScale()
+        self.color = coin.SoBaseColor()
+       
+        data=coin.SoCube()
+        self.shaded.addChild(self.scale)
+        self.shaded.addChild(self.color)
+        self.shaded.addChild(data)
+        obj.addDisplayMode(self.shaded,"Shaded");
+        style=coin.SoDrawStyle()
+        style.style = coin.SoDrawStyle.LINES
+        self.wireframe.addChild(style)
+        self.wireframe.addChild(self.scale)
+        self.wireframe.addChild(self.color)
+        self.wireframe.addChild(data)
+        obj.addDisplayMode(self.wireframe,"Wireframe");
+        self.onChanged(obj,"Color")
+ 
+    def updateData(self, fp, prop):
+        '''If a property of the handled feature has changed we have the chance to handle this here'''
+        # fp is the handled feature, prop is the name of the property that has changed
+        l = fp.getPropertyByName("Length")
+        w = fp.getPropertyByName("Width")
+        h = fp.getPropertyByName("Height")
+        self.scale.scaleFactor.setValue(float(l),float(w),float(h))
+        pass
+ 
+    def getDisplayModes(self,obj):
+        '''Return a list of display modes.'''
+        modes=[]
+        modes.append("Shaded")
+        modes.append("Wireframe")
+        return modes
+ 
+    def getDefaultDisplayMode(self):
+        '''Return the name of the default display mode. It must be defined in getDisplayModes.'''
+        return "Shaded"
+ 
+    def setDisplayMode(self,mode):
+        '''Map the display mode defined in attach with those defined in getDisplayModes.\
+                Since they have the same names nothing needs to be done. This method is optional'''
+        return mode
+ 
+    def onChanged(self, vp, prop):
+        '''Here we can do something when a single property got changed'''
+        FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
+        if prop == "Color":
+            c = vp.getPropertyByName("Color")
+            self.color.rgb.setValue(c[0],c[1],c[2])
+ 
+    def getIcon(self):
+        '''Return the icon in XPM format which will appear in the tree view. This method is\
+                optional and if not defined a default icon is shown.'''
+        return """
+            /* XPM */
+            static const char * ViewProviderBox_xpm[] = {
+            "16 16 6 1",
+            "   c None",
+            ".  c #141010",
+            "+  c #615BD2",
+            "@  c #C39D55",
+            "#  c #000000",
+            "$  c #57C355",
+            "        ........",
+            "   ......++..+..",
+            "   .@@@@.++..++.",
+            "   .@@@@.++..++.",
+            "   .@@  .++++++.",
+            "  ..@@  .++..++.",
+            "###@@@@ .++..++.",
+            "##$.@@$#.++++++.",
+            "#$#$.$$$........",
+            "#$$#######      ",
+            "#$$#$$$$$#      ",
+            "#$$#$$$$$#      ",
+            "#$$#$$$$$#      ",
+            " #$#$$$$$#      ",
+            "  ##$$$$$#      ",
+            "   #######      "};
+            """
+ 
+    def __getstate__(self):
+        '''When saving the document this object gets stored using Python's json module.\
+                Since we have some un-serializable parts here -- the Coin stuff -- we must define this method\
+                to return a tuple of all serializable objects or None.'''
+        return None
+ 
+    def __setstate__(self,state):
+        '''When restoring the serialized object from document we have the chance to set some internals here.\
+                Since no data were serialized nothing needs to be done here.'''
+        return None
+ 
+ 
+def makeBox():
+    FreeCAD.newDocument()
+    a=FreeCAD.ActiveDocument.addObject("App::FeaturePython","Box")
+    Box(a)
+    ViewProviderBox(a.ViewObject)
+
+makeBox() </pre>
+<h3><span class="mw-headline" id="Propriet.C3.A0_disponibili">Proprietà disponibili</span></h3>
+<p>Le proprietà sono i veri e propri mattoni per la costruzione degli oggetti FeaturePython. Attraverso di esse, l'utente è in grado di interagire e modificare l'oggetto. Dopo aver creato un nuovo oggetto FeaturePython nel documento ( obj=FreeCAD.ActiveDocument.addObject("App::FeaturePython","Box") ), è possibile ottenere un elenco delle proprietà disponibili digitando:
+</p>
+<pre>obj.supportedProperties() </pre>
+<p>Si ottiene l'elenco delle proprietà disponibili:
+</p>
+<pre>App::PropertyBool
+App::PropertyBoolList
+App::PropertyFloat
+App::PropertyFloatList
+App::PropertyFloatConstraint
+App::PropertyQuantity
+App::PropertyQuantityConstraint
+App::PropertyAngle
+App::PropertyDistance
+App::PropertyLength
+App::PropertySpeed
+App::PropertyAcceleration
+App::PropertyForce
+App::PropertyPressure
+App::PropertyInteger
+App::PropertyIntegerConstraint
+App::PropertyPercent
+App::PropertyEnumeration
+App::PropertyIntegerList
+App::PropertyIntegerSet
+App::PropertyMap
+App::PropertyString
+App::PropertyUUID
+App::PropertyFont
+App::PropertyStringList
+App::PropertyLink
+App::PropertyLinkSub
+App::PropertyLinkList
+App::PropertyLinkSubList
+App::PropertyMatrix
+App::PropertyVector
+App::PropertyVectorList
+App::PropertyPlacement
+App::PropertyPlacementLink
+App::PropertyColor
+App::PropertyColorList
+App::PropertyMaterial
+App::PropertyPath
+App::PropertyFile
+App::PropertyFileIncluded
+App::PropertyPythonObject
+Part::PropertyPartShape
+Part::PropertyGeometryList
+Part::PropertyShapeHistory
+Part::PropertyFilletEdges
+Sketcher::PropertyConstraintList </pre>
+<p>Quando si aggiungono delle proprietà agli oggetti personalizzati, stare attenti a questo:
+</p>
+<ul><li> Non utilizzare i caratteri "&lt;" o "&gt;" nelle descrizioni delle proprietà (questo spezza le parti xml nel file .fcstd)</li>
+<li> Le proprietà sono memorizzate in ordine alfabetico nel file .fcstd. Se si dispone di una forma (Shape) nelle proprietà, qualsiasi proprietà il cui nome, in ordine alfabetico, viene dopo "Shape", verrà caricato DOPO la forma (Shape), e questo può causare strani comportamenti.</li></ul>
+<h3><span class="mw-headline" id="Tipi_di_Propriet.C3.A0">Tipi di Proprietà</span></h3>
+<p>Di default, le proprietà possono essere aggiornate. È possibile creare delle proprietà di sola lettura, per esempio nel caso si vuole mostrare il risultato di un metodo. È anche possibile nascondere una proprietà. Il tipo di proprietà può essere impostata usando
+</p>
+<pre>obj.setEditorMode("MyPropertyName", mode) </pre>
+<p>dove <i>mode</i> è un indice che può essere impostato:
+</p>
+<pre> 0 -- default mode, lettura e scrittura
+ 1 -- solo lettura
+ 2 -- nascosto
+</pre>
+<p>Gli EditorModes non sono fissati nel file reload di FreeCAD. Questo può essere fatto dalla funzione __setstate__ . Vedere <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=10#p108072">http://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=10#p108072</a>. Usando setEditorMode le proprietà sono in sola lettura soltanto in PropertyEditor. Esse possono ancora essere modificate da un comando Python. Per renderle davvero in sola lettura le impostazioni devono essere passate direttamente all'interno della funzione addProperty. Per un esempio, vedere <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=20#p109709">http://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=20#p109709</a>.
+</p>
+<h3><span class="mw-headline" id="Altro_esempio_pi.C3.B9_complesso">Altro esempio più complesso</span></h3>
+<p>In questo esempio si utilizza il <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">Modulo Parte</a> per creare un ottaedro, quindi si crea la sua rappresentazione Coin con Pivy.
+</p><p>Prima si crea l'oggetto del documento:
+</p>
+<pre>import FreeCAD, FreeCADGui, Part
+import pivy
+from pivy import coin
+
+class Octahedron:
+  def __init__(self, obj):
+     "Add some custom properties to our box feature"
+     obj.addProperty("App::PropertyLength","Length","Octahedron","Length of the octahedron").Length=1.0
+     obj.addProperty("App::PropertyLength","Width","Octahedron","Width of the octahedron").Width=1.0
+     obj.addProperty("App::PropertyLength","Height","Octahedron", "Height of the octahedron").Height=1.0
+     obj.addProperty("Part::PropertyPartShape","Shape","Octahedron", "Shape of the octahedron")
+     obj.Proxy = self
+
+  def execute(self, fp):
+     # Define six vetices for the shape
+     v1 = FreeCAD.Vector(0,0,0)
+     v2 = FreeCAD.Vector(fp.Length,0,0)
+     v3 = FreeCAD.Vector(0,fp.Width,0)
+     v4 = FreeCAD.Vector(fp.Length,fp.Width,0)
+     v5 = FreeCAD.Vector(fp.Length/2,fp.Width/2,fp.Height/2)
+     v6 = FreeCAD.Vector(fp.Length/2,fp.Width/2,-fp.Height/2)
+     
+     # Make the wires/faces
+     f1 = self.make_face(v1,v2,v5)
+     f2 = self.make_face(v2,v4,v5)
+     f3 = self.make_face(v4,v3,v5)
+     f4 = self.make_face(v3,v1,v5)
+     f5 = self.make_face(v2,v1,v6)
+     f6 = self.make_face(v4,v2,v6)
+     f7 = self.make_face(v3,v4,v6)
+     f8 = self.make_face(v1,v3,v6)
+     shell=Part.makeShell([f1,f2,f3,f4,f5,f6,f7,f8])
+     solid=Part.makeSolid(shell)
+     fp.Shape = solid
+
+  # helper mehod to create the faces
+  def make_face(self,v1,v2,v3):
+     wire = Part.makePolygon([v1,v2,v3,v1])
+     face = Part.Face(wire)
+     return face </pre>
+<p>In seguito si crea il fornitore della vista dell'oggetto (view provider object), responsabile di mostrare l'oggetto nella scena 3D:
+</p>
+<pre>class ViewProviderOctahedron:
+  def __init__(self, obj):
+     "Set this object to the proxy object of the actual view provider"
+     obj.addProperty("App::PropertyColor","Color","Octahedron","Color of the octahedron").Color=(1.0,0.0,0.0)
+     obj.Proxy = self
+
+  def attach(self, obj):
+     "Setup the scene sub-graph of the view provider, this method is mandatory"
+     self.shaded = coin.SoGroup()
+     self.wireframe = coin.SoGroup()
+     self.scale = coin.SoScale()
+     self.color = coin.SoBaseColor()
+
+     self.data=coin.SoCoordinate3()
+     self.face=coin.SoIndexedLineSet()
+
+     self.shaded.addChild(self.scale)
+     self.shaded.addChild(self.color)
+     self.shaded.addChild(self.data)
+     self.shaded.addChild(self.face)
+     obj.addDisplayMode(self.shaded,"Shaded");
+     style=coin.SoDrawStyle()
+     style.style = coin.SoDrawStyle.LINES
+     self.wireframe.addChild(style)
+     self.wireframe.addChild(self.scale)
+     self.wireframe.addChild(self.color)
+     self.wireframe.addChild(self.data)
+     self.wireframe.addChild(self.face)
+     obj.addDisplayMode(self.wireframe,"Wireframe");
+     self.onChanged(obj,"Color")
+
+  def updateData(self, fp, prop):
+     "If a property of the handled feature has changed we have the chance to handle this here"
+     # fp is the handled feature, prop is the name of the property that has changed
+     if prop == "Shape":
+        s = fp.getPropertyByName("Shape")
+        self.data.point.setNum(6)
+        cnt=0
+        for i in s.Vertexes:
+           self.data.point.set1Value(cnt,i.X,i.Y,i.Z)
+           cnt=cnt+1
+        
+        self.face.coordIndex.set1Value(0,0)
+        self.face.coordIndex.set1Value(1,1)
+        self.face.coordIndex.set1Value(2,2)
+        self.face.coordIndex.set1Value(3,-1)
+
+        self.face.coordIndex.set1Value(4,1)
+        self.face.coordIndex.set1Value(5,3)
+        self.face.coordIndex.set1Value(6,2)
+        self.face.coordIndex.set1Value(7,-1)
+
+        self.face.coordIndex.set1Value(8,3)
+        self.face.coordIndex.set1Value(9,4)
+        self.face.coordIndex.set1Value(10,2)
+        self.face.coordIndex.set1Value(11,-1)
+
+        self.face.coordIndex.set1Value(12,4)
+        self.face.coordIndex.set1Value(13,0)
+        self.face.coordIndex.set1Value(14,2)
+        self.face.coordIndex.set1Value(15,-1)
+
+        self.face.coordIndex.set1Value(16,1)
+        self.face.coordIndex.set1Value(17,0)
+        self.face.coordIndex.set1Value(18,5)
+        self.face.coordIndex.set1Value(19,-1)
+
+        self.face.coordIndex.set1Value(20,3)
+        self.face.coordIndex.set1Value(21,1)
+        self.face.coordIndex.set1Value(22,5)
+        self.face.coordIndex.set1Value(23,-1)
+
+        self.face.coordIndex.set1Value(24,4)
+        self.face.coordIndex.set1Value(25,3)
+        self.face.coordIndex.set1Value(26,5)
+        self.face.coordIndex.set1Value(27,-1)
+
+        self.face.coordIndex.set1Value(28,0)
+        self.face.coordIndex.set1Value(29,4)
+        self.face.coordIndex.set1Value(30,5)
+        self.face.coordIndex.set1Value(31,-1)
+
+  def getDisplayModes(self,obj):
+     "Return a list of display modes."
+     modes=[]
+     modes.append("Shaded")
+     modes.append("Wireframe")
+     return modes
+
+  def getDefaultDisplayMode(self):
+     "Return the name of the default display mode. It must be defined in getDisplayModes."
+     return "Shaded"
+
+  def setDisplayMode(self,mode):
+     return mode
+
+  def onChanged(self, vp, prop):
+     "Here we can do something when a single property got changed"
+     FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
+     if prop == "Color":
+        c = vp.getPropertyByName("Color")
+        self.color.rgb.setValue(c[0],c[1],c[2])
+
+  def getIcon(self):
+     return """
+        /* XPM */
+        static const char * ViewProviderBox_xpm[] = {
+        "16 16 6 1",
+        "    c None",
+        ".   c #141010",
+        "+   c #615BD2",
+        "@   c #C39D55",
+        "#   c #000000",
+        "$   c #57C355",
+        "        ........",
+        "   ......++..+..",
+        "   .@@@@.++..++.",
+        "   .@@@@.++..++.",
+        "   .@@  .++++++.",
+        "  ..@@  .++..++.",
+        "###@@@@ .++..++.",
+        "##$.@@$#.++++++.",
+        "#$#$.$$$........",
+        "#$$#######      ",
+        "#$$#$$$$$#      ",
+        "#$$#$$$$$#      ",
+        "#$$#$$$$$#      ",
+        " #$#$$$$$#      ",
+        "  ##$$$$$#      ",
+        "   #######      "};
+        """
+
+  def __getstate__(self):
+     return None
+
+  def __setstate__(self,state):
+     return None </pre>
+<p>Infine, dopo che l'oggetto e il suo visualizzatore sono definiti, basta solo chiamarli (La classe Octahedron e il codice della classe viewprovider possono essere copiati direttamente nella console Python di FreeCAD)::
+</p>
+<pre>FreeCAD.newDocument()
+a=FreeCAD.ActiveDocument.addObject("App::FeaturePython","Octahedron")
+Octahedron(a)
+ViewProviderOctahedron(a.ViewObject) </pre>
+<h3><span class="mw-headline" id="Rendere_gli_oggetti_selezionabili">Rendere gli oggetti selezionabili</span></h3>
+<p>Se volete rendere il vostro oggetto selezionabile, o almeno una parte di esso, facendo clic su di esso nella finestra, è necessario includere la sua geometria Coin all'interno di un nodo SoFCSelection. Se l'oggetto ha una rappresentazione complessa, con widget, annotazioni, etc, si potrebbe voler includere solo una parte di esso in un SoFCSelection. Tutto quello che compone un SoFCSelection viene costantemente analizzato da FreeCAD per rilevare selezioni/preselezioni, quindi non ha senso sovraccaricarlo con delle scansioni non necessarie. Ecco ciò che si dovrebbe fare per includere un self.face nell'esempio precedente:
+</p>
+<pre>selectionNode = coin.SoType.fromName("SoFCSelection").createInstance()
+selectionNode.documentName.setValue(FreeCAD.ActiveDocument.Name)
+selectionNode.objectName.setValue(obj.Object.Name) # here obj is the ViewObject, we need its associated App Object
+selectionNode.subElementName.setValue("Face")
+selectNode.addChild(self.face)
+...
+self.shaded.addChild(selectionNode)
+self.wireframe.addChild(selectionNode) </pre>
+<p>Praticamente, si crea un nodo SoFCSelection, quindi si aggiungono ad esso i nodi della geometria, e poi lo si aggiunge al nodo principale, invece di aggiungere direttamente i nodi geometria.
+</p>
+<h3><span class="mw-headline" id="Lavorare_con_le_forme_semplici">Lavorare con le forme semplici</span></h3>
+<p>Se l'oggetto parametrico produce semplicemente una forma, non è necessario utilizzare un fornitore di vista dell'oggetto (view provider object). La forma viene visualizzata utilizzando la rappresentazione della forma standard di FreeCAD:
+</p>
+<pre>import FreeCAD as App
+import FreeCADGui
+import FreeCAD
+import Part
+class Line:
+    def __init__(self, obj):
+        '''"App two point properties" '''
+        obj.addProperty("App::PropertyVector","p1","Line","Start point")
+        obj.addProperty("App::PropertyVector","p2","Line","End point").p2=FreeCAD.Vector(1,0,0)
+        obj.Proxy = self
+
+    def execute(self, fp):
+        '''"Print a short message when doing a recomputation, this method is mandatory" '''
+        fp.Shape = Part.makeLine(fp.p1,fp.p2)
+
+a=FreeCAD.ActiveDocument.addObject("Part::FeaturePython","Line")
+Line(a)
+a.ViewObject.Proxy=0 # just set it to something different from None (this assignment is needed to run an internal notification)
+FreeCAD.ActiveDocument.recompute() </pre>
+<p>Lo stesso codice con l'uso di <b>ViewProviderLine</b>
+</p>
+<pre>import FreeCAD as App
+import FreeCADGui
+import FreeCAD
+import Part
+
+class Line:
+    def __init__(self, obj):
+         '''"App two point properties" '''
+         obj.addProperty("App::PropertyVector","p1","Line","Start point")
+         obj.addProperty("App::PropertyVector","p2","Line","End point").p2=FreeCAD.Vector(100,0,0)
+         obj.Proxy = self
+   
+    def execute(self, fp):
+        '''"Print a short message when doing a recomputation, this method is mandatory" '''
+        fp.Shape = Part.makeLine(fp.p1,fp.p2)
+
+class ViewProviderLine:
+   def __init__(self, obj):
+      ''' Set this object to the proxy object of the actual view provider '''
+      obj.Proxy = self
+
+   def getDefaultDisplayMode(self):
+      ''' Return the name of the default display mode. It must be defined in getDisplayModes. '''
+      return "Flat Lines"
+
+a=FreeCAD.ActiveDocument.addObject("Part::FeaturePython","Line")
+Line(a)
+ViewProviderLine(a.ViewObject)
+App.ActiveDocument.recompute() </pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Ulteriori_informazioni">Ulteriori informazioni</span></h2>
+<p>Ci sono alcune discussioni nel forum molto interessanti su script di oggetti:
+</p><p>- <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=13740">http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=13740</a>
+</p><p>- <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/viewtopic.php?t=12139">http://forum.freecadweb.org/viewtopic.php?t=12139</a>
+</p><p>- <a rel="nofollow" class="external free" href="https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=20#p109709">https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=13460&amp;start=20#p109709</a>
+</p><p>- <a rel="nofollow" class="external free" href="https://forum.freecadweb.org/viewtopic.php?f=22&amp;t=21330">https://forum.freecadweb.org/viewtopic.php?f=22&amp;t=21330</a>
+</p><p><br />
+Oltre agli esempi presentati qui dare un'occhiata al codice sorgente di FreeCAD  <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD/blob/master/src/Mod/TemplatePyMod/FeaturePython.py">src/Mod/TemplatePyMod/FeaturePython.py</a> per ulteriori esempi.
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/it&amp;oldid=231486">http://www.freecadweb.org/wiki/index.php?title=Scripted_objects/it&amp;oldid=231486</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

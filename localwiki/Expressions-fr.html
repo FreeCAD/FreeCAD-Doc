@@ -1,0 +1,125 @@
+<html><head><title>Expressions/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Expressions/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span>
+</p><p><br />
+Il est maintenant possible de contrôler des propriétés en utilisant des expressions mathématiques. Dans l'interface graphique, les boîtes de dialogues numériques et les champs de saisie qui sont liés à des propriétés contiennent une icône bleue <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Expressions.png" class="image"><img alt="Sketcher Expressions.png" src="24px-Sketcher_Expressions.png" width="24" height="24" srcset="/wiki/images/thumb/b/b2/Sketcher_Expressions.png/36px-Sketcher_Expressions.png 1.5x, /wiki/images/thumb/b/b2/Sketcher_Expressions.png/48px-Sketcher_Expressions.png 2x" /></a>. En cliquant sur l'icône, ou en tapant le signe égal (=) comme dans un tableur, on fait apparaître l'éditeur d'expression pour cette propriété spécifique.
+</p><p>Une expression FreeCAD est une expression mathématique, suivant la notation normale des opérateurs mathématiques standard (+, -, * et /) et fonctionne comme décrit ci-dessous. En outre, l'expression peut faire référence à d'autres propriétés, et utiliser également des conditions. Les nombres dans une expression peuvent avoir une unité optionnelle attachée à celle-ci.
+</p><p>Les opérateurs et fonctions reconnaissent les unités de mesure et nécessitent des combinaisons valides si elles sont fournies. Par exemple, 2 mm + 4 mm est une expression valide, tandis que 2mm + 4 ne l'est pas (la raison est qu'une expression comme 1in + 4 sera très probablement interprété comme 1in + 4in par le dessinateur mais comme toutes les unités en interne sont converties au système SI, le système est totalement incapable de deviner de quelle unité il s'agit).
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Fonctions_Support.C3.A9es"><span class="tocnumber">1</span> <span class="toctext">Fonctions Supportées</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A9f.C3.A9rences_aux_donn.C3.A9es_CAD"><span class="tocnumber">2</span> <span class="toctext">Références aux données CAD</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Variables_globales"><span class="tocnumber">3</span> <span class="toctext">Variables globales</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Liaison_entre_documents"><span class="tocnumber">4</span> <span class="toctext">Liaison entre documents</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Probl.C3.A8mes_connus_.2F_t.C3.A2ches_restantes"><span class="tocnumber">5</span> <span class="toctext">Problèmes connus / tâches restantes</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Fonctions_Support.C3.A9es">Fonctions Supportées</span></h2>
+<p>Dans les expressions, les fonctions suivantes sont prises en charge, en donnant un ou deux arguments: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh, ceil, floor, trunc, et round.
+</p><p>Fonctions générales&#160;: min, max, count, sum, stddev et average. Les fonctions générales peuvent prendre un ou plusieurs arguments, séparés par une virgule ou un  point-virgule. Les arguments peuvent inclure des plages de données (deux cellules séparées par deux points), par exemple =average(B1:B8). Celles-ci sont interprétées comme les propriétés B1, B2, ..., B8.
+</p><p>Les fonctions trigonométriques utilisent le degré par défaut; vous devez spécifier "rad" si vous voulez que les fonctions utilisent le radian.
+</p><p>Les constantes pi et e sont prédéfinies.
+</p><p>L'instruction conditionnelle fonctionne comme ceci: = condition&#160;? resultTrue&#160;: resultFalse
+</p><p>La condition est définie comme une expression évaluée soit à 0 (pour False), soit différente de zéro (pour True). Les opérateurs de comparaison suivants sont définis: ==,&#160;!=, &gt;, &lt;, &gt;=, et &lt;=.
+</p><p>Les formules sont écrites comme par exemple: 2 * Longueur, où la longueur est une propriété de l'objet ayant l'expression.
+</p>
+<h2><span class="mw-headline" id="R.C3.A9f.C3.A9rences_aux_donn.C3.A9es_CAD">Références aux données CAD</span></h2>
+<p>Il est possible d'utiliser des données provenant d'autres objets de la pièce dans une expression. La syntaxe pour référencer un champ se fait comme ceci: object.property. Si la propriété est un composé de champs, ils peuvent être accessibles comme par exemple: object.property.champs. 
+</p><p>Le tableau suivant montre quelques exemples:
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>Données CAO
+</th>
+<th>Appel dans l'expression
+</th>
+<th>Résultat
+</th></tr>
+<tr>
+<td>Longueur paramétrique d'un Cube Part-Workbench
+</td>
+<td>Cube.Length
+</td>
+<td>Longueur en mm
+</td></tr>
+<tr>
+<td>Volume du Cube
+</td>
+<td>Cube.Shape.Volume
+</td>
+<td>Volume en mm&#179; sans unité
+</td></tr>
+<tr>
+<td>Type de la forme Cube
+</td>
+<td>Cube.Shape.ShapeType
+</td>
+<td>Chaîne de caractère&#160;: Solid
+</td></tr>
+<tr>
+<td>Label du Cube
+</td>
+<td>Cube.Label
+</td>
+<td>Chaîne de caractère&#160;: Cube
+</td></tr>
+<tr>
+<td>coordonnée x du centre de gravité du Cube
+</td>
+<td>Cube.Shape.CenterOfMass.x
+</td>
+<td>coordonnée x en mm sans unité
+</td></tr>
+<tr>
+<td>Valeur d'une contrainte dans une esquisse
+</td>
+<td>Constraints.Longueur
+</td>
+<td>Valeur numérique de la contrainte nommée "Longueur" dans l'esquisse
+</td></tr>
+<tr>
+<td>Valeur d'un alias de feuille de calcul
+</td>
+<td>MaFeuille.Profondeur
+</td>
+<td>Valeur de l'alias nommé "Profondeur" dans la feuille de calcul nommée "MaFeuille"
+</td></tr>
+<tr>
+<td>Valeur d'une propriété locale
+</td>
+<td>Length
+</td>
+<td>Valeur de la propriété Length, par exemple dans un objet "Pad" on pourrait l'utiliser pour calculer Length2, si celle-ci est utilisé.
+</td></tr></table>
+<h2><span class="mw-headline" id="Variables_globales">Variables globales</span></h2>
+<p>Pour le moment il n'y a pas de notion de variables globales dans FreeCAD. Mais des variables arbitraires peuvent être définies comme des cellules dans une feuille de calcul en utilisant  <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/fr" title="Spreadsheet Workbench/fr">l'atelier Spreadsheet</a>, auquelles on aura donné un nom en utilisant l'alias de la propriété pour la cellule utilisée (clic-droit dans la cellule). Ensuite, elles peuvent être accessibles à partir de toute expression comme toute autre propriété de l'objet.
+</p>
+<h2><span class="mw-headline" id="Liaison_entre_documents">Liaison entre documents</span></h2>
+<p>Il est possible d'avoir une feuille de calcul dans un document et des valeurs de référence dans d'autres documents.
+</p><p>Note importante&#160;: Imaginez que vous utilisiez le nom d'un document pour le référencer depuis d'autres documents. Lorsque vous sauverez ce document pour la première fois, vous allez certainement lui choisir un nom différent de "Unnamed1" (ou sa version traduite), et là, quand vous allez le ré-ouvrir, les liens seront perdus. Il est donc recommandé de créer en premier le document "maître", puis d'y créer immédiatement la feuille de calcul, de sauver le document maître avec un nom had-hoc et de le fermer. Après l'avoir ouvert à nouveau, son nom sera fixé en interne dans FreeCAD. Ensuite vous pourrez toujours faire des modification mais il ne faudra pas le renommer.
+</p><p>Ultérieurement vous pouvez créer d'autres documents dans lesquels vous pouvez ajouter des expressions. Si vous avez appelé votre document maître "master", vous pourrez accéder à un alias comme ceci&#160;: master#Spreadsheet.Length
+</p><p>FreeCAD intègre un vérificateur d'expression qui tente de déterminer si vos expressions sont correctes. Ce système est parfois plus déroutant qu'autre chose, il passe le plus clair de son temps à faire des erreurs d'analyse ou à prétendre que tel ou tel nom n'existe pas. Continuez juste à taper votre expression. À la toute fin, et si elle est correcte, le signal rouge disparaîtra et il sera content.
+</p><p>Bien sûr, vous pouvez charger les documents correspondants à tout moment pour y faire les modifications que vous voudrez.
+</p>
+<h2><span class="mw-headline" id="Probl.C3.A8mes_connus_.2F_t.C3.A2ches_restantes">Problèmes connus / tâches restantes</span></h2>
+<ul><li> Les graphes de dépendances sont basés sur la relation entre les objets et le document, et non par les propriétés. Cela signifie que vous ne pouvez pas fournir des données et interroger le même objet, par exemple dans une feuille de calcul, même si il n'y a pas de dépendance cyclique lorsque l'on considère seulement les propriétés. Pour contourner le problème, utilisez plusieurs feuilles de calcul, par exemple une pour votre modèle, et une autre pour les rapports.</li>
+<li> Il n'y a aucun gestionnaire d'expression où toutes les expressions d'un document sont répertoriées, où elles pourraient être créées, supprimées, interrogées, etc.</li>
+<li> Les bugs / tickets d'Open Expressions peuvent être trouvés dans la catégorie <a rel="nofollow" class="external text" href="https://freecadweb.org/tracker/set_project.php?project_id=4;20">FreeCAD Bugtracker Expressions</a>.</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Expressions/fr&amp;oldid=274199">http://www.freecadweb.org/wiki/index.php?title=Expressions/fr&amp;oldid=274199</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,89 @@
+<html><head><title>Draft Upgrade/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft Upgrade/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Mettre_.C3.A0_niveau_Draft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="32px-Draft_Upgrade.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/48px-Draft_Upgrade.png 1.5x, /wiki/images/b/be/Draft_Upgrade.png 2x" /></a> Mettre à niveau Draft</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Pièce → Mettre à niveau
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Draft</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/fr" title="Arch Module/fr">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">U P
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/fr" title="Draft Downgrade/fr">Rétrograder</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Mettre_.C3.A0_niveau_Draft"><span class="tocnumber">1</span> <span class="toctext">Mettre à niveau Draft</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Script"><span class="tocnumber">5</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cet outil met à niveau les objets sélectionnés de différentes façons. Si aucun objet n'est sélectionné, vous serez invité à en sélectionner un.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade_example.jpg" class="image"><img alt="Draft Upgrade example.jpg" src="400px-Draft_Upgrade_example.jpg" width="400" height="165" srcset="/wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/600px-Draft_Upgrade_example.jpg 1.5x, /wiki/images/thumb/5/54/Draft_Upgrade_example.jpg/800px-Draft_Upgrade_example.jpg 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<ol><li>Sélectionnez un ou plusieurs objets que vous souhaitez mettre à niveau</li>
+<li>Cliquez sur le bouton <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="16px-Draft_Upgrade.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/24px-Draft_Upgrade.png 1.5x, 32px-Draft_Upgrade.png 2x" /></a> <a class="mw-selflink selflink">Mettre à niveau</a></span> ou pressez sur les touches <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">U</span> puis <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">P</span></li></ol>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<p>Les objets sélectionnés sont modifiés/mis à niveau en suivant l'ordre de cette liste&#160;:
+</p>
+<ul><li> S'il y a plus d'une face sélectionnée, les faces sont fusionnées.</li>
+<li> S'il n'y a qu'une seule face, rien ne se passe.</li>
+<li> S'il n'y a qu'un seul fil (wire) ouvert, il sera fermé.</li>
+<li> S'il y a seulement des arêtes (edges), toutes les arêtes sont raccordées en un fil (wire) (fermé si possible).</li>
+<li> Si aucune de ces actions n'est possible, un objet composé sera créé.</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>L'outil mettre à niveau peut être utilisé dans un script Python ou dans une <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/fr" title="Macros/fr">macro</a> en faisant&#160;:
+</p>
+<pre>Draft.upgrade(objects, delete=False, force=None) </pre>
+<ul><li> Met à niveau l'objet(s) sélectionné (qui peut être un objet ou une liste d'objets). </li>
+<li> Si supprimer est sur True, les anciens objets sont supprimés. </li>
+<li> L'attribut "force" peut être utilisé pour forcer un certain mode de mise à niveau. Il peut être&#160;: makeCompound, closeGroupWires, makeSolid, closeWire, turnToParts, makeFusion, makeShell, makeFaces, draftify, joinFaces, makeSketchFace, makeWires.</li>
+<li> retourne un dictionnaire contenant deux listes, une liste des nouveaux objets et une liste d'objets à supprimer.</li></ul>
+<p>Les opérations de l'outil mettre à niveau peuvent aussi être réalisés avec les outils <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Union/fr" title="Part Union/fr">Part Union</a> or <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Wire/fr" title="Draft Wire/fr">Draft Filaire</a>.
+</p><p>Exemple:
+</p>
+<pre>import Draft
+mycircle = Draft.makeCircle(2)
+face1 = Draft.upgrade([mycircle],True) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/fr&amp;oldid=200544">http://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/fr&amp;oldid=200544</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

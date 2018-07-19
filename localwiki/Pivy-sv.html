@@ -1,0 +1,91 @@
+<html><head><title>Pivy/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a> is a python binding library for <a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>, the 3D-rendering library used in FreeCAD. When imported in a running python interpreter, it allows to dialog directly with any running Coin3d <a href="Scenegraph.html" title="Scenegraph">scenegraphs</a>, such as the FreeCAD 3D views, or even to create new ones. Pivy is bundled in standard FreeCAD installation.
+</p><p>Coin biblioteket är uppdelat i flera delar, själva coin, för manipulation av scengrafer och bindningar för flera GUI system, som windows, eller som i vårt fall, qt. Dessa moduler är även tillgängliga för pivy, beroende på om de finns i systemet. Coin modulen finns alltid, och det är vad vi kommer att använda i alla fall, eftersom vi inte behöver bry oss om att förankra vårt 3D fönster i något gränssnitt, det görs redan av FreeCAD själv. Allt vi behöver göra är detta:
+</p>
+<pre>from pivy import coin </pre>
+<h2><span class="mw-headline" id="Komma_.C3.A5t_och_.C3.A4ndra_scengrafen">Komma åt och ändra scengrafen</span></h2>
+<p>Vi såg i <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/sv" title="Scenegraph/sv">Scengraf</a> sidan hur en typisk Coin scen är organiserad. Allt som syns i en FreeCAD 3D vy är en coin scengraf, organiserad på samma sätt. Vi har en rotnod, och alla objekt på skärmen är dess barn.
+</p><p>FreeCAD har ett lätt sätt att komma åt 3D vy scengrafens rotnod:
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg </pre>
+<p>Detta kommer att returnera rotnoden:
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; </pre>
+<p>Vi kan inspektera vår scen's närmaste barn:
+</p>
+<pre>for node in sg.getChildren():
+    print node </pre>
+<p>En del av dessa noder, som SoSeparators eller SoGroups, kan själva ha barn. Den kompletta listan på de tillgängliga coin objekten kan återfinnas på <a rel="nofollow" class="external text" href="http://coin3d.bitbucket.org/Coin/classes.html">official coin documentation</a>.
+</p><p>Låt oss försöka lägga till något till vår scengraf nu. Vi lägger till en snygg röd kub:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>och här är vår (snygga) röda kub. Låt os nu försöka detta:
+</p>
+<pre>col.rgb=(1,1,0) </pre>
+<p>Se? Allt är fortfarande åtkomligt och förändringsbart direkt. Inget behov av omberäkningar eller omritningar, coin tar hand om allt. Du kan lägga till saker till din scengraf, ändra egenskaper, gömma saker, visa temporära objekt, allting. Detta gäller förstås endast visningen i 3D vyn. Den visningen beräknas om av FreeCAD när filen öppnas, och när ett objekt behöver omberäknas. Så om du ändrar en aspekt på ett existerande FreeCAD objekt, så kommer dessa ändringar att förloras om objektet beräknas om eller när du öppnar filen igen.
+</p><p>En nyckel till arbete med scengrafer i dina skript är att kunna komma åt vissa egenskaper på de noder som du vid behov lägger till. Till exempel, om vi skulle vilja flytta vår kub, så skulle vil ha lagt till en SoTranslation nod till vår anpassade nod, och det skulle ha sett ut så här:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>Kom ihåg att i en openInventor scengraf, så är ordningen viktig. en nod påverkar efterkommande saker, så du kan säga något som&#160;: färg röd, kub, färg gul, sfär, och du kommer att få en röd kub och en gul sfär. Om vi lade till förflyttning till vår existerande anpassade nod, så skulle den komma efter kuben, och inte påverka den. Om vi hade satt in den när vi skapade den, som här ovan, så skulle vi nu kunna göra:
+</p>
+<pre>trans.translation.setValue([2,0,0]) </pre>
+<p>Och vår kub skulle hoppa 2 enheter åt höger.
+Slutligen, att ta bort något görs med:
+</p>
+<pre>sg.removeChild(myCustomNode) </pre>
+<h2><span class="mw-headline" id="Anv.C3.A4nda_.C3.A5teranropsmekanismer">Använda återanropsmekanismer</span></h2>
+<p>En <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Callback_%28computer_science%29">återanropsmekanism</a> är ett system som tillåter ett bibliotek som du använder, som vårt coin bibliotek, att anropa tillbaka, vilket innebär att anropa en viss funktion från ditt för närvarande körande python objekt. Detta är väldigt användbart, därför att på det sättet så kan coin meddela python objektet om någon specifik händelse uppstår i scenen. Coin kan övervaka väldigt olika saker, som musposition, musklick, tangentbordsnedtryckningar, och många andra saker.
+</p><p>FreeCAD erbjuder ett lätt sätt att använda sådana återanrop:
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+ 
+ButtonTest() </pre>
+<p>Återanropet måste initieras från ett objekt, därför så måste det objektet fortfarande köras när återanropet uppstår.
+</p><p>Se även <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python.2Fsv" title="Code snippets">den kompletta listan</a> för möjliga händelser och dess parametrar, eller <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">i den officiella coin dokumentationen</a>.
+</p>
+<h2><span class="mw-headline" id="Dokumentation">Dokumentation</span></h2>
+<p>Olyckligtvis har pivy själv ingen ordentlig dokumentation, men eftersom det är en riktig översättning av coin, så kan du med säkerhet använda coin dokumentationen som referens, och använda python stil istället för c++ stil (till exempel SoFile::getClassTypeId() skulle i pivy bli SoFile.getClassId())
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/sv&amp;oldid=217992">http://www.freecadweb.org/wiki/index.php?title=Pivy/sv&amp;oldid=217992</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

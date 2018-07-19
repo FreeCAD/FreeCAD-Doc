@@ -1,0 +1,382 @@
+<html><head><title>CompileOnMinGW/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnMinGW/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Warning, the contents of this page may be obsolete. Please help us to keep it updated!</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#How_to_build_and_run_FreeCAD_under_MSYS.2FMinGW"><span class="tocnumber">1</span> <span class="toctext">How to build and run FreeCAD under MSYS/MinGW</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Prerequisites"><span class="tocnumber">1.1</span> <span class="toctext">Prerequisites</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#MSYS.2FMinGW"><span class="tocnumber">1.1.1</span> <span class="toctext">MSYS/MinGW</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#CMake"><span class="tocnumber">1.1.2</span> <span class="toctext">CMake</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#SWIG"><span class="tocnumber">1.1.3</span> <span class="toctext">SWIG</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Third_party_libraries"><span class="tocnumber">1.2</span> <span class="toctext">Third party libraries</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#zlib"><span class="tocnumber">1.2.1</span> <span class="toctext">zlib</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Python"><span class="tocnumber">1.2.2</span> <span class="toctext">Python</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#f2c"><span class="tocnumber">1.2.3</span> <span class="toctext">f2c</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#xerces-c"><span class="tocnumber">1.2.4</span> <span class="toctext">xerces-c</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#boost"><span class="tocnumber">1.2.5</span> <span class="toctext">boost</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#eigen2"><span class="tocnumber">1.2.6</span> <span class="toctext">eigen2</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Coin"><span class="tocnumber">1.2.7</span> <span class="toctext">Coin</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#SoQt"><span class="tocnumber">1.2.8</span> <span class="toctext">SoQt</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#PyQt.2Fsip"><span class="tocnumber">1.2.9</span> <span class="toctext">PyQt/sip</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#ODE"><span class="tocnumber">1.2.10</span> <span class="toctext">ODE</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#OpenCASCADE"><span class="tocnumber">1.2.11</span> <span class="toctext">OpenCASCADE</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Note_1"><span class="tocnumber">1.2.12</span> <span class="toctext">Note 1</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Note_2"><span class="tocnumber">1.2.13</span> <span class="toctext">Note 2</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Note_3"><span class="tocnumber">1.2.14</span> <span class="toctext">Note 3</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Netgen"><span class="tocnumber">1.2.15</span> <span class="toctext">Netgen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="#Building_the_FreeCAD_sources"><span class="tocnumber">1.3</span> <span class="toctext">Building the FreeCAD sources</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#Note"><span class="tocnumber">1.3.1</span> <span class="toctext">Note</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="How_to_build_and_run_FreeCAD_under_MSYS.2FMinGW">How to build and run FreeCAD under MSYS/MinGW</span></h2>
+<h3><span class="mw-headline" id="Prerequisites">Prerequisites</span></h3>
+<p>Here comes a short introduction how to setup a MSYS/MinGW environment
+on a Windows system, to build all needed libraries and finally to build
+the FreeCAD sources.
+</p>
+<h4><span class="mw-headline" id="MSYS.2FMinGW">MSYS/MinGW</span></h4>
+<p>If not already installed get a MinGW installer from the Sourceforge page at
+<a rel="nofollow" class="external free" href="http://sourceforge.net/projects/mingw">http://sourceforge.net/projects/mingw</a>. When writing this tutorial the latest
+version was mingw-get-inst-20100831.exe. Download and just double-click the
+excutable. This installs the compiler and a minimal Windows developer environment.
+Make sure to also install the Fortran compiler because there is a single Fortran
+file in the 3rd party folder of the FreeCAD sources.
+</p><p>Then as second step MSYS needs to be installed to have an environment to run
+./configure scripts which we make heavy use of in order to build all needed
+libraries. From the Soureforge page the file MSYS-1.0.11.exe was taken.
+</p><p>A virginal MSYS/MinGW installation lacks of a few modules we later need.
+First, we need the utility pexport which can be found in the file
+pexports-0.44-1-mingw32-bin.tar.lzma. I don't know where to put this file
+and how to make MSYS to install the stuff inside. But the file can be opened
+with a ZIP program and the content can be copied to their destination manually.
+Here, the pexports utility can go to the bin directory of your MinGW installation.
+</p><p>Then, we also need the development files for the pthreads module which is part
+of the file pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma. Just download and copy
+the files inside to your MinGW installation.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="CMake">CMake</span></h4>
+<p>Download the CMake utility from <a rel="nofollow" class="external free" href="http://www.cmake.org/cmake/resources/software.html">http://www.cmake.org/cmake/resources/software.html</a>.
+Get the archive with the binaries for the Windows platform and unpack whereever you
+want. There is nothing further to do for this.
+</p>
+<h4><span class="mw-headline" id="SWIG">SWIG</span></h4>
+<p>Download the SWIG utility from www.swig.org and extract it somewhere on your harddisk.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Third_party_libraries">Third party libraries</span></h3>
+<p>Here is a description which libraries we need for FreeCAD and how to build them from
+the sources. In order not to pollute our MinGW installation with too many files from
+the 3rd party libraries we have to build you can e.g. create a sub-directory "local"
+in your MSYS installation. If you have installed MSYS under C:\MSYS then simply create
+the directory C:\MSYS\1.0\local.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="zlib">zlib</span></h4>
+<p>For zlib there is already a ready package for MinGW. So, therefore simply download
+the file libz-1.2.3-1-mingw32-dev.tar.gz from the Sourceforge site and extract the
+two directories lib and include to C:\MSYS\1.0\local.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Python">Python</span></h4>
+<p>It seems to be nearly impossible to build the Python sources directly with the MinGW
+compiler. This is because some Python modules require some features which are not
+implemented on the MinGW platform. Fortunately, the Python sources are plain C code
+and instead of trying to build it with MinGW you can get a ready binary package built
+with the MSVC compiler. You can install the Python stuff whereever you want. Afterwards
+copy the include folder to C:\MSYS\1.0\local, the DLL can go to C:\MSYS\1.0\local\bin.
+</p><p>Now we also need the so called import library. There we cannot use the .lib file which
+comes together with the installer. But it's easy to create one with the pexports/dlltool
+utilities. Assuming the Python version is 2.6 do these two steps:
+</p>
+<pre> pexports python26.dll &gt; python26.def
+ dlltool -D python26.dll -d python26.def -l libpython26.dll.a
+ 
+</pre>
+<p>The file libpython26.dll.a can now be moved to C:\MSYS\1.0\local\lib.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="f2c">f2c</span></h4>
+<p>For this library we don't need any header files but only the import library to build the
+Salome SMESH sources. The easiest way to build this file is:
+</p>
+<pre> pexports libgfortran-3.dll &gt; f2c.def
+ dlltool -D libgfortran-3.dll -d f2c.def -l libf2c.dll.a
+</pre>
+<p>The file libf2c.dll.a can now be moved to C:\MSYS\1.0\local\lib.
+</p><p><br />  
+</p>
+<h4><span class="mw-headline" id="xerces-c">xerces-c</span></h4>
+<p>Download a source archive from <a rel="nofollow" class="external free" href="http://xml.apache.org/dist/xerces-c/">http://xml.apache.org/dist/xerces-c/</a> and extract it.
+Open a MSYS command line window and change to the xerces-c sources. From there run
+</p>
+<pre>./configure LDFLAGS=-no-undefined 
+</pre>
+<p>Once ./configure has finished it's best to move to the source directory because we
+don't need to build the dozens of test applications and other stuff. So, do this:
+</p>
+<pre> cd src
+ make
+ make install
+
+</pre>
+<p>This takes a few minutes to be done.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="boost">boost</span></h4>
+<p>For boost there exists a testing package with cmake support. This, however, seems to be
+stable enough to build with the MinGW compiler. So, get the file boost-1.41.0.cmake0.zip
+from <a rel="nofollow" class="external free" href="http://sodium.resophonic.com/boost-cmake/1.41.0.cmake0/">http://sodium.resophonic.com/boost-cmake/1.41.0.cmake0/</a> and unpack it.
+</p><p>Now, start the cmake-gui.exe from within the MSYS command line. This is necessary for cmake
+in order to find the compiler and other stuff. Select the folder of the boost sources with
+the CMakeLists.txt file, select a build directory and start Configure. You'll be asked for
+which system you want to generate the Makefiles. Select MSYS/Makefiles, not MinGW/Makefiles.
+</p><p>When the configuration step has finished go to the options and search for WINMANGLE_LIBNAMES.
+Switch this off because otherwise the boost library names contain the compiler name. This
+causes the boost cmake check to fail later when we try to build the FreeCAD sources. And for
+the installtion folder choose the directory C:\MSYS\1.0\local.
+</p><p>So, reconfigure boost and press on Generate once it has finished. Close the CMake GUI window
+and enter
+</p>
+<pre> make
+ make install
+</pre>
+<p>into the command line. This will take a couple of minutes.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="eigen2">eigen2</span></h4>
+<p>Download eigen-2.0.15.tar.gz or any later version from <a rel="nofollow" class="external free" href="https://www.freecadweb.org/wiki/index.php?title=Main_Page">http://eigen.tuxfamily.org/index.php?title=Main_Page</a>.
+Unpack the files and start again cmake-gui. Set the installation directory to C:\MSYS\1.0\local
+and press on Configure and Generate. Close the window and start the installation with
+</p>
+<pre> make
+ make install
+</pre>
+<p><br />
+o Qt4
+From the Qt website at <a rel="nofollow" class="external free" href="ftp://ftp.trollech.com">ftp://ftp.trollech.com</a> you can download already prebuilt packages for the
+MinGW platform. But depending on the version you have installed it can happen that they don't fit
+together. In this case the source tarball must be downloaded. Use version 4.5.3 or higher. Unpack
+the sources and start the configure.exe you'll find inside the sources.
+</p>
+<pre> ./configure
+
+</pre>
+<p>By default the build the debug and release version. If you only want the release version use the
+option "-release". 
+</p><p>Configure will ask you some questions under which license you want to use Qt. Choose LGPL here. 
+Now run the build with
+</p>
+<pre> make
+ 
+</pre>
+<p>This can take quite some time because Qt has become a really huge library over the years. Once the
+build has finished run a
+</p>
+<pre> make install
+ 
+</pre>
+<p>to copy the header files to their right place. All the binaries and header files are still inside
+the source folder. If you like you can copy all the .dll, .a, and the direcories under "include" to
+the subdirectories of C:\MSYS\1.0\local.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Coin">Coin</span></h4>
+<p>Get a source archive from www.coin3d.org. Unpack the sources and run
+</p>
+<pre> ./confiure
+ make
+ make install
+</pre>
+<p>It may happen that a message dialog pops up due to a missing cygwin1.dll. You simply ignore this.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="SoQt">SoQt</span></h4>
+<p>Get a source archive from www.coin3d.org. Unpack the sources and run
+</p>
+<pre> ./configure CXXFLAGS="-DCOIN_DLL" --with-qt=/usr/local
+ make
+ make install
+</pre>
+<p>In case your Qt development files are not under /usr/local choose the correct directory there.
+Again a message dialog may pop up due to the missing cygwin1.dll.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="PyQt.2Fsip">PyQt/sip</span></h4>
+<p>Warning: the following is obsoleted from version 0.14, since FreeCAD is now using
+pySide instead of PyQt. At the moment, PySide suport for MingW seems still not complete:
+<a rel="nofollow" class="external free" href="https://bugreports.qt-project.org/browse/PYSIDE-113?page=com.atlassian.jira.plugin.system.issuetabpanels%3aall-tabpanel">https://bugreports.qt-project.org/browse/PYSIDE-113?page=com.atlassian.jira.plugin.system.issuetabpanels%3aall-tabpanel</a>
+</p><p>Download the sources archives for sip and PyQt4 from www.riverbankcomputing.co.uk.
+</p><p>In order to build sip extract the archive and open a MSYS command line. From within
+its source archive call
+</p>
+<pre> python configure.py --platform win32-g++ --destdir=/usr/local
+ make
+</pre>
+<p>It may happen that this step aborts because the Python include headers cannot be found.
+In this case edit the Makefile and add the include path for the ython headers and also
+the path and filename of the Python library.
+</p><p>Unfortunately, the 'make install' command doesn't work because the Makefile was generated
+to use Windows batch commands instead of bash commands. Thus, copy the following files to
+a path where Python can find it, e.g. /usr/local/bin.
+</p>
+<pre> sipconfig.py
+ sipdistutils.py
+ siputils.py
+ sip.pyd
+ sip.exe
+</pre>
+<p>In order to build PyQt4 extract the source archive and open a MSYS command line. Go to the
+directory and start
+</p>
+<pre> export PATH=/usr/local/lib/:$PATH
+ python configure.py --destdir=/usr/local/lib/site-packages
+ make
+</pre>
+<p>Since the Makefile doesn't find the Python header files copy them all and also the file sip.h
+to a directory where they can be found. A good place seems to be the directory of the Qt sources.
+There copy the files to $QTDIR/include. The Python library file python26.dll.a can go  $QTDIR/lib.
+</p><p>After the build has finished you have to copy all files that end with .pyd to their destination,
+e.g. /usr/local/lib/site-packages/PyQt4. Lateron when you have built the FreeCAD sources you have
+to copy the PyQt4 directory and sip.pyd to the FreeCAD bin directory or set a symlink.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="ODE">ODE</span></h4>
+<p>TODO: Still not clear if this will be used. (<a rel="nofollow" class="external free" href="http://www.ode.org">http://www.ode.org</a>), &gt;= 0.10.x
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="OpenCASCADE">OpenCASCADE</span></h4>
+<p>For the build of the OpenCASCADE libraries get the sources from www.opencascade.org or alternatively
+it is also possible to download a stripped source tarball from the Debian mirrors which don't include
+any fonts and other resource files.
+</p><p>Unpack the sources and download a CMake script from <a rel="nofollow" class="external free" href="http://opencascade-cmake.googlecode.com/svn/trunk/">http://opencascade-cmake.googlecode.com/svn/trunk/</a>
+and the file occ_config.h.cmake. Copy both files into the 'ros' directory, start cmake-gui from
+within a MSYS command line and select MSYS Makefiles. In the options  the following switches can be
+disabled:
+</p>
+<pre> OPENCASCADE_WRAPPERS
+ OPENCASCADE_VISUALISATION
+ OPENCASCADE_OCAF
+ OPENCASCADE_DRAW
+ 
+</pre>
+<p>Then specify for OPENCASCADE_INSTALL_PREFIX C:/MSYS/1.0/local as destination directory-
+</p><p>Now click the Configure button which takes a while and afterwards the Generate button.
+</p>
+<h4><span class="mw-headline" id="Note_1">Note 1</span></h4>
+<p>The original sources don't completely compile with MinGW. Therefore you have to apply the patch
+OpenCASCADE6.3.0-MinGW.patch from <a rel="nofollow" class="external free" href="http://code.google.com/p/opencascade-cmake/source/browse/trunk">http://code.google.com/p/opencascade-cmake/source/browse/trunk</a>
+</p>
+<h4><span class="mw-headline" id="Note_2">Note 2</span></h4>
+<p>The original sources includes also a configure script and the Makefile.am files.
+But it appeared to be very hard to build the libraries this way. Thus, it highly
+recommended to do it the CMake way.
+</p>
+<h4><span class="mw-headline" id="Note_3">Note 3</span></h4>
+<p>For a couple of libraries the arguments passed to the linker exceeds the number of
+allowed characters and thus the linker stops with an error: "Bad file number".
+To solve this issue you can open the file build.make of the according library and
+split the block (e.g. TKGeomAlgo_OBJECTS) into several smaller ones and modify the
+build rule this way that you create first a static library, add the other object
+files to the group and then unpack the static archive into one directory. This
+trick solves the problem to reduce the whole number of characters.
+Afterwards the shared library can be built out of these object files.
+</p><p>Example:
+If the build.make file has a line of the form
+</p>
+<pre>   g++ &lt;options&gt; -shared -o libTKGeomAlgo.dll $(TKGeomAlgo_OBJECTS) &lt;libs&gt;
+</pre>
+<p>then change it into
+</p>
+<pre>   ar rcs win32/libTKGeomAlgo.a $(TKGeomAlgo_OBJECTS1)
+   ar q win32/libTKGeomAlgo.a $(TKGeomAlgo_OBJECTS2)
+   ...
+   ar x win32/libTKGeomAlgo.a
+   g++ &lt;options&gt; -shared -o libTKGeomAlgo.dll *.obj  &lt;libs&gt;
+   rm -f *.obj
+</pre>
+<h4><span class="mw-headline" id="Netgen">Netgen</span></h4>
+<p>Modify the following files:
+</p>
+<ul><li> libsrc/meshing/improve2.hpp</li></ul>
+<pre> Add  DLL_HEADER to class MeshOptimize2d
+</pre>
+<ul><li> libsrc/meshing/meshclass.hpp</li></ul>
+<pre> Add  DLL_HEADER to CalcSurfacesOfNode
+</pre>
+<ul><li> libsrc/meshing/meshtype.hpp</li></ul>
+<pre> Add  DLL_HEADER to classes SurfaceElementIndex, MeshPoint, Element2d (int anp), 
+</pre>
+<ul><li> libsrc/occ/occgeom.hpp</li></ul>
+<pre> Add  DLL_HEADER to classes Line, OCCGeometry, OCCParameters, OCCGenerateMesh
+</pre>
+<ul><li> libsrc/occ/occmeshsurf.hpp</li></ul>
+<pre> Add  DLL_HEADER to classes OCCSurface, Meshing2OCCSurfaces, MeshOptimize2dOCCSurfaces, OCCRefinementSurfaces
+ 
+</pre>
+<p>Run the configure script with these arguments  
+</p>
+<pre> ./configure --prefix=/usr/local --enable-shared --enable-occ --with-occ=/usr/local --with-tcl=/usr/local/lib --enable-nglib CXXFLAGS="-DNGLIB_EXPORTS -DWNT"
+ make &amp;&amp; make install
+</pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Building_the_FreeCAD_sources">Building the FreeCAD sources</span></h3>
+<p>In order build the FreeCAD sources either get the developer sources from the SVN repository
+or get one of the .tar.gz tarballs and extract it.
+Now start cmake-gui.exe from within a MSYS command line window and browse to the FreeCAD
+sources and also define the build directory. Now run Configure. It may happen that cmake
+complains about some not found libraries. In this case go through the listed libraries and
+choose the include directory and/or the path to the library where needed. Once Confgiure
+accepts all your input create the Makefiles by clicking on Generate. Now close the window
+and enter
+</p>
+<pre> make
+ make install
+</pre>
+<p>This will take a couple of minutes. From the command line window change to the FreeCAD bin
+folder and start the application with ./FreeCAD. In case it complains about some DLLs it cannot
+find you have to extend your PATH environment variable with
+</p>
+<pre> export PATH=$PATH:/usr/local/bin:/usr/local/lib
+</pre>
+<p>If no grave problems remains repeating ./FreeCAD should start the application now.
+</p>
+<h4><span class="mw-headline" id="Note">Note</span></h4>
+<p>In order to let CMake detect the boost libraries you must make sure that the
+DLLs are in the system path because the check builds some test applications
+and tries to start them. If the DLLs are not in path CMake says that it cannot
+find boost. In this case do a export PATH=/usr/local/lib:$PATH
+</p><p>Have fun!
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnMinGW/it&amp;oldid=151082">http://www.freecadweb.org/wiki/index.php?title=CompileOnMinGW/it&amp;oldid=151082</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

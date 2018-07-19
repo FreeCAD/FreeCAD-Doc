@@ -1,0 +1,124 @@
+<html><head><title>WikiRobots</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>WikiRobots</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Robots are intrinsically dangerous as they can automatically do a lot of damage. Use with extreme care!</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuration"><span class="tocnumber">3</span> <span class="toctext">Configuration</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Usage"><span class="tocnumber">4</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Examples"><span class="tocnumber">5</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Repetitive tasks can be automated using Robots, i.e. software programs operating on the Wiki.
+</p><p>The natural and most used Robots for Wiki sites are provided by Wikipedia, under the name of <a class="external text" href="http://www.mediawiki.org/wiki/Manual:Pywikibot">Pywikibot</a>.
+</p><p>In a nutshell, the Pywikibot is a collection of Python scripts able to use the native Wiki API to act on the Wiki sites (to see for instance the API list for FreeCAD Wiki, select this link <a rel="nofollow" class="external free" href="http://www.freecadweb.org/wiki/api.php">http://www.freecadweb.org/wiki/api.php</a>).
+</p><p>In order to use the Pywikibot, you need to:
+</p>
+<ol><li> install the Pywikibot</li>
+<li> configure the Pywikibot to work on the FreeCAD Wiki</li>
+<li> launch the script(s) you need for the task at hand</li></ol>
+<p>There is a wealth of information on how to install, configure and use the Pywikibot. However, please be aware that this information, although useful, can be highly misleading, since it is mixing instructions related to two different Pywikibot codebases, and different versions of the Pywikibot scripts collection.
+</p><p>In the following, you will find the basic instructions to set up and use Pywikibot on FreeCAD wiki. This will allow you to perform most of the tasks. For more detailed information and advanced usage, you'll have eventually to refer to the <a class="external text" href="http://www.mediawiki.org/wiki/Manual:Pywikibot">Pywikibot manual</a> and, even better, to the Python source code / source code comments.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Go to <a rel="nofollow" class="external free" href="http://tools.wmflabs.org/pywikibot/">http://tools.wmflabs.org/pywikibot/</a> and download <b> <i>package/pywikipedia/core.zip</i> </b> (the project is also under github, gerrit, etc. but this is a simple way to get a full self-contained package).
+</p><p>Unzip the content in your preferred directory.
+</p><p>Unless you want to install the libraries into your Python libs, you are done (if you still want to install them, check the file <b> <i>INSTALL</i> </b> in the base directory).
+</p><p>Pywikibot works with Python 2.6 and 2.7 with no issues. Python 3 has been not tested so far with FreeCAD wiki.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>You must save the following Python code as a file with the name <b> <i>user-config.py</i> </b> in the base directory where you unzipped <b> <i>package/pywikipedia/core.zip</i> </b> (to be clear, in the same directory where you already find a file called <b> <i>user-config.py.sample</i> </b>).
+</p>
+<pre># -*- coding: cp437  -*-
+family = 'freecadwiki'
+mylang = 'en'
+usernames['freecadwiki']['en'] = u'&lt;&lt;yourWikiUserName&gt;&gt;'
+#usernames['freecadwiki']['freecadwiki'] = u'&lt;&lt;yourWikiUserName&gt;&gt;'
+console_encoding = 'cp437' </pre>
+<p>In the above code:
+</p>
+<ul><li> replace <i>&lt;&lt;yourWikiUserName&gt;&gt;</i> with your Wiki user name</li>
+<li> replace <i>cp437</i> with your <i>console_encoding</i>. To find out what is your console encoding, for Windows and Linux, launch the Python interpreter, enter <span style="font-weight: bold; font-family:Courier New, Courier, monospace;">import sys</span> followed by <span style="font-weight: bold; font-family:Courier New, Courier, monospace;">print sys.stdout.encoding</span>. Python will write your <span style="font-family:Courier New, Courier, monospace;">console_encoding</span> on the screen.</li></ul>
+<p><br />
+Then you must save the following Python code as a file with the name <b> <i>freecadwiki_family.py</i> </b> under the sub-directory <b> <i>/pywikibot/families</i> </b> (together with the other <b> <i>family_xxx.py</i> </b> files).
+</p>
+<pre># -*- coding: utf-8  -*-
+
+__version__ = '$Id: 7f3891c3bbbfbd69c0b005de953514803d783d92 $'
+
+from pywikibot import family
+
+
+# The MediaWiki family
+# user-config.py: usernames['mediawiki']['mediawiki'] = 'User name'
+class Family(family.WikimediaFamily):
+    def __init__(self):
+        super(Family, self).__init__()
+        self.name = 'freecadwiki'
+
+        self.langs = {
+            'en': 'www.freecadweb.org',
+        }
+
+    def scriptpath(self, code):
+        return 'wiki'
+
+    def path(self, code):
+        return '/index.php' #The path of index.php, look at your wiki address. 
+ 
+    def apipath(self, code):
+        return '/api.php' #The path of api.php
+
+    def version(self, code):
+        # Replace with the actual version being run on your wiki
+        return '1.20.3'
+
+    def protocol(self, code):
+        """
+        Can be overridden to return 'https'. Other protocols are not supported.
+        """
+        return 'http'
+        #return 'https' # My server uses https </pre>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>You are now all set to launch the Pywikibot scripts. The scripts themselves are contained in the <b> <i>/scripts</i> </b> subdirectory, from which you can know the names.
+</p><p>To launch the scripts, open a shell and move to the base directory (the installation one, NOT the <b> <i>/scripts</i> </b> subdirectory), and write
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">python pwb.py &lt;&lt;scriptname&gt;&gt;.py -&lt;&lt;parameter&gt;&gt;</span>
+</p><p>where of course you replace <i>&lt;&lt;scriptname&gt;&gt;</i> with the name of the script you are interested in, and <i>&lt;&lt;parameter&gt;&gt;</i> with the parameter(s) required for the given script.
+</p><p>To have a description of the usage and parameters of any script, simply use the <i>-help</i> parameter. For instance, to have a description of the <b> <i>replace.py</i> </b> script (one of the most useful), type
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">python pwb.py replace.py -help</span>
+</p><p>There is another very useful parameter, valid for all the scripts, called <i>-simulate</i>, that allows you to test commands without harming the Wiki. Use it, before going 'live'.
+</p>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<p>This command will log into the wiki
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">pwb.py login.py</span>
+</p><p><br />
+This command will print a list of all the pages containing a link to SourceForge
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">pwb.py listpages.py -weblink:sourceforge.net</span>
+</p><p><br />
+This command will replace all the links to the old SourceForge Forum with a link to the new freecadweb.org-hosted Forum
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">pwb.py replace.py -weblink:sourceforge.net/apps/phpbb/free-cad "sourceforge.net/apps/phpbb/free-cad" "forum.freecadweb.org"</span>
+</p><p><br />
+This command will print a list of all the pages containing the word 'PartDesign', starting with the page titled "2d Drafting Module" and going on alphabetically
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">pwb.py listpages.py -start:"2d Drafting Module" -grep:PartDesign</span>
+</p><p><br />
+This command will replace all the secure links to the old SourceForge Forum with a link to the new freecadweb.org-hosted Forum in the translated pages
+</p><p><span style="font-weight: bold; font-family:Courier New, Courier, monospace;">pwb.py replace.py -start:Translations:! "<a rel="nofollow" class="external free" href="https://sourceforge.net/apps/phpbb/free-cad">https://sourceforge.net/apps/phpbb/free-cad</a>" "<a rel="nofollow" class="external free" href="http://forum.freecadweb.org">http://forum.freecadweb.org</a>"</span>
+</p>
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=WikiRobots&amp;oldid=85462">http://www.freecadweb.org/wiki/index.php?title=WikiRobots&amp;oldid=85462</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

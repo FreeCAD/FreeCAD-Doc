@@ -1,0 +1,112 @@
+<html><head><title>Macro MeshToPart/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro MeshToPart/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="MeshToPart"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> MeshToPart</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descripción
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Esta macro convierte las mallas seleccionadas en piezas. Tiene una tolerancia bastante grande, así que utilízala sólo con objetos que no tengan curvas pues de otro modo obtendrás resultados extraños
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Wmayer" title="User:Wmayer">Wmayer</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Vista
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/es" title="Macros recipes/es">Macros recipes</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/es" title="How to install macros/es">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/es" title="Customize Toolbars/es">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Fecha de la última modificación
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2011-08-01
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#MeshToPart"><span class="tocnumber">1</span> <span class="toctext">MeshToPart</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Link"><span class="tocnumber">3</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro converts selected meshes to parts. It has a broad tolerance, so use it only with objects that have no curves otherwise you'll get errors or weird results
+</p><p><br />
+</p>
+<pre>import FreeCAD,FreeCADGui,Mesh,Part,MeshPart
+ 
+for obj in FreeCADGui.Selection.getSelection():
+    if "Mesh" in obj.PropertiesList:
+        faces = []      
+        mesh = obj.Mesh
+        segments = mesh.getPlanarSegments(0.01) # use rather strict tolerance here
+ 
+        for i in segments:
+          if len(i) &gt; 0:
+             # a segment can have inner holes
+             wires = MeshPart.wireFromSegment(mesh, i)
+             # we assume that the exterior boundary is that one with the biggest bounding box
+             if len(wires) &gt; 0:
+                ext = None
+                max_length = 0
+                for i in wires:     
+                   if i.BoundBox.DiagonalLength &gt; max_length:
+                      max_length = i.BoundBox.DiagonalLength
+                      ext = i
+                wires.remove(ext)
+                # all interior wires mark a hole and must reverse their orientation, otherwise Part.Face fails
+                for i in wires:
+                   i.reverse()
+                # make sure that the exterior wires comes as first in the lsit
+                wires.insert(0, ext)
+                faces.append(Part.Face(wires))
+ 
+        shell=Part.Compound(faces)
+        solid = Part.Solid(Part.Shell(faces))
+        name = obj.Name
+        FreeCAD.ActiveDocument.removeObject(name)
+        FreeCAD.ActiveDocument.addObject("Part::Feature",name).Shape = solid </pre>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>The discussion on the forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=253&amp;hilit=getPlanarSegments">Convert mesh to solid?</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_MeshToPart/es&amp;oldid=240080">http://www.freecadweb.org/wiki/index.php?title=Macro_MeshToPart/es&amp;oldid=240080</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,60 @@
+<html><head><title>Macros/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macros/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Makra jsou pohodlný způsob jak provádět komplexní akce ve FreeCADu. Můžete jednoduše zaznamenat operace tak jak jste je prováděli, potom je uložit pod nějakým jménem a kdykoliv později je znovu spouštět. Vzhledem k tomu, že makra jsou ve skutečnosti jen seznamy příkazů Pythonu, můžete je upravovat a vytvářet velmi komplexní skripty.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Jak_to_funguje"><span class="tocnumber">1</span> <span class="toctext">Jak to funguje</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#P.C5.99.C3.ADklad"><span class="tocnumber">2</span> <span class="toctext">Příklad</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#P.C5.99izp.C5.AFsoben.C3.AD"><span class="tocnumber">3</span> <span class="toctext">Přizpůsobení</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_macros_without_recording"><span class="tocnumber">4</span> <span class="toctext">Creating macros without recording</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Repozit.C3.A1.C5.99_maker"><span class="tocnumber">5</span> <span class="toctext">Repozitář maker</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Tutorials"><span class="tocnumber">7</span> <span class="toctext">Tutorials</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Jak_to_funguje">Jak to funguje</span></h3>
+<p>Když povolíte výstup na konzolu (Menu Úpravy -&gt; Předvolby -&gt; Obecné -&gt; Makra -&gt; Zobraz skriptovací příkazy v konzole Pythonu), uvidíte ve FreeCADu, že každá operace, kterou provedete, jako je stisk tlačítka, zobrazí na výstupu příslušný příkaz Pythonu. Tyto příkazy jsou to, co se ukládá v makru. Hlavní nástroj pro vytváření maker je pruh nástrojů maker: <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macros_toolbar.jpg" class="image"><img alt="Macros toolbar.jpg" src="Macros_toolbar.jpg" width="144" height="43" /></a>. Na něm jsou 4 tlačítka: Spustit záznam, Zastavit záznam, Upravit makro a Spustit aktuální makro.
+</p><p>Použití je velmi jednoduché: Stisknete tlačítko Spustit záznam, nejdříve zadáte jméno makra a potom provádíte požadované operace. Když jste hotovi, kliknete ma Zastavit záznam a provedené operace budou uloženy. Nyní máte přístupný i editovací režim pod tlačítkem Upravit záznam:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macros.jpg" class="image"><img alt="Macros.jpg" src="Macros.jpg" width="381" height="408" /></a>
+</p><p>V tom můžete pracovat s makrem, můžete je smazat, upravovat nebo vytvářet zcela nové. Když makro upravujete, bude otevřeno v editovacím okně, kde můžete dělat změny v jeho kódu.
+</p>
+<h3><span class="mw-headline" id="P.C5.99.C3.ADklad">Příklad</span></h3>
+<p>Stiskněte tlačítko Spustit záznam a zadejte jméno makra, třeba "Válec 10x10", potom v <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/cs" class="mw-redirect" title="Part Workbench/cs">pracovní ploše Díl</a>, vytvořte válec s poloměrem = 10 a výškou = 10. Potom stiskněte tlačítko Zastavit záznam. V dialogu pro úpravu makra vidíte kód Pythonu, který byl zaznamenán a když chcete můžete v něm udělat změny. Chcete-li makro spustit, jednoduše stiskněte tlačítko Spustit makro v nástrojovém pruhu, když je makro v editovacím okně. Makro je vždy uloženo na disk, takže každá změna makra nebo nové makro bude vždy znovu dostupné při příštím spuštění FreeCADu.
+</p>
+<h3><span class="mw-headline" id="P.C5.99izp.C5.AFsoben.C3.AD">Přizpůsobení</span></h3>
+<p>Samozřejmě, že není praktické natahovat makro do editoru vždy, když je chcete použít. FreeCAD nabízí mnohem lepší způsoby pro použití makra, jako jsou třeba klávesové zkratky nebo vložení makra do menu. Když už je makro vytvořeno, můžete takové úpravy udělat přes Nástroje -&gt; Přizpůsobení menu:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macros_config.jpg" class="image"><img alt="Macros config.jpg" src="Macros_config.jpg" width="400" height="276" /></a>
+</p><p><a href="Customize_Toolbars.html" title="Customize Toolbars">Customize Toolbars</a> This way you can make your macro become a real tool, just like any standard FreeCAD tool. This, added to the power of python scripting within FreeCAD, makes it possible to easily add your own tools to the interface. Read on to the <a href="Scripting.html" class="mw-redirect" title="Scripting">Scripting</a> page if you want to know more about python scripting...
+</p>
+<h3><span class="mw-headline" id="Creating_macros_without_recording">Creating macros without recording</span></h3>
+<p><a href="How_to_install_macros.html" title="How to install macros">How to install macros</a> You can also directly copy/paste python code into a macro, without recording GUI action. Simply create a new macro, edit it, and paste your code. You can then save your macro the same way as you save a FreeCAD document. Next time you start FreeCAD, the macro will appear under the "Installed Macros" item of the Macro menu.
+</p>
+<h3><span class="mw-headline" id="Repozit.C3.A1.C5.99_maker">Repozitář maker</span></h3>
+<p>Podívejte se na stránku  <a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/cs" title="Macros recipes/cs">Návody pro makra</a>, kde najdete několik užitečných maker, která jsou přiložena k instalaci FreeCAD.
+</p>
+<h3><span class="mw-headline" id="Links">Links</span></h3>
+<p><a href="Installing_more_workbenches.html" title="Installing more workbenches">Installing more workbenches</a>
+</p>
+<h3><span class="mw-headline" id="Tutorials">Tutorials</span></h3>
+<p><a href="How_to_install_additional_workbenches.html" title="How to install additional workbenches">How to install additional workbenches</a>
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macros/cs&amp;oldid=212863">http://www.freecadweb.org/wiki/index.php?title=Macros/cs&amp;oldid=212863</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

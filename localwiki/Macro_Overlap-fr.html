@@ -1,0 +1,225 @@
+<html><head><title>Macro Overlap/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Overlap/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Boolean_Overlap"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Overlap.png" class="image"><img alt="Macro Overlap.png" src="32px-Macro_Overlap.png" width="32" height="32" srcset="/wiki/images/thumb/a/ac/Macro_Overlap.png/48px-Macro_Overlap.png 1.5x, /wiki/images/thumb/a/ac/Macro_Overlap.png/64px-Macro_Overlap.png 2x" /></a> Boolean Overlap</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Boolean tool in between <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Union/fr" title="Part Union/fr">Part Union</a> and <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Common/fr" title="Part Common/fr">Part Common</a>. Parametric.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:DeepSOIC" title="User:DeepSOIC">DeepSOIC</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-10-12
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Boolean_Overlap"><span class="tocnumber">1</span> <span class="toctext">Boolean Overlap</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Installation:"><span class="tocnumber">2</span> <span class="toctext">Installation:</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation:"><span class="tocnumber">3</span> <span class="toctext">Utilisation:</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Boolean_Overlap_Screenshot.png" class="image"><img alt="Macro Boolean Overlap Screenshot.png" src="1000px-Macro_Boolean_Overlap_Screenshot.png" width="1000" height="470" srcset="/wiki/images/8/87/Macro_Boolean_Overlap_Screenshot.png 1.5x" /></a>
+<p><br />
+Boolean Overlap construit une forme qui couvre l'espace occupé par des formes superposées. 'OverlapIndex' est une propriété qui peut être modifiée. La valeur 1 donne le même résultat que Part Union. Une valeur égale au nombre de formes rend les parties communes. La valeur par défaut est 2, ce qui signifie que le résultat va utiliser l'espace où il y a chevauchement.
+</p><p>Require FreeCAD v0.17+ built against OCC no less than 6.9.0 (tested on 7.0.0).
+</p>
+<h2><span class="mw-headline" id="Installation:">Installation:</span></h2>
+<p>téléchargez les deux macros et sauvez les dans votre répertoires de macros:
+</p><p><a rel="nofollow" class="external free" href="https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Overlap/Overlap.FCMacro">https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Overlap/Overlap.FCMacro</a>
+</p><p><a rel="nofollow" class="external free" href="https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Overlap/MacroOverlap.py">https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Overlap/MacroOverlap.py</a>
+</p>
+<h2><span class="mw-headline" id="Utilisation:">Utilisation:</span></h2>
+<ol><li> Sélectionnez trois ou plus d'objets pour créer un objet superposé. Vous pouvez aussi sélectionner un composé contenant plusieurs shapes.</li>
+<li> Dans le menu: Macro -&gt; Macros... -&gt; double-cliquez sur Overlap.FCMacro . Un nouveau objet est créé.</li>
+<li> Sélectionnez le nouvel objet, et modifiez les propriétés de 'Overlap Index' dans "Vue combinée &gt; Propriétés onglet (Data)", si nécessaire.</li></ol>
+<ul><li> le travail sur deux formes fonctionne aussi feront aussi, mais l'action est équivalente aux outils Part Union et Part Fusion, il est alors préférable d'utiliser des outils Part dédiés à la place de cette macro.</li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+MacroOverlap.py:
+</p>
+<pre>import FreeCAD as App
+if App.GuiUp:
+    import FreeCADGui as Gui
+import Part
+
+def makeOverlapFeature():
+    '''makeOverlapFeature(): makes a Overlap parametric feature object. Returns the new object.'''
+    selfobj = App.ActiveDocument.addObject("Part::FeaturePython","Overlap")
+    Overlap(selfobj)
+    ViewProviderOverlap(selfobj.ViewObject)
+    return selfobj
+
+class Overlap:
+    "The Overlap feature object"
+    def __init__(self,selfobj):
+        selfobj.addProperty("App::PropertyLinkList","Objects","Overlap","Input shape")
+        selfobj.addProperty("App::PropertyInteger", "OverlapIndex", "Overlap", "minimum overlap order to output")
+        selfobj.OverlapIndex = 2
+        selfobj.Proxy = self
+
+    def execute(self,selfobj):
+        import BOPTools
+        import BOPTools.Utils as Utils
+        from BOPTools.GeneralFuseResult import GeneralFuseResult
+        
+        list_of_shapes = [obj.Shape for obj in selfobj.Objects]
+        if len(list_of_shapes) == 1 and list_of_shapes[0].ShapeType == "Compound":
+            list_of_shapes = list_of_shapes[0].childShapes()
+
+        list_of_shapes = Utils.upgradeToAggregateIfNeeded(list_of_shapes)
+        pieces, map = list_of_shapes[0].generalFuse(list_of_shapes[1:])
+        gr = GeneralFuseResult(list_of_shapes, (pieces,map))
+        gr.explodeCompounds()
+        gr.splitAggregates()
+        pieces_to_keep = []
+        for piece in gr.pieces:
+            if len(gr.sourcesOfPiece(piece)) &gt;= selfobj.OverlapIndex:
+                pieces_to_keep.append(piece)
+        selfobj.Shape = BOPTools.ShapeMerge.mergeShapes(pieces_to_keep)
+
+class ViewProviderOverlap:
+    def __init__(self,vobj):
+        vobj.Proxy = self
+       
+    def getIcon(self):
+        return ":/icons/Part_Overlap.svg"
+
+    def attach(self, vobj):
+        self.ViewObject = vobj
+        self.Object = vobj.Object
+  
+    def setEdit(self,vobj,mode):
+        return False
+    
+    def unsetEdit(self,vobj,mode):
+        return
+
+    def __getstate__(self):
+        return None
+
+    def __setstate__(self,state):
+        return None
+
+    def claimChildren(self):
+        return self.Object.Objects
+        
+    def onDelete(self, feature, subelements): # subelements is a tuple of strings
+        try:
+            for f in self.Object.Objects:
+                f.ViewObject.show()
+        except Exception as err:
+            App.Console.PrintError("Error in onDelete: " + err.message)
+        return True
+
+class CommandMacroOverlap:
+    "Command to create Overlap feature"
+    def GetResources(self):
+        return {'Pixmap' &#160;: ":/icons/Part_Overlap.svg",
+                'MenuText': "Overlap",
+                'Accel': "",
+                'ToolTip': "Macro_Overlap: alternative implementation of Part Overlap tool"}
+
+    def Activated(self):
+        run()
+    def IsActive(self):
+        if App.ActiveDocument:
+            return True
+        else:
+            return False
+
+if App.GuiUp:
+    Gui.addCommand("Macro_Overlap", CommandMacroOverlap())
+
+def run():
+    sel = Gui.Selection.getSelectionEx()
+    try:
+        if len(sel) &lt; 1:
+            raise Exception("Select two shapes to compute Overlap between, first! Then run this macro.")
+        try:
+            App.ActiveDocument.openTransaction("Macro Overlap")
+            selfobj = makeOverlapFeature()
+            selfobj.Objects = [it.Object for it in sel]
+            for f in selfobj.Objects:
+                f.ViewObject.hide()
+            
+            selfobj.Proxy.execute(selfobj)
+        finally:
+            App.ActiveDocument.commitTransaction()
+    except Exception as err:
+        from PySide import QtGui
+        mb = QtGui.QMessageBox()
+        mb.setIcon(mb.Icon.Warning)
+        mb.setText(err.message)
+        mb.setWindowTitle("Macro Overlap")
+        mb.exec_() </pre>
+<p>Overlap.FCMacro:
+</p>
+<pre>__Title__ = "Macro Overlap"
+__Author__ = "DeepSOIC"
+__Version__ = "0.1"
+__Date__    = "12/10/2016"
+
+__Comment__ = "Extension of Part Common boolean operation"
+__Web__ = "http://forum.freecadweb.org/viewtopic.php?f=8&amp;t=17755"
+__Wiki__ = "http://www.freecadweb.org/wiki/index.php?title=Macro_Boolean_Overlap"
+__Status__ = "experimental"
+__Requires__ = "freecad 0.17.8053 with OCC 6.9.0+"
+__Communication__ = "http://www.freecadweb.org/wiki/index.php?title=User:DeepSOIC" 
+__Help__ = '''
+Macro Overlap.
+Requires FreeCAD v0.17.8053+ and OCC 6.9.0+
+
+Instructions:
+Select three or more shapes to compute Overlap between. A single compound will do, too.
+Then, run this macro. Parametric Overlap object is created.
+'''
+
+import MacroOverlap
+MacroOverlap.run() </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Overlap/fr&amp;oldid=240895">http://www.freecadweb.org/wiki/index.php?title=Macro_Overlap/fr&amp;oldid=240895</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

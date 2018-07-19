@@ -1,0 +1,248 @@
+<html><head><title>Release notes 014/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Release notes 014/fr</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_014/fr&amp;redirect=no" class="mw-redirect" title="Release notes 014/fr">Release notes 014/fr</a>)</span></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>FreeCAD 0.14 a été publié le 1er juillet 2014. Ceci est un résumé des changements les plus intéressants survenus dans FreeCAD depuis la dernière version. Voir <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/changelog_page.php">sur Mantis (en anglais)</a> pour la liste complète des changements. 
+</p><p>Les versions plus anciennes&#160;: <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_013/fr" title="Release notes 013/fr">0.13</a> - <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_012/fr" title="Release notes 012/fr">0.12</a> - <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_011/fr" title="Release notes 011/fr">0.11</a>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Freecad_jeep.png" class="image"><img alt="Freecad jeep.png" src="1024px-Freecad_jeep.png" width="1024" height="618" srcset="/wiki/images/5/56/Freecad_jeep.png 1.5x" /></a>
+</p>
+<center>Modèle d'une Jeep par Psicofil</center>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#G.C3.A9n.C3.A9ral"><span class="tocnumber">1</span> <span class="toctext">Général</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Migration_du_site"><span class="tocnumber">1.1</span> <span class="toctext">Migration du site</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Passage_.C3.A0_PySide.2C_FreeCAD_est_maintenant_compl.C3.A8tement_LGPL"><span class="tocnumber">1.2</span> <span class="toctext">Passage à PySide, FreeCAD est maintenant complètement LGPL</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Modules_d.27extension_et_projets_parall.C3.A8les_:_biblioth.C3.A8que_de_Pi.C3.A8ces.2C_BOLTS.2C_importateur_Eagle"><span class="tocnumber">1.3</span> <span class="toctext">Modules d'extension et projets parallèles&#160;: bibliothèque de Pièces, BOLTS, importateur Eagle</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Export_WebGL"><span class="tocnumber">1.4</span> <span class="toctext">Export WebGL</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Syst.C3.A8me_d.27unit.C3.A9s"><span class="tocnumber">1.5</span> <span class="toctext">Système d'unités</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Feuilles_de_style"><span class="tocnumber">1.6</span> <span class="toctext">Feuilles de style</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Mode_d.27affichage_global"><span class="tocnumber">1.7</span> <span class="toctext">Mode d'affichage global</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Anticr.C3.A9nelage_de_la_fen.C3.AAtre_3D"><span class="tocnumber">1.8</span> <span class="toctext">Anticrénelage de la fenêtre 3D</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Pi.C3.A8ce"><span class="tocnumber">2</span> <span class="toctext">Pièce</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Lissage_et_Balayage"><span class="tocnumber">2.1</span> <span class="toctext">Lissage et Balayage</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#D.C3.A9calage"><span class="tocnumber">2.2</span> <span class="toctext">Décalage</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.C3.89videment"><span class="tocnumber">2.3</span> <span class="toctext">Évidement</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Cr.C3.A9er_un_compos.C3.A9"><span class="tocnumber">2.4</span> <span class="toctext">Créer un composé</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Primitives"><span class="tocnumber">2.5</span> <span class="toctext">Primitives</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Outils_de_mesure"><span class="tocnumber">2.6</span> <span class="toctext">Outils de mesure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Part_Design_.26_Sketcher"><span class="tocnumber">3</span> <span class="toctext">Part Design &amp; Sketcher</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Validateur_d.27esquisse"><span class="tocnumber">3.1</span> <span class="toctext">Validateur d'esquisse</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#G.C3.A9n.C3.A9rateur_d.27engrenage"><span class="tocnumber">3.2</span> <span class="toctext">Générateur d'engrenage</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Drawing_.28Mise_en_plan.29"><span class="tocnumber">4</span> <span class="toctext">Drawing (Mise en plan)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Projections_automatiques"><span class="tocnumber">4.1</span> <span class="toctext">Projections automatiques</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Symboles"><span class="tocnumber">4.2</span> <span class="toctext">Symboles</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="#Lancer_de_rayons"><span class="tocnumber">5</span> <span class="toctext">Lancer de rayons</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#Nouveaux_outils_de_rendu"><span class="tocnumber">5.1</span> <span class="toctext">Nouveaux outils de rendu</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Support_de_LuxRender"><span class="tocnumber">5.2</span> <span class="toctext">Support de LuxRender</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Tableur"><span class="tocnumber">6</span> <span class="toctext">Tableur</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#Draft_.28planche_.C3.A0_dessin.29"><span class="tocnumber">7</span> <span class="toctext">Draft (planche à dessin)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="#Importation.2Fexportation_DWG"><span class="tocnumber">7.1</span> <span class="toctext">Importation/exportation DWG</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Draft_vers_Plan_fonctionne_avec_les_groupes"><span class="tocnumber">7.2</span> <span class="toctext">Draft vers Plan fonctionne avec les groupes</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Cotations_recod.C3.A9es"><span class="tocnumber">7.3</span> <span class="toctext">Cotations recodées</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Hachures"><span class="tocnumber">7.4</span> <span class="toctext">Hachures</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Ellipses"><span class="tocnumber">7.5</span> <span class="toctext">Ellipses</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Chanfrein"><span class="tocnumber">7.6</span> <span class="toctext">Chanfrein</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Outils_Mise_.C3.A0_niveau_et_R.C3.A9trograder_recod.C3.A9s"><span class="tocnumber">7.7</span> <span class="toctext">Outils Mise à niveau et Rétrograder recodés</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="#Copie_de_face"><span class="tocnumber">7.8</span> <span class="toctext">Copie de face</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="#Texte_surfacique"><span class="tocnumber">7.9</span> <span class="toctext">Texte surfacique</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#Courbes_de_B.C3.A9zier"><span class="tocnumber">7.10</span> <span class="toctext">Courbes de Bézier</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-38"><a href="#Architecture"><span class="tocnumber">8</span> <span class="toctext">Architecture</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="#Pr.C3.A9r.C3.A9glages_et_profil.C3.A9s_de_structures"><span class="tocnumber">8.1</span> <span class="toctext">Préréglages et profilés de structures</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#Pr.C3.A9r.C3.A9glages_des_fen.C3.AAtres"><span class="tocnumber">8.2</span> <span class="toctext">Préréglages des fenêtres</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#Volumes"><span class="tocnumber">8.3</span> <span class="toctext">Volumes</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#Murs_multicouches"><span class="tocnumber">8.4</span> <span class="toctext">Murs multicouches</span></a></li>
+<li class="toclevel-2 tocsection-43"><a href="#Escaliers"><span class="tocnumber">8.5</span> <span class="toctext">Escaliers</span></a></li>
+<li class="toclevel-2 tocsection-44"><a href="#Barres_de_renforcement"><span class="tocnumber">8.6</span> <span class="toctext">Barres de renforcement</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="#Ossatures"><span class="tocnumber">8.7</span> <span class="toctext">Ossatures</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="#Prise_de_cotes"><span class="tocnumber">8.8</span> <span class="toctext">Prise de cotes</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#Tutoriel"><span class="tocnumber">8.9</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="#Import.2Fexport_du_format_IFC"><span class="tocnumber">8.10</span> <span class="toctext">Import/export du format IFC</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-49"><a href="#Liste_compl.C3.A8te"><span class="tocnumber">9</span> <span class="toctext">Liste complète</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="G.C3.A9n.C3.A9ral">Général</span></h2>
+<h3><span class="mw-headline" id="Migration_du_site">Migration du site</span></h3>
+<p>Nous avons finalement déplacé toutes les applications web depuis <a rel="nofollow" class="external text" href="http://www.sourceforge.net">SourceForge</a> sur notre <a rel="nofollow" class="external text" href="http://www.freecadweb.org">propre domaine</a>. La nouvelle page d'accueil de FreeCAD se trouve à l'adresse <a rel="nofollow" class="external free" href="http://www.freecadweb.org">http://www.freecadweb.org</a>, le wiki est maintenant à l'adresse <a rel="nofollow" class="external free" href="http://www.freecadweb.org/wiki">http://www.freecadweb.org/wiki</a>, le système de suivi de bogues et de fonctionnalités est à cette adresse <a rel="nofollow" class="external free" href="http://www.freecadweb.org/tracker">http://www.freecadweb.org/tracker</a>, enfin le forum est à l'adresse suivante&#160;: <a rel="nofollow" class="external free" href="http://forum.freecadweb.org">http://forum.freecadweb.org</a>. Si vous aviez un compte sur une de ces applications quand elles étaient sur SourceForge alors vous pouvez récupérer votre identifant et mot de passe en suivant ces <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=8&amp;t=4942">instructions</a>.
+</p><p>La seule partie de FreeCAD qui reste sur SourceForge est le dépôt Git, à la même adresse&#160;: <a rel="nofollow" class="external free" href="http://sourceforge.net/p/free-cad/code/ci/master/tree/">http://sourceforge.net/p/free-cad/code/ci/master/tree/</a> mais il y a aussi un miroir automatisé de ce code sur GitHub, à l'adresse suivante&#160;: <a rel="nofollow" class="external free" href="http://github.com/FreeCAD/FreeCAD_sf_master">http://github.com/FreeCAD/FreeCAD_sf_master</a>
+</p><p>Si vous n'avez pas encore rencontré l'incroyable communauté FreeCAD, payez-vous une visite sur le forum, et soyez impressionné par son talent, son énergie et son aide généreuse.
+</p>
+<h3><span class="mw-headline" id="Passage_.C3.A0_PySide.2C_FreeCAD_est_maintenant_compl.C3.A8tement_LGPL">Passage à PySide, FreeCAD est maintenant complètement LGPL</span></h3>
+<p>En raison des nombreuses complications provoquées par le modèle de double-licence de FreeCAD (LGPL et GPL), certains des composants de FreeCAD (à savoir le noyau OpenCasCade) étant incompatibles avec tout code GPL, nous avons décidé de commuter tout le code GPL restant de FreeCAD à LGPL. En raison de cette opération, <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/PyQt">PyQt</a> n'est plus employé, et a été remplacé par <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/PySide">PySide</a>. Il n'y a pas beaucoup de conséquences sur l'écriture des scripts python, PyQt peut toujours être employé à l'intérieur de FreeCAD.
+</p><p>Après avoir terminé notre passage à la LPGL, le projet OpenCasCade <a rel="nofollow" class="external text" href="http://www.opencascade.org/getocc/license/est">aussi passé à la LPGL</a>, ce qui aurait résolu nos conflits de licence. Mais nous avons désormais un modèle de licence unifié et beaucoup plus clair qui devrait satisfaire toutes les distributions Linux les plus strictes.
+</p>
+<h3><span class="mw-headline" id="Modules_d.27extension_et_projets_parall.C3.A8les_:_biblioth.C3.A8que_de_Pi.C3.A8ces.2C_BOLTS.2C_importateur_Eagle">Modules d'extension et projets parallèles&#160;: bibliothèque de Pièces, BOLTS, importateur Eagle</span></h3>
+<p>La dernière année a vu éclore quelques projets intéressants parallèles à FreeCAD. Une <a rel="nofollow" class="external text" href="http://github.com/yorikvanhavre/FreeCAD-library">bibliothèque de pièces</a> a été lancée par la communauté et croît peu à peu. Elle consiste en une collection de pièces réutilisables à ajouter à vos modèles FreeCAD. Elle peut être lancée et utilisée depuis FreeCAD à l'aide d'une macro.
+</p><p><a rel="nofollow" class="external text" href="http://bolts-library.org/">BOLTS</a> est un autre projet similaire mais plus ambitieux encore. Il s'agit aussi d'une bibliothèque de pièces, mais construite à partir de scripts paramétriques, et capable de produire une vaste variété de pièces paramétriques. Même si BOLTS est une application indépendante, elle peut aussi être lancée depuis FreeCAD au moyen d'une macro. L'image ci-dessous montre BOLTS fonctionnant sous FreeCAD.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Freecad-bearing.png" class="image"><img alt="Freecad-bearing.png" src="1024px-Freecad-bearing.png" width="1024" height="563" srcset="/wiki/images/thumb/f/fa/Freecad-bearing.png/1536px-Freecad-bearing.png 1.5x, /wiki/images/f/fa/Freecad-bearing.png 2x" /></a>
+</p><p>Un autre projet externe intéressant est l'<a rel="nofollow" class="external text" href="http://sourceforge.net/projects/eaglepcb2freecad/">EAGLE importer</a>, qui permet d'importer des designs de circuits imprimés réalisés depuis plusieurs applications sous FreeCAD.
+</p>
+<h3><span class="mw-headline" id="Export_WebGL">Export WebGL</span></h3>
+<p>Depuis FreeCAD, vous pouvez maintenant exporter votre scène comme une page <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/WebGL">WebGL</a> - HTML. Ce fichier inclut une visionneuse basée sur <a rel="nofollow" class="external text" href="http://threejs.org/">three.js</a> qui permet d'inspecter la scène depuis le Web sans plugins, tant que vous le regardez avec un navigateur WebGL-compatible.
+</p>
+<h3><span class="mw-headline" id="Syst.C3.A8me_d.27unit.C3.A9s">Système d'unités</span></h3>
+<p>Enfin, un système d'<a href="https://www.freecadweb.org/wiki/index.php?title=Units/fr" title="Units/fr">unités</a> a été mis en œuvre à la base de FreeCAD, il est donc disponible pour tous les modules. Vous pouvez maintenant sélectionner un système d'unités depuis les préférences. Les systèmes d'unités disponibles incluent les millimètres, les mètres et les mesures US/impériales (pouces, pieds), mais davantage d'unités devraient être bientôt disponibles. Une fois le système d'unités sélectionné, la plupart des propriétés et des outils de FreeCAD utiliseront ces unités de préférence. Mais le système est très flexible, et dans la plupart des cas, vous pouvez combiner les unités autant que vous le voulez&#160;; par exemple saisir des dimensions en pouces dans un document réglé en millimètres.
+</p>
+<h3><span class="mw-headline" id="Feuilles_de_style">Feuilles de style</span></h3>
+<p>FreeCAD 0.14 devient encore plus personnalisable avec l'ajout de <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=8&amp;t=4700&amp;start=30">Feuilles de style</a> utilisées pour contrôler l'image d'arrière-plan de la fenêtre principale. L'utilisateur n'est plus coincé avec l'arrière-plan en pierres grises. Presque n'importe quelle image, photo ou tuile personnalisée peut être utilisée pour remplir l'arrière-plan de la fenêtre principale de FreeCAD.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Style_Sheets.png" class="image"><img alt="Style Sheets.png" src="1024px-Style_Sheets.png" width="1024" height="576" srcset="/wiki/images/thumb/b/b7/Style_Sheets.png/1536px-Style_Sheets.png 1.5x, /wiki/images/b/b7/Style_Sheets.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Mode_d.27affichage_global">Mode d'affichage global</span></h3>
+<p>La barre d'outils des vues standard bénéficie de nouveaux boutons pour facilement basculer l'affichage de la vue 3D complète en mode filaire, ombré ou filaire ombré.
+</p>
+<h3><span class="mw-headline" id="Anticr.C3.A9nelage_de_la_fen.C3.AAtre_3D">Anticrénelage de la fenêtre 3D</span></h3>
+<p>De nouvelles options ont été ajoutées au système d'anticrénelage de la vue 3D de FreeCAD, que vous trouverez dans les préférences. Si vous disposez d'une bonne carte graphique, vous pouvez maintenant profiter d'un anticrénelage de haute qualité sous FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Pi.C3.A8ce">Pièce</span></h2>
+<h3><span class="mw-headline" id="Lissage_et_Balayage">Lissage et Balayage</span></h3>
+<p>Les outils <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Loft/fr" title="Part Loft/fr">Lissage</a> et <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sweep/fr" title="Part Sweep/fr">Balayage</a> ont été améliorés et peuvent maintenant utiliser des objets de l'atelier Draft comme profils. 
+</p>
+<h3><span class="mw-headline" id="D.C3.A9calage">Décalage</span></h3>
+<p>Le nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Offset/fr" title="Part Offset/fr">Décalage</a> créé des copies d'une forme sélectionnée à une distance donnée de la forme initiale.
+</p>
+<h3><span class="mw-headline" id=".C3.89videment">Évidement</span></h3>
+<p>Un nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Thickness/fr" title="Part Thickness/fr">Évidement</a> génère une pièce évidée à partir d'un solide, en donnant une épaisseur donnée à chacune de ses faces.
+</p>
+<h3><span class="mw-headline" id="Cr.C3.A9er_un_compos.C3.A9">Créer un composé</span></h3>
+<p>L'<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr">atelier Pièce</a> comprend maintenant un outil <a href="https://www.freecadweb.org/wiki/index.php?title=Part_MakeCompound/fr" title="Part MakeCompound/fr">Créer un composé</a>, qui vous permet de créer rapidement un objet composé d'un ensemble de formes sélectionnées.
+</p>
+<h3><span class="mw-headline" id="Primitives">Primitives</span></h3>
+<p>De nouvelles formes primitives ont été ajoutées à l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Part_CreatePrimitives/fr" title="Part CreatePrimitives/fr">Création de primitives</a>&#160;: des prismes, polygones réguliers et des spirales peuvent maintenant être créées facilement en saisissant quelques paramètres. En outre, plusieurs outils de l'<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">atelier Draft</a> tirent parti de cette fonctionnalité et peuvent créer ces formes primitives en lieu et place des objets Draft correspondants, quand l'option appropriée est sélectionnée dans les paramètres généraux de Draft.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Create_Primitives1.jpeg" class="image"><img alt="Part Create Primitives1.jpeg" src="Part_Create_Primitives1.jpeg" width="428" height="467" /></a>
+</p>
+<h3><span class="mw-headline" id="Outils_de_mesure">Outils de mesure</span></h3>
+<p>Un nouveau jeu d'outils a été ajouté à l'<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr">atelier Part</a>. Vous pouvez sélectionner deux éléments (sommets, arêtes ou faces) pour afficher leur distance absolue et le long des axes X et Y.
+</p>
+<h2><span class="mw-headline" id="Part_Design_.26_Sketcher">Part Design &amp; Sketcher</span></h2>
+<h3><span class="mw-headline" id="Validateur_d.27esquisse">Validateur d'esquisse</span></h3>
+<p>L'atelier <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a> offre un nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Validate/fr" title="Sketcher Validate/fr">Valider l'esquisse</a> pour vous aider à valider une esquisse en trouvant les contraintes manquantes ou redondantes. Il peut également ajouter les contraintes manquantes automatiquement.
+</p>
+<h3><span class="mw-headline" id="G.C3.A9n.C3.A9rateur_d.27engrenage">Générateur d'engrenage</span></h3>
+<p>Un <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_InvoluteGear/fr" title="PartDesign InvoluteGear/fr">générateur d'engrenage à profil en développante de cercle</a> a été ajouté à l'<a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">atelier PartDesign</a> pour créer rapidement des engrenages à partir de quelques paramètres.
+</p>
+<h2><span class="mw-headline" id="Drawing_.28Mise_en_plan.29">Drawing (Mise en plan)</span></h2>
+<h3><span class="mw-headline" id="Projections_automatiques">Projections automatiques</span></h3>
+<p>L'atelier Drawing (mise en plan) continue d'être amélioré avec d'excitantes nouvelles fonctionnalités. L'outil « Insérer des vues orthogonales » permet de créer plusieurs vues projetées à la fois, et de gérer plus facilement leur emplacement. Une autre fonction-clé, les modèles de feuille peuvent maintenant contenir des données définissant les bordures et l'emplacement du cartouche, ce qui confinera automatiquement les vues à l'intérieur des bordures, tout en évitant l'espace occupé par le cartouche. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingWB.png" class="image"><img alt="DrawingWB.png" src="1024px-DrawingWB.png" width="1024" height="576" srcset="/wiki/images/thumb/f/fa/DrawingWB.png/1536px-DrawingWB.png 1.5x, /wiki/images/f/fa/DrawingWB.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Symboles">Symboles</span></h3>
+<p>Un nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Symbol/fr" title="Drawing Symbol/fr">symbole</a> est maintenant disponible dans l'atelier <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Drawing (mise en plan)</a>, permettant de placer des objets SVG sur la feuille. Ces objets sont stockées dans le document FreeCAD, vous n'avez donc pas à expédier le fichier SVG original si vous distribuez vos documents.
+</p>
+<h2><span class="mw-headline" id="Lancer_de_rayons">Lancer de rayons</span></h2>
+<h3><span class="mw-headline" id="Nouveaux_outils_de_rendu">Nouveaux outils de rendu</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_example.jpg" class="image"><img alt="Raytracing example.jpg" src="1024px-Raytracing_example.jpg" width="1024" height="574" srcset="/wiki/images/thumb/a/a4/Raytracing_example.jpg/1536px-Raytracing_example.jpg 1.5x, /wiki/images/a/a4/Raytracing_example.jpg 2x" /></a>
+</p><p>L'atelier de <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/fr" title="Raytracing Module/fr">Raytracing (lancer de rayon)</a> a aussi reçu un peu d'amour, et sa barre d'outils a été retravaillée. Les anciens boutons qui produisaient manuellement des fichiers povray fragmentaires ont été enlevés (mais leurs outils correspondants se trouvent toujours dans le menu Lancer de rayon), et vous pouvez maintenant produire des rendus à peu près de la même façon que vous utilisez l'atelier <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Drawing</a> : vous créez un nouveau projet, lui assignez un modèle, puis le remplissez avec des vues de vos objets. Quand vous avez terminé, cliquez simplement sur le bouton « Rendre » ou exportez le projet dans un fichier prêt à rendre dans une autre application.
+</p><p>Le système de<a href="/wiki/Raytracing_Module/fr#Mod.C3.A8les" title="Raytracing Module/fr">modèles Raytracing</a> a aussi été étendu, et les modèles sont maintenant plus facile à créer et manipuler.
+</p><p>Les scripts .pov produits par FreeCAD contiennent maintenant un ratio d'aspect automatique. L'utilisateur n'a plus besoin de maintenir un ratio de 4:3 dans les réglages Raytracing ou d'éditer manuellement la sortie pour modifier le ratio en vue d'obtenir un rendu approprié. N'importe quelles largeur et hauteur peuvent maintenant être saisies sans crainte que les objets rendus soient compressés ou étirés.
+</p>
+<h3><span class="mw-headline" id="Support_de_LuxRender">Support de LuxRender</span></h3>
+<p>En même temps que le support pour <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Pov-ray">POV-Ray</a>, l'<a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/fr" title="Raytracing Module/fr">atelier Raytracing workbench</a> supporte maintenant aussi <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/LuxRender">LuxRender</a>. Alors que POV-Ray est un <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Lancer_de_rayon">moteur de lancer de rayon classique</a> qui lance des rayons depuis la caméra afin de trouver la couleur de chaque pixel d'une image, LuxRender est un <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Unbiased_rendering">moteur de rendu non biaisé</a>. Les scènes prennent beaucoup plus de temps à rendre, mais produisent un éclairage bien plus réaliste.
+</p>
+<h2><span class="mw-headline" id="Tableur">Tableur</span></h2>
+<p>Un nouveau <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/fr" title="Spreadsheet Workbench/fr">Tableur</a> a été ajouté à FreeCAD. Il permet de créer des <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Create/fr" title="Spreadsheet Create/fr">tableaux</a> qui contiennent des données tableur bidimensionnelles. Il propose aussi un éditeur, vous pouvez donc éditer le contenu d'un tableau (le texte, les nombres et quelques formules simples sont supportés) ainsi qu'un <a href="Spreadsheet_Controller.html" title="Spreadsheet Controller">contrôleur de cellule</a> qui peut parcourir le document à la recherche de certains types d'objets, extraire une propriété de ceux-ci, et remplir un ensemble donné de cellules avec ces valeurs.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_tutorial_53.jpg" class="image"><img alt="Arch tutorial 53.jpg" src="Arch_tutorial_53.jpg" width="1024" height="690" /></a>
+</p>
+<h2><span class="mw-headline" id="Draft_.28planche_.C3.A0_dessin.29">Draft (planche à dessin)</span></h2>
+<h3><span class="mw-headline" id="Importation.2Fexportation_DWG">Importation/exportation DWG</span></h3>
+<p>FreeCAD est maintenant capable d'importer et d'exporter le <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/.dwg">format DWG</a>, merci au logiciel gratuit et multi-plateforme <a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/TeighaFileConverter">Teigha Converter</a>. Une fois le Teigha Converter installé et son chemin d'accès défini dans les préférences de l'atelier Draft, FreeCAD pourra l'utiliser pour importer et exporter des fichiers DWG, en les convertissant d'abord en DXF puis en utilisant la fonction importation/exportation de DXF de l'atelier Draft. L'importation et l'exportation des fichier DWG ont par conséquent les même limitations que pour le <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_DXF/fr" title="Draft DXF/fr">format DXF</a>.
+</p>
+<h3><span class="mw-headline" id="Draft_vers_Plan_fonctionne_avec_les_groupes">Draft vers Plan fonctionne avec les groupes</span></h3>
+<p>L'outil <a href="Draft_Drawing.html" title="Draft Drawing">Draft vers Mise en plan</a>, qui sert à placer des objets de type Draft sur une <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Mise en plan</a>, peut maintenant être appliqué sur des groupes, permettant de créer moins d'objets Vue sur une mise en plan. Avec une gestion intelligente des groupes d'objets Draft, vous avez une façon simple de contrôler l'apparence de plusieurs objets sur votre page.
+</p>
+<h3><span class="mw-headline" id="Cotations_recod.C3.A9es">Cotations recodées</span></h3>
+<p>L'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">Cote</a> a été complètement recodé: les cotes se comportent maintenant beaucoup mieux et elles ont gagné quelques nouvelles propriétés permettant de mieux les affiner, comme de plus belles flèches à taille variable, plus de contrôle sur la position du texte et la direction de la cote, et surtout un meilleur support de l'atelier <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Drawing (mise en plan)</a>. Vous pouvez maintenant placer des cotes sur n'importe quel plan dans l'espace 3D, et vous attendre à des résultats corrects quand vous les projetez sur une feuille de mise en plan avec l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/fr" title="Draft Drawing/fr">Dessin</a>.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_dimensions_recode.jpg" class="image"><img alt="Draft dimensions recode.jpg" src="1024px-Draft_dimensions_recode.jpg" width="1024" height="538" srcset="/wiki/images/thumb/c/c7/Draft_dimensions_recode.jpg/1536px-Draft_dimensions_recode.jpg 1.5x, /wiki/images/c/c7/Draft_dimensions_recode.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Hachures">Hachures</span></h3>
+<p>L'<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">atelier Draft</a> propose aussi un nouveau « jouet » : les hachures. Sur des objets Draft spécifiques (ceux qui forment un profil fermé comme les polylignes fermées, les rectangles, les polygones réguliers et les cercles), il est maintenant possible d'appliquer des hachures. À l'heure actuelle, seulement quelques motifs de hachure par défaut sont disponibles, mais puisque ces motifs sont très facile à créer (il s'agit de simples fichiers SVG)  et que des motifs personnalisés peuvent déjà être ajouté par l'utilisateur, la collection de base pourraît croître rapidement. Les objets Draft contenant un motif sont aussi pleinement supportés par l'atelier <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Drawing (mise en plan)</a>.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_hatches.jpg" class="image"><img alt="Draft hatches.jpg" src="1024px-Draft_hatches.jpg" width="1024" height="537" srcset="/wiki/images/thumb/2/23/Draft_hatches.jpg/1536px-Draft_hatches.jpg 1.5x, /wiki/images/2/23/Draft_hatches.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Ellipses">Ellipses</span></h3>
+<p>Le support des <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Ellipse/fr" title="Draft Ellipse/fr">ellipses</a> a été ajouté, l'atelier Draft permet maintenant de dessiner des ellipses complètes ou partielles.
+</p>
+<h3><span class="mw-headline" id="Chanfrein">Chanfrein</span></h3>
+<p>De la même façon que les congés qui sont apparus dans la <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_013/fr" title="Release notes 013/fr">version 013</a>, les rectangles, les filaires et les polygones ont gagné une propriété chanfrein qui chanfreine leurs sommets. Le chanfrein est appliqué avec le congé, et les deux propriétés peuvent être utilisées simultanément, vous permettant de convertir un filaire simple en un objet complexe fait de plusieurs sections.
+</p>
+<h3><span class="mw-headline" id="Outils_Mise_.C3.A0_niveau_et_R.C3.A9trograder_recod.C3.A9s">Outils Mise à niveau et Rétrograder recodés</span></h3>
+<p>Les outils <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/fr" title="Draft Upgrade/fr">Mise à niveau</a> et <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/fr" title="Draft Downgrade/fr">Rétrograder</a> qui étaient auparavant des fragments hermétiques de magie dont vous ne pouviez jamais être sûr des résultats ont été recodés. Ils génèrent maintenant des messages beaucoup plus conviviaux, vous informant de ce qui a été produit et pourquoi. Ils sont maintenant accessibles par script python, pas seulement dans leur ensemble mais par leurs opérations internes ; vous pouvez donc précisément définir quel type de mise à niveau doit être effectué.
+</p>
+<h3><span class="mw-headline" id="Copie_de_face">Copie de face</span></h3>
+<p>Le nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Facebinder/fr" title="Draft Facebinder/fr">Facebinder</a> effectue une opération très simple mais potentiellement très utile : il assemble un groupe de faces sélectionnées depuis différents objets, et créé un nouvel objet à partir de ces faces. Le nouvel objet conserve des liens avec les objets initiaux, donc tout changement de ceux-ci se reflète sur l'objet Facebinder. Ceci devrait s'avérer utile surtout pour les objets <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/fr" title="Arch Module/fr">architecturaux</a>, en construisant de nouveaux objets à partir des faces de plusieurs autres objets.
+</p>
+<h3><span class="mw-headline" id="Texte_surfacique">Texte surfacique</span></h3>
+<p>L'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_ShapeString/fr" title="Draft ShapeString/fr">Draft ShapeString</a> créé des objets planaires à partir d'une chaîne de texte et d'une police TrueType. Ces objets, contrairement aux annotations <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Text/fr" title="Draft Text/fr">Texte</a> communes, sont de vrais objets 3D, et peuvent donc être extrudés puis utilisés pour créer de la gravure ou autres objets 3D avec du texte en relief.
+</p>
+<h3><span class="mw-headline" id="Courbes_de_B.C3.A9zier">Courbes de Bézier</span></h3>
+<p>Un nouveau type de courbe accompagne désormais les <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Arc/fr" title="Draft Arc/fr">arcs de cercle</a> et les <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_BSpline/fr" title="Draft BSpline/fr">courbes BSpline</a> : les <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_BezCurve/fr" title="Draft BezCurve/fr">courbes de Bézier</a>. Elles peuvent être créées en cliquant des points de la même manière que les autres objets Draft, mais vous pouvez ensuite les <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Edit/fr" title="Draft Edit/fr">éditer</a> et modifier leurs points de contrôle, obtenant ainsi un contrôle très précis sur la forme de la courbe.
+</p>
+<h2><span class="mw-headline" id="Architecture">Architecture</span></h2>
+<h3><span class="mw-headline" id="Pr.C3.A9r.C3.A9glages_et_profil.C3.A9s_de_structures">Préréglages et profilés de structures</span></h3>
+<p>L'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/fr" title="Arch Structure/fr">Structure</a> a gagné plusieurs améliorations&#160;: il comporte maintenant des préréglages qui permettent de construire des poutres ou des colonnes basées sur des profils standards comme INP ou HEB, et un système de placement plus facile avec un mode spécial d'<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Snap/fr" title="Draft Snap/fr">accrochage</a>. Vous pouvez maintenant également donner un chemin d'extrusion aux éléments structurels afin de rendre possible des configurations avancés. Certaine des pièces offertes par <a href="#Modules_d.27extension_et_projets_parall.C3.A8les_:_biblioth.C3.A8que_de_Pi.C3.A8ces.2C_BOLTS.2C_importateur_Eagle">BOLTS</a>  peuvent aussi être directement créées comme des éléments structurels architecturaux.
+</p>
+<h3><span class="mw-headline" id="Pr.C3.A9r.C3.A9glages_des_fen.C3.AAtres">Préréglages des fenêtres</span></h3>
+<p>L'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Window/fr" title="Arch Window/fr">Fenêtre</a> a également gagné un nouveau système de préréglages. Bien que toujours basé sur des esquisses, qui assurent la flexibilité maximale (pratiquement n'importe quel type de fenêtre peut être facilement créé), de nouvelles fenêtres peuvent maintenant être créées à partir d'une série de préréglages. Vous devez seulement choisir un préréglage, remplir quelques paramètres, et placer votre fenêtre sur un mur existant ou un élément structurel. Un croquis associé sera créé, qui sera éditable à n'importe quelle moment.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_arch_window.jpg" class="image"><img alt="Screenshot arch window.jpg" src="Screenshot_arch_window.jpg" width="1024" height="634" /></a>
+</p>
+<h3><span class="mw-headline" id="Volumes">Volumes</span></h3>
+<p>Un nouvel objet <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Space/fr" title="Arch Space/fr">Espace</a> est maintenant disponible, permettant de construire, annoter et calculer les espaces et les surfaces couvertes. Ces objets Espaces entourent toujours un volume solide, ainsi vous pouvez toujours connaître leur volume et surface couverte. Ils peuvent être construits à partir d'une forme solide ou d'un ensemble de faces.
+</p>
+<h3><span class="mw-headline" id="Murs_multicouches">Murs multicouches</span></h3>
+<p>Les <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Wall/fr" title="Arch Wall/fr">Murs</a> peuvent maintenant être multicouches à l'aide d'une astuce très simple : plusieurs murs peuvent partager la même ligne référence, en définissant la distance de décalage depuis la ligne de référence. Ceci permet, en conjonction avec les <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Frame/fr" title="Arch Frame/fr">ossatures</a> de créer par exemple des murs complexes à ossature, ou des murs isolés. En outre, ces murs sont conscients de leurs « frères » (d'autres murs basés sur une même ligne de référence) et toute fenêtre placée sur l'un de ces murs passera également à travers des autres murs.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_arch_multiwall.jpg" class="image"><img alt="Screenshot arch multiwall.jpg" src="Screenshot_arch_multiwall.jpg" width="1024" height="631" /></a>
+</p>
+<h3><span class="mw-headline" id="Escaliers">Escaliers</span></h3>
+<p>Un nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Stairs/fr" title="Arch Stairs/fr">Escalier</a> permet de construire des escaliers complexes à partir de quelques paramètres. Pour l'instant, seuls des escaliers droits sont disponibles, mais la liste grossira avec le temps. Ces escaliers proposent plusieurs paramètres de configuration, tels que la taille au plancher de l'escalier, ou leur type de structure.
+</p>
+<h3><span class="mw-headline" id="Barres_de_renforcement">Barres de renforcement</span></h3>
+<p>Les barres d'armature sont introduites avec l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Rebar/fr" title="Arch Rebar/fr">Barres d'armature</a>. Elles sont aussi basées sur des esquisses, ce qui assure une grande polyvalence. Elles sont créées en dessinant des diagrammes des barres sur les faces appropriées d'<a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/fr" title="Arch Structure/fr">éléments structuraux</a>, puis en convertissant ces diagrammes en barres d'armature. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_arch_rebar.jpg" class="image"><img alt="Screenshot arch rebar.jpg" src="Screenshot_arch_rebar.jpg" width="1024" height="631" /></a>
+</p>
+<h3><span class="mw-headline" id="Ossatures">Ossatures</span></h3>
+<p>Les ossatures sont abondamment utilisées en architecture : les rampes, systèmes structuraux, murs à ossature, etc. Le nouvel outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Frame/fr" title="Arch Frame/fr">Ossature</a> permet de créer facilement toutes sortes d'ossatures, en combinant un profil qui peut être n'importe quel type de forme planaire extrudable comme des rectangles ou des cercles, et un agencement. Les agencements peuvent être dessinés dans l'<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">atelier Sketcher</a>. Ces ossatures peuvent ensuite être converties en murs ou en structure au besoin.
+</p>
+<h3><span class="mw-headline" id="Prise_de_cotes">Prise de cotes</span></h3>
+<p>Un autre outil simple mais utile maintenant disponible dans l'atelier Arch est la <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Survey/fr" title="Arch Survey/fr">Prise de cotes</a>. Dans ce mode, vous cliquez sur des sommets, des arêtes, des faces ou des objets complets pour obtenir leur hauteur, longueur, aire ou volume. Cette information est affichée sur le modèle, mais aussi copiée dans le presse-papiers, et colligée au format texte. Il est donc facile de la coller dans d'autres applications et de vous procurer un flux de travail efficace pour la rédaction de liste de quantités.
+</p>
+<h3><span class="mw-headline" id="Tutoriel">Tutoriel</span></h3>
+<p>Un nouveau <a href="Arch_tutorial.html" title="Arch tutorial">tutoriel</a> de 35 pages décrit l'atelier Arch dans tous ses détails, en suivant un exercice complet.
+</p>
+<h3><span class="mw-headline" id="Import.2Fexport_du_format_IFC">Import/export du format IFC</span></h3>
+<p>Beaucoup de travail a été accompli à la fois sur FreeCAD et <a rel="nofollow" class="external text" href="http://www.ifcopenshell.org">IfcOpenShell</a>, qui est le logiciel gérant les fichiers IFC sous le module Arch. L'utilisation d'une <a rel="nofollow" class="external text" href="http://github.com/aothms/IfcOpenShell">version de développement</a> de IfcOpenShell, en plus de permettre un gain de performance spectaculaire lors de l'importation de fichiers IFC de taille moyenne (enciron 50 Mo), permet également à FreeCAD d'exporter des modèles au format IFC. Cette fonctionnalité, bien que toujours aux premiers stades de développement, peut déjà exporter des fichiers lisibles sans erreurs par les applications majeures supportant ce format.
+</p>
+<h2><span class="mw-headline" id="Liste_compl.C3.A8te">Liste complète</span></h2>
+<p>La liste complète des corrections de bogues et des nouvelles fonctionnalités peut être consultée sur <a rel="nofollow" class="external free" href="http://freecadweb.org/tracker/changelog_page.php">http://freecadweb.org/tracker/changelog_page.php</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.14/fr&amp;oldid=111035">http://www.freecadweb.org/wiki/index.php?title=Release_notes_0.14/fr&amp;oldid=111035</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

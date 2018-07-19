@@ -1,0 +1,99 @@
+<html><head><title>Mesh to Part/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh to Part/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id="Konvertera_Del_objekt_till_N.C3.A4t">Konvertera Del objekt till Nät</span></h2>
+<p>Att konvertera högnivåobjekt som <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">Del former</a> till enklare objekt som <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/sv" class="mw-redirect" title="Mesh Module/sv">nät</a> är en ganska enkel operation, där alla ytor på ett Del objekt blir triangulerade. Resultatet av denna triangulering (tessellering) används sedan till att konstruera ett nät: (Låt oss anta att vårt dokument innehåller ett Del objekt)
+</p>
+<pre>#let's assume our document contains one part object
+import Mesh
+faces = []
+shape = FreeCAD.ActiveDocument.ActiveObject.Shape
+triangles = shape.tessellate(1) # the number represents the precision of the tessellation)
+for tri in triangles[1]:
+    face = []
+    for i in range(3):
+        vindex = tri[i]
+        face.append(triangles[0][vindex])
+    faces.append(face)
+m = Mesh.Mesh(faces)
+Mesh.show(m) </pre>
+<p>Ibland så är den triangulering av vissa ytor som erbjuds av OpenCascade ganska ful. Om ytan har en rektangulär parameterrymd och inte innehåller några hål eller andra trimkurvor så kan du också skapa ett eget Nät:
+</p>
+<pre>import Mesh
+def makeMeshFromFace(u,v,face):
+(a,b,c,d)=face.ParameterRange
+pts=[]
+for j in range(v):
+for i in range(u):
+s=1.0/(u-1)*(i*b+(u-1-i)*a)
+t=1.0/(v-1)*(j*d+(v-1-j)*c)
+pts.append(face.valueAt(s,t))
+
+mesh=Mesh.Mesh()
+for j in range(v-1):
+for i in range(u-1):
+mesh.addFacet(pts[u*j+i],pts[u*j+i+1],pts[u*(j+1)+i])
+mesh.addFacet(pts[u*(j+1)+i],pts[u*j+i+1],pts[u*(j+1)+i+1])
+
+return mesh </pre>
+<h2><span class="mw-headline" id="Konvertera_N.C3.A4t_till_Del_objekt">Konvertera Nät till Del objekt</span></h2>
+<p>Konvertering av Nät till Del objekt är en mycket viktig operation i CAD arbete, eftersom du mycket ofta tar emot 3D data i nätformat från andra människor eller utmatade från andra applikationer. Nät är mycket praktiskt för att representera friformsgeometri och stora visuella scener, eftersom den är mycket kompakt, men för CAD föredrar vi i allmänhet mer högnivåobjekt som bär mycket mer information, som solider, eller ytor som är skapade av kurvor istället för trianglar.
+</p><p>Konvertering av nät till dessa högnivåobjekt (hanterat av <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">Del Modulen</a> i FreeCAD) är inte en lätt operation. Nät kan vara gjord av tusentals trianglar (till exempel när de är genererade av en 3D skanner), och att ha solider gjorda med samma antal ytor skulle bli väldigt tungrott att manipulera. Så generellt sett så vill du optimera objektet när du konverterar.
+</p><p>FreeCAD erbjuder för närvarande två metoder för att konvertera Nät till Del objekt. Den första metoden är en enkel, direkt konvertering, utan någon optimering:
+</p>
+<pre>import Mesh,Part
+mesh = Mesh.createTorus()
+shape = Part.Shape()
+shape.makeShapeFromMesh(mesh.Topology,0.05) # the second arg is the tolerance for sewing
+solid = Part.makeSolid(shape)
+Part.show(solid) </pre>
+<p>Den andra metoden erbjuder möjligheten att anse nätfasetter koplanära när vinkeln mellan dem är under ett visst värde. Detta tillåter uppbyggnad av mycket enklare former: (Låt oss anta att vårt dokument innehåller ett Nät objekt)
+</p>
+<pre># let's assume our document contains one Mesh object
+import Mesh,Part,MeshPart
+faces = []
+mesh = App.ActiveDocument.ActiveObject.Mesh
+segments = mesh.getPlanes(0.00001) # use rather strict tolerance here
+ 
+for i in segments:
+  if len(i) &gt; 0:
+     # a segment can have inner holes
+     wires = MeshPart.wireFromSegment(mesh, i)
+     # we assume that the exterior boundary is that one with the biggest bounding box
+     if len(wires) &gt; 0:
+        ext=None
+        max_length=0
+        for i in wires:
+           if i.BoundBox.DiagonalLength &gt; max_length:
+              max_length = i.BoundBox.DiagonalLength
+              ext = i
+
+        wires.remove(ext)
+        # all interior wires mark a hole and must reverse their orientation, otherwise Part.Face fails
+        for i in wires:
+           i.reverse()
+
+        # make sure that the exterior wires comes as first in the lsit
+        wires.insert(0, ext)
+        faces.append(Part.Face(wires))
+
+shell=Part.Compound(faces)
+Part.show(shell)
+#solid = Part.Solid(Part.Shell(faces))
+#Part.show(solid) </pre>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/sv&amp;oldid=138221">http://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/sv&amp;oldid=138221</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

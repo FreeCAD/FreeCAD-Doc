@@ -1,0 +1,219 @@
+<html><head><title>FreeCAD-Ship s60 tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD-Ship s60 tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このチュートリアルではアイオワ大学のシリーズ60船型を使って作業を行います。チュートリアルの目的は対称な単胴船での作業方法を説明することですが、多胴船や非対称な形状の船舶でも同じ処理を行うことができます。
+</p><p>ここで<a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship</a>をより詳しく学ぶことができます。
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><center><b>Windowsユーザー</b></center>
+<center>FreeCAD-Shipは最近FreeCADパッケージに統合され、バグがある可能性があります。</center>
+<center>シップモジュールのアイコンが見つからない場合は</center>
+<center>C:\Program Files (x86)\FreeCAD0.13\Mod\Ship</center>
+<center>にある<b>ShipIcons</b> フォルダの名前を<b>Icons</b>に変更してFreeCADを再起動してください。</center></div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.BD.A2.E7.8A.B6.E3.81.AE.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF"><span class="tocnumber">1</span> <span class="toctext">形状の読み込み</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E5.B0.8E.E5.85.A5"><span class="tocnumber">1.1</span> <span class="toctext">導入</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E3.82.B7.E3.83.AA.E3.83.BC.E3.82.BA60.E5.BD.A2.E7.8A.B6.E3.81.AE.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF"><span class="tocnumber">1.2</span> <span class="toctext">シリーズ60形状の読み込み</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#.E8.88.B9.E8.88.B6.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.BF.E3.83.B3.E3.82.B9.E3.82.92.E4.BD.9C.E6.88.90"><span class="tocnumber">2</span> <span class="toctext">船舶のインスタンスを作成</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#.E8.88.B9.E8.88.B6.E3.83.87.E3.83.BC.E3.82.BF"><span class="tocnumber">2.1</span> <span class="toctext">船舶データ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#.E5.A4.96.E5.BD.A2.E3.81.AE.E8.A3.BD.E5.9B.B3"><span class="tocnumber">3</span> <span class="toctext">外形の製図</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#.E6.A8.AA.E6.96.AD.E6.96.AD.E9.9D.A2"><span class="tocnumber">3.1</span> <span class="toctext">横断断面</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E7.B8.A6.E6.96.B9.E5.90.91.E6.96.AD.E9.9D.A2"><span class="tocnumber">3.2</span> <span class="toctext">縦方向断面</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E6.B0.B4.E5.B9.B3.E6.96.AD.E9.9D.A2"><span class="tocnumber">3.3</span> <span class="toctext">水平断面</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E6.8F.8F.E7.94.BB.E3.81.AE.E5.AE.9F.E8.A1.8C"><span class="tocnumber">3.4</span> <span class="toctext">描画の実行</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#.E6.A8.AA.E6.96.AD.E9.A0.98.E5.9F.9F.E3.81.AE.E6.9B.B2.E7.B7.9A"><span class="tocnumber">4</span> <span class="toctext">横断領域の曲線</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#.E5.85.A5.E5.8A.9B.E3.83.87.E3.83.BC.E3.82.BF"><span class="tocnumber">4.1</span> <span class="toctext">入力データ</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.E5.87.BA.E5.8A.9B.E3.83.87.E3.83.BC.E3.82.BF"><span class="tocnumber">4.2</span> <span class="toctext">出力データ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#.E6.B5.81.E4.BD.93.E9.9D.99.E5.8A.9B.E5.AD.A6"><span class="tocnumber">5</span> <span class="toctext">流体静力学</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#FreeCAD-Ship.E3.82.92.E3.81.95.E3.82.89.E3.81.AB.E5.AD.A6.E3.81.B6"><span class="tocnumber">6</span> <span class="toctext">FreeCAD-Shipをさらに学ぶ</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.BD.A2.E7.8A.B6.E3.81.AE.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF">形状の読み込み</span></h2>
+<h3><span class="mw-headline" id=".E5.B0.8E.E5.85.A5">導入</span></h3>
+<p>FreeCAD-Shipは<b>Ship要素</b>に対して処理を行い、この要素は提供される形状のトップレベルに作成されなければなりません。形状はソリッド、またはソリッドのセットでなければならず、次の条件を満たしている必要があります。
+</p>
+<ul><li> 船体形状全体が定義されていなければなりません（対称形の船体の場合を含む）。</li>
+<li> 右舷形状には<i>y</i>が負の領域が含まれていなければなりません。</li>
+<li> 原点(0,0,0)が<b>船体中央断面</b>（船尾垂線と船首垂線の中点）と<b>基準線</b>の交点と一致しなければなりません。</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-SignCriteria.jpg" class="image" title="記号条件の概略図"><img alt="記号条件の概略図" src="FreeCAD-Ship-SignCriteria.jpg" width="400" height="400" /></a></div></div>
+<center><span style="font-variant:small-caps">FreeCAD-Ship記号条件</span></center>
+<h3><span class="mw-headline" id=".E3.82.B7.E3.83.AA.E3.83.BC.E3.82.BA60.E5.BD.A2.E7.8A.B6.E3.81.AE.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF">シリーズ60形状の読み込み</span></h3>
+<p>FreeCAD-Shipを初めて使うユーザーのためにサンプル形状のローダーが用意されています。用意されているのはかなり有名な船舶形状です。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-LoadIco.png" class="image" title="サンプル船舶形状ローダーのアイコン"><img alt="サンプル船舶形状ローダーのアイコン" src="FreeCAD-Ship-LoadIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">サンプル船舶形状ローダーのアイコン</span></center>
+<p>このツール（Ship design/Load an example ship geometry）を実行するとタスクダイアログが表示されます。<b>Series 60 from Iowa University</b>を選択してAcceptを押します。するとツールが新しいドキュメントに<b>s60_IowaUniversity</b>の形状を読み込みます。
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><center><b>警告 変更を加える前に！</b></center>
+<center>今、操作しているのはオリジナルのサンプルファイルです。</center>
+<center>元のサンプルファイルを未変更状態に保つために、<b>まず最初に新しいファイルとして保存を行なってから変更を加えてください</b>。</center></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".E8.88.B9.E8.88.B6.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.BF.E3.83.B3.E3.82.B9.E3.82.92.E4.BD.9C.E6.88.90">船舶のインスタンスを作成</span></h2>
+<p><b>船舶のインスタンス</b>を作成するためにs60の形状を選択して<b>ship creation tool</b>を実行してください（Ship design/Create a new ship）。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-Ico.png" class="image" title="船舶作成ツール"><img alt="船舶作成ツール" src="FreeCAD-Ship-Ico.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">船舶作成ツールのアイコン</span></center>
+<p>船舶作成タスクダイアログが表示され、3Dビュー上にはいくつかの注釈が表示されます。注釈は船舶作成ツールを閉じると消えるので気にしないでください。
+</p><p>最も関連性の高い船舶データを設定しなければなりません（FreeCAD-Shipは先進的なデータ導入システムを使用しているので基本的な船舶データがわかっていれば基本的な操作を行うことができます。操作がより複雑なものになればさらに詳細な情報が必要になります）。
+</p>
+<h3><span class="mw-headline" id=".E8.88.B9.E8.88.B6.E3.83.87.E3.83.BC.E3.82.BF">船舶データ</span></h3>
+<p>主要な寸法をここで設定する必要があります:
+</p>
+<ul><li> Length: 垂線間長さ。この船では25.5mとします。</li>
+<li> Beam: 船幅の全長。この船では3.389mとします。</li>
+<li> Draft: 設計喫水。この船では1.0mとします。</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60ShipCreationFront.png" class="image" title="正面図の注釈"><img alt="正面図の注釈" src="FreeCAD-Ship-S60ShipCreationFront.png" width="1027" height="126" /></a></div></div>
+<center><span style="font-variant:small-caps">Lengthの注釈。</span></center>
+<p>通常、垂線間長さは設計喫水に依存します。もしあなたの船の長さがわからない場合は喫水を設定して船首と喫水の交点が得られる様に長さを調整すると長さを得ることができます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60ShipCreationSide.png" class="image" title="側面図の注釈"><img alt="側面図の注釈" src="FreeCAD-Ship-S60ShipCreationSide.png" width="286" height="180" /></a></div></div>
+<center><span style="font-variant:small-caps">Beamの注釈。</span></center>
+<p>同じことが船幅の調整でも言えます。必要な値は船幅の全長ですが注釈は右舷半分のみにしか付いていないことに注意してください。
+</p><p><b>Accept</b>ボタンを押すとプログラムが<i>Tags &amp; Attributes</i>ダイアログに<b>Ship</b>という名前の新しい船舶のインスタンスを作成します。形状はもう必要ないので非表示にしておきましょう。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-ShipInstance.png" class="image" title="船舶インスタンスのアイコン"><img alt="船舶インスタンスのアイコン" src="FreeCAD-Ship-ShipInstance.png" width="32" height="32" /></a></div></div>
+<center><span style="font-variant:small-caps">船舶インスタンスのアイコン</span></center>
+<p>これ以降、FreeCAD-Shipのツールを使用する前には<b>Ship</b>を選択する必要があります。
+</p>
+<h2><span class="mw-headline" id=".E5.A4.96.E5.BD.A2.E3.81.AE.E8.A3.BD.E5.9B.B3">外形の製図</span></h2>
+<p>FreeCAD-Shipには船舶の外形図を簡単にエクスポートするためのツールが用意されています。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-OutlineDrawIco.png" class="image" title="外形図ツール"><img alt="外形図ツール" src="FreeCAD-Ship-OutlineDrawIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">外形図ツールのアイコン</span></center>
+<p>外形図は切断面の集合で、これによって船体形状を規格化されたプロットに船体形状を合わせることができます。外形の製図では切断面の集合が必要になります。
+</p>
+<h3><span class="mw-headline" id=".E6.A8.AA.E6.96.AD.E6.96.AD.E9.9D.A2">横断断面</span></h3>
+<p>通常、垂線間にはそれを横断する21の等間隔断面が作成されなければなりません。そのためFreeCADには自動でそれを行うためのツールが用意されています。断面タイプで<b>Transversal</b>を選択し、<b>Auto create</b>ボックスを断面数<b>21</b>に設定してから<b>Create sections</b>を押します。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:S60OutlineTransversal.png" class="image" title="外形線図横断断面のプレビュー"><img alt="外形線図横断断面のプレビュー" src="S60OutlineTransversal.png" width="645" height="343" /></a></div></div>
+<center><span style="font-variant:small-caps">外形線図横断断面のプレビュー</span></center>
+<p>断面の表が埋められ、<b>OutlineDraw</b> と呼ばれる断面のプレビューが表示されます。通常は船首や船尾にさらに断面を追加します。そういった場所はより複雑な曲線で構成されるからです。追加を行うには表の末尾に移動して空欄のアイテムを<i>ダブルクリック</i>して編集を行います。確認のために少しやってみましょう。以下の断面を追加してください:
+</p>
+<ul><li> X<sub>22</sub> = -12.1125 m</li>
+<li> X<sub>23</sub> =  12.1125 m</li></ul>
+<p>船体形状の複雑さに応じて断面プレビューに時間がかかる場合があります。
+</p>
+<h3><span class="mw-headline" id=".E7.B8.A6.E6.96.B9.E5.90.91.E6.96.AD.E9.9D.A2">縦方向断面</span></h3>
+<p>二つの縦方向断面 を追加しなければなりません。断面タイプで<b>Longitudinal</b>を選択して<b>Auto create</b>ボックスを断面数<b>2</b>に設定してから<b>Create sections</b>を押します。断面の表が埋められ、断面のプレビューが更新されます。
+</p>
+<h3><span class="mw-headline" id=".E6.B0.B4.E5.B9.B3.E6.96.AD.E9.9D.A2">水平断面</span></h3>
+<p>基準線と設計喫水の間に水平断面を6つ追加しなければなりません。断面タイプで<b>Water lines</b>を選択して<b>Auto create</b>ボックスを断面数<b>5</b>に設定してから（Z = 0 mを考慮する必要はありません。必要に応じて手作業で追加してください）<b>Create sections</b>を押します。断面の表が埋められ、断面のプレビューが更新されます。
+</p><p>さらにいくつかの水平断面を追加する必要があります:
+</p>
+<ul><li> Z<sub>6</sub> = 1.2 m</li>
+<li> Z<sub>7</sub> = 1.4 m</li>
+<li> Z<sub>8</sub> = 1.6 m</li>
+<li> Z<sub>9</sub> = 1.8 m</li>
+<li> Z<sub>10</sub> = 2.0 m</li></ul>
+<h3><span class="mw-headline" id=".E6.8F.8F.E7.94.BB.E3.81.AE.E5.AE.9F.E8.A1.8C">描画の実行</span></h3>
+<p>スケールで<b>1:100</b>を選択して<b>Accept</b>を押してください。描画が行われます。描画についてのさらに知りたい場合や編集の仕方については<a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/jp" title="Drawing Module/jp">ここ</a>を参照してください（バージョンによっては投影された図がおかしかったり、表示されないことがあります）。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60OutlinePlot.png" class="image" title="外形図の描画"><img alt="外形図の描画" src="FreeCAD-Ship-S60OutlinePlot.png" width="948" height="283" /></a></div></div>
+<center><span style="font-variant:small-caps">外形図の描画</span></center>
+<p>3D断面はそれで作業を行えるように保存されます（複数ソリッドで構成される船体では製図の辺が思い通りのものでない場合があります）。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60Outline3DSections.png" class="image" title="結果の断面"><img alt="結果の断面" src="FreeCAD-Ship-S60Outline3DSections.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">結果の断面</span></center>
+<h2><span class="mw-headline" id=".E6.A8.AA.E6.96.AD.E9.A0.98.E5.9F.9F.E3.81.AE.E6.9B.B2.E7.B7.9A">横断領域の曲線</span></h2>
+<p>典型的な船体設計の流体力学的パラメータの一つに横断面積曲線があります。これを使うと船体の動きについての指標をいくつか得ることができます（牽引抵抗、凌波性など）。FreeCAD-Shipでは横断面積曲線を求めるための簡単なツールを用意しています。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-AreaCurveIco.png" class="image" title="横断面積曲線ツールのアイコン"><img alt="横断面積曲線ツールのアイコン" src="FreeCAD-Ship-AreaCurveIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">横断面積曲線ツールのアイコン</span></center>
+<p>ツールを実行するとタスクダイアログが表示され、自由表面のプレビューが3Dビュー上に作成されます（自由表面のプレビューはツール終了時に消えるので気にしないでください）。ダイアログでの入力データと出力データは次のようになります。
+</p>
+<h3><span class="mw-headline" id=".E5.85.A5.E5.8A.9B.E3.83.87.E3.83.BC.E3.82.BF">入力データ</span></h3>
+<p>喫水とトリム（船体を<i>y軸</i>周りに正方向に回転させると船尾側の喫水が増加します）を入力する必要があります。船体への荷重の状況によって面積曲線は複数考えられますが、ここでは典型的な二つの場合について考えましょう:
+</p>
+<ul><li> 設計横断面積曲線: トリム角無しで設計喫水を使用します。今回の例では1.0mです。</li>
+<li> 最大喫水横断面積曲線: トリム角無しで最大喫水を考慮します。今回の例では2.0mです。</li></ul>
+<h3><span class="mw-headline" id=".E5.87.BA.E5.8A.9B.E3.83.87.E3.83.BC.E3.82.BF">出力データ</span></h3>
+<p>複数の関連するデータがリアルタイムに表示されます:
+</p><p>ength: 垂線間長さ。この船では25.5mとします。
+</p>
+<ul><li> Beam: 船幅の全長。この船では3.389mとします。</li>
+<li> Draft: 設計喫水。この船では1.0mとします。</li></ul>
+<p><br />
+</p>
+<ul><li> <b>L</b>: 垂線間長さ。船舶インスタンス作成時の値です。</li>
+<li> <b>B</b>: 船舶作成時に選択された船幅</li>
+<li> <b>T</b>: 船体中央部での実喫水</li>
+<li> <b>Trim</b>: トリム角</li>
+<li> <b>T<sub>AP</sub></b>: 船尾垂線上の喫水</li>
+<li> <b>T<sub>FP</sub></b>: 船首垂線上の喫水</li>
+<li> <b>Displacement</b>: 船舶の排水量（塩水の場合、排水容量を知るためには1.025で割ってください）</li>
+<li> <b>XCB</b>: 浮力中心のX座標（船体中央部断面に関係します）</li></ul>
+<p><b>Accept</b>ボタンを押すと製図が行われます（形状の複雑さに応じて時間がかかることがあります。端末上で進捗の確認が可能で、<b>Ctrl+C</b>で処理を中止することができます）。
+</p><p>あなたのコンピューター上にpyxplotがインストールされている必要があります。これは大きな依存性になるので、デフォルトオプションではありません。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-s60Areas.png" class="image" title="喫水横断面積曲線の設計図"><img alt="喫水横断面積曲線の設計図" src="FreeCAD-Ship-s60Areas.png" width="1094" height="736" /></a></div></div>
+<center><span style="font-variant:small-caps">喫水横断面積曲線の設計図</span></center>
+<p>違い（例えば面積曲線が垂線を通過するなどの）を確認するために最大喫水横断面積曲線を求めることもできます。
+</p><p>FreeCAD-Shipは<b>*.eps</b>画像の図面を生成するために<a rel="nofollow" class="external text" href="http://www.pyxplot.org.uk/">pyxplot</a>を、またそれを<b>*.png</b>画像に変換するために<a rel="nofollow" class="external text" href="http://www.ghostscript.com/">ghostscript</a>を使用しています。レポートビュー（View/Views/Report view）で出力ファイル<b>areas.dat</b>がどこに保存されたかを確認することが可能です。このファイルはデータシートソフトウェア（例えば<a rel="nofollow" class="external text" href="http://www.libreoffice.org">libreOffice</a>）を使って読み込むことができます。他にもいくつかの補助的なファイルが作成されます。
+</p>
+<ul><li> <b>areas.dat</b>:断面面積データが保存されます。</li>
+<li> <b>areas.pyxplot</b>: <b>areas.dat</b>シートをプロットするためのpyxplotレイアウト</li>
+<li> <b>areas.eps</b>: EPS画像（これを編集するのが最も良い考えです）。</li>
+<li> <b>areas.png</b>: 最終的なPNG画像</li></ul>
+<p>新たな横断面積曲線が作成されるとこれらのファイルは上書きされるので取っておきたい場合は別の場所にコピーしてください。
+</p>
+<h2><span class="mw-headline" id=".E6.B5.81.E4.BD.93.E9.9D.99.E5.8A.9B.E5.AD.A6">流体静力学</span></h2>
+<p>船体安定性の支配パラメーターを知るための流体静力学計算は船舶設計の中でも非常に重要な手順です。流体静力学的データは船級協会が行う船舶認証時に必須となるデータであり、またこれを荷重条件データ（重量と重心位置）と組み合わせることで船体安定に関する本質的なデータを得ることができます。FreeCAD-Shipでは主要な流体静力学曲線（他のツールではGZ曲線として知られているもの）を求めるためのツールが用意されています。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-HydrostaticsIco.png" class="image" title="流体静力学ツールのアイコン"><img alt="流体静力学ツールのアイコン" src="FreeCAD-Ship-HydrostaticsIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">流体静力学ツールのアイコン</span></center>
+<p>このツールを実行するとタスクダイアログが表示されます。通常、流体静力学曲線は各トリム角ごとに存在しますがこのチュートリアルでは直立トリミング角の場合（0º）のみを考え、等間隔での各荷重条件の喫水を使用します。どの様な荷重条件が得られるかわからないのであり得る喫水を網羅的に考慮します（通常、できるだけ高い分解能を得るために海軍の設計者は実現可能な喫水に合わせた間隔で行います）。
+</p><p>そういった訳で次のデータを設定します:
+</p>
+<ul><li> <b>Trim</b> = 0º</li>
+<li> <b>Minimum Draft</b> = 0.1 m</li>
+<li> <b>Maximum Draft</b> = 2.0 m</li>
+<li> <b>Number of points</b> = 39 点数が多い場合や形状が非常に複雑な場合は長い計算時間が必要になります。今回の場合、約1分ほどかかります。</li></ul>
+<p><b>Accept</b>ボタンを押すとプロットが行われます。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-HydrostaticsCurves.jpg" class="image" title="流体静力学曲線"><img alt="流体静力学曲線" src="FreeCAD-Ship-HydrostaticsCurves.jpg" width="1280" height="303" /></a></div></div>
+<center><span style="font-variant:small-caps">流体静力学曲線</span></center>
+<p>横断面積曲線ツールと同様に流体静力学曲線ツールはは<b>*.eps</b>画像の図面を生成するために<a rel="nofollow" class="external text" href="http://www.pyxplot.org.uk/">pyxplot</a>を、またそれを<b>*.png</b>画像に変換するために<a rel="nofollow" class="external text" href="http://www.ghostscript.com/">ghostscript</a>を使用しています。レポートビュー（View/Views/Report view）で出力ファイル'<i><b>hydrostatics.dat</b>がどこに保存されたかを確認することが可能です。このファイルはデータシートソフトウェア（例えば<a rel="nofollow" class="external text" href="http://www.libreoffice.org">libreOffice</a>）を使って読み込むことができます。他にもいくつかの補助的なファイルが作成されます。</i>
+</p>
+<ul><li> <b>hydrostatics.dat</b>: 計算された流体静力学データ。</li>
+<li> <b>volume.pyxplot</b>:  曲線をプロットするためのpyxplotレイアウト</li>
+<li> <b>volume.eps</b>: 流体静力学的体積のEPS画像</li>
+<li> <b>volume.png</b>: 流体静力学的体積の最終的なPNG画像</li>
+<li> <b>stability.eps</b>: 流体静力学的安定性のEPS画像</li>
+<li> <b>stability.png</b>: 流体静力学的安定性の最終的なPNG画像</li>
+<li> <b>coeffs.eps</b>: 流体静力学的形態係数のEPS画像</li>
+<li> <b>coeffs.png</b>: 流体静力学的形態係数の最終的なPNG画像</li></ul>
+<p>新たな流体静力学の諸数値が作成されるとこれらのファイルは上書きされるので取っておきたい場合は別の場所にコピーしてください。
+</p>
+<h2><span class="mw-headline" id="FreeCAD-Ship.E3.82.92.E3.81.95.E3.82.89.E3.81.AB.E5.AD.A6.E3.81.B6">FreeCAD-Shipをさらに学ぶ</span></h2>
+<p>さあ、これで<a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship</a>についてさらに学ぶ準備が整いました。 <a href="/wiki/FreeCAD-Ship_s60_tutorial_(II)/jp" title="FreeCAD-Ship s60 tutorial (II)/jp">here ここ</a> にアイオワ大学のシリーズ60船を使った操作例の第二章があります。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial/jp&amp;oldid=185397">http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial/jp&amp;oldid=185397</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

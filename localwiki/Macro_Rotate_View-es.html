@@ -1,0 +1,130 @@
+<html><head><title>Macro Rotate View/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Rotate View/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Rotate_View_by_90.C2.B0"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Rotate View by 90°</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descripción
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Esta macro gira la vista actual 90º a la izquierda. Sólo funciona si estas en la vista en planta
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Vista
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/es" title="Macros recipes/es">Macros recipes</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/es" title="How to install macros/es">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/es" title="Customize Toolbars/es">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">01.00
+</td></tr>
+<tr>
+<th class="ctOdd">Fecha de la última modificación
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2010-11-17
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Rotate_View_by_90.C2.B0"><span class="tocnumber">1</span> <span class="toctext">Rotate View by 90°</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description_2"><span class="tocnumber">3</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Description_3"><span class="tocnumber">4</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Use"><span class="tocnumber">5</span> <span class="toctext">Use</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Script"><span class="tocnumber">6</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro rotates the current view by 90° to the left. Only works if you are in Top view <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Rotate_View_view_90_Degrees.png" class="image" title="rotation 90 degrees"><img alt="rotation 90 degrees" src="Macro_Rotate_View_view_90_Degrees.png" width="54" height="58" /></a>
+</p><p><br />
+</p>
+<pre>import math
+from pivy import coin
+cam = Gui.ActiveDocument.ActiveView.getCameraNode()
+rot = coin.SbRotation()
+rot.setValue(coin.SbVec3f(0,0,1),math.pi/2)
+nrot = cam.orientation.getValue() * rot
+cam.orientation = nrot </pre>
+<h2><span class="mw-headline" id="Description_2">Description</span></h2>
+<p>This code for&#160;:
+</p>
+<ol><li> axonometric view with Y pointing upwards <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Rotate_View_with_Y_pointing_upwards_.png" class="image" title="axonometric view with Y pointing upwards"><img alt="axonometric view with Y pointing upwards" src="Macro_Rotate_View_with_Y_pointing_upwards_.png" width="54" height="58" /></a> mode 1</li>
+<li> axonometric view with Z pointing upwards <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Rotate_View_with_Z_pointing_upwards_.png" class="image" title="axonometric view with Z pointing upwards"><img alt="axonometric view with Z pointing upwards" src="Macro_Rotate_View_with_Z_pointing_upwards_.png" width="54" height="58" /></a> mode 2</li></ol>
+<p>For FreeCAD Version 0.16
+</p>
+<pre>import math
+import pivy
+from pivy import coin
+
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.SendMsgToActiveView("ViewFit")
+
+cam = Gui.ActiveDocument.ActiveView.getCameraNode()
+rot = coin.SbRotation()
+
+rot.setValue(coin.SbVec3f(1,0,0),-math.pi/2) # Y pointing upwards (mode 1)
+#rot.setValue(coin.SbVec3f(0,0,1),math.pi/2) # Z pointing upwards (mode 2 uncomment for use)
+nrot = cam.orientation.getValue() * rot
+cam.orientation = nrot
+Gui.SendMsgToActiveView("ViewFit") </pre>
+<h2><span class="mw-headline" id="Description_3">Description</span></h2>
+<p>This def paste in the Python console FreeCAD (or your macro) allows you to rotate the view in 3-axis and the angle (in degrees) give interesting to create a plan to a desired position
+</p>
+<h2><span class="mw-headline" id="Use">Use</span></h2>
+<p>Paste the code in the Python console FreeCAD and type <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Enter</span> &gt; <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Enter</span>
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<pre>def RotateView(axisX=1.0,axisY=0.0,axisZ=0.0,angle=45.0):
+    import math
+    from pivy import coin
+    try:
+        cam = Gui.ActiveDocument.ActiveView.getCameraNode()
+        rot = coin.SbRotation()
+        rot.setValue(coin.SbVec3f(axisX,axisY,axisZ),math.radians(angle))
+        nrot = cam.orientation.getValue() * rot
+        cam.orientation = nrot
+        print axisX," ",axisY," ",axisZ," ",angle
+    except Exception:
+        print "Not ActiveView " </pre>
+<p>tip in the console ex&#160;:
+</p>
+<pre>RotateView(0,1,0,45) </pre>
+<p>If there is no open document an error is returned
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Rotate_View/es&amp;oldid=239797">http://www.freecadweb.org/wiki/index.php?title=Macro_Rotate_View/es&amp;oldid=239797</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

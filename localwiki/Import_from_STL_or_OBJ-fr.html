@@ -1,0 +1,174 @@
+<html><head><title>Import from STL or OBJ/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Import from STL or OBJ/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Importation depuis STL ou OBJ
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Débutant
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">30 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">r-frank
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6703
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Pi.C3.A8ce_d.27.C3.A9chantillon"><span class="tocnumber">3</span> <span class="toctext">Pièce d'échantillon</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Nettoyage_et_r.C3.A9paration_du_fichier_STL_.2F_OBJ_pour_la_pr.C3.A9paration_de_l.27importation"><span class="tocnumber">4</span> <span class="toctext">Nettoyage et réparation du fichier STL / OBJ pour la préparation de l'importation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Test_et_r.C3.A9paration_automatique"><span class="tocnumber">4.1</span> <span class="toctext">Test et réparation automatique</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Harmonisation_des_normales"><span class="tocnumber">4.2</span> <span class="toctext">Harmonisation des normales</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Fermeture_des_trous"><span class="tocnumber">4.3</span> <span class="toctext">Fermeture des trous</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Conversion_du_maillage_en_solide"><span class="tocnumber">5</span> <span class="toctext">Conversion du maillage en solide</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Liens"><span class="tocnumber">6</span> <span class="toctext">Liens</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Dans ce tutoriel, nous aborderons comment importer des fichiers STL / OBJ dans FreeCAD.
+Étant donné que le format de maille STL / OBJ est sans dimension, FreeCAD supposera à l'importation que les unités utilisées dans le modèle sont mm.
+Si ce n'est pas le cas, vous devez étaler votre modèle, soit dans l'application où il a été créé avec (avant de l'exporter) ou vous
+devez mettre à l'échelle votre modèle dans FreeCAD après l'importation et la convertir en un solide.
+</p>
+<h2><span class="mw-headline" id="Pi.C3.A8ce_d.27.C3.A9chantillon">Pièce d'échantillon</span></h2>
+<p>Pour ce tutoriel, vous pouvez utiliser votre propre fichier STL ou créer un fichier de démonstration en procédant comme suit:
+</p>
+<ul><li> Ouvrir FreeCAD</li>
+<li> Créer un nouveau document</li>
+<li> Passer à l'atelier Maillage</li>
+<li> Insérer un tor en cliquant sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Maillage</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RegularSolid.png" class="image"><img alt="Mesh RegularSolid.png" src="32px-Mesh_RegularSolid.png" width="32" height="33" srcset="/wiki/images/thumb/2/29/Mesh_RegularSolid.png/48px-Mesh_RegularSolid.png 1.5x, /wiki/images/thumb/2/29/Mesh_RegularSolid.png/64px-Mesh_RegularSolid.png 2x" /></a> Solide Régulier ...</span>, en choisissant des paramètres comme:
+<ul><li> Rayon 1: 10 mm</li>
+<li> Radius2: 2 mm</li>
+<li> Échantillonnage: 50</li></ul></li>
+<li> Cliquez sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Créer</span>, puis sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Fermer</span></li>
+<li> Enregistrez votre fichier avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Fichier</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Sauvegarder</span> pour obtenir un fichier FreeCAD contenant un objet maillage</li></ul>
+<p><br />
+Pour importer un fichier STL ou OBJ dans FreeCAD, créez un nouveau document FreeCAD et choisissez
+<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Fichier</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Importer</span> dans le menu supérieur.
+</p>
+<h2><span class="mw-headline" id="Nettoyage_et_r.C3.A9paration_du_fichier_STL_.2F_OBJ_pour_la_pr.C3.A9paration_de_l.27importation">Nettoyage et réparation du fichier STL / OBJ pour la préparation de l'importation</span></h2>
+<p>Fondamentalement, FreeCAD importerait n'importe quel fichier STL / OBJ.
+Mais notre objectif est d'avoir un solide qui peut être mesuré et modifié (ajout de blocs / trou...).
+Pour une conversion réussie de maillage en solide, nous devons nous assurer que le maillage est "imperméable à l'eau"
+(n'a pas de trous) ou n'a pas d'autres erreurs.
+<br />
+Le but de FreeCAD n'est pas d'être un bon modélisateur de maillage, il est conçu pour être un modélisateur de solide.
+FreeCAD dispose de certaines fonctionnalités pour l'opération de maillage dans un atelier de Maillage  et un atelier OpenSCAD
+(certaines opérations ont besoin d'OpenSCAD pour être installées et configurées dans les préférences FreeCAD).
+<br />
+Certains utilisateurs aiment utiliser un logiciel tiers pour nettoyer et réparer des mailles, par exemple
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.netfabb.com/downloadcenter.php?basic=1">Netfabb Basic</a> (Windows / Linux / Mac) - gratuit pour un usage personnel (réparation de maillage automatique disponible)</li>
+<li> <a rel="nofollow" class="external text" href="http://meshlab.sourceforge.net/">Meshlab</a> (Windows / Linux / Mac) - Open Source</li></ul>
+<p><br />
+Dans ce tutoriel, nous utiliserons le l'atelier de Maillage dans FreeCAD pour nettoyer/réparer/vérifier le maillage de notre fichier exemple.
+</p>
+<h3><span class="mw-headline" id="Test_et_r.C3.A9paration_automatique">Test et réparation automatique</span></h3>
+<ul><li> Ouvrez FreeCAD et l'exemple de fichier FreeCAD contenant l'objet maillage</li>
+<li> Passer l'atelier Maillage</li>
+<li> Assurez-vous que votre objet maillé est sélectionné dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mailles</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analyser</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Évaluez et réparez le maillage ...</span> dans le menu supérieur</li>
+<li> Assurez-vous que le menu déroulant dans le coin supérieur droit affiche le nom de votre objet maillé</li>
+<li> Avec le dernier point dans la liste en lisant «Tous les tests ci-dessus ensemble», cliquez sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analyser</span></li>
+<li> Les textes à côté des cases à cocher changeront pour tenir compte des résultats des différents tests</li>
+<li> Si des erreurs ont été détectées, les cases à cocher correspondantes seront cochées et vous pourrez sélectionner <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Réparation</span></li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Fermez</span> pour fermer le menu</li></ul>
+<h3><span class="mw-headline" id="Harmonisation_des_normales">Harmonisation des normales</span></h3>
+<p>L'harmonisation des normales d'un objet maillé peut être effectuée par
+</p>
+<ul><li> Sélection de votre objet maillage dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mailles</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_HarmonizeNormals.png" class="image"><img alt="Mesh HarmonizeNormals.png" src="32px-Mesh_HarmonizeNormals.png" width="32" height="32" srcset="/wiki/images/thumb/0/01/Mesh_HarmonizeNormals.png/48px-Mesh_HarmonizeNormals.png 1.5x, /wiki/images/0/01/Mesh_HarmonizeNormals.png 2x" /></a> Harmoniser les normales</span> dans le menu principal.</li></ul>
+<p>Astuce:
+En choisissant l'objet maillage dans l'arborescence, en allant dans l'onglet Vue dans la vue de la propriété et en changeant "Éclairage" de
+"Deux côtés" sur "Un côté", vous pouvez identifier des triangles avec des normales inversées.
+Si les normales pointent dans le maillage, le triangle sera affiché en noir.
+</p>
+<h3><span class="mw-headline" id="Fermeture_des_trous">Fermeture des trous</span></h3>
+<p>Vous pouvez également fermer manuellement des trous dans votre objet maillage par
+</p>
+<ul><li> Sélection de votre objet maillage dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mailles</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Remplissez les trous ...</span> dans le menu supérieur</li>
+<li> Spécifiez le nombre maximum d'arêtes à remplir (3 est par défaut)</li>
+<li> Étant donné que STL et OBJ sont des mailles constituées de triangles, le nombre d'arêtes par défaut devrait être suffisant</li></ul>
+<p><br />
+Une autre méthode de fermeture manuelle des trous dans votre objet maillé serait:
+</p>
+<ul><li> Sélection de votre objet maillage dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Mailles</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> Fermer le trou</span> dans le menu principal</li>
+<li> Sélectionnez l'un des bords du trou dans l'objet maillage dans la vue 3D</li>
+<li> Cliquez avec le bouton droit de la souris dans la vue 3D et choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Quitter le mode de remplissage des trous</span> pour quitter la commande</li></ul>
+<h2><span class="mw-headline" id="Conversion_du_maillage_en_solide">Conversion du maillage en solide</span></h2>
+<ul><li> Passer à l'atelier Part</li>
+<li> Assurez-vous que votre objet maillé est sélectionné dans l'arborescence, sinon, sélectionnez-le</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_ShapeFromMesh.png" class="image"><img alt="Part ShapeFromMesh.png" src="32px-Part_ShapeFromMesh.png" width="32" height="32" srcset="/wiki/images/thumb/5/50/Part_ShapeFromMesh.png/48px-Part_ShapeFromMesh.png 1.5x, /wiki/images/5/50/Part_ShapeFromMesh.png 2x" /></a> Créez une forme à partir de maillage ...</span> dans le menu principal</li>
+<li> Précisez la tolérance pour la forme de couture (0,1 est par défaut)</li>
+<li> Un nouvel objet sera créé dans l'arborescence (avec l'icône de forme bleue, au lieu de l'icône de maillage vert)</li>
+<li> Sélectionnez l'objet nouvellement créé dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_RefineShape.png" class="image"><img alt="Part RefineShape.png" src="32px-Part_RefineShape.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Part_RefineShape.png/48px-Part_RefineShape.png 1.5x, /wiki/images/6/68/Part_RefineShape.png 2x" /></a> Affiner forme</span> dans le menu principal</li>
+<li> Un nouvel objet sera créé dans l'arborescence et le précédent sera rendu invisible</li>
+<li> Sélectionnez l'objet nouvellement créé dans l'arborescence</li>
+<li> Choisissez <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Convertir en solide</span> dans le menu principal</li>
+<li> Un nouvel objet sera créé dans l'arborescence, portant "(Solid)" dans son nom, pour indiquer qu'il s'agit d'un solide</li></ul>
+<p><br />
+Étant donné que le solide créé n'a pas d'historique et aucune fonctionnalité éditable (comme une copie simple dans FreeCAD)
+vous pouvez supprimer tous les objets précédents de l'arborescence.
+Cela réduirait votre taille de fichier ...
+</p>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Export_to_STL_or_OBJ/fr" title="Export to STL or OBJ/fr">Exporter vers STL ou OBJ</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/fr&amp;oldid=282283">http://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/fr&amp;oldid=282283</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

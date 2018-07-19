@@ -1,0 +1,127 @@
+<html><head><title>Sketcher project/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher project/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>C'est le projet d'esquisse de <b>FreeCAD développement</b>. Il suit les règles de la <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Getting_Things_Done%7C">Getting Things Done</a> processus.
+Les projets sont collectées dans la <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/fr" title="Development roadmap/fr">feuille de route de développement</a>.
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Buts_et_principes"><span class="tocnumber">1</span> <span class="toctext">Buts et principes</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A9sultats"><span class="tocnumber">2</span> <span class="toctext">Résultats</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#R.C3.A9flexions"><span class="tocnumber">3</span> <span class="toctext">Réflexions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organisation"><span class="tocnumber">4</span> <span class="toctext">Organisation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Actions_.C3.A0_venir"><span class="tocnumber">5</span> <span class="toctext">Actions à venir</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Buts_et_principes">Buts et principes</span></h2>
+<p>Il s'agit d'un projet de développement logiciel, visant à mettre en œuvre et en fonction des capacités d'esquisse et de contraintes. Sa mise en œuvre sur certains éléments <b>Gui</b> et la liaison à la résolution de contraintes. 
+</p><p>Les étapes de développement sont ici rabotées et suivies dans le système de suivi émission pour obtenir un journal des modifications bien informés sur&#160;: <a rel="nofollow" class="external text" href="http://www.freecadweb.org/tracker/">Change Log.</a>
+</p>
+<h2><span class="mw-headline" id="R.C3.A9sultats">Résultats</span></h2>
+<h2><span class="mw-headline" id="R.C3.A9flexions">Réflexions</span></h2>
+<p>Afin d'améliorer les performances de résolution, du <b>sketcher</b>, un partitionnement de graphe, basé sur le système de contraintes peut avoir lieu. L'ensemble des contraintes et l'ensemble de paramètres inconnus peuvent être représentés dans un <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Graphe_biparti">graphe biparti</a></b>, avec des contraintes correspondant à des noeuds gauche et droit, et des noeuds inconnus.<b>Fait</b>
+</p><p>Une étape de simple prétraitement, mais, souvent très utile est de reconnaître les sous-groupes disjoints, de sorte qu'ils puissent être traités séparéments, dans le solveur.<b>Fait</b>
+</p><p>D’ailleurs on pourrait réduire le nombre de paramètres inconnus, qui sont prise en compte dans la solution. Au début d'une solution, il faut vérifier que les contraintes ne sont pas déjà satisfaites. Par l'analyse graphique on pouvait trouver un ensemble minimal de paramètres inconnus qui devraient être pris en compte afin de satisfaire toutes les contraintes non satisfaites.
+</p><p>Aller plus loin, sub-parts rigides d'une esquisse pourraient être détectés et réduites à 3 degrés de liberté (x, y, rotation).
+</p>
+<h2><span class="mw-headline" id="Organisation">Organisation</span></h2>
+<h2><span class="mw-headline" id="Actions_.C3.A0_venir">Actions à venir</span></h2>
+<p>For 0.14:
+</p>
+<ol><li> Mouse Dragging for multiple selection</li>
+<li> List of Geometries in the task panel (similar to the list of Constraints)</li>
+<li> Add a popup menu option to convert a coincident points constraint to tangency constraints </li>
+<li> Polygon tool (convenience)</li>
+<li> Update wiki documentation on Symmetry constraint and Polyline tool (m-key)</li></ol>
+<p><br />
+Idée à travailler&#160;:
+</p><p>Interface utilisateur&#160;:
+</p><p>1. Grille plein écran (unité courante)
+</p><p>2. Auto-contraintes plus intelligentes&#160;:
+</p>
+<ul><li> 2.a L'algorithme ne tient compte que de la géométrie qui se trouve sur l'écran pour augmenter les performances, et, améliorer les sélections</li></ul>
+<ul><li> 2.b Prévention les conflits de contraintes</li></ul>
+<p>3. Conseils sur les lignes&#160;: horizontales, verticales, perpendiculaires, tangentes contraintes&#160;?
+</p><p>4. Révision des icônes de contraintes en les fusionnant en un seul Node
+</p>
+<ul><li> 4.a Fusion pour constituer un Node pour améliorer les performances</li></ul>
+<ul><li> 4.b Suppression nécessaire pour ray, choisir d'améliorer les performances</li></ul>
+<ul><li> 4.c Partage plus efficace de la mémoire de texture.</li></ul>
+<ul><li> 4.d Améliorer l'algorithme pour prévenir le chevauchement </li></ul>
+<ul><li> 4.e Barre d'outils pour visualiser les contraintes indépendamment</li></ul>
+<p>5. Amélioration des références (label)&#160;:
+</p>
+<ul><li> 5.a Le label du rayon peut être positionné à n'importe quel angle</li></ul>
+<ul><li> 5.b Au besoin éffacer ce qui n'est pas nécessaire pour le stocker dans SoImage</li></ul>
+<p>6. Fixer la grille sur un bord
+</p><p>7. Contraintes automatique, tout en faisant glisser (Point, Point d'entrée sur la ligne coïncidente)&#160;?
+</p><p>8. Mise en évidence d'entités ou, zoomer sur une zone précise du croquis
+</p><p>9. Association à la conception de pièces (prise en charge de la transparente objets)
+</p><p>10. Appliquer la fonction plan d'esquisse avec l'introduction du module d'assemblage (Assembly module)
+</p><p>11. Amélioration de la sélection de Points, en mettant en œuvre un nouveau "nœud" personnalisé.
+</p><p>12. Possibilité de construction de lignes pointillées a la place de lignes pleines.
+</p><p><br />
+<b>Pour 0,13:</b>
+</p><p>1. le support à arc/arc et arc/cercle dans la contrainte de tangence - FAIT [logari81]
+</p><p>2. le support de la contrainte perpendiculaire aux arcs - FAIT [logari81]
+</p><p>3. Zoom indépendants flèches (contrainte de symétrie)/lignes de cote - FAIT [mrlukeparry]
+</p><p>4. géométrie externe/contraintes - FAIT [logari81]
+</p><p>5. boîte de sélection - [mrlukeparry] <b>Fait</b>
+</p><p><b>6</b>. faire glisser la souris sur la sélection multiple- <b>Ignorée pour 0.14</b>
+</p><p>7. diagnostic meilleurs constraites (Issue # 691) - FAIT [logari81]
+</p><p>8. liste des formes géométriques dans le panneau des tâches (similaire à la liste des contraintes)
+</p><p>9. support aux points des constructions géométriques - FAIT [logari81]
+</p><p><b>10</b>. ajout d'une option au menu contextuel, pour convertir une contrainte points coïncidents aux contraintes de tangence
+</p><p>'<i> 11.<b> restreindre le travailler avec des points de symétrie, au lieu de lignes de symétrie (utile par exemple pour la définition du point central) - </b>FAIT</i> "[logari81]
+</p><p><br />
+<b>Pour 0.12:</b>
+</p><p>1. paramètres de contrainte (points de référence) modifiables dans la vue 3D FAIT [jriegel]
+</p><p>2. synchronisation entre la sélection liste widget view - Sélection de vue 3D - FAIT [wmayer]
+</p><p>3. éviter le chevauchement des symboles de contraintes FAIT - [mrlukeparry]
+</p>
+<ul><li> 3a. faire des symboles des contraintes plus petit, sélectionner et éviter les chevauchements lors d'un zoom FAIT - [mrlukeparry]</li></ul>
+<ul><li> 3b. créer des icônes de contraintes pour la vue 3D Inventor FAIT - [mrlukeparry]</li></ul>
+<ul><li> 3c. faire dépend de la taille donnée de texte sur zoom FAIT - [mrlukeparry]</li></ul>
+<ul><li> 3d. rendre le texte plus facilement sélectionnable donnée FAIT - [mrlukeparry]</li></ul>
+<p>3e. Éviter le chevauchement de texte sur les étiquettes Datum FAIT - [mrlukeparry]
+</p><p>4. tester le nouveau solveur en mode autonome
+</p><p>5. contraintes externes (ayant des contraintes avec des références en dehors du croquis, un certain avantage du modèle 3D par exemple) 0.13 [jriegel]
+</p><p>6. auto-contraintes FAIT [jriegel]
+</p>
+<ul><li> 6a. auto-contrainte perpendiculairement FAIT - [mrlukeparry]</li></ul>
+<p>7. visualiser contraintes de tangence FAIT - [mrlukeparry]
+</p><p>8. visualiser le point de contraintes de distance de ligne et point à point les contraintes de distance FAIT - [logari81]
+</p><p>9. ajouter des index à des symboles contraintes en vue 3D afin de distinguer entre les contraintes de même nature FAIT - [mrlukeparry]
+</p><p>10. contrainte rayon (y compris la visualisation) FAIT - [logari81]
+</p><p>11. contrainte d'angle (y compris la visualisation) FAIT - [logari81]
+</p><p>12. mettre en œuvre un outil de filet dans le sketcheur FAIT [mrlukeparry]
+</p>
+<ul><li> 12a. fournir une méthode de mise en rayon du congé (numéro 437)</li></ul>
+<p>13. mettre en œuvre un outil Ajuster/Prolonger dans sketcheur FAIT [logari81]
+</p>
+<ul><li> 13a. mettre en œuvre un outil d'extention SKIPPED [logari81]</li></ul>
+<ul><li> 13b. couper en appuyant sur les arcs DONE [mrlukeparry]</li></ul>
+<p>14. contrainte d'égalité de longueurs (y compris dans la visualisation) FAIT - [logari81]
+</p><p>15. diagnostic de contraintes - degré de liberté de comptage FAIT - [logari81]
+</p><p>16. contrainte de symétrie (y compris la visualisation) FAIT - [logari81]
+</p><p>17. point sur ​​la mise en œuvre de la contrainte d'objet FAIT - [mrlukeparry]
+</p><p>18. Assurez-Snap-Grille moins «gourmand» FAIT [mrlukeparry]
+</p><p>19. Page wiki pour le Sketcher Workbench [normandc]
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_project/fr&amp;oldid=121654">http://www.freecadweb.org/wiki/index.php?title=Sketcher_project/fr&amp;oldid=121654</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

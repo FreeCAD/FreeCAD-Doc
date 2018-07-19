@@ -1,0 +1,445 @@
+<html><head><title>Macro BoundingBox Tracing/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro BoundingBox Tracing/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_BoundingBox_Tracing"><a href="https://www.freecadweb.org/wiki/index.php?title=File:BoundBoxTracing.png" class="image"><img alt="BoundBoxTracing.png" src="32px-BoundBoxTracing.png" width="32" height="32" srcset="BoundBoxTracing.png 1.5x" /></a> Macro_BoundingBox_Tracing</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro trace 6 rectangles représentant le BoundingBox de l'objet sélectionné (1 rectangle par face).
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.7
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-01-28
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_BoundingBox_Tracing"><span class="tocnumber">1</span> <span class="toctext">Macro_BoundingBox_Tracing</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ic.C3.B4ne"><span class="tocnumber">4</span> <span class="toctext">Icône</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Macro"><span class="tocnumber">5</span> <span class="toctext">Macro</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Version"><span class="tocnumber">6</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro trace 6 rectangles représentant le BoundingBox de l'objet sélectionné (1 rectangle par face).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_BoundingBox_Tracing_00.png" class="image" title="CenterFace"><img alt="CenterFace" src="480px-Macro_BoundingBox_Tracing_00.png" width="480" height="311" srcset="/wiki/images/thumb/b/bb/Macro_BoundingBox_Tracing_00.png/720px-Macro_BoundingBox_Tracing_00.png 1.5x, /wiki/images/b/bb/Macro_BoundingBox_Tracing_00.png 2x" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Sélectionnez l'objet et lancez la macro. 6 rectangles de couleur rouge seront tracés représentants le BoundingBox de l'objet.
+</p><p>La couleur peut être changée dans la macro.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_BoundingBox_Tracing_01.png" class="image" title="Info contener"><img alt="Info contener" src="480px-Macro_BoundingBox_Tracing_01.png" width="480" height="333" srcset="/wiki/images/6/66/Macro_BoundingBox_Tracing_01.png 1.5x" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+Si <b>createVol</b> = 1 (Ligne 33) un volume est crée 
+</p><p>Pour changer la couleur des lignes et autres options modifiez le nombre aux lignes 31 à 49 dans la "Section configuration"
+</p>
+<pre>##exampleCode##
+##### Section configuration begin ##################
+##### for volume begin ###################
+createVol         = 1           # give 1 for create Volume # mettre a 1 pour creer un volume
+createDimVol      = 1           # 1 = create dimension info&#160;: 0 = not dimension info
+
+##### for volume end   ###################
+
+##### for dimensions info begin ##########
+createDim         = 1           # 1 = create dimension info&#160;: 0 = not create dimension info
+DisplayModeText   = "Screen"    # available&#160;: "Screen" or "World"
+JustificationText = "Center"    # available&#160;: "Center" or "Left" or "Right"
+FontSizeText      = 10.0        # text info dimension
+TextColorText_R   = 0.0         # text color info red      1 = 255
+TextColorText_G   = 0.0         # text color info green    1 = 255
+TextColorText_B   = 0.0         # text color info blue     1 = 255
+arondi            = 3           # round the info ex: 3 = 3 decimals
+
+##### for dimensions info end   ##########
+##### Section configuration end #################### </pre>
+<h2><span class="mw-headline" id="Ic.C3.B4ne">Icône</span></h2>
+<p>télechargez l'image et copiez la dans votre répertoire des macros
+</p><p>Positionnez vous sur l'image puis cliquez sur la bouton droit, dans la nouvelle fenêtre, choisissez "Enregistrez l'image sous ..." 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:BoundBoxTracing.png" class="image" title="Button"><img alt="Button" src="BoundBoxTracing.png" width="46" height="46" /></a>
+</p>
+<h2><span class="mw-headline" id="Macro">Macro</span></h2>
+<p><b>Macro_BoundingBox_Tracing.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+# cette macro trace en rouge (modifiable) le tour du boundingbox avec 6 rectangles
+# si "createVol" = 1 il sera cree un volume (rouge) de la dimension du BoundBox
+# this macro red trace (editable) around the BoundingBox with 6 rectangles
+# if "createVol" = 1 on volume (red) is created 
+# Macro_BoundingBox_Tracing
+#
+#OS: Windows Vista       #OS: Windows 8.1                                  #OS: Windows 10
+#Platform: 32-bit        #Word size of OS: 64-bit                          #Word size of OS: 64-bit
+#Version: 0.14.3389      #Word size of FreeCAD: 64-bit                     #Word size of FreeCAD: 64-bit
+#Python version: 2.6.2   #Version: 0.15.4671 (Git)                         #Version: 0.16.6700 (Git)
+#Qt version: 4.5.2       #Branch: releases/FreeCAD-0-15                    #Build type: Release
+#Coin version: 3.1.0     #Hash: 244b3aef360841646cbfe80a1b225c8b39c8380c   #Branch: releases/FreeCAD-0-16
+#SoQt version: 1.4.1     #Python version: 2.7.8                            #Hash: 7b925d11aa69ac405b423635adb1e2833f18a817
+#OCC version: 6.5.1      #Qt version: 4.8.6                                #Python version: 2.7.8
+#                        #Coin version: 4.0.0a                             #Qt version: 4.8.6
+#                        #OCC version: 6.8.0.oce-0.17                      #Coin version: 4.0.0a
+                                                                           #OCC version: 6.8.0.oce-0.17
+
+__title__   = "BoundingBox_Tracing"
+__author__  = "Mario52"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__Wiki__    = "https://www.freecadweb.org/wiki/Macro_BoundingBox_Tracing"
+__version__ = "0.7"
+__date__    = "28/01/2018"
+
+
+import FreeCAD, FreeCADGui, Draft, Part
+App = FreeCAD
+
+##### Section configuration begin ##################
+##### for volume begin ###################
+createVol         = 1           # give 1 for create Volume # mettre a 1 pour creer un volume
+createDimVol      = 1           # 1 = create dimension info&#160;: 0 = not dimension info
+
+##### for volume end   ###################
+
+##### for dimensions info begin ##########
+createDim         = 1           # 1 = create dimension info&#160;: 0 = not create dimension info
+DisplayModeText   = "Screen"    # available&#160;: "Screen" or "World"
+JustificationText = "Center"    # available&#160;: "Center" or "Left" or "Right"
+FontSizeText      = 10.0        # text info dimension
+TextColorText_R   = 0.0         # text color info red      1 = 255
+TextColorText_G   = 0.0         # text color info green    1 = 255
+TextColorText_B   = 0.0         # text color info blue     1 = 255
+arondi            = 3           # round the info ex: 3 = 3 decimals
+
+##### for dimensions info end   ##########
+##### Section configuration end ####################
+
+sel   = FreeCADGui.Selection.getSelection()
+selEx = FreeCADGui.Selection.getSelectionEx()
+objs  = [selobj.Object for selobj in selEx]
+    
+if len(objs) &gt;= 1:
+    if hasattr(objs[0], "Shape"):
+        s = objs[0].Shape
+    elif hasattr(objs[0], "Mesh"):      # upgrade with wmayer thanks #http://forum.freecadweb.org/viewtopic.php?f=13&amp;t=22331
+        s = objs[0].Mesh
+    elif hasattr(objs[0], "Points"):
+        s = objs[0].Points
+
+    try:
+        # LineColor
+        red   = 1.0  # 1 = 255
+        green = 0.0  #
+        blue  = 0.0  #
+    
+        # boundBox
+        boundBox_ = s.BoundBox
+        boundBoxLX = boundBox_.XLength
+        boundBoxLY = boundBox_.YLength
+        boundBoxLZ = boundBox_.ZLength
+        nameLabel  = sel[0].Label
+        import unicodedata    
+        nameLabel  = unicodedata.normalize('NFKD', nameLabel).encode('ascii','ignore')
+
+        a = str(boundBox_)
+        a,b = a.split('(')
+        c = b.split(',')
+        oripl_X = float(c[0])
+        oripl_Y = float(c[1])
+        oripl_Z = float(c[2])
+    
+        App.Console.PrintMessage(str(boundBox_)+"\r\n")
+        App.Console.PrintMessage("Rectangle     &#160;: "+str(boundBoxLX)+" x "+str(boundBoxLY)+" x "+str(boundBoxLZ)+"\r\n")
+    
+        if (createVol == 1) and (boundBoxLX &gt; 0) and (boundBoxLY &gt; 0) and (boundBoxLZ &gt; 0):  # Create Volume
+            BDvol = App.ActiveDocument.addObject("Part::Box",nameLabel + "_BoundBoxVolume")
+            #BDvol.Label = "BoundBoxVolume"
+            BDvol.Length.Value = boundBoxLX
+            BDvol.Width.Value  = boundBoxLY
+            BDvol.Height.Value = boundBoxLZ
+            BDvol.Placement=App.Placement(App.Vector(oripl_X,oripl_Y,oripl_Z), App.Rotation(App.Vector(0,0,1),0), App.Vector(0,0,0))
+            FreeCADGui.ActiveDocument.getObject(BDvol.Name).LineColor  = (red, green, blue)
+            FreeCADGui.ActiveDocument.getObject(BDvol.Name).PointColor = (red, green, blue)
+            FreeCADGui.ActiveDocument.getObject(BDvol.Name).ShapeColor = (red, green, blue)
+            FreeCADGui.ActiveDocument.getObject(BDvol.Name).Transparency = 80
+            App.Console.PrintMessage(nameLabel + "_BoundBoxVolume&#160;: " + str(BDvol.Shape.Volume)+"\r\n")
+    
+            if createDimVol == 1:    # section create dimension info for volume
+                conteneurVol = []
+                del conteneurVol[:]
+                conteneurVol = App.activeDocument().addObject("App::DocumentObjectGroup",nameLabel + "_BoundBoxVolume_Info")
+    
+                pl_0C1 = Draft.makeText([str(round(boundBoxLX,arondi))],point=FreeCAD.Vector(oripl_X + (boundBoxLX/2), oripl_Y, oripl_Z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Volume_X_" + str(round(boundBoxLX,arondi))
+                conteneurVol.addObject(pl_0C1)
+    
+                pl_0C2 = Draft.makeText([str(round(boundBoxLY,arondi))],point=FreeCAD.Vector(oripl_X, oripl_Y + (boundBoxLY/2), oripl_Z))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Volume_Y_" + str(round(boundBoxLY,arondi))
+                conteneurVol.addObject(pl_0C2)
+        
+                pl_0C3 = Draft.makeText([str(round(boundBoxLZ,arondi))],point=FreeCAD.Vector(oripl_X, oripl_Y, oripl_Z + (boundBoxLZ/2)))
+                pl_0C3.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C3.ViewObject.Justification = JustificationText
+                pl_0C3.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C3.ViewObject.FontSize      = FontSizeText
+                pl_0C3.Label      = nameLabel + "_Volume_Z_" + str(round(boundBoxLZ,arondi))
+                conteneurVol.addObject(pl_0C3)
+    
+        else:
+            App.Console.PrintMessage("Not BoundBox possible"+"\r\n")
+        App.Console.PrintMessage("_____________________"+"\r\n")
+    
+        #####
+        conteneurRectangle = []
+        del conteneurRectangle[:]
+        conteneurRectangle = App.activeDocument().addObject("App::DocumentObjectGroup",nameLabel + "_BoundBoxRectangle")
+
+        if createDim == 1:    # conteneur dimension info
+            conteneurInfo = []
+            del conteneurInfo[:]
+            conteneurInfo = App.activeDocument().addObject("App::DocumentObjectGroup",nameLabel + "_BoundBoxRectangle_Info")
+        try:
+            if (boundBoxLX and boundBoxLY) &gt; 0.0:
+                pl_0 = App.Placement(App.Vector(oripl_X,oripl_Y,oripl_Z), App.Rotation(0.0,0.0,0.0))
+                double = Draft.makeRectangle(length=boundBoxLX,height=boundBoxLY,placement=pl_0,face=False,support=None) #OK
+                double.Label = nameLabel + "_BoundBoxRectangle_Bo"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+    #        else:
+    #            App.Console.PrintError("not value 0"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLX,arondi))],point=FreeCAD.Vector(pl_0.Base.x + (boundBoxLX/2), pl_0.Base.y, pl_0.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_Bo_0X_" + str(round(boundBoxLX,arondi))
+                conteneurInfo.addObject(pl_0C1)
+        
+                pl_0C2 = Draft.makeText([str(round(boundBoxLY,arondi))],point=FreeCAD.Vector(pl_0.Base.x, pl_0.Base.y + (boundBoxLY/2), pl_0.Base.z))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_Bo_0Y_" + str(round(boundBoxLY,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 0"+"\n")
+        try:
+            if (boundBoxLX and boundBoxLY) &gt; 0.0:
+                pl_1 = App.Placement(App.Vector(oripl_X,oripl_Y,oripl_Z+boundBoxLZ), App.Rotation(0.0,0.0,0.0))
+                double = Draft.makeRectangle(length=boundBoxLX,height=boundBoxLY,placement=pl_1,face=False,support=None) #Ok
+                double.Label = nameLabel + "_BoundBoxRectangle_To"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+    #        else:
+    #            App.Console.PrintError("not value 1"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLX,arondi))],point=FreeCAD.Vector(pl_1.Base.x + (boundBoxLX/2), pl_1.Base.y, pl_1.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_To_1X_" + str(round(boundBoxLX,arondi))
+                conteneurInfo.addObject(pl_0C1)
+        
+                pl_0C2 = Draft.makeText([str(round(boundBoxLY,arondi))],point=FreeCAD.Vector(pl_1.Base.x, pl_1.Base.y + (boundBoxLY/2), pl_1.Base.z))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_To_1Y_" + str(round(boundBoxLY,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 1"+"\n")
+        try:
+            if (boundBoxLX and boundBoxLZ) &gt; 0.0:
+                pl_2 = App.Placement(App.Vector(oripl_X,oripl_Y,oripl_Z), App.Rotation(0.0,0.0,90))
+                double = Draft.makeRectangle(length=boundBoxLX,height=boundBoxLZ,placement=pl_2,face=False,support=None) #Ok
+                double.Label = nameLabel + "_BoundBoxRectangle_Fr"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+    #        else:
+    #            App.Console.PrintError("not value 2"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLX,arondi))],point=FreeCAD.Vector(pl_2.Base.x + (boundBoxLX/2), pl_2.Base.y, pl_2.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_Fr_2X_" + str(round(boundBoxLX,arondi))
+                conteneurInfo.addObject(pl_0C1)
+       
+                pl_0C2 = Draft.makeText([str(round(boundBoxLZ,arondi))],point=FreeCAD.Vector(pl_2.Base.x, pl_2.Base.y, pl_2.Base.z + (boundBoxLZ/2)))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_Fr_2Z_" + str(round(boundBoxLZ,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 2"+"\n")
+        try:
+            if (boundBoxLX and boundBoxLZ) &gt; 0.0:
+                pl_3 = App.Placement(App.Vector(oripl_X,oripl_Y+boundBoxLY,oripl_Z), App.Rotation(0.0,0.0,90))
+                double = Draft.makeRectangle(length=boundBoxLX,height=boundBoxLZ,placement=pl_3,face=False,support=None) #Ok
+                double.Label = nameLabel + "_BoundBoxRectangle_Re"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+    #        else:
+    #            App.Console.PrintError("not value 3"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLX,arondi))],point=FreeCAD.Vector(pl_3.Base.x + (boundBoxLX/2), pl_3.Base.y, pl_3.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_Re_3X_" + str(round(boundBoxLX,arondi))
+                conteneurInfo.addObject(pl_0C1)
+        
+                pl_0C2 = Draft.makeText([str(round(boundBoxLZ,arondi))],point=FreeCAD.Vector(pl_3.Base.x, pl_3.Base.y, pl_3.Base.z + (boundBoxLZ/2)))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_Re_3Z_" + str(round(boundBoxLZ,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 3"+"\n")
+        try:
+            if (boundBoxLY and boundBoxLZ) &gt; 0.0:
+                pl_4 = App.Placement(App.Vector(oripl_X,oripl_Y,oripl_Z), App.Rotation(90,0.0,90))
+                double = Draft.makeRectangle(length=boundBoxLY,height=boundBoxLZ,placement=pl_4,face=False,support=None) #Ok
+                double.Label = nameLabel + "_BoundBoxRectangle_Le"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+    #        else:
+    #            App.Console.PrintError("not value 4"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLY,arondi))],point=FreeCAD.Vector(pl_4.Base.x, pl_4.Base.y + (boundBoxLY/2), pl_4.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_Le_4Y_" + str(round(boundBoxLY,arondi))
+                conteneurInfo.addObject(pl_0C1)
+        
+                pl_0C2 = Draft.makeText([str(round(boundBoxLZ,arondi))],point=FreeCAD.Vector(pl_4.Base.x, pl_4.Base.y, pl_4.Base.z + (boundBoxLZ/2)))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_Le_4Z_" + str(round(boundBoxLZ,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 4"+"\n")
+        try:
+            if (boundBoxLY and boundBoxLZ) &gt; 0.0:
+                pl_5 = App.Placement(App.Vector(oripl_X+boundBoxLX,oripl_Y,oripl_Z), App.Rotation(90,0.0,90))
+                double = Draft.makeRectangle(length=boundBoxLY,height=boundBoxLZ,placement=pl_5,face=False,support=None) #Ok
+                double.Label = nameLabel + "_BoundBoxRectangle_Ri"
+                FreeCADGui.activeDocument().activeObject().LineColor = (red, green, blue)
+                conteneurRectangle.addObject(double)
+#            else:
+#                App.Console.PrintError("not value 5"+"\n")
+    
+            if createDim == 1:    # section create dimension info
+                pl_0C1 = Draft.makeText([str(round(boundBoxLY,arondi))],point=FreeCAD.Vector(pl_5.Base.x, pl_5.Base.y + (boundBoxLY/2), pl_5.Base.z))
+                pl_0C1.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C1.ViewObject.Justification = JustificationText
+                pl_0C1.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C1.ViewObject.FontSize      = FontSizeText
+                pl_0C1.Label      = nameLabel + "_Rectangle_Ri_5Y_" + str(round(boundBoxLY,arondi))
+                conteneurInfo.addObject(pl_0C1)
+        
+                pl_0C2 = Draft.makeText([str(round(boundBoxLZ,arondi))],point=FreeCAD.Vector(pl_5.Base.x, pl_5.Base.y, pl_5.Base.z + (boundBoxLZ/2)))
+                pl_0C2.ViewObject.DisplayMode   = DisplayModeText
+                pl_0C2.ViewObject.Justification = JustificationText
+                pl_0C2.ViewObject.TextColor     = (TextColorText_R, TextColorText_G, TextColorText_B)
+                pl_0C2.ViewObject.FontSize      = FontSizeText
+                pl_0C2.Label      = nameLabel + "_Rectangle_Ri_5Z_" + str(round(boundBoxLZ,arondi))
+                conteneurInfo.addObject(pl_0C2)
+    
+        except:
+            App.Console.PrintError("not done 5"+"\n")
+    
+        #####
+        App.ActiveDocument.recompute()
+    except Exception:
+        App.Console.PrintError("Bad selection"+"\n")
+else:
+    App.Console.PrintMessage("Select an object&#160;!"+"\n") </pre>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>ver 0.7 le 28/01/2018: correct error with label accent "nameLabel  = unicodedata.normalize('NFKD', nameLabel).encode('ascii','ignore')"
+</p><p>ver 0.6 le 08/08/2017: ajout de texte info dimension (annotaion), conteneur pour rectangles, info rectangles, info volume, ajout d'une section configuration couleur , label de l'objet sélectionné
+</p><p>ver 0.5 le 08/05/2017&#160;: upgrade maintenant accepte le format "mesh" , "Points" merci wmayer <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=13&amp;t=22331">Makro Bounding-Box für STL importierte Teile und für Punktewolken</a>
+</p><p>ver 0.4  le 04/06/2016&#160;: test si une valeur = 0 alors ne crée pas de boundbox (ex: objet Draft)
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_BoundingBox_Tracing/fr&amp;oldid=246463">http://www.freecadweb.org/wiki/index.php?title=Macro_BoundingBox_Tracing/fr&amp;oldid=246463</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

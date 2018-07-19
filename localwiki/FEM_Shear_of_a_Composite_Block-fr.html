@@ -1,0 +1,198 @@
+<html><head><title>FEM Shear of a Composite Block/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM Shear of a Composite Block/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Analyse d'éléments finis
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Débutant/intermédiaire
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">30 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/index.php?title=User:">HarryvL</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">0.17.12960 ou ultérieur
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#L.27introduction"><span class="tocnumber">2</span> <span class="toctext">L'introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#G.C3.A9om.C3.A9trie"><span class="tocnumber">3</span> <span class="toctext">Géométrie</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Maille_et_R.C3.A9gions_de_Maille"><span class="tocnumber">4</span> <span class="toctext">Maille et Régions de Maille</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#D.C3.A9signation_Mat.C3.A9riaux"><span class="tocnumber">5</span> <span class="toctext">Désignation Matériaux</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#D.C3.A9coupage_du_Support"><span class="tocnumber">6</span> <span class="toctext">Découpage du Support</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Noeuds_fixes"><span class="tocnumber">7</span> <span class="toctext">Noeuds fixes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Tranchage_des_Forces"><span class="tocnumber">8</span> <span class="toctext">Tranchage des Forces</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#CalculiX_Analyse"><span class="tocnumber">9</span> <span class="toctext">CalculiX Analyse</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#CalculiX_R.C3.A9sultats"><span class="tocnumber">10</span> <span class="toctext">CalculiX Résultats</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Travail_final"><span class="tocnumber">11</span> <span class="toctext">Travail final</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h3><span class="mw-headline" id="L.27introduction">L'introduction</span></h3>
+<p>Dans ces travaux dirigés nous analysons la déformation de tranchage d'un bloc composite consistant d'un coeur rigide incorporé dans une enveloppe plus molle. Il démontre l'utilisation de BooleanFragments et CompoundFilter pour créer des éléments solides pour le bloc et l' enveloppe de deux cubes concentriques. Ce flux de travail assure que MeshRegions séparé, des Matériaux et des Conditions de Frontière peuvent être définis pour le bloc et l'enveloppe environnante. Pour choisir des régions internes nous nous faisons de la macro par Markus Hovorka (<a rel="nofollow" class="external free" href="https://github.com/drhooves/SelectionTools">https://github.com/drhooves/SelectionTools</a>). Les résultats de CalculiX montrent clairement l'effet du coeur rigide sur la réponse du bloc composite.
+</p>
+<h3><span class="mw-headline" id="G.C3.A9om.C3.A9trie">Géométrie</span></h3>
+<p>D'abord nous créons deux cubes concentriques, une taille 10mm et l'autre taille 5mm. Ceci est fait dans l'établi "Part". Par défaut le cube est situé à l'origine [0, 0, 0], donc le cube plus petit doit être réduit et déplacé en changeant les valeurs des Données du panneau de propriété. Pour faire le cœur visible, la Transparence du bloc extérieur est mise à 50 dans le panneau Vue de propriété. On montre le résultat ci-dessous.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic1.png" class="image"><img alt="Pic1.png" src="700px-Pic1.png" width="700" height="351" srcset="/wiki/images/thumb/c/c7/Pic1.png/1050px-Pic1.png 1.5x, /wiki/images/thumb/c/c7/Pic1.png/1400px-Pic1.png 2x" /></a>
+</p><p><br />
+Le point supérieur des deux blocs dans l'arbre et crée un objet de BooleanFragments (la Partie &gt; la Rupture &gt; des Fragments Booléens). Dans "la Fenêtre de Propriété - la valeur de Données" change le Mode à CompSolid. Mettre maintenant en évidence le BooleanFragments dans l'arbre d'Objet et créez un CompoundFilter (la Partie &gt; le Composé &gt; le Filtre Composé).
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic2.png" class="image"><img alt="Pic2.png" src="700px-Pic2.png" width="700" height="351" srcset="/wiki/images/thumb/5/57/Pic2.png/1050px-Pic2.png 1.5x, /wiki/images/thumb/5/57/Pic2.png/1400px-Pic2.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Maille_et_R.C3.A9gions_de_Maille">Maille et Régions de Maille</span></h3>
+<p>De l'établi FEM nous créons un conteneur d'Analyse. Ceci contiendra toutes les définitions exigées pour l'analyse CalculiX et ses résultats. Noter que ce conteneur d'Analyse doit être activé ( faire un clic droit et la sélection "Active l'analyse") en rechargeant le fichier ou après la commutation en arrière d'autres analyses. 
+Pour commencer le processus de maillage, mettre en évidence(surligner) le CompoundFilter dans l'Arbre d'Objet et activer le dialogue concordant "la Maille &gt; FEM la maille de la forme par Gmsh". 
+Quitter le dialogue en cliquetant OK. 
+</p><p>Un objet de Maille est maintenant créé dans l'Arbre d'Objet. 
+Mettre en évidence cet objet et créer un objet de Région de Maille via "la Maille &gt; la région de maille de FEM". Ouvrez la boîte de dialogue pour cette Région de Maille en double cliquant et cocher le bouton de radio pour Solide. 
+Le clic suivant le "Ajoute la Référence" le bouton et choisit l'objet de CompoundFilter dans la Fenêtre Graphique. 
+Ceci devrait ajouter une référence à "CompoundFilter:Solid1" dans la liste d'objet de la Région de Maille. 
+Spécifier finalement la taille d'élément maximale pour cette région (5mm dans l'analyse actuelle). 
+Quitter le dialogue en cliquant sur OK.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic3.png" class="image"><img alt="Pic3.png" src="700px-Pic3.png" width="700" height="351" srcset="/wiki/images/thumb/a/a7/Pic3.png/1050px-Pic3.png 1.5x, /wiki/images/thumb/a/a7/Pic3.png/1400px-Pic3.png 2x" /></a>
+</p><p><br />
+Créer ensuite un nouvel objet de Maille comme ci-dessus et utilisez la macro de sélection (le raccourci S, E) pour choisir l'objet Cube_Core dans la Fenêtre Graphique. Cette fois la liste de référence devrait montrer "CompoundFilter:Solid2", comme ci-dessous. Nous avons choisi une taille d'élément maximale de 1mm. 
+</p><p>Note1&#160;: la Sélection de "CompoundFilter:Solid2" exige la sélection d'un de ses faces. 
+</p><p>Note2&#160;: si vous avez des difficultés à choisir "CompoundFilter:Solid2" c'est peut-être parce que vous avez oublié de mettre le mode BooleanFragments à CompSolid.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic4.png" class="image"><img alt="Pic4.png" src="700px-Pic4.png" width="700" height="351" srcset="/wiki/images/thumb/c/cd/Pic4.png/1050px-Pic4.png 1.5x, /wiki/images/thumb/c/cd/Pic4.png/1400px-Pic4.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="D.C3.A9signation_Mat.C3.A9riaux">Désignation Matériaux</span></h3>
+<p>Le matériau est assigné Prendre en capture des Régions via un objet SolidMaterial. 
+Dans ces travaux dirigés(didacticiel) nous assignons deux matériaux; un pour l'enveloppe et un pour le Cœur. 
+</p><p><br />
+Début en choisissant le CompoundFilter dans l'arbre d'objet. 
+Créer alors un objet de SolidMaterial via l'option de menu "le Modèle &gt; le matériel FEM pour solide". 
+Ouvrer le dialogue et cocher le bouton de radio pour Solide, la presse "Ajoute la Référence" et choisit l'objet de CompoundFilter de la Fenêtre Graphique. 
+La liste de référence devrait maintenant montrer "CompoundFilter:Solid1", comme auparavant. 
+Nous assignons le matériau ABS à l'enveloppe, avec les modules de Young approximativement 1&#160;% celui d'acier.   
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic5.png" class="image"><img alt="Pic5.png" src="700px-Pic5.png" width="700" height="351" srcset="/wiki/images/thumb/1/16/Pic5.png/1050px-Pic5.png 1.5x, /wiki/images/thumb/1/16/Pic5.png/1400px-Pic5.png 2x" /></a> 
+</p><p><br />
+Répéter la procédure ci-dessus pour le Coeur ("CompoundFilter:Solid2") avec l'aide de la macro de sélection. 
+Cette fois nous assignons le CalculiX-acier, qui est beaucoup plus rigide que le matériel ABS pour l'enveloppe.
+</p>
+<h3><span class="mw-headline" id="D.C3.A9coupage_du_Support">Découpage du Support</span></h3>
+<p>Créer "un Simple découpage" la condition pour le composé bloquent les déformations aux frontières doivent être non contraint. 
+Pour le réaliser, le bloc est placé sur un support glissant. 
+Cela laisse trois degrés de liberté dans le plan du support (2 translations et une rotation) et ceux-là seront contraints plus tard. (Note: comme le plan empêche la déformation de la face, il existe toujours une contrainte mineure, qui pourrait être éliminée par un choix différent de conditions de frontière). 
+Créer une condition glissante de frontière ajoutent un objet de FemConstraintDisplacement (le Modèle &gt; des Contraintes Mécaniques &gt; le déplacement de Contrainte). 
+Avec la boîte de dialogue ouvre la première sélection de la face auquel les conditions de frontière doivent être appliquées et cliquer ensuite sur le bouton s'Ajoutant. 
+Comme le bloc est autorisé à glisser dans le plan x-y, seulement le bouton Radio "Fixed" pour "Displacement z" est sélectionné et les autres paramêtres sont laisser "libre".
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic6.png" class="image"><img alt="Pic6.png" src="700px-Pic6.png" width="700" height="351" srcset="/wiki/images/thumb/3/36/Pic6.png/1050px-Pic6.png 1.5x, /wiki/images/thumb/3/36/Pic6.png/1400px-Pic6.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Noeuds_fixes">Noeuds fixes</span></h3>
+<p>Pour empêcher le mouvement de corps rigide dans le plan de glissement, trois degrés de liberté indépendants doivent être éliminés. 
+Pour réaliser ceci, un sommet dans le plan de glissement est contraint dans x et la direction y (éliminant 2 degrés de liberté) et un sommet est fixé dans la direction x (éliminant le dernier degré de liberté). 
+À cette fin deux objets FemConstraintDisplacement supplémentaires sont créés et le résultat est montré ci-dessous.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic7.png" class="image"><img alt="Pic7.png" src="700px-Pic7.png" width="700" height="351" srcset="/wiki/images/thumb/c/ca/Pic7.png/1050px-Pic7.png 1.5x, /wiki/images/thumb/c/ca/Pic7.png/1400px-Pic7.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Tranchage_des_Forces">Tranchage des Forces</span></h3>
+<p>La finale intervient la définition d'Analyse est l'application de charges. 
+Créer un Simple Tranchage , un ensemble de tranches des charges est appliqué comme indiqué ci-dessous. Chaque charge est choisie comme 1000 N et la considération des directions d'application, la force et l'équilibre de moment est réalisé pour toute la traduction et des degrés de liberté rationnel. 
+Dans FC ceci exige l'addition de quatre objets FemConstraintForce (le Modèle &gt; des Contraintes Mécaniques &gt; la force de Contrainte) - un pour chaque face. 
+Avec la boîte de dialogue ouvrir d'abord en pressant le bouton d'Add Reference et choisir ensuite la face auquel la condition de frontière doit être appliquée (Note&#160;: ceci est un ordre différent qu'avec FemConstraintDisplacement). 
+Par défaut, ceci crée un ensemble de perpendiculaire de forces à la face (c'est-à-dire une force normale). Pour ceci changer à une force tranchante, presser le bouton de direction et choisir un bord du cube qui indique la direction désirée. 
+Si la force résultante indique  la direction opposée de ce qui est exigée, choisir  "Inverse".
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic8.png" class="image"><img alt="Pic8.png" src="700px-Pic8.png" width="700" height="351" srcset="/wiki/images/thumb/7/7e/Pic8.png/1050px-Pic8.png 1.5x, /wiki/images/thumb/7/7e/Pic8.png/1400px-Pic8.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="CalculiX_Analyse">CalculiX Analyse</span></h3>
+<p>Maintenant toutes les régions de maille, les conditions matérielles et de frontière ont été définies nous sommes prêts à analyser la déformation du bloc avec CalculiX. 
+Activer l'Analyse de droit cliquant "Activer l'analyse", ouvrer le dialogue de CalculiX en double cliquant sur l'objet de CalculiXccxTools et choir un répertoire pour les fichiers provisoires créés par FC et CCX. Écrire le fichier d'Apport de CCX et le contrôle sur n'importe quel avertissement ou messages d'erreur.  
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PIC9.png" class="image"><img alt="PIC9.png" src="700px-PIC9.png" width="700" height="351" srcset="/wiki/images/thumb/f/fb/PIC9.png/1050px-PIC9.png 1.5x, /wiki/images/thumb/f/fb/PIC9.png/1400px-PIC9.png 2x" /></a>
+</p><p><br />
+Aprés que l'analyse est commencé  en appuyant le bouton de RunCalculiX. 
+Si tout se passe bien, la fenêtre de production CCX devrait montrer les messages suivants.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Pic10.png" class="image"><img alt="Pic10.png" src="700px-Pic10.png" width="700" height="351" srcset="/wiki/images/thumb/a/a7/Pic10.png/1050px-Pic10.png 1.5x, /wiki/images/thumb/a/a7/Pic10.png/1400px-Pic10.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="CalculiX_R.C3.A9sultats">CalculiX Résultats</span></h3>
+<p>Pour achèvement de l'analyse double cliquer sur l'objet "CalculiX_static_results" et choisir "le déplacement d'ABS" l'option. 
+Le déplacement maximal de ~ 0.08mm se montrera dans la boîte de dialogue. 
+Comme le déplacement maximal est relativement petit comparé aux dimensions du bloc (1&#160;% de la taille de bloc), les déplacements doivent être augmentés proportionnellement. 
+Ceci peut être fait dans le titre "le Déplacement" en cochant le bouton de radio "affichage" et mesurant le déplacement par un facteur de " disons" 20. 
+Le déplacement maximal sera maintenant exagéré à approximativement 20&#160;% de la taille de boîte. 
+Après la fermeture de la fenêtre de dialogue, la maille déformée peut être rendue visible de nouveau en mettant en surlignant l'objet Result_mesh et appuyant le barre d'espacement. 
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Figure_11_Deformed_Mesh.png" class="image"><img alt="Figure 11 Deformed Mesh.png" src="700px-Figure_11_Deformed_Mesh.png" width="700" height="351" srcset="/wiki/images/thumb/d/d9/Figure_11_Deformed_Mesh.png/1050px-Figure_11_Deformed_Mesh.png 1.5x, /wiki/images/thumb/d/d9/Figure_11_Deformed_Mesh.png/1400px-Figure_11_Deformed_Mesh.png 2x" /></a>
+</p><p><br />
+Pour examiner la déformation du coeur nous avons  trancher le bloc. 
+Ceci peut être fait en créant un filtre d'attache. Pour activer cette fonctionnalité, nous devons d'abord créer "un poste traitant le pipeline" en mettant en évidence l'objet "CalculiX_static_results" et choisissez "Résultats &gt; Post-pipeline à partir du résultat" dans le menu. Ensuite, avec le Pipeline choisi crée un Filtre de des Résultats le filtre de Déformation, fait Vector=Displacement et Value=20 peser le déplacement et le Mode d'affichage = "la Surface avec des Bords", la Coloration du Champ = "le Déplacement", le Vecteur = "l'Ampleur" pour montrer des contours de déplacement colorés. 
+Appuyer  OK. 
+Comme un pas final ajoute un Filtre d'Attache (des Résultats &gt; le filtre d'Attache) et crée un plan avec l'origine [5.0,2.5,5.0] et normal [0,1,0], c'est-à-dire à un cœur  normal dans la direction Y.
+Cochez "les Cellules de Coupe" le bouton de radio pour créer une surface plane. 
+Comme avant l'ensemble le Mode d'affichage = "la Surface avec des Bords", la Coloration du Champ = "le Déplacement", le Vecteur = "l'Ampleur" pour montrer des contours de déplacement colorés. 
+Appuyer OK. 
+Commuter finalement du Filtre de Déformation à invisible pour seulement montrer le bloc de coupe. 
+</p><p><br />
+<a href="/wiki/File:Figure12_Deformed_Mesh_Clipped_View_(2).png" class="image"><img alt="Figure12 Deformed Mesh Clipped View (2).png" src="700px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png" width="700" height="351" srcset="/wiki/images/thumb/3/31/Figure12_Deformed_Mesh_Clipped_View_%282%29.png/1050px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png 1.5x, /wiki/images/thumb/3/31/Figure12_Deformed_Mesh_Clipped_View_%282%29.png/1400px-Figure12_Deformed_Mesh_Clipped_View_%282%29.png 2x" /></a>
+</p><p><br />
+Du résultat il est clair que les restes principaux en grande partie non déformés et aide à résister à la déformation de l' enveloppe (à comparer l'angle se tranchant de la partie colorée bleue à celui de la partie colorée verte). 
+Ce qui met aussi en évidence quoique soient que sous Simple Tranchage des conditions les faces du bloc composite déforment vraiment, impliquant que la condition glissante de frontière à la base du cube fournit vraiment une contrainte excessive.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Travail_final">Travail final</span></h3>
+<p>Les défis suivants peuvent être intéressants de prendre comme l'exercice supplémentaire:
+</p><p>1) Correct pour la contrainte excessive imposée par la condition glissement de frontière
+</p><p>2) Essayer de créer les conditions de frontière de contact entre le cœur et l'enveloppe pour voir si la séparation arrive
+</p><p>Le fichier de FC pour ces travaux dirigés(didacticiel) est attaché ci-dessous comme un point de départ.
+</p><p><br />
+<a rel="nofollow" class="external free" href="https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=26517&amp;start=20">https://forum.freecadweb.org/viewtopic.php?f=18&amp;t=26517&amp;start=20</a>
+</p><p><br />
+Bonne chance
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_Shear_of_a_Composite_Block/fr&amp;oldid=278794">http://www.freecadweb.org/wiki/index.php?title=FEM_Shear_of_a_Composite_Block/fr&amp;oldid=278794</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

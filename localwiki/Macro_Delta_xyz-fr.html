@@ -1,0 +1,153 @@
+<html><head><title>Macro Delta xyz/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Delta xyz/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Delta_xyz"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro_Delta_xyz</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Donne les valeurs Delta xyz de 2 points et donne la distance entre ces points.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2013-11-29
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Delta_xyz"><span class="tocnumber">1</span> <span class="toctext">Macro_Delta_xyz</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Description">Description</span></h3>
+<p>Donne la valeur Delta de la ligne située entre 2 points et la longueur de la distance entre ces points.
+</p><p>Cliquer dans la fenêtre ComboView pour quitter.
+</p>
+<h3><span class="mw-headline" id="Utilisation">Utilisation</span></h3>
+<ol><li> Démarrez la macro</li>
+<li> Sélectionnez du premier point dans la vue 3D</li>
+<li> Sélectionnez le second point dans la vue 3D et le informations sont affichée dans la vue rapport</li>
+<li> Cliquez dans la fenêtre Vue combinée pour quitter la fonction</li></ol>
+<p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:DeltaXYZ.png" class="image"><img alt="DeltaXYZ.png" src="DeltaXYZ.png" width="505" height="229" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p><b>Macro_Delta_xyz.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+#Delta x y z Click in ComboView to quit
+import Draft, Part
+import math,FreeCAD
+from FreeCAD import Base
+
+global positionX1&#160;;positionX1 = 0.0
+global positionY1&#160;;positionY1 = 0.0
+global positionZ1&#160;;positionZ1 = 0.0
+global positionX2&#160;;positionX2 = 0.0
+global positionY2&#160;;positionY2 = 0.0
+global positionZ2&#160;;positionZ2 = 0.0
+global pas       &#160;;pas        = 0
+
+def sub(first, other): 
+"sub(Vector,Vector) - subtracts second vector from first one"
+if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+return FreeCAD.Vector(first.x-other.x, first.y-other.y, first.z-other.z)
+def length(first):
+"lengh(Vector) - gives vector length"
+if isinstance(first,FreeCAD.Vector):
+return math.sqrt(first.x*first.x + first.y*first.y + first.z*first.z)
+def dist(first, other):
+"dist(Vector,Vector) - returns the distance between both points/vectors"
+if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+return length(sub(first,other))
+
+class SelObserver:
+    def addSelection(self,document, object, element, position):  # Sélection
+        global pas
+        global positionX1
+        global positionY1
+        global positionZ1
+        global positionX2
+        global positionY2
+        global positionZ2
+        pas+=1
+        if pas==1:
+            positionX1 = position[0]
+            positionY1 = position[1]
+            positionZ1 = position[2]
+            App.Console.PrintMessage("Begin   &#160;: X1 "+str(positionX1)+" Y1: "+str(positionY1)+" Z1: "+str(positionZ1)+"\n")    
+        else:
+            positionX2 = position[0]
+            positionY2 = position[1]
+            positionZ2 = position[2]
+            App.Console.PrintMessage("End     &#160;: X2 "+str(positionX2)+" Y2: "+str(positionY2)+" Z2: "+str(positionZ2)+"\n")    
+            App.Console.PrintMessage("Delta X &#160;: "+str(abs(positionX1-positionX2))+"\n")    
+            App.Console.PrintMessage("Delta Y &#160;: "+str(abs(positionY1-positionY2))+"\n")    
+            App.Console.PrintMessage("Delta Z &#160;: "+str(abs(positionZ1-positionZ2))+"\n")    
+            v1=FreeCAD.Vector(positionX1,positionY1,positionZ1)
+            v2=FreeCAD.Vector(positionX2,positionY2,positionZ2)
+            App.Console.PrintMessage("Distance&#160;: "+str(dist(v1,v2))+"\n")
+            App.Console.PrintMessage("------------------------"+"\n")    
+            pas=0
+
+    def removeSelection(self,document, object, element): # Delete the selected object
+        App.Console.PrintMessage("removeSelection"+"\n")
+    def setSelection(self,document):                     # Selection in ComboView
+        FreeCADGui.Selection.removeObserver(s)           # Uninstalls the resident function
+        App.Console.PrintMessage("removeObserver"+"\n")
+
+pas = 0
+s=SelObserver()
+FreeCADGui.Selection.addObserver(s)          # install the function mode resident </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Delta_xyz/fr&amp;oldid=240489">http://www.freecadweb.org/wiki/index.php?title=Macro_Delta_xyz/fr&amp;oldid=240489</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

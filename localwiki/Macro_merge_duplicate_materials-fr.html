@@ -1,0 +1,101 @@
+<html><head><title>Macro merge duplicate materials/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro merge duplicate materials/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_merge_duplicate_materials"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro merge duplicate materials</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Fusionne les matériaux ayant le même nom
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-04-16
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_merge_duplicate_materials"><span class="tocnumber">1</span> <span class="toctext">Macro merge duplicate materials</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Script"><span class="tocnumber">3</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Description">Description</span></h3>
+<p>Fusionne les matériaux qui ont le même nom de base (avec différentes terminaisons numériques comme 001, 002, ...) dans un seul. Seul le premier sera conservé, et tous les objets qui se lient aux doublons seront en lien avec le premier. Donc, avant d'utiliser cette macro, assurez-vous que votre premier matériau (soit celui sans sans chiffre, est le nombre le plus bas dans la liste trouvée) est le bon.
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Merge duplicate materials.FCMacro
+</p>
+<pre>import FreeCAD,FreeCADGui
+mats = [o for o in FreeCAD.ActiveDocument.Objects if o.isDerivedFrom("App::MaterialObject")]
+todelete = []
+for mat in mats:
+    if mat.Label[-1].isdigit() and mat.Label[-2].isdigit() and mat.Label[-3].isdigit():
+        orig = None
+        for om in mats:
+            if om.Label == mat.Label[:-3].strip():
+                orig = om
+                break
+        if orig:
+            for par in mat.InList:
+                for prop in par.PropertiesList:
+                    if getattr(par,prop) == mat:
+                        print "Changed property '"+prop+"' of object "+par.Label+" from "+mat.Label+" to "+orig.Label
+                        setattr(par,prop,orig)
+            todelete.append(mat)
+for tod in todelete:
+    if not tod.InList:
+        print "Deleting material "+tod.Label
+        FreeCAD.ActiveDocument.removeObject(tod.Name)
+    elif (len(tod.InList) == 1) and (tod.InList[0].isDerivedFrom("App::DocumentObjectGroup")):
+        print "Deleting material "+tod.Label
+        FreeCAD.ActiveDocument.removeObject(tod.Name)
+    else:
+        print "Unable to delete material "+tod.Label+": InList not empty" </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_merge_duplicate_materials/fr&amp;oldid=241059">http://www.freecadweb.org/wiki/index.php?title=Macro_merge_duplicate_materials/fr&amp;oldid=241059</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

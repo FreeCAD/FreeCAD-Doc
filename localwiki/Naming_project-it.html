@@ -1,0 +1,106 @@
+<html><head><title>Naming project/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Naming project/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Questo modello contiene le linea guida per il progetto di sviluppo di FreeCAD. Esso segue le regole della metodologia <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/GTD#GTD_methodology%7C">Getting things done</a>. I progetti sono raccolti nel <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/it" title="Development roadmap/it">Piano di sviluppo</a> (Development roadmap).
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Finalit.C3.A0_e_principi"><span class="tocnumber">1</span> <span class="toctext">Finalità e principi</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Risultati"><span class="tocnumber">2</span> <span class="toctext">Risultati</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Riflessioni"><span class="tocnumber">3</span> <span class="toctext">Riflessioni</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Altro"><span class="tocnumber">3.1</span> <span class="toctext">Altro</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Letteratura_.26_documentazione"><span class="tocnumber">3.2</span> <span class="toctext">Letteratura &amp; documentazione</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Sintesi_del_lavoro_fino_ad_oggi"><span class="tocnumber">3.3</span> <span class="toctext">Sintesi del lavoro fino ad oggi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Organizzazione"><span class="tocnumber">4</span> <span class="toctext">Organizzazione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Informazioni_su_TNaming"><span class="tocnumber">4.1</span> <span class="toctext">Informazioni su TNaming</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Azioni_successive"><span class="tocnumber">5</span> <span class="toctext">Azioni successive</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Passi_successivi_.28a_partire_dal_13_giugno_2016.29"><span class="tocnumber">5.1</span> <span class="toctext">Passi successivi (a partire dal 13 giugno 2016)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Finalit.C3.A0_e_principi">Finalità e principi</span></h2>
+<p>Si tratta di un lavoro di sviluppo e progettazione per implementare un sistema di denominazione topologica <b>robusta</b> (persistente e coerente) in FreeCAD. 
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Risultati">Risultati</span></h2>
+<ol><li> <b>Interfaccia</b> in (Part::TopoShape) per referenziare in modo robusto le forme (nome) e le sotto-forme (facce, bordi, vertici) attraverso una stringa (nome dei sotto-elementi del tipo "Face1"). <p> Per fare questo bisogna fornire una interfaccia per Part::TopoShape con tutte le informazioni necessarie per produrre la Denimonazione (Naming), ad esempio, NewShape, con le informazioni addizionali di un algoritmo come le facce cancellate, i passaggi della modellazione (es. suddivisione in 2) e ......</p></li></ol>
+<ol><li> <b>Associazione</b> dei passaggi della modellazione con le facce o i bordi risultanti. <p> Nel caso di un grande modello l'utente si perde se ha a che fare con centinaia di raccordi o di fori. Per questo motivo, se le facce o i bordi ricordano quale fase della modellazione le ha create, è possibile implementare che un doppio click sul bordo o sulla faccia apra l'operazione corrispondente! </p> </li></ol>
+<ol><li> <b>Algoritmo</b> per mantenere coerente la denominazione nello storico della modellazione durante le modifiche, come la suddivisione di bordi o di facce e il movimento dei vertici <p> <a href="https://www.freecadweb.org/wiki/index.php?title=File:NamingExample.jpg" class="image"><img alt="NamingExample.jpg" src="NamingExample.jpg" width="640" height="357" /></a> </p> </li></ol>
+<ol><li> (opzional) <b>Ottimizzare la struttura dei dati in memoria</b>  per mantenere in memoria solo le facce o i bordi modificati nelle operazioni di modellazione. <p> Questo diventa importante quando i modelli diventano grandi. Non è efficace copiare la maggior parte della forma. E' molto più efficace condividere le facce o i bordi rimasti invariati nelle operazioni (Features) e copiare solo quello che viene modificato.</p></li></ol>
+<h2><span class="mw-headline" id="Riflessioni">Riflessioni</span></h2>
+<p>Si è discusso molto nel post <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2656">"Robust Reference"</a> di jrheinlaender.
+</p>
+<h3><span class="mw-headline" id="Altro">Altro</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.maruf.ca/files/caadoc/CAATopTechArticles/JournalMethodology.htm#Definition">Catia V5 and Topology Naming</a> e <a rel="nofollow" class="external text" href="http://www.maruf.ca/files/caadoc/CAAMmrTechArticles/CAAMmrGenericNaming.htm">CAAMmrGenericNaming</a></li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="http://opencascade.sourcearchive.com/documentation/6.3.0.dfsg.1-1/TNaming_8hxx-source.html">Naming in OpenCasCade OCAF</a></li></ul>
+<h3><span class="mw-headline" id="Letteratura_.26_documentazione">Letteratura &amp; documentazione</span></h3>
+<ul><li> J Kripac, "Un meccanismo per la denominazione persistente delle entità topologiche costantemente basata sullo storico dei modelli solidi parametrici"</li></ul>
+<dl><dd> Descrive un metodo per realizzare i primi tre punti della lista.  Direi che è l'approccio utilizzato da Catia e OCC-TNaming. Almeno l'interfaccia sembra la stessa. Il documento non è disponibile per essere scaricato. Ho dovuto comprarlo. Se qualcuno è interessato posso inviarlo via e-mail. </dd></dl>
+<ul><li> <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.29.2836&amp;rep=rep1&amp;type=pdf">Dago AGBODAN, David MARCHEIX e Guy PIERRA, "Denominazione persistente per modelli parametrici"</a></li></ul>
+<dl><dd> Approccio interessante via shell-grafica, affronta il quarto punto della lista per il riutilizzo delle facce o dei bordi non modificati. </dd></dl>
+<ul><li> <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.106.3087&amp;rep=rep1&amp;type=pdf">Duhwan Mun and Soonhung Han, "Identification of Topological Entities and Naming Mapping for Parametric CAD Model Exchanges"</a></li></ul>
+<dl><dd> Panoramica molto buona e esempi</dd></dl>
+<ul><li> e alcune altre da aggiungere....</li></ul>
+<h3><span class="mw-headline" id="Sintesi_del_lavoro_fino_ad_oggi">Sintesi del lavoro fino ad oggi</span></h3>
+<p>Questa è la sintesi del lavoro che è stato fatto per questo progetto fino al 13 giugno 2016:
+</p>
+<ul><li> jrheinlaender nel 2012 ha prodotto un sacco di codice basato essenzialmente sull'ambiente Schizzo per risolvere il "Riferimento Robusto"</li>
+<li> ickby ha provato a incorporare alcuni codici di jrheinlaender in FreeCAD moderno. <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2656&amp;start=60#p124844">Questo post</a> ha un link al suo repo GitHub.</li>
+<li> Nel 2016, ezzieyguywuf ha rianimato il progetto di jrheinlaender e, successivamente, ha iniziato il suo. E' visibile <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=15847">qui</a></li>
+<li> ezzieyguywuf ha messo a punto un programma di opencascade "leggero" per duplicare il problema della Denominazione Topologica e per testare le possibili soluzioni. Vedere il suo repo github <a rel="nofollow" class="external text" href="https://github.com/ezzieyguywuf/freecadTopoTesting">qui</a></li>
+<li> ezzieyguywuf ha incorporato il TNaming toolkit opencascade nel suo codice di test, e ha mostrato come questo potrebbe contribuire a risolvere alcuni dei problemi di Denominazione Topologica. Vedere il repo github</li></ul>
+<h2><span class="mw-headline" id="Organizzazione">Organizzazione</span></h2>
+<h3><span class="mw-headline" id="Informazioni_su_TNaming">Informazioni su TNaming</span></h3>
+<p>Vedere <a rel="nofollow" class="external text" href="https://github.com/ezzieyguywuf/freecadTopoTesting/blob/master/TNaming_Writeup.md">qui</a> per un dignitoso rapporto sul repo GitHub di ezzieyguywuf. Ecco alcuni punti salienti:
+</p>
+<ul><li> opencascade's TNaming relies upon the TDF_Data data framework.</li>
+<li> TDF_Data is a key component of the opencascade OCAF thing, but can be used independent of it</li>
+<li> TDF_Data is essentially a tree in which data is added and then read at a later date</li>
+<li> Whenever a TNaming_NamedShape attribute is added to a node on the TDF_Data tree, a TNaming_UsedShapes attribute is added to the root of the tree
+<ul><li><b>NOTE:</b> this TNaming_UsedShapes attribute is critical to the utility of the TNaming toolkit. It contains a history of all the TopoDS_Shape used during the 'history' of the part</li></ul></li>
+<li> TNaming_Builder is used to add information to the TDF_Data tree. It adds a TNaming_NamedShape to a given node on the tree, as well as updating the TNaming_UsedShapes database as necessary.</li>
+<li> Any time the TopoDS_Shape is changed, it must be logged in the TDF_Data structure
+<ul><li> Again, TNaming_Builder is used for this</li>
+<li> See <a rel="nofollow" class="external text" href="http://www.opencascade.com/doc/occt-7.0.0/overview/html/occt_user_guides__ocaf.html#occt_ocaf_5_6_1">here</a> in the opencascade documentation for a table listing what must be stored in the database. <b>NOTE:</b> this table appears to be incomplete. Some additional testing may need to be done</li>
+<li> In short, any time the TopoDS_Shape is modified, any modified/generated/deleted features must be logged. For the most part, since we're dealing with solids, this means we must log the modified/generated/deleted Faces on the solid</li></ul></li>
+<li> The TNaming_Selector class is used to "select" a feature that is being tracked on the TDF_Data tree
+<ul><li> a "selected" feature is one that opencascade's TNaming algorithm will maintain a constant reference to, regardless of topological changes</li></ul></li></ul>
+<h2><span class="mw-headline" id="Azioni_successive">Azioni successive</span></h2>
+<ul><li> Definire il campo di applicazione</li>
+<li> Testare in Python</li>
+<li> Interfaccia in Part::TopoShape (+ legami con Python)</li></ul>
+<h3><span class="mw-headline" id="Passi_successivi_.28a_partire_dal_13_giugno_2016.29">Passi successivi (a partire dal 13 giugno 2016)</span></h3>
+<ol><li> Determinare se opencascade TNaming toolkit risolve completamente il problema della Denominazione Topologica in FreeCAD
+<ul><li> Quali sono tutti i casi in cui la Denominazione Topologica è un problema?</li>
+<li>Quali sono gli scenari complessi in cui questo approccio dovrà lavorare?</li></ul></li>
+<li> Incorporare il codice di TNaming in FreeCAD
+<ol><li> Iniziare con un approccio essenziale, vale a dire creare un Cubo e un Cilindro, Fonderli, fare un Raccordo, e poi ridimensionare il cilindro. Il raccordo non deve muoversi</li>
+<li> Gradualmente aggiungere ulteriori funzionalità</li></ol></li>
+<li> Determinare se TNaming è la soluzione a lungo termine</li>
+<li> O se TNaming non è la soluzione a lungo termine, trovare un modo per 'serializzare / deserializzare' i dati che TNaming utilizza per la persistenza tra le sessioni</li></ol>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Naming_project/it&amp;oldid=242736">http://www.freecadweb.org/wiki/index.php?title=Naming_project/it&amp;oldid=242736</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

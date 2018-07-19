@@ -1,0 +1,141 @@
+<html><head><title>Debugging/zh-cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Debugging/zh-cn</h1></div>
+
+<div id="mw-content-text" lang="zh-CN" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E6.B5.8B.E8.AF.95.E7.AC.AC.E4.B8.80"><span class="tocnumber">1</span> <span class="toctext">测试第一</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.91.BD.E4.BB.A4.E8.A1.8C"><span class="tocnumber">2</span> <span class="toctext">命令行</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E7.94.9F.E6.88.90.E5.9B.9E.E6.BA.AF"><span class="tocnumber">3</span> <span class="toctext">生成回溯</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.E5.AF.B9.E4.BA.8E_Linux"><span class="tocnumber">3.1</span> <span class="toctext">对于 Linux</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E5.AF.B9.E4.BA.8E_MacOSX"><span class="tocnumber">3.2</span> <span class="toctext">对于 MacOSX</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Python_.E8.B0.83.E8.AF.95"><span class="tocnumber">4</span> <span class="toctext">Python 调试</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E6.B5.8B.E8.AF.95.E7.AC.AC.E4.B8.80">测试第一</span></h2>
+<p>在你经历痛苦的调试过程之前请使用  <a href="Testing.html" title="Testing">测试框架</a> 来检查标准测试是否正常工作。如果它们未运行完成, 则可能是安装中断。
+</p>
+<h2><span class="mw-headline" id=".E5.91.BD.E4.BB.A4.E8.A1.8C">命令行</span></h2>
+<p>FreeCAD 的 "调试" 是由一些内部机制支持的。FreeCAD 的命令行版本提供了一些用于调试支持的选项。
+</p><p>以下是 FreeCAD 0.15 中能识别的选项:
+</p><p>一般性选项:
+</p>
+<pre> -v [ --version ]      打印版本字符串
+ -h [ --help ]         打印帮助信息
+ -c [ --console ]      以控制台模式启动
+ --response-file arg   也能使用 '@name' 指定
+</pre>
+<p>配置:
+</p>
+<pre> -l [ --write-log ]       输出 log 文件到:
+                          $HOME/.FreeCAD/FreeCAD.log
+ --log-file arg           不像 --write-log，这个命令允许记录到任意文件
+ -u [ --user-cfg ] arg    用于加载/保存用户设置的用户配置文件
+ -s [ --system-cfg ] arg  用于加载/保存系统设置的用户配置文件
+ -t [ --run-test ] arg    测试等级
+ -M [ --module-path ] arg 额外的模块路径
+ -P [ --python-path ] arg 额外的python路径
+</pre>
+<h2><span class="mw-headline" id=".E7.94.9F.E6.88.90.E5.9B.9E.E6.BA.AF">生成回溯</span></h2>
+<p>如果你运行 FreeCAD  开发中的出血边缘(bleeding edge)版本, 则可能会发生 "崩溃 "。 您可以通过向开发人员提供 "回溯 " 来帮助解决此类问题。 为此, 您需要运行软件的  "调试版本 "。 "调试生成 " 是在编译时设置的参数, 因此您需要自己编译 FreeCAD, 或者获取编译  "调试 " 版本。  
+</p>
+<h3><span class="mw-headline" id=".E5.AF.B9.E4.BA.8E_Linux">对于 Linux</span></h3>
+<div class="toccolours mw-collapsible mw-collapsed" style="width:800px;">
+<p>Linux 调试 ----&gt;
+</p>
+<div class="mw-collapsible-content">
+<p>必要条件: 
+</p>
+<ul><li> 安装的 gdb 软件包</li>
+<li> FreeCAD 的调试版本 (此时仅可通过 <a href="/wiki/CompileOnUnix#For_a_Debug_build" title="CompileOnUnix">从源代码构建</a>)</li>
+<li> 导致崩溃的 FreeCAD 模式</li></ul>
+<p>步骤:
+在终端窗口中输入以下内容:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ gdb FreeCAD
+</pre>
+<p>GNUdebugger will output some initializing information. The (gdb) shows GNUDebugger is running in the terminal, now input:
+</p>
+<pre>
+(gdb) handle SIG33 noprint nostop
+(gdb) run
+</pre>
+<p>FreeCAD 现在就要启动。执行导致 FreeCAD 崩溃或冻结的步骤, 然后在终端窗口中输入:
+</p>
+<pre>
+(gdb) bt
+</pre>
+<p>这将生成一个冗长的列表, 确切地列出程序在崩溃或冻结时正在执行的工作。将此内容包括在问题报告中。
+</p>
+</div></div> 
+<h3><span class="mw-headline" id=".E5.AF.B9.E4.BA.8E_MacOSX">对于 MacOSX</span></h3>
+<div class="toccolours mw-collapsible mw-collapsed" style="width:800px;">
+<p>MacOSX 调试 ----&gt;
+</p>
+<div class="mw-collapsible-content">
+<p>必要条件: 
+</p>
+<ul><li> 安装好的软件包 lldb</li>
+<li> FreeCAD 的调试版本</li>
+<li> 一个导致崩溃的 FreeCAD 模式</li></ul>
+<p>步骤:
+在终端窗口中输入以下内容:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ lldb FreeCAD
+</pre>
+LLDB 将输出一些初始化信息。(lldb) 显示调试器正在终端中运行, 现在输入:<pre>
+(lldb) run
+</pre>
+<p>FreeCAD 现在就要启动。执行导致 FreeCAD 崩溃或冻结的步骤, 然后在终端窗口中输入:
+</p>
+<pre>
+(lldb) bt
+</pre>
+<p>这将生成一个冗长的列表, 确切地列出程序在崩溃或冻结时正在执行的工作。将此内容包括在问题报告中。
+</p>
+</div></div> 
+<h2><span class="mw-headline" id="Python_.E8.B0.83.E8.AF.95">Python 调试</span></h2>
+<p>这里是一个在 FreeCAD 中使用 winpdb 的例子:
+</p>
+<ol><li> 运行 winpdb 并且设置密码 (例如：测试)</li>
+<li> 使用以下内容创建一个 Python 文件</li></ol>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import rpdb2
+ rpdb2.start_embedded_debugger("test")
+ import FreeCAD
+ import Part
+ import Draft
+ print "hello"
+ print "hello"
+ import Draft
+ points=[FreeCAD.Vector(-3.0,-1.0,0.0),FreeCAD.Vector(-2.0,0.0,0.0)]
+ Draft.makeWire(points,closed=False,face=False,support=None)</pre></div>
+<ol><li> 开始 FreeCAD 并将上述文件加载到 FreeCAD</li>
+<li> 按 F6 执行</li>
+<li> 现在 FreeCAD 将变得没有响应, 因为 Python 调试器正在等待</li>
+<li> 切换到 Windpdb GUI, 然后单击  "附加 "。几秒钟后, 将出现一个项目  "&lt;Input&gt; ", 您必须双击</li>
+<li> 现在, 当前执行的脚本出现在 Winpdb 中。</li>
+<li> 在最后一行设置断点并按 F5</li>
+<li> 现在按 F7 键跟踪 Python 代码 Draft.makeWire</li></ol>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Debugging/zh-cn&amp;oldid=242101">http://www.freecadweb.org/wiki/index.php?title=Debugging/zh-cn&amp;oldid=242101</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

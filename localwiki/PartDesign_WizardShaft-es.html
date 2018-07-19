@@ -1,0 +1,104 @@
+<html><head><title>PartDesign WizardShaft/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>PartDesign WizardShaft/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id=".7B.7B.7BName.2Fes.7D.7D.7D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_WizardShaft.png" class="image"><img alt="PartDesign WizardShaft.png" src="32px-PartDesign_WizardShaft.png" width="32" height="32" srcset="/wiki/images/thumb/2/2b/PartDesign_WizardShaft.png/48px-PartDesign_WizardShaft.png 1.5x, /wiki/images/2/2b/PartDesign_WizardShaft.png 2x" /></a> {{{Name/es}}}</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Ubicación en el Menú
+</th></tr>
+<tr>
+<td class="ctEven">{{{MenuLocation}}}
+</td></tr>
+<tr>
+<th class="ctOdd">Entornos de trabajo
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/es" title="PartDesign Workbench/es">Diseño de Piezas</a>, Complete
+</td></tr>
+<tr>
+<th class="ctOdd">Atajo de teclado por defecto
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">Ver también
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.7B.7B.7BName.2Fes.7D.7D.7D"><span class="tocnumber">1</span> <span class="toctext">{{{Name/es}}}</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introducci.C3.B3n"><span class="tocnumber">2</span> <span class="toctext">Introducción</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Prerrequisitos"><span class="tocnumber">3</span> <span class="toctext">Prerrequisitos</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Par.C3.A1metros"><span class="tocnumber">4</span> <span class="toctext">Parámetros</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Men.C3.BAs"><span class="tocnumber">5</span> <span class="toctext">Menús</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Limitaciones"><span class="tocnumber">6</span> <span class="toctext">Limitaciones</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Funcionalidad_planeada"><span class="tocnumber">7</span> <span class="toctext">Funcionalidad planeada</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introducci.C3.B3n">Introducción</span></h2>
+<p>Esta herramienta te permite crear un eje a partir de una tabla de valores, y analizar las fuerzas y momentos. Puedes iniciar el asistente escribiendo
+</p>
+<pre>Gui.runCommand('PartDesign_WizardShaft') </pre>
+<p>en la consola de Python de FreeCAD. El asistente comenzará y mostrará una tabla por defecto, el archivo de pieza del eje correspondiente y los gráficos de fuerzas / momentos.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:WizardShaft_Part.jpg" class="image"><img alt="WizardShaft Part.jpg" src="780px-WizardShaft_Part.jpg" width="780" height="537" srcset="/wiki/images/thumb/1/1e/WizardShaft_Part.jpg/1170px-WizardShaft_Part.jpg 1.5x, /wiki/images/1/1e/WizardShaft_Part.jpg 2x" /></a>
+</p><p>La parte superior de la ventana está ocupada por la tabloa. Está organizada en en columnas numeradas que se corresponden a segmentos del eje. Un segmento del eje se caracteriza por tener una longitud y diámetro determinados. La ventana principal muestra dos pestañas. Una es la ventana del archivo de pieza del eje (una operación de revolución), mostrada en la imagen superior. La segunda pestaña muestra un gráfico de las fuerzas de corte y los momentos creados por las cargas definidas en la tabla.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Shaftwizard1.jpg" class="image"><img alt="Shaftwizard1.jpg" src="1024px-Shaftwizard1.jpg" width="1024" height="704" srcset="/wiki/images/e/ee/Shaftwizard1.jpg 1.5x" /></a> 
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Prerrequisitos">Prerrequisitos</span></h2>
+<p>El asistente de diseño del eje depende del paquete NumPy y del programa pyxplot para crear y mostrar el gráfico de las fuerzas de corte y momentos torsores
+</p>
+<h2><span class="mw-headline" id="Par.C3.A1metros">Parámetros</span></h2>
+<p>Para cada segmento de eje, se pueden definir los siguientes parámetros
+</p>
+<ul><li> Longitud del segmento</li>
+<li> Diámetro del segmento</li>
+<li> Tipo de carga. Observa que tienes que designar sobre la entrada deseada en el menú después de acceder a él, en otro caso no se seleccionará!
+<ul><li> Ninguna: Sin cargas</li>
+<li> Fija: El extremo del eje está fijo (por ejemplo soldado a otra pieza). Este tipo de carga sólo puede definirse para el primer o el último segmento.</li>
+<li> Estática: Una carga estática en este segmento del eje</li></ul></li>
+<li> Carga en el segmento del eje</li>
+<li> Ubicación en la que se aplica la carga al segmento. La ubicación se cuenta desde la arista izquierda del segmento</li></ul>
+<p>(Existen otras filas y tipos de cargas pero aún no se ha implantado dicha funcionalidad)
+</p>
+<h2><span class="mw-headline" id="Men.C3.BAs">Menús</span></h2>
+<p>Para añadir un nuevo segmento de eje, pulsa con el botón derecho en un espacio en blanco a la derecha de la tabla, y selecciona "Añadir columna".
+</p>
+<h2><span class="mw-headline" id="Limitaciones">Limitaciones</span></h2>
+<ul><li> No es posible tener segmentos adyacentes del eje con el mismo diámetro.</li></ul>
+<h2><span class="mw-headline" id="Funcionalidad_planeada">Funcionalidad planeada</span></h2>
+<ul><li> Chaflanes y redondeos conducidos por la tabla sobre las aristas del eje</li>
+<li> Reconocer un asistente de eje creado previamente e iniciar los valores de la tabla a partir de él</li>
+<li> Cálculo de tensiones del eje</li>
+<li> Visualización de cargas sobre el eje (puede utilizar la misma funcionalidad que en el módulo de CAE)</li>
+<li> Definición de cargas como un Objeto de Documento (puede utilizar la misma funcionalidad que en el módulo de CAE)</li>
+<li> Base de datos de materiales</li>
+<li> Permitir cargas en la dirección Z así como en la dirección Y (requiere la definición de cargas como Objeto de Documento, en otro caso la tabla sería demasiado larga)</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_WizardShaft/es&amp;oldid=212238">http://www.freecadweb.org/wiki/index.php?title=PartDesign_WizardShaft/es&amp;oldid=212238</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

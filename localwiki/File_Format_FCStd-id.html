@@ -1,0 +1,258 @@
+<html><head><title>File Format FCStd/id</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>File Format FCStd/id</h1></div>
+
+<div id="mw-content-text" lang="id" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>The <b>FreeCAD Standard file format</b> (.FCStd) is FreeCAD's main file format. It is a compound format, supports compression and embedding of different kinds of data.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Internals_of_.FCStd_files"><span class="tocnumber">1</span> <span class="toctext">Internals of .FCStd files</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Contents"><span class="tocnumber">1.1</span> <span class="toctext">Contents</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Document.xml"><span class="tocnumber">1.1.1</span> <span class="toctext">Document.xml</span></a>
+<ul>
+<li class="toclevel-4 tocsection-4"><a href="#Example_Document.xml"><span class="tocnumber">1.1.1.1</span> <span class="toctext">Example Document.xml</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-5"><a href="#GuiDocument.xml"><span class="tocnumber">1.1.2</span> <span class="toctext">GuiDocument.xml</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Thumbnails.2Fthumbnail.png"><span class="tocnumber">1.1.3</span> <span class="toctext">Thumbnails/thumbnail.png</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Templates.2F.2A.svg"><span class="tocnumber">1.1.4</span> <span class="toctext">Templates/*.svg</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#.2A.brep"><span class="tocnumber">1.1.5</span> <span class="toctext">*.brep</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Structure"><span class="tocnumber">1.2</span> <span class="toctext">Structure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Change_the_source_of_the_file_.FCStd"><span class="tocnumber">2</span> <span class="toctext">Change the source of the file .FCStd</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Other"><span class="tocnumber">3</span> <span class="toctext">Other</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Internals_of_.FCStd_files">Internals of .FCStd files</span></h2>
+<p>FCStd is a standard zip file, containing <a href="#Contents">one or more</a> files in a specific <a href="#structure">Structure</a>.  As such, it is possible to unpack a FCStd file using a regular zip decompression tool, but care needs to be taken while packing the contents of a FCStd file.  FreeCAD contains a "Project Utility" to re-pack FCStd files, it's use is described in <a href="#Change_the_source_of_the_file_.FCStd">#Change the source of the file .FCStd</a> below.
+</p>
+<h3><span class="mw-headline" id="Contents">Contents</span></h3>
+<h4><span class="mw-headline" id="Document.xml">Document.xml</span></h4>
+<p>This is the main xml file describing all the objects inside a FreeCAD document, that is, only the geometric and parametric definition of the objects, not their visual representation. If FreeCAD is ran in console mode (without the GUI), only this xml document will be used.=
+</p>
+<h5><span class="mw-headline" id="Example_Document.xml">Example Document.xml</span></h5>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> &lt;?xml version='1.0' encoding='utf-8'?>
+ &lt;!--
+ FreeCAD Document, see http://free-cad.sourceforge.net for more informations...
+ -->
+ &lt;Document SchemaVersion="4">
+    &lt;Properties Count="9">
+       &lt;Property name="Comment" type="App::PropertyString">
+          &lt;String value=""/>
+       &lt;/Property>
+       &lt;Property name="Company" type="App::PropertyString">
+          &lt;String value=""/>
+       &lt;/Property>
+       &lt;Property name="CreatedBy" type="App::PropertyString">
+          &lt;String value=""/>
+       &lt;/Property>
+       &lt;Property name="CreationDate" type="App::PropertyString">
+          &lt;String value="Fri Jan 29 15:14:38 2010 "/>
+       &lt;/Property>
+       &lt;Property name="FileName" type="App::PropertyString">
+          &lt;String value="/tmp/test.FCStd"/>
+       &lt;/Property>
+       &lt;Property name="Id" type="App::PropertyString">
+          &lt;String value="201b746f-a1ed-4297-bf3d-65d5ec11abe0"/>
+       &lt;/Property>
+       &lt;Property name="Label" type="App::PropertyString">
+          &lt;String value="names"/>
+       &lt;/Property>
+       &lt;Property name="LastModifiedBy" type="App::PropertyString">
+          &lt;String value=""/>
+       &lt;/Property>
+       &lt;Property name="LastModifiedDate" type="App::PropertyString">
+          &lt;String value="Fri Jan 29 15:15:21 2010 "/>
+       &lt;/Property>
+    &lt;/Properties>
+    &lt;Objects Count="2">
+       &lt;Object type="Mesh::Cube" name="Cube" />
+       &lt;Object type="Part::Box" name="Box" />
+    &lt;/Objects>
+    &lt;ObjectData Count="2">
+       &lt;Object name="Cube">
+          &lt;Properties Count="7">
+             &lt;Property name="Height" type="App::PropertyFloatConstraint">
+                &lt;Float value="10"/>
+             &lt;/Property>
+             &lt;Property name="Label" type="App::PropertyString">
+                &lt;String value="Cube"/>
+             &lt;/Property>
+             &lt;Property name="Length" type="App::PropertyFloatConstraint">
+                &lt;Float value="10"/>
+             &lt;/Property>
+             &lt;Property name="Mesh" type="Mesh::PropertyMeshKernel">
+                &lt;Mesh file="MeshKernel.bms"/>
+             &lt;/Property>
+             &lt;Property name="Placement" type="App::PropertyPlacement">
+                &lt;PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1"/>
+             &lt;/Property>
+             &lt;Property name="Pos" type="App::PropertyPlacementLink">
+                &lt;Link value=""/>
+             &lt;/Property>
+             &lt;Property name="Width" type="App::PropertyFloatConstraint">
+                &lt;Float value="10"/>
+             &lt;/Property>
+          &lt;/Properties>
+       &lt;/Object>
+       &lt;Object name="Box">
+          &lt;Properties Count="7">
+             &lt;Property name="Height" type="App::PropertyLength">
+                &lt;Float value="10"/>
+             &lt;/Property>
+             &lt;Property name="Label" type="App::PropertyString">
+                &lt;String value="Box2"/>
+             &lt;/Property>
+             &lt;Property name="Length" type="App::PropertyLength">
+                &lt;Float value="10"/>
+             &lt;/Property>
+             &lt;Property name="Placement" type="App::PropertyPlacement">
+                &lt;PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1"/>
+             &lt;/Property>
+             &lt;Property name="Pos" type="App::PropertyPlacementLink">
+                &lt;Link value=""/>
+             &lt;/Property>
+             &lt;Property name="Shape" type="Part::PropertyPartShape">
+                &lt;Part file="PartShape.brp2"/>
+             &lt;/Property>
+             &lt;Property name="Width" type="App::PropertyLength">
+                &lt;Float value="10"/>
+             &lt;/Property>
+          &lt;/Properties>
+       &lt;/Object>
+    &lt;/ObjectData>
+ &lt;/Document></pre></div>
+<h4><span class="mw-headline" id="GuiDocument.xml">GuiDocument.xml</span></h4>
+<p>This is the GUI counterpart of the Document.xml file. For each object described in the Document.xml, there is one corresponding object in GuiDocument.xml, describing the visual representation of that object (color, linewidth, etc).
+</p>
+<h4><span class="mw-headline" id="Thumbnails.2Fthumbnail.png">Thumbnails/thumbnail.png</span></h4>
+<p>This is a 128x128 pixels thumbnail image of the document, which is a screenshot of the 3D view at save time. Thumbnails are generated only if the corresponding option is enabled in the FreeCAD preferences.
+</p>
+<h4><span class="mw-headline" id="Templates.2F.2A.svg">Templates/*.svg</span></h4>
+<p>In the Templates folder are stored the template svg files used in <a href="Drawing_Module.html" title="Drawing Module">Drawing</a> pages.
+</p>
+<h4><span class="mw-headline" id=".2A.brep">*.brep</span></h4>
+<p>These are the .brep shapes of all objects that have a Part shape in the Document.xml. Each object, even if it is parametric, has its shape stored as an individual .brep file, so it can be accessed by components without the need to recalculate the shape.
+</p>
+<h3><span class="mw-headline" id="Structure">Structure</span></h3>
+<p>Structure of a typical FCStd file:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> --File.fcstd
+  |
+  --Document.xml
+  --GuiDocument.xml
+   |
+   --Thumbnails
+    |
+    --thumbnail.png
+   |
+   --Templates
+    |
+    --MyPage.svg
+  --Shape1.brep
+  --Shape2.brep
+  --etc...</pre></div>
+<h2><span class="mw-headline" id="Change_the_source_of_the_file_.FCStd">Change the source of the file .FCStd</span></h2>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>ATTENTION ALWAYS WORK ON A COPY OF YOUR PROJECT&#160;!</b></div>
+<p><br />
+It is possible to change the source of a file .FCStd but the procedure is not without risk it is for this reason that we need to work on a <b>copy</b>.
+</p><p>After having made an <b>copy</b> of your project, follow these steps&#160;:
+</p><p>Create a new directory and place your copy in that directory (there may be many files in your FCStd).
+</p>
+<ul><li> Go in <b>Menu &gt; tools &gt; Project utility... Project utility</b> </li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Project_utility_en.png" class="image"><img alt="Project utility en.png" src="240px-Project_utility_en.png" width="240" height="158" srcset="/wiki/images/thumb/2/20/Project_utility_en.png/360px-Project_utility_en.png 1.5x, /wiki/images/2/20/Project_utility_en.png 2x" /></a>
+</p>
+<ul><li> Source&#160;: Give your copy to unpack path.</li>
+<li> Destination&#160;: Give the path to the unzipped files.</li>
+<li> Click <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Extract</span></li>
+<li> Go to your directory and open both files <b>GuiDocument.xml</b> andt <b>Document.xml</b> using <a rel="nofollow" class="external text" href="http://notepad-plus-plus.org/">Notepad++</a> (Windows) (Notepad++ to modify a word in all open documents).</li>
+<li><b>GuiDocument.xml</b>&#160;: contains all your project information to the interface, display in the Combo view, the configuration of FreeCAD . . .
+<ul><li>Example with <b>Text004</b></li></ul></li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;ViewProvider name="Text004">
+&lt;Properties Count="9">
+&lt;Property name="DisplayMode" type="App::PropertyEnumeration">
+&lt;Integer value="1"/>
+&lt;/Property>
+&lt;Property name="FontName" type="App::PropertyString">
+&lt;String value="Arial"/>
+&lt;/Property>
+&lt;Property name="FontSize" type="App::PropertyFloat">
+&lt;Float value="5.199999809265"/>
+&lt;/Property>
+&lt;Property name="Justification" type="App::PropertyEnumeration">
+&lt;Integer value="0"/>
+&lt;/Property>
+&lt;Property name="LineSpacing" type="App::PropertyFloat">
+&lt;Float value="0.600000023842"/>
+&lt;/Property>
+&lt;Property name="Rotation" type="App::PropertyAngle">
+&lt;Float value="0.000000000000"/>
+&lt;/Property>
+&lt;Property name="RotationAxis" type="App::PropertyEnumeration">
+&lt;Integer value="2"/>
+&lt;/Property>
+&lt;Property name="TextColor" type="App::PropertyColor">
+&lt;PropertyColor value="4294901760"/>
+&lt;/Property>
+&lt;Property name="Visibility" type="App::PropertyBool">
+&lt;Bool value="true"/>
+&lt;/Property>
+&lt;/Properties>
+&lt;/ViewProvider></pre></div>
+<ul><li><b>Document.xml</b>&#160;: contains all information relating to the constituent objects your project.
+<ul><li>Example with <b>Text004</b></li></ul></li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;Object type="App::Annotation" name="Text004" /></pre></div>
+<p><br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;Object name="Text004">
+&lt;Properties Count="3">
+&lt;Property name="Label" type="App::PropertyString">
+&lt;String value="Text004"/>
+&lt;/Property>
+&lt;Property name="LabelText" type="App::PropertyStringList">
+&lt;StringList count="1">
+&lt;String value="135"/>
+&lt;/StringList>
+&lt;/Property>
+&lt;Property name="Position" type="App::PropertyVector">
+&lt;PropertyVector valueX="-30.000000000000" valueY="26.000000000000" valueZ="0.000000000000"/>
+&lt;/Property>
+&lt;/Properties>
+&lt;/Object></pre></div>
+<ul><li> Information such as&#160;:</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;VectorList file="Points1"/> 
+&lt;ColorList file="DiffuseColor"/> 
+&lt;Mesh file="MeshKernel.bms"/> 
+&lt;Part file="PartShape.brp2"/>
+. . . .</pre></div>
+<ul><li> as well as other definitions containers <b>file=</b> relate has a file and if you change example "<b>DiffuseColor</b>" in <b>&lt;ColorList file="DiffuseColor"/&gt;</b> You must also change the name of the file for correspondence.</li>
+<li> Once the Word change is identified, <b>search</b> (your Word) and <b>Replace by</b> (your new word) and click on <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Replace in all open documents</span> and your change will be the same in both files <b>GuiDocument.xml</b> and <b>Document.xml</b>.</li>
+<li> When changes are complete, return to the tool <b>Menu &gt; Tools &gt; Project utility... Create project</b></li>
+<li> Source&#160;: Give the path of the file that you just changed and that is to restore.</li>
+<li> Destination&#160;: Give the path of the FCStd file to restore.</li>
+<li> Click <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">...</span> In the new window click on <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Create a new folder</span> (to avoid errors by rewriting the file) and you post. Click on <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Create</span> you can check the "Load project file after creation".</li>
+<li> If you have checked "Load project file after creation" your project will load in FreeCAD.</li>
+<li> <b>PS&#160;:</b> It is imperative that it have concordance GuiDocument.xml, Document.xml documents and files without which there will be errors in your .FCStd file. To do this should always work on a copy of your project.</li></ul>
+<h2><span class="mw-headline" id="Other">Other</span></h2>
+<p>Here, a file Converter utility <a href="ImageConv.html" title="ImageConv">ImageConv</a>.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=File_Format_FCStd/id&amp;oldid=151916">http://www.freecadweb.org/wiki/index.php?title=File_Format_FCStd/id&amp;oldid=151916</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

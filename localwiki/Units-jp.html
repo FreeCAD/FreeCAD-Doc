@@ -1,0 +1,368 @@
+<html><head><title>Units/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Units/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Here some reading about units:
+</p>
+<ul><li><a rel="nofollow" class="external text" href="Units.html">SI system</a></li>
+<li><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Imperial_units">Imperial units</a></li>
+<li><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/SI_derived_unit">SI derived units</a></li>
+<li><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Degree_%28angle%29">angle units</a></li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Examples"><span class="tocnumber">1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Supported_units"><span class="tocnumber">2</span> <span class="toctext">Supported units</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Purpose_and_principles:_proposal_of_an_extension_of_the_unit_management_system"><span class="tocnumber">3</span> <span class="toctext">Purpose and principles: proposal of an extension of the unit management system</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Outcome"><span class="tocnumber">4</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Brainstorming"><span class="tocnumber">5</span> <span class="toctext">Brainstorming</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Context_1:_opening_a_data_file"><span class="tocnumber">5.1</span> <span class="toctext">Context 1: opening a data file</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Context_2:_switching_the_unit_system_at_runtime"><span class="tocnumber">5.2</span> <span class="toctext">Context 2: switching the unit system at runtime</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Organizing"><span class="tocnumber">6</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Logic_of_unit_scaling"><span class="tocnumber">6.1</span> <span class="toctext">Logic of unit scaling</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Unit_coherence_throughout_the_FreeCAD_running_instance"><span class="tocnumber">6.1.1</span> <span class="toctext">Unit coherence throughout the FreeCAD running instance</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Unit_system"><span class="tocnumber">6.1.2</span> <span class="toctext">Unit system</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Base_and_derived_units"><span class="tocnumber">6.1.3</span> <span class="toctext">Base and derived units</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Base_and_derived_unit_symbols"><span class="tocnumber">6.1.4</span> <span class="toctext">Base and derived unit symbols</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Data_model"><span class="tocnumber">6.2</span> <span class="toctext">Data model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Unit"><span class="tocnumber">6.2.1</span> <span class="toctext">Unit</span></a>
+<ul>
+<li class="toclevel-4 tocsection-16"><a href="#Dimension"><span class="tocnumber">6.2.1.1</span> <span class="toctext">Dimension</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#Signature"><span class="tocnumber">6.2.1.2</span> <span class="toctext">Signature</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#Symbols"><span class="tocnumber">6.2.1.3</span> <span class="toctext">Symbols</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-19"><a href="#Unit_dictionary"><span class="tocnumber">6.2.2</span> <span class="toctext">Unit dictionary</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="Units.html"><span class="tocnumber">6.2.2.1</span> <span class="toctext">Units</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-21"><a href="#Unit_system_2"><span class="tocnumber">6.2.3</span> <span class="toctext">Unit system</span></a>
+<ul>
+<li class="toclevel-4 tocsection-22"><a href="#Name"><span class="tocnumber">6.2.3.1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="#Magnitudes"><span class="tocnumber">6.2.3.2</span> <span class="toctext">Magnitudes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-24"><a href="#Unit_management_API"><span class="tocnumber">6.2.4</span> <span class="toctext">Unit management API</span></a>
+<ul>
+<li class="toclevel-4 tocsection-25"><a href="#Checking_the_unit_dictionary"><span class="tocnumber">6.2.4.1</span> <span class="toctext">Checking the unit dictionary</span></a>
+<ul>
+<li class="toclevel-5 tocsection-26"><a href="#isValid"><span class="tocnumber">6.2.4.1.1</span> <span class="toctext">isValid</span></a></li>
+<li class="toclevel-5 tocsection-27"><a href="#isCompatibleWithThisSignature"><span class="tocnumber">6.2.4.1.2</span> <span class="toctext">isCompatibleWithThisSignature</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-28"><a href="#Scaling_units"><span class="tocnumber">6.2.4.2</span> <span class="toctext">Scaling units</span></a>
+<ul>
+<li class="toclevel-5 tocsection-29"><a href="#scaleUnitFromSymbolToSymbol"><span class="tocnumber">6.2.4.2.1</span> <span class="toctext">scaleUnitFromSymbolToSymbol</span></a></li>
+<li class="toclevel-5 tocsection-30"><a href="#scaleUnitFromSymbolToUnitSystem"><span class="tocnumber">6.2.4.2.2</span> <span class="toctext">scaleUnitFromSymbolToUnitSystem</span></a></li>
+<li class="toclevel-5 tocsection-31"><a href="#scaleUnitFromUnitSystemToSymbol"><span class="tocnumber">6.2.4.2.3</span> <span class="toctext">scaleUnitFromUnitSystemToSymbol</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-32"><a href="#Motivations_for_such_a_management:_example_of_application"><span class="tocnumber">6.2.5</span> <span class="toctext">Motivations for such a management: example of application</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="#Next_actions"><span class="tocnumber">7</span> <span class="toctext">Next actions</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<pre># -- some examples of the FreeCAD unit translation system --
+# make a shortcut for the examples
+tu = App.Units.translateUnit
+
+# 10 meters in internal numbers
+tu('10 m')
+# doing math
+tu('3/8 in')
+# combined stuff
+tu('100 km/h')
+# transfer to other units
+tu('100 km/h')/tu('m/s')
+# derived units (Ohm)
+tu('m^2*kg*s^-3*A^-2')
+# or
+tu('(m^2*kg)/(A^2*s^3)')
+# angles 
+tu('2*pi rad') # full circle
+# as gon
+tu('2*pi rad') / tu('gon')
+# more imperial
+tu('1fo+(3+7/16)in')
+# or 
+tu('1\'+(3+7/16)"') # the ' we have to escape because of python
+# trigonometry
+tu('sin(pi)')
+# Using translated units as parameters, this command will create a 50.8mm x 20mm x 10mm box
+b = Part.makeBox(tu('2in'),tu('2m')/100,10)
+</pre>
+<h2><span class="mw-headline" id="Supported_units">Supported units</span></h2>
+<p>Here the defined units in FreeCAD so far. It's easy to add a new user defined unit. The definition is here<a rel="nofollow" class="external autonumber" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Base/UnitsApi.l?view=markup">[1]</a>. 
+</p><p>Metric length
+</p>
+<pre>"mm"    1.0;        // millimeter       (internal standard length)
+"m"     1000.0;     // meter
+"cm"    10.0;       // centimeter
+"dm"    100.0;      // decimeter
+"km"    1000000.0;  // kilometer
+</pre>
+<p>Imperial lenth
+</p>
+<pre>"in" "\""  25.4;       // inch
+"fo" "'"   304.8;      // foot
+"th"       0.0254;     // thou
+"yr"       914.4;      // yard
+</pre>
+<p>Metric mass
+</p>
+<pre>"kg"    1.0;        // kilogram       (internal standard mass)
+"g"     0.001;      // gram
+"mg"    0.000001;   // milligram
+"t"     1000.0;     // ton 
+</pre>
+<p>Imperial mass
+</p>
+<pre>"lb"    0.45359237; // pound
+"oz"    0.45359237; // ounce
+"st"    6.35029318; // Stone
+"cwt"   50.80234544;// hundredweights
+</pre>
+<p>Angle
+</p>
+<pre>"deg"   1.0;        // degree         (internal standard angle)
+"rad"   180/M_PI;   // radian         
+"gon"   360.0/400.0;// gon         
+</pre>
+<p>Time
+</p>
+<pre>"s"     1.0;        // second         (internal standard time)
+"min"   60.0;       // minute
+"h"     3600.0;     // hour  
+</pre>
+<p>Rest of SI
+</p>
+<pre>"A"     1.0;        // Ampere         (internal standard electric current)
+"K"     1.0;        // Kelvin         (internal standard thermodynamic temperature)
+"cd"    1.0;        // Candela        (internal standard luminous intensity)        
+"mol"   1.0;        // Mole           (internal standard amount of substance)        
+</pre>
+<p>Metric Volume
+</p>
+<pre>"yl"    1.0;        // microliter mm^3(derived  standard volume)
+"ml"    1000.0;     // milliliter cm^3    
+"l"     1000000.0;  // Liter      dm^3
+</pre>
+<h2><span class="mw-headline" id="Purpose_and_principles:_proposal_of_an_extension_of_the_unit_management_system">Purpose and principles: proposal of an extension of the unit management system</span></h2>
+<p>An extension unit management system is proposed in the following sections, developping the concept of <i>unit system</i>, activated during a running FreeCAD instance.
+The interest in defining such a new concept is to work more easily with as many type of <b>physical</b> units as one wants (even user-created ones), without increasing the complexity of unit management for the user, nor for FreeCAD developpers.
+</p><p>In short, event of unit scaling are localized precisely, and carried out in a generic fashion.
+</p><p>Achieving such a flexibility is most notably required when one starts to deal with material properties that can have very different units, difficult to manage one by one manually.
+</p><p>The reasoning proposed allows handling the units such as described in the <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a> and <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a> both from NIST.
+</p><p>In this proposal, one first recall in <a href="/wiki/Units#Brainstorming" title="Units">Brainstorming</a> section what are the possible contexts for which unit management is required.
+</p><p>In <a href="/wiki/Units#Organizing" title="Units">Organizing</a> section, we present the data model retained to achieve unit management, based on 3 objects, the <i>unit</i>, the <i>unit dictionary</i>, and the <i>unit system</i>.
+Finally, a short API of a 4th object called the <i>unit manager</i> is presented as well.
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<p>Thanks to this extension, one aims to ease unit scaling that can occurs between different business tasks. For instance, technical drawings can be done in standard unit system, while FE modelling can be managed in an unit system more suited for it.
+</p><p>The exchange of data between these two kind of activities become easier with this extension.
+</p>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<p>In this section are highlighted the contexts of use of such an unit management system.
+From these contexts, we are then able to defined its technical specifications.
+</p><p>Essentially 2 contexts are given as example.
+</p>
+<h3><span class="mw-headline" id="Context_1:_opening_a_data_file">Context 1: opening a data file</span></h3>
+<p>This case is probably the most frequent case.
+You receive a file containing for instance a geometrical model, or describing a material with quite a lot of properties. The geometrical model is expressed in meters, or the material properties according the international unit system.
+</p><p>Too bad...
+</p><p>You are an expert FE modelling, and you usually work with millimeter for length, MegaPascal for stress, tonne for mass...
+</p><p>In this context, unit management is required to scale data from an initial unit system defined in the input file to a user-defined target unit system.
+</p>
+<h3><span class="mw-headline" id="Context_2:_switching_the_unit_system_at_runtime">Context 2: switching the unit system at runtime</span></h3>
+<p>In this case, you can be at the same time the guy that carries out a drawing, and the guy that will manage the FE modelling. Similarly to the previous case, the unit systems for these 2 tasks are not the same, and you need to switch the initial unit system at runtime to your favorite one.
+</p>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<h3><span class="mw-headline" id="Logic_of_unit_scaling">Logic of unit scaling</span></h3>
+<p>In the <a href="/wiki/Units#Brainstorming" title="Units">Brainstorming</a> section have been presented 2 contexts when using unit scaling.
+Some items should be highlighted from these two contexts.
+</p>
+<h4><span class="mw-headline" id="Unit_coherence_throughout_the_FreeCAD_running_instance">Unit coherence throughout the FreeCAD running instance</span></h4>
+<p>The system proposed is based on a primary assumption: the user is working in a coherent unit system.
+For instance, this means that if the user expresses length in millimeters, necessarily areras will be expressed in terms of squared millimeters, not squared meters.
+This is <b>hypothesis one</b>.
+</p>
+<h4><span class="mw-headline" id="Unit_system">Unit system</span></h4>
+<p>Because of <i>hypothesis one</i>, it is possible and relevant to define an unit system.
+An unit system applies to:
+</p>
+<ul><li> a running FreeCAD instance into which you are working</li>
+<li> or it may also apply globally to the content of an input file</li></ul>
+<p>According <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a> from NIST, they are 7 physical base units.
+We chose to express a unit system in terms of these 7 base units.
+</p><p>When working within an instance of FreeCAD, the user has thus to define first the unit system according to which she/he is working before she/he decides to switch to another unit system, or before importing data from an input file.
+</p><p>This unit system will apply till the user decides to change it. If she/he does, all data with dimensions will be scaled.
+</p><p>Considering <i>hypothesis one</i>, all data that the user will input manually in FreeCAD are assumed to be coherent with the chosen unit system.
+</p><p>The benefit to work with a <i>unit system</i> defined at a FreeCAD running instance level, or at data file level (instead of <i>unit</i> which are defined at the data level) is then that unit management is considerably simplified.
+</p><p>Here are some examples of unit systems.
+</p>
+<ul><li> meter, kilogram, second, ampere, Kelvin, mole, candela</li>
+<li> millimeter, tonne, millisecond, ampere, Kelvin, mole, candela</li>
+<li> millimeter, kilogramme, millisecond, ampere, Kelvin, mole, candela</li>
+<li>...</li></ul>
+<h4><span class="mw-headline" id="Base_and_derived_units">Base and derived units</span></h4>
+<p>Derived units are created by combination of base units. For instance, an acceleration (m/s) combines at the same time length and time. An interesting picture presenting the relationships between base and derived units can be seen <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/SIDiagramColorAnnot.pdf">here</a> also from NIST.
+</p><p>Thanks to the definition of <i>unit system</i>, it is possible for the user to work with any kind of derived units, without the need for FreeCAD developpers to foresee them in advance.
+</p>
+<h4><span class="mw-headline" id="Base_and_derived_unit_symbols">Base and derived unit symbols</span></h4>
+<p>According to <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>, the symbols to specify a units are officially approved. Two consequences can be highlighted from this.
+</p>
+<ul><li> it is not easy for a computer program to work with unit symbols because some are greek letters for instance. Hence they can be a bit difficult to process by a program</li>
+<li> while some units and their symbols can be used widely, they may be not approved officially, like for instance <i>tonne</i> unit (see p32 of <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>)</li></ul>
+<p>To overcome these limitations and remain flexible, the proposed system favors the use of unit magnitudes instead of unit symbols, which remain nonetheless available for an ergonomy reason.
+</p>
+<h3><span class="mw-headline" id="Data_model">Data model</span></h3>
+<p>The three core objects of the unit management system are presented, namely the <i>unit</i>, the <i>unit dictionary</i> and the <i>unit system</i>.
+</p>
+<h4><span class="mw-headline" id="Unit">Unit</span></h4>
+<p>As a foreword, it is important to highlight that a <i>unit</i> object in itself only indicates a <b>dimension</b> like length, mass, time... It doesn't specify a <b>magnitude</b> like meter, millimeter, kilometer... This last information is specified through the unit system.
+</p>
+<h5><span class="mw-headline" id="Dimension">Dimension</span></h5>
+<p>Compulsory string indicating the <i>dimension</i> of the unit. The <i>dimension</i> of the 7 base units are indicated below (from <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a>).
+</p>
+<ul><li> LENGTH</li>
+<li> MASS</li>
+<li> TIME</li>
+<li> ELECTRIC CURRENT</li>
+<li> THERMODYNAMIC TEMPERATURE</li>
+<li> AMOUNT OF SUBSTANCE</li>
+<li> LUMINOUS INTENSITY</li></ul>
+<p><i>Dimension</i> attribute allows identifying the unit.
+Two units cannot share the same <i>dimension</i>.
+</p>
+<h5><span class="mw-headline" id="Signature">Signature</span></h5>
+<p>Compulsory integer array of size 7 (number of base units) that defines what the unit is.
+The signature of the 7 base units are:
+</p>
+<ul><li> LENGTH: [1,0,0,0,0,0,0]</li>
+<li> MASS: [0,1,0,0,0,0,0]</li>
+<li> TIME: [0,0,1,0,0,0,0]</li>
+<li> ELECTRIC CURRENT: [0,0,0,1,0,0,0]</li>
+<li> THERMODYNAMIC TEMPERATURE: [0,0,0,0,1,0,0]</li>
+<li> AMOUNT OF SUBSTANCE: [0,0,0,0,0,1,0]</li>
+<li> LUMINOUS INTENSITY: [0,0,0,0,0,0,1]</li></ul>
+<p>From these 7 units, we are then able to express all derived units defined in <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a> and create new ones as needed such as for instance:
+</p>
+<ul><li> MASS DENSITY: [-3,1,0,0,0,0,0]</li>
+<li> AREA: [0,2,0,0,0,0,0]</li></ul>
+<p><i>Signature</i> is the attribute thanks to which unit scaling can be achieved in a generic way.
+</p>
+<h5><span class="mw-headline" id="Symbols">Symbols</span></h5>
+<p>Array of [real, string] (meaning [<i>magnitude</i>, <i>symbol</i>]) that lists all <i>symbols</i> known by FreeCAD.
+Thanks to this array, the unit scaling API becomes more ergonomic because <i>symbols</i> and related <i>magnitudes</i> are linked.
+</p><p>This array can be extended as required.
+</p><p>For instance, the list of <i>symbols</i> of the LENGTH unit, and their related <i>magnitudes</i> is:
+</p>
+<pre>[1e+12,"Tm"],[1e+09,"Gm"],[1e+06,"Mm"],
+[1e+03,"km"],[1e+02,"hm"],[1e+01,"dam"],
+[1e+00,"m"],[1e-01,"dm"],[1e-02,"cm"],
+[1e-03,"mm"],[1e-06,"ym"],[1e-09,"nm"],
+[1e-12,"pm"],[1e-15,"fm"]
+</pre>
+<p>Standard <i>symbols</i> can be found on <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/Units/units.html">NIST website</a> and p23 to 26 and p32 (<i>metric ton</i> or <i>tonne</i>) of <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>.
+</p>
+<h4><span class="mw-headline" id="Unit_dictionary">Unit dictionary</span></h4>
+<p>All the units available in FreeCAD, and new ones created by the user, should be stored in <i>unit dictionary</i>, which is an XML file (FreeCAD configuration file), so as to be retrieved when needed, i.e. when achieving unit scaling.
+</p>
+<h5><span class="mw-headline" id="Units">Units</span></h5>
+<p>Array of units, contained in the <i>unit dictionary</i>.
+</p>
+<h4><span class="mw-headline" id="Unit_system_2">Unit system</span></h4>
+<p>A <i>unit system</i> is the object that allows the user defining the current unit <i>magnitude</i> of each base units with which she/he is working.
+For instance, knowing that the user is working with millimeter, tonne, and second, thanks to the use of a unit system, FreeCAD can know that energy is expressed in terms of milliJoule, force in terms of Newton, and stress in terms of MegaPascal.
+Hence a unit system is only defined by a <i>name</i> (for instance <i>Standard unit system</i>) and a <i>magnitude table</i> specifying for each of the 7 base units, what is its corresponding <i>magnitude</i>.
+</p>
+<h5><span class="mw-headline" id="Name">Name</span></h5>
+<p>String allowing to the user identifying what is the unit system.
+</p>
+<h5><span class="mw-headline" id="Magnitudes">Magnitudes</span></h5>
+<p>By specifying the magnitude of the 7 base units, a unit system is defined.
+</p><p>For instance [1e-03, 1e+03, 1, 1, 1, 1, 1], meaning millimeter, tonne, second, ampere, Kelvin, mole, candela
+</p>
+<h4><span class="mw-headline" id="Unit_management_API">Unit management API</span></h4>
+<p>Only the logic of some methods is presented, in order to highlight some features.
+These methods could belong to an object called <i>Unit manager</i>.
+</p>
+<h5><span class="mw-headline" id="Checking_the_unit_dictionary">Checking the unit dictionary</span></h5>
+<h6><span class="mw-headline" id="isValid">isValid</span></h6>
+<p>The unit dictionary can be an XML file (FreeCAD configuration file). It contains a list of defined units.
+Such a dictionary is required for the proposed unit management system to work.
+</p><p>It must fulfills some conditions that should be checked before activating the unit management system.
+These conditions are:
+</p>
+<ul><li> check that all base units are defined</li>
+<li> check that a <i>dimension</i> is not defined twice through the units</li>
+<li> check that a <i>symbol</i> is not defined twice in all the existing symbols</li>
+<li> check that the <i>signatures</i> of all units have all the same size</li>
+<li> chacke that a <i>standard symbol</i> (for which <i>magnitude</i> is 1) is defined for all units</li></ul>
+<h6><span class="mw-headline" id="isCompatibleWithThisSignature">isCompatibleWithThisSignature</span></h6>
+<p>A unit dictionary defines a set of units and their known magnitudes.
+When managing a unit, it is relevant to check that its signature is compatible with the set of units registered in the unit dictionary, so as to process it.
+This check includes:
+</p>
+<ul><li> check that the input <i>signature</i> length is of the same size than the unit dictionary unit <i>signatures</i></li></ul>
+<h5><span class="mw-headline" id="Scaling_units">Scaling units</span></h5>
+<h6><span class="mw-headline" id="scaleUnitFromSymbolToSymbol">scaleUnitFromSymbolToSymbol</span></h6>
+<p>Knowing a value, an initial unit by its symbol, the target unit by its symbol, scale the value.
+</p>
+<h6><span class="mw-headline" id="scaleUnitFromSymbolToUnitSystem">scaleUnitFromSymbolToUnitSystem</span></h6>
+<p>Knowing a value, an initial unit by its symbol, the target unit system, scale the value.
+</p>
+<h6><span class="mw-headline" id="scaleUnitFromUnitSystemToSymbol">scaleUnitFromUnitSystemToSymbol</span></h6>
+<p>Knowing a value, an initial unit system, the target unit by its symbol, scale the value.
+</p>
+<h4><span class="mw-headline" id="Motivations_for_such_a_management:_example_of_application">Motivations for such a management: example of application</span></h4>
+<p>Let's assume that we are going to setup a finite element model.
+To build our model, we need the mesh, material properties, and to define numerical parameters.
+Considering that they can be tens of material properties to manage, expressed with different units, sometimes not always very common, it is interesting for the user to only have to specify a global unit system, without caring much.
+</p><p>FreeCAD would then just do the job.
+</p><p>As FreeCAD developpers and FreeCAD users do not necessarily know all units that can be defined in the material property files, it is interesting to rely on a generic system.
+</p><p>Let's assume that in such a file we have a fair number of exotic material properties expressed with exotic units, and that we want to work in a specific unit system.
+</p><p>It is easy with the proposed extension to scale any of these properties by knowing their signatures, magnitudes, and the target unit system.
+</p><p><br />
+For each of the properties, the scaling is obtained by multiplying the initial property value with the factor &lt;math&gt;\frac{initialMagnitude}{targetMagnitude}&lt;/math&gt;.
+</p><p>The <i>targetMagnitude</i> is then simply obtained with the operation &lt;math&gt;\prod_{bu} targetMagnitude_{bu}^{signature_{bu}}&lt;/math&gt;, <i>bu</i> standing for <i>base unit</i>.
+</p><p>It becomes thus very easy to manage any number of properties with any kind of units with very few lines of Python.
+</p>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Implementing Quantity and Unit classes (mostly done)</li>
+<li> Implementing InputField as User front end (in progress)</li>
+<li> UnitsCalculator as test bed (in progress)</li>
+<li> <a href="Quantity.html" title="Quantity">Quantity</a> documentation (in progress)</li>
+<li> UnitsCalculator documentation </li>
+<li> Update Material framework to work only with Quantities</li>
+<li> Test Cases</li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Units/jp&amp;oldid=92021">http://www.freecadweb.org/wiki/index.php?title=Units/jp&amp;oldid=92021</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

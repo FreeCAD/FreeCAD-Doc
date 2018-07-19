@@ -1,0 +1,160 @@
+<html><head><title>Macro cutLine/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro cutLine/fr</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_cutLine/fr&amp;redirect=no" class="mw-redirect" title="Macro cutLine/fr">Macro cutLine/fr</a>)</span></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Cut_Line"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Cut Line</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Coupe une ligne en donnant comme argument le nombre de coupures, création de lignes ou non, biscolor, points.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-03-08
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Cut_Line"><span class="tocnumber">1</span> <span class="toctext">Macro Cut Line</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Liens"><span class="tocnumber">5</span> <span class="toctext">Liens</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette petite macro coupe une ligne en plusieurs lignes en donnant comme arguments le nombre de coupures, avec création de lignes ou non, colorer les lignes coupées par alternativement rouge puis blanche, création de points à l'endroit de la coupure ou non.
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_cutLine_00.png" class="image" title="cutLine"><img alt="cutLine" src="400px-Macro_cutLine_00.png" width="400" height="300" srcset="/wiki/images/thumb/d/dd/Macro_cutLine_00.png/600px-Macro_cutLine_00.png 1.5x, /wiki/images/d/dd/Macro_cutLine_00.png 2x" /></a></div>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Vous pouvez l'utiliser dans une macro.
+</p><p>Si la macro complète est collée dans l'éditeur Python de FreeCAD utilisez la commande suivante&#160;:
+</p>
+<pre>cutLine(4, createLine = 1, biColor = 1, createPoint = 0) </pre>
+<ul><li><b>4&#160;:</b> nombre de coupures</li>
+<li><b>createPoint</b>&#160;: crée un point si (&gt;0) ou non (0) (Défaut 1)</li>
+<li><b>createLine</b>&#160;: crée les coupures de lignes (&gt;0) ou non (0) (Défaut 0)</li>
+<li><b>biColor</b>&#160;: crée les lignes biColor (alternativement rouge puis blanche) (&gt;0) ou non (0) (Défaut 0)</li></ul>
+<p><br />
+Vous pouvez changer la valeur de la couleur des lignes par défaut dans la macro.
+</p><p>Avec l'option bisColor les lignes sont créées de couleurs rouge et blanche, la couleur par défaut est modifiable dans le code aux lignes 19 et 22.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_cutLine.FCMacro</b>
+</p>
+<pre>#################################################################
+# http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=4217&amp;hilit=discretize
+
+__title__   = "cutLine"
+__author__  = "Mario52"
+__version__ = "00.01"
+__date__    = "08/03/2015"
+
+import Draft, Part
+def cutLine(numberOfPoints = 2, createPoint = 1, createLine = 0, biColor = 0):           # create a points of forme
+
+    def createLines(numberOfPoints, points, biColor):                                        # create line
+        biscolor = 0
+        for lin in range(numberOfPoints-1):
+            creaLine = [FreeCAD.Vector(points[lin]),FreeCAD.Vector(points[lin+1])]
+            wire = Draft.makeWire(creaLine,closed=False,face=False,support=None)
+            if biColor&#160;!= 0:                                                                 # biColor 
+                if biscolor == 0:
+                    FreeCADGui.ActiveDocument.getObject(wire.Name).LineColor = (1.0,0.0,0.0) # 255 = 1 (10 = (1/255 * 10 ))
+                    biscolor = 1
+                else:
+                    FreeCADGui.ActiveDocument.getObject(wire.Name).LineColor = (1.0,1.0,1.0) # 255 = 1 (10 = (1/255 * 10 ))
+                    biscolor = 0
+    try:
+        points = []
+        points[:] = []
+        selectionObjects = FreeCADGui.Selection.getSelectionEx()         # getSelectionEx
+        numberOfPoints += 1
+        for selection in selectionObjects:
+            compteur = pas = 0
+            for selectedEdge in selection.SubObjects:
+#                    FreeCAD.Console.PrintMessage(selectionObjects[0].SubElementNames[compteur] + "\n")                   
+                    print selectionObjects[0].SubElementNames[compteur]  # getSelectionEx
+                    compteur += 1                                              
+                    points = selectedEdge.discretize(numberOfPoints)   
+                    if createLine&#160;!= 0:
+                        createLines(numberOfPoints, points, biColor)
+                    for p in points:
+                        if createPoint&#160;!= 0:
+                            Draft.makePoint( p.x, p.y, p.z)
+#                        FreeCAD.Console.PrintMessage(str(compteur)+" X"+ str(p.x)+" Y"+ str(p.y)+ " Z"+ str(p.z) + "\n")
+                        print compteur," X", p.x, " Y", p.y, " Z", p.z
+                    pas = 1                                              #
+
+            if pas == 0:                                                 # the not SubObjects
+                selectionObjects = FreeCADGui.Selection.getSelection()   # select all elements
+#                FreeCAD.Console.PrintMessage(selectionObjects[0].Name + "\n")
+                print selectionObjects[0].Name                           # getSelection()
+                compteur = 0
+                for ii in enumerate(selectionObjects[0].Shape.Edges): 
+                    compteur += 1
+                    points = ii[1].discretize(numberOfPoints)            # discretize the element
+                    for p in points:
+                        if createPoint&#160;!= 0:
+                            Draft.makePoint( p.x, p.y, p.z)              # create points
+#                        FreeCAD.Console.PrintMessage(str(compteur)+" X"+ str(p.x)+" Y"+ str(p.y)+ " Z"+ str(p.z) + "\n")
+                        print compteur, " X", p.x, " Y", p.y, " Z", p.z  # list and display the coordinates
+                    if createLine&#160;!= 0:
+                        createLines(numberOfPoints, points, biColor)
+    except:
+#        FreeCAD.Console.PrintError("Error" + "\n" + "Give&#160;: cutLine(numberOfPoints = 2, createPoint = 1, createLine = 0, biColor = 0)"+"\n")
+        print "Error&#160;: Give cutLine(numberOfPoints = 2, createPoint = 1, createLine = 0, biColor = 0)"
+
+
+#cutLine(2, createLine = 1, biColor = 1, createPoint = 0) </pre>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<p>Cette macro utilise la fonction discretize <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=4217&amp;hilit=discretize">voir le code original</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Cut_Line/fr&amp;oldid=240655">http://www.freecadweb.org/wiki/index.php?title=Macro_Cut_Line/fr&amp;oldid=240655</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

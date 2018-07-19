@@ -1,0 +1,98 @@
+<html><head><title>Feature list/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Feature list/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>本文是变动的，并未完成的 FreeCAD 功能特性列表。如果您想查看未来规划，请看<a href="Development_roadmap.html" title="Development roadmap">开发路线图</a>，需要快速浏览请查看<a href="Screenshots.html" title="Screenshots">截图</a>。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E9.80.9A.E7.94.A8.E7.89.B9.E6.80.A7"><span class="tocnumber">1</span> <span class="toctext">通用特性</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E5.9F.BA.E6.9C.AC.E5.BA.94.E7.94.A8"><span class="tocnumber">1.1</span> <span class="toctext">基本应用</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E6.96.87.E6.A1.A3.E7.BB.93.E6.9E.84"><span class="tocnumber">1.2</span> <span class="toctext">文档结构</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E7.94.A8.E6.88.B7.E6.8E.A5.E5.8F.A3"><span class="tocnumber">1.3</span> <span class="toctext">用户接口</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#.E5.BA.94.E7.94.A8.E7.A8.8B.E5.BA.8F.E7.89.B9.E5.AE.9A.E5.8A.9F.E8.83.BD"><span class="tocnumber">2</span> <span class="toctext">应用程序特定功能</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Meshes"><span class="tocnumber">2.1</span> <span class="toctext">Meshes</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#2D_Drafting"><span class="tocnumber">2.2</span> <span class="toctext">2D Drafting</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#CAD"><span class="tocnumber">2.3</span> <span class="toctext">CAD</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E5.85.89.E7.BA.BF.E8.BF.BD.E8.B8.AA.E6.A8.A1.E5.9D.97Raytracing"><span class="tocnumber">2.4</span> <span class="toctext">光线追踪模块Raytracing</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E5.9B.BE.E5.83.8F.E6.A8.A1.E5.9D.97_Drawing"><span class="tocnumber">2.5</span> <span class="toctext">图像模块 Drawing</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#CAM_.E6.A8.A1.E5.9D.97_CAM"><span class="tocnumber">2.6</span> <span class="toctext">CAM 模块 CAM</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E9.80.9A.E7.94.A8.E7.89.B9.E6.80.A7">通用特性</span></h2>
+<h3><span class="mw-headline" id=".E5.9F.BA.E6.9C.AC.E5.BA.94.E7.94.A8">基本应用</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Freecad09-thumbnail.jpg" class="image"><img alt="Freecad09-thumbnail.jpg" src="Freecad09-thumbnail.jpg" width="300" height="180" /></a></div>
+<ul><li><b>FreeCAD 是跨平台的</b>。 它在 Windows Linux 和 Mac OSX 等平台上运行表现一致。</li></ul>
+<ul><li> <b>FreeCAD 是图形化应用程序</b>。 FreeCAD 基于著名的 GUI 框架 <a rel="nofollow" class="external text" href="http://www.qtsoftware.com/">Qt</a> 完全图形化，使用 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">Open Inventor</a> 来获得快速的 3D 渲染和显示。</li></ul>
+<ul><li> <b>FreeCAD 也可以作为命令行程序使用</b>，以更小的内存占用运行。 命令行下的 FreeCAD 没有图形化界面但保留了所有的几何工具。例如，它可以作为服务来为其它的应用运行。</li></ul>
+<ul><li> <b>FreeCAD 可以当作 <a href="Embedding_FreeCAD.html" title="Embedding FreeCAD">Python module</a> 来使用</b>，其它使用 Python 的应用程序可以在终端模式下使用 FreeCAD 的全部集合工具。</li></ul>
+<ul><li> <b>需要时以插件／模块框架载入功能／数据类型</b>。 FreeCAD 被分成了核心应用和其他模块。其他模块仅仅当使用时才加载。几乎所有的工具和几何类型都封装在模块中。模块如同插件可以从已安装的 FreeCAD 安装或卸载。</li></ul>
+<ul><li> <b>内建脚本框架 <a href="Scripting.html" class="mw-redirect" title="Scripting">scripting</a> </b>: FreeCAD 内建 <a rel="nofollow" class="external text" href="http://www.python.org/">Python</a> 脚本解释器以及几乎覆盖 FreeCAD 所有应用，接口，几何，显示 3D 视图的 API。解释器可以单独运行复杂的脚本。实际上，整个模块都可以使用 Python 编程。</li>
+<li> <b>MSI 安装器</b> 可以方便 Windows 系统安装 FreeCAD。 Ubuntu 系统上的包也在维护中。</li></ul>
+<h3><span class="mw-headline" id=".E6.96.87.E6.A1.A3.E7.BB.93.E6.9E.84">文档结构</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Freecad-vista01.jpg" class="image"><img alt="Freecad-vista01.jpg" src="300px-Freecad-vista01.jpg" width="300" height="186" srcset="/wiki/images/thumb/6/64/Freecad-vista01.jpg/450px-Freecad-vista01.jpg 1.5x, /wiki/images/thumb/6/64/Freecad-vista01.jpg/600px-Freecad-vista01.jpg 2x" /></a></div>
+<ul><li> <b>撤销／恢复机制</b>：通过撤销栈，所有操作都可以撤销和恢复，还可以一次撤销多步。</li></ul>
+<ul><li> <b>操作管理</b>：撤销恢复栈不仅仅存储单个操作，而是存储整个文档的操作，并允许工具定义什么操作必须能撤销和恢复。</li></ul>
+<ul><li> <b>参数化关联文档对象</b>：FreeCAD 文档中的所有对象都可以使用参数定义。参数可以随时变动和计算。对象间的关系也被存储，因此修改对象相应的对象间的关系也随之修改。</li></ul>
+<ul><li> <b>(ZIP压缩的)文件保存格式</b>: FreeCAD 文档以 .fcstd 为扩展名，可以包含多种信息类型，如几何形状信息，脚本以及缩略图图标。</li></ul>
+<h3><span class="mw-headline" id=".E7.94.A8.E6.88.B7.E6.8E.A5.E5.8F.A3">用户接口</span></h3>
+<ul><li> <b>完全个性化／脚本化的图形界面</b>。基于 <a rel="nofollow" class="external text" href="http://www.qtsoftware.com">Qt</a> 的 FreeCAD 的界面完全可以使用 Python 解释器调用。不但 FreeCAD 自己提供的 workbench 函数可以用 Python 调用，Qt 的界面部分也可以调用，例如创建，添加，修改，删除小工具和工具栏。</li></ul>
+<ul><li> <b>工作台概念</b>: FreeCAD 的界面，工具都基于工作台 <a href="Workbenches.html" title="Workbenches">workbenches</a>。一个工作台可被视为一套用于完成某一特定任务的工具，保持整洁且反应灵敏，快速的应用加载。</li></ul>
+<ul><li> <b>内建 Python 终端</b> 语法高亮，自动补全，类浏览：Python 命令可以直接在 FreeCAD 中发出，并立即返回结果，允许脚本编写者快速测试功能，浏览其内容的模块，方便了解 FreeCAD 内部。</li></ul>
+<ul><li> <b>用户和终端交互</b>: 所有用户的 FreeCAD 的操作都执行了 python 代码。这些代码都可以在终端中打印出来和记录为宏。</li></ul>
+<ul><li> <b>完全的记录和编辑宏</b>: 当用户操作时发出 python 命令，这些命令都可以记录，编辑和保存。</li></ul>
+<ul><li> <b>缩略图</b> (当前仅 Linux 系统版本有): FreeCAD 文档的图标可以在大多数文档管理器中显示文档的缩略图。</li></ul>
+<h2><span class="mw-headline" id=".E5.BA.94.E7.94.A8.E7.A8.8B.E5.BA.8F.E7.89.B9.E5.AE.9A.E5.8A.9F.E8.83.BD">应用程序特定功能</span></h2>
+<p>FreeCAD 的功能分别在各个模块中，每个模块处理不同的数据类型和应用:
+</p>
+<h3><span class="mw-headline" id="Meshes"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Workbench_Mesh.png" class="image"><img alt="Workbench Mesh.png" src="Workbench_Mesh.png" width="32" height="32" /></a> <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Meshes</a></span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_mesh.jpg" class="image"><img alt="Screenshot mesh.jpg" src="300px-Screenshot_mesh.jpg" width="300" height="227" srcset="/wiki/images/thumb/d/d8/Screenshot_mesh.jpg/450px-Screenshot_mesh.jpg 1.5x, /wiki/images/thumb/d/d8/Screenshot_mesh.jpg/600px-Screenshot_mesh.jpg 2x" /></a></div>
+<ul><li> 网格模块 <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Mesh Module</a> 处理 3D 网格。该模块主要导入修复和转换第三方生成的网格几何对象进入 FreeCAD，和导出为网格格式，但是 FreeCAD 本身具有比网格更高级的几何类型。</li></ul>
+<ul><li> <b>基本几何形体生成</b> (长方体，球提，圆柱体等)， <b>offset</b> (trivial or after Jung/Shin/Choi) or <b>布尔操作</b> (求和，求差，求交集)</li></ul>
+<ul><li> <b>导入</b>格式：ASCII文本 或二进制 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/STL_%28file_format%29">STL (Stereo lithography 格式)</a> (<b>*.stl, *.ast</b>)，<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Obj">OBJ 格式</a> (<b>*.obj</b>)，有限支持 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/NASTRAN">NASTRAN</a> (<b>*.nas</b>)， <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">Open Inventor</a> 网格 (<b>*.iv</b>)，和 FreeCAD 自带的网格格式 (<b>*.bms</b>)</li></ul>
+<ul><li> <b>导出</b> 格式： ASCII文本 或二进制 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/STL_%28file_format%29">STL (Stereo lithography 格式)</a> (<b>*.stl, *.ast</b>)，<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Obj">OBJ 格式</a> (<b>*.obj</b>)，有限支持 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/NASTRAN">NASTRAN</a> (<b>*.nas, *.brl</b>)，<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/VRML">VRML</a> 网格 (<b>*.wrl</b>)， FreeCAD 自带的网格格式 (<b>*.bms</b>)，划分网格为 Python 模块 (<b>*.py</b>)</li></ul>
+<ul><li> <b>测试和修复</b>网格工具: 可靠的测试，非流形测试，自相交测试，孔填充和统一方向。solid test, non-two-manifolds test, self-intersection test, hole filling and uniform orientation.</li></ul>
+<ul><li> <b>扩展 <a href="Scripting.html" title="Mesh Scripting">Python scripting API</a></b>.</li></ul>
+<h3><span class="mw-headline" id="2D_Drafting"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Workbench_Draft.png" class="image"><img alt="Workbench Draft.png" src="Workbench_Draft.png" width="32" height="32" /></a> <a href="Draft_Module.html" title="Draft Module">2D Drafting</a></span></h3>
+<ul><li> 创建图形 <b>简单平面几何图形</b> 在任何3d图形的平面上绘制线，矩形，圆弧，圆等。</li></ul>
+<ul><li> <b>标注</b> 文字和尺寸</li></ul>
+<ul><li> 图形 <b>修改操作</b> 如 3D 空间任何平面的平移，旋转，缩放，镜像，偏移，形状转换。</li></ul>
+<ul><li> <b>导入</b> 和 <b>导出</b> 以下格式： Autodesk 的 Drawing Exchange Format (<b>*.dxf</b>), Open Cad Format (<b>*.oca, *.gcad</b>) 以及 SVG (<b>*.svg</b>)。</li></ul>
+<h3><span class="mw-headline" id="CAD"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Workbench_Part.png" class="image"><img alt="Workbench Part.png" src="Workbench_Part.png" width="32" height="32" /></a> <a href="Part_Module.html" title="Part Module">CAD</a></span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanOperations.png" class="image" title="An example of union, intersection and difference"><img alt="An example of union, intersection and difference" src="300px-Part_BooleanOperations.png" width="300" height="231" srcset="/wiki/images/thumb/d/df/Part_BooleanOperations.png/450px-Part_BooleanOperations.png 1.5x, /wiki/images/thumb/d/df/Part_BooleanOperations.png/600px-Part_BooleanOperations.png 2x" /></a></div>
+<ul><li> 零件模块 <a href="Part_Module.html" title="Part Module">Part Module</a> 处理所有 CAD 建模和 CAD 数据结构。其他 CAD 功能正在积极开发中(参见 发展路线图<a href="Development_roadmap.html" title="Development roadmap">Development_roadmap</a> 中的零件设计 <a href="PartDesign_project.html" title="PartDesign project">PartDesign_project</a> 和组装 <a href="Assembly_project.html" title="Assembly project">Assembly_project</a> )。零件设计 <a href="Part_Module.html" title="Part Module">Part Module</a> 基于 Open CASCADE <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">Open CASCADE</a> 的几何核心。</li></ul>
+<ul><li> <b>参数化基本形状</b> 如长方形，球形，圆柱形，圆锥，环形。</li></ul>
+<ul><li> 拓扑元件 <b>顶点，边，线</b> 和 <b>平面</b> (通过脚本语言)。</li></ul>
+<ul><li> 直线和旋转建模 <b>拉伸</b>，<b>截面 sections</b> 和 <b>圆角</b>。</li></ul>
+<ul><li> <b><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">布尔操作</a></b> 如 <b>求和</b>，<b>求差</b> 和 <b>求交集</b>。</li></ul>
+<ul><li> <b>更多拓扑脚本和 python API <a href="Topological_data_scripting.html" title="Topological data scripting">Python scripting API</a></b>。</li></ul>
+<ul><li> <b>导入</b> 和 <b>导出</b> 格式： <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Standard_for_the_Exchange_of_Product_model_data">STEP</a> 零件和组装 (<b>*.stp,*.step</b>)，<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/IGES">IGES</a> 模块 (<b>*.igs, *.iges</b>) 和 BRep (<b>*.brp</b>)，自带的 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">Open CASCADE</a> CAD 格式。</li></ul>
+<h3><span class="mw-headline" id=".E5.85.89.E7.BA.BF.E8.BF.BD.E8.B8.AA.E6.A8.A1.E5.9D.97Raytracing">光线追踪模块<a href="Raytracing_Module.html" title="Raytracing Module">Raytracing</a></span></h3>
+<ul><li> 光线追踪模块<a href="Raytracing_Module.html" title="Raytracing Module">Raytracing Module</a> 允许 FreeCAD 几何形体导出到<b>外部渲染</b>以得到新一代高质量图形。现在支持的渲染引擎只有 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/POV-Ray">POV-Ray</a>。目前该模块允许创建一个渲染表。几何形体加入到渲染表后导出到一个 POV-Ray 的文件。</li></ul>
+<h3><span class="mw-headline" id=".E5.9B.BE.E5.83.8F.E6.A8.A1.E5.9D.97_Drawing">图像模块 <a href="Drawing_Module.html" title="Drawing Module">Drawing</a></span></h3>
+<ul><li> 图像模块 <a href="Drawing_Module.html" title="Drawing Module">Drawing Module</a> 允许把您的 3D 几何形体导出到一个 <b>2D SVG 文件</b>。您可以把您的几何形体的工程视图插入到 svg 模板中然后导出为 SVG 文件。</li></ul>
+<h3><span class="mw-headline" id="CAM_.E6.A8.A1.E5.9D.97_CAM">CAM 模块 <a href="https://www.freecadweb.org/wiki/index.php?title=Cam_Module&amp;action=edit&amp;redlink=1" class="new" title="Cam Module (page does not exist)">CAM</a></span></h3>
+<ul><li> CAM 模块 <a href="https://www.freecadweb.org/wiki/index.php?title=Cam_Module&amp;action=edit&amp;redlink=1" class="new" title="Cam Module (page does not exist)">Cam Module</a> 致力于铣等机械加工。这个模块刚刚开始开发，致力于 <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Incremental_sheet_forming">Incremental Sheet Forming 增量板料成形</a>。虽然也有一些刀具路径规划算法，但是对于最用用户还是暂时不可用的。</li></ul>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Feature_list/cn&amp;oldid=174410">http://www.freecadweb.org/wiki/index.php?title=Feature_list/cn&amp;oldid=174410</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

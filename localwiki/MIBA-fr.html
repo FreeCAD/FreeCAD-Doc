@@ -1,0 +1,46 @@
+<html><head><title>MIBA/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>MIBA/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p><b>Miba</b> est une façon d'intégrer des informations sur l'espace <b>3D</b> dans une image <b>2D</b>. Il est donc souvent possible d'utiliser l'image <b>2D</b> au lieu d'une <b>visionneuse 3D</b>.
+</p><p>Avec les informations de <b>Miba</b> vous êtes en mesure de calculer la position d'un lieu en <b>3D</b> dans l'image <b>2D</b>.
+</p><p>Cela vous permet de décorer l'image plus tard, avec des informations <b>3D</b> arbitraires. Vous pouvez prendre la photo au début de la conception, et, l'utiliser plus tard (au cours de la production).
+</p><p>Vous n'avez pas besoin de connaître le type de données <b>3D</b>, ou, les positions lorsque vous prenez la photo. Donc, l'image est complètement séparée des données du projet <b>3D</b>.
+</p><p>Un cahier des charges détaillé, vous pouvez trouver ici: <a rel="nofollow" class="external text" href="http://miba.juergen-riegel.net/">MIBA</a>
+</p>
+<h2><span class="mw-headline" id="Miba_dans_FreeCAD">Miba dans FreeCAD</span></h2>
+<p>Si vous choisissez un format de fichier qui a la capacité d'inclure un commentaire (<a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/JPEG">JPG</a> et <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Portable_Network_Graphics">PNG</a>), vous pouvez choisir, d'écrire un commentaire, ou d'insérer les informations de la <b>MIBA</b> dans le champ de commentaire (activé par défaut)&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Save_picture.png" class="image"><img alt="Save picture.png" src="Save_picture.png" width="811" height="412" /></a>
+</p>
+<h2><span class="mw-headline" id="Faire_des_photos_Miba_avec_un_script">Faire des photos Miba avec un script</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Part,PartGui
+ # loading test part
+ Part.open("C:/Documents and Settings/jriegel/My Documents/Projects/FreeCAD/data/Blade.stp")
+ OutDir = 'c:/temp/'
+ Gui.ActiveDocument.ActiveView.setAnimationEnabled(False)
+ 
+ # creating images with different Views, Cameras and sizes
+ for p in ["PerspectiveCamera","OrthographicCamera"]:
+   Gui.SendMsgToActiveView(p)
+   for f in ["ViewAxo","ViewFront","ViewTop"]:
+     Gui.SendMsgToActiveView(f)
+     for x,y in [[500,500],[1000,3000],[3000,1000],[3000,3000],[8000,8000]]:
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".jpg",x,y,"White")
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".png",x,y,"Transparent")
+ 
+ # close active document
+ App.closeDocument(App.ActiveDocument.Name)</pre></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=MIBA/fr&amp;oldid=84042">http://www.freecadweb.org/wiki/index.php?title=MIBA/fr&amp;oldid=84042</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

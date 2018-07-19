@@ -1,0 +1,142 @@
+<html><head><title>3Dconnexion input devices/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>3Dconnexion input devices/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpaceNavigator.jpg" class="image"><img alt="" src="200px-SpaceNavigator.jpg" width="200" height="133" class="thumbimage" srcset="/wiki/images/thumb/e/ea/SpaceNavigator.jpg/300px-SpaceNavigator.jpg 1.5x, /wiki/images/thumb/e/ea/SpaceNavigator.jpg/400px-SpaceNavigator.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpaceNavigator.jpg" class="internal" title="Enlarge"></a></div>3Dconnexion SpaceNavigator</div></div></div>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation_des_Drivers"><span class="tocnumber">1</span> <span class="toctext">Installation des Drivers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Linux"><span class="tocnumber">1.1</span> <span class="toctext">Linux</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Installer_.C3.A0_partir_d.27un_d.C3.A9p.C3.B4t"><span class="tocnumber">1.1.1</span> <span class="toctext">Installer à partir d'un dépôt</span></a>
+<ul>
+<li class="toclevel-4 tocsection-4"><a href="#Ubuntu"><span class="tocnumber">1.1.1.1</span> <span class="toctext">Ubuntu</span></a></li>
+<li class="toclevel-4 tocsection-5"><a href="#Fedora"><span class="tocnumber">1.1.1.2</span> <span class="toctext">Fedora</span></a></li>
+<li class="toclevel-4 tocsection-6"><a href="#Debian"><span class="tocnumber">1.1.1.3</span> <span class="toctext">Debian</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-7"><a href="#Compilation_des_sources_Spacenav"><span class="tocnumber">1.1.2</span> <span class="toctext">Compilation des sources Spacenav</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Red.C3.A9marrez"><span class="tocnumber">1.1.3</span> <span class="toctext">Redémarrez</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#OSX"><span class="tocnumber">1.2</span> <span class="toctext">OSX</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Windows"><span class="tocnumber">1.3</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Mise_en_place_de_FreeCAD"><span class="tocnumber">2</span> <span class="toctext">Mise en place de FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Spaceball_Motion"><span class="tocnumber">2.1</span> <span class="toctext">Spaceball Motion</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Spaceball_Buttons"><span class="tocnumber">2.2</span> <span class="toctext">Spaceball Buttons</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation_des_Drivers">Installation des Drivers</span></h2>
+<h3><span class="mw-headline" id="Linux">Linux</span></h3>
+<p>FreeCAD prend en charge les drivers du projet <a rel="nofollow" class="external text" href="http://spacenav.sourceforge.net/">Spacenav</a>. Il s'agit d'un projet visant à créer un pilote open-source, qui est compatible avec les pilotes propriétaires de 3Dconnexion.
+</p>
+<h4><span class="mw-headline" id="Installer_.C3.A0_partir_d.27un_d.C3.A9p.C3.B4t">Installer à partir d'un dépôt</span></h4>
+<h5><span class="mw-headline" id="Ubuntu">Ubuntu</span></h5>
+<pre>sudo apt-get install spacenavd </pre>
+<h5><span class="mw-headline" id="Fedora">Fedora</span></h5>
+<pre>sudo yum install spacenavd </pre>
+<h5><span class="mw-headline" id="Debian">Debian</span></h5>
+<pre>apt-get install spacenavd libspnav-dev </pre>
+<ul><li> spacenav needs these permissions</li></ul>
+<pre>cp ~/.Xauthority /root/ </pre>
+<ul><li> Restart spnavd and FreeCAD</li></ul>
+<pre>/usr/bin/spnavd_ctl x11 stop
+/usr/bin/spnavd_ctl x11 start </pre>
+<h4><span class="mw-headline" id="Compilation_des_sources_Spacenav">Compilation des sources Spacenav</span></h4>
+<p>Ceci est recommandé si votre distribution est une version obsolète. 
+</p>
+<ul><li>Télécharger les fichiers suivants:
+<ul><li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20daemon/spacenavd%200.5/spacenavd-0.5.tar.gz/download">spacenavd-0.5.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20library%20%28SDK%29/libspnav%200.2.2/libspnav-0.2.2.tar.gz/download">libspnav-0.2.2.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenavd%20config%20gui/spnavcfg%200.2.1/spnavcfg-0.2.1.tar.gz/download">spnavcfg-0.2.1.tar.gz</a></li></ul></li>
+<li>Décompressez les archives dans un dossier dans votre répertoire home.</li>
+<li>Entrez le répertoire spacenavd-0,5 et exécutez les commandes suivantes:</li></ul>
+<pre>./configure
+make </pre>
+<ul><li>Si cela réussit, exécutez les commandes suivantes <b>en tant que root</b> (ou avec le préfixe sudo).</li></ul>
+<pre>make install
+./setup_init
+/etc/init.d/spacenavd start </pre>
+<ul><li> Cette installation de daemon spacenav, est configurée pour se charger automatiquement au démarrage du système, et, démarre le daemon sans redémarrage.</li>
+<li> Il est maintenant temps de vérifier que votre périphérique est correctement détecté. Débranchez votre appareil, et, exécutez la commande suivante, puis branchez-le.</li></ul>
+<pre>tail -n100 -f /var/log/spnavd.log </pre>
+<ul><li>Si la sortie ressemble à ceci, vous pouvez continuer.</li></ul>
+<pre>Device detection, parsing /proc/bus/input/devices
+trying alternative detection, querying /dev/input/eventX device names...
+  trying "/dev/input/event1" ... Power Button
+  trying "/dev/input/event2" ... 3Dconnexion SpaceNavigator
+using device: /dev/input/event2
+device name: 3Dconnexion SpaceNavigator </pre>
+<ul><li>Maintenant, entrez dans le répertoire nommé <b>libspnav-0.2.2</b>, et, exécutez les commandes suivantes:</li></ul>
+<pre>./configure
+make </pre>
+<ul><li>Si make échoue avec l'erreur suivante: ...</li></ul>
+<pre>fatal error: gtk/gtk.h: No such file or directory </pre>
+<ul><li> ... vous devrez alors installer <b>libgtkmm-2.4-dev</b>. Voici la procédure sous Ubuntu:</li></ul>
+<pre>sudo apt-get install libgtkmm-2.4-dev </pre>
+<ul><li>Lorsque la marque s'est terminée correctement, exécutez la commande suivante <b>en tant que root</b> (ou avec le préfixe sudo).</li></ul>
+<pre>make install </pre>
+<ul><li>Regardez dans le répertoire <b>libspnav-0.2.2/examples/</b>. Si vous voulez tester votre appareil, compilez, et, exécutez l'un de ces deux exemples.</li></ul>
+<ul><li>Suivez la même procédure pour compiler, et, installer <b>spnavcfg</b>. Lancez <b>spnavcfg</b> en tant que root, sinon, aucuns réglages ne seront sauvegardés&#160;!</li></ul>
+<h4><span class="mw-headline" id="Red.C3.A9marrez">Redémarrez</span></h4>
+<p>Si parfois navigator cesse de fonctionner, c'est bon, redémarrez le pilote. Pour le redémarrer, aller au terminal, et, exécutez&#160;:
+</p>
+<pre>sudo xhost +
+sudo /etc/init.d/spacenavd restart </pre>
+<p>Après ceci, redémarrez FreeCAD. Sur certaines distributions, cela est nécessaire à chaque démarrage (boot).
+</p>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="OSX">OSX</span></h3>
+<p>Un utilisateur a réussit à faire fonctionner space navigator sous OSX. Cependant il n'est pas encore intégré. Plus d'informations sur cette page <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2576&amp;hilit=space+navigator+osx&amp;start=10#p19923">space navigator sous OSX</a>
+</p>
+</div>
+<h3><span class="mw-headline" id="Windows">Windows</span></h3>
+<p>Depuis la version 0.13, la souris 3D est prise en charge sous windows. Vous devez avoir les pilotes respectifs installés, mais étant donné que la prise en charge a été développée au niveau inférieur, elle remplace les paramètres que vous définissez dans le panneau de Connexion 3D. Cependant, la plupart de ces paramètres peuvent être définis dans <b>Outils &gt;&gt; boîte de dialogue Personnaliser, sous les onglets Spaceball</b>.
+</p>
+<h2><span class="mw-headline" id="Mise_en_place_de_FreeCAD">Mise en place de FreeCAD</span></h2>
+<p>Le support de la souris 3D a été effectué avec le projet <b>spnav</b> sur Linux, et, sur un très bas niveau sur Windows. Cela signifie qu'il n'y avait aucun support pour les paramètres d'un tel périphérique, puisqu'il n'y a aucun bon support sur Linux, et, sur Windows, il a été substitué. C'est pour cela, que deux pages supplémentaires ont été ajoutées à la boîte de dialogue <b>Personnaliser</b>.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spaceball_Motion.png" class="image"><img alt="Spaceball Motion.png" src="450px-Spaceball_Motion.png" width="450" height="459" srcset="/wiki/images/8/80/Spaceball_Motion.png 1.5x" /></a>
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spaceball_Buttons.png" class="image"><img alt="Spaceball Buttons.png" src="450px-Spaceball_Buttons.png" width="450" height="459" srcset="/wiki/images/9/93/Spaceball_Buttons.png 1.5x" /></a>
+</p>
+<h3><span class="mw-headline" id="Spaceball_Motion">Spaceball Motion</span></h3>
+<p>Dans cet onglet vous avez la possibilité de mettre en place certains paramètres de la souris dans l'espace général.
+</p><p>Ils comprennent&#160;:
+</p>
+<ul><li> <b> Global Sensitivity&#160;:</b> Slider avec possibilité de définir la sensibilité globale</li>
+<li> <b> Dominant Mode&#160;:</b> si vous activez le mode dominant, seul les axes avec déplacements plus élevés seront considérés</li>
+<li> <b> Flip Y/Z&#160;:</b> cette option vous permet d'inverser les axes Y, et, Z sur la souris 3D</li>
+<li> <b> Enable Translations&#160;:</b> un moyen facile d'activer/désactiver les traductions</li>
+<li> <b> Enable Rotations&#160;:</b> un moyen facile d'activer/désactiver les rotations</li>
+<li> <b> <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Calibrate</span>&#160;:</b> vous permet d'étalonner space navigator. Elle est enfoncée alors que le navigateur de l'espace n'est pas déplacé.</li>
+<li> <b> <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Default</span>&#160;:</b> supprime tous les paramètres, et, leur affecte les paramètres par défaut.</li></ul>
+<p>Pour chaque axes, vous avez d'autres possibilités de définition&#160;:
+</p>
+<ul><li> <b> Enabled&#160;:</b> activer/désactiver les axes</li>
+<li> <b> Reverse&#160;:</b> inverser le mouvement sur les axes</li>
+<li> <b> Sensibilité&#160;:</b> possibilité de définir la sensibilité du curseur</li></ul>
+<h3><span class="mw-headline" id="Spaceball_Buttons">Spaceball Buttons</span></h3>
+<p>Lorsque vous ouvrez cet onglet pour la première fois, il sera vide, et, non disponible. Pour l'activer, vous devez appuyer sur un des boutons de votre space mouse. Une fois que vous l'avez fait, la liste des boutons s'affiche sur le côté gauche, et, la liste des commandes sera disponible sur le côté droit.
+</p><p>Pour connecter certaines commandes à un bouton, sélectionnez le bouton sur le panneau de <b>gauche</b>, et, la commande sur le panneau de <b>droite</b>.
+</p><p>Pour effacer la commande d'un bouton, sélectionnez le bouton , et, appuyez sur le bouton <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Clear </span>.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=3Dconnexion_input_devices/fr&amp;oldid=271109">http://www.freecadweb.org/wiki/index.php?title=3Dconnexion_input_devices/fr&amp;oldid=271109</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

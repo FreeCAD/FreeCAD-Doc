@@ -1,0 +1,133 @@
+<html><head><title>Macro Duplicate Selection/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Duplicate Selection/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Duplica_selezione"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Duplica selezione</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Questa macro testa se una selezione è duplicabile.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.00
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-06-06
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Duplica_selezione"><span class="tocnumber">1</span> <span class="toctext">Duplica selezione</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Uso"><span class="tocnumber">3</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Questa macro testa se una selezione è duplicabile. Selezionare gli oggetti nella <b>vista 3D</b>, se una selezione è duplicabile il mouse rimane bloccato su "ForbiddenCursor" fino a duplicazione avvenuta.
+</p>
+<h2><span class="mw-headline" id="Uso">Uso</span></h2>
+<p>Avviare la macro, essa rimane residente in memoria.
+</p><p>Selezionare gli oggetti da duplicare. Mentre gli oggetti vengono duplicati il cursore del mouse viene bloccato su "ForbiddenCursor" 
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_Duplicate_Selection.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+import FreeCADGui
+import PySide
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+
+__title__   = "Macro_Duplicate_Selection"
+__author__  = "Mario52"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.00"
+__date__    = "06/06/2016"
+
+__Help__    = "Start the macro select the object IN THE 3D VIEW the ForbiddenCursor stay if the selection is duplicate"
+
+def selectionObject():
+    sel = FreeCADGui.Selection.getSelection() 
+    x  = []
+    del x[:]
+    for a in range(len(sel)):
+       x.append(sel[a].Name)
+    doublet = 0
+    for i in range(len(sel)):
+        for ii in range((i+1),len(sel)):
+            if x[i] == x[ii]:
+                doublet = 1
+                break
+    if doublet == 1:
+        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
+#        FreeCAD.Console.PrintError("HELP "+sel[-1].Name+" duplicate selection"+"\n")
+    else:
+        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+
+class SelObserver:
+    def addSelection(self,doc,obj,sub,pnt):   # Selection
+        selectionObject()
+    def removeSelection(self,doc,obj,sub):    # Effacer l'objet salectionne
+        selectionObject()
+    def setPreselection(self, doc, obj, sub):
+        selectionObject()
+    def clearSelection(self,doc):             # Si clic sur l'ecran, effacer la selection
+        selectionObject()
+#    def setSelection(self,doc):               # Selection dans Combo View pour quitter la fonction
+#        App.Console.PrintMessage("Fin Macro_Duplicate"+"\n")
+#        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+#        FreeCADGui.Selection.removeObserver(s)# desinstalle la fonction residente
+
+s=SelObserver()
+FreeCADGui.Selection.addObserver(s)    # installe la fonction en mode resident </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>La discussione  <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=15994">Duplicate Objects when more than one face selected</a> nel forum di FreeCAD.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Duplicate_Selection/it&amp;oldid=239943">http://www.freecadweb.org/wiki/index.php?title=Macro_Duplicate_Selection/it&amp;oldid=239943</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,145 @@
+<html><head><title>Debugging/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Debugging/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Premiers_tests"><span class="tocnumber">1</span> <span class="toctext">Premiers tests</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Ligne_de_commande"><span class="tocnumber">2</span> <span class="toctext">Ligne de commande</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#G.C3.A9n.C3.A9rer_un_Backtrace"><span class="tocnumber">3</span> <span class="toctext">Générer un Backtrace</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#For_Linux"><span class="tocnumber">3.1</span> <span class="toctext">For Linux</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Pour_MacOSX"><span class="tocnumber">3.2</span> <span class="toctext">Pour MacOSX</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Python_Debugging"><span class="tocnumber">4</span> <span class="toctext">Python Debugging</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Premiers_tests">Premiers tests</span></h2>
+<p>Avant de passer à la douloureuse phase de débogage, utilisez le <a href="https://www.freecadweb.org/wiki/index.php?title=Testing/fr" title="Testing/fr">Test framework</a>, pour vérifier, si les tests standards fonctionnent correctement.
+Si ce n'est pas le cas, c'est peut-être dû a une installation défectueuse.
+</p>
+<h2><span class="mw-headline" id="Ligne_de_commande">Ligne de commande</span></h2>
+<p>Le débogage de FreeCAD est supporté par quelques mécanismes internes. La version en ligne de commande de FreeCAD fournit des options d'aide au débogage&#160;:
+</p><p>Ce sont les options actuellement reconnues par FreeCAD 0.15:
+</p><p>Options Génériques:
+</p>
+<pre> -v [ --version ]      Affiche la version sous la forme d'une chaîne
+ -h [ --help ]         Affiche un message d'aide
+ -c [ --console ]      Démarre en mode console
+ --response-file arg   Peut aussi être spécifié avec '@name'
+</pre>
+<p>Configuration:
+</p>
+<pre> -l [ --write-log ]       Ecrit un fichier journal dans:
+                          $HOME/.FreeCAD/FreeCAD.log
+ --log-file arg           Contrairement à --write-log cela permet de se connecter à un
+                          fichier arbitraire
+ -u [ --user-cfg ] arg    Fichier de configuration utilisateur pour charger/enregistrer les paramètres utilisateur
+ -s [ --system-cfg ] arg  fichier de configuration pour charger/enregistrer les paramètres du système
+ -t [ --run-test ] arg    Niveau de test
+ -M [ --module-path ] arg Chemin de module supplémentaire
+ -P [ --python-path ] arg Autres chemins python
+</pre>
+<h2><span class="mw-headline" id="G.C3.A9n.C3.A9rer_un_Backtrace">Générer un Backtrace</span></h2>
+<p>Si vous exécutez une version de FreeCAD à partir de l'extrémité saillante de la courbe de développement, il se peut qu'il se "bloque". Vous pouvez aider à résoudre ces problèmes en fournissant aux développeurs une "backtrace". Pour ce faire, vous devez exécuter une "version de débogage" du logiciel. "Debug build" est un paramètre qui est défini au moment de la compilation, donc vous devrez soit compiler vous-même FreeCAD, soit obtenir une version "debug" précompilée.  
+</p>
+<h3><span class="mw-headline" id="For_Linux">For Linux</span></h3>
+<div class="toccolours mw-collapsible mw-collapsed" style="width:800px;">
+<p>Linux Debugging ----&gt;
+</p>
+<div class="mw-collapsible-content">
+<p>Prerequisites: 
+</p>
+<ul><li> logiciel gdb installé</li>
+<li> une version de débogage de FreeCAD (à ce moment seulement disponible par <a href="/wiki/CompileOnUnix/fr#Pour_une_compilation_.22Debug.22" title="CompileOnUnix/fr">Pour une compilation "Debug"</a>)</li>
+<li> un modèle FreeCAD qui provoque un crash</li></ul>
+<p>Étapes:
+Entrez ce qui suit dans votre fenêtre de terminal:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ gdb FreeCAD
+</pre>
+<p>GNUdebugger will output some initializing information. The (gdb) shows GNUDebugger is running in the terminal, now input:
+</p>
+<pre>
+(gdb) handle SIG33 noprint nostop
+(gdb) run
+</pre>
+<p>FreeCAD va maintenant démarrer. Effectuez les étapes qui provoquent le crash ou le blocage de FreeCAD, puis entrez dans la fenêtre du terminal:
+</p>
+<pre>
+(gdb) bt
+</pre>
+<p>Cela va générer une longue liste de ce que le programme faisait quand il s'est écrasé ou gelé. Incluez ceci avec votre rapport de problème.
+</p>
+</div></div> 
+<h3><span class="mw-headline" id="Pour_MacOSX">Pour MacOSX</span></h3>
+<div class="toccolours mw-collapsible mw-collapsed" style="width:800px;">
+<p>MacOSX Debugging ----&gt;
+</p>
+<div class="mw-collapsible-content">
+<p>Prerequisites: 
+</p>
+<ul><li> logiciel lldb installé</li>
+<li> une version de débogage de FreeCAD</li>
+<li> un modèle FreeCAD qui provoque un crash</li></ul>
+<p>Étapes:
+Entrez ce qui suit dans la fenêtre de votre terminal:
+</p>
+<pre>
+$ cd FreeCAD/bin
+$ lldb FreeCAD
+</pre>
+<p>LLDB will output some initializing information. The (lldb) shows the debugger is running in the terminal, now input:
+</p>
+<pre>
+(lldb) run
+</pre>
+<p>FreeCAD va maintenant démarrer. Effectuez les étapes qui provoquent le crash ou le blocage de FreeCAD, puis entrez dans la fenêtre du terminal:
+</p>
+<pre>
+(lldb) bt
+</pre>
+<p>Cela va générer une longue liste de ce que le programme faisait quand il s'est bloqué ou arrêté. Incluez ceci avec votre rapport de problème.
+</p>
+</div></div> 
+<h2><span class="mw-headline" id="Python_Debugging">Python Debugging</span></h2>
+<p>Voici un exemple d'utilisation de winpdb dans FreeCAD:
+</p>
+<ol><li> Lancez winpdb et définissez le mot de passe (par exemple, test)</li>
+<li> Créer un fichier Python avec ce contenu</li></ol>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import rpdb2
+ rpdb2.start_embedded_debugger("test")
+ import FreeCAD
+ import Part
+ import Draft
+ print "hello"
+ print "hello"
+ import Draft
+ points=[FreeCAD.Vector(-3.0,-1.0,0.0),FreeCAD.Vector(-2.0,0.0,0.0)]
+ Draft.makeWire(points,closed=False,face=False,support=None)</pre></div>
+<ol><li> Démarrer FreeCAD et charger le fichier ci-dessus dans FreeCAD</li>
+<li> Appuyez sur F6 pour l'exécuter</li>
+<li> Maintenant, FreeCAD ne répondra plus car le débogueur Python attend</li>
+<li> Passez à l'interface graphique de Windpdb et cliquez sur "Attacher". Après quelques secondes, un élément "&lt;Input&gt;" apparaît où vous devez double-cliquer</li>
+<li> Maintenant, le script actuellement exécuté apparaît dans Winpdb.</li>
+<li> Définir une pause à la dernière ligne et appuyez sur F5</li>
+<li> Maintenant, appuyez sur F7 pour entrer dans le code Python de Draft.makeWire</li></ol>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Debugging/fr&amp;oldid=284055">http://www.freecadweb.org/wiki/index.php?title=Debugging/fr&amp;oldid=284055</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

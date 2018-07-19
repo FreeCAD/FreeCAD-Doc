@@ -1,0 +1,455 @@
+<html><head><title>Path scripting/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Path scripting/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Path
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Intermedio
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduzione"><span class="tocnumber">2</span> <span class="toctext">Introduzione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Avvio_rapido"><span class="tocnumber">3</span> <span class="toctext">Avvio rapido</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Formato_del_GCode_all.27interno_di_FreeCAD"><span class="tocnumber">4</span> <span class="toctext">Formato del GCode all'interno di FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Riferimenti_GCode"><span class="tocnumber">4.1</span> <span class="toctext">Riferimenti GCode</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Elenco_dei_comandi_Gcode_attualmente_supportati"><span class="tocnumber">4.2</span> <span class="toctext">Elenco dei comandi Gcode attualmente supportati</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#L.27oggetto_Command"><span class="tocnumber">5</span> <span class="toctext">L'oggetto Command</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#L.27oggetto_Path"><span class="tocnumber">6</span> <span class="toctext">L'oggetto Path</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#La_funzione_Path"><span class="tocnumber">7</span> <span class="toctext">La funzione Path</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Gli_utensili_e_la_tabella_utensili"><span class="tocnumber">8</span> <span class="toctext">Gli utensili e la tabella utensili</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Funzioni"><span class="tocnumber">9</span> <span class="toctext">Funzioni</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#La_funzione_Path_Compound"><span class="tocnumber">9.1</span> <span class="toctext">La funzione Path Compound</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#La_funzione_Path_Project"><span class="tocnumber">9.2</span> <span class="toctext">La funzione Path Project</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#La_funzione_Path_Shape"><span class="tocnumber">9.3</span> <span class="toctext">La funzione Path Shape</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Funzioni_Python"><span class="tocnumber">9.4</span> <span class="toctext">Funzioni Python</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Importare_e_esportare_GCode"><span class="tocnumber">10</span> <span class="toctext">Importare e esportare GCode</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Formato_nativo"><span class="tocnumber">10.1</span> <span class="toctext">Formato nativo</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Utilizzare_gli_script_di_pre_e_post-elaborazione"><span class="tocnumber">10.2</span> <span class="toctext">Utilizzare gli script di pre e post-elaborazione</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Scrivere_script_di_elaborazione"><span class="tocnumber">10.3</span> <span class="toctext">Scrivere script di elaborazione</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduzione">Introduzione</span></h2>
+<p>L'ambiente Path offre strumenti per importare, creare, manipolare e esportare <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/G-code">percorsi delle macchine utensili</a> in FreeCAD. Con esso, l'utente è in grado di importare, visualizzare e modificare i programmi GCode esistenti, generare percorsi di forme 3D, ed esportare questi percorsi utensile in Gcode.
+</p><p>Allo stato attuale, però, lo sviluppo dell'ambiente Path è appena iniziato, e non offre la funzionalità molto avanzate che si trovano in alcune alternative commerciali. Tuttavia, la sua ampia interfaccia di script Python rende facile modificare o sviluppare degli strumenti più potenti, e quindi per ora è rivolto più agli utenti con una certa conoscenza di script Python che agli utenti finali.
+</p><p>Nel seguito troverete una descrizione più approfondita delle API di script Python.
+</p>
+<h2><span class="mw-headline" id="Avvio_rapido">Avvio rapido</span></h2>
+<p>Gli oggetti Path (percorso) di FreeCAD sono fatti di una sequenza di comandi di movimento. Un utilizzo tipico è questo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Path
+    >>> c1 = Path.Command("g1x1")
+    >>> c2 = Path.Command("g1y4")
+    >>> c3 = Path.Command("g1 x2 y2") # spaces end newlines are not considered
+    >>> p = Path.Path([c1,c2,c3])
+    >>> o = App.ActiveDocument.addObject("Path::Feature","mypath")
+    >>> o.Path = p
+    >>> print p.toGCode()</pre></div>
+<h2><span class="mw-headline" id="Formato_del_GCode_all.27interno_di_FreeCAD">Formato del GCode all'interno di FreeCAD</span></h2>
+<p>Un concetto preliminare che importante da afferrare. La maggior parte della realizzazione sottostanti si basa prevalentemente sui comandi di movimento che hanno gli stessi nomi dei comandi GCode, ma non sono destinati ad avvicinarsi all'implementazione di un particolare controller. Abbiamo scelto nomi come 'G0' per rappresentare i movimento in 'rapida' o 'G1' per rappresentare i movimenti di 'alimentazione' per motivi di prestazioni (efficienza nel salvataggio dei file) e per ridurre al minimo il lavoro necessario per tradurre in/da altri formati GCode. Dal momento che il mondo CNC parla migliaia di dialetti GCode, abbiamo scelto di iniziare con un sottoinsieme molto semplificato di esso. Si potrebbe descrivere il formato GCode di FreeCAD come una forma "macchina-agnostica" di GCode.
+</p><p>All'interno dei file .FCStd, i dati Path vengono salvati direttamente in quella forma di GCode.
+</p><p>Tutte le traduzioni dai/nei dialetti del GCode di FreeCAD vengono effettuate tramite pre e post script. Ciò significa che, se si desidera lavorare con una macchina che utilizza uno  specifico controller LinuxCNC, Fanuc, Mitusubishi o HAAS, ecc, si deve usare (o scrivere se è inesistente) un post processore per quel particolare controllo (vedere più avanti la sezione "Importare ed esportare GCode).
+</p>
+<h3><span class="mw-headline" id="Riferimenti_GCode">Riferimenti GCode</span></h3>
+<p>Le seguenti regole e linee guida definiscono il sottoinsieme di GCode utilizzato all'interno di FreeCAD:
+</p>
+<ul><li> I dati GCode, all'interno degli oggetti Path di FreeCAD, sono separati in "Commands" (comandi). Un comando è definito dal nome del comando, che deve iniziare con G o M, e da argomenti(opzionali), che sono nella forma Lettera = Float (flottante), ad esempio X 0.02 o Y 3.5 o F 300. Questi sono esempi di tipici comandi Gcode in FreeCAD:</li></ul>
+<pre>   G0 X2.5 Y0 (Il nome del comando è G0, gli argomenti sono X=2.5 e Y=0)
+</pre>
+<pre>   G1 X30 (Il nome del comando è G1, l'unico argomento è X=30)
+</pre>
+<pre>   G90 (Il nome del comando è G90, non ci sono argomentis)
+</pre>
+<ul><li> Per la parte numerica di un comando G o M, sono supportate sia la forma "G1" sia "G01" .</li>
+<li> In questo momento sono supportati solo i comandi che iniziano per G o M.</li>
+<li> Per ora, sono accettati solo i millimetri. G20/G21 non sono considerati.</li>
+<li> Gli argomenti sono sempre in ordine alfabetico. Questo significa che se si crea un comando con "G1 X2 Y4 F300", viene memorizzato come "G1 F300 X2 Y4"</li>
+<li> Gli argomenti non possono essere ripetuti all'interno di uno stesso comando. Ad esempio, "G1 X1 X2 Y2 Y3" non funziona. Deve essere diviso in due comandi, per esempio: "G1 X1 Y2, Y3 G1 X2"</li>
+<li> Gli argomenti X, Y, Z, A, B, C sono assoluti o relativi, secondo la modalità attiva G90/G91. Predefinito (se non specificato) è assoluto.</li>
+<li> I, J, K sono sempre relativi all'ultimo punto. K può essere omesso.</li>
+<li> X, Y, o Z (e A, B, C) possono essere omessi. In questo caso, sono mantenuti le precedenti coordinate X, Y o Z.</li>
+<li> I comandi GCode diversi da quelli elencati nella seguente tabella sono supportati, cioè, vengono salvati all'interno dei dati del percorso ( naturalmente, a patto che siano conformi alle regole di cui sopra), ma non producono alcun risultato visibile sullo schermo. Ad esempio, è possibile aggiungere un comando G81, esso viene memorizzato, ma non visualizzato.</li></ul>
+<h3><span class="mw-headline" id="Elenco_dei_comandi_Gcode_attualmente_supportati">Elenco dei comandi Gcode attualmente supportati</span></h3>
+<table>
+<tr>
+<th>Comando
+</th>
+<th>Descrizione
+</th>
+<th>Argomenti supportati
+</th></tr>
+<tr>
+<td>G0
+</td>
+<td>rapida
+</td>
+<td>X,Y,Z,A,B,C
+</td></tr>
+<tr>
+<td>G1
+</td>
+<td>avanzamento normale
+</td>
+<td>X,Y,Z,A,B,C
+</td></tr>
+<tr>
+<td>G2
+</td>
+<td>arco orario
+</td>
+<td>X,Y,Z,A,B,C,I,J,K
+</td></tr>
+<tr>
+<td>G3
+</td>
+<td>arco antiorario
+</td>
+<td>X,Y,Z,A,B,C,I,J,K
+</td></tr>
+<tr>
+<td>G81, G82, G83
+</td>
+<td>foratura
+</td>
+<td>X,Y,Z,R,Q
+</td></tr>
+<tr>
+<td>G90
+</td>
+<td>coordinate assolute
+</td>
+<td>
+</td></tr>
+<tr>
+<td>G91
+</td>
+<td>coordinate relative
+</td>
+<td>
+</td></tr>
+<tr>
+<td>(Message)
+</td>
+<td>commento
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="L.27oggetto_Command">L'oggetto Command</span></h2>
+<p>L'oggetto Command rappresenta un comando Gcode. Ha tre attributi: Name, Parameters e Placement (Nome,Parametri e posizione), e due metodi: toGCode() e setFromGCode(). Internamente, contiene solo un nome e un dizionario di parametri. Il resto (posizionamento e gcode) viene calcolato da/a questi dati.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Path
+    >>> c=Path.Command()
+    >>> c
+    Command  ( )
+    >>> c.Name = "G1"
+    >>> c
+    Command G1 ( )
+    >>> c.Parameters= {"X":1,"Y":0}
+    >>> c
+    Command G1 ( X:1 Y:0 )
+    >>> c.Parameters
+    {'Y': 0.0, 'X': 1.0}
+    >>> c.Parameters= {"X":1,"Y":0.5}
+    >>> c
+    Command G1 ( X:1 Y:0.5 )
+    >>> c.toGCode()
+    'G1X1Y0.5'
+    >>> c2=Path.Command("G2")
+    >>> c2
+    Command G2 ( )
+    >>> c3=Path.Command("G1",{"X":34,"Y":1.2})
+    >>> c3
+    Command G1 ( X:34 Y:1.2 )
+    >>> c3.Placement
+    Placement [Pos=(34,1.2,0), Yaw-Pitch-Roll=(0,0,0)]
+    >>> c3.toGCode()
+    'G1X34Y1.2'
+    >>> c3.setFromGCode("G1X1Y0")
+    >>> c3
+    Command G1 [ X:1 Y:0 ]
+    >>> c4 = Path.Command("G1X4Y5")
+    >>> c4
+    Command G1 [ X:4 Y:5 ]
+    >>> p1 = App.Placement()
+    >>> p1.Base = App.Vector(3,2,1)
+    >>> p1
+    Placement [Pos=(3,2,1), Yaw-Pitch-Roll=(0,0,0)]
+    >>> c5=Path.Command("g1",p1)
+    >>> c5
+    Command G1 [ X:3 Y:2 Z:1 ]
+    >>> p2=App.Placement()
+    >>> p2.Base = App.Vector(5,0,0)
+    >>> c5
+    Command G1 [ X:3 Y:2 Z:1 ]
+    >>> c5.Placement=p2
+    >>> c5
+    Command G1 [ X:5 ]
+    >>> c5.x
+    5.0
+    >>> c5.x=10
+    >>> c5
+    Command G1 [ X:10 ]
+    >>> c5.y=2
+    >>> c5
+    Command G1 [ X:10 Y:2 ]</pre></div>
+<h2><span class="mw-headline" id="L.27oggetto_Path">L'oggetto Path</span></h2>
+<p>L'oggetto Path contiene un elenco di comandi
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Path
+    >>> c1=Path.Command("g1",{"x":1,"y":0})
+    >>> c2=Path.Command("g1",{"x":0,"y":2})
+    >>> p=Path.Path([c1,c2])
+    >>> p
+    Path [ size:2 length:3 ]
+    >>> p.Commands
+    [Command G1 [ X:1 Y:0 ], Command G1 [ X:0 Y:2 ]]
+    >>> p.Length
+    3.0
+    >>> p.addCommands(c1)
+    Path [ size:3 length:4 ]
+    >>> p.toGCode()
+    'G1X1G1Y2G1X1'
+    
+    lines = """
+    G0X-0.5905Y-0.3937S3000M03
+    G0Z0.125
+    G1Z-0.004F3
+    G1X0.9842Y-0.3937F14.17
+    G1X0.9842Y0.433
+    G1X-0.5905Y0.433
+    G1X-0.5905Y-0.3937
+    G0Z0.5
+    """
+    
+    slines = lines.split('\n')
+    p = Path.Path()
+    for line in slines:
+        p.addCommands(Path.Command(line))
+    
+    o = App.ActiveDocument.addObject("Path::Feature","mypath")
+    o.Path = p
+    
+    # but you can also create a path directly form a piece of gcode.
+    # The commands will be created automatically:
+    
+    p = Path.Path()
+    p.setFromGCode(lines)</pre></div>
+<p>Come scorciatoia, un oggetto Path può anche essere creato direttamente da una sequenza completa di GCode. Sarà diviso automaticamente in una sequenza di comandi.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> p = Path.Path("G0 X2 Y2 G1 X0 Y2")
+    >>> p
+    Path [ size:2 length:2 ]</pre></div>
+<h2><span class="mw-headline" id="La_funzione_Path">La funzione Path</span></h2>
+<p>La funzione Path è un oggetto documento di FreeCAD, che contiene un percorso, e lo rappresenta nella vista 3D.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> pf = App.ActiveDocument.addObject("Path::Feature","mypath")
+    >>> pf
+    &lt;Document object>
+    >>> pf.Path = p
+    >>> pf.Path
+    Path [ size:2 length:2 ]</pre></div>
+<p>La funzione Path detiene inoltre una proprietà Placement. Cambiando il valore del posizionamento si cambia la posizione della funzionalità nella vista 3D, anche se le informazioni sul percorso  sono invariate. La trasformazione è puramente visiva. Ciò consente, ad esempio, di creare un percorso attorno a una faccia che ha un particolare orientamento nel modello, e che non è lo stesso orientamento che il materiale da tagliare avrà sulla macchina CNC.
+</p><p>Tuttavia, i Path Compounds possono usufruire del Placement (posizionamento) dei propri figli (vedi sotto).
+</p>
+<h2><span class="mw-headline" id="Gli_utensili_e_la_tabella_utensili">Gli utensili e la tabella utensili</span></h2>
+<p>L'oggetto strumento contiene le definizioni di un utensile CNC. L'oggetto Tooltable contiene un elenco ordinato di strumenti. Le Tooltable sono unite come una proprietà alle funzioni Path Project, e possono anche essere modificate tramite l'interfaccia grafica, facendo doppio clic su un progetto nella vista ad albero, e facendo clic sul pulsante "Modifica tooltable" nelle vista azioni che viene aperta.
+</p><p>Da questa finestra, le tooltable possono essere importate dai formati .xml di FreeCAD e .tooltable di HeeksCad, ed esportate nel formato .xml di FreeCAD.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Path
+    >>> t1=Path.Tool()
+    >>> t1
+    Tool Default tool
+    >>> t1.Name = "12.7mm Drill Bit"
+    >>> t1
+    Tool 12.7mm Drill Bit
+    >>> t1.ToolType
+    'Undefined'
+    >>> t1.ToolType = "Drill"
+    >>> t1.Diameter= 12.7
+    >>> t1.LengthOffset = 127
+    >>> t1.CuttingEdgeAngle = 59
+    >>> t1.CuttingEdgeHeight = 50.8
+    >>> t2 = Path.Tool("my other tool",tooltype="EndMill",diameter=10)
+    >>> t2
+    Tool my other tool
+    >>> t2.Diameter
+    10.0
+    >>> table = Path.Tooltable()
+    >>> table
+    Tooltable containing 0 tools
+    >>> table.addTools(t1)
+    Tooltable containing 1 tools
+    >>> table.addTools(t2)
+    Tooltable containing 2 tools
+    >>> table.Tools
+    {1: Tool 12.7mm Drill Bit, 2: Tool my other tool}
+    >>></pre></div>
+<h2><span class="mw-headline" id="Funzioni">Funzioni</span></h2>
+<h3><span class="mw-headline" id="La_funzione_Path_Compound">La funzione Path Compound</span></h3>
+<p>Lo scopo di questa funzione è quello di raccogliere uno o più percorsi utensile e di associarlo/i con una tooltable. La funzione Compound si comporta anche come un gruppo standard di FreeCAD, in modo da poter aggiungere o rimuovere oggetti direttamente dalla visualizzazione struttura. È inoltre possibile riordinare gli elementi facendo doppio clic sull'oggetto Compound nella struttura ad albero, e riordinare gli elementi nella vista azioni che viene aperta.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Path
+    >>> p1 = Path.Path("G1X1")
+    >>> o1 = App.ActiveDocument.addObject("Path::Feature","path1")
+    >>> o1.Path=p1
+    >>> p2 = Path.Path("G1Y1")
+    >>> o2 = App.ActiveDocument.addObject("Path::Feature","path2")
+    >>> o2.Path=p2
+    >>> o3 = App.ActiveDocument.addObject("Path::FeatureCompound","compound")
+    >>> o3.Group=[o1,o2]</pre></div>
+<p>Una caratteristica importante di Path Compounds è la possibilità di tenere conto o no della posizione dei percorsi dei loro figli, impostando la loro proprietà UsePlacements su True o False. In caso contrario, i dati Percorso dei loro figli saranno semplicemente aggiunti in sequenza. Se True, ogni comando dei percorsi figli, qualora contengano informazioni di posizione (G0, G1, ecc ..), prima di essere aggiunto verrà trasformato dal posizionamento.
+</p><p>Creating a compound with just one child path allows you therefore to turn the child path's Placement "real" (it affects the Path data).
+</p>
+<h3><span class="mw-headline" id="La_funzione_Path_Project">La funzione Path Project</span></h3>
+<p>Il progetto Path è un tipo di Compound esteso, che ha un paio di ulteriori proprietà correlate alla macchina, come una tooltable. È fatto principalmente per essere il principale tipo di oggetto che si desidera esportare in Gcode quando la configurazione dell'intero percorso è pronta. L'oggetto Project è codificato in python, per cui il suo meccanismo di creazione è un po 'diverso:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> from PathScripts import PathProject
+    >>> o4 = App.ActiveDocument.addObject("Path::FeatureCompoundPython","prj")
+    >>> PathProject.ObjectPathProject(o4)
+    >>> o4.Group = [o3]
+    >>> o4.Tooltable
+    Tooltable containing 0 tools</pre></div>
+<p>Il modulo Path dispone anche di un editor GUI per la tooltable che può essere chiamato in python, dandogli un oggetto che ha una proprietà ToolTable:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> from PathScripts import TooltableEditor
+    >>> TooltableEditor.edit(o4)</pre></div>
+<h3><span class="mw-headline" id="La_funzione_Path_Shape">La funzione Path Shape</span></h3>
+<p>Questa funzione è un normale oggetto Path con una proprietà Shape aggiuntiva. Dando alla proprietà una forma Wire, il percorso verrà calcolato automaticamente dalla forma. Si noti che in questo caso il posizionamento viene impostato automaticamente al primo punto del wire, e quindi l'oggetto non è più movibile modificando il suo posizionamento. Per spostarlo, si deve spostare la forma sottostante.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    >>> import Part
+    >>> v1 = FreeCAD.Vector(0,0,0)
+    >>> v2 = FreeCAD.Vector(0,2,0)
+    >>> v3 = FreeCAD.Vector(2,2,0)
+    >>> v4 = FreeCAD.Vector(3,3,0)
+    >>> wire = Part.makePolygon([v1,v2,v3,v4])
+    >>> o = FreeCAD.ActiveDocument.addObject("Path::FeatureShape","myPath2")
+    >>> o.Shape = wire
+    >>> FreeCAD.ActiveDocument.recompute()</pre></div>
+<h3><span class="mw-headline" id="Funzioni_Python">Funzioni Python</span></h3>
+<p>Le funzioni Path::Feature e Path::FeatureShape hanno una versione Python, chiamate rispettivamente,  Path::FeaturePython e Path::FeatureShapePython, che possono essere utilizzate nel codice python per creare oggetti parametrici avanzati derivati da esse.
+</p>
+<h2><span class="mw-headline" id="Importare_e_esportare_GCode">Importare e esportare GCode</span></h2>
+<h3><span class="mw-headline" id="Formato_nativo">Formato nativo</span></h3>
+<p>I file gcode possono essere importati ed esportati direttamente tramite l'interfaccia grafica, utilizzandole voci "Esporta", "Apri" o "Inserisci" del menu. Quando il nome del file è acquisito, si apre una finestra che chiede quale script di elaborazione deve utilizzare. Può anche essere fatto in python:
+</p><p>Le informazioni sul Percorso vengono memorizzate in oggetti Path utilizzando un sottoinsieme di gcode descritto nella sezione "Formato del GCode all'interno di FreeCAD" di cui sopra. Questo sottoinsieme può essere importato o esportato "come è", o convertito in/da una particolare versione di GCode adatto alla vostra macchina.
+</p><p>Se si dispone di un programma di GCode molto semplice e standard, che compila le regole descritte nella sezione "Formato del GCode all'interno di FreeCAD" di cui sopra, per esempio, il boomerang da <a rel="nofollow" class="external free" href="http://www.cnccookbook.com/GWESampleFiles.html">http://www.cnccookbook.com/GWESampleFiles.html</a> , esso può essere importato direttamente in un oggetto Path, senza traduzione (questo equivale a utilizzare l'opzione "None" della finestra GUI):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    import Path
+    f = open("/path/to/boomerangv4.ncc")
+    s = f.read()
+    p = Path.Path(s)
+    o = App.ActiveDocument.addObject("Path::Feature","boomerang")
+    o.Path = p</pre></div>
+<p>Allo stesso modo, è possibile ottenere le informazioni sul percorso come gcode "agnostico", e memorizzarle manualmente in un file:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    text = o.Path.toGCode()
+    print text
+    myfile = open("/path/to/newfile.ngc")
+    myfile.write(text)
+    myfile.close()</pre></div>
+<p>Se serve un output diverso, però, è necessario convertire questo GCode agnostico in un formato adatto alla macchina. Questo è compito dello script di post-processing.
+</p>
+<h3><span class="mw-headline" id="Utilizzare_gli_script_di_pre_e_post-elaborazione">Utilizzare gli script di pre e post-elaborazione</span></h3>
+<p>Se si dispone di un file gcode scritto per una macchina particolare, che non è conforme alle regole interne utilizzate dai FreeCAD, descritte nella sezione "Formato GCode interno a FreeCAD" di cui sopra, si potrebbe non riuscire a importarlo e/o renderlo correttamente nella 3D vista. Per rimediare a questo, è necessario utilizzare uno script di pre-elaborazione, che converte dal formato di una specifica macchina al formato di FreeCAD.
+</p><p>Se si conosce il nome dello script di pre-elaborazione da utilizzare, è possibile importare il file usando, dalla console python questo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    import example_pre
+    example_pre.insert("/path/to/myfile.ncc","DocumentName")</pre></div>
+<p>Allo stesso modo, è possibile emettere un oggetto tracciato per GCode, utilizzando uno script post_processor in questo modo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    import example_post
+    example_post.export (myObjectName,"/path/to/outputFile.ncc")</pre></div>
+<h3><span class="mw-headline" id="Scrivere_script_di_elaborazione">Scrivere script di elaborazione</span></h3>
+<p>Gli script di pre e post-elaborazione si comportano come gli altri comuni importatori e esportatori di FreeCAD. Quando si sceglie uno script di /post elaborazione dalla finestra di dialogo, il processo di import/export viene reindirizzato allo script specificato. Gli script di pre-elaborazione devono contenere almeno i seguenti metodi open(nome del file) e insert(nome del file, nome del documento). Gli script di post-elaborazione devono implementare export(objectslist,filename).
+</p><p>Gli script vengono inseriti nella cartella Mod/Path/PathScripts o nella directory delle macro definita dell'utente. Si può dare loro un nome a piacere, ma per convenzione, e per essere scelti dalla finestra di dialogo GUI, i nomi degli script di pre-elaborazione devono terminare con "_pre", gli script di post-elaborazione con "_post" (assicuratevi di usare il carattere sottolineato, non il trattino, altrimenti python non può importarli). Questo è un esempio molto, molto semplice di preprocessore. Esempi più complessi si trovano nella cartella Mod/Path/PathScripts:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    def open(filename):
+        gfile = __builtins__.open(filename)
+        inputstring = gfile.read()
+        # the whole gcode program will come in as one string,
+        # for example: "G0 X1 Y1\nG1 X2 Y2"
+        output = ""
+        # we add a comment
+        output += "(This is my first parsed output!)\n"
+        # we split the input string by lines
+        lines = inputstring.split("\n")
+        for line in lines:
+            output += line
+            # we must insert the "end of line" character again
+            # because the split removed it
+            output += "\n"
+        # another comment
+        output += "(End of program)"
+        import Path
+        p = Path.Path(output)
+        myPath = FreeCAD.ActiveDocument.addObject("Path::Feature","Import")
+        myPath.Path = p
+        FreeCAD.ActiveDocument.recompute()</pre></div>
+<p>Pre e post-processori funzionano esattamente allo stesso modo. Fanno solo il contrario: Gli script pre convertono da un GCode specifico al GCode "agnostico" di FreeCAD, mentre gli script post convertono dal GCode "agnostico" di FreeCAD al GCode specifico della macchina.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Path_scripting/it&amp;oldid=181228">http://www.freecadweb.org/wiki/index.php?title=Path_scripting/it&amp;oldid=181228</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

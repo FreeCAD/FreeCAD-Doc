@@ -1,0 +1,736 @@
+<html><head><title>Mesh API/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh API/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Les objets maillés peuvent être manipulés par l'ajout de nouvelles facettes, suppression de facettes, l'importation d'un fichier STL, transformant le maillage et bien plus encore. Pour un aperçu complet de ce qui peut être fait voir aussi la documentation Module Mesh. Un objet maillé ne peut pas être ajouté à un document existant directement. Par conséquent, le document doit créer un objet avec une classe propriété qui soutient les mailles. Exemple:
+</p>
+<pre>m = Mesh.Mesh()
+... # Manipule le maillage
+d = FreeCAD.activeDocument() # Obtenir une référence au document actif
+f = d.addObject("Mesh::Feature", "Mesh") # Créer une fonction maillage 
+f.Mesh = m # affecter l'objet maillage à la propriété interne
+d.recompute() </pre>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> ajouter Facet </b></big> ( <i> Facet </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Ajoute une facette à la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> addFacets </b></big> ( <i> liste </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Ajoute une liste de facettes à la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> addMesh </b></big> ( <i> Mesh </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Combine ce maillage avec un autre maillage 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> clair </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Efface la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> grossir </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Grossit la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> collapseEdge </b></big> ( <i> Bordure </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Supprime une arête et deux facettes qui partagent cette arête  
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> collapseFacet </b></big> ( <i> Facet </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Supprime une facette 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> collapseFacets </b></big> ( <i> liste </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Supprime une liste de facettes 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> copie </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Crée une copie de ce maillage 
+</p><p><small><b>Returns</b>:</small>  un objet Mesh
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> countComponents </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir le nombre de zones topologiques indépendantes 
+</p><p><small><b>Returns</b>:</small>  un entier
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> countNonUniformOrientedFacets </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir le nombre de facettes de mal orientées 
+</p><p><small><b>Returns</b>:</small>  un entier
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> countSegments </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir le nombre de segments qui peut également être 0 
+</p><p><small><b>Returns</b>:</small>  un entier
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> sections transversales </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir les sections du maillage à travers plusieurs plans 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> différence </b></big> ( <i> Mesh </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Différence de cela et l'objet de maillage donné 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> fillupHoles </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  trous pleins 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> fixDeformations </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  réparation de facettes déformées 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> fixDegenerations </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Retirer facettes dégénérées 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> fixIndices </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Réparation des indices invalides 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> fixSelfIntersections </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  réparation auto-intersections 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> FlipNormals </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  inverser les normales de maillage 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> perforé </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir une liste des indices de facettes et les points d'intersection 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> getPlanes </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir tous les plans de la maille comme segment. Dans le pire des cas, chaque triangle peut être considéré comme un seul plan si aucun de ses voisins n'est coplanaires 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> getSegment </b></big> ( <i> entier </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir une liste des indices de facettes qui décrit un segment 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> getSeparateComponents </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Retourne une liste contenant les différents composants (zones séparées) de la maille comme maillages séparés 
+</p><p><small><b>Returns</b>:</small>  liste
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> harmonizeNormals </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Régler les facettes mal orientées 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> hasNonManifolds </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Vérifiez si le maillage a des non-mutiples 
+</p><p><small><b>Returns</b>:</small>  un booléen
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> hasNonUniformOrientedFacets </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Vérifie si le maillage a des facettes avec une orientation incompatible
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> hasSelfIntersections </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Vérifier si le maillage se croise 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> inner </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenir la partie intérieure de l'intersection 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> insertVertex </b></big> ( <i> Vertex </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Insère un sommet dans une facette 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> intersect </b></big> ( <i>Mesh </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Intersection de cela et l'objet maillage donné. 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> isSolid </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Vérifiez si le maillage est un solide 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> meshFromSegment </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Créer un maillage à partir d'un segment 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> nearestFacetOnRay </b></big> ( <i> tuple, tuple </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Retourne l'index et le pont d'intersection de la facette la plus proche d'un rayon. Le premier paramètre est un tuple de trois flotteurs le point du rayon de base et le second paramètre est un uplet  de trois flotteurs pour la direction. Le résultat est un dictionnaire avec un index et le point d'intersection ou un dictionnaire vide s'il n'y a pas d'intersection 
+</p><p><small><b>Returns</b>:</small> . Un dictionnaire
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> offset </b></big> ( <i> float </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Déplacez le point le long de leurs normales 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> offsetSpecial </b></big> ( <i> flotter </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Déplacez le point le long de leurs normales 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> optimizeEdges </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Optimiser les bords pour obtenir des facettes plus agréable 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> optimizeTopology </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Optimiser les bords pour obtenir facettes plus agréable 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> externe </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenez la partie extérieure de l'intersection 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> printInfo </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Obtenez des informations détaillées sur la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> read </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Lire dans un maillage à partir du fichier 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> affiner </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  
+</p><p><small><b>Returns</b>:</small>  Affiner le maillage
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeComponents </b></big> ( <i> entier </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Suppression de composants avec moins ou égal au nombre de facettes donnés 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeDuplicatedFacets </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Suppression facettes doubles 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeDuplicatedPoints </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  supprimer des points doubles 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeFacets </b></big> ( <i> liste </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  supprimer une liste d'indices de facettes du maillage 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeFoldsOnSurface </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Supprimer plis sur des surfaces 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> removeNonManifolds </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Retirer non collecteurs 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> rotate </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Appliquer une rotation à la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>setPoint </b></big> ( <i> int, Vector </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Règle le point à l'index 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> smooth </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Lisser la maille 
+</p><p><small><b>Returns</b>:</small>  
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> snapVertex </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Insérer une nouvelle facette à la frontière 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> splitEdge </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  diviser les bords 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> splitEdges </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  diviser les bords  
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> splitFacet </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Diviser la facette  
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> swapEdge </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Remplacez le bord commun avec le voisin 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> transformer </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  appliquer une transformation à la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> transformToEigen </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Transforme le maillage pour son eigenbase 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> translate </b></big> ( <i> Vecteur </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Appliquer une translation à la maille 
+</p><p><small><b>Returns</b>:</small> 
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> unite</b></big> ( <i> Mesh </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Union de ceci avec l'objet de maillage donné 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> Write</b></big> ( <i> chaîne </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Ecrire l'objet maillage dans le fichier 
+</p><p><small><b>Returns</b>:</small> .
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b> writeInventor </b></big> ( <i> </i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small>  Ecrire le maillage au format OpenInventor dans une chaine 
+</p><p><small><b>Returns</b>:</small> . une chaîne
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Area</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small> . la zone de l'objet mesh
+</p>
+</div>
+</div>
+<p><br />
+</p>
+ <div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> CountFacets </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  le nombre de facettes de l'objet mesh
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> CountPoints </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  le nombre de sommets de l'objet mesh
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Facettes </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  Une collection de facettes..; Avec cet attribut, il est possible d'avoir accès à des facettes du maillage: pour p dans mesh.Facets: print p
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Points </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  Une collection de points du maillage; Avec cet attribut, il est possible d'avoir accès à des points du maillage: pour p dans mesh.Points: Print p.x, p.y, p.z
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Topology</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  les points et les indices de face comme tuple
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Volume </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  le volume de l'objet mesh
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b>BoundBox</b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  la boîte englobante de l'objet
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Matrix </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  la transformation actuelle de l'objet comme matrice
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Property.png" class="image"><img alt="Property.png" src="Property.png" width="16" height="16" /></a> <big><b> Placement </b></big></div>
+<div class="description">
+<p><small><b>Returns</b>:</small>  la transformation actuelle de l'objet comme placement
+</p>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_API/fr&amp;oldid=152825">http://www.freecadweb.org/wiki/index.php?title=Mesh_API/fr&amp;oldid=152825</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

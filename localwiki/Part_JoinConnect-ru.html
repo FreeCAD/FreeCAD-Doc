@@ -1,0 +1,122 @@
+<html><head><title>Part JoinConnect/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part JoinConnect/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_JoinConnect"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_JoinConnect.png" class="image"><img alt="Part JoinConnect.png" src="32px-Part_JoinConnect.png" width="32" height="32" srcset="/wiki/images/thumb/9/95/Part_JoinConnect.png/48px-Part_JoinConnect.png 1.5x, /wiki/images/9/95/Part_JoinConnect.png 2x" /></a> Part JoinConnect</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Расположение в меню
+</th></tr>
+<tr>
+<td class="ctEven">Деталь → Join → Connect objects
+</td></tr>
+<tr>
+<th class="ctOdd">Верстаки
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Быстрые клавиши
+</th></tr>
+<tr>
+<td class="ctEven">отсутствуют
+</td></tr>
+<tr>
+<th class="ctOdd">См. также
+</th></tr>
+<tr>
+<td class="ctEven"><a class="mw-selflink selflink">Connect</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinEmbed/ru" title="Part JoinEmbed/ru">Embed</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinCutout/ru" title="Part JoinCutout/ru">Cutout</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/ru" title="Part Booleans/ru">Part Booleans</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Thickness/ru" title="Part Thickness/ru">Part Thickness</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_JoinConnect"><span class="tocnumber">1</span> <span class="toctext">Part JoinConnect</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">5</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Algorithm"><span class="tocnumber">6</span> <span class="toctext">Algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Notes"><span class="tocnumber">6.1</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Scripting"><span class="tocnumber">7</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Version"><span class="tocnumber">8</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Connect tool connects interiors of two walled objects (e.g., pipes). It can also join shells and wires.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Connect.png" class="image"><img alt="JoinFeatures Connect.png" src="600px-JoinFeatures_Connect.png" width="600" height="374" srcset="/wiki/images/f/f3/JoinFeatures_Connect.png 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select objects to be connected. <br /> The order of selection is not important, since the action of the tool is symmetric. It is enough to select one sub-shape of each object (e.g., faces). You can also select a compound containing all the shapes to be connected, e.g. <a href="Draft_Array.html" title="Draft Array">Draft Array</a>.</li>
+<li> Invoke the Part JoinConnect command.</li></ol>
+<p>A Connect parametric object is created. Original objects are hidden, and the result of conecting is shown in 3D view.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Connect</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Objects</b>: List of objects to be connected. Generally, at least two objects are needed, but a single compound containing the shapes to connect will do as well. (as of FreeCAD v0.17.8053, this property is not displayed in property editor, and can only be accessed via Python).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Refine</b>: Sets whether to apply <a href="Part_RefineShape.html" title="Part RefineShape">Refine</a> operation or not, to the final shape. The default value is determined by a 'Automatically refine shape after boolean operation' checkbox in PartDesign preferences.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tolerance</b>: "fuzziness" value. This is an extra tolerance to apply when searching for intersections, in addition to tolerances stored in the input shapes.</li></ul>
+<h2><span class="mw-headline" id="Example">Example</span></h2>
+<ol><li> Create a pipe by applying <a href="Part_Thickness.html" title="Part Thickness">thickness</a> to a <a href="Part_Cylinder.html" title="Part Cylinder">cylinder</a>: <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step1.png" class="image"><img alt="JoinFeatures Example step1.png" src="320px-JoinFeatures_Example_step1.png" width="320" height="240" srcset="/wiki/images/thumb/f/fb/JoinFeatures_Example_step1.png/480px-JoinFeatures_Example_step1.png 1.5x, /wiki/images/f/fb/JoinFeatures_Example_step1.png 2x" /></a></li>
+<li> Create another, smaller diameter pipe, and <a href="Placement.html" title="Placement">place</a> it so that it pierces the wall of the first pipe: <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step2.png" class="image"><img alt="JoinFeatures Example step2.png" src="320px-JoinFeatures_Example_step2.png" width="320" height="240" srcset="/wiki/images/thumb/d/da/JoinFeatures_Example_step2.png/480px-JoinFeatures_Example_step2.png 1.5x, /wiki/images/d/da/JoinFeatures_Example_step2.png 2x" /></a></li>
+<li> Select the first pipe and the second pipe, and click the 'Connect objects' option from the Join tools dropdown toolbar button. <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step3_Connect.png" class="image"><img alt="JoinFeatures Example step3 Connect.png" src="320px-JoinFeatures_Example_step3_Connect.png" width="320" height="240" srcset="/wiki/images/thumb/f/f6/JoinFeatures_Example_step3_Connect.png/480px-JoinFeatures_Example_step3_Connect.png 1.5x, /wiki/images/f/f6/JoinFeatures_Example_step3_Connect.png 2x" /></a></li>
+<li> Use some cross-section tool (<a href="Std_ClippingPlane.html" title="Std ClippingPlane">Clipping plane</a>, <a href="Arch_SectionPlane.html" title="Arch SectionPlane">Arch Section Plane</a>, <a href="Arch_CutPlane.html" title="Arch CutPlane">Arch Cut Plane</a>) to reveal internals. On the picture below, Arch Section Plane is used.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step4_Connect.png" class="image"><img alt="JoinFeatures Example step4 Connect.png" src="320px-JoinFeatures_Example_step4_Connect.png" width="320" height="240" srcset="/wiki/images/thumb/6/6b/JoinFeatures_Example_step4_Connect.png/480px-JoinFeatures_Example_step4_Connect.png 1.5x, /wiki/images/6/6b/JoinFeatures_Example_step4_Connect.png 2x" /></a></li></ol>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span></h2>
+<p>The algorithms behind Join tools are quite simple, and understanding them is important to use the tools correctly. The algorithm of Connect, in particular, is quite a bit more complex than others, but it's generally enough to think of it as a symmetric variant of <a href="/wiki/Part_JoinEmbed#Algorithm" title="Part JoinEmbed">Embed algorithm</a>
+</p><p>1. Each object is split into pieces by intersections with other objects. (see <a href="Part_BooleanFragments.html" title="Part BooleanFragments">Part BooleanFragments</a>) 
+</p><p>2. From the pieces of an object, only the largest one is kept; all the rest are thrown away.
+</p><p>3. Intersection pieces that touch at least two objects are added to result. Then, the pieces are joined together to form the result of Connect.
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<ul><li> If at step 1 each object remains in one piece, the result of Connect will be equivalent to <a href="Part_Union.html" title="Part Union">union</a> of Objects.</li>
+<li> Now, all compounds supplied are exploded prior to connecting. This means that self-intersecting compounds, which are invalid for all other Boolean operations, are valid for Connect. (This may be changed in the future.)</li>
+<li> The "largest" piece is the one that has largest mass. That is, for solids, volumes are compared; for shells and faces, areas are compared, and so on.</li>
+<li> Since FreeCAD v0.17.8053, and if OCC version is 6.9.0 and above, Connect is almost as fast as all other Boolean operations. For older versions, Connect is approximately 5 times slower than a regular Boolean operation, and works only on solids.</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The Join tools can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>BOPTools.JoinFeatures.makeConnect(name)</b>
+</pre>
+<ul><li> Creates an empty Connect feature. The 'Objects' property must be assigned explicitly, afterwards.</li>
+<li> Returns the newly created object.</li></ul>
+<p>Connect can also be applied to plain shapes, without the need to have a document object, via:
+</p>
+<pre><b>Part.BOPTools.JoinAPI.connect(list_of_shapes, tolerance = 0.0)</b>
+</pre>
+<p>This can be useful for making custom Python scripted features.
+</p><p>Example:
+</p>
+<pre>import Part
+j = Part.BOPTools.JoinFeatures.makeConnect(name= 'Connect')
+j.Objects = FreeCADGui.Selection.getSelection() </pre>
+<p>The tool itself is implemented in Python, see /Mod/Part/BOPTools/JoinFeatures.py under where FreeCAD is installed.
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.16.5069
+</p><p>The tool was re-implemented to work via generalFuse in FreeCAD v0.17.8053
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinConnect/ru&amp;oldid=201394">http://www.freecadweb.org/wiki/index.php?title=Part_JoinConnect/ru&amp;oldid=201394</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

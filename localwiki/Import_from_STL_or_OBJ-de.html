@@ -1,0 +1,166 @@
+<html><head><title>Import from STL or OBJ/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Import from STL or OBJ/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Thema
+</th></tr>
+<tr>
+<td class="ctEven">Import von STL oder OBJ
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Zeit zum Abschluss
+</th></tr>
+<tr>
+<td class="ctEven">30 Minuten
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">r-frank
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6703
+</td></tr>
+<tr>
+<th class="ctOdd">Beispieldatei(en)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Einleitung"><span class="tocnumber">2</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Bespiel-Modell"><span class="tocnumber">3</span> <span class="toctext">Bespiel-Modell</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Bereinigen_und_Reparieren_der_STL.2FOBJ-Datei_um_den_Import_vorzubereiten"><span class="tocnumber">4</span> <span class="toctext">Bereinigen und Reparieren der STL/OBJ-Datei um den Import vorzubereiten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Automatisches_Testen_und_Reparieren"><span class="tocnumber">4.1</span> <span class="toctext">Automatisches Testen und Reparieren</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Normalen_ausrichten"><span class="tocnumber">4.2</span> <span class="toctext">Normalen ausrichten</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#L.C3.B6cher_schlie.C3.9Fen"><span class="tocnumber">4.3</span> <span class="toctext">Löcher schließen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Umwandlung_Netzk.C3.B6rper_zu_Volumenk.C3.B6rper"><span class="tocnumber">5</span> <span class="toctext">Umwandlung Netzkörper zu Volumenkörper</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Einleitung">Einleitung</span></h2>
+<p>In diesem Tutorial werden wir behandeln, wie man STL/OBJ-Dateien in FreeCAD importiert.
+Das das STL/OBJ-Format dimensionslos ist, nimmt FreeCAD beim Import and, daß die zu Grunde liegenden Einheiten "mm" sind.
+Falls dies nicht der Fall sein sollte, muss das Modell entsprechend skaliert werden, entweder in der Andwendung, mit der es erstellt wurde oder in FreeCAD nachdem es importiert und in einen Volumenkörper umgewandelt wurde.
+</p>
+<h2><span class="mw-headline" id="Bespiel-Modell">Bespiel-Modell</span></h2>
+<p>Für dieses Tutorial kann man eine eigene STL-Datei benutzen oder eine Bespiel Datei erzeugen, indem man:
+</p>
+<ul><li>FreeCAD öffnet</li>
+<li>Ein neues Dokument erzeugt</li>
+<li>In den "Mesh Design" Arbeitsbereich wechselt</li>
+<li>Einen Torus einfügt durch Klick auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RegularSolid.png" class="image"><img alt="Mesh RegularSolid.png" src="32px-Mesh_RegularSolid.png" width="32" height="33" srcset="/wiki/images/thumb/2/29/Mesh_RegularSolid.png/48px-Mesh_RegularSolid.png 1.5x, /wiki/images/thumb/2/29/Mesh_RegularSolid.png/64px-Mesh_RegularSolid.png 2x" /></a> Regelgeometrie...</span> und Parameter z.B. wie folgt wählt:
+<ul><li>Radius1: 10 mm</li>
+<li>Radius2: 2 mm</li>
+<li>Sampling: 50</li></ul></li>
+<li>Klick auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Erstellen</span> und dann auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Schließen</span></li>
+<li>Die Datei speichern mit <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Datei</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Speichern</span> um eine FreeCAD-Datei zu erhalten, die ein Mesh-Objekt enthält</li></ul>
+<p><br />
+Um ein STL oder OBJ-Objekt in FreeCAD zu importieren, erstelle ein neues FreeCAD document und wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Datei</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Import</span> aus dem obersten Menü aus.
+</p>
+<h2><span class="mw-headline" id="Bereinigen_und_Reparieren_der_STL.2FOBJ-Datei_um_den_Import_vorzubereiten">Bereinigen und Reparieren der STL/OBJ-Datei um den Import vorzubereiten</span></h2>
+<p>Prinzipiell importiert FreeCAD jede STL/OBJ-Datei.
+Aber unser Ziel ist es, einen Volumenkörper zu haben, der vermessen und verändert (aufpolstern, Taschen hinzufügen) werden kann.
+Für eine erfolgreiche Umwandlung von Netz zu Volumenkörper müssen wir sicher stellen, daß das Netz "wasserdicht" ist (keine Löcher enthält) oder andere Fehler und Probleme vorliegen.
+<br />
+FreeCAD strebt nicht danach ein guter Netz-Modellierer zu sein, es will ein guter Volumen-Modellierer sein.
+FreeCAD hat gewisse Möglichkeiten für die Bearbeitung von Netzen in den Arbeitsbereichen "Mesh Design" und "OpenSCAD" (manche Operationen benötigen ein installiertes und konfiguriertes OpenSCAD).
+<br />
+Manche Benutzer verwenden gerne zusätzliche Programme um Netzkörper zu bereinigen und reparieren, ´zum Beispiel:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.netfabb.com/downloadcenter.php?basic=1">Netfabb Basic</a> (Windows/Linux/Mac) - frei zur privaten Nutzung (automatische Netzrepaeratur verfügbar)</li>
+<li> <a rel="nofollow" class="external text" href="http://meshlab.sourceforge.net/">Meshlab</a> (Windows/Linux/Mac) - Open Source</li></ul>
+<p><br />
+In diesem Tutorial werden wir den Arbeitsbereich "Mesh Design" in FreeCAD benutzen, um das Netz unseres Beispiel-Objektes zu bereinigen/reparieren/überprüfen.
+</p>
+<h3><span class="mw-headline" id="Automatisches_Testen_und_Reparieren">Automatisches Testen und Reparieren</span></h3>
+<ul><li>Starte FreeCAD und öffne die FreeCAD-Beispiel-Datei (siehe oben), die das Beispiel-Netz-Objekt enthält</li>
+<li>Wechsle in den Arbeitsbereich ""Mesh Design"</li>
+<li>Stelle sicher, das das Netz-Objekt in der Baumansicht ausgewählt ist</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analysieren</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netz auswerten und analysieren...</span> aus dem obersten Menü</li>
+<li>Stelle sicher, dass in dem Auswahl-Menü rechts oben in dem gerade aktivierten Fenster der Name des Netz-Objektes steht</li>
+<li>Bei dem letzten Punkt der Aktionen "Alle Tests zusammen" klicke auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analysieren</span></li>
+<li>Die Texte neben den Auswahl-Boxen ändern sich um das Ergebnis der Analyse wieder zu geben</li>
+<li>Falls Fehler entdeckt wurden, werden die Boxen angehakt und man kann <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Reparieren</span> auswählen</li>
+<li>Klick auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Schließen</span> beendet das Menü</li></ul>
+<h3><span class="mw-headline" id="Normalen_ausrichten">Normalen ausrichten</span></h3>
+<p>Normalen ausrichten (harmonisieren) bei Netz-Körpern kann man, indem man:
+</p>
+<ul><li>Den Netz-Körper in der Baumansicht auswählt</li>
+<li><span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_HarmonizeNormals.png" class="image"><img alt="Mesh HarmonizeNormals.png" src="32px-Mesh_HarmonizeNormals.png" width="32" height="32" srcset="/wiki/images/thumb/0/01/Mesh_HarmonizeNormals.png/48px-Mesh_HarmonizeNormals.png 1.5x, /wiki/images/0/01/Mesh_HarmonizeNormals.png 2x" /></a> Normalen ausrichten...</span> aus dem obersten Menü wählt</li></ul>
+<p>Tip:
+Wenn man den Netz-Körper in der Baumansicht auswählt und in dem "Ansichten"-Tab in dem Eigenschaften-Fenster Lighting (Beleuchtung) von "Two Side" ("Zwei Seiten") auf "One Side" ("Eine Seite") ändert kann man Dreiecke mit umgedrehten Normalen erkennen.
+Wenn die Normalen nach "innen" zeigen, wird die entsprechende Dreiecksfläche schwarz dargestellt.
+</p>
+<h3><span class="mw-headline" id="L.C3.B6cher_schlie.C3.9Fen">Löcher schließen</span></h3>
+<p>Man kann manuell Löcher in dem Netzkörper verschließen, wenn man:
+</p>
+<ul><li>Den Netzkörper in der Baumansicht auswählt</li>
+<li><span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Löcher schließen...</span> aus dem obersten Menü wählt</li>
+<li>Nun die Anzahl der Kanten, zwischen denen aufgefüllt werden soll, auswählen (3 ist der Standard)</li>
+<li>Da STL/OBJ-Netze aus Dreiecken bestehen sollte die Standard-Zahl ausreichend sein</li></ul>
+<p><br />
+Eine andere Methode manuell Löcher in einem Netzkröper zu verschließen wäre:
+</p>
+<ul><li>Den Netzkörper in der Baumansicht auswählen</li>
+<li><span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> Loch schließen</span> aus dem obersten Menü wählen</li>
+<li>Eine der Begranzngskanten des Loches im Netzkörper in der 3D-Ansicht wählen</li>
+<li>Ein Rechtsklick in der 3D-Ansicht und anschließend <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Löcher-Schließen-Modus verlassen</span> wählen beendet das Kommando</li></ul>
+<h2><span class="mw-headline" id="Umwandlung_Netzk.C3.B6rper_zu_Volumenk.C3.B6rper">Umwandlung Netzkörper zu Volumenkörper</span></h2>
+<ul><li>Wechsel in den Arbeitsbereich "Part"</li>
+<li>Stelle sicher, dass das Netzobjekt in der Baumansicht ausgewhält ist, ansonsten wähle es aus</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Formteil</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_ShapeFromMesh.png" class="image"><img alt="Part ShapeFromMesh.png" src="32px-Part_ShapeFromMesh.png" width="32" height="32" srcset="/wiki/images/thumb/5/50/Part_ShapeFromMesh.png/48px-Part_ShapeFromMesh.png 1.5x, /wiki/images/5/50/Part_ShapeFromMesh.png 2x" /></a> Form aus Dreiecksnetz erstellen ...</span> aus dem obersten Menü</li>
+<li>Wähle das gerde neu erstellte Objekt in der Baumansicht aus</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Formteil</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_RefineShape.png" class="image"><img alt="Part RefineShape.png" src="32px-Part_RefineShape.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Part_RefineShape.png/48px-Part_RefineShape.png 1.5x, /wiki/images/6/68/Part_RefineShape.png 2x" /></a> Form aufbereiten</span> aus dem obersten Menü</li>
+<li>Ein neues Objekt wird in der Baumansicht erstellt und das vorherige wird unsichtbar gemacht (ausgegraut).</li>
+<li>Wähle das gerade neu erstellte Objekt in der Baumansicht aus</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Formteil</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Festkörper erzeugen</span> aus dem obersten Menü</li>
+<li>Ein neues Objekt wird in der Baumansicht erzeugt, das (Solid) im Namen trägt, um anzuzeigen, daß es sich um einen Volumenkörper handelt</li></ul>
+<p><br />
+Da der neu erstellte Volumenkörper keine (editierbare) Historie und keine editierbaren Features hat (genauso wie eine "simple Kopie" in FreeCAD) könnte man alle vorherigen Objekte in der Baumansicht löschen.
+Dies würde die Dateigröße klein halten ...
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="Export_to_STL_or_OBJ.html" title="Export to STL or OBJ">Export to STL or OBJ</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/de&amp;oldid=189869">http://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/de&amp;oldid=189869</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,143 @@
+<html><head><title>Path Walkthrough for the Impatient/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Path Walkthrough for the Impatient/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Thema
+</th></tr>
+<tr>
+<td class="ctEven">Path Workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Zeit zum Abschluss
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">Chrisb
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Beispieldatei(en)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Das_3D-Modell"><span class="tocnumber">2</span> <span class="toctext">Das 3D-Modell</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Der_Job"><span class="tocnumber">3</span> <span class="toctext">Der Job</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Job_Setup"><span class="tocnumber">3.1</span> <span class="toctext">Job Setup</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Job_Output"><span class="tocnumber">3.2</span> <span class="toctext">Job Output</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Job_Tools"><span class="tocnumber">3.3</span> <span class="toctext">Job Tools</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Job_Workplan"><span class="tocnumber">3.4</span> <span class="toctext">Job Workplan</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#The_Path_Operations"><span class="tocnumber">4</span> <span class="toctext">The Path Operations</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Verifying_Paths"><span class="tocnumber">5</span> <span class="toctext">Verifying Paths</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Postprocess_the_Job"><span class="tocnumber">6</span> <span class="toctext">Postprocess the Job</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Here is a demonstration showing the creation of a Path WB Job from a 3D Model, generating dialect-correct G-Code for a target CNC mill. 
+</p>
+<h2><span class="mw-headline" id="Das_3D-Modell">Das 3D-Modell</span></h2>
+<p>Das Projekt startet mit einem einfachen FreeCAD-Modell: Ein Würfel mit einer rechteckigen Tasche, 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-SquarePocketModel.png" class="image"><img alt="Path-SquarePocketModel.png" src="Path-SquarePocketModel.png" width="525" height="280" /></a>
+</p><p>created  in the <a href="PartDesign_Workbench.html" title="PartDesign Workbench">Part Design</a> including a Body, a Box with a Pocket, based on a Sketch oriented in the XY plane.
+</p><p>Nach dem fertiggestellten 3D-Modell wird der Path-Arbeitsbereich ausgewählt.  
+</p>
+<h2><span class="mw-headline" id="Der_Job">Der Job</span></h2>
+<p>Der <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Job.png" class="image"><img alt="Path-Job.png" src="32px-Path-Job.png" width="32" height="30" srcset="/wiki/images/thumb/b/b6/Path-Job.png/48px-Path-Job.png 1.5x, /wiki/images/b/b6/Path-Job.png 2x" /></a> <a href="Path_Job.html" title="Path Job">Job</a> wird erstellt.
+</p><p>In the Job creation dialog click OK to accept the Body as the Base Model, with no Template.   
+</p>
+<h3><span class="mw-headline" id="Job_Setup">Job Setup</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-JobCreationDialog.png" class="image"><img alt="Path-JobCreationDialog.png" src="Path-JobCreationDialog.png" width="477" height="288" /></a>
+</p><p>The Job Edit window opens in the Task window, and the model view Window shows the Stock as a wire frame cube surrounding the Base Body.  The Setup Tab is selected. 
+</p>
+<h3><span class="mw-headline" id="Job_Output">Job Output</span></h3>
+<p>The Output tab defines the output file path, name, and extension, and the Postprocessor.  For advanced users, Post Processor Arguments can be defined—the mouse over hints show common arguments.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-JobOutput.png" class="image"><img alt="Path-JobOutput.png" src="Path-JobOutput.png" width="357" height="218" /></a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Job_Tools">Job Tools</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-JobTools.png" class="image"><img alt="Path-JobTools.png" src="Path-JobTools.png" width="342" height="426" /></a>
+</p><p>We modify the Default tool by selecting it and clicking the Edit button. This opens the Tool Controller edit window.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-ToolConfig.gif" class="image"><img alt="Path-ToolConfig.gif" src="Path-ToolConfig.gif" width="353" height="372" /></a>
+</p><p>The name given to the tool and the tool number correspond with the tool number of the machine. Here it is tool Nr. 4. The tool controller is configured for horizontal and vertical feed rates of 2mm/s and a spindle speed of 2000 rpm.
+</p><p>Select the Tool subpanel of the tool controller. Set the diameter and - if you wish to use the simulation tool later - add a cutting edge angle and cutting edge height.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-ToolAdd.gif" class="image"><img alt="Path-ToolAdd.gif" src="Path-ToolAdd.gif" width="407" height="423" /></a>
+</p><p>The values are confirmed with OK.
+</p><p>For easy access all the tools can be predefined and selected from the <a href="Path_EditToolsTable.html" title="Path EditToolsTable">Tool manager</a>.
+</p>
+<h3><span class="mw-headline" id="Job_Workplan">Job Workplan</span></h3>
+<p>The Workplan tab begins empty, and is populated by the sequence of Job Operations, Partial Path Commands, and Path Dressups.  The sequence of these items is ordered here.
+</p><p><br />
+This tree is shown after the Job's configuration once the Path Job is unfolded:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-TreeWithJob.png" class="image"><img alt="Path-TreeWithJob.png" src="Path-TreeWithJob.png" width="197" height="214" /></a>
+</p>
+<h2><span class="mw-headline" id="The_Path_Operations">The Path Operations</span></h2>
+<p>Two operations will be added to generate milling paths for this Path Job. The <a href="Path_Contour.html" title="Path Contour">Contour</a> operation creates a path around the box and the <a href="Path_Pocket_Shape.html" title="Path Pocket Shape">Pocket</a> operation creates a path for the inner pocket.
+</p><p>For now we will keep it simple. The <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Profile.png" class="image"><img alt="Path Profile.png" src="32px-Path_Profile.png" width="32" height="32" srcset="/wiki/images/thumb/8/83/Path_Profile.png/48px-Path_Profile.png 1.5x, /wiki/images/8/83/Path_Profile.png 2x" /></a> <a href="Path_Contour.html" title="Path Contour">Contour</a> button opens the Contour panel. After confirming with OK using the default values, see the green path around the object is visible.
+</p><p>Selecting the bottom of the pocket and then the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Pocket.png" class="image"><img alt="Path Pocket.png" src="32px-Path_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/c/c2/Path_Pocket.png/48px-Path_Pocket.png 1.5x, /wiki/images/c/c2/Path_Pocket.png 2x" /></a> <a href="Path_Pocket_Shape.html" title="Path Pocket Shape">Pocket</a> button opens the Pocket Shape window.  The default values for Base Geometry, Depths, and Heights are used, and the Operation subpanel is selected, and the Step Over Percent is set at 50.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-PocketOperation.gif" class="image"><img alt="Path-PocketOperation.gif" src="Path-PocketOperation.gif" width="407" height="484" /></a>
+</p><p>The pattern is changed to "Offset" and the Job Operation is confirmed for the pocket configuration with OK.
+</p><p>The result is a model with two paths:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-WalkThroughResult.gif" class="image"><img alt="Path-WalkThroughResult.gif" src="Path-WalkThroughResult.gif" width="539" height="513" /></a>
+</p>
+<h2><span class="mw-headline" id="Verifying_Paths">Verifying Paths</span></h2>
+<p>There are two ways to verify the created paths. The G-Code can be inspected, including highlighting the corresponding path segments.  The milling process of the Path Job can also be simulated to demonstrate the idealized tool paths, required for the Tool geometries to mill the Stock.
+</p><p>To inspect the G-Code use the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Inspect.png" class="image"><img alt="Path Inspect.png" src="32px-Path_Inspect.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Path_Inspect.png/48px-Path_Inspect.png 1.5x, /wiki/images/9/9f/Path_Inspect.png 2x" /></a> tool. Selecting the corresponding G-Code lines within the G-Code Inspection window highlights individual path segments.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-InspectWindow.gif" class="image"><img alt="Path-InspectWindow.gif" src="Path-InspectWindow.gif" width="930" height="382" /></a>
+</p><p>To start the simulation use the <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_Simulator.png" class="image"><img alt="Path Simulator.png" src="32px-Path_Simulator.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/Path_Simulator.png/48px-Path_Simulator.png 1.5x, /wiki/images/a/ab/Path_Simulator.png 2x" /></a> <a href="Path_Simulator.html" title="Path Simulator">Path Simulator</a> tool.
+</p><p>Adjust speed and accuracy and start the simulation with the play button. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-Simulation.gif" class="image"><img alt="Path-Simulation.gif" src="Path-Simulation.gif" width="856" height="503" /></a>
+</p><p>If you want to end the simulation click the Cancel button, it will remove the stock created for the simulation. If you click Ok this object will be kept in your Job.
+</p>
+<h2><span class="mw-headline" id="Postprocess_the_Job">Postprocess the Job</span></h2>
+<p>The final step to generate G-Code for the target mill is to postprocess the Job.  This outputs the G-Codes to a file that can be uploaded to the target CNC machine controller.  To invoke the Postprocessor:
+</p>
+<ul><li> Select the Job object in the tree</li>
+<li> Select the Path Postprocessing <a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_PostProcess.png" class="image"><img alt="Path PostProcess.png" src="32px-Path_PostProcess.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Path_PostProcess.png/48px-Path_PostProcess.png 1.5x, /wiki/images/3/39/Path_PostProcess.png 2x" /></a> tool to postprocess the file.  This opens a G-Code window allowing inspection of the final output file before it is saved.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path-PostOutput.gif" class="image"><img alt="Path-PostOutput.gif" src="Path-PostOutput.gif" width="349" height="685" /></a>
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Path_Walkthrough_for_the_Impatient/de&amp;oldid=276150">http://www.freecadweb.org/wiki/index.php?title=Path_Walkthrough_for_the_Impatient/de&amp;oldid=276150</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

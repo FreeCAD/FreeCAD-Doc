@@ -1,0 +1,128 @@
+<html><head><title>Scripting/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scripting/sv</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/sv&amp;redirect=no" class="mw-redirect" title="Scripting/sv">Scripting/sv</a>)</span></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crystal_Clear_app_terminal.png" class="image" title="150"><img alt="150" src="Crystal_Clear_app_terminal.png" width="128" height="128" /></a></div>
+<p>Detta är platsen att komma till om du vill ha en djupare insikt i FreeCAD. Här kan du lära dig om hur du anpassar FreeCAD för dina behov. 
+</p><p>These pages are in early stage of development.  If you can't find the information you are looking for, or have found useful information somewhere we have not linked to, then please leave a comment on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>, or, why not? <a href="Help_FreeCAD.html" title="Help FreeCAD"> Add some more content here yourself!</a>
+</p><p>En av FreeCADs bästa egenskaper är att du kan skripta och utöka den extremt mycket utan att behöva kompilera något eller röra källkoden. All skriptning görs i <a rel="nofollow" class="external text" href="http://sv.wikipedia.org/wiki/Python_(programspråk)">python</a>, ett mycket kraftfullt men enkelt programmeringsspråk. Med enkla pythonskript så har du total åtkomst till alla FreeCADs delar. Du kan till exempel:
+</p>
+<ul><li> <b>Skapa och ändra geometri</b>: Finns det något sorts specialobjekt som du behöver men som inte finns i FreeCADs standardinstallation? Du kan lätt skapa en ny objekttyp, antingen från scratch eller genom att förändra en existerande typ.</li>
+<li> <b>Skapa anpassade verktyg och kommandon</b>: För tillfället så har FreeCAD redn en extensiv funktionalitet, men det finns ännu inte så många smidiga verktyg och kommandon för slutanvändaren än. Men det är redan lätt att skapa ditt eget verktygsset.</li>
+<li> <b>Förändra gränssnittet</b>: FreeCADs användargränssnitt är för tillfället fortfarande mycket enkelt. Men allt finns där för dig för att utöka den för dina behov. Du kan till exempel, skapa verktygslådor att lägga dina egna verktyg i, Skapa specialpaneler för att interagera med dina verktyg, etc.</li>
+<li><b>Förändra scenrepresentationen</b>: FreeCAD har separata processer för uppbyggnad och beräkning av geometrin och visa den  geometrin på din skärm. Du har full åtkomst till det sätt som sceninnehållet visas på skärmen, så därför kan du förändra den representationen, interagera med den , eller lägga till alla sorters specialbeteenden och skärmwidgetar, som information, dragare, ankare eller temporära föremål.</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Anpassa_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">Anpassa FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Skriptning_i_FreeCAD"><span class="tocnumber">2</span> <span class="toctext">Skriptning i FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Modules"><span class="tocnumber">2.1</span> <span class="toctext">Modules</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#API_funktioner"><span class="tocnumber">3</span> <span class="toctext">API funktioner</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Avancerade_.C3.A4ndringar"><span class="tocnumber">4</span> <span class="toctext">Avancerade ändringar</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Python_.C3.B6vningar"><span class="tocnumber">5</span> <span class="toctext">Python övningar</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Grupprojekt"><span class="tocnumber">6</span> <span class="toctext">Grupprojekt</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Anpassa_FreeCAD">Anpassa FreeCAD</span></h2>
+<ul><li> <a href="Interface_Customization.html" title="Interface Customization">Interface Customization</a>: Starting with the beginning: Toolbars and shortcuts</li>
+<li> <a href="Macros.html" title="Macros">Working with Macros</a>: Easily record often repeated tasks or Python code</li>
+<li> <a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a></li>
+<li> <a href="Customize_Toolbars.html" title="Customize Toolbars">Customize Toolbars</a></li>
+<li> <a href="Installing_more_workbenches.html" title="Installing more workbenches">Installing more workbenches</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?t=10556">Plugin Loader</a></li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-addons">Addons installer.FCMacro</a></li></ul>
+<h2><span class="mw-headline" id="Skriptning_i_FreeCAD">Skriptning i FreeCAD</span></h2>
+<p><b>Allmänt</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/sv" title="Introduction to Python/sv">Introduktion till python</a> - Se även andra pythonövningar i slutet på denna sida</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/sv" title="FreeCAD Scripting Basics/sv">FreeCAD skriptgrunder</a>: grunderna...</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/sv" title="Mesh Scripting/sv">Nät skript</a>: Hur man interagerar med <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/sv" class="mw-redirect" title="Mesh Module/sv">Nät modulen</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Gui_Command/sv" title="Gui Command/sv">Gränssnittskommandon</a>&#160;: Lägga till anpassade kommandon till gränssnittet</li>
+<li> Använda blandade <a href="https://www.freecadweb.org/wiki/index.php?title=Units/sv" title="Units/sv">Enheter</a> i FreeCAD</li></ul>
+<h3><span class="mw-headline" id="Modules">Modules</span></h3>
+<p>As the functionality of FreeCAD is separated in Modules which deal with special data types and applications. FreeCAD has built-in modules and Extension Modules (plug-ins). Once plugin modules are installed, they become availible to you as easily as the built-in modules. The modules described below are the default modules, includeed in every FreeCAD installation.
+</p>
+<ul><li> The <a href="Builtin_modules.html" title="Builtin modules">Builtin modules</a> are the principal FreeCAD modules. They contain tools for manipulating general FreeCAD configurations, documents and their contents.</li>
+<li> <a href="Workbench_creation.html" title="Workbench creation">Workbench creation</a> shows you how to create your own workbench</li></ul>
+<p>""Arbeta med nät""
+</p>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/sv" title="Mesh Scripting/sv">Nät skript</a> Hur man interagerar med <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/sv" class="mw-redirect" title="Mesh Module/sv">Nätmodulen</a></li></ul>
+<p><b>Använda OpenCasCade</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">Del Modulen</a>: Hur OpenCasCade verktyg och strukturer används i FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/sv" title="Topological data scripting/sv">Topologiska dataskript</a>: Hur man interagerar med Del Modulen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=PythonOCC/sv" title="PythonOCC/sv">pythonOCC</a>: Hur man släpper fri hela  OpenCasCade kraften</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/sv" title="Mesh to Part/sv">Nät till Del</a>: konvertering mellan objekttyper</li></ul>
+<p><b>Komma åt Coin scengrafen</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/sv" title="Scenegraph/sv">Coin/Inventor scengrafen</a>: Hur FreeCADs scenrepresentation fungerar</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/sv" title="Pivy/sv">Pivy</a>: Hur man kommer åt och ändrar scengrafen</li></ul>
+<p><b>Kontrollera Qt gränssnittet</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=PySide/sv" title="PySide/sv">PySide</a>: Hur man kommer åt gränssnittet, och förändrar dess innehåll</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCADGui/sv" title="Embedding FreeCADGui/sv">Använda FreeCADs gränssnitt</a> i en annan Qt applikation med PyQt</li></ul>
+<p><b>Arbeta med parametriska objekt</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/sv" title="Scripted objects/sv">Skriptade objekt</a>: Hur man gör 100% python-skriptade objekt i FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/sv" title="Drawing Module/sv">Ritningsmodulen</a>: Automatisera 3D-till-2D processen</li></ul>
+<p><b>Exempel</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/sv" title="Code snippets/sv">Kodbitar</a> en samling med FreeCAD python kod som du kan använda som ingredienser i dina skript...</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/sv" title="Line drawing function/sv">Linjeritningsfunktionen</a>: Hur man bygger ett enkelt verktyg att rita linjer med</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/sv" title="Dialog creation/sv">Skapa dialoger</a>: Hur man konstruerar dialoger med Qt designer, och använder dem i FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/sv" title="Embedding FreeCAD/sv">Bädda in FreeCAD</a>: Hur man importerar FreeCAD som en pythonmodul i andra applikationer</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/sv" title="Draft Module/sv">Skissmodulen</a> adderar grundläggande 2D rintningsfunktioner till FreeCAD. Den är helt och hållet skriven i python, så den kan vara ett bra exempel om du vill skriva dina egna moduler.</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_vector_math_library/sv" title="FreeCAD vector math library/sv">FreeCAD's vektorbibliotek</a>&#160;: Några praktiska funktioner för att manipulera FreeCAD vektorer. Detta bibliotek är även inkluderat i Skissmodulen.</li></ul>
+<h2><span class="mw-headline" id="API_funktioner">API funktioner</span></h2>
+<p>Den kompletta API beskrivningen hittas <a href="https://www.freecadweb.org/wiki/index.php?title=Category:API/sv" title="Category:API/sv">här</a>. Notera att den kan vara ofullständig, eftersom vi fortfarande inte har hittat ett sätt att automatiskt inkludera den på denna wiki. För mer rättvisande information, titta i modulerna direkt från FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Avancerade_.C3.A4ndringar">Avancerade ändringar</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/sv" title="Start up and Configuration/sv">Uppstart och konfiguration</a>: Uppstart och kommandoradsalternativ</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/sv" title="Install on Windows/sv">Installera på Windows</a>: Använda Windows installeraren</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/sv" title="CompileOnWindows/sv">Kompilera FreeCAD på Windows</a> och <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/sv" title="CompileOnUnix/sv">Kompilera FreeCAD på Unix</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/sv" title="Branding/sv">Branding</a>: Enkla modifieringar som du kan göra i källkoden för att förändra vissa delar i FreeCAD</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/sv" title="Extra python modules/sv">Extra pythonmuduler</a>&#160;: Utöka FreeCAD's pythontolk med dessa kraftfulla moduler!</li></ul>
+<h2><span class="mw-headline" id="Python_.C3.B6vningar">Python övningar</span></h2>
+<p>Dessa är bra allmänna övningar, inte specifika för FreeCAD, som kan vara intressanta för dig om du är helt ny på python.
+</p><p><b>Python</b>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="https://docs.python.org/2.7/tutorial/index.html">Official python tutorial</a> - A very complete tutorial for discovering python</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python">Non-programmer tutorial for python</a> - an excellent wikibook</li>
+<li> <a rel="nofollow" class="external text" href="http://npt.cc.rsu.ru/user/wanderer/ODP/Python_for_Newbies.htm">Python for newbies</a> - one big tutorial covering all the basics</li></ul>
+<p><b>PySide</b> - How to create and manage FreeCAD's Qt UI interface from python
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://zetcode.com/gui/pysidetutorial/">PySide tutorial</a>&#160;: A platform-agnostic tutorial showing the usage of PySide with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythoncentral.io/series/python-pyside-pyqt-tutorial/">PySide/PyQt tutorial</a>&#160;: A easy to read tutorial that covers PySide and PyQt with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySideDocumentation">PySide documentation</a>&#160;: from the Qt Project (the people who wrote it all)</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/QtCreator_and_PySide">Using QtCreator in PySide</a>&#160;: also from the Qt Project</li>
+<li> <a rel="nofollow" class="external text" href="http://srinikom.github.io/pyside-docs/index.html">PySide reference</a>&#160;: endless detail on the minutiae of PySide and Qt, a reliable reference source</li>
+<li> <a rel="nofollow" class="external text" href="http://nullege.com/codes/search?cq=PySide">PySide code snippets</a>&#160;: a searchable database of PySide code snippets</li></ul>
+<p>The following two references are PyQt specific (not PySide) but may offer some information of use:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.cs.usfca.edu/~afedosov/qttut/">Basic PyQt tutorial</a>&#160;: A simple and short linux-based tutorial that will explain how to work with PyQt and Qt Designer</li>
+<li> <a rel="nofollow" class="external text" href="http://vizzzion.org/?id=pyqt">Programming Qt applications in python</a>&#160;: A more in-depth tutorial covering all the process of working with qt and python.</li></ul>
+<p><i>Pivy'</i> - Hur man interagerar med FreeCAD's 3D scener
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/documentation/pycon">Grundläggande Pivy övning</a>&#160;: En mycket simpel övning från den officiella Pivy siten</li>
+<li> <a rel="nofollow" class="external text" href="http://www.google.com.br/url?sa=U&amp;start=3&amp;q=http://studierstube.icg.tu-graz.ac.at/doc/pdf/PivyStudierstubeTutorial.pdf&amp;ei=XyC1Sc2wOeCKmQem_eHnBQ&amp;usg=AFQjCNEYhb-0DcUc6OxFVijAe1epBb-4aA">Introduktion av Pivy i studiersturbe</a>&#160;: Ett dokument som egentligen inte är en övning men som på ett bra sätt illustrerar hur Pivy fungerar</li></ul>
+<h2><span class="mw-headline" id="Grupprojekt">Grupprojekt</span></h2>
+<p>On the <a href="FreeCAD_Community_Portal.html" title="FreeCAD Community Portal">Community portal</a>, you can find other FreeCAD-based projects run by the FreeCAD users community. If you are starting a new FreeCAD project, be sure to list it there! We also have a page with things you can do if you would like to <a href="Help_FreeCAD.html" title="Help FreeCAD">Help FreeCAD</a>.
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/sv&amp;oldid=212898">http://www.freecadweb.org/wiki/index.php?title=Power_users_hub/sv&amp;oldid=212898</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

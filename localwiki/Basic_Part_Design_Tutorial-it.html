@@ -1,0 +1,204 @@
+<html><head><title>Basic Part Design Tutorial/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic Part Design Tutorial/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Modellazione
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Base
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">Circa un'ora
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">Mark Stephen (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a>)
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">da 0.14.3700 fino a 0.16
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Prima_di_iniziare"><span class="tocnumber">2</span> <span class="toctext">Prima di iniziare</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Lo_scopo"><span class="tocnumber">3</span> <span class="toctext">Lo scopo</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#La_Parte"><span class="tocnumber">4</span> <span class="toctext">La Parte</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Costruzione_della_Parte"><span class="tocnumber">5</span> <span class="toctext">Costruzione della Parte</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Corpo_principale_con_Pad"><span class="tocnumber">5.1</span> <span class="toctext">Corpo principale con Pad</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Funzioni_con_Tasca_e_Geometria_esterna"><span class="tocnumber">5.2</span> <span class="toctext">Funzioni con Tasca e Geometria esterna</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Funzioni_con_Pad_e_geometria_esterna"><span class="tocnumber">5.3</span> <span class="toctext">Funzioni con Pad e geometria esterna</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Funzioni_con_Cavit.C3.A0_e_Geometria_esterna"><span class="tocnumber">5.4</span> <span class="toctext">Funzioni con Cavità e Geometria esterna</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Risorse_aggiuntive"><span class="tocnumber">6</span> <span class="toctext">Risorse aggiuntive</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>Questo tutorial è obsoleto. È valido per FC v0.16 e precedenti. Per FC 0.17 e superiori, vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial_017/it" title="Basic Part Design Tutorial 017/it">Basi di Part Design 017</a>.</b></div>
+<p><br />
+Questo tutorial presenta ai nuovi utenti alcuni degli strumenti e delle tecniche utilizzate nell'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it"> Part Design</a>. Questo tutorial non è una guida completa ed esaustiva all'ambiente Part Design, molti strumenti e molte capacità non sono utilizzate. Questo tutorial guida l'utente attraverso i passi necessari per modellare la parte mostrata nell'immagine sottostante utilizzando degli schizzi.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial018.png" class="image"><img alt="PD WB Tutorial018.png" src="PD_WB_Tutorial018.png" width="450" height="450" /></a></div></div>
+<h2><span class="mw-headline" id="Prima_di_iniziare">Prima di iniziare</span></h2>
+<p>Le immagini riportate in questo tutorial sono state prodotte in FreeCAD con <a href="https://www.freecadweb.org/wiki/index.php?title=Preferences_Editor/it" title="Preferences Editor/it">Preferenze</a> -&gt; "Affina  automaticamente" attivo, che rimuove dalle facce le "extra" linee non necessarie. Questa impostazione è potenzialmente pericolosa, non deve essere utilizzata da nuovi utenti e può corrompere i modelli. Il miglior consiglio è di non modificare le impostazioni predefinite e di lasciare disattivata questa opzione.
+</p>
+<h2><span class="mw-headline" id="Lo_scopo">Lo scopo</span></h2>
+<p>In questa esercitazione, si prevede di utilizzare l'ambiente Part Design per creare un modello solido 3D della parte mostrata nel <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/it" title="Drawing Module/it">Disegno</a> sottostante. Tutte le dimensioni necessarie per portare a termine questo compito sono date. Si inizierà creando il nucleo della forma da uno schizzo di base e poi si costruirà sulla forma aggiungendo ad essa ciò che è conosciuto come caratteristiche (Features). Le caratteristiche aggiungono del materiale, o rimuovono del materiale dal pieno mediante l'uso di disegni supplementari accompagnati dalle operazioni delle funzioni. Questo tutorial non utilizza tutte le funzioni e gli strumenti disponibili nell'ambiente Part Design, ma dovrebbe utilizzarne abbastanza per dare agli utenti di questo tutorial le basi su cui costruire le loro conoscenze e competenze. 
+</p>
+<h2><span class="mw-headline" id="La_Parte">La Parte</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial_Drawing_Sheet.png" class="image"><img alt="Tutorial Drawing Sheet.png" src="Tutorial_Drawing_Sheet.png" width="1488" height="1052" /></a>
+</p>
+<h2><span class="mw-headline" id="Costruzione_della_Parte">Costruzione della Parte</span></h2>
+<h3><span class="mw-headline" id="Corpo_principale_con_Pad">Corpo principale con Pad</span></h3>
+<p>Prima di iniziare accertarsi di essere nell'ambiente Part Design. Fatto questo, creare un nuovo documento, se non è ancora stato fatto. Dato che salvare spesso il proprio lavoro è una buona abitudine, per prima cosa salvare il documento dandogli il nome preferito. Ora si può cominciare con lo schizzo di base. Per avviare lo schizzo cliccare sull'icona <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> <i>Nuovo schizzo</i> nella barra degli strumenti o nel menu di Part Design. Dovrebbe apparire una finestra di dialogo che chiede di scegliere l'orientamento dello schizzo e che prevede di inserire un offset. In questo caso l'offset non viene usato, e per l'orientamento dello schizzo di base si deve scegliere il piano YZ, come mostrato nell'immagine sottostante. Dopo aver selezionato il piano YZ e fatto clic su OK si può iniziare a costruire il primo schizzo.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial001.png" class="image"><img alt="PD WB Tutorial001.png" src="PD_WB_Tutorial001.png" width="270" height="316" /></a></div></div>
+<p>Per procedere, utilizzare lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> Polilinea e fare una forma simile a quella dell'immagine successiva. Non è necessario che sia perfetta, in quanto, dopo averla costruita, si applicheranno i vincoli. Dopo aver prodotto la forma di base, si passa ad applicare i vincoli. Se la casella <i>Autovincoli</i> era impostata su ON, alcuni di loro saranno già stati applicati automaticamente, in caso contrario, procedere come segue. 
+</p>
+<ol><li> Selezionare le due linee orizzontali con il mouse cliccando su di esse, e una volta selezionate, fare clic su <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> vincolo <i>orizzontale</i>.</li>
+<li> Selezionare la linea verticale sulla destra e poi cliccare su <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a> vincolo <i>verticale</i>. </li>
+<li> Selezionare i punti iniziale e finale della polilinea e fare clic sul vincolo <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> <i>coincidente</i> per chiudere la polilinea. </li>
+<li> Selezionare la linea orizzontale inferiore e la linea verticale destra e applicare il vincolo <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> <i>lunghezza uguale</i>. </li>
+<li> Selezionare la linea orizzontale e la linea verticale e applicare a entrambe il corrispondente vincolo <i>distanza</i>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> orizzontale o <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> verticale e dare loro il valore 26 mm.</li>
+<li> Selezionare la linea orizzontale superiore e applicare il vincolo di <i>distanza orizzontale</i> e dargli il valore 5 mm.</li>
+<li> Selezionare il punto in basso a sinistra, (Vertice) della linea orizzontale e il punto in alto a destra della linea verticale, quindi selezionare il punto centrale della griglia e applicare il vincolo <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> <i>simmetria</i>.</li></ol>
+<p>A questo punto si dovrebbe avere un disegno completamente vincolato, come indicato dal cambio di colore e dal messaggio mostrato nella Vista Combinata. Lo schizzo dovrebbe apparire esattamente come nell'immagine sottostante. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial002.png" class="image"><img alt="PD WB Tutorial002.png" src="PD_WB_Tutorial002.png" width="450" height="450" /></a></div></div>
+<p>Ora, nella Vista Combinata, cliccare sul pulsante Close per uscire dalla modalità di modifica schizzo e selezionare <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> <i>Prisma</i> (Pad) dalla barra degli strumenti o dal menu di Part Design. Questo apre la finestra di dialogo per Pad nella Vista Combinata. Aprire il menu a discesa di tale finestra e selezionare <i>due dimensioni</i>. Come si può vedere nel disegno presentato all'inizio di questo tutorial la parte è lunga 53 mm. Ora, quello che vogliamo fare è estrudere lo schizzo in entrambe le direzioni simmetricamente dal centro del piano per coprire tale distanza. Il motivo di questo diventerà evidente più avanti. Per ora, dato che vogliamo che in totale sia lungo 53 mm inserire 26,5 per la <i>lunghezza</i> e di nuovo 26,5 per la <i>seconda lunghezza</i>. In alternativa, si può fornire una sola lunghezza di 53 mm e attivare la casella <i>Simmetrico al piano</i>. Fatto questo, abbiamo prodotto la base solida a cui aggiungere le caratteristiche aggiuntive per costruire la Parte.
+</p><p>Un video dei passaggi utilizzati in questa parte del tutorial è disponibile in: <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=UacO5Pa4gIM">https://www.youtube.com/watch?v=UacO5Pa4gIM</a>
+</p>
+<h3><span class="mw-headline" id="Funzioni_con_Tasca_e_Geometria_esterna">Funzioni con Tasca e Geometria esterna</span></h3>
+<p>Utilizzando il mouse, o con le icone di visualizzazione, ruotare il modello in modo da poter vedere la sua faccia posteriore. Quando la faccia posteriore della Parte è visibile, selezionarla cliccando su di essa, come si vede nell'immagine successiva. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial003.png" class="image"><img alt="PD WB Tutorial003.png" src="PD_WB_Tutorial003.png" width="450" height="450" /></a></div></div>
+<p>Dopo aver selezionato la faccia, fare clic sull'icona Nuovo schizzo nella barra degli strumenti o dal menu Part Design per mappare il prossimo schizzo sulla faccia posteriore della Parte. Poi selezionare lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="32px-Sketcher_CreateRectangle.png" width="32" height="32" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/48px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/a/ad/Sketcher_CreateRectangle.png 2x" /></a> rettangolo e posizionare un rettangolo sulla faccia posteriore della parte in modo simile a come mostrato di seguito. Infine, seguendo i passaggi elencati, vincolare lo schizzo.
+</p>
+<ol><li> Selezionare una delle linee orizzontali e applicare un vincolo distanza orizzontale di 5 mm. </li>
+<li> Selezionare una delle linee verticali e applicare un vincolo distanza verticale di 11 mm. </li>
+<li> Utilizzare lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.png" class="image"><img alt="Sketcher External.png" src="32px-Sketcher_External.png" width="32" height="32" srcset="/wiki/images/thumb/b/b5/Sketcher_External.png/48px-Sketcher_External.png 1.5x, /wiki/images/b/b5/Sketcher_External.png 2x" /></a> <i>Geometria esterna</i>, selezionare il vertice in alto a destra della faccia e cliccare su di esso per dotare lo schizzo di un punto di una geometria esterna a cui collegarlo. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial004.png" class="image"><img alt="PD WB Tutorial004.png" src="PD_WB_Tutorial004.png" width="450" height="450" /></a></div></div>
+<p>Selezionare il punto appena reso disponibile con lo strumento Geometria esterna, quindi selezionare il vertice in alto a destra del rettangolo e fare clic sul vincolo coincidente. A questo punto il disegno dovrebbe essere completamente vincolato e apparire come nell'immagine successiva. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial005.png" class="image"><img alt="PD WB Tutorial005.png" src="PD_WB_Tutorial005.png" width="450" height="450" /></a></div></div>
+<p>Fatto questo, cliccare sul pulsante Chiudi nella parte superiore della scheda Azioni della Vista combinata, quindi selezionare lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> <i>Tasca</i> (Pocket) dalla barra degli strumenti o nel menu di Part Design. Questo strumento fa l'opposto dello strumento Pad. Così come lo strumento Pad aggiunge del materiale alla Parte, lo strumento tasca rimuove il materiale dal pezzo. Entrambe le operazioni sono chiamate caratteristiche (features). Per questa operazione Tasca selezionare il tipo <i>Attraversa tutto</i> dal menu a tendina e quindi fare clic sul pulsante OK. 
+</p><p>Per l'operazione successiva, assicurarsi che "Pocket" sia selezionato nella vista ad albero del modello, poi cliccare sulla funzione <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="32px-PartDesign_Mirrored.png" width="32" height="32" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 1.5x, /wiki/images/5/55/PartDesign_Mirrored.png 2x" /></a>  <i>Specchio</i> sulla barra degli strumenti o dal menu Part Design. Nella finestra di dialogo Specchio della Vista Combinata, selezionare <i>asse orizzontale dello schizzo</i> dal menu a tendina di <i>Piano</i>. Quindi fare clic su OK. In questo modo la funzione Specchio funziona perché, durante la prima operazione fatta con lo schizzo base, la caratteristica di base del nostro modello è stata estrusa in entrambe le direzioni del piano orizzontale. Se tutto è andato bene e dopo averla ruotata, ora si dovrebbe avere una Parte che si presenta come l'immagine sottostante. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial006.png" class="image"><img alt="PD WB Tutorial006.png" src="PD_WB_Tutorial006.png" width="450" height="450" /></a></div></div>
+<p>Un video dei passaggi utilizzati in questa parte del tutorial è disponibile qui:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=nnVQDjUpS3o">https://www.youtube.com/watch?v=nnVQDjUpS3o</a>
+</p>
+<h3><span class="mw-headline" id="Funzioni_con_Pad_e_geometria_esterna">Funzioni con Pad e geometria esterna</span></h3>
+<p>Dopo aver dato un'occhiata, ruotarla nuovamente indietro e selezionare ancora la faccia posteriore della parte per mappare il prossimo Sketch. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial007.png" class="image"><img alt="PD WB Tutorial007.png" src="PD_WB_Tutorial007.png" width="450" height="450" /></a></div></div>
+<p>Selezionare Nuovo schizzo e fare un nuovo rettangolo in modo simile a quanto illustrato nella prossima immagine. Quindi procedere aggiungendo al rettangolo i vincoli dimensionali.
+</p>
+<ol><li> Selezionare una linea orizzontale e applicare un vincolo distanza orizzontale con un valore di 16.7.</li>
+<li> Selezionare una linea verticale e applicare un vincolo distanza verticale di 7 mm</li>
+<li> Utilizzando lo strumento Geometria esterna, selezionare il vertice superiore sinistro della faccia della parte.</li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial008.png" class="image"><img alt="PD WB Tutorial008.png" src="PD_WB_Tutorial008.png" width="450" height="450" /></a></div></div>
+<p>Ora selezionare il vertice superiore sinistro del rettangolo e il punto geometria esterna, poi fare clic sul vincolo coincidente per vincolare completamente lo schizzo. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial009.png" class="image"><img alt="PD WB Tutorial009.png" src="PD_WB_Tutorial009.png" width="450" height="450" /></a></div></div>
+<p>Procedere cliccando sulla funzione Pad e nella finestra di dialogo Pad della Vista combinata impostare la lunghezza 26 mm, lasciando il tipo <i>Quota</i> e spuntando la casella di controllo <i>Invertita</i>. Utilizzando la casella di controllo invertita si fa sì che il Pad vada dentro la Parte invece di uscire da essa. Questa operazione fornisce il seguente risultato. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial010.png" class="image"><img alt="PD WB Tutorial010.png" src="PD_WB_Tutorial010.png" width="450" height="450" /></a></div></div>
+<p>Utilizzare nuovamente la funzione Specchio per creare il secondo pad, ma prima assicurarsi che nella vista ad albero sia selezionato il Pad creato in precedenza, quindi fare clic su Specchio nella barra degli strumenti o selezionarlo dal menu di Part Design.  Ripetere l'operazione fatta prima per Tasca e selezionare <i>Asse orizzontale dello schizzo</i> dal menu a tendina di Piano.
+</p><p>Un video dei passaggi utilizzati in questa parte del tutorial è disponibile qui::
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=DZOF21fNVDs">https://www.youtube.com/watch?v=DZOF21fNVDs</a>
+</p>
+<h3><span class="mw-headline" id="Funzioni_con_Cavit.C3.A0_e_Geometria_esterna">Funzioni con Cavità e Geometria esterna</span></h3>
+<p>A questo punto ruotando la Parte dalla parte anteriore, possiamo vedere che la nostra Parte sta cominciando ad essere simile alla Parte mostrata nel disegno quotato all'inizio di questo tutorial. Quando la parte anteriore è visibile, fare clic con il mouse sulla faccia inclinata per selezionare la faccia da usare per il prossimo schizzo.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial011.png" class="image"><img alt="PD WB Tutorial011.png" src="PD_WB_Tutorial011.png" width="450" height="450" /></a></div></div>
+<p>Ora usare lo strumento rettangolo per posizionare un rettangolo nello schizzo e poi applicare i seguenti vincoli. 
+</p>
+<ol><li> Selezionare una linea orizzontale e una linea verticale, e dopo che entrambe sono selezionate, fare clic sul vincolo <i>uguali</i>. </li>
+<li> Selezionare una linea orizzontale o verticale e applicare a entrambe il corrispondente vincolo lunghezza orizzontale o verticale con un valore di 17 mm</li>
+<li> Utilizzando lo strumento Geometria esterna, selezionare il vertice in alto a destra, come mostrato nell'immagine seguente. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial012.png" class="image"><img alt="PD WB Tutorial012.png" src="PD_WB_Tutorial012.png" width="450" height="450" /></a></div></div>
+<p>Ora, utilizzando le dimensioni del disegno, applicare i seguenti vincoli.
+</p>
+<ol><li> Selezionare il punto geometria esterna e il vertice in alto a destra dell'attuale schizzo e applicare un vincolo distanza orizzontale di 7 mm</li>
+<li> Selezionare il punto geometria esterna e il vertice in alto a destra  dell'attuale schizzo e applicare un vincolo distanza verticale di 11 mm</li></ol>
+<p>Il risultato dovrebbe essere il seguente. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial013.png" class="image"><img alt="PD WB Tutorial013.png" src="PD_WB_Tutorial013.png" width="450" height="450" /></a></div></div>
+<p>A questo punto <i>scavando</i> (Pocket) semplicemente questo schizzo, il foro risultante sarebbe perpendicolare al lato inclinato su cui è mappato, ma questo non è quello che vogliamo ottenere. Vogliamo che il foro sia perpendicolare alla faccia posteriore, ma le dimensioni delle sue proiezioni non hanno le dimensioni 17 mm x 17 mm che sono quelle date nel disegno. Si possono fare due conti per calcolare le dimensioni necessarie, oppure si possono utilizzare gli strumenti forniti in FreeCAD per farsi fare questa proiezione. Per fare questo, creeremo una piccola funzione Pad di supporto dallo schizzo che abbiamo appena fatto. Useremo lo strumento Geometria esterna per proiettare i punti della base di tale Pad di supporto sulla faccia posteriore dove collocheremo il nostro ultimo schizzo che scaverà il foro passante per completare il modello.
+</p><p>Quindi, fare clic su Close per chiudere la finestra di dialogo Modifica schizzo, selezionare Pad e fornire una distanza di 1 mm. Fare clic su OK e si dovrebbe vedere il seguente risultato. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial014.png" class="image"><img alt="PD WB Tutorial014.png" src="PD_WB_Tutorial014.png" width="450" height="450" /></a></div></div>
+<p>Un video dei passaggi utilizzati in questa parte del tutorial è disponibile qui::
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=a0hsJtbFW4Y">https://www.youtube.com/watch?v=a0hsJtbFW4Y</a>
+</p><p>Poi ruotare il pezzo fino a vedere di nuovo la faccia posteriore della parte e selezionarla per mappare su di essa il disegno finale. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial015.png" class="image"><img alt="PD WB Tutorial015.png" src="PD_WB_Tutorial015.png" width="450" height="450" /></a></div></div>
+<p>Selezionare Nuovo schizzo dalla barra degli strumenti o dal menu Part Design. Ora in modalità di modifica schizzo, girare il pezzo dalla parte anteriore in modo che si possano vedere due lati perpendicolari del Pad creato con l'ultima operazione. Selezionare i bordi orizzontale e verticale collegati alla base del Pad con lo strumento geometria esterna. L'immagine sotto mostra la base bordi da selezionare con lo strumento geometria esterna. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial016.png" class="image"><img alt="PD WB Tutorial016.png" src="PD_WB_Tutorial016.png" width="450" height="450" /></a></div></div>
+<p>Girare di nuovo il pezzo dalla parte posteriore, o in alternativa fare doppio clic sul disegno attivo nella vista ad albero del modello, si possono vedere le due linee delle geometrie esterne che sono state fornite dalla parte anteriore del modello. Creare un rettangolo e usare il vincolo coincidente, nel modo seguente.
+</p>
+<ol><li> Selezionare il vertice superiore sinistro del rettangolo e il punto in alto a sinistra della geometria esterna poi fare clic sul vincolo coincidente.</li>
+<li> Fare clic sul vertice in basso a destra del rettangolo e il punto in basso a destra della geometria esterna poi fare clic sul vincolo coincidente.</li></ol>
+<p>E con questo dovremmo finire. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial017.png" class="image"><img alt="PD WB Tutorial017.png" src="PD_WB_Tutorial017.png" width="450" height="450" /></a></div></div>
+<p>Per concludere questo tutorial, selezionare la funzione Tasca dalla barra degli strumenti o dal menu Part Design e dal menu a discesa di Tipo selezionare <i>Attraverso tutto</i>. Fare clic su OK
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial019.png" class="image"><img alt="PD WB Tutorial019.png" src="PD_WB_Tutorial019.png" width="671" height="493" /></a></div></div>
+<p>Un video di questi passi del tutorial è qui:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=dlQV9OkXWOI">https://www.youtube.com/watch?v=dlQV9OkXWOI</a>
+</p><p>Il vostro modello conterrà alcune linee in più rispetto alle immagini di questo tutorial.  Per rimuovere queste linee extra, passare nell'ambiente OpenSCAD, selezionare Pocket001 (in v0.17 e superiori selezionare Corpo) nella struttura gerarchica, e fare clic sullo strumento Affina forma: <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RefineShapeFeature.png" class="image"><img alt="OpenSCAD RefineShapeFeature.png" src="32px-OpenSCAD_RefineShapeFeature.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/OpenSCAD_RefineShapeFeature.png/48px-OpenSCAD_RefineShapeFeature.png 1.5x, /wiki/images/9/93/OpenSCAD_RefineShapeFeature.png 2x" /></a>.  Questo crea una versione ripulita del modello che è collegata parametricamente a Pocket001, e che quindi è collegata anche a tutto lo storico del modello.  Se si cambia, per esempio, il valore numerico di un vincolo di distanza l'oggetto Refine Shape viene aggiornato.  Al contrario, l'ambiente Parte ha anche uno strumento Affina forma nel menu a tendina, ma esso crea una forma ripulita che è più simile a una fotografia del modello nello stato di quando è stato utilizzato lo strumento Affina forma.  Se cambiamo (di nuovo ad esempio) il valore numerico di un vincolo di distanza, Refine Shape creata nell'ambiente Parte rimane la stessa e non si aggiorna.
+</p><p>Questo tutorial e il vostro modello sono terminati.
+</p>
+<h2><span class="mw-headline" id="Risorse_aggiuntive">Risorse aggiuntive</span></h2>
+<ul><li>Link al video <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=dlQV9OkXWOI">[1]</a>.</li>
+<li>File di FreeCAD per il confronto (fatto con 0.16.6706) <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/Examples/blob/master/Basic_Part_Design_Tutorial_Example_Files/Basic_Part_Design_Tutorial.FCStd">Download</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/it&amp;oldid=275806">http://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/it&amp;oldid=275806</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

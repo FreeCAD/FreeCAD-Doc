@@ -1,0 +1,1497 @@
+<html><head><title>Manual09/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Manual09/fr</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br /><br /><br />
+</p>
+<center>
+<p><font color="#0000ff" size="20" face="Times New Roman">Manuel</font><br /><br /><br /><br />
+<font color="#0000ff" size="20" face="Times New Roman">de</font><br /><br /><br /><br />
+<font color="#0000ff" size="20" face="Arial">FreeCAD</font><br /><br /><br /><br />
+</p>
+</center>
+<p><br /><br />
+</p>
+<center><div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Splash013.jpg" class="image"><img alt="Splash013.jpg" src="Splash013.jpg" width="400" height="245" /></a></div></div></center>
+<p><br /><br /><br />
+</p>
+<center>
+<p>Ce manuel traite les Contraintes d'esquisse.
+<br /><br /><br />
+<font color="#0000ff" size="5" face="Arial">Sketcher, et, Part Design</font><br /><br /><br /><br />
+</p>
+</center>
+<div style="page-break-before:always"></div>
+<h2><span class="mw-headline" id="Contraintes_d.27esquisse">Contraintes d'esquisse</span></h2>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Sketcher_Contrainte_fixe"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConstrainLock.png" class="image"><img alt="Sketcher ConstrainLock.png" src="32px-Sketcher_ConstrainLock.png" width="32" height="32" srcset="/wiki/images/thumb/6/6c/Sketcher_ConstrainLock.png/48px-Sketcher_ConstrainLock.png 1.5x, /wiki/images/6/6c/Sketcher_ConstrainLock.png 2x" /></a> Sketcher Contrainte fixe</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Sketcher constraints → Contrainte fixe
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">Aucun
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnPoint/fr" title="Constraint PointOnPoint/fr">Constraint Coincident</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Contraintes_d.27esquisse"><span class="tocnumber">1</span> <span class="toctext">Contraintes d'esquisse</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Sketcher_Contrainte_fixe"><span class="tocnumber">1.1</span> <span class="toctext">Sketcher Contrainte fixe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Op.C3.A9rations"><span class="tocnumber">3</span> <span class="toctext">Opérations</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_co.C3.AFncidencePoint"><span class="tocnumber">3.1</span> <span class="toctext">Contrainte coïncidencePoint</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_2"><span class="tocnumber">4</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Utilisation"><span class="tocnumber">5</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1"><a href="#Programmation"><span class="tocnumber">6</span> <span class="toctext">Programmation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Identifier_le_numero_de_la_line"><span class="tocnumber">6.1</span> <span class="toctext">Identifier le numero de la line</span></a></li>
+<li class="toclevel-2"><a href="#Identifier_la_num.C3.A9rotation_des_vertexd.27une_ligne"><span class="tocnumber">6.2</span> <span class="toctext">Identifier la numérotation des vertexd'une ligne</span></a></li>
+<li class="toclevel-2"><a href="#Exemples"><span class="tocnumber">6.3</span> <span class="toctext">Exemples</span></a></li>
+<li class="toclevel-2"><a href="#Contrainte_point_sur_objet"><span class="tocnumber">6.4</span> <span class="toctext">Contrainte point sur objet</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_3"><span class="tocnumber">6.4.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Utilisation_2"><span class="tocnumber">6.4.2</span> <span class="toctext">Utilisation</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Scripting"><span class="tocnumber">7</span> <span class="toctext">Scripting</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_distance_horizontale"><span class="tocnumber">7.1</span> <span class="toctext">Contrainte distance horizontale</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_4"><span class="tocnumber">7.1.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Utilisation_3"><span class="tocnumber">7.1.2</span> <span class="toctext">Utilisation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Contrainte_de_Distance_Verticale"><span class="tocnumber">7.2</span> <span class="toctext">Contrainte de Distance Verticale</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_5"><span class="tocnumber">7.2.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Utilisation_4"><span class="tocnumber">7.2.2</span> <span class="toctext">Utilisation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Contrainte_Verticale"><span class="tocnumber">7.3</span> <span class="toctext">Contrainte Verticale</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_6"><span class="tocnumber">7.3.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Utilisation_5"><span class="tocnumber">7.3.2</span> <span class="toctext">Utilisation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Contrainte_horizontale"><span class="tocnumber">7.4</span> <span class="toctext">Contrainte horizontale</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_7"><span class="tocnumber">8</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Op.C3.A9rations_2"><span class="tocnumber">9</span> <span class="toctext">Opérations</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Constraint_Longueur"><span class="tocnumber">9.1</span> <span class="toctext">Constraint Longueur</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_8"><span class="tocnumber">10</span> <span class="toctext">Description</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Suggestion"><span class="tocnumber">10.1</span> <span class="toctext">Suggestion</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Op.C3.A9rations_3"><span class="tocnumber">11</span> <span class="toctext">Opérations</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_Rayon"><span class="tocnumber">11.1</span> <span class="toctext">Contrainte Rayon</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_9"><span class="tocnumber">11.1.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Op.C3.A9rations_4"><span class="tocnumber">11.1.2</span> <span class="toctext">Opérations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Contrainte_Parall.C3.A8le"><span class="tocnumber">11.2</span> <span class="toctext">Contrainte Parallèle</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_10"><span class="tocnumber">12</span> <span class="toctext">Description</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Operations"><span class="tocnumber">12.1</span> <span class="toctext">Operations</span></a></li>
+<li class="toclevel-2"><a href="#Contrainte_Perpendiculaire"><span class="tocnumber">12.2</span> <span class="toctext">Contrainte Perpendiculaire</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_11"><span class="tocnumber">13</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Utilisation_6"><span class="tocnumber">14</span> <span class="toctext">Utilisation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Entre_deux_courbes_.28directement_perpendiculaire.29"><span class="tocnumber">14.1</span> <span class="toctext">Entre deux courbes (directement perpendiculaire)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_points_terminaux_.28perpendicularit.C3.A9_point-.C3.A0-point.29"><span class="tocnumber">14.2</span> <span class="toctext">Entre deux points terminaux (perpendicularité point-à-point)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_courbe_et_extr.C3.A9mit.C3.A9_.28Perpendicularit.C3.A9_de_point-.C3.A0-courbe.29"><span class="tocnumber">14.3</span> <span class="toctext">Entre courbe et extrémité (Perpendicularité de point-à-courbe)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_courbes_en_un_point_.28perpendiculaire-par-point.29_.28v0.15.29"><span class="tocnumber">14.4</span> <span class="toctext">Entre deux courbes en un point (perpendiculaire-par-point) (v0.15)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Scripts"><span class="tocnumber">15</span> <span class="toctext">Scripts</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_Angulaire"><span class="tocnumber">15.1</span> <span class="toctext">Contrainte Angulaire</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Description_12"><span class="tocnumber">16</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Comment_l.27utiliser"><span class="tocnumber">17</span> <span class="toctext">Comment l'utiliser</span></a></li>
+<li class="toclevel-1"><a href="#Modes_de_contrainte"><span class="tocnumber">18</span> <span class="toctext">Modes de contrainte</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Angle_de_pente_de_la_ligne"><span class="tocnumber">18.1</span> <span class="toctext">Angle de pente de la ligne</span></a></li>
+<li class="toclevel-2"><a href="#Dur.C3.A9e_Arc_.28v0.15.29"><span class="tocnumber">18.2</span> <span class="toctext">Durée Arc (v0.15)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_lignes"><span class="tocnumber">18.3</span> <span class="toctext">Entre lignes</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_courbes_.C3.A0_l.27intersection_.28angle_au_point.29.28v0.15.29"><span class="tocnumber">18.4</span> <span class="toctext">Entre deux courbes à l'intersection (angle au point)(v0.15)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Proc.C3.A9dure"><span class="tocnumber">19</span> <span class="toctext">Procédure</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_Tangente"><span class="tocnumber">19.1</span> <span class="toctext">Contrainte Tangente</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_13"><span class="tocnumber">19.1.1</span> <span class="toctext">Description</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Utilisation_7"><span class="tocnumber">20</span> <span class="toctext">Utilisation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Entre_deux_courbes_.28directement_tangente.29"><span class="tocnumber">20.1</span> <span class="toctext">Entre deux courbes (directement tangente)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_extr.C3.A9mit.C3.A9s_.28tangentiel_point-.C3.A0-point.29"><span class="tocnumber">20.2</span> <span class="toctext">Entre deux extrémités (tangentiel point-à-point)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_extr.C3.A9mit.C3.A9s_.28tangentiel_point-.C3.A0-point.29_2"><span class="tocnumber">20.3</span> <span class="toctext">Entre deux extrémités (tangentiel point-à-point)</span></a></li>
+<li class="toclevel-2"><a href="#Entre_deux_courbes_en_un_point_.28tangence-par-point.29_.28v0.15.29"><span class="tocnumber">20.4</span> <span class="toctext">Entre deux courbes en un point (tangence-par-point) (v0.15)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Script"><span class="tocnumber">21</span> <span class="toctext">Script</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Contrainte_d.27.C3.A9galit.C3.A9"><span class="tocnumber">21.1</span> <span class="toctext">Contrainte d'égalité</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_14"><span class="tocnumber">21.1.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Op.C3.A9rations_5"><span class="tocnumber">21.1.2</span> <span class="toctext">Opérations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Contrainte_Sym.C3.A9trique"><span class="tocnumber">21.2</span> <span class="toctext">Contrainte Symétrique</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Description_15"><span class="tocnumber">21.2.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-3"><a href="#Op.C3.A9rations_6"><span class="tocnumber">21.2.2</span> <span class="toctext">Opérations</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-2"><a href="#Credits"><span class="tocnumber">22</span> <span class="toctext">Credits</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Development"><span class="tocnumber">22.1</span> <span class="toctext">Development</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Project_managers"><span class="tocnumber">22.1.1</span> <span class="toctext">Project managers</span></a></li>
+<li class="toclevel-3"><a href="#Main_developers"><span class="tocnumber">22.1.2</span> <span class="toctext">Main developers</span></a></li>
+<li class="toclevel-3"><a href="#Other_coders"><span class="tocnumber">22.1.3</span> <span class="toctext">Other coders</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Companies"><span class="tocnumber">22.2</span> <span class="toctext">Companies</span></a></li>
+<li class="toclevel-2"><a href="#Forum_moderators"><span class="tocnumber">22.3</span> <span class="toctext">Forum moderators</span></a></li>
+<li class="toclevel-2"><a href="#Community"><span class="tocnumber">22.4</span> <span class="toctext">Community</span></a></li>
+<li class="toclevel-2"><a href="#Documentation_writers"><span class="tocnumber">22.5</span> <span class="toctext">Documentation writers</span></a></li>
+<li class="toclevel-2"><a href="#Translators"><span class="tocnumber">22.6</span> <span class="toctext">Translators</span></a></li>
+<li class="toclevel-2"><a href="#Addons_developers"><span class="tocnumber">22.7</span> <span class="toctext">Addons developers</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>L'outil contrainte, tente de contraindre <b>totalement</b> n'importe quel élément sélectionné.
+</p><p><b>NOTE&#160;: Il est conseillé que cet outil soit pour le moment utilisé exclusivement sur des points</b>&#160;:<br />
+</p><p>Compte tenu du fait que FreeCAD soit encore au stade de développement, cet outil présente un comportement étrange quand il tente de <b>verrouiller</b> autre chose qu'un point. 
+Par exemple (comme d'v0.12 R4802), lors du verrouillage d'un cercle par sa ligne circonférentielle plutôt que son point central, une contrainte horizontale et une contrainte verticale apparaissent dans la boîte de dialogue des contraintes, mais ils sont de <b>valeur zéro</b> et n'apparaissent pas dans la fenêtre graphique.
+</p>
+<h2><span class="mw-headline" id="Op.C3.A9rations">Opérations</span></h2>
+<p>Premièrement, il est nécessaire de mettre en évidence l'élément que vous voulez contraindre.  Pour les raisons décrites ci-dessus, il est nécessaire de sélectionner un <b>point</b>.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint1.png" class="image"><img alt="LockConstraint1.png" src="256px-LockConstraint1.png" width="256" height="160" srcset="/wiki/images/thumb/2/2b/LockConstraint1.png/384px-LockConstraint1.png 1.5x, /wiki/images/thumb/2/2b/LockConstraint1.png/512px-LockConstraint1.png 2x" /></a>
+</p><p>Sélectionner un élément du dessin, est réalisé en déplaçant la souris sur l'élément et en cliquant sur le bouton gauche de la souris.&lt;br?&gt;Un élément mis en surbrillance change de couleur et devient <b>vert</b> (la couleur est modifiable par <b>Edition → Préférences → Affichage → Couleurs → Sélection</b>).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint2.png" class="image"><img alt="LockConstraint2.png" src="256px-LockConstraint2.png" width="256" height="155" srcset="/wiki/images/thumb/d/d0/LockConstraint2.png/384px-LockConstraint2.png 1.5x, /wiki/images/thumb/d/d0/LockConstraint2.png/512px-LockConstraint2.png 2x" /></a>
+</p><p>Une fois qu'un élément est sélectionné, cliquez avec le bouton gauche de la souris sur le verrou de contrainte pour le verrouiller.  Cela se manifeste généralement sous une forme de deux contraintes, une contrainte de distance horizontale à partir de l'origine du repère du dessin, et une contrainte verticale à partir de l'origine du repère du dessin.  Ils sont fixés par défaut aux coordonnées du point actuel.  
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint3.png" class="image"><img alt="LockConstraint3.png" src="256px-LockConstraint3.png" width="256" height="155" srcset="/wiki/images/thumb/e/e2/LockConstraint3.png/384px-LockConstraint3.png 1.5x, /wiki/images/thumb/e/e2/LockConstraint3.png/512px-LockConstraint3.png 2x" /></a> 
+</p><p>Les contraintes verticales et horizontales forment <b>le verrou</b> des coordonnées, une contrainte peut être éditée en double-cliquant dessus, pour être éditée dans le dessin lui-même, ou dans l'onglet <b>Contrainte</b> du volet <b>Combo View</b>.  Cela va ouvrir une boîte de dialogue pour modifier la contrainte.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint4.png" class="image"><img alt="LockConstraint4.png" src="256px-LockConstraint4.png" width="256" height="160" srcset="/wiki/images/thumb/c/cf/LockConstraint4.png/384px-LockConstraint4.png 1.5x, /wiki/images/thumb/c/cf/LockConstraint4.png/512px-LockConstraint4.png 2x" /></a>
+</p><p>En cliquant sur ​​le composant contrainte horizontale produit&#160;:   Puis, entrez la valeur souhaitée dans la boîte de dialogue et cliquez sur OK.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint5.png" class="image"><img alt="LockConstraint5.png" src="LockConstraint5.png" width="256" height="144" /></a>  
+</p><p>La nouvelle valeur de la contrainte est appliquée au dessin.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint6.png" class="image"><img alt="LockConstraint6.png" src="256px-LockConstraint6.png" width="256" height="160" srcset="/wiki/images/thumb/8/8d/LockConstraint6.png/384px-LockConstraint6.png 1.5x, /wiki/images/thumb/8/8d/LockConstraint6.png/512px-LockConstraint6.png 2x" /></a>
+</p><p>La contrainte verticale peut être modifié pour contraindre le point à l'endroit désiré.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LockConstraint7.png" class="image"><img alt="LockConstraint7.png" src="256px-LockConstraint7.png" width="256" height="160" srcset="/wiki/images/thumb/f/fe/LockConstraint7.png/384px-LockConstraint7.png 1.5x, /wiki/images/thumb/f/fe/LockConstraint7.png/512px-LockConstraint7.png 2x" /></a>
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_co.C3.AFncidencePoint"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> Contrainte coïncidencePoint</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → contrainte coïncidence
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">C
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Lock/fr" title="Constraint Lock/fr">Constraint Lock</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/fr" title="Constraint PointOnObject/fr">Constraint Point onto Object</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p><p>"Créer une contrainte coïncidente sur l'élément sélectionné"
+</p>
+<h2><span class="mw-headline" id="Description_2">Description</span></h2>
+<p>Cet outil de contrainte prend deux points comme arguments, et sert à en faire deux points coïncident (ce qui signifie les superposer).
+En termes pratiques cet outil de contrainte est utile quand il y a une rupture dans un profil, 
+par exemple&#160;:
+</p>
+<ul><li> les deux lignes sont l'une près de l'autre et doivent être jointes</li>
+<li> une contrainte coïncidente sur leurs points finaux afin de combler un espace, un écart, une distance.</li></ul>
+<p>Cet outil de contrainte prend deux points comme argument et sert à faire coïncider les 
+deux points. (Dans le but de faire comme un seul point).
+</p><p>En  pratique, cet outil  est utile lorsqu'il y a une rupture dans un profil par exemple - où deux lignes se terminent  l'une près de l'autre et doivent être jointes - une contrainte coïncidente sur leurs points d'extrémité comblera l'écart.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Comme indiqué ci-dessus, cet outil prend deux arguments - les deux, sont des points.
+</p>
+<ol><li> Tout d'abord, il est nécessaire de sélectionner deux points distincts. (Notez que cela ne fonctionnera pas si, par exemple, vous essayez de sélectionner le début et la fin de la même ligne).</li>
+<li> Sélectionnez un élément de dessin est réalisé en déplaçant la souris sur l'élément et en cliquant sur le bouton gauche de la souris.</li>
+<li> Un élément mis en surbrillance change de couleur au vert.(La couleur est modifiable par <b>Édition → Préférences → Affichage → Couleurs → Sélection</b>)</li>
+<li> Les éléments suivants peuvent être sélectionnés en répétant la procédure ci-dessus. <b>NOTE&#160;:</b> La sélection de multiples éléments peut être faite simplement en cliquant sur chaque élément voulu, il n'y a pas besoin de touche <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span> ou autre.</li>
+<li> Une fois que vous avez sélectionné deux points, un cliquez sur le bouton gauche de la souris pour contraindre «PointOnPoint», les deux points deviendrons coïncidents et remplacés par un seul point.</li></ol>
+<p><b>NOTE&#160;:</b> Afin de faire deux points coïncidents, FreeCAD doit nécessairement déplacer un, ou les deux points d'origine.
+Il est parfois difficile de sélectionner les deux points parce que trop proche, la fenêtre de saisie permet de faire une sélection multiple
+</p><p>NOTE: In order to make two points coincident, FreeCAD must necessarily move one, or both, of the original points.
+</p>
+<h2><span class="mw-headline" id="Programmation">Programmation</span></h2>
+<p>Les contraintes peuvent être créées à partir de <a href="Macros.html" title="Macros">macros</a> et de la console python en utilisant la fonction suivante:
+</p>
+<pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',LineFixed,PointOfLineFixed,LineMoving,PointOfLineMoving)) </pre>
+<p>où&#160;:* Esquisse est un objet d'esquisse* LineFixed est le numéro de la ligne, qui ne bougera pas en appliquant la contrainte* PointOfLineFixed est le numéro du sommet de la ligne LineFixed devant remplir la contrainte* LineMoving est le numéro de la ligne, qui se déplacera en appliquant la contrainte* PointOfLineMoving est le numéro de la ligne LineMoving, qui doit remplir la contrainte
+</p><p>Le problème principal en utilisant cette fonction est d'identifier correctement le numéro de ligne et le nombre de vertex des lignes que vous voulez traiter.
+</p><p>Le paragraphe suivant vous expliquera comment identifier la numérotation d'une ligne et d'un sommet d'une ligne.
+</p>
+<h3><span class="mw-headline" id="Identifier_le_numero_de_la_line">Identifier le numero de la line</span></h3>
+<p>J'ai dessiné trois lignes comme indiqué dans la figure suivante.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure1.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure1.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure1.jpg" width="600" height="239" srcset="/wiki/images/0/0e/PartDesignConstraintPointOnPointScriptingFigure1.jpg 1.5x" /></a>
+</p><p>En déplaçant le curseur de la souris au-dessus de la ligne, vous pouvez voir le numéro de la ligne en bas à gauche des fenêtres FreeCAD, voir la figure suivante.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure2.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure2.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure2.jpg" width="600" height="342" srcset="/wiki/images/thumb/d/db/PartDesignConstraintPointOnPointScriptingFigure2.jpg/900px-PartDesignConstraintPointOnPointScriptingFigure2.jpg 1.5x, /wiki/images/thumb/d/db/PartDesignConstraintPointOnPointScriptingFigure2.jpg/1200px-PartDesignConstraintPointOnPointScriptingFigure2.jpg 2x" /></a>
+</p><p>Malheureusement la numérotation affichée sur les fenêtres de FreeCAD commence à partir de 1 alors que la numérotation de la ligne utilisée pour le script commence à partir de 0: cela signifie que vous devez en récupérer une chaque fois que vous voulez faire référence à une ligne.
+</p>
+<h3><span class="mw-headline" id="Identifier_la_num.C3.A9rotation_des_vertexd.27une_ligne">Identifier la numérotation des vertexd'une ligne</span></h3>
+<p>Les sommets d'une ligne ne peuvent avoir que la valeur 1 ou 2. (Ne me demandez pas pourquoi les sommets ne partent pas de 0 ...) Les sommets sont numérotés selon leur ordre de création.Pour connaître l'ordre de leur création (Si vous avez beaucoup de lignes, vous ne pouvez pas vous souvenir du sommet que vous avez créé en premier), il vous suffit de déplacer le curseur de votre souris au-dessus des deux sommets d'une ligne.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure3.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure3.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure3.jpg" width="600" height="342" srcset="/wiki/images/thumb/2/23/PartDesignConstraintPointOnPointScriptingFigure3.jpg/900px-PartDesignConstraintPointOnPointScriptingFigure3.jpg 1.5x, /wiki/images/thumb/2/23/PartDesignConstraintPointOnPointScriptingFigure3.jpg/1200px-PartDesignConstraintPointOnPointScriptingFigure3.jpg 2x" /></a>
+</p>
+<pre>Si vous lisez par exemple 4 et 5, cela signifie que le sommet 4 sera référencé en utilisant le numéro 1 dans la commande de script et le sommet 5 sera référencé en utilisant le numéro 2 dans la commande de script. Etc
+</pre>
+<h3><span class="mw-headline" id="Exemples">Exemples</span></h3>
+<p>Prenons l'exemple précédent des trois lignes. La figure suivante indique la numérotation de chaque ligne et de leurs sommets selon la convention de script.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" src="PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" width="600" height="264" /></a> 
+</p><p>texte bleu = numérotation de la ligne, texte noir = numérotation des sommets
+</p><p>les commandes
+</p>
+<pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',1,2,2,1)) </pre>
+<p>donne le résultat suivant:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure4.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure4.jpg" src="PartDesignConstraintPointOnPointScriptingFigure4.jpg" width="600" height="291" /></a>
+</p><p>les commandes
+</p>
+ <pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',0,2,2,2)) </pre>
+<p>donne le résultat suivant:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure5.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure5.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure5.jpg" width="600" height="243" srcset="/wiki/images/7/7d/PartDesignConstraintPointOnPointScriptingFigure5.jpg 1.5x" /></a>
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<div style="page-break-before:always"></div>
+<p><br />
+</p>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_point_sur_objet"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnObject.png" class="image"><img alt="Constraint PointOnObject.png" src="32px-Constraint_PointOnObject.png" width="32" height="32" srcset="/wiki/images/thumb/7/7d/Constraint_PointOnObject.png/48px-Constraint_PointOnObject.png 1.5x, /wiki/images/7/7d/Constraint_PointOnObject.png 2x" /></a> Contrainte point sur objet</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse  → Contrainte point sur objet
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">O
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnPoint/fr" title="Constraint PointOnPoint/fr">Constraint Coincident</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_3">Description</span></h4>
+<p>Appose un point sur un autre objet tel qu'une ligne, un arc ou un axe.
+</p>
+<h4><span class="mw-headline" id="Utilisation_2">Utilisation</span></h4>
+<ol><li>Sélectionnez le point que vous souhaitez affecter sur une ligne / arc / etc. (Une fois sélectionné, le point devient vert).</li>
+<li>Sélectionnez la ligne que vous voulez coller sur le point que vous venez de sélectionner (Une fois sélectionnée, la ligne devient verte).</li>
+<li>Cliquez sur le bouton de contrainte «pointer sur l'objet»<a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnObject.png" class="image"><img alt="Constraint PointOnObject.png" src="24px-Constraint_PointOnObject.png" width="24" height="24" srcset="/wiki/images/thumb/7/7d/Constraint_PointOnObject.png/36px-Constraint_PointOnObject.png 1.5x, /wiki/images/thumb/7/7d/Constraint_PointOnObject.png/48px-Constraint_PointOnObject.png 2x" /></a>.</li></ol>
+<p>Remarque: L'ordre dans lequel vous sélectionnez la ligne et le point n'a pas d'importance. Le point ira toujours à la ligne. La ligne reste fixe.
+</p>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>La contrainte peut être créée à partir de macros et de la console python en utilisant la commande suivante:
+</p>
+<pre>Sketch.addConstraint (Sketcher.Constraint ('PointOnObject', LineMoving, PointOfLineMoving, LineFixed)) </pre>
+<p>Où
+</p>
+<ul><li> Esquisse est un objet d'esquisse</li>
+<li> LineMoving est le nombre qui désigne la ligne, qui contient le point qui doit être déplacé sur le LineFixed (La ligne qui est fixée)</li>
+<li> PointOfLineMoving est le numéro du sommet de la ligne LineMoving, qui doit être déplacé sur le LineFixed</li>
+<li> LinedFixed est le numéro de la ligne à apposer sur le point PointOfLineMoving</li></ul>
+<p>Comment identifier le numéro qui désigne les lignes et les points? Veuillez vous référer à la partie script de <a href="Constraint_PointOnPoint.html" title="Constraint PointOnPoint"> this wiki page</a>.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_distance_horizontale"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> Contrainte distance horizontale</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Constrainte distance horizontale
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">D
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Length/fr" title="Constraint Length/fr">Contrainte de Longueur</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_VerticalDistance/fr" title="Constraint VerticalDistance/fr">Contrainte distance verticale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_4">Description</span></h4>
+<p>Fixe la distance verticale entre 2 points ou fin de lignes. Si une seule ligne est sélectionnée, la distance est la distance par rapport à l'origine (Axe OY).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_H_Distance.png" class="image"><img alt="Constraint H Distance.png" src="Constraint_H_Distance.png" width="345" height="248" /></a>
+</p>
+<h4><span class="mw-headline" id="Utilisation_3">Utilisation</span></h4>
+<ol><li> Cliquez un ou deux points</li>
+<li> Activez la contrainte</li></ol>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_de_Distance_Verticale"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> Contrainte de Distance Verticale</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Sketcher geometries → Constrain vertical distance
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">Shift+V
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_HorizontalDistance/fr" title="Constraint HorizontalDistance/fr">Constraint HorizontalDistance</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Length/fr" title="Constraint Length/fr">Constraint Length</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_5">Description</span></h4>
+<p>Fixe la distance verticale entre 2 points ou fin de lignes. Si une seule ligne est sélectionnée, la distance est la distance par rapport à l'origine (Axe OX). 
+</p>
+<h4><span class="mw-headline" id="Utilisation_4">Utilisation</span></h4>
+<ol><li> Cliquez sur un ou deux points</li>
+<li> Activez la contrainte</li></ol>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Verticale"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a> Contrainte Verticale</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte verticale
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">V
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/fr" title="Constraint Horizontal/fr">Contrainte Horizontale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_6">Description</span></h4>
+<p>Créé une contrainte de verticalité sur les lignes ou segments de polylignes sélectionnés. Plus d'un élément peut être sélectionné.
+</p>
+<h4><span class="mw-headline" id="Utilisation_5">Utilisation</span></h4>
+<p>Voir <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/fr" title="Constraint Horizontal/fr">Contrainte horizontale</a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_horizontale"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> Contrainte horizontale</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte horizontale
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">H
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Vertical/fr" title="Constraint Vertical/fr">Contrainte verticale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description_7">Description</span></h2>
+<p>La contrainte horizontale oblige une ligne sélectionnée ou des lignes dans l'image pour être parallèles à l'axe horizontal de l'esquisse.
+</p>
+<h2><span class="mw-headline" id="Op.C3.A9rations_2">Opérations</span></h2>
+<p>Sélectionnez une ligne dans le croquis en cliquant dessus.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:HorizontalConstraint1.png" class="image"><img alt="HorizontalConstraint1.png" src="256px-HorizontalConstraint1.png" width="256" height="184" srcset="/wiki/images/thumb/5/5f/HorizontalConstraint1.png/384px-HorizontalConstraint1.png 1.5x, /wiki/images/5/5f/HorizontalConstraint1.png 2x" /></a> 
+</p><p>La ligne devient vert foncé. (La couleur est modifiable par <b>Édition → Préférences → Affichage → Couleurs → Sélection</b>)
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:HorizontalConstraint2.png" class="image"><img alt="HorizontalConstraint2.png" src="256px-HorizontalConstraint2.png" width="256" height="184" srcset="/wiki/images/thumb/5/59/HorizontalConstraint2.png/384px-HorizontalConstraint2.png 1.5x, /wiki/images/5/59/HorizontalConstraint2.png 2x" /></a>
+</p><p>Appliquer la contrainte horizontale en cliquant sur ​​l'icône Contrainte horizontale <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="16px-Constraint_Horizontal.png" width="16" height="16" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/24px-Constraint_Horizontal.png 1.5x, 32px-Constraint_Horizontal.png 2x" /></a> de la barre d'outils ou en sélectionnant l'option du menu dans <b>Sketch → Contraintes d'esquisse</b> sous-menu du menu <b>Contrainte Horizontale</b> (ou dans le menu <b>Part Design</b> Part Design work bench). La ligne sélectionnée est contrainte à être parallèle à l'axe horizontal de l'esquisse. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:HorizontalConstraint3.png" class="image"><img alt="HorizontalConstraint3.png" src="256px-HorizontalConstraint3.png" width="256" height="184" srcset="/wiki/images/thumb/7/78/HorizontalConstraint3.png/384px-HorizontalConstraint3.png 1.5x, /wiki/images/7/78/HorizontalConstraint3.png 2x" /></a>
+</p><p>Plusieurs lignes peuvent être sélectionnées,
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:HorizontalConstraint4.png" class="image"><img alt="HorizontalConstraint4.png" src="256px-HorizontalConstraint4.png" width="256" height="184" srcset="/wiki/images/thumb/2/25/HorizontalConstraint4.png/384px-HorizontalConstraint4.png 1.5x, /wiki/images/2/25/HorizontalConstraint4.png 2x" /></a>
+</p><p>puis appliquer la contrainte comme décrit ci-dessus, elles sont contraintes à être parallèles à l'axe de l'esquisse horizontale.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:HorizontalConstraint5.png" class="image"><img alt="HorizontalConstraint5.png" src="256px-HorizontalConstraint5.png" width="256" height="184" srcset="/wiki/images/thumb/c/c8/HorizontalConstraint5.png/384px-HorizontalConstraint5.png 1.5x, /wiki/images/c/c8/HorizontalConstraint5.png 2x" /></a>
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Constraint_Longueur"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="32px-Constraint_Length.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/48px-Constraint_Length.png 1.5x, /wiki/images/a/a3/Constraint_Length.png 2x" /></a> Constraint Longueur</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Part Design → Sketch Contraintes d'esquisse → Contrainte dimentionelle
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">D
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_HorizontalDistance/fr" title="Constraint HorizontalDistance/fr"> Contrainte Distance Horizontale</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_VerticalDistance/fr" title="Constraint VerticalDistance/fr">Contrainte Distance Verticale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description_8">Description</span></h2>
+<p>Contraintes d'esquisse, limite la longueur d'une ligne, la distance perpendiculaire entre un point et une ligne, ou d'avoir une distance spécifiée entre deux points .
+</p>
+<h4><span class="mw-headline" id="Suggestion">Suggestion</span></h4>
+<p>Le cas échéant envisagez d'utiliser de préférence les fonctions de contrainte <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_HorizontalDistance/fr" title="Constraint HorizontalDistance/fr">Distance Horizontale</a> ou <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_VerticalDistance/fr" title="Constraint VerticalDistance/fr">Distance Verticale</a>. Ces contraintes sont plus robustes et plus rapide à calculer que la contrainte de longueur.
+</p>
+<h2><span class="mw-headline" id="Op.C3.A9rations_3">Opérations</span></h2>
+<p>Sélectionnez une ligne dans l'esquisse, 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint1.png" class="image"><img alt="LengthConstraint1.png" src="256px-LengthConstraint1.png" width="256" height="184" srcset="/wiki/images/thumb/4/49/LengthConstraint1.png/384px-LengthConstraint1.png 1.5x, /wiki/images/4/49/LengthConstraint1.png 2x" /></a><br />
+</p><p>En cliquant sur la ligne, elle devient vert foncée. (La couleur est modifiable par <b>Edition → Préférences → Affichage → Couleurs → Sélection</b>)
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint2.png" class="image"><img alt="LengthConstraint2.png" src="256px-LengthConstraint2.png" width="256" height="184" srcset="/wiki/images/thumb/e/e1/LengthConstraint2.png/384px-LengthConstraint2.png 1.5x, /wiki/images/e/e1/LengthConstraint2.png 2x" /></a><br />
+</p><p>Appliquer la <b>Contrainte Longueur</b> en sélectionnant l'icône de la barre d'outils, <b>Esquisse Contraintes</b> ou en sélectionnant l'élément de menu à partir <b>Part Design → Sketch Contraintes d'esquisse → Contrainte dimentionelle</b> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="16px-Constraint_Length.png" width="16" height="16" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/24px-Constraint_Length.png 1.5x, 32px-Constraint_Length.png 2x" /></a> (ou de Part Design in the Part Design workbench). 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint3.png" class="image"><img alt="LengthConstraint3.png" src="256px-LengthConstraint3.png" width="256" height="184" srcset="/wiki/images/thumb/5/50/LengthConstraint3.png/384px-LengthConstraint3.png 1.5x, /wiki/images/5/50/LengthConstraint3.png 2x" /></a><br /> 
+</p><p>La longueur de la ligne est limitée à son actuelle valeur. En double cliquant sur la contrainte dans la vue 3D, ou dans l'onglet Tâches de la Vue combinée (ComboView) fera apparaître une boîte de dialogue pour permettre d'édité la valeur à contraindre. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint4.png" class="image"><img alt="LengthConstraint4.png" src="256px-LengthConstraint4.png" width="256" height="184" srcset="/wiki/images/thumb/4/41/LengthConstraint4.png/384px-LengthConstraint4.png 1.5x, /wiki/images/4/41/LengthConstraint4.png 2x" /></a><br /> 
+</p><p>Entrez la valeur requise, puis cliquez sur OK pour définir la longueur de contrainte.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint5.png" class="image"><img alt="LengthConstraint5.png" src="256px-LengthConstraint5.png" width="256" height="184" srcset="/wiki/images/thumb/f/fa/LengthConstraint5.png/384px-LengthConstraint5.png 1.5x, /wiki/images/f/fa/LengthConstraint5.png 2x" /></a><br /> 
+</p><p>La contrainte de longueur limite (contraint) également la distance entre une ligne et un point.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint6.png" class="image"><img alt="LengthConstraint6.png" src="256px-LengthConstraint6.png" width="256" height="184" srcset="/wiki/images/thumb/7/76/LengthConstraint6.png/384px-LengthConstraint6.png 1.5x, /wiki/images/7/76/LengthConstraint6.png 2x" /></a><br /> 
+</p><p>Sélectionnez la ligne et un point dans l'esquisse.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint7.png" class="image"><img alt="LengthConstraint7.png" src="256px-LengthConstraint7.png" width="256" height="184" srcset="/wiki/images/thumb/4/40/LengthConstraint7.png/384px-LengthConstraint7.png 1.5x, /wiki/images/thumb/4/40/LengthConstraint7.png/512px-LengthConstraint7.png 2x" /></a><br /> 
+</p><p>Puis appliquez la contrainte comme décrit plus haut. La distance perpendiculaire entre le point et la ligne est limitée à sa valeur actuelle. Elle peut être modifiée comme décrit ci-dessus, pour définir la contrainte à la valeur souhaitée.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint8.png" class="image"><img alt="LengthConstraint8.png" src="256px-LengthConstraint8.png" width="256" height="184" srcset="/wiki/images/thumb/d/d5/LengthConstraint8.png/384px-LengthConstraint8.png 1.5x, /wiki/images/d/d5/LengthConstraint8.png 2x" /></a><br /> 
+</p><p>La contrainte peut également être appliqué à deux points, choisis ici à chaque extrémité d'une polyligne.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint9.png" class="image"><img alt="LengthConstraint9.png" src="256px-LengthConstraint9.png" width="256" height="184" srcset="/wiki/images/thumb/9/98/LengthConstraint9.png/384px-LengthConstraint9.png 1.5x, /wiki/images/9/98/LengthConstraint9.png 2x" /></a><br /> 
+</p><p>Appliquer la contrainte comme précédemment, la distance entre les deux points sélectionnés est contrainte. Comme décrite ci-dessus, elle peut être modifiée pour définir la valeur souhaitée.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LengthConstraint10.png" class="image"><img alt="LengthConstraint10.png" src="256px-LengthConstraint10.png" width="256" height="184" srcset="/wiki/images/thumb/5/59/LengthConstraint10.png/384px-LengthConstraint10.png 1.5x, /wiki/images/5/59/LengthConstraint10.png 2x" /></a><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Rayon"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Radius.png" class="image"><img alt="Constraint Radius.png" src="32px-Constraint_Radius.png" width="32" height="32" srcset="/wiki/images/thumb/5/58/Constraint_Radius.png/48px-Constraint_Radius.png 1.5x, /wiki/images/5/58/Constraint_Radius.png 2x" /></a> Contrainte Rayon</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte radiale
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">R
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Length/fr" title="Constraint Length/fr">Contrainte Distance</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/fr" title="Constraint Horizontal/fr">Contrainte Horizontale</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Vertical/fr" title="Constraint Vertical/fr">Contrainte Verticale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_9">Description</span></h4>
+<p>Cette contrainte fixe la valeur du rayon d'un cercle ou d'un arc à une valeur spécifique. Un seul arc de cercle peut être contraint à la fois.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Op.C3.A9rations_4">Opérations</span></h4>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainRadius1.png" class="image"><img alt="ConstrainRadius1.png" src="256px-ConstrainRadius1.png" width="256" height="184" srcset="/wiki/images/thumb/4/4f/ConstrainRadius1.png/384px-ConstrainRadius1.png 1.5x, /wiki/images/4/4f/ConstrainRadius1.png 2x" /></a><br />
+</p><p>Sélectionnez un arc ou un cercle dans l'esquisse. En cliquant sur la ligne, elle devient vert foncée. (La couleur est modifiable par <b>Edition → Préférences → Affichage → Couleurs → Sélection</b>)<br />
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainRadius2.png" class="image"><img alt="ConstrainRadius2.png" src="256px-ConstrainRadius2.png" width="256" height="184" srcset="/wiki/images/thumb/7/79/ConstrainRadius2.png/384px-ConstrainRadius2.png 1.5x, /wiki/images/7/79/ConstrainRadius2.png 2x" /></a><br />
+</p><p>Appliquez la contrainte en cliquant sur ​​l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Radius.png" class="image"><img alt="Constraint Radius.png" src="16px-Constraint_Radius.png" width="16" height="16" srcset="/wiki/images/thumb/5/58/Constraint_Radius.png/24px-Constraint_Radius.png 1.5x, 32px-Constraint_Radius.png 2x" /></a> <b>Rayon Contrainte</b> dans la barre d'outils Esquisse ou en sélectionnant l'élément de menu <b>Sketch → Contraintes d'esquisse → Contrainte Radiale</b> (ou Part Design, en fonction de l'outil qui est sélectionné).<br />
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainRadius3.png" class="image"><img alt="ConstrainRadius3.png" src="256px-ConstrainRadius3.png" width="256" height="184" srcset="/wiki/images/thumb/5/5a/ConstrainRadius3.png/384px-ConstrainRadius3.png 1.5x, /wiki/images/5/5a/ConstrainRadius3.png 2x" /></a><br />
+</p><p>Le rayon est <b>contraint</b> de prendre la valeur spécifiée lorsque la contrainte est appliquée. Pour changer la valeur de la contrainte, soit double-cliquez sur la contrainte dans l'écran d'affichage 3D (vire au rouge, et indique que la contrainte est actuellement sélectionnée) ou, en double cliquant sur la contrainte dans le panneau de contraintes de l'onglet Tâches de la fenêtre ComboView. Cela fera apparaître une boîte de dialogue où vous pouvez modifier votre valeur.<br />
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainRadius4.png" class="image"><img alt="ConstrainRadius4.png" src="256px-ConstrainRadius4.png" width="256" height="184" srcset="/wiki/images/thumb/9/9a/ConstrainRadius4.png/384px-ConstrainRadius4.png 1.5x, /wiki/images/9/9a/ConstrainRadius4.png 2x" /></a><br />
+</p><p>Entrez la valeur souhaitée pour le rayon dans la boîte de dialogue, et validez sur <b>OK</b> pour définir la valeur de la contrainte.<br />
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainRadius5.png" class="image"><img alt="ConstrainRadius5.png" src="256px-ConstrainRadius5.png" width="256" height="184" srcset="/wiki/images/thumb/9/92/ConstrainRadius5.png/384px-ConstrainRadius5.png 1.5x, /wiki/images/9/92/ConstrainRadius5.png 2x" /></a><br />
+</p><p>La valeur de la contrainte est fixée à la valeur entrée dans la boîte de dialogue.
+<br />
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Parall.C3.A8le"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Parallel.png" class="image"><img alt="Constraint Parallel.png" src="32px-Constraint_Parallel.png" width="32" height="32" srcset="/wiki/images/thumb/0/0b/Constraint_Parallel.png/48px-Constraint_Parallel.png 1.5x, /wiki/images/0/0b/Constraint_Parallel.png 2x" /></a> Contrainte Parallèle</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte parallel
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">P
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Vertical/fr" title="Constraint Vertical/fr">Contrainte Verticale</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/fr" title="Constraint Horizontal/fr">Contrainte Horizontale</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description_10">Description</span></h2>
+<p>La contrainte <b>Contraindre Parallèle</b>, force deux éléments sélectionnés, <b>lignes droites</b> ou <b>bords</b> à devenir deux parallèles. 
+</p>
+<h4><span class="mw-headline" id="Operations">Operations</span></h4>
+<p>L'esquisse contient deux lignes, orientées de façon aléatoire.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainParallel1.png" class="image"><img alt="ConstrainParallel1.png" src="256px-ConstrainParallel1.png" width="256" height="184" srcset="/wiki/images/thumb/5/51/ConstrainParallel1.png/384px-ConstrainParallel1.png 1.5x, /wiki/images/5/51/ConstrainParallel1.png 2x" /></a>
+</p><p>Sélectionnez les deux lignes en cliquant successivement sur chacune d'elle.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainParallel2.png" class="image"><img alt="ConstrainParallel2.png" src="256px-ConstrainParallel2.png" width="256" height="184" srcset="/wiki/images/thumb/5/5e/ConstrainParallel2.png/384px-ConstrainParallel2.png 1.5x, /wiki/images/5/5e/ConstrainParallel2.png 2x" /></a>
+</p><p>Appliquer la <b>Contrainte Parallèle</b> en sélectionnant l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Parallel.png" class="image"><img alt="Constraint Parallel.png" src="16px-Constraint_Parallel.png" width="16" height="16" srcset="/wiki/images/thumb/0/0b/Constraint_Parallel.png/24px-Constraint_Parallel.png 1.5x, 32px-Constraint_Parallel.png 2x" /></a>, à partir de <b>Sketch → Contraintes d'esquisse → Contrainte Parallèle</b>  de la barre d'outils ou en sélectionnant l'option du menu <b>Contrainte Parallèle</b> (ou Part Design, en fonction de l'outil qui est sélectionné).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ConstrainParallel3.png" class="image"><img alt="ConstrainParallel3.png" src="256px-ConstrainParallel3.png" width="256" height="184" srcset="/wiki/images/thumb/3/39/ConstrainParallel3.png/384px-ConstrainParallel3.png 1.5x, /wiki/images/3/39/ConstrainParallel3.png 2x" /></a>
+</p><p>Les lignes sélectionnées sont <b>forcées</b> de devenir parallèles les unes aux autres. Modifier l'orientation d'une ligne, modifiera l'orientation de la ligne contrainte, pour qu'elles restent parallèle.
+</p>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Perpendiculaire"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Perpendicular.png" class="image"><img alt="Constraint Perpendicular.png" src="32px-Constraint_Perpendicular.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Constraint_Perpendicular.png/48px-Constraint_Perpendicular.png 1.5x, /wiki/images/3/39/Constraint_Perpendicular.png 2x" /></a> Contrainte Perpendiculaire</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte perpendiculaire
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">N
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_InternalAngle/fr" title="Constraint InternalAngle/fr">Constraint Angle</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description_11">Description</span></h2>
+<p>La contrainte perpendiculaire fait que deux lignes soient perpendiculaires les unes aux autres, ou deux courbes soit perpendiculaire à leur intersection. Les lignes sont traitées infinie, et des arcs sont traités comme des cercles pleins / ellipses. La contrainte est également capable de connecter deux courbes, les forçant perpendiculaire au joint, de manière similaire à <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Tangent/fr" title="Constraint Tangent/fr"> Contrainte Tangente</a>.
+</p>
+<h2><span class="mw-headline" id="Utilisation_6">Utilisation</span></h2>
+<p>Il y a quatre façons différentes d'appliquer la contrainte&#160;: 
+</p>
+<ol><li> entre deux courbes (non disponible pour toutes les courbes) </li>
+<li> entre deux extrémités d'une courbe </li>
+<li> entre une courbe et un point de terminaison d'un autre courbe </li>
+<li> entre deux courbes au point défini par l'utilisateur</li></ol>
+<p>Pour appliquer la contrainte perpendiculaire, suivre les étapes suivantes: 
+</p>
+<ul><li> Sélectionnez deux ou trois entités dans l'esquisse. </li>
+<li> Appelez la contrainte en cliquant sur son icône sur la barre d'outils, ou en sélectionnant l'option de menu, ou en utilisant le raccourci clavier.</li></ul>
+<h3><span class="mw-headline" id="Entre_deux_courbes_.28directement_perpendiculaire.29">Entre deux courbes (directement perpendiculaire)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintPerpendicular_mode1.png" class="image"><img alt="Sketcher ConsraintPerpendicular mode1.png" src="600px-Sketcher_ConsraintPerpendicular_mode1.png" width="600" height="260" srcset="/wiki/images/c/cd/Sketcher_ConsraintPerpendicular_mode1.png 1.5x" /></a>
+</p><p>Deux courbes doivent être perpendiculaires au point d'intersection (réel ou des extensions de courbes), et le point d'intersection sera implicite. Ce mode est appliqué si deux courbes ont été sélectionnées.
+</p><p><b>Sélection Acceptée:</b> 
+</p>
+<ul><li> La ligne + ligne, cercle, arc </li>
+<li> cercle, arc + cercle, arc. </li></ul>
+<p>Si la perpendicularité direct entre les courbes sélectionnées n'est pas prise en charge (par exemple, entre une ligne et une ellipse), un point d'aide sera ajoutés pour esquisser automatiquement, et la perpendiculaire-via-point sera appliquée.
+</p><p>Contrairement aux tangences, il est parfaitement bien de reconstruire le point de perpendicularité en créant un point et le contraindre d'être sur les deux courbes (Contraignant ainsi le point à l'intersection). 
+</p>
+<h3><span class="mw-headline" id="Entre_deux_points_terminaux_.28perpendicularit.C3.A9_point-.C3.A0-point.29">Entre deux points terminaux (perpendicularité point-à-point)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintPerpendicular_mode2.png" class="image"><img alt="Sketcher ConsraintPerpendicular mode2.png" src="600px-Sketcher_ConsraintPerpendicular_mode2.png" width="600" height="256" srcset="/wiki/images/6/6a/Sketcher_ConsraintPerpendicular_mode2.png 1.5x" /></a>
+</p><p>Dans ce mode, les extrémités sont confondues et le joint est fait pour être à angle droit. Ce mode s'applique lorsque deux extrémités de deux courbes ont été sélectionnées. 
+</p><p><b>Sélection acceptée:</b>
+</p>
+<ul><li> point extrémité de ligne/arc/arc d'ellipse + extrémité de ligne/arc/arc d'ellipse (soit, deux points de deux courbes)</li></ul>
+<h3><span class="mw-headline" id="Entre_courbe_et_extr.C3.A9mit.C3.A9_.28Perpendicularit.C3.A9_de_point-.C3.A0-courbe.29">Entre courbe et extrémité (Perpendicularité de point-à-courbe)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintPerpendicular_mode3.png" class="image"><img alt="Sketcher ConsraintPerpendicular mode3.png" src="600px-Sketcher_ConsraintPerpendicular_mode3.png" width="600" height="259" srcset="/wiki/images/6/66/Sketcher_ConsraintPerpendicular_mode3.png 1.5x" /></a>
+</p><p>Dans ce mode, une extrémité d'une courbe est contraint de se trouver sur l'autre courbe, et les courbes sont obligatoirement perpendiculaires en ce  point. Ce mode est appliqué lorsqu'une courbe et un point de terminaison d'une autre courbe ont été sélectionnés.
+</p><p><b>Sélection acceptée:</b> 
+</p>
+<ul><li> ligne, cercle, arc, ellipse, arc-d'ellipse + extrémité de ligne/arc/arc-d'ellipse (soit.,  courbe + extrémité de courbe)</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Entre_deux_courbes_en_un_point_.28perpendiculaire-par-point.29_.28v0.15.29">Entre deux courbes en un point (perpendiculaire-par-point) (v0.15)</span></h3>
+<p>Dans ce mode, deux courbes sont rendues perpendiculaires, et le point de perpendicularité est identifié. Ce mode est appliqué lorsque deux courbes et un point ont été sélectionnés.
+</p><p><b>Sélection acceptée:</b>
+</p>
+<ul><li>ligne/courbe + ligne/courbe</li></ul>
+<p>"Tout point" peut être un point isolé, ou un point d'un élément, par exemple, le centre d'un cercle, un point d'extrémité d'un arc, ou l'origine.
+</p><p>Pour que la contrainte fonctionne correctement, le point doit être sur les deux courbes. Donc, comme la contrainte est invoquée, le point sera automatiquement contraint sur les deux courbes, une (<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr" title="Sketcher helper constraint/fr"> contraintes auxiliaires</a> sera ajoutée, si nécessaire), et les courbes seront forcée perpendiculaire en ce point. Ces contraintes <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr" title="Sketcher helper constraint/fr"> contraintes auxiliaires</a> sont des contraintes ordinaires simples. Elles peuvent être ajoutées manuellement ou supprimées.
+</p><p>Comparé à la perpendiculaire directe cette contrainte est plus lente, car il y a des modes de degrés de liberté impliquées, mais elle prend en charge les ellipses
+</p><p>Le placement du point avant la contrainte qui est appliquée est une indication pour le calculateur dans le cas où il devrait y avoir une perpendicularité . 
+</p>
+<h2><span class="mw-headline" id="Scripts">Scripts</span></h2>
+<p>La Contrainte perpendiculaire peut être créée à partir de <a href="Macros.html" title="Macros">macros</a> et de la console python en utilisant ce qui suit:
+</p>
+<pre># direct perpendicularity
+Sketch.addConstraint(Sketcher.Constraint('Perpendicular',icurve1,icurve2))
+
+# point-to-point perpendicularity
+Sketch.addConstraint(Sketcher.Constraint('Perpendicular',icurve1,pointpos1,icurve2,pointpos2))
+
+# point-to-curve perpendicularity
+Sketch.addConstraint(Sketcher.Constraint('Perpendicular',icurve1,pointpos1,icurve2))
+
+# perpendicular-via-point (plain constraint, helpers are not added automatically)
+Sketch.addConstraint(Sketcher.Constraint('PerpendicularViaPoint',icurve1,icurve2,geoidpoint,pointpos)) </pre>
+<p>où:: 
+</p>
+<ul><li> <tt> Sketch &lt;/ tt&gt; est un objet d'esquisse: </li>
+<li> &lt;tt&gt; icurve1, icurve2 &lt;/ tt&gt; sont deux entiers identifiant les courbes devant être perpendiculaire. Les entiers sont des index de l'esquisse (la valeur retournée par Sketch.addGeometry).&#160;: </li>
+<li> &lt;Tt&gt; pointpos1, pointpos2 &lt;/ tt&gt; devrait être 1 pour point de départ et 2 pour le point de fin.&#160;: </li>
+<li> &lt;Tt&gt; geoidpoint &lt;/ tt&gt; et &lt;tt&gt; pointpos &lt;/ tt&gt; dans PerpendicularViaPoint sont les index précisant le point de perpendicularité.</li></ul>
+<div style="clear:both"></div>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Angulaire"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAngle.png" class="image"><img alt="Constraint InternalAngle.png" src="32px-Constraint_InternalAngle.png" width="32" height="32" srcset="/wiki/images/thumb/7/75/Constraint_InternalAngle.png/48px-Constraint_InternalAngle.png 1.5x, /wiki/images/7/75/Constraint_InternalAngle.png 2x" /></a> Contrainte Angulaire</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte angulaire
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">A
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Length/fr" title="Constraint Length/fr">Contrainte Longueur</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Perpendicular/fr" title="Constraint Perpendicular/fr">Contrainte Perpendiculaire</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description_12">Description</span></h2>
+<p>La Contrainte d'Angle est une <a href="/wiki/Sketcher_Workbench/fr#Contraintes_d.27esquisse" title="Sketcher Workbench/fr"> Donnée de Contrainte</a> destinée à fixer les angles sur le croquis. Elle est capable de fixer des pentes de lignes individuelles, les angles entre les lignes, les angles des intersections de courbes, et l'espace d'angles d'arcs circulaires
+</p>
+<h2><span class="mw-headline" id="Comment_l.27utiliser">Comment l'utiliser</span></h2>
+<p>La contrainte peut être appliquée de 4 manières différentes:
+</p>
+<ol><li> pour des lignes individuelles</li>
+<li> entre des lignes</li>
+<li> pour des intersections de courbes</li>
+<li> pour des arcs de cercles</li></ol>
+<p>Pour appliquer la contrainte d'angle, il faut  suivre les étapes: 
+</p>
+<ul><li> Sélectionnez une, deux ou trois entités dans l'esquisse. Le mode sera choisi en fonction de la sélection. </li>
+<li> Appelez la contrainte en cliquant sur son icône sur la barre d'outils, ou en sélectionnant l'option de menu, ou en utilisant le raccourci clavier. Une boîte de dialogue d'édition de donnée apparaît. </li>
+<li> Modifier l'angle si nécessaire. L'angle peut être saisi comme une expression qui sera évaluée et le résultat sera stocké. Cliquez sur OK.</li></ul>
+<p>Comme avec toute contrainte de référence, il est possible de changer la valeur d'angle plus tard en double-cliquant sur la contrainte dans la liste contrainte ou une vue 3D.  La saisie d'une valeur négative entraînera la direction de l'angle à basculer.
+</p>
+<h2><span class="mw-headline" id="Modes_de_contrainte">Modes de contrainte</span></h2>
+<h3><span class="mw-headline" id="Angle_de_pente_de_la_ligne">Angle de pente de la ligne</span></h3>
+<p><b>Sélection Acceptée: ligne' '</b>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintAngle_mode1.png" class="image"><img alt="Sketcher ConsraintAngle mode1.png" src="600px-Sketcher_ConsraintAngle_mode1.png" width="600" height="205" srcset="/wiki/images/thumb/a/ae/Sketcher_ConsraintAngle_mode1.png/900px-Sketcher_ConsraintAngle_mode1.png 1.5x, /wiki/images/a/ae/Sketcher_ConsraintAngle_mode1.png 2x" /></a>
+</p><p>La contrainte définit l'angle polaire de la direction de la ligne. C'est l'angle entre la ligne et l'axe X de l'esquisse.
+</p>
+<h3><span class="mw-headline" id="Dur.C3.A9e_Arc_.28v0.15.29">Durée Arc (v0.15)</span></h3>
+<p><b>Sélection acceptée:</b> arc de cercle
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintAngle_mode2.png" class="image"><img alt="Sketcher ConsraintAngle mode2.png" src="600px-Sketcher_ConsraintAngle_mode2.png" width="600" height="204" srcset="/wiki/images/thumb/0/0d/Sketcher_ConsraintAngle_mode2.png/900px-Sketcher_ConsraintAngle_mode2.png 1.5x, /wiki/images/0/0d/Sketcher_ConsraintAngle_mode2.png 2x" /></a>
+</p><p>Dans ce mode, la contrainte fixe la valeur angulaire de l'arc de cercle
+</p>
+<h3><span class="mw-headline" id="Entre_lignes">Entre lignes</span></h3>
+<p><b>Sélection acceptée:</b> ligne + ligne
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintAngle_mode3.png" class="image"><img alt="Sketcher ConsraintAngle mode3.png" src="600px-Sketcher_ConsraintAngle_mode3.png" width="600" height="206" srcset="/wiki/images/thumb/7/79/Sketcher_ConsraintAngle_mode3.png/900px-Sketcher_ConsraintAngle_mode3.png 1.5x, /wiki/images/7/79/Sketcher_ConsraintAngle_mode3.png 2x" /></a>
+</p><p>Dans ce mode, la contrainte fixe l'angle entre deux lignes. Il n' est pas obligatoire que les lignes se coupent. 
+</p>
+<h3><span class="mw-headline" id="Entre_deux_courbes_.C3.A0_l.27intersection_.28angle_au_point.29.28v0.15.29">Entre deux courbes à l'intersection (angle au point)(v0.15)</span></h3>
+<p>"'Sélection acceptée:'" toute ligne/courbe + toute ligne/courbe + tout point
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintAngle_mode4.png" class="image"><img alt="Sketcher ConsraintAngle mode4.png" src="600px-Sketcher_ConsraintAngle_mode4.png" width="600" height="208" srcset="/wiki/images/thumb/e/ec/Sketcher_ConsraintAngle_mode4.png/900px-Sketcher_ConsraintAngle_mode4.png 1.5x, /wiki/images/e/ec/Sketcher_ConsraintAngle_mode4.png 2x" /></a>
+</p><p>Dans ce mode, l'angle entre deux courbes est contraint au point d'intersection. Le point d'intersection peut être sur les extensions de courbes. Le point doit être explicitement spécifié, étant donné que les courbes se croisent généralement dans plus d'un point.
+</p><p>Pour que la contrainte fonctionne correctement, le point doit être sur les deux courbes. Donc, comme la contrainte est invoquée, le point sera automatiquement ajouté sur les deux courbes (<a href="Sketcher_helper_constraint.html" title="Sketcher helper constraint"> contraintes auxiliaires</a> , si nécessaire), et l'angle entre les courbes sera contraint en ce point. Ces <a href="Sketcher_helper_constraint.html" title="Sketcher helper constraint"> Assistants de contraintes</a> sont des contraintes régulières simples. Ils peuvent être ajoutés manuellement ou supprimés. Il n'y a pas d'assistant de contraintes sur l'image ci-dessus par exemple, parce que le point sélectionné est déjà à l'intersection des courbes.
+</p>
+<h2><span class="mw-headline" id="Proc.C3.A9dure">Procédure</span></h2>
+<p>L'Angle Contraint peut être créer depuis une <a href="Macros.html" title="Macros">macros</a> et depuis la console python en utilisant:
+</p>
+<pre># line slope angle
+Sketch.addConstraint(Sketcher.Constraint('Angle',iline,angle))
+
+# angular span of arc
+Sketch.addConstraint(Sketcher.Constraint('Angle',iarc,angle))
+
+# angle between lines
+Sketch.addConstraint(Sketcher.Constraint('Angle',iline1,pointpos1,iline2,pointpos2,angle))
+
+# angle-via-point (no helper constraints are added automatically when from python)
+Sketch.addConstraint(Sketcher.Constraint('AngleViaPoint',icurve1,icurve2,geoidpoint,pointpos,angle)) </pre>
+<p>où:: 
+</p>
+<ul><li> &lt;tt&gt; Sketch </tt> est un objet d'esquisse: </li>
+<li> <tt> iline, iline1, iline2 </tt> sont des nombres entiers spécifiant les lignes par leurs nombres ordinaux dans <tt> Sketch </tt>.&#160;: </li>
+<li> <tt> pointpos1, pointpos2 </tt> devrait être 1 pour point de départ et 2 pour le point de fin. Le choix des points permet de définir l'angle interne (ou externe), et il affecte la façon dont la contrainte est dessinée à l'écran.&#160;: </li>
+<li> <tt> geoidpoint </tt> et <tt> pointpos </tt> dans AngleViaPoint sont les indices précisant le point d'intersection.&#160;: </li>
+<li> <tt> angle </tt> est la valeur d'angle en radians. L'angle est compté entre vecteurs tangents dans le sens antihoraire. Les vecteurs tangents pointent du début à la fin pour les lignes (ou vice versa si le point final est fourni dans l'angle entre le mode de lignes), et le long du sens anti-horaire pour les cercles, arcs et ellipses.La valeur est également acceptée comme un angle (par exemple <tt> App.Units.Quantity ('45 ° ') </tt>)</li></ul>
+<div style="clear:both"></div>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Tangente"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Tangent.png" class="image"><img alt="Constraint Tangent.png" src="32px-Constraint_Tangent.png" width="32" height="32" srcset="/wiki/images/thumb/1/1a/Constraint_Tangent.png/48px-Constraint_Tangent.png 1.5x, /wiki/images/1/1a/Constraint_Tangent.png 2x" /></a> Contrainte Tangente</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte tangente
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">T
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/fr" title="Constraint PointOnObject/fr">Constraint point on object</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_13">Description</span></h4>
+<p>La  Contrainte Tangente  fait se toucher deux courbes  (tangente). Les lignes sont traitées comme infinie, et les arcs sont traités comme des cercles pleins / ellipses. La contrainte est également capable de connecter deux courbes, les forçant à tangenter au niveau du joint, ce qui rend le joint lisse.
+</p>
+<h2><span class="mw-headline" id="Utilisation_7">Utilisation</span></h2>
+<p>Il y a quatre façons différentes d'appliquer la contrainte&#160;: 
+</p>
+<ol><li> entre deux courbes (non disponible pour toutes les courbes) </li>
+<li> entre deux extrémités d'une courbe </li>
+<li> entre une courbe et un point de terminaison d'un autre courbe </li>
+<li> entre deux courbes au point défini par l'utilisateur</li></ol>
+<p>Pour appliquer la contrainte tangente, suivre les étapes suivantes: 
+</p>
+<ul><li> Sélectionnez deux ou trois entités dans l'esquisse. </li>
+<li> Appelez la contrainte en cliquant sur son icône sur la barre d'outils, ou en sélectionnant l'option de menu, ou en utilisant le raccourci clavier.</li></ul>
+<h3><span class="mw-headline" id="Entre_deux_courbes_.28directement_tangente.29">Entre deux courbes (directement tangente)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintPerpendicular_mode1.png" class="image"><img alt="Sketcher ConsraintPerpendicular mode1.png" src="600px-Sketcher_ConsraintPerpendicular_mode1.png" width="600" height="260" srcset="/wiki/images/c/cd/Sketcher_ConsraintPerpendicular_mode1.png 1.5x" /></a>
+</p><p>Deux courbes doivent être rendues tangentes, et un point de tangence doit être implicite. Ce mode est appliqué si deux courbes sont sélectionnées
+</p><p><b>Sélection Acceptée:</b> 
+</p>
+<ul><li> La ligne + ligne, cercle, arc </li>
+<li> cercle, arc + cercle, arc. </li></ul>
+<p>Si la tangence direct entre les courbes sélectionnées n'est pas prise en charge (par exemple, entre une ligne et une ellipse), un point d'aide sera ajoutés pour esquisser automatiquement, et la tangence-via-point sera appliquée.
+</p><p>Il n'est pas recommandé de reconstruire le point de tangence en créant un point et le contraindre à se positionner sur les deux courbes. Il fonctionnera, mais la convergence sera sérieusement plus lente et il faudra environ deux fois plus d'itérations pour converger par rapport à la normale. Utiliser d'autres méthodes pour cette contrainte si le point de tangence est nécessaire.
+</p>
+<h3><span class="mw-headline" id="Entre_deux_extr.C3.A9mit.C3.A9s_.28tangentiel_point-.C3.A0-point.29">Entre deux extrémités (tangentiel point-à-point)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode2.png" class="image"><img alt="Sketcher ConsraintTangent mode2.png" src="600px-Sketcher_ConsraintTangent_mode2.png" width="600" height="340" srcset="/wiki/images/3/34/Sketcher_ConsraintTangent_mode2.png 1.5x" /></a>
+</p><p>Dans ce mode nous faisons coïncider les extrémités, et la jonctiont est fait tangente (C1-lisse, ou "forte", selon le placement des courbes avant que la contrainte soit appliquée). Ce mode s'applique lorsque deux extrémités de deux courbes ont été sélectionnées. 
+</p><p><b>Sélection acceptée:</b>
+</p>
+<ul><li> extrémité de ligne/arc/arc d'ellipse + extrémité de ligne/arc/arc d'ellipse (soit, deux points de deux courbes)</li></ul>
+<h3><span class="mw-headline" id="Entre_deux_extr.C3.A9mit.C3.A9s_.28tangentiel_point-.C3.A0-point.29_2">Entre deux extrémités (tangentiel point-à-point)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode2.png" class="image"><img alt="Sketcher ConsraintTangent mode2.png" src="600px-Sketcher_ConsraintTangent_mode2.png" width="600" height="340" srcset="/wiki/images/3/34/Sketcher_ConsraintTangent_mode2.png 1.5x" /></a>
+</p><p>Dans ce mode, une extrémité d'une courbe est contraint de se trouver sur l'autre courbe, et les courbes sont obligatoirement tangentes en ce  point. Ce mode est appliqué lorsqu'une courbe et un point de terminaison d'une autre courbe ont été sélectionnés.
+</p><p><b>Sélection acceptée:</b> 
+</p>
+<ul><li> ligne, cercle, arc, ellipse, arc-d'ellipse + extrémité de ligne/arc/arc-d'ellipse (soit.,  courbe + extrémité de courbe)</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Entre_deux_courbes_en_un_point_.28tangence-par-point.29_.28v0.15.29">Entre deux courbes en un point (tangence-par-point) (v0.15)</span></h3>
+<p>Dans ce mode, deux courbes sont rendues tangentes, et le point de tangence est identifié. Ce mode est appliqué lorsque deux courbes et un point ont été sélectionnés.
+</p><p><b>Sélection acceptée:</b>
+</p>
+<ul><li>ligne/courbe + ligne/courbe</li></ul>
+<p>"Tout point" peut être un point isolé, ou un point d'un élément, par exemple, le centre d'un cercle, un point d'extrémité d'un arc, ou l'origine.
+</p><p>Pour que la contrainte fonctionne correctement, le point doit être sur les deux courbes. Donc, comme la contrainte est invoquée, le point sera automatiquement contraint sur les deux courbes, une (<a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr" title="Sketcher helper constraint/fr"> contraintes auxiliaires</a> sera ajoutée, si nécessaire), et les courbes seront forcée à tangenter en ce point. Ces contraintes <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr" title="Sketcher helper constraint/fr"> contraintes auxiliaires</a> sont des contraintes ordinaires simples. Elles peuvent être ajoutées manuellement ou supprimées.
+</p><p>Comparée à la tangence directe, cette contrainte est plus lente, car il ya des modes de degrés de liberté invoquée , mais si le point de tangence est nécessaire, c'est la méthode recommandée car elle offre une meilleure tanggence par rapport à tangence directe + point sur les deux courbes.
+</p><p>Le placement du point avant que la contrainte soit appliquée est une indication pour le calculateur pour savoir où doit se trouver la tangence. Avec cette contrainte, on peut forcer deux ellipses à se toucher en deux endroits.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>La Contrainte Tangente peut être créée à partir de <a href="Macros.html" title="Macros">macros</a> et de la console de Python en utilisant les éléments suivants:
+</p>
+<pre># direct tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,icurve2))
+
+# point-to-point tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,pointpos1,icurve2,pointpos2))
+
+# point-to-curve tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,pointpos1,icurve2))
+
+# tangent-via-point (plain constraint, helpers are not added automatically)
+Sketch.addConstraint(Sketcher.Constraint('TangentViaPoint',icurve1,icurve2,geoidpoint,pointpos)) </pre>
+<p>où:: 
+</p>
+<ul><li> <tt> Sketch &lt;/ tt&gt; est un objet d'esquisse: </li>
+<li> &lt;tt&gt; icurve1, icurve2 &lt;/ tt&gt; sont deux entiers identifiant les courbes à faire tangenter. Les entiers sont des index de l'esquisse (la valeur retournée par Sketch.addGeometry).&#160;: </li>
+<li> &lt;Tt&gt; pointpos1, pointpos2 &lt;/ tt&gt; devrait être 1 pour point de départ et 2 pour le point de fin.&#160;: </li>
+<li> &lt;Tt&gt; geoidpoint &lt;/ tt&gt; et &lt;tt&gt; pointpos &lt;/ tt&gt; dans TangentViaPoint sont les index précisant le point de tangence. </li></ul>
+<div style="clear:both"></div>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_d.27.C3.A9galit.C3.A9"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> Contrainte d'égalité</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte d'égalité
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">E
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Radius/fr" title="Constraint Radius/fr">Contrainte Rayon</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_14">Description</span></h4>
+<p>La <b>Contrainte d'égalité</b> contraint deux ou plusieurs segments de ligne , polyligne ou de rectangle d'avoir une longueur égale. 
+</p><p>S'il est appliqué à des arcs cercles et rayons sont contraints de devenir égaux. 
+</p><p><b>La contrainte ne peut pas être appliquée à des primitives géométriques qui ne sont pas du même type (par exemple des segments de ligne et des arcs).</b>
+</p>
+<h4><span class="mw-headline" id="Op.C3.A9rations_5">Opérations</span></h4>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint1.png" class="image"><img alt="" src="EqualConstraint1.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Cet exemple, contient un certain nombre de primitives (ligne, poly-ligne, rectangle, arc et cercle).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint2.png" class="image"><img alt="" src="EqualConstraint2.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Sélectionnez deux ou plusieurs segments de ligne (par exemple la ligne et un côté du rectangle). En cliquant sur la ligne, elle devient verte foncée. (La couleur est modifiable par <b>Edition → Préférences → Affichage → Couleurs → Sélection</b>)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint3.png" class="image"><img alt="" src="EqualConstraint3.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Appliquez la contrainte d'égalité soit en cliquant sur ​​l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="16px-Constraint_EqualLength.png" width="16" height="16" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/24px-Constraint_EqualLength.png 1.5x, 32px-Constraint_EqualLength.png 2x" /></a> dans la barre d'outils ou en sélectionnant Sketch → Contraintes d'esquisse → Contrainte d'égalité (ou Part Design, en fonction de l'outil qui est sélectionné). Les segments ont maintenant <b>la même longueur</b>.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint4.png" class="image"><img alt="" src="EqualConstraint4.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Maintenant, sélectionnez l'arc et le cercle dans l'esquisse.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint5.png" class="image"><img alt="" src="EqualConstraint5.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Appliquez la Contraindre l'égalité <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="16px-Constraint_EqualLength.png" width="16" height="16" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/24px-Constraint_EqualLength.png 1.5x, 32px-Constraint_EqualLength.png 2x" /></a>. L'arc et le cercle ont maintenant <b>le même rayon</b>.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint6.png" class="image"><img alt="" src="EqualConstraint6.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Maintenant, sélectionnez le segment de ligne, tous les segments de la poly-ligne et un des autres côtés du rectangle, qui n'est pas contraint, et d'appliquez la Contraindre l'égalité <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="16px-Constraint_EqualLength.png" width="16" height="16" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/24px-Constraint_EqualLength.png 1.5x, 32px-Constraint_EqualLength.png 2x" /></a> comme avant.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint7.png" class="image"><img alt="" src="EqualConstraint7.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Tous les segments ont maintenant la <b>même longueur</b> (et les points de raccords de la polyligne sont restés accrochés).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint8.png" class="image"><img alt="" src="EqualConstraint8.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Maintenant sélectionnez le segment de ligne et de l'arc,  puis appliquez la Contraindre l'égalité <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="16px-Constraint_EqualLength.png" width="16" height="16" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/24px-Constraint_EqualLength.png 1.5x, 32px-Constraint_EqualLength.png 2x" /></a> comme avant.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:EqualConstraint9.png" class="image"><img alt="" src="EqualConstraint9.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p><b>Mais ici, BINGO</b> Un message pop-up vous indique que <b>les objets doivent être de même type géométrique</b> (lignes droites ensemble ou lignes courbes ensemble).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<div style="page-break-before:always"></div>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_Sym.C3.A9trique"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> Contrainte Symétrique</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Contraintes d'esquisse → Contrainte symétrique
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">S
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Parallel/fr" title="Constraint Parallel/fr">Contrainte Parallele</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description_15">Description</span></h4>
+<p>La <b>Contrainte symétrique</b> contraint deux points sélectionnés, à devenir symétriques à une ligne donnée, à savoir, deux points sélectionnés sont contraints de se situer sur une normale (ligne) passant par les deux points et sont contraints d'être équidistante à la normale (ligne).
+</p>
+<h4><span class="mw-headline" id="Op.C3.A9rations_6">Opérations</span></h4>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SymmetricConstraint1.png" class="image"><img alt="" src="SymmetricConstraint1.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Sélectionnez deux points (sommets, vertex) et une ligne dans l'esquisse. Les points sélectionnés et la ligne seront de couleur vert foncé. (La couleur est modifiable par <b>Edition → Préférences → Affichage → Couleurs → Sélection</b>)
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SymmetricConstraint2.png" class="image"><img alt="" src="SymmetricConstraint2.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>Appliquer la contrainte symétrique soit en cliquant sur l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="16px-Constraint_Symmetric.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/24px-Constraint_Symmetric.png 1.5x, 32px-Constraint_Symmetric.png 2x" /></a> dans la barre d'outils ou en sélectionnant <b>Sketch → Contraintes d'esquisse → Contrainte symétrique</b> (ou Part Design, en fonction de l'outil qui est sélectionné). La contrainte sera appliqueé aux éléments sélectionnés.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SymmetricConstraint3.png" class="image"><img alt="" src="SymmetricConstraint3.png" width="557" height="400" /></a></div></div>
+<div class="gallerytext">
+<p>C'est une contrainte géométrique, et, n'a par conséquence pas de paramètre modifiable.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<div style="page-break-before:always"></div>
+<h1><span class="mw-headline" id="Credits">Credits</span></h1>
+<div style="page-break-before:always"></div>
+<p>&lt;translate&gt;
+FreeCAD would not be what it is without the generous contributions of many people. Here's an overview of the people and companies who contributed to FreeCAD over time. For credits for the third party libraries see the <a href="Third_Party_Libraries.html" title="Third Party Libraries">Third Party Libraries</a> page.
+</p>
+<h3><span class="mw-headline" id="Development">Development</span></h3>
+<h4><span class="mw-headline" id="Project_managers">Project managers</span></h4>
+<p>Lead developers of the FreeCAD project:
+&lt;/translate&gt;
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Jriegel" title="User:Jriegel">Jürgen Riegel</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Wmayer" title="User:Wmayer">Werner Mayer</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorikvanhavre" class="mw-redirect" title="User:Yorikvanhavre">Yorik van Havre</a></li></ul>
+<p>&lt;translate&gt;
+</p>
+<h4><span class="mw-headline" id="Main_developers">Main developers</span></h4>
+<p>People who work regularly on the FreeCAD code (retrieved from <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/graphs/contributors">https://github.com/FreeCAD/FreeCAD/graphs/contributors</a>):
+&lt;/translate&gt;
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3232">Abdullah Tahiriyo</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=4325">Alexander Golubev (Fat-Zer)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=2069">Bernd Hahnbach</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=708">Brad Collette (sliptonic)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=689">Daniel Falck</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1546">Eivind Kvedalen</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=6125">f3nix</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3449">Ian Rees</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=997">Jan Rheinlaender</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=681">Jonathan Wiedemann (rockn)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=574">Jose Luis Cercos Pita (sanguinariojoe)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=270">Logari81</a></li>
+<li> <a rel="nofollow" class="external text" href="http://freecadamusements.blogspot.co.uk/">Luke A. Parry</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=2928">mdinger</a></li>
+<li> mghansen</li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3666">Przemo Firszt(PrzemoF)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=4252">sgrogan</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=765">shoogen</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=686">Stefan Tröger (ickby)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=208">tanderson69 (blobfish)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=7506">vejmarie</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3888">Victor Titov (DeepSOIC)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1375">wandererfan</a></li></ul>
+<p>&lt;translate&gt;
+</p>
+<h4><span class="mw-headline" id="Other_coders">Other coders</span></h4>
+<p>Other people who contributed code to the FreeCAD project:
+&lt;/translate&gt;
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=611">jmaustpc</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=652">j-dowsett</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=930">keithsloan52</a></li>
+<li> Joachim Zettler</li>
+<li> Graeme van der Vlugt</li>
+<li> Berthold Grupp</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Xorx" title="User:Xorx">Georg Wiora</a></li>
+<li> Martin Burbaum</li>
+<li> Jacques-Antoine Gaudin</li>
+<li> Ken Cline</li>
+<li> Dmitry Chigrin</li>
+<li> Remigiusz Fiedler (DXF-parser)</li>
+<li> peterl94 </li>
+<li> jobermayr</li>
+<li> ovginkel</li>
+<li> triplus</li>
+<li> tomate44</li>
+<li> maurerpe</li>
+<li> Johan3DV</li>
+<li> Mandeep Singh</li>
+<li> fandaL</li>
+<li> jonnor</li>
+<li> usakhelo</li>
+<li> plaes</li>
+<li> SebKuzminsky</li>
+<li> jcc242</li>
+<li> ezzieyguywuf</li>
+<li> marktaff</li>
+<li> poutine70</li>
+<li> qingfengxia</li>
+<li> dbtayl</li>
+<li> itain</li>
+<li> Barleyman</li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Companies">Companies</span></h3>
+<p>Companies which donated code or developer time:
+&lt;/translate&gt;
+</p>
+<ul><li> Imetric 3D</li>
+<li> <a rel="nofollow" class="external text" href="https://www.alephobjects.com/">AlephObjects</a></li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Forum_moderators">Forum moderators</span></h3>
+<p>People in charge of the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org">FreeCAD forum</a> (retrieved from <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/memberlist.php?mode=team">http://forum.freecadweb.org/memberlist.php?mode=team</a>):
+&lt;/translate&gt;
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=11337">agryson</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=689">Daniel Falck</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3888">DeepSOIC</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1783">ediloren</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=611">jmaustpc</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=67">jriegel</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=270">Logari81</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=607">mrlukeparry</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=729">onesz</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3666">PrzemoF</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1529">r-frank</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=3315">Renato Rebelo</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=681">rockn</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=765">shoogen</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=69">wmayer</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=68">yorik</a></li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Community">Community</span></h3>
+<p>People from the community who put a lot of efforts in helping the FreeCAD project either by being active on the forum, keeping a blog about FreeCAD, making video tutorials, packaging FreeCAD for Windows/Linux/MacOS X, writing a FreeCAD book... (listed by alphabetical order) (retrieved from  <a rel="nofollow" class="external free" href="http://forum.freecadweb.org/memberlist.php?mode=&amp;sk=d&amp;sd=d#memberlist">http://forum.freecadweb.org/memberlist.php?mode=&amp;sk=d&amp;sd=d#memberlist</a>)
+&lt;/translate&gt;
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1940">bejant</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.packtpub.com/freecad-solid-modeling-with-python/book">Brad Collette</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=251">cblt2l</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=4523">cox</a></li>
+<li> <a rel="nofollow" class="external text" href="http://opensourcedesigntools.blogspot.com/">Daniel Falck</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Emagdalena" title="User:Emagdalena">Eduardo Magdalena</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=725">hobbes1069</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.youtube.com/user/5needinput">jdurston (5needinput)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=861">John Morris (butchwax)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://freecad-tutorial.blogspot.com/">Kwahooo</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=108">lhagan</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1047">marcxs</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Normandc" title="User:Normandc">Normandc</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1819">peterl94</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=356">pperisin</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Renatorivo" title="User:Renatorivo">Renatorivo</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=User:Rockn" title="User:Rockn">Rockn</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=782">triplus</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/memberlist.php?mode=viewprofile&amp;u=1928">ulrich1a</a></li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Documentation_writers">Documentation writers</span></h3>
+<p>People who wrote the documentation on this <a href="https://www.freecadweb.org/wiki/index.php?title=Main_Page" title="Main Page">wiki</a>:
+&lt;/translate&gt;
+</p>
+<ul><li> Renato Rivoira (renatorivo)</li>
+<li> Honza32</li>
+<li> Hervé Blorec</li>
+<li> Eduardo Magdalena</li>
+<li> piffpoof</li>
+<li> Wurstwasser</li>
+<li> Roland Frank (r-frank)</li>
+<li> bejant</li>
+<li> Ediloren</li>
+<li> Isaac Ayala</li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Translators">Translators</span></h3>
+<p>People who helped to translate the FreeCAD application (retrieved from <a rel="nofollow" class="external free" href="https://crowdin.com/project/freecad">https://crowdin.com/project/freecad</a>):
+&lt;/translate&gt;
+</p>
+<ul><li> Gerhard Scheepers</li>
+<li> wbrwbr2011</li>
+<li> hanhsuan</li>
+<li> hicarl</li>
+<li> fandaL</li>
+<li> Peta T</li>
+<li> Zdeněk Havlík</li>
+<li> Jodbe</li>
+<li> Peter Hageman</li>
+<li> Vilfredo</li>
+<li> Bruno Gonçalves Pirajá</li>
+<li> Timo Seppola</li>
+<li> rako</li>
+<li> Pasi Kukkola</li>
+<li> Ettore Atalan</li>
+<li> nikoss</li>
+<li> yang12</li>
+<li> totyg</li>
+<li> htsubota</li>
+<li> asakura</li>
+<li> Masaya Ootsuki</li>
+<li> Jiyong Choi</li>
+<li> Bartlomiej Niemiec</li>
+<li> trzyha</li>
+<li> bluecd</li>
+<li> Miguel Morais</li>
+<li> Nicu Tofan</li>
+<li> Victor Radulescu</li>
+<li> Angelescu Constantin</li>
+<li> sema</li>
+<li> Николай Матвеев</li>
+<li> pinkpony</li>
+<li> Alexandre Prokoudine</li>
+<li> Марко Пејовић</li>
+<li> Marosh</li>
+<li> Peter Klofutar</li>
+<li> Raulshc</li>
+<li> javierMG</li>
+<li> Lars</li>
+<li> kunguz</li>
+<li> Igor</li>
+<li> Федір</li></ul>
+<p>&lt;translate&gt;
+</p>
+<h3><span class="mw-headline" id="Addons_developers">Addons developers</span></h3>
+<p>Developers of FreeCAD addons (retrieved from <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD-addons">https://github.com/FreeCAD/FreeCAD-addons</a>):
+&lt;/translate&gt;
+</p>
+<ul><li> microelly2</li>
+<li> hamish2014</li>
+<li> jreinhardt</li>
+<li> jmwright</li>
+<li> cblt2l</li>
+<li> javierMG</li>
+<li> looooo</li>
+<li> shaise</li>
+<li> marmni</li>
+<li> Maaphoo</li>
+<li> Rentlau</li></ul>
+<p>&lt;translate&gt;
+&lt;/translate&gt;
+</p>
+<div style="clear:both"></div>
+<p></tt>
+</p>
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Manual09/fr&amp;oldid=15617">http://www.freecadweb.org/wiki/index.php?title=Manual09/fr&amp;oldid=15617</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

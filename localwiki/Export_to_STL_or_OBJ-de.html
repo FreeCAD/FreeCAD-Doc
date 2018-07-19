@@ -1,0 +1,118 @@
+<html><head><title>Export to STL or OBJ/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Export to STL or OBJ/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Thema
+</th></tr>
+<tr>
+<td class="ctEven">Export nach STL oder OBJ
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Zeit zum Abschluss
+</th></tr>
+<tr>
+<td class="ctEven">20 Minuten
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">r-frank
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6703
+</td></tr>
+<tr>
+<th class="ctOdd">Beispieldatei(en)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Einleitung"><span class="tocnumber">2</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Beispiel-Modell"><span class="tocnumber">3</span> <span class="toctext">Beispiel-Modell</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Export-Methode_1:_Benutzung_von_.22Datei_Exportieren.22"><span class="tocnumber">4</span> <span class="toctext">Export-Methode 1: Benutzung von "Datei Exportieren"</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Export-Methode_2:_Benutzung_des_Arbeitsbereiches_.22Mesh_Design.22_in_FreeCAD"><span class="tocnumber">5</span> <span class="toctext">Export-Methode 2: Benutzung des Arbeitsbereiches "Mesh Design" in FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Which_Method_too_choose_.3F"><span class="tocnumber">6</span> <span class="toctext">Which Method too choose&#160;?</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Links"><span class="tocnumber">7</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Einleitung">Einleitung</span></h2>
+<p>In diesem Tutorial werden wir besprechen, wie man STL/OBJ-Dateien aus FreeCAD exportiert. Da das Mesh-Format STL/OBJ dimensionslos ist, geht FreeCAD beim Export davon aus, dass die im Modell benutzen Einheiten in mm sind. Falls dies nicht der Fall sein sollte, muss das Modell entsprechend skaliert werden.
+</p>
+<h2><span class="mw-headline" id="Beispiel-Modell">Beispiel-Modell</span></h2>
+<p>Natürlich kann ein eigenes Modell verwendet werden, aber man kann sich auch schnell ein Modell zum Testen erstellen, indem man
+</p>
+<ul><li>FreeCAD startet</li>
+<li>Ein neues Dokument erstellt</li>
+<li>Zur Arbeitsbereich "Part" wechselt</li>
+<li>Einen Würfel einfügt durch Klick auf <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a></li>
+<li>Einen Konus einfügt durch Klick auf <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cone.png" class="image"><img alt="Part Cone.png" src="32px-Part_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/1/13/Part_Cone.png/48px-Part_Cone.png 1.5x, /wiki/images/1/13/Part_Cone.png 2x" /></a></li>
+<li>Alle Objekte in der Baumansicht auswählt</li>
+<li>Eine bool'sche Fusion erzeugt durch Klick auf <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fuse.png" class="image"><img alt="Part Fuse.png" src="32px-Part_Fuse.png" width="32" height="32" srcset="/wiki/images/thumb/c/c6/Part_Fuse.png/48px-Part_Fuse.png 1.5x, /wiki/images/c/c6/Part_Fuse.png 2x" /></a></li>
+<li>Danach die Datei speichern ...</li></ul>
+<h2><span class="mw-headline" id="Export-Methode_1:_Benutzung_von_.22Datei_Exportieren.22">Export-Methode 1: Benutzung von "Datei Exportieren"</span></h2>
+<ul><li>Wechsle in die den Arbeitsbereich "Mesh Design" oder "Complete"</li>
+<li>Wähle aus dem obersten Menü <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Bearbeiten</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Einstellungen</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Import-Export</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mesh Formats</span></li>
+<li>Hier kann man die "Maximum mesh deviation" (Standard-Wert 0,1 mm) einstellen. Sie bestimmt wie "fein" das Netz wird</li>
+<li>Den Dialog schließen mit <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> OK</span></li>
+<li>Den zu exportierenden Körper in der Baumansicht auswählen</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Datei</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Exportieren...</span> und setze den Dateityp z.B. auf "STL mesh (*.stl *.ast)"</li>
+<li>Gebe den Dateinamen ein und die Dateiendung nicht vergessen, klick auf <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Speichern</span></li></ul>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="Export-Methode_2:_Benutzung_des_Arbeitsbereiches_.22Mesh_Design.22_in_FreeCAD">Export-Methode 2: Benutzung des Arbeitsbereiches "Mesh Design" in FreeCAD</span></h2>
+<ul><li>Wechsle in den Arbeitsbereich "Mesh Design"</li>
+<li>Wähle den zu vernetzenden Körper in der Baumansicht aus</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Netze</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Mesh_from_Shape.svg" class="image"><img alt="Mesh Mesh from Shape.svg" src="Mesh_Mesh_from_Shape.svg" width="32" height="32" /></a> Netz aus Form erstellen...</span>  aus dem obersten Menü aus</li>
+<li>Wähle einen der drei verfügbaren Vernetzer und wähle die Vernetzungs-Parameter, für weitere Informationen siehe <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_MeshFromShape/de" title="Mesh MeshFromShape/de">diese Seite (Netz aus Körpern)</a></li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> OK</span> und der Netzkörper wird in der Baumansicht erstellt(mit einem grünen Netz-Icon)</li>
+<li>Wähle den Netzkörper in der Baumansicht aus und mache einen Rechts-Klick auf den Eintrag</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ExportMesh.png" class="image"><img alt="Mesh ExportMesh.png" src="32px-Mesh_ExportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_ExportMesh.png/48px-Mesh_ExportMesh.png 1.5x, /wiki/images/0/0f/Mesh_ExportMesh.png 2x" /></a> Exportiere Netz</span> um das Netz zu exportieren</li>
+<li>Nun den Dateinamen festlegen (es wird der Name des Netzkörpers vorgeschlagen) und den Dateityp (Standard ist "Binary STL (*.stl)")</li>
+<li>Wähle <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Save</span> und das Netz wird exportiert</li></ul>
+</div>
+<h2><span class="mw-headline" id="Which_Method_too_choose_.3F">Which Method too choose&#160;?</span></h2>
+<ul><li>Method 2 is to be preferred. Especially when you have more than one Body to convert you can use Tools from Mesh Workbench , like fusioning Meshes before Exporting.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/de" title="Import from STL or OBJ/de">Import von STL or OBJ</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Export_to_STL_or_OBJ/de&amp;oldid=281867">http://www.freecadweb.org/wiki/index.php?title=Export_to_STL_or_OBJ/de&amp;oldid=281867</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

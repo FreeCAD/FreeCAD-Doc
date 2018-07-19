@@ -1,0 +1,451 @@
+<html><head><title>Units/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Units/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Pour commencer, voici un peu de lecture sur les unités&#160;:
+</p>
+<ul><li><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Système_international_d&#39;unités">système SI</a></li>
+<li><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Imperial_units">unités Imperiales</a></li>
+<li><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Unités_dérivées_du_système_international">SId unités derivées</a></li>
+<li><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Degré_(angle)">unités d'angles</a></li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Exemples"><span class="tocnumber">1</span> <span class="toctext">Exemples</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Unit.C3.A9s_support.C3.A9es"><span class="tocnumber">2</span> <span class="toctext">Unités supportées</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Objectifs_et_principes_:_propositions_d.27extension_du_syst.C3.A8me_de_gestion_des_unit.C3.A9s"><span class="tocnumber">3</span> <span class="toctext">Objectifs et principes&#160;: propositions d'extension du système de gestion des unités</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#R.C3.A9sultat"><span class="tocnumber">4</span> <span class="toctext">Résultat</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Remise_en_m.C3.A9moire"><span class="tocnumber">5</span> <span class="toctext">Remise en mémoire</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Contexte_1_:_ouverture_de_fichiers_de_donn.C3.A9es"><span class="tocnumber">5.1</span> <span class="toctext">Contexte 1&#160;: ouverture de fichiers de données</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Contexte_2_:_changement_entre_syst.C3.A8mes_d.27unit.C3.A9s_pendant_l.27ex.C3.A9cution"><span class="tocnumber">5.2</span> <span class="toctext">Contexte 2&#160;: changement entre systèmes d'unités pendant l'exécution</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Organisation"><span class="tocnumber">6</span> <span class="toctext">Organisation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Logique_d.27.C3.A9chelle_d.27une_unit.C3.A9"><span class="tocnumber">6.1</span> <span class="toctext">Logique d'échelle d'une unité</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Coh.C3.A9rence_d.27unit.C3.A9s_tout_au_long_de_l.27instance.2C_en_cours_d.27ex.C3.A9cution"><span class="tocnumber">6.1.1</span> <span class="toctext">Cohérence d'unités tout au long de l'instance, en cours d'exécution</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Syst.C3.A8me_d.27unit.C3.A9"><span class="tocnumber">6.1.2</span> <span class="toctext">Système d'unité</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Unit.C3.A9s_de_base_et_d.C3.A9riv.C3.A9es"><span class="tocnumber">6.1.3</span> <span class="toctext">Unités de base et dérivées</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Symboles_des_unit.C3.A9s_de_base_d.C3.A9riv.C3.A9es"><span class="tocnumber">6.1.4</span> <span class="toctext">Symboles des unités de base dérivées</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Mod.C3.A8le_de_donn.C3.A9es"><span class="tocnumber">6.2</span> <span class="toctext">Modèle de données</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Unit.C3.A9"><span class="tocnumber">6.2.1</span> <span class="toctext">Unité</span></a>
+<ul>
+<li class="toclevel-4 tocsection-16"><a href="#Grandeur"><span class="tocnumber">6.2.1.1</span> <span class="toctext">Grandeur</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#Signature"><span class="tocnumber">6.2.1.2</span> <span class="toctext">Signature</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#Symboles"><span class="tocnumber">6.2.1.3</span> <span class="toctext">Symboles</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-19"><a href="#Base_de_donn.C3.A9es_d.27unit.C3.A9s"><span class="tocnumber">6.2.2</span> <span class="toctext">Base de données d'unités</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="#Unit.C3.A9s"><span class="tocnumber">6.2.2.1</span> <span class="toctext">Unités</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-21"><a href="#Unit_system"><span class="tocnumber">6.2.3</span> <span class="toctext">Unit system</span></a>
+<ul>
+<li class="toclevel-4 tocsection-22"><a href="#Nom"><span class="tocnumber">6.2.3.1</span> <span class="toctext">Nom</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="#Grandeur_.28Magnitude.29"><span class="tocnumber">6.2.3.2</span> <span class="toctext">Grandeur (Magnitude)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-24"><a href="#Gestion_de_l.27API_des_unit.C3.A9s"><span class="tocnumber">6.2.4</span> <span class="toctext">Gestion de l'API des unités</span></a>
+<ul>
+<li class="toclevel-4 tocsection-25"><a href="#V.C3.A9rification_du_dictionnaire_de_unit.C3.A9s"><span class="tocnumber">6.2.4.1</span> <span class="toctext">Vérification du dictionnaire de unités</span></a>
+<ul>
+<li class="toclevel-5 tocsection-26"><a href="#isValid"><span class="tocnumber">6.2.4.1.1</span> <span class="toctext">isValid</span></a></li>
+<li class="toclevel-5 tocsection-27"><a href="#isCompatibleWithThisSignature"><span class="tocnumber">6.2.4.1.2</span> <span class="toctext">isCompatibleWithThisSignature</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-28"><a href="#Echelle_des_unit.C3.A9s"><span class="tocnumber">6.2.4.2</span> <span class="toctext">Echelle des unités</span></a>
+<ul>
+<li class="toclevel-5 tocsection-29"><a href="#scaleUnitFromSymbolToSymbol"><span class="tocnumber">6.2.4.2.1</span> <span class="toctext">scaleUnitFromSymbolToSymbol</span></a></li>
+<li class="toclevel-5 tocsection-30"><a href="#scaleUnitFromSymbolToUnitSystem"><span class="tocnumber">6.2.4.2.2</span> <span class="toctext">scaleUnitFromSymbolToUnitSystem</span></a></li>
+<li class="toclevel-5 tocsection-31"><a href="#scaleUnitFromUnitSystemToSymbol"><span class="tocnumber">6.2.4.2.3</span> <span class="toctext">scaleUnitFromUnitSystemToSymbol</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-32"><a href="#Les_motivations_pour_une_telle_gestion_:_exemple_d.27application"><span class="tocnumber">6.2.5</span> <span class="toctext">Les motivations pour une telle gestion&#160;: exemple d'application</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="#Actions_suivantes"><span class="tocnumber">7</span> <span class="toctext">Actions suivantes</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Exemples">Exemples</span></h2>
+<pre> # -- some examples of the FreeCAD unit translation system --
+# make a shortcut for the examples
+FreeCAD.Units.parseQuantity
+
+# 10 meters in internal numbers
+tu('10 m')
+# doing math
+tu('3/8 in')
+# combined stuff
+tu('100 km/h')
+# transfer to other units
+tu('100 km/h')/tu('m/s')
+# derived units (Ohm)
+tu('m^2*kg*s^-3*A^-2')
+# or
+tu('(m^2*kg)/(A^2*s^3)')
+# angles 
+tu('2*pi rad') # full circle
+# as gon
+tu('2*pi rad') / tu('gon')
+# more imperial
+tu('1ft+(3+7/16)in')
+# or 
+tu('1\'(3+7/16)"') # the ' we have to escape because of python
+# trigonometry
+tu('sin(pi)')
+# Using translated units as parameters, this command will create a 50.8mm x 20mm x 10mm box
+b = Part.makeBox(tu('2in'),tu('2m')/100,10)
+</pre>
+<h2><span class="mw-headline" id="Unit.C3.A9s_support.C3.A9es">Unités supportées</span></h2>
+<p>Voici pour le moment, les unités définies dans FreeCAD. Il est facile pour l'utilisateur, et d'ajouter une nouvelle définition d'unité.
+La définition des unités supportées sont <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Base/UnitsApi.l?view=markup">ici</a> . 
+</p><p>Longueurs Métriques
+</p>
+<pre>"mm"    1.0;        // millimètre       (unité standard interne de longueur)
+"m"     1000.0;     // mètre
+"cm"    10.0;       // centimètre
+"dm"    100.0;      // décimètre
+"km"    1000000.0;  // kilomètre
+</pre>
+<p>Longueurs <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Unit%C3%A9s_de_mesure_anglo-saxonnes">Imperiales</a>
+</p>
+<pre>"in" "\""  25.4;       // inch
+"ft" "'"   304.8;      // foot
+"th"       0.0254;     // thou
+"yr"       914.4;      // yard
+</pre>
+<p>Masses <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Unit%C3%A9_de_masse">Métriques</a>
+</p>
+<pre>"kg"    1.0;        // kilogramme       (unité standard interne de masse)
+"g"     0.001;      // gramme
+"mg"    0.000001;   // milligramme
+"t"     1000.0;     // tonne 
+</pre>
+<p>Masse <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Unités_de_mesure_anglo-saxonnes">Imperiales</a>
+</p>
+<pre>"lb"    0.45359237; // pound
+"oz"    0.45359237; // ounce
+"st"    6.35029318; // Stone
+"cwt"   50.80234544;// hundredweights
+</pre>
+<p>Angle
+</p>
+<pre>"deg"   1.0;        // degré         (unité standard interne de d'angle)
+"rad"   180/M_PI;   // radian         
+"gon"   360.0/400.0;// grade   
+     
+</pre>
+<p>Temps
+</p>
+<pre>"s"     1.0;        // seconde         (unité standard interne de temps)
+"min"   60.0;       // minute
+"h"     3600.0;     // heure  
+</pre>
+<p>Autres unités SI
+</p>
+<pre>"A"     1.0;        // Ampère         (unité standard interne de courant électrique)
+"K"     1.0;        // Kelvin         (unité standard interne de température thermodynamique)
+"cd"    1.0;        // Candela        (unité standard interne de d'intensité lumineuse)        
+"mol"   1.0;        // Mole           (unité standard interne de quantité de matière)  
+     
+</pre>
+<p>Volumes Métriques
+</p>
+<pre>"µl"    1.0;        // microlitre mm^3 (dérivé du volume standard)
+"ml"    1000.0;     // millilitre cm^3    
+"l"     1000000.0;  // Litre      dm^3
+</pre>
+<h2><span class="mw-headline" id="Objectifs_et_principes_:_propositions_d.27extension_du_syst.C3.A8me_de_gestion_des_unit.C3.A9s">Objectifs et principes&#160;: propositions d'extension du système de gestion des unités</span></h2>
+<p>Un système de gestion de la vulgarisation des unités, est en développant. Le concept de <b>système d'unités</b>, est proposé dans les sections suivantes, activé lors d'une instance en cours d'exécution de FreeCAD. L'intérêt pour la définition d'un tel concept, est de travailler plus facilement avec le plus grand nombre de type d'unités  <b>physique</b> que l'on veut, (même ceux créés par l'utilisateur), sans augmenter la complexité de la gestion de l'unité ni pour l'utilisateur, ni pour les développeurs de  FreeCAD.
+</p><p>En bref, un événement de mise à l'échelle d'unités, est localisé avec précision, et réalisée génériquement.
+</p><p>Atteindre une telle flexibilité, est particulièrement nécessaire lorsque l'on commence à traiter les propriétés des matériaux, qui peuvent avoir des unités très différentes, et difficiles à gérer manuellement.
+</p><p>Le raisonnement proposé, permet la manutention des unités telles que décrites dans le <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">"Guide for the Use of the International System of Units (SI)"</a> et <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">"The International System of Units (SI)"</a>, tous les deux du <a rel="nofollow" class="external text" href="http://www.nist.gov/index.html">NIST</a>.
+</p><p>Dans cette proposition, une petite section de <a href="/wiki/Units#Remise_en_m.C3.A9moire" title="Units">remise en mémoire</a>, quels sont les contextes possibles, pour lesquelles une gestion des unités est nécessaire&#160;?
+</p><p>In <a href="/wiki/Units#Organizing" title="Units">Organizing</a> section, we present the data model retained to achieve unit management, based on 3 objects, the <i>unit</i>, the <i>unit dictionary</i>, and the <i>unit system</i>.
+Finally, a short API of a 4th object called the <i>unit manager</i> is presented as well.
+</p>
+<h2><span class="mw-headline" id="R.C3.A9sultat">Résultat</span></h2>
+<p>Merci pour cette extension, nous visons à faciliter l'échelle d'unité qui peut se produire, entre différentes tâches professionnelles. Par exemple, les dessins techniques peuvent être fait dans un système d'unité standard, tandis que la modélisation par éléments finis, peut être géré dans un système d'unité plus adapté pour cela.
+</p><p>L'échange de données, entre ces deux types d'activités devient plus facile avec cette extension.
+</p>
+<h2><span class="mw-headline" id="Remise_en_m.C3.A9moire">Remise en mémoire</span></h2>
+<p>Dans cette section, sont présents les contextes d'utilisation d'un tel système de gestion d'unité. A partir de ces contextes, nous sommes alors en mesure de définir ses spécifications techniques.
+</p><p>2 contextes, sont essentiellement donnés, à titre d'exemple.
+</p>
+<h3><span class="mw-headline" id="Contexte_1_:_ouverture_de_fichiers_de_donn.C3.A9es">Contexte 1&#160;: ouverture de fichiers de données</span></h3>
+<p>Ce cas est probablement le cas le plus fréquent. Vous recevez un fichier contenant par exemple un modèle géométrique, ou décrire un matériau avec beaucoup de propriétés. Le modèle géométrique est exprimé en mètres, ou les propriétés des matériaux selon le système d'unités international.
+</p><p>Dommage ...
+</p><p>Vous êtes un expert en <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Méthode_des_éléments_finis">FE modélisation</a>, et vous travaillerez généralement avec, des <b>millimètres</b> pour la longueur, <b>MegaPascal</b> pour la pression, <b>tonne</b> pour la masse ...
+</p><p>Dans ce contexte, la gestion de l'unité est nécessaire à l'échelle des données, à partir d'un système unitaire initialement défini dans le fichier d'entrée, dans le système défini par l'utilisateur de l'unité cible.
+</p>
+<h3><span class="mw-headline" id="Contexte_2_:_changement_entre_syst.C3.A8mes_d.27unit.C3.A9s_pendant_l.27ex.C3.A9cution">Contexte 2&#160;: changement entre systèmes d'unités pendant l'exécution</span></h3>
+<p>Dans ce cas, vous pouvez être en même temps celui qui réalise le dessin, et celui qui va gérer la modélisation des éléments finis (FE). Comme dans le cas précédent, les systèmes unitaires pour ces 2 tâches, ne sont pas les mêmes, et, vous avez besoin de changer le système d'unité initial, lors de l'exécution de celui que vous préférez.
+</p>
+<h2><span class="mw-headline" id="Organisation">Organisation</span></h2>
+<h3><span class="mw-headline" id="Logique_d.27.C3.A9chelle_d.27une_unit.C3.A9">Logique d'échelle d'une unité</span></h3>
+<p>Dans la section 2 de <a href="/wiki/Units#changement_entre_syst.C3.A8mes_d.27unit.C3.A9s_pendant_l.27ex.C3.A9cution" title="Units">"Remise en mémoire"</a>, ont été présentés, les contextes, d'échelles et d'unités en cours d'exécution. Certains éléments, doivent être mis en évidence, à partir de ces deux contextes.
+</p>
+<h4><span class="mw-headline" id="Coh.C3.A9rence_d.27unit.C3.A9s_tout_au_long_de_l.27instance.2C_en_cours_d.27ex.C3.A9cution">Cohérence d'unités tout au long de l'instance, en cours d'exécution</span></h4>
+<p>Le système proposé, est basé sur une hypothèse&#160;: l'utilisateur, travaille dans un système d'unité cohérent. Par exemple, cela signifie que si l'utilisateur exprime la longueur en millimètres, nécessairement la surface sera exprimée en millimètres carrés, et non en mètres carrés.
+Il s'agit d'une <b>hypothèse</b>.
+</p>
+<h4><span class="mw-headline" id="Syst.C3.A8me_d.27unit.C3.A9">Système d'unité</span></h4>
+<p>En raison d'<b>une hypothèse</b> , il est pertinent de définir un système d'unités.
+Un système d'unité s'applique à&#160;:
+</p>
+<ul><li> une instance FreeCAD en cours d'exécution, et, dans laquelle vous travaillez.</li>
+<li> ou bien, peut également s'appliquer globalement au contenu d'un fichier ouvert.</li></ul>
+<p>Selon Guide <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">"Guide for the Use of the International System of Units (SI)"</a> du <a rel="nofollow" class="external text" href="http://www.nist.gov/index.html">NIST</a>, il y a 7 unités physiques de base. Nous avons choisi d'exprimer un système d'unités en fonction de ces 7 unités de base.
+</p><p>Lorsque vous travaillez au sein d'une instance <b>FreeCAD</b>, l'utilisateur doit d'abord définir le système d'unités selon laquelle il/elle travaille, avant qu'il/elle décide de passer à un autre système d'unité, ou avant d'importer des données à partir d'un fichier.
+</p><p>Ce système s'appliquera, jusqu'à ce que l'utilisateur décide de changer l'unité. S'il/elle le fait, toutes les données de <b>Grandeur</b> seront réduites.
+</p><p>En considérant cette <b>seule hypothèse</b>, toutes les données que l'utilisateur va entrer manuellement dans FreeCAD, sont supposées être cohérentes avec le système d'unité choisi.
+</p><p>C'est l'avantage, de travailler avec un <b>système d'unités</b>, défini au niveau de l'instance en cours d'exécution de FreeCAD, ou, au niveau du fichier de données, (au lieu de l'unité définie au niveau des données) c'est alors, que la gestion de l'unité est considérablement simplifiée.
+</p><p>Voici quelques exemples de systèmes d'unités.
+</p>
+<ul><li> mètre, kilogramme, seconde, ampère, kelvin, mole, candela.</li>
+<li> millimètre, tonne, milliseconde, ampère, kelvin, mole, candela.</li>
+<li> millimètre, kilogramme, milliseconde, ampère, kelvin, mole, candela.</li>
+<li> ...</li></ul>
+<h4><span class="mw-headline" id="Unit.C3.A9s_de_base_et_d.C3.A9riv.C3.A9es">Unités de base et dérivées</span></h4>
+<p>les unités dérivées sont créées par la combinaison d'unités de base. Par exemple, d'une <b>accélération (m/s)</b>, combine à la fois la <b>longueur</b>, et, le <b>temps</b>. Une image intéressante présentant les relations entre les unités de base, et, les unités dérivées, peut être vu <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/SIDiagramColorAnnot.pdf">ici</a>, aussi de <a rel="nofollow" class="external text" href="http://www.nist.gov/index.html">NIST</a>.
+</p><p>Merci, à la définition d'une unité centrale, il est possible que l'utilisateur travaille avec n'importe quel type d'unités dérivées, sans la nécessité, que les développeurs de FreeCAD les prévoient à l'avance.
+</p>
+<h4><span class="mw-headline" id="Symboles_des_unit.C3.A9s_de_base_d.C3.A9riv.C3.A9es">Symboles des unités de base dérivées</span></h4>
+<p>Selon <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>, les symboles pour préciser les unités, sont officiellement approuvées. Deux conséquences peuvent être misent en évidence à partir de cela.
+</p>
+<ul><li> il n'est pas facile pour un programme informatique de travailler avec les symboles d'unités, parce que certains symboles, sont des <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Alphabet_grec">lettres grecques</a>. Par conséquent, le traitement par un programme peut être difficile.</li>
+<li> alors que certaines unités, et, leurs symboles peuvent être largement utilisés, ils peuvent, ne pas être approuvés officiellement, comme par exemple l'unité, la <b>tonne</b> (voir p32 <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>).</li></ul>
+<p>Pour surmonter ces limites, et, garder une bonne flexibilité, le système proposé favorise l'utilisation des <b>grandeurs d'unités</b> au lieu des <b>symboles d'unité</b>, qui restent néanmoins disponibles pour une raison d'ergonomie.
+</p>
+<h3><span class="mw-headline" id="Mod.C3.A8le_de_donn.C3.A9es">Modèle de données</span></h3>
+<p>Les trois objets de base, du système de gestion de l'unité sont présents, à savoir <b>l'unité</b>, le <b>dictionnaire d'unités</b> et le <b>système d'unités</b>.
+</p>
+<h4><span class="mw-headline" id="Unit.C3.A9">Unité</span></h4>
+<p>Comme avant-propos, il est important de souligner, que l'objet unité en lui-même indique, une <b>grandeur</b> comme la longueur, la masse, le temps ... Il n'en précise pas l'ampleur, comme le mètre, millimètre, kilomètre ... Cette dernière information est spécifiée par le système d'unité.
+</p>
+<h5><span class="mw-headline" id="Grandeur">Grandeur</span></h5>
+<p>Obligatoirement, une chaîne, indique la <b>Grandeur</b> de l'unité. La <b>Grandeur</b> des 7 unités de base sont indiquées ci-dessous (à partir de <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a>).
+</p>
+<table class="wikitable">
+<tr>
+<th>  </th>
+<th> <b>Grandeur</b>
+</th></tr>
+<tr>
+<td align="right"> 1 </td>
+<td> LENGTH </td>
+<td> Longueur
+</td></tr>
+<tr>
+<td align="right"> 2 </td>
+<td> MASS </td>
+<td> Masse
+</td></tr>
+<tr>
+<td align="right"> 3 </td>
+<td> TIME </td>
+<td> Temps
+</td></tr>
+<tr>
+<td align="right"> 4 </td>
+<td> ELECTRIC CURRENT </td>
+<td> Courant électrique
+</td></tr>
+<tr>
+<td align="right"> 5 </td>
+<td> THERMODYNAMIC TEMPERATURE </td>
+<td> Température thermodynamique
+</td></tr>
+<tr>
+<td align="right"> 6 </td>
+<td> AMOUNT OF SUBSTANCE </td>
+<td> Quantité de matière
+</td></tr>
+<tr>
+<td align="right"> 7 </td>
+<td> LUMINOUS INTENSITY </td>
+<td> Intensité lumineuse
+</td></tr></table>
+<p>L'attribut de <b>Grandeur</b> permet d'identifier l'unité.
+Deux unités ne peuvent pas partager la même <b>Grandeur</b>.
+</p>
+<h5><span class="mw-headline" id="Signature">Signature</span></h5>
+<p>La signature, est dans tableau d'INTEGER (entiers) de 7 cases, la signature doit obligatoirement avoir une taille de 7 (chiffres), la position du chiffre dans le tableau définit l'unité.
+</p><p>La signature des 7 unités de base sont les suivantes:
+</p>
+<table class="wikitable">
+<tr>
+<th>  </th>
+<th> <b>Grandeur</b>
+</th></tr>
+<tr>
+<td align="right"> 1 </td>
+<td> LENGTH </td>
+<td> Longueur </td>
+<td> [<b>1</b>,0,0,0,0,0,0]
+</td></tr>
+<tr>
+<td align="right"> 2 </td>
+<td> MASS </td>
+<td> Masse </td>
+<td> [0,<b>1</b>,0,0,0,0,0]
+</td></tr>
+<tr>
+<td align="right"> 3 </td>
+<td> TIME </td>
+<td> Temps </td>
+<td> [0,0,<b>1</b>,0,0,0,0]
+</td></tr>
+<tr>
+<td align="right"> 4 </td>
+<td> ELECTRIC CURRENT </td>
+<td> Courant électrique </td>
+<td> [0,0,0,<b>1</b>,0,0,0]
+</td></tr>
+<tr>
+<td align="right"> 5 </td>
+<td> THERMODYNAMIC TEMPERATURE </td>
+<td> Température thermodynamique </td>
+<td> [0,0,0,0,<b>1</b>,0,0]
+</td></tr>
+<tr>
+<td align="right"> 6 </td>
+<td> AMOUNT OF SUBSTANCE </td>
+<td> Quantité de matière </td>
+<td> [0,0,0,0,0,<b>1</b>,0]
+</td></tr>
+<tr>
+<td align="right"> 7 </td>
+<td> LUMINOUS INTENSITY </td>
+<td> Intensité lumineuse </td>
+<td> [0,0,0,0,0,0,<b>1</b>]
+</td></tr></table>
+<p>À partir de ces 7 unités, nous sommes en mesure d'exprimer toutes les unités dérivées, définies dans <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a>, et, au besoin, d'en créer de nouvelles, comme par exemple&#160;:
+</p>
+<table class="wikitable">
+<tr>
+<th>  </th>
+<th> <b>Grandeur</b>
+</th></tr>
+<tr>
+<td align="right"> 1 </td>
+<td> MASS DENSITY </td>
+<td> Densité de Masse </td>
+<td> [-3,1,0,0,0,0,0]
+</td></tr>
+<tr>
+<td align="right"> 2 </td>
+<td> AREA </td>
+<td> Surface </td>
+<td> [0,2,0,0,0,0,0]
+</td></tr></table>
+<p>La <b>signature</b>, est l'attribut de mise à l'échelle, qui peut être réalisée pour l'unité, d'une manière générique.
+</p>
+<h5><span class="mw-headline" id="Symboles">Symboles</span></h5>
+<p>Un tableau de <b>[real, string]</b> (sens <b>[grandeur</b> (magnitude), <b>symbol]</b>) qui répertorie tous les symboles connus par FreeCAD.
+Merci pour ce tableau, de cette manière, l'API de mise à l'échelle d'une unité devient plus ergonomique, car les symboles et grandeurs connexes sont liées.
+</p><p>Ce tableau peut être étendu si nécessaire.
+</p><p>Par exemple, la liste des <b>symboles</b> de l'unité de longueur, et ses associés de <b>grandeurs</b> (magnitudes) est&#160;:
+</p>
+<pre> [1e+12,"Tm"],[1e+09,"Gm"],[1e+06,"Mm"],
+[1e+03,"km"],[1e+02,"hm"],[1e+01,"dam"],
+[1e+00,"m"],[1e-01,"dm"],[1e-02,"cm"],
+[1e-03,"mm"],[1e-06,"µm"],[1e-09,"nm"],
+[1e-12,"pm"],[1e-15,"fm"]
+</pre>
+<p>Les <b>symboles</b> standards peuvent être trouvés sur le site de <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/Units/units.html">NIST</a> pages 23 à 26 et page 32 (<b>metric ton</b> ou <b>tonne</b> ) du <a rel="nofollow" class="external text" href="http://physics.nist.gov/Pubs/SP330/sp330.pdf">The International System of Units (SI)</a>.
+</p>
+<h4><span class="mw-headline" id="Base_de_donn.C3.A9es_d.27unit.C3.A9s">Base de données d'unités</span></h4>
+<p>Toutes les unités disponibles dans FreeCAD, et les nouvelles créés par l'utilisateur, doivent être stockées dans <b>unit dictionary</b> , qui est un fichier <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Extensible_Markup_Language">.XML</a> (fichier de configuration FreeCAD), de façon à être récupéré en cas de besoin, soit lors de la réalisation d'échelle unité.
+</p>
+<h5><span class="mw-headline" id="Unit.C3.A9s">Unités</span></h5>
+<p>Tableau d'unités, contenu dans <b>unit dictionary</b> (le dictionnaire d'unités).
+</p>
+<h4><span class="mw-headline" id="Unit_system">Unit system</span></h4>
+<p>Un <b>système d'unité</b> est l'objet qui permet à l'utilisateur de définir l'unité actuelle (grandeur), de chacune des unités de base avec lesquelles il/elle travaille.
+Par exemple, sachant que l'utilisateur travaille en <b>millimétres</b>, <b>tonnes</b>, et <b>secondes</b>, à l'utilisation d'un système d'unités, FreeCAD peut savoir que l'énergie est exprimée en termes de <b>millijoule</b>, la force en termes de <b>Newton</b>, et la pression en <b>mégapascal</b>.
+Ainsi, un système d'unité est uniquement défini par un <b>nom</b> (par exemple <b>Standard unit system</b>), et une <b>table de grandeurs</b>, en spécifiant pour chacune des 7 unités de base son correspondant <b>grandeur</b>.
+</p>
+<h5><span class="mw-headline" id="Nom">Nom</span></h5>
+<p>Chaîne permettant à l'utilisateur d'identifier quel est le système d'unités.
+</p>
+<h5><span class="mw-headline" id="Grandeur_.28Magnitude.29">Grandeur (Magnitude)</span></h5>
+<p>En spécifiant la Grandeur de chacune des 7 unités de base, le système d'unités est définie.
+</p><p>Par exemple <b>[1e-03, 1e +03, 1, 1, 1, 1, 1]</b>, ce qui signifie, millimètre, tonne, seconde, ampère, kelvin, mole, candela.
+</p>
+<h4><span class="mw-headline" id="Gestion_de_l.27API_des_unit.C3.A9s">Gestion de l'API des unités</span></h4>
+<p>Seule, la logique de certaines méthodes est présentée, afin de mettre en évidence certaines caractéristiques. Ces méthodes pourraient appartenir à un objet appelé, <b>Unit manager</b> (gestionnaire d'Unités).
+</p>
+<h5><span class="mw-headline" id="V.C3.A9rification_du_dictionnaire_de_unit.C3.A9s">Vérification du dictionnaire de unités</span></h5>
+<h6><span class="mw-headline" id="isValid">isValid</span></h6>
+<p>Le dictionnaire des unité peut être un fichier <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Extensible_Markup_Language">.XML</a> (fichier de configuration de FreeCAD). Il contient une liste d'unités définies. Un tel dictionnaire, est nécessaire pour le système de gestion des unités proposées pour travailler.
+</p><p>Il faut remplir certaines conditions qui doivent être vérifiées avant d'activer le système de gestion d'unités.
+</p><p>Ces conditions sont les suivantes&#160;:
+</p>
+<ul><li> vérifier que toutes les unités de base sont définies.</li>
+<li> vérifier que la grandeur n'est pas définie deux fois dans les unités.</li>
+<li> vérifier que le symbole n'est pas défini deux fois dans tous les symboles existants.</li>
+<li> vérifier que les signatures de toutes les unités ont toutes la même taille.</li>
+<li> vérifier qu'un symbole standard (avec la <b>grandeur</b> fixée sur 1) est défini pour l'ensemble des unités</li></ul>
+<h6><span class="mw-headline" id="isCompatibleWithThisSignature">isCompatibleWithThisSignature</span></h6>
+<p>Un dictionnaire d'unités, définit un ensemble d'unités, et, leurs grandeurs connues. Lors de la gestion d'une unité, il est important de vérifier, que sa signature est compatible avec l'ensemble des unités enregistrées dans le dictionnaire des unités, pour pouvoir les traiter.
+</p><p>Ce contrôle comprend&#160;:
+</p>
+<ul><li> Vérifiez que la longueur de la <b>signature</b>, est de la même taille que la <b>signature</b> de l'unité dans le dictionnaire.</li></ul>
+<h5><span class="mw-headline" id="Echelle_des_unit.C3.A9s">Echelle des unités</span></h5>
+<h6><span class="mw-headline" id="scaleUnitFromSymbolToSymbol">scaleUnitFromSymbolToSymbol</span></h6>
+<p>Connaissant la valeur initiale d'une unité par son symbole, le symbole, de l'unité cible, donne la valeur de l'échelle.
+</p>
+<h6><span class="mw-headline" id="scaleUnitFromSymbolToUnitSystem">scaleUnitFromSymbolToUnitSystem</span></h6>
+<p>Connaissant la valeur initiale d'une unité par son symbole, le système d'unité cible, donne la valeur de l'échelle.
+</p>
+<h6><span class="mw-headline" id="scaleUnitFromUnitSystemToSymbol">scaleUnitFromUnitSystemToSymbol</span></h6>
+<p>Connaissant une valeur initiale, d'un système unitaire, le symbole, de l'unité cible, donne la valeur de l'échelle.
+</p>
+<h4><span class="mw-headline" id="Les_motivations_pour_une_telle_gestion_:_exemple_d.27application">Les motivations pour une telle gestion&#160;: exemple d'application</span></h4>
+<p>Supposons, que nous allons mettre en place un modèle d'éléments finis. Pour construire notre modèle, nous avons besoin de mailles (mesh), de propriétés de matériaux, et de définir les paramètres numériques. Considérant qu'il peut y avoir des dizaines de propriétés de matériaux à gérer, exprimées avec des unités différentes, parfois pas toujours très communes, il est intéressant pour l'utilisateur de n'avoir à spécifier, qu'un système global d'unité, sans trop de soucis.
+</p><p>FreeCAD, ferait alors tout simplement le travail.
+</p><p>Comme les développeurs, et, les utilisateurs de FreeCAD, ne connaissent pas nécessairement toutes les unités, qui peuvent être définies dans les fichiers de propriétés des matériaux, il est intéressant de s'appuyer sur un système générique.
+</p><p>Supposons que dans un tel fichier, nous avons un bon nombre de propriétés de matériaux exotiques, exprimés avec des unités exotiques, et, que nous voulons travailler dans un système d'unité spécifique.
+</p><p>Avec le projet d'extension d'échelle, il est facile de donner une de ces propriétés, en connaissant leurs signatures de grandeurs, et le système d'unité ciblée.
+</p><p>Pour chacune des propriétés, la mise à l'échelle est obtenue en multipliant la valeur de la propriété initiale avec le facteur &lt;math&gt;\frac{GrandeurInitiale}{GrandeurCible}&lt;/math&gt;.
+</p><p>La <b>GrandeurCible</b> est alors simplement obtenue, avec l'opération &lt;math&gt;\prod_{bu} targetMagnitude_{bu}^{signature_{bu}}&lt;/math&gt;, ou <b>bu</b> est l'<b>unité de base</b> permanente.
+</p><p>Il devient ainsi très facile, de gérer un grand nombre de propriétés avec n'importe quels types d'unités, et, avec très peu de code <b>Python</b>.
+</p>
+<h2><span class="mw-headline" id="Actions_suivantes">Actions suivantes</span></h2>
+<ul><li> Examen par d'autres personnes.</li>
+<li> Vérifiez si le système actuel de gestion des unité, peut être étendu avec ces nouveaux concepts, (grandeur, signature, table de symboles , système d'unité, bases de données d'unités ...).</li>
+<li> Voir avec d'autres personnes, si les limites de ce système sont acceptables&#160;:
+<ul><li> La conversion (offseting) des valeurs n'est pas prise en charge par ce système. Le seul cas que je vois où un problème peut se poser, est lors du passage de <b>degré Kelvin</b> en <b>degré Celsius</b>. Je soutiens, que l'utilisateur peut le faire manuellement. Le fait est, que cette conversion peut être délicate&#160;: elle n'est pas compatible avec le concept de conversion global tel qu'il est présenté ici (cadre 1 et contexte 2) parce que lors du passage de degré Kelvin au degré Celsius, les données qui expriment une différence ne devraient pas être converties (voir l'article 8.5, page 24 <a rel="nofollow" class="external text" href="http://physics.nist.gov/cuu/pdf/sp811.pdf">Guide for the Use of the International System of Units (SI)</a> pour plus d'explications). Autre chose, je ne sais pas si une telle conversion est nécessaire. Je n'en ai pas besoin</li>
+<li> La valeur aurait pu être ajoutée en tant qu'unité de base 8. Cependant, je ne vois pas l'intérêt de la convertir&#160;: nous ne serions pas en mesure de stocker des grandeurs dans le base de données d'unité&#160;: ce sont des fluctuations journalières&#160;! En outre, cette unité est inutile dans la modélisation par éléments finis. C'est pourquoi je propose de s'en tenir à l'idée de gérer des unités physiques . Attention , ce n'est pas parce que cette unité ne figure pas dans le système d'unités objet, qu'elle n'est pas convertible. Elle peut être définie dans la bibliothèque d'unités, avec des symboles, des grandeurs, et l'API, il y aura des méthodes pour travailler avec ces informations. Il est juste que, lors du passage au niveau mondial du système d'unité, les valeurs d'une unité monétaire ne sera pas mise à l'échelle, et l'utilisateur devra écrire une ligne de code en <b>Python</b>, il mettra lui-même ces données à l'échelle s'il le veut.</li>
+<li> Est la même limitation à des données telles que, les dimensions d'angles (la combinaison de longueur comme &lt;math&gt;\frac{m}{m}&lt;/math&gt;), ou, des angles solides (combinant longueur que &lt;math&gt;\frac{m^2}{m^2}&lt;/math&gt;), c'est-à-dire qui n'ont pas d'unités. Il est possible de les manipuler, mais lors de la commutation du système d'unités, ils ne seront pas mis à l'échelle, tout simplement parce qu'il n'est pas nécessaire&#160;: leurs valeurs ne sont pas affectées par un changement d'unités de base.</li></ul></li>
+<li> Si c'est ok, mettre en œuvre l'unité ou la description de l'unité dans les fichiers de données de FreeCAD (ceux contenant les données sur les unités, comme les fichiers pour stocker les formes géométriques et les propriétés des matériaux).</li>
+<li> Écrire dans la bibliothèque <b>.XML</b> des unités de FreeCAD.</li>
+<li> Mettre en œuvre la notion d'unité centrale, qui doit être activée lors de l'exécution d'une instance de FreeCAD, avant d'effectuer l'échelle de l'unité, ou lors de l'importation de données, à partir d'un fichier géométrique ou d'un fichier de propriété de matière.</li>
+<li> Mettre en œuvre l'échelle d'unités, lors de l'importation d'un fichier (géométrique ou de propriétés des matériaux) (correspondant au contexte 1)</li>
+<li> Mettre en œuvre <b>"sur demande"</b> la mise à l'échelle de l'unité, lorsque l'utilisateur choisit de passer d'un système d'unité initial à un système cible (correspondant au contexte 2)</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Units/fr&amp;oldid=126916">http://www.freecadweb.org/wiki/index.php?title=Units/fr&amp;oldid=126916</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

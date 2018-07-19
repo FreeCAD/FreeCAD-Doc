@@ -1,0 +1,210 @@
+<html><head><title>Dialog creation/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Dialog creation/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>本页，我们将展示如何用<a rel="nofollow" class="external text" href="http://qt-project.org/doc/qt-4.8/designer-manual.html">Qt Designer</a>，Qt的​​官方工具接口设计，来建立一个简单的Qt对话框，然后把它转换到 Python ，然后在 FreeCAD 中使用。我假设的例子中，您知道如何编辑和运行 Python 脚本，，你可以在终端窗口中做一些简单的事情，如目录浏览。你当然还必须安装 PyQt。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E8.AE.BE.E8.AE.A1.E5.AF.B9.E8.AF.9D.E6.A1.86"><span class="tocnumber">1</span> <span class="toctext">设计对话框</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E6.8A.8A.E5.AF.B9.E8.AF.9D.E6.A1.86.E8.BD.AC.E4.B8.BA_Python"><span class="tocnumber">2</span> <span class="toctext">把对话框转为 Python</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E7.94.A8.E6.88.91.E4.BB.AC.E7.9A.84.E5.AF.B9.E8.AF.9D.E6.A1.86.E5.81.9A.E4.BA.9B.E4.BA.8B"><span class="tocnumber">3</span> <span class="toctext">用我们的对话框做些事</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.AE.8C.E6.95.B4.E8.84.9A.E6.9C.AC"><span class="tocnumber">4</span> <span class="toctext">完整脚本</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E8.AE.BE.E8.AE.A1.E5.AF.B9.E8.AF.9D.E6.A1.86">设计对话框</span></h2>
+<p>In CAD applications, designing a good UI (User Interface) is very important. About everything the user will do will be through some piece of interface: reading dialog boxes, pressing buttons, choosing between icons, etc. So it is very important to think carefully to what you want to do, how you want the user to behave, and how will be the workflow of your action.
+</p><p>There are a couple of concepts to know when designing interface:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Modal_window">Modal/non-modal dialogs</a>: A modal dialog appears in front of your screen, stopping the action of the main window, forcing the user to respond to the dialog, while a non-modal dialog doesn't stop you from working on the main window. In some case the first is better, in other cases not.</li>
+<li> Identifying what is required and what is optional: Make sure the user knows what he must do. Label everything with proper description, use tooltips, etc.</li>
+<li> Separating commands from parameters: This is usually done with buttons and text input fields. The user knows that clicking a button will produce an action while changing a value inside a text field will change a parameter somewhere. Nowadays, though, users usually know well what is a button, what is an input field, etc. The interface toolkit we are using, Qt, is a state-of-the-art toolkit, and we won't have to worry much about making things clear, since they will already be very clear by themselves.</li></ul>
+<p>So, now that we have well defined what we will do, it's time to open the qt designer. Let's design a very simple dialog, like this:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qttestdialog.jpg" class="image"><img alt="Qttestdialog.jpg" src="Qttestdialog.jpg" width="210" height="216" /></a>
+</p><p>We will then use this dialog in FreeCAD to produce a nice rectangular plane. You might find it not very useful to produce nice rectangular planes, but it will be easy to change it later to do more complex things. When you open it, Qt Designer looks like this:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtdesigner-screenshot.jpg" class="image"><img alt="Qtdesigner-screenshot.jpg" src="Qtdesigner-screenshot.jpg" width="800" height="486" /></a>
+</p><p>It is very simple to use. On the left bar you have elements that can be dragged on your widget. On the right side you have properties panels displaying all kinds of editable properties of selected elements. So, begin with creating a new widget. Select "Dialog without buttons", since we don't want the default Ok/Cancel buttons. Then, drag on your widget <b>3 labels</b>, one for the title, one for writing "Height" and one for writing "Width". Labels are simple texts that appear on your widget, just to inform the user. If you select a label, on the right side will appear several properties that you can change if you want, such as font style, height, etc.
+</p><p>Then, add <b>2 LineEdits</b>, which are text fields that the user can fill in, one for the height and one for the width. Here too, we can edit properties. For example, why not set a default value? For example 1.00 for each. This way, when the user will see the dialog, both values will be filled already and if he is satisfied he can directly press the button, saving precious time. Then, add a <b>PushButton</b>, which is the button the user will need to press after he filled the 2 fields.
+</p><p>Note that I choosed here very simple controls, but Qt has many more options, for example you could use Spinboxes instead of LineEdits, etc... Have a look at what is available, you will surely have other ideas.
+</p><p>That's about all we need to do in Qt Designer. One last thing, though, let's rename all our elements with easier names, so it will be easier to identify them in our scripts:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtpropeditor.jpg" class="image"><img alt="Qtpropeditor.jpg" src="Qtpropeditor.jpg" width="348" height="321" /></a>
+</p>
+<h2><span class="mw-headline" id=".E6.8A.8A.E5.AF.B9.E8.AF.9D.E6.A1.86.E8.BD.AC.E4.B8.BA_Python">把对话框转为 Python</span></h2>
+<p>Now, let's save our widget somewhere. It will be saved as an .ui file, that we will easily convert to python script with pyuic. On windows, the pyuic program is bundled with pyqt (to be verified), on linux you probably will need to install it separately from your package manager (on debian-based systems, it is part of the pyqt4-dev-tools package). To do the conversion, you'll need to open a terminal window (or a command prompt window on windows), navigate to where you saved your .ui file, and issue:
+</p>
+<pre>pyuic mywidget.ui &gt; mywidget.py
+</pre>
+<p>On some systems the program is called pyuic4 instead of pyuic. This will simply convert the .ui file into a python script. If we open the mywidget.py file, its contents are very easy to understand:
+</p>
+<pre>from PyQt4 import QtCore, QtGui
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(187, 178)
+        self.title = QtGui.QLabel(Dialog)
+        self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+        self.title.setObjectName("title")
+        self.label_width = QtGui.QLabel(Dialog)
+        ...
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+        ...
+</pre>
+<p>As you see it has a very simple structure: a class named Ui_Dialog is created, that stores the interface elements of our widget. That class has two methods, one for setting up the widget, and one for translating its contents, that is part of the general Qt mechanism for translating interface elements. The setup method simply creates, one by one, the widgets as we defined them in Qt Designer, and sets their options as we decided earlier. Then, the whole interface gets translated, and finally, the slots get connected (we'll talk about that later).
+</p><p>We can now create a new widget, and use this class to create its interface. We can already see our widget in action, by putting our mywidget.py file in a place where FreeCAD will find it (in the FreeCAD bin directory, or in any of the Mod subdirectories), and, in the FreeCAD python interpreter, issue:
+</p>
+<pre>from PyQt4 import QtGui
+import mywidget
+d = QtGui.QWidget()
+d.ui = mywidget.Ui_Dialog()
+d.ui.setupUi(d)
+d.show()
+</pre>
+<p>And our dialog will appear! Note that our python interpreter is still working, we have a non-modal dialog. So, to close it, we can (apart from clicking its close icon, of course) issue:
+</p>
+<pre>d.hide()
+</pre>
+<h2><span class="mw-headline" id=".E7.94.A8.E6.88.91.E4.BB.AC.E7.9A.84.E5.AF.B9.E8.AF.9D.E6.A1.86.E5.81.9A.E4.BA.9B.E4.BA.8B">用我们的对话框做些事</span></h2>
+<p>Now that we can show and hide our dialog, we just need to add one last part: To make it do something! If you play a bit with Qt designer, you'll quickly discover a whole section called "signals and slots". Basically, it works like this: elements on your widgets (in Qt terminology, those elements are themselves widgets) can send signals. Those signals differ according to the widget type. For example, a button can send a signal when it is pressed and when it is released. Those signals can be connected to slots, which can be special functionality of other widgets (for example a dialog has a "close" slot to which you can connect the signal from a close button), or can be custom functions. The <a rel="nofollow" class="external text" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">PyQt Reference Documentation</a> lists all the qt widgets, what they can do, what signals they can send, etc...
+</p><p>What we will do here, is create a new function that will create a plane based on height and width, and connect that function to the pressed signal emitted by our "Create!" button. So, let's begin with importing our FreeCAD modules, by putting the following line at the top of the script, where we already import QtCore and QtGui:
+</p>
+<pre>import FreeCAD, Part
+</pre>
+<p>Then, let's add a new function to our Ui_Dialog class:
+</p>
+<pre>def createPlane(self):
+    try:
+        # first we check if valid numbers have been entered
+        w = float(self.width.text())
+        h = float(self.height.text())
+    except ValueError:
+        print "Error! Width and Height values must be valid numbers!"
+    else:
+        # create a face from 4 points
+        p1 = FreeCAD.Vector(0,0,0)
+        p2 = FreeCAD.Vector(w,0,0)
+        p3 = FreeCAD.Vector(w,h,0)
+        p4 = FreeCAD.Vector(0,h,0)
+        pointslist = [p1,p2,p3,p4,p1]
+        mywire = Part.makePolygon(pointslist)
+        myface = Part.Face(mywire)
+        Part.show(myface)
+        self.hide()
+</pre>
+<p>Then, we need to inform Qt to connect the button to the function, by placing the following line just before QtCore.QMetaObject.connectSlotsByName(Dialog):
+</p>
+<pre>QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)
+</pre>
+<p>This, as you see, connects the pressed() signal of our create object (the "Create!" button), to a slot named createPlane, which we just defined. That's it! Now, as a final touch, we can add a little function to create the dialog, it will be easier to call. Outside the Ui_Dialog class, let's add this code:
+</p>
+<pre>class plane():
+    d = QtGui.QWidget()
+    d.ui = Ui_Dialog()
+    d.ui.setupUi(d)
+    d.show()
+</pre>
+<p>Then, from FreeCAD, we only need to do:
+</p>
+<pre>import mywidget
+mywidget.plane()
+</pre>
+<p>That's all Folks... Now you can try all kinds of things, like for example inserting your widget in the FreeCAD interface (see the <a href="Code_snippets.html" title="Code snippets">Code snippets</a> page), or making much more advanced custom tools, by using other elements on your widget.
+</p>
+<h2><span class="mw-headline" id=".E5.AE.8C.E6.95.B4.E8.84.9A.E6.9C.AC">完整脚本</span></h2>
+<p>This is the complete script, for reference:
+</p>
+<pre># -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'mywidget.ui'
+#
+# Created: Mon Jun  1 19:09:10 2009
+#      by: PyQt4 UI code generator 4.4.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt4 import QtCore, QtGui
+import FreeCAD, Part 
+
+class Ui_Dialog(object):
+   def setupUi(self, Dialog):
+       Dialog.setObjectName("Dialog")
+       Dialog.resize(187, 178)
+       self.title = QtGui.QLabel(Dialog)
+       self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+       self.title.setObjectName("title")
+       self.label_width = QtGui.QLabel(Dialog)
+       self.label_width.setGeometry(QtCore.QRect(10, 50, 57, 16))
+       self.label_width.setObjectName("label_width")
+       self.label_height = QtGui.QLabel(Dialog)
+       self.label_height.setGeometry(QtCore.QRect(10, 90, 57, 16))
+       self.label_height.setObjectName("label_height")
+       self.width = QtGui.QLineEdit(Dialog)
+       self.width.setGeometry(QtCore.QRect(60, 40, 111, 26))
+       self.width.setObjectName("width")
+       self.height = QtGui.QLineEdit(Dialog)
+       self.height.setGeometry(QtCore.QRect(60, 80, 111, 26))
+       self.height.setObjectName("height")
+       self.create = QtGui.QPushButton(Dialog)
+       self.create.setGeometry(QtCore.QRect(50, 140, 83, 26))
+       self.create.setObjectName("create")
+
+       self.retranslateUi(Dialog)
+       QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)
+       QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+       Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+       self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_width.setText(QtGui.QApplication.translate("Dialog", "Width", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_height.setText(QtGui.QApplication.translate("Dialog", "Height", None, QtGui.QApplication.UnicodeUTF8))
+       self.create.setText(QtGui.QApplication.translate("Dialog", "Create!", None, QtGui.QApplication.UnicodeUTF8))
+
+   def createPlane(self):
+       try:
+           # first we check if valid numbers have been entered
+           w = float(self.width.text())
+           h = float(self.height.text())
+       except ValueError:
+           print "Error! Width and Height values must be valid numbers!"
+       else:
+           # create a face from 4 points
+           p1 = FreeCAD.Vector(0,0,0)
+           p2 = FreeCAD.Vector(w,0,0)
+           p3 = FreeCAD.Vector(w,h,0)
+           p4 = FreeCAD.Vector(0,h,0)
+           pointslist = [p1,p2,p3,p4,p1]
+           mywire = Part.makePolygon(pointslist)
+           myface = Part.Face(mywire)
+           Part.show(myface)
+
+class plane():
+    d = QtGui.QWidget()
+    d.ui = Ui_Dialog()
+    d.ui.setupUi(d)
+    d.show()
+</pre>
+<p><br />
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/cn&amp;oldid=211453">http://www.freecadweb.org/wiki/index.php?title=Dialog_creation/cn&amp;oldid=211453</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

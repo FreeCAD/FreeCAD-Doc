@@ -1,0 +1,159 @@
+<html><head><title>Macro Print SceneGraph/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Print SceneGraph/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Print_SceneGraph"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro_Print_SceneGraph</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Imprime la Vue 3D
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Aleph0&amp;action=edit&amp;redlink=1" class="new" title="User:Aleph0 (page does not exist)">Aleph0</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.03
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-10-24
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Print_SceneGraph"><span class="tocnumber">1</span> <span class="toctext">Macro_Print_SceneGraph</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro parcourt la vue3D et imprime tous les nœuds et leurs champs dans la fenêtre Report View. Il peut être utilisé uniquement à titre d'information ou vous pouvez ajouter du code pour modifier des parties du SceneGraph d'une manière ou imprimer plus de détails pour des types particuliers de nœud.        
+</p>
+<pre># -*- coding: utf-8 -*-
+"""
+***************************************************************************
+*                                                                         *
+*   This macro traverses the SceneGraph and prints all the nodes and      *
+*   their fields in the Report View window. It can be used just for       *
+*   information or you can add code to modify parts of the SceneGraph in  *
+*   some way or print more details for particular types of node.          *
+*                                                                         *
+***************************************************************************
+*   Copyright © 2017 Richard P. Parkins, M. A.                          *
+*                                                                         *
+*   This file is a supplement to the FreeCAD CAx development system.      *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 2 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+"""
+__title__   = "Print_SceneGraph"
+__author__  = "Aleph0"
+__version__ = "00.03"
+__date__    = "24/10/2017"
+__Comment__ = "SceneGraph explorer"
+__Wiki__ = "http://www.freecadweb.org/wiki/index.php?title=Macro_Print_SceneGraph"
+__Help__ = "see first few lines of macro text"
+__Status__ = "stable"
+__Requires__ = "freecad 0.16"
+#OS: Ubuntu 14.04.5 LTS
+#Word size of OS: 64-bit
+#Word size of FreeCAD: 64-bit
+#Version: 0.16.6703 (Git)
+#Build type: None
+#Branch: releases/FreeCAD-0-16
+#Hash: 2ce5c8d2e3020d05005ed71f710e09e9aa561f40
+#Python version: 2.7.6
+#Qt version: 4.8.6
+#Coin version: 4.0.0a
+#OCC version: 6.8.0.oce-0.17
+
+import FreeCAD
+from pivy import coin
+
+def printFields(node,indent):
+    nm = node.getName().__str__()
+    if nm&#160;!= "":
+        FreeCAD.Console.PrintLog(indent+"name: "+nm+"\n") 
+    fl = node.getFieldData()
+    for i in range(fl.getNumFields()):
+        name = fl.getFieldName(i)
+        if name.__str__()&#160;!= "point":
+            val = node.getField(fl.getFieldName(i)).get()
+            FreeCAD.Console.PrintLog(indent+str(name)+" -&gt; "+str(val)+"\n")
+
+def printTree(node,indent):
+    FreeCAD.Console.PrintLog(indent+node.__str__()+"\n")
+    if node.getTypeId().getName().__str__() == "Coordinate3":
+        points=node.point
+        for i in range(points.getNum()):
+            FreeCAD.Console.PrintLog(indent+" "+str(i)+": "+str(points[i].getValue())+"\n")
+    if node.getTypeId().getName().__str__() == "Coordinate4":
+        points=node.point
+        for i in range(points.getNum()):
+            FreeCAD.Console.PrintLog(indent+" "+str(i)+": "+str(points[i].getValue())+"\n")
+    printFields(node,indent+" ")
+    if node.getChildren().__str__()&#160;!= "None":
+        for i in range(node.getNumChildren()):
+            printTree(node.getChild(i),indent+" ")
+
+ad = FreeCADGui.ActiveDocument
+if ad == None:
+    FreeCAD.Console.PrintLog("No active document\n")
+else:
+    QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
+    printTree(ad.ActiveView.getViewer().getSoEventManager().getSceneGraph(), "")
+    QtGui.QApplication.restoreOverrideCursor() </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Print_SceneGraph/fr&amp;oldid=276946">http://www.freecadweb.org/wiki/index.php?title=Macro_Print_SceneGraph/fr&amp;oldid=276946</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

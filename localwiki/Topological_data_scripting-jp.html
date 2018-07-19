@@ -1,0 +1,773 @@
+<html><head><title>Topological data scripting/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Topological data scripting/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このページではpythonから<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Part形状</a>を作成・変更する複数の方法について説明しています。もしpythonを初めて使うのであればこのページを読む前に<a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/jp" title="Introduction to Python/jp">pythonのスクリプト処理</a>と<a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp" title="FreeCAD Scripting Basics/jp">FreeCADでpythonのスクリプト処理がどの様に動作するのか</a>について読むことをお勧めします。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.81.AF.E3.81.98.E3.82.81.E3.81.AB"><span class="tocnumber">1</span> <span class="toctext">はじめに</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E3.82.AF.E3.83.A9.E3.82.B9.E3.83.BB.E3.83.80.E3.82.A4.E3.82.A2.E3.82.B0.E3.83.A9.E3.83.A0"><span class="tocnumber">1.1</span> <span class="toctext">クラス・ダイアグラム</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA.E3.83.BC"><span class="tocnumber">1.2</span> <span class="toctext">ジオメトリー</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.83.88.E3.83.9D.E3.83.AD.E3.82.B8.E3.83.BC"><span class="tocnumber">1.3</span> <span class="toctext">トポロジー</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.82.AF.E3.82.A4.E3.83.83.E3.82.AF.E3.82.B5.E3.83.B3.E3.83.97.E3.83.AB.EF.BC.9A.E3.82.B7.E3.83.B3.E3.83.97.E3.83.AB.E3.81.AA.E3.83.88.E3.83.9D.E3.83.AD.E3.82.B8.E3.83.BC.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">1.4</span> <span class="toctext">クイックサンプル：シンプルなトポロジーの作成</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#.E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA.E3.83.BC.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">1.4.1</span> <span class="toctext">ジオメトリーの作成</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#.E5.86.86.E5.BC.A7"><span class="tocnumber">1.4.2</span> <span class="toctext">円弧</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#.E3.83.A9.E3.82.A4.E3.83.B3"><span class="tocnumber">1.4.3</span> <span class="toctext">ライン</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#.E4.B8.80.E3.81.A4.E3.81.AB.E3.81.BE.E3.81.A8.E3.82.81.E3.82.8B"><span class="tocnumber">1.4.4</span> <span class="toctext">一つにまとめる</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#.E3.83.97.E3.83.AA.E3.82.BA.E3.83.A0.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">1.4.5</span> <span class="toctext">プリズムの作成</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#.E5.85.A8.E4.BD.93.E3.81.AE.E8.A1.A8.E7.A4.BA"><span class="tocnumber">1.4.6</span> <span class="toctext">全体の表示</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#.E5.9F.BA.E6.9C.AC.E7.9A.84.E3.81.AA.E5.BD.A2.E7.8A.B6.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">2</span> <span class="toctext">基本的な形状の作成</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#.E5.BF.85.E8.A6.81.E3.81.AA.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.81.AE.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88"><span class="tocnumber">2.1</span> <span class="toctext">必要なモジュールのインポート</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#.E9.A0.82.E7.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.2</span> <span class="toctext">頂点を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#.E3.82.A8.E3.83.83.E3.82.B8.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.3</span> <span class="toctext">エッジを作るには？</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#.E7.94.BB.E9.9D.A2.E4.B8.8A.E3.81.AB.E5.BD.A2.E7.8A.B6.E3.82.92.E9.85.8D.E7.BD.AE"><span class="tocnumber">2.4</span> <span class="toctext">画面上に形状を配置</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#.E3.83.AF.E3.82.A4.E3.83.A4.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.5</span> <span class="toctext">ワイヤを作るには？</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.6</span> <span class="toctext">フェイスを作るには？</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#.E5.86.86.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.7</span> <span class="toctext">円を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#.E7.82.B9.E3.81.AB.E9.80.9A.E3.82.8B.E5.BC.A7.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.8</span> <span class="toctext">点に通る弧を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#.E3.83.9D.E3.83.AA.E3.82.B4.E3.83.B3.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.9</span> <span class="toctext">ポリゴンを作るには？</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#.E5.B9.B3.E9.9D.A2.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.10</span> <span class="toctext">平面を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#.E6.A5.95.E5.86.86.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.11</span> <span class="toctext">楕円を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#.E3.83.88.E3.83.BC.E3.83.A9.E3.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.12</span> <span class="toctext">トーラスを作るには？</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#.E3.83.9C.E3.83.83.E3.82.AF.E3.82.B9.E3.81.BE.E3.81.9F.E3.81.AF.E7.9B.B4.E6.96.B9.E4.BD.93.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.13</span> <span class="toctext">ボックスまたは直方体を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#.E7.90.83.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.14</span> <span class="toctext">球を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#.E5.86.86.E6.9F.B1.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.15</span> <span class="toctext">円柱を作るには？</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#.E5.86.86.E9.8C.90.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">2.16</span> <span class="toctext">円錐を作るには？</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="#.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E5.A4.89.E6.9B.B4"><span class="tocnumber">3</span> <span class="toctext">シェイプの変更</span></a>
+<ul>
+<li class="toclevel-2 tocsection-30"><a href="#.E5.A4.89.E6.8F.9B.E6.93.8D.E4.BD.9C"><span class="tocnumber">3.1</span> <span class="toctext">変換操作</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="#.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E7.A7.BB.E5.8B.95"><span class="tocnumber">3.1.1</span> <span class="toctext">シェイプの移動</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E5.9B.9E.E8.BB.A2"><span class="tocnumber">3.1.2</span> <span class="toctext">シェイプの回転</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#.E8.A1.8C.E5.88.97.E3.82.92.E4.BD.BF.E7.94.A8.E3.81.97.E3.81.9F.E4.B8.80.E8.88.AC.E7.9A.84.E3.81.AA.E5.A4.89.E6.8F.9B"><span class="tocnumber">3.1.3</span> <span class="toctext">行列を使用した一般的な変換</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E6.8B.A1.E5.A4.A7.E7.B8.AE.E5.B0.8F"><span class="tocnumber">3.1.4</span> <span class="toctext">シェイプの拡大縮小</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-35"><a href="#.E3.83.96.E3.83.BC.E3.83.AA.E3.82.A2.E3.83.B3.E6.BC.94.E7.AE.97"><span class="tocnumber">3.2</span> <span class="toctext">ブーリアン演算</span></a>
+<ul>
+<li class="toclevel-3 tocsection-36"><a href="#.E3.81.82.E3.82.8B.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.82.92.E4.BB.96.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.8B.E3.82.89.E3.82.AB.E3.83.83.E3.83.88.E3.81.99.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">3.2.1</span> <span class="toctext">あるシェイプを他のシェイプからカットするには？</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#2.E3.81.A4.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E9.96.93.E3.81.AE.E7.A9.8D.E3.82.92.E5.BE.97.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">3.2.2</span> <span class="toctext">2つのシェイプ間の積を得るには？</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#.EF.BC.92.E3.81.A4.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E9.96.93.E3.81.AE.E5.92.8C.E3.82.92.E3.81.A8.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">3.2.3</span> <span class="toctext">２つのシェイプ間の和をとるには？</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#.E3.82.BD.E3.83.AA.E3.83.83.E3.83.89.E3.82.92.E4.B8.8E.E3.81.88.E3.82.89.E3.82.8C.E3.81.9F.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.A7.E5.88.87.E6.96.AD.E3.81.99.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">3.2.4</span> <span class="toctext">ソリッドを与えられたシェイプで切断するには？</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#.E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97.E3.82.92.E8.A1.8C.E3.81.86.E3.81.AB.E3.81.AF.EF.BC.9F"><span class="tocnumber">3.2.5</span> <span class="toctext">押し出しを行うには？</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-41"><a href="#.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.82.92.E8.AA.BF.E6.9F.BB.E3.81.99.E3.82.8B"><span class="tocnumber">4</span> <span class="toctext">シェイプを調査する</span></a>
+<ul>
+<li class="toclevel-2 tocsection-42"><a href="#.E3.82.A8.E3.83.83.E3.82.B8.E3.82.92.E8.AA.BF.E6.9F.BB.E3.81.99.E3.82.8B"><span class="tocnumber">4.1</span> <span class="toctext">エッジを調査する</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-43"><a href="#.E9.81.B8.E6.8A.9E.E6.A9.9F.E8.83.BD.E3.82.92.E4.BD.BF.E3.81.86"><span class="tocnumber">5</span> <span class="toctext">選択機能を使う</span></a>
+<ul>
+<li class="toclevel-2 tocsection-44"><a href="#OCC.E3.83.9C.E3.83.88.E3.83.AB"><span class="tocnumber">5.1</span> <span class="toctext">OCCボトル</span></a>
+<ul>
+<li class="toclevel-3 tocsection-45"><a href="#.E5.AE.8C.E5.85.A8.E3.81.AA.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88"><span class="tocnumber">5.1.1</span> <span class="toctext">完全なスクリプト</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#.E8.A9.B3.E7.B4.B0.E3.81.AA.E8.AA.AC.E6.98.8E"><span class="tocnumber">5.1.2</span> <span class="toctext">詳細な説明</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-47"><a href="#.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF.E3.81.A8.E4.BF.9D.E5.AD.98"><span class="tocnumber">6</span> <span class="toctext">読み込みと保存</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.81.AF.E3.81.98.E3.82.81.E3.81.AB">はじめに</span></h2>
+<p>FreeCADのpythonインタプリタや外部のスクリプトから、直接、<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Partモジュール</a>を操作する方法を説明します。まず <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/jp" class="mw-redirect" title="Scripting/jp">スクリプティング</a>を参照してください。FreeCADでのpythonスクリプトの方法についてより詳しい情報が必要な場合は <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp" title="FreeCAD Scripting Basics/jp">FreeCADスクリプトの基本ページ</a>を参照してください。 
+</p>
+<h3><span class="mw-headline" id=".E3.82.AF.E3.83.A9.E3.82.B9.E3.83.BB.E3.83.80.E3.82.A4.E3.82.A2.E3.82.B0.E3.83.A9.E3.83.A0">クラス・ダイアグラム</span></h3>
+<p>これはPartモジュールの最も重要なクラスに関する<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Unified_Modeling_Language">UML (Unified Modeling Language)</a>の概要図です：
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Classes.jpg" class="image" title="Partモジュール内のPythonのクラス"><img alt="Partモジュール内のPythonのクラス" src="Part_Classes.jpg" width="744" height="520" /></a></div></div>
+<h3><span class="mw-headline" id=".E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA.E3.83.BC">ジオメトリー</span></h3>
+<p>ジオメトリーオブジェクトは、トポロジーオブジェクトを構成するための基本要素です：
+</p>
+<ul><li><b>Geom</b>  ジオメトリーオブジェクトの基底クラスです。</li>
+<li><b>Line</b>  始点と終点で定義された3次元の直線です。</li>
+<li><b>Circle</b>  中心と始点と終点で定義される円や円の断片です。</li>
+<li><b>......</b> じきに増えるでしょう;-)</li></ul>
+<h3><span class="mw-headline" id=".E3.83.88.E3.83.9D.E3.83.AD.E3.82.B8.E3.83.BC">トポロジー</span></h3>
+<p>次の種類のトポロジーのデータが利用できます：
+</p>
+<ul><li><b>Compound</b>  任意の種類のトポロジーオブジェクトのグループです。</li>
+<li><b>Compsolid</b>  ソリッドの合成とは、フェイスで接続するソリッドの集合です。ワイヤとシェルの概念をソリッドへ拡張したものです。</li>
+<li><b>Solid（ソリッド）</b>  シェルで区切られた空間です。3次元です。</li>
+<li><b>Shell（シェル）</b>  エッジで接続しているフェイスの集合です。シェルは開閉できます。</li>
+<li><b>Face（フェイス）</b>  2次元では平面の一部分、3次元では表面の一部分です。形状は輪郭線で律則されています（切り取られています）。2次元です。</li>
+<li><b>Wire（ワイヤ）</b>  頂点で接続するエッジの集合です。エッジの接続に応じて、輪郭線は開閉します。</li>
+<li><b>Edge（エッジ）</b> 制約された曲線に対応する位相要素です。エッジは一般的に頂点によって律則されます。1次元です。</li>
+<li><b>Vertex（頂点）</b>  点に対応するトポロジーの要素です。0次元です。</li>
+<li><b>Shape（シェイプ）</b>  上記全ての一般的な総称です 。</li></ul>
+<h3><span class="mw-headline" id=".E3.82.AF.E3.82.A4.E3.83.83.E3.82.AF.E3.82.B5.E3.83.B3.E3.83.97.E3.83.AB.EF.BC.9A.E3.82.B7.E3.83.B3.E3.83.97.E3.83.AB.E3.81.AA.E3.83.88.E3.83.9D.E3.83.AD.E3.82.B8.E3.83.BC.E3.81.AE.E4.BD.9C.E6.88.90">クイックサンプル：シンプルなトポロジーの作成</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Wire.png" class="image" title="Wire"><img alt="Wire" src="Wire.png" width="260" height="137" /></a></div>
+<p>単純なジオメトリーからトポロジーを構築して作成しましょう。
+サンプルでは画像に示す四つの頂点と二つの円と二本のラインからできたパーツを使用します。
+</p>
+<h4><span class="mw-headline" id=".E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA.E3.83.BC.E3.81.AE.E4.BD.9C.E6.88.90">ジオメトリーの作成</span></h4>
+<p>まずこのワイヤーの特徴的なジオメトリーパーツを作成しなければなりません。
+また頂点のジオメトリーパーツが<b>同じ</b>位置に置かれるように注意する必要があります。
+さもないと後でジオメトリーパーツをつなげてトポロジーにすることができなくなってしまいます！
+</p><p>さあ、まず点を作成します：
+</p>
+<pre>from FreeCAD import Base
+V1 = Base.Vector(0,10,0)
+V2 = Base.Vector(30,10,0)
+V3 = Base.Vector(30,-10,0)
+V4 = Base.Vector(0,-10,0)
+</pre>
+<h4><span class="mw-headline" id=".E5.86.86.E5.BC.A7">円弧</span></h4>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Circel.png" class="image" title="Circle"><img alt="Circle" src="Circel.png" width="111" height="135" /></a></div>
+<p>円弧を作成するために補助点を作成し、三つの点を通る円弧を作成します：
+</p>
+<pre>VC1 = Base.Vector(-10,0,0)
+C1 = Part.Arc(V1,VC1,V4)
+# 2番目の円弧
+VC2 = Base.Vector(40,0,0)
+C2 = Part.Arc(V2,VC2,V3)
+</pre>
+<h4><span class="mw-headline" id=".E3.83.A9.E3.82.A4.E3.83.B3">ライン</span></h4>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Line.png" class="image" title="Line"><img alt="Line" src="Line.png" width="175" height="76" /></a></div>
+<p>ラインはシンプルに点から作成できます：
+</p>
+<pre>L1 = Part.Line(V1,V2)
+# and the second one
+L2 = Part.Line(V4,V3)
+</pre>
+<h4><span class="mw-headline" id=".E4.B8.80.E3.81.A4.E3.81.AB.E3.81.BE.E3.81.A8.E3.82.81.E3.82.8B">一つにまとめる</span></h4>
+<p>最後のステップとしてジオメトリーベースの要素をまとめ、トポロジカルな形状に固定します：
+</p>
+<pre>S1 = Part.Shape([C1,C2,L1,L2])
+</pre>
+<h4><span class="mw-headline" id=".E3.83.97.E3.83.AA.E3.82.BA.E3.83.A0.E3.81.AE.E4.BD.9C.E6.88.90">プリズムの作成</span></h4>
+<p>さてワイヤーを一定の方向に押し出して実際の3D形状を作成します：
+</p>
+<pre>W = Part.Wire(S1.Edges)
+P = W.extrude(Base.Vector(0,0,10))
+</pre>
+<h4><span class="mw-headline" id=".E5.85.A8.E4.BD.93.E3.81.AE.E8.A1.A8.E7.A4.BA">全体の表示</span></h4>
+<pre>Part.show(P)
+</pre>
+<h2><span class="mw-headline" id=".E5.9F.BA.E6.9C.AC.E7.9A.84.E3.81.AA.E5.BD.A2.E7.8A.B6.E3.81.AE.E4.BD.9C.E6.88.90">基本的な形状の作成</span></h2>
+<p>Partモジュールの"make ...()"メソッドを使って、簡単に基本的なトポロジーオブジェクトを作成することができます。
+</p>
+<pre>b=Part.makeBox(100,100,100)
+Part.show(b)
+</pre>
+<p>使用可能な他のmake...()メソッドです：
+</p>
+<ul><li> <b>makeBox(l,w,h)</b>: 寸法が(l,w,h)で位置pからd方向を指す箱を作ります。</li>
+<li> <b>makeCircle(radius)</b>: 指定した半径の円を作ります。</li>
+<li> <b>makeCone(radius1,radius2,height)</b>: 指定した半径と高さの円錐を作成します。</li>
+<li> <b>makeCylinder(radius,height)</b>: 指定した半径と高さを持つ円柱を作成します。</li>
+<li> <b>makeLine((x1,y1,z1),(x2,y2,z2))</b>: 二点間を結ぶ線を作成します。</li>
+<li> <b>makePlane(length,width)</b>: 指定した幅と長さの平面を作成します。</li>
+<li> <b>makePolygon(list)</b>: 点のリストからポリゴンを作成します。</li>
+<li> <b>makeSphere(radius)</b>: 指定された半径の球を作成します。</li>
+<li> <b>makeTorus(radius1,radius2)</b>:  指定した半径のトーラスを作ります。</li></ul>
+<p>Partモジュールで利用可能な全てのメソッドのリストについては<a href="https://www.freecadweb.org/wiki/index.php?title=Part_API/jp" title="Part API/jp">Part API</a>のページを見てください。
+</p>
+<h4><span class="mw-headline" id=".E5.BF.85.E8.A6.81.E3.81.AA.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.81.AE.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88">必要なモジュールのインポート</span></h4>
+<p>まずPartモジュールをインポートする必要があります。インポートを行うとその中身をpythonで使用できるようになります。
+またFreeCADモジュール内にあるBaseモジュールもインポートします：
+</p>
+<pre>import Part
+from FreeCAD import Base
+</pre>
+<h4><span class="mw-headline" id=".E9.A0.82.E7.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">頂点を作るには？</span></h4>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euclidean_vector">ベクトル</a>は形状を作成する際に最も重要な情報の一つです。通常はデカルト座標のx、y、z、3つの数字を含みます（ただし必ずしも常にそうであるわけではありません）。次の様にするとベクトルが作成されます：
+</p>
+<pre>myVector = Base.Vector(3,2,0)
+</pre>
+<p>座標 x=3、y=2、z=0にベクトルを作成しました。Partではいろいろな場所でベクトルが使われています。
+Partの形状ではVertex（頂点）と呼ばれる別の点表現も使用されています。これは実際の所はベクトル用のコンテナ
+以外の何物でもありません。頂点のベクトルには次のようにしてアクセスします：
+</p>
+<pre>myVertex = myShape.Vertexes[0]
+print myVertex.Point
+&gt; Vector (3, 2, 0)
+</pre>
+<h4><span class="mw-headline" id=".E3.82.A8.E3.83.83.E3.82.B8.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">エッジを作るには？</span></h4>
+<p>エッジとは2つの頂点からなる線に他なりません：
+</p>
+<pre>edge = Part.makeLine((0,0,0), (10,0,0))
+edge.Vertexes
+&gt; [&lt;Vertex object at 01877430&gt;, &lt;Vertex object at 014888E0&gt;]
+</pre>
+<p>注意: 二つのベクトルを渡してエッジを作成することもできます：
+</p>
+<pre>vec1 = Base.Vector(0,0,0)
+vec2 = Base.Vector(10,0,0)
+line = Part.Line(vec1,vec2)
+edge = line.toShape()
+</pre>
+<p>エッジの長さと中心は次のようにするとわかります：
+</p>
+<pre>edge.Length
+&gt; 10.0
+edge.CenterOfMass
+&gt; Vector (5, 0, 0)
+</pre>
+<h4><span class="mw-headline" id=".E7.94.BB.E9.9D.A2.E4.B8.8A.E3.81.AB.E5.BD.A2.E7.8A.B6.E3.82.92.E9.85.8D.E7.BD.AE">画面上に形状を配置</span></h4>
+<p>さて今までエッジオブジェクトを作成して来ましたが画面上には何も表示されません。
+これは今まではたんにpythonのオブジェクトを操作してきただけだからです。
+FreeCADの3Dシーンは表示するように指示された場合にだけ表示されます。
+これを行うには次の簡単なメソッドを使用します：
+</p>
+<pre>Part.show(edge)
+</pre>
+<p>FreeCADドキュメント内にオブジェクトが作成され、そのオブジェクトによって私たちの"エッジ"形状が設定されます。
+作成したものを画面に表示する場合には常にこれを使用します。
+</p>
+<h4><span class="mw-headline" id=".E3.83.AF.E3.82.A4.E3.83.A4.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">ワイヤを作るには？</span></h4>
+<p>ワイヤとは複数のエッジでエッジのリスト、またはワイヤのリストから作成することができます：
+</p>
+<pre>edge1 = Part.makeLine((0,0,0), (10,0,0))
+edge2 = Part.makeLine((10,0,0), (10,10,0))
+wire1 = Part.Wire([edge1,edge2]) 
+edge3 = Part.makeLine((10,10,0), (0,10,0))
+edge4 = Part.makeLine((0,10,0), (0,0,0))
+wire2 = Part.Wire([edge3,edge4])
+wire3 = Part.Wire([wire1,wire2])
+wire3.Edges
+&gt; [&lt;Edge object at 016695F8&gt;, &lt;Edge object at 0197AED8&gt;, &lt;Edge object at 01828B20&gt;, &lt;Edge object at 0190A788&gt;]
+Part.show(wire3)
+</pre>
+<p>Part.show(wire3)はワイヤーを構成する4つの線を表示します。他にも有用な情報を簡単に取得することができます：
+</p>
+<pre>wire3.Length
+&gt; 40.0
+wire3.CenterOfMass
+&gt; Vector (5, 5, 0)
+wire3.isClosed()
+&gt; True
+wire2.isClosed()
+&gt; False
+</pre>
+<h4><span class="mw-headline" id=".E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">フェイスを作るには？</span></h4>
+<p>正しいフェイスは閉じたワイヤのみから作成することができます。
+この例では、wire3は閉じたワイヤですが、wire2（上記参照）は閉じていません。
+</p>
+<pre>face = Part.Face(wire3)
+face.Area
+&gt; 99.999999999999972
+face.CenterOfMass
+&gt; Vector (5, 5, 0)
+face.Length
+&gt; 40.0
+face.isValid()
+&gt; True
+sface = Part.Face(wire2)
+face.isValid()
+&gt; False
+</pre>
+<p>フェイスは面積を持ちますが、ワイヤやエッジは面積を持ちません。
+</p>
+<h4><span class="mw-headline" id=".E5.86.86.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">円を作るには？</span></h4>
+<p>円はこのようにシンプルに作成することができます：
+</p>
+<pre>circle = Part.makeCircle(10)
+circle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (0, 0, 0), Direction&#160;: (0, 0, 1))
+</pre>
+<p>位置と方向をもった円を作るにはこのように書きます。
+</p>
+<pre>ccircle = Part.makeCircle(10, Base.Vector(10,0,0), Base.Vector(1,0,0))
+ccircle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (10, 0, 0), Direction&#160;: (1, 0, 0))
+</pre>
+<p>ccircleは、xの原点からの距離が10で、x軸を向くように作成されています。
+注：makeCircleは、位置と法線として、タプルではなくBase.Vector()のみを受けとります。
+また開始角と終了角を与えることによって、円の一部を作成することができます：
+</p>
+<pre>from math import pi
+arc1 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 0, 180)
+arc2 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 180, 360)
+</pre>
+<p>arc1とarc2の両方を合わせると円になります。
+角度は度単位で指定する必要があります。ラジアンが必要な場合は次の様に変換することができます。
+degrees = radians * 180/PI
+またはpythonの数学モジュールを使用します（import mathが必要です）：
+</p>
+<pre>degrees = math.degrees(radians)
+</pre>
+<h4><span class="mw-headline" id=".E7.82.B9.E3.81.AB.E9.80.9A.E3.82.8B.E5.BC.A7.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">点に通る弧を作るには？</span></h4>
+<p>残念ながらmakeArc関数はありませんが、三点を通る弧を作成するPart.Arc関数があります。
+この関数は、基本的には、中間点を通って開始点と終了点を結ぶ弧を仮定しています。
+Part.Arcは弧オブジェクトを作成します。弧オブジェクトからエッジオブジェクトを作成するには.toShape()を呼びます。
+これはPart.makeLineの代わりにPart.Lineを使用した時と同じです。
+</p>
+<pre>arc = Part.Arc(Base.Vector(0,0,0),Base.Vector(0,5,0),Base.Vector(5,5,0))
+arc
+&gt; &lt;Arc object&gt;
+arc_edge = arc.toShape()
+</pre>
+<p>注意：Arcは点としてタプルではなくBase.Vector()のみを受け取ります。
+arc_edgeはPart.show(arc_edge)によって表示することができます。
+円弧として円の一部を使用することも可能です：
+</p>
+<pre>from math import pi
+circle = Part.Circle(Base.Vector(0,0,0),Base.Vector(0,0,1),10)
+arc = Part.Arc(c,0,pi)
+</pre>
+<p>円弧はラインと同じようにエッジです。従ってこの方法はワイヤーに対しても使用することができます。
+</p>
+<h4><span class="mw-headline" id=".E3.83.9D.E3.83.AA.E3.82.B4.E3.83.B3.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">ポリゴンを作るには？</span></h4>
+<p>ポリゴンは複数の真っ直ぐなエッジからできたワイヤーに他なりません。
+makePolygon関数は点のリストを受け取り、その点を通る線を作成します：
+</p>
+<pre>lshape_wire = Part.makePolygon([Base.Vector(0,5,0),Base.Vector(0,0,0),Base.Vector(5,0,0)])
+</pre>
+<h4><span class="mw-headline" id=".E5.B9.B3.E9.9D.A2.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">平面を作るには？</span></h4>
+<p>平面は平坦な表面です。作成するためのメソッドは<b>makePlane(length,width,[start_pnt,dir_normal])</b>です。
+初期値はstart_pnt=Vector(0,0,0)とdir_normal=Vector(0,0,1)です。
+dir_normal=Vector(0,0,1)はz軸に面した平面を作成します。
+dir_normal=Vector(1,0,0)はx軸に面した平面を作成します。
+</p>
+<pre>plane = Part.makePlane(2,2)
+plane
+&gt;&lt;Face object at 028AF990&gt;
+plane = Part.makePlane(2,2, Base.Vector(3,0,0), Base.Vector(0,1,0))
+plane.BoundBox
+&gt; BoundBox (3, 0, 0, 5, 0, 2)
+</pre>
+<p>BoundBoxは、その対角線が（3,0,0）から始まり（5,0,2)で終わる平面を囲む直方体です。
+このBoundBoxのy軸の厚さはゼロです。
+注：makePlaneは、start_pntとdir_normalとしてタプルではなくBase.Vector()のみを受け取ります。
+</p>
+<h4><span class="mw-headline" id=".E6.A5.95.E5.86.86.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">楕円を作るには？</span></h4>
+<p>楕円の作成にはいくつかの方法があります：
+</p>
+<pre>Part.Ellipse()
+</pre>
+<p>中心が(0,0,0)で、大半径2と小半径1の楕円を作成します。
+</p>
+<pre>Part.Ellipse(Ellipse)
+</pre>
+<p>楕円のコピーを作成します。
+</p>
+<pre>Part.Ellipse(S1,S2,Center)
+</pre>
+<p>点Centerを中心とする楕円を作成します。
+楕円平面は、Center、S1とS2で定義されています。
+主軸はCenterとS1で定義されています。
+長径はCenterとS1の間の距離です
+短径はS2と主軸との距離です。
+</p>
+<pre>Part.Ellipse(Center,MajorRadius,MinorRadius)
+</pre>
+<p>長径MajorRadius、短径MinorRadiusの楕円を作成し、
+Centerと法線(0,0,1)で定義された平面上に配置します。
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(10,0,0),Base.Vector(0,5,0),Base.Vector(0,0,0))
+Part.show(eli.toShape())
+</pre>
+<p>上記のコードでは、S1、S2、および中心を渡しています。
+Arcと同様に、Ellipseも楕円オブジェクトを作りますが、エッジは作成しません。
+このため、楕円を表示するためにはtoShape()を使い、エッジに変換する必要があります。
+</p><p>注意：Arcはタプルではなく、Base.Vector()のみを受け取ります。
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(0,0,0),10,5)
+Part.show(eli.toShape())
+</pre>
+<p>上記のEllipseのコンストラクタでは、中心座標、MajorRadius、MinorRadiusを渡しています。
+</p>
+<h4><span class="mw-headline" id=".E3.83.88.E3.83.BC.E3.83.A9.E3.82.B9.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">トーラスを作るには？</span></h4>
+<p><b>makeTorus(radius1,radius2,[pnt,dir,angle1,angle2,angle])</b>を使用します。
+初期値は、pnt=Vector(0,0,0)、dir=Vector(0,0,1)、angle1=0、angle1=360、angle=360です。
+トーラスは小さな円が、大きな円に沿ってスイープしているものと考えます。
+radius1は大きい円の半径、radius2は小さい円の半径です。
+pntはトーラスの中心、dirは法線方向です。
+angle1とangle2は小さな円のラジアンの角度です。
+最後のパラメータangleはトーラスの一部を作成するためのものです：
+</p>
+<pre>torus = Part.makeTorus(10, 2)
+</pre>
+<p>上記のコードは、直径20（半径10）と厚さ4（小さい円の半径2）のトーラスを作成します。
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,180)
+</pre>
+<p>上記のコードはトーラスのスライスを作成します。
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,360,180)
+</pre>
+<p>上記のコードは半分のトーラスを作成します。このコードでは最後のパラメータが変更されただけで、あとの角度は初期値のままです。
+角度へ180与えた結果、0から180、つまり半分のトーラスを作成します。
+</p>
+<h4><span class="mw-headline" id=".E3.83.9C.E3.83.83.E3.82.AF.E3.82.B9.E3.81.BE.E3.81.9F.E3.81.AF.E7.9B.B4.E6.96.B9.E4.BD.93.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">ボックスまたは直方体を作るには？</span></h4>
+<p><b>makeBox(length,width,height,[pnt,dir])</b>を使用します。
+初期値はpnt=Vector(0,0,0)、dir=Vector(0,0,1)です。
+</p>
+<pre>box = Part.makeBox(10,10,10)
+len(box.Vertexes)
+&gt; 8
+</pre>
+<h4><span class="mw-headline" id=".E7.90.83.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">球を作るには？</span></h4>
+<p><b>makeSphere(radius,[pnt, dir, angle1,angle2,angle3])</b>を使用します。
+初期値はpnt=Vector(0,0,0)、dir=Vector(0,0,1)、angle1=-90、angle2=90、angle3=360です。
+angle1とangle2は、球の垂直方向の最小値と最大値です。
+angle3は球の直径です。
+</p>
+<pre>sphere = Part.makeSphere(10)
+hemisphere = Part.makeSphere(10,Base.Vector(0,0,0),Base.Vector(0,0,1),-90,90,180)
+</pre>
+<h4><span class="mw-headline" id=".E5.86.86.E6.9F.B1.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">円柱を作るには？</span></h4>
+<p><b>makeCylinder(radius,height,[pnt,dir,angle])</b>を使用します。 
+初期値は、pnt=Vector(0,0,0)、dir=Vector(0,0,1)、angle=360=ベクトルです。
+</p>
+<pre>cylinder = Part.makeCylinder(5,20)
+partCylinder = Part.makeCylinder(5,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)
+</pre>
+<h4><span class="mw-headline" id=".E5.86.86.E9.8C.90.E3.82.92.E4.BD.9C.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">円錐を作るには？</span></h4>
+<p><b>makeCone(radius1,radius2,height,[pnt,dir,angle])</b>を使用します。
+初期値は、pnt=Vector(0,0,0)、dir=Vector(0,0,1)、angle=360=ベクトルです。
+</p>
+<pre>cone = Part.makeCone(10,0,20)
+semicone = Part.makeCone(10,0,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)
+</pre>
+<h2><span class="mw-headline" id=".E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E5.A4.89.E6.9B.B4">シェイプの変更</span></h2>
+<p>形状を変更するには複数の方法があります。移動や回転などの簡単な変換操作もありますが
+他の形状との結合や減算などの複雑などのもっと複雑なものもあります。
+</p>
+<h3><span class="mw-headline" id=".E5.A4.89.E6.8F.9B.E6.93.8D.E4.BD.9C">変換操作</span></h3>
+<h4><span class="mw-headline" id=".E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E7.A7.BB.E5.8B.95">シェイプの移動</span></h4>
+<p>移動は形状をある場所から別の場所に動かす操作です。
+任意の形状（エッジ、フェイス、立方体など）を同じ方法で移動させることができます：
+</p>
+<pre>myShape = Part.makeBox(2,2,2)
+myShape.translate(Base.Vector(2,0,0))
+</pre>
+<p>ここでは"myShape"を2単位分、X方向に移動させています。
+</p>
+<h4><span class="mw-headline" id=".E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E5.9B.9E.E8.BB.A2">シェイプの回転</span></h4>
+<p>形状を回転させるには回転中心、軸、回転角を指定する必要があります：
+</p>
+<pre>myShape.rotate(Vector(0,0,0),Vector(0,0,1),180)
+</pre>
+<p>上記のコードでは形状をZ軸の周りに180度回転させています。
+</p>
+<h4><span class="mw-headline" id=".E8.A1.8C.E5.88.97.E3.82.92.E4.BD.BF.E7.94.A8.E3.81.97.E3.81.9F.E4.B8.80.E8.88.AC.E7.9A.84.E3.81.AA.E5.A4.89.E6.8F.9B">行列を使用した一般的な変換</span></h4>
+<p>行列は3D空間での変換操作を保持する際に非常に便利です。
+一つの行列に対してオブジェクトに適用する移動、回転、拡大縮小の値を設定することができるのです。
+例えば次のようにします：
+</p>
+<pre>myMat = Base.Matrix()
+myMat.move(Base.Vector(2,0,0))
+myMat.rotateZ(math.pi/2)
+</pre>
+<p>注意：FreeCADの行列はラジアン単位で動作します。またほとんどのベクトルを引数に持つ行列操作は
+3つの数値を引数に取ることもできます。従って以下の2行は同じ処理を行います：
+</p>
+<pre>myMat.move(2,0,0)
+myMat.move(Base.Vector(2,0,0))
+</pre>
+<p>行列が設定されるとそれを形状に対して適用できるようになります。FreeCADではそれを行うための
+2つのメソッドが用意されています。transformShape()とtransformGeometry()です。違いは一つ目のメソッド
+では行列の変形が行われないということです（下記の"シェイプの拡大縮小"を参照）。
+変換は以下のようにして適用します：
+</p>
+<pre>myShape.trasformShape(myMat)
+</pre>
+<p>または
+</p>
+<pre>myShape.transformGeometry(myMat)
+</pre>
+<h4><span class="mw-headline" id=".E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.AE.E6.8B.A1.E5.A4.A7.E7.B8.AE.E5.B0.8F">シェイプの拡大縮小</span></h4>
+<p>形状の拡大縮小は危険な操作です。なぜなら移動や回転と異なり拡大縮小は非一様（x、y、zで異なる値を使って）
+に形状の構造を変更することができるからです。例えば垂直方向よりも水平方向に大きな値を使って円を
+変換すれば楕円になり、楕円は円とは数学的に全く異なった振る舞いをします。拡大縮小では
+transformShape()を使うことはできず、transformGeometry()を使わなければなりません：
+</p>
+<pre>myMat = Base.Matrix()
+myMat.scale(2,1,1)
+myShape=myShape.transformGeometry(myMat)
+</pre>
+<h3><span class="mw-headline" id=".E3.83.96.E3.83.BC.E3.83.AA.E3.82.A2.E3.83.B3.E6.BC.94.E7.AE.97">ブーリアン演算</span></h3>
+<h4><span class="mw-headline" id=".E3.81.82.E3.82.8B.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.82.92.E4.BB.96.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.8B.E3.82.89.E3.82.AB.E3.83.83.E3.83.88.E3.81.99.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">あるシェイプを他のシェイプからカットするには？</span></h4>
+<p>ある形状から別の形状を取り除くことをOCC/FreeCADでは"カット"と呼び、次のようにして行います：
+</p>
+<pre>cylinder = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+sphere = Part.makeSphere(5,Base.Vector(5,0,0))
+diff = cylinder.cut(sphere)
+</pre>
+<h4><span class="mw-headline" id="2.E3.81.A4.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E9.96.93.E3.81.AE.E7.A9.8D.E3.82.92.E5.BE.97.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">2つのシェイプ間の積を得るには？</span></h4>
+<p>同じように2つの形状の交差は"コモン"と呼び、次のようにして行います：
+</p>
+<pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+common = cylinder1.common(cylinder2)
+</pre>
+<h4><span class="mw-headline" id=".EF.BC.92.E3.81.A4.E3.81.AE.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E9.96.93.E3.81.AE.E5.92.8C.E3.82.92.E3.81.A8.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">２つのシェイプ間の和をとるには？</span></h4>
+<p>結合は"フューズ"と呼ばれ、同じようにして行うことができます：
+</p>
+<pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+fuse = cylinder1.fuse(cylinder2)
+</pre>
+<h4><span class="mw-headline" id=".E3.82.BD.E3.83.AA.E3.83.83.E3.83.89.E3.82.92.E4.B8.8E.E3.81.88.E3.82.89.E3.82.8C.E3.81.9F.E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.81.A7.E5.88.87.E6.96.AD.E3.81.99.E3.82.8B.E3.81.AB.E3.81.AF.EF.BC.9F">ソリッドを与えられたシェイプで切断するには？</span></h4>
+<p>セクションはソリッド形状と平面形状の間での交差です。
+エッジで構成された交差曲線を返します：
+</p>
+<pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+section = cylinder1.section(cylinder2)
+section.Wires
+&gt; []
+section.Edges
+&gt; [&lt;Edge object at 0D87CFE8&gt;, &lt;Edge object at 019564F8&gt;, &lt;Edge object at 0D998458&gt;, 
+ &lt;Edge  object at 0D86DE18&gt;, &lt;Edge object at 0D9B8E80&gt;, &lt;Edge object at 012A3640&gt;, 
+ &lt;Edge object at 0D8F4BB0&gt;]
+</pre>
+<h4><span class="mw-headline" id=".E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97.E3.82.92.E8.A1.8C.E3.81.86.E3.81.AB.E3.81.AF.EF.BC.9F">押し出しを行うには？</span></h4>
+<p>押し出しは平面形状を一定方向に"押し出す"ことでソリッドボディーを作成する操作です。
+"押し出し"によって円が管になるのを想像してください：
+</p>
+<pre>circle = Part.makeCircle(10)
+tube = circle.extrude(Base.Vector(0,0,2))
+</pre>
+<p>もし円が中空であれば中空の管が得られ、円が実際には円盤、
+つまり面で埋まっていればソリッドな円柱が得られます。
+</p>
+<pre>wire = Part.Wire(circle)
+disc = Part.makeFace(wire)
+cylinder = disc.extrude(Base.Vector(0,0,2))
+</pre>
+<h2><span class="mw-headline" id=".E3.82.B7.E3.82.A7.E3.82.A4.E3.83.97.E3.82.92.E8.AA.BF.E6.9F.BB.E3.81.99.E3.82.8B">シェイプを調査する</span></h2>
+<p>トポロジーのデータ構造は簡単に調べることができます：
+</p>
+<pre>import Part
+b = Part.makeBox(100,100,100)
+b.Wires
+w = b.Wires[0]
+w
+w.Wires
+w.Vertexes
+Part.show(w)
+w.Edges
+e = w.Edges[0]
+e.Vertexes
+v = e.Vertexes[0]
+v.Point
+</pre>
+<p>上記の内容をPythonインタープリタに入力することで、Partオブジェクトの構造をよく理解することができます。ここでmakeBox()コマンドはソリッド形状を作成します。このソリッドはすべてのPartソリッドと同様に複数のフェイスを含んでいます。フェイスは常にその境界となるエッジのリストであるワイヤーを持ちます。各フェイスは少なくとも1つの閉じたワイヤーを持ちます（フェイスが穴の場合は複数のワイヤーを持ちます）。ワイヤーでは各エッジを別々に調べることができ、またそのエッジでは各頂点を調べることができます。直線のエッジは当然2つの頂点のみを持っています。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A8.E3.83.83.E3.82.B8.E3.82.92.E8.AA.BF.E6.9F.BB.E3.81.99.E3.82.8B">エッジを調査する</span></h3>
+<p>エッジの場合、エッジは任意の曲線であるので、おそらく離散化したいと思うでしょう。FreeCADでは、エッジはその長さによってパラメータ化されています。つまりその長さでエッジ/曲線を操作できるということです：
+</p>
+<pre>import Part import Part
+box = Part.makeBox(100,100,100)
+anEdge = box.Edges[0]
+print anEdge.Length
+</pre>
+<p>この長さを位置として使用して多くのエッジのプロパティにアクセスすることができます。つまりエッジ長が100mmであれば、エッジの開始位置は0で終了位置は100であるということです。
+</p>
+<pre>anEdge.tangentAt(0.0) # 初期の接線方向です
+anEdge.valueAt(0.0) # エッジの開始点です
+anEdge.valueAt(100.0) # エッジの終点です
+anEdge.derivative1At(50.0) #　中点での曲線の一次導関数です
+anEdge.derivative2At(50.0) # 中点での曲線の二次導関数です
+anEdge.derivative3At(50.0) # 中点での曲線の三次導関数です
+anEdge.centerOfCurvatureAt(50) # この位置の曲率中心です
+anEdge.curvatureAt（50.0）# 曲率です
+anEdge.normalAt(50) # この位置の法線です（定義されている場合）
+</pre>
+<h2><span class="mw-headline" id=".E9.81.B8.E6.8A.9E.E6.A9.9F.E8.83.BD.E3.82.92.E4.BD.BF.E3.81.86">選択機能を使う</span></h2>
+<p>ここではユーザがビューア上で行う選択操作を使用する方法についてみていきます。
+まず最初にボックスを作成しそれをビューアで表示します
+</p>
+<pre>import Part
+Part.show(Part.makeBox(100,100,100))
+Gui.SendMsgToActiveView("ViewFit")
+</pre>
+<p>フェイスかエッジを選択します。このスクリプトを使うと
+全ての選択したオブジェクトとその子要素を反復することができます。
+</p>
+<pre>for o in Gui.Selection.getSelectionEx():
+print o.ObjectName
+for s in o.SubElementNames:
+print "name: ",s
+for s in o.SubObjects:
+print "object: ",s
+</pre>
+<p>エッジを選択し、このスクリプトでその長さを計算します:
+</p>
+<pre>length = 0.0
+for o in Gui.Selection.getSelectionEx():
+for s in o.SubObjects:
+length += s.Length
+print "Length of the selected edges:" ,length
+</pre>
+<h3><span class="mw-headline" id="OCC.E3.83.9C.E3.83.88.E3.83.AB">OCCボトル</span></h3>
+<p><a rel="nofollow" class="external text" href="http://www.opencascade.org/org/gettingstarted/appli/">OpenCasCadeをはじめよう</a>にはボトルの作成方法についての典型的な例があります。
+これはFreeCADの教材としても最適です。実際に以下のページの例とOCCのページの内容とを同時に追うことによって、OCCの構造がどのようにFreeCADの中に実装されているか理解できるでしょう。
+以下のスクリプトはFreeCADのインストールにも含まれています（Mod/Partフォルダ内）。pythonインタプリタから次のようにタイプすることで呼び出すことができます:
+</p>
+<pre>import Part
+import MakeBottle
+bottle = MakeBottle.makeBottle()
+Part.show(bottle)
+</pre>
+<h4><span class="mw-headline" id=".E5.AE.8C.E5.85.A8.E3.81.AA.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88">完全なスクリプト</span></h4>
+<p>MakeBottleスクリプト一式です：
+</p>
+<pre>import Part, FreeCAD, math
+from FreeCAD import Base
+
+def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)
+   
+   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.Line(aPnt1,aPnt2)
+   aSegment2=Part.Line(aPnt4,aPnt5)
+   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])
+   
+   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # z軸周りを回転
+   
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])
+   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)
+   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)
+   myBody = myBody.fuse(myNeck)
+   
+   faceToRemove = 0
+   zMax = -1.0
+   
+   for xp in myBody.Faces:
+       try:
+           surf = xp.Surface
+           if type(surf) == Part.Plane:
+               z = surf.Position.z
+               if z &gt; zMax:
+                   zMax = z
+                   faceToRemove = xp
+       except:
+           continue
+   
+   myBody = myBody.makeThickness([faceToRemove],-myThickness/50 , 1.e-3)
+   
+   return myBody
+</pre>
+<h4><span class="mw-headline" id=".E8.A9.B3.E7.B4.B0.E3.81.AA.E8.AA.AC.E6.98.8E">詳細な説明</span></h4>
+<pre>import Part, FreeCAD, math
+from FreeCAD import Base
+</pre>
+<p>PartモジュールはもちろんですがFreeCAD.Baseモジュールも必要です。このモジュールにはベクトルや行列といったFreeCADの基本構造が含まれています。
+</p>
+<pre>def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)
+</pre>
+<p>ここではmakeBottle関数を定義します。この関数は、上記の例のように、引数無しでも呼ぶことができます。その場合には、幅、高さ、厚さの初期値が使用されます。次に基本的なプロファイルの構築に使用する点を定義します。
+</p>
+<pre>   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.Line(aPnt1,aPnt2)
+   aSegment2=Part.Line(aPnt4,aPnt5)
+</pre>
+<p>ここでは実際のジオメトリを定義しています。円弧を一つ、点を三つ、そして二点で構成される線分を二つ作ります。
+</p>
+<pre>   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])
+</pre>
+<p>ジオメトリとシェイプの違いを覚えているでしょうか？ここでは、作成したジオメトリを使ってシェイプを作り上げています。3つのエッジ（直線や曲線です）を作り、それらを使いワイヤーを一つ作成します。
+</p>
+<pre>   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # rotate around the z-axis
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])
+</pre>
+<p>ここまでで、まだプロファイルは半分しか出来上がっていません。同じ方法でプロファイル全体を作成するよりも、これまで作成したものをミラーして、2つの半分を一つにくっつけるほうが簡単です。それにはまず行列を作成します。行列は3次元空間のオブジェクトを変換するとても一般的な方法です。
+行列を使えば、3Dオブジェクトの厄介な基本的な変換（移動、回転、スケール）が一つで済むのです。ここでは行列を作成し、それを反転します。作成したワイヤーにこの変換行列を適用してコピーを作ります。ここまで、2本のワイヤーができました。ワイヤーは、実際にはエッジのリストですので、これらのワイヤーから3つ目のワイヤーを作ることができます。
+</p>
+<pre>   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)
+</pre>
+<p>すでに閉じたワイヤーがあるので、これをフェイスに変換することができます。フェイスを作ってしまえば、それを押し出すことができるようになります。このようにしてソリッドができました。では、次にこのオブジェクトに素敵なフィレットを少し使ってみましょう。デザインには気を使うでしょ？
+</p>
+<pre>   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)
+</pre>
+<p>これでボトルの本体はできました。あとはボトルの首を作成する必要があります。そこで、円柱で新しいソリッドを作成します。
+</p>
+<pre>   myBody = myBody.fuse(myNeck)
+</pre>
+<p>他のアプリではユニオンとも呼ばれることもあるフューズ操作はとても強力な機能です。この操作は結合処理において結合すべきものと削除すべきものを管理します。
+</p>
+<pre>   return myBody
+</pre>
+<p>次にこの関数の結果としてPartソリッドを返します。このPartソリッドは、他のPartシェイプと同様に以下の方法でFreeCADドキュメント内のオブジェクトの属性になります。
+</p>
+<pre>myObject = FreeCAD.ActiveDocument.addObject("Part::Feature","myObject")
+myObject.Shape = bottle
+
+</pre>
+<p>あるいはもっとシンプルな方法もあります:
+</p>
+<pre>Part.show(bottle)
+</pre>
+<h2><span class="mw-headline" id=".E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF.E3.81.A8.E4.BF.9D.E5.AD.98">読み込みと保存</span></h2>
+<p>Partモジュールの作業内容を保存する方法はいくつかあります。もちろんFreeCADドキュメントを保存することもできますが、PartオブジェクトをBREPやIGS、STEPやSTLなどの共通CADフォーマットに直接保存することもできます。
+</p><p>シェイプをファイルへ保存するのは簡単です。全てのシェイプオブジェクトで、exportBre()、pexportIges()、exportStl()、およびexportStep()メソッドが利用できます。ではやってみましょう：
+</p>
+<pre>import Part
+s = Part.makeBox(0,0,0,10,10,10)
+s.exportStep("test.stp")
+</pre>
+<p>ここではSTEPファイルへボックスを保存します。BREPやIGESやSTEPファイルを読み込むには、単純に反対の操作を行います：
+</p>
+<pre>import Part
+s = Part.Shape()
+s.read（"test.stp"）
+</pre>
+<p>BREPやIGES、STEPファイルのインポートは、メニューの「File -&gt; Open」か「File -&gt; Import」からも直接行えます。エクスポートは「File -&gt; Export」で行えます。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp&amp;oldid=174429">http://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp&amp;oldid=174429</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

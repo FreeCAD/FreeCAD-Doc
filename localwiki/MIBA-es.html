@@ -1,0 +1,43 @@
+<html><head><title>MIBA/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>MIBA/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id="Introducci.C3.B3n">Introducción</span></h2>
+<p>Miba es un modo de embeber información sobre el espacio 3D en una imagen 2D. Esto hace que a menudo sea posible utilizar la imagen 2D en lugar de un visor 3D. Por la información de Miba eres capaz de calcular la posición de una ubicación 3D en la imagen 2D. Esto te permite decorar la imagen después con información 3D arbitraria. Puedes coger una imagen en un estado inicial (de diseño) y utilizarla después (en producción). No necesitas conocer la clase de datos 3D o la posición cuando tomas la imagen. Así la imagen está completamente separada de los datos 3D.
+</p><p>Una especificación detallada puedes encontrarla aquí: <a rel="nofollow" class="external free" href="http://miba.juergen-riegel.net/">http://miba.juergen-riegel.net/</a>
+</p>
+<h2><span class="mw-headline" id="Miba_en_FreeCAD">Miba en FreeCAD</span></h2>
+<p>Si seleccionas un formato de archivo que tenga esta capacidad que hemos comentado (JPG y PNG) puedes escoger escribir un comentario o insertar la información MIBA en los campos de comentarios (por defecto):
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Save_picture.png" class="image"><img alt="Save picture.png" src="Save_picture.png" width="811" height="412" /></a>
+</p>
+<h2><span class="mw-headline" id="Creaci.C3.B3n_de_im.C3.A1genes_Miba_pictures_por_archivos_de_gui.C3.B3n">Creación de imágenes Miba pictures por archivos de guión</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Part,PartGui
+ # loading test part
+ Part.open("C:/Documents and Settings/jriegel/My Documents/Projects/FreeCAD/data/Blade.stp")
+ OutDir = 'c:/temp/'
+ Gui.ActiveDocument.ActiveView.setAnimationEnabled(False)
+ 
+ # creating images with different Views, Cameras and sizes
+ for p in ["PerspectiveCamera","OrthographicCamera"]:
+   Gui.SendMsgToActiveView(p)
+   for f in ["ViewAxo","ViewFront","ViewTop"]:
+     Gui.SendMsgToActiveView(f)
+     for x,y in [[500,500],[1000,3000],[3000,1000],[3000,3000],[8000,8000]]:
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".jpg",x,y,"White")
+       Gui.ActiveDocument.ActiveView.saveImage(OutDir + "Blade_" + p +"_" + f + "_" + `x` + "_" + `y` + ".png",x,y,"Transparent")
+ 
+ # close active document
+ App.closeDocument(App.ActiveDocument.Name)</pre></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=MIBA/es&amp;oldid=84040">http://www.freecadweb.org/wiki/index.php?title=MIBA/es&amp;oldid=84040</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

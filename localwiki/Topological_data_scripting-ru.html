@@ -1,0 +1,867 @@
+<html><head><title>Topological data scripting/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Topological data scripting/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Programming
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.D0.94.D0.B8.D0.B0.D0.B3.D1.80.D0.B0.D0.BC.D0.BC.D0.B0_.D0.9A.D0.BB.D0.B0.D1.81.D1.81.D0.BE.D0.B2"><span class="tocnumber">2.1</span> <span class="toctext">Диаграмма Классов</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.D0.93.D0.B5.D0.BE.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.8F"><span class="tocnumber">2.2</span> <span class="toctext">Геометрия</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.D0.A2.D0.BE.D0.BF.D0.BE.D0.BB.D0.BE.D0.B3.D0.B8.D1.8F"><span class="tocnumber">2.3</span> <span class="toctext">Топология</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#.D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80.D1.8B"><span class="tocnumber">3</span> <span class="toctext">Примеры</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BF.D1.80.D0.BE.D1.81.D1.82.D0.B5.D0.B9.D1.88.D0.B5.D0.B9_.D1.82.D0.BE.D0.BF.D0.BE.D0.BB.D0.BE.D0.B3.D0.B8.D0.B8"><span class="tocnumber">3.1</span> <span class="toctext">Создание простейшей топологии</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#.D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.93.D0.B5.D0.BE.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D0.B8"><span class="tocnumber">3.1.1</span> <span class="toctext">Создание Геометрии</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Arc"><span class="tocnumber">3.1.2</span> <span class="toctext">Arc</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Line"><span class="tocnumber">3.1.3</span> <span class="toctext">Line</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#.D0.A1.D0.BE.D0.B5.D0.B4.D0.B8.D0.BD.D1.8F.D0.B5.D0.BC_.D0.B2.D1.81.D0.B5_.D0.B2.D0.BC.D0.B5.D1.81.D1.82.D0.B5"><span class="tocnumber">3.1.4</span> <span class="toctext">Соединяем все вместе</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#.D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BF.D1.80.D0.B8.D0.B7.D0.BC.D1.8B"><span class="tocnumber">3.1.5</span> <span class="toctext">Создание призмы</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Show_it_all"><span class="tocnumber">3.1.6</span> <span class="toctext">Show it all</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#.D0.9A.D1.80.D0.B0.D1.82.D0.BA.D0.BE.D0.B5_.D0.BE.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5"><span class="tocnumber">3.2</span> <span class="toctext">Краткое описание</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#.D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D1.8B.D0.B5_.D0.BE.D0.B1.D1.8A.D1.8F.D1.81.D0.BD.D0.B5.D0.BD.D0.B8.D1.8F"><span class="tocnumber">3.3</span> <span class="toctext">Подробные объяснения</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Creating_a_Vector"><span class="tocnumber">3.3.1</span> <span class="toctext">Creating a Vector</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A0.D0.B5.D0.B1.D1.80.D0.BE.3F"><span class="tocnumber">3.3.2</span> <span class="toctext">Как создать Ребро?</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Putting_the_shape_on_screen"><span class="tocnumber">3.3.3</span> <span class="toctext">Putting the shape on screen</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BB.D0.BE.D0.BC.D0.B0.D0.BD.D0.BD.D1.83.D1.8E_.D0.BA.D1.80.D0.B8.D0.B2.D1.83.D1.8E.3F"><span class="tocnumber">3.3.4</span> <span class="toctext">Как создать ломанную кривую?</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.93.D1.80.D0.B0.D0.BD.D1.8C.3F"><span class="tocnumber">3.3.5</span> <span class="toctext">Как создать Грань?</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BE.D0.BA.D1.80.D1.83.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C.3F"><span class="tocnumber">3.3.6</span> <span class="toctext">Как создать окружность?</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.94.D1.83.D0.B3.D1.83_.D0.BF.D0.BE_.D1.82.D0.BE.D1.87.D0.BA.D0.B0.D0.BC.3F"><span class="tocnumber">3.3.7</span> <span class="toctext">Как создать Дугу по точкам?</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BC.D0.BD.D0.BE.D0.B3.D0.BE.D1.83.D0.B3.D0.BE.D0.BB.D1.8C.D0.BD.D0.B8.D0.BA_.D0.B8.D0.BB.D0.B8_.D0.BB.D0.B8.D0.BD.D0.B8.D1.8E_.D0.BF.D0.BE_.D1.82.D0.BE.D1.87.D0.BA.D0.B0.D0.BC.3F"><span class="tocnumber">3.3.8</span> <span class="toctext">Как создать многоугольник или линию по точкам?</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Creating_a_Bezier_curve"><span class="tocnumber">3.3.9</span> <span class="toctext">Creating a Bezier curve</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BF.D0.BB.D0.BE.D1.81.D0.BA.D0.BE.D1.81.D1.82.D1.8C.3F"><span class="tocnumber">3.3.10</span> <span class="toctext">Как создать плоскость?</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D1.8D.D0.BB.D0.BB.D0.B8.D0.BF.D1.81.3F"><span class="tocnumber">3.3.11</span> <span class="toctext">Как создать эллипс?</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A2.D0.BE.D1.80.3F"><span class="tocnumber">3.3.12</span> <span class="toctext">Как создать Тор?</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.B1.D0.BB.D0.BE.D0.BA_.D0.B8.D0.BB.D0.B8_.D0.BF.D0.B0.D1.80.D0.B0.D0.BB.D0.B5.D0.BB.D0.B5.D0.BF.D0.B8.D0.BF.D0.B5.D0.B4.3F"><span class="tocnumber">3.3.13</span> <span class="toctext">Как создать блок или паралелепипед?</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A1.D1.84.D0.B5.D1.80.D1.83.3F"><span class="tocnumber">3.3.14</span> <span class="toctext">Как создать Сферу?</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A6.D0.B8.D0.BB.D0.B8.D0.BD.D0.B4.D1.80.3F"><span class="tocnumber">3.3.15</span> <span class="toctext">Как создать Цилиндр?</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#.D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.9A.D0.BE.D0.BD.D1.83.D1.81.3F"><span class="tocnumber">3.3.16</span> <span class="toctext">Как создать Конус?</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31"><a href="#Modifying_shapes"><span class="tocnumber">4</span> <span class="toctext">Modifying shapes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-32"><a href="#Transform_operations"><span class="tocnumber">4.1</span> <span class="toctext">Transform operations</span></a>
+<ul>
+<li class="toclevel-3 tocsection-33"><a href="#Translating_a_shape"><span class="tocnumber">4.1.1</span> <span class="toctext">Translating a shape</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#Rotating_a_shape"><span class="tocnumber">4.1.2</span> <span class="toctext">Rotating a shape</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#Generic_transformations_with_matrixes"><span class="tocnumber">4.1.3</span> <span class="toctext">Generic transformations with matrixes</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#Scaling_a_shape"><span class="tocnumber">4.1.4</span> <span class="toctext">Scaling a shape</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-37"><a href="#.D0.9B.D0.BE.D0.B3.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5_.D0.9E.D0.BF.D0.B5.D1.80.D0.B0.D1.86.D0.B8.D0.B8"><span class="tocnumber">4.2</span> <span class="toctext">Логические Операции</span></a>
+<ul>
+<li class="toclevel-3 tocsection-38"><a href="#.D0.9A.D0.B0.D0.BA_.D0.B2.D1.8B.D1.80.D0.B5.D0.B7.D0.B0.D1.82.D1.8C_.D0.BE.D0.B4.D0.BD.D1.83_.D1.84.D0.BE.D1.80.D0.BC.D1.83_.D0.B8.D0.B7_.D0.B4.D1.80.D1.83.D0.B3.D0.B8.D1.85.3F"><span class="tocnumber">4.2.1</span> <span class="toctext">Как вырезать одну форму из других?</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#.D0.9A.D0.B0.D0.BA_.D0.BF.D0.BE.D0.BB.D1.83.D1.87.D0.B8.D1.82.D1.8C_.D0.BF.D0.B5.D1.80.D0.B5.D1.81.D0.B5.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D0.B2.D1.83.D1.85_.D1.84.D0.BE.D1.80.D0.BC.3F"><span class="tocnumber">4.2.2</span> <span class="toctext">Как получить пересечение двух форм?</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#.D0.9A.D0.B0.D0.BA_.D0.BE.D0.B1.D1.8A.D0.B5.D0.B4.D0.B8.D0.BD.D0.B8.D1.82.D1.8C_.D0.B4.D0.B2.D0.B5_.D1.84.D0.BE.D1.80.D0.BC.D1.8B.3F"><span class="tocnumber">4.2.3</span> <span class="toctext">Как объединить две формы?</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#.D0.9A.D0.B0.D0.BA_.D0.BF.D0.BE.D0.BB.D1.83.D1.87.D0.B8.D1.82.D1.8C_.D1.81.D0.B5.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D1.82.D0.B5.D0.BB.D0.B0_.D0.B8_.D0.B7.D0.B0.D0.B4.D0.B0.D0.BD.D0.BE.D0.B9_.D1.84.D0.BE.D1.80.D0.BC.D1.8B.3F"><span class="tocnumber">4.2.4</span> <span class="toctext">Как получить сечение тела и заданой формы?</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#Extrusion"><span class="tocnumber">4.2.5</span> <span class="toctext">Extrusion</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-43"><a href="#.D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.A4.D0.BE.D1.80.D0.BC"><span class="tocnumber">5</span> <span class="toctext">Исследование Форм</span></a>
+<ul>
+<li class="toclevel-2 tocsection-44"><a href="#.D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.A0.D1.91.D0.B1.D0.B5.D1.80"><span class="tocnumber">5.1</span> <span class="toctext">Исследование Рёбер</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-45"><a href="#.D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.B2.D1.8B.D0.B4.D0.B5.D0.BB.D0.B5.D0.BD.D0.B8.D1.8F.28.D0.B2.D1.8B.D0.B1.D0.BE.D1.80.D0.B0.29"><span class="tocnumber">6</span> <span class="toctext">Использование выделения(выбора)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-46"><a href="#OCC_.D0.B1.D1.83.D1.82.D1.8B.D0.BB.D1.8C"><span class="tocnumber">6.1</span> <span class="toctext">OCC бутыль</span></a>
+<ul>
+<li class="toclevel-3 tocsection-47"><a href="#.D0.93.D0.BE.D1.82.D0.BE.D0.B2.D1.8B.D0.B9_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B9"><span class="tocnumber">6.1.1</span> <span class="toctext">Готовый сценарий</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="#.D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D1.8B.D0.B5_.D0.BE.D0.B1.D1.8A.D1.8F.D1.81.D0.BD.D0.B5.D0.BD.D0.B8.D1.8F_2"><span class="tocnumber">6.1.2</span> <span class="toctext">Подробные объяснения</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-49"><a href="#Box_pierced"><span class="tocnumber">7</span> <span class="toctext">Box pierced</span></a></li>
+<li class="toclevel-1 tocsection-50"><a href="#.D0.97.D0.B0.D0.B3.D1.80.D1.83.D0.B7.D0.BA.D0.B0_.D0.B8_.D0.A1.D0.BE.D1.85.D1.80.D0.B0.D0.BD.D0.B5.D0.BD.D0.B8.D0.B5"><span class="tocnumber">8</span> <span class="toctext">Загрузка и Сохранение</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+This page describes several methods for creating and modifying <a href="Part_Module.html" title="Part Module">Part shapes</a> from python. Before reading this page, if you are new to python, it is a good idea to read about <a href="Introduction_to_Python.html" title="Introduction to Python">python scripting</a> and <a href="FreeCAD_Scripting_Basics.html" title="FreeCAD Scripting Basics">how python scripting works in FreeCAD</a>.
+</p>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>We will here explain you how to control the <a href="Part_Module.html" title="Part Module">Part Module</a> directly from the FreeCAD python interpreter, or from any external script. The basics about Topological data scripting are described in <a href="/wiki/Part_Module#Explaining_the_concepts" title="Part Module">Part Module Explaining the concepts</a>.  Be sure to browse the <a href="Scripting.html" class="mw-redirect" title="Scripting">Scripting</a> section and the <a href="FreeCAD_Scripting_Basics.html" title="FreeCAD Scripting Basics">FreeCAD Scripting Basics</a> pages if you need more information about how python scripting works in FreeCAD.
+</p><p><br />
+Здесь мы объясним вам как управлять <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модулем Деталей</a>  напрямую из интепритатора python FreeCAD, или из любого внешнего сценария. Для уверенности , просмотрите раздел <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/ru" class="mw-redirect" title="Scripting/ru">Написание Сценариев</a> и страницу <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/ru" title="FreeCAD Scripting Basics/ru">Основ сценариев в FreeCAD</a> если вам необходимо больше информации, о том как работает написание сценариев в  FreeCAD.
+</p><p>Для первого использования функциональности модуля Деталей вы должны загрузить модуль Деталей в  интепретатор:
+<code>
+import Part
+</code>
+</p>
+</div>
+<h3><span class="mw-headline" id=".D0.94.D0.B8.D0.B0.D0.B3.D1.80.D0.B0.D0.BC.D0.BC.D0.B0_.D0.9A.D0.BB.D0.B0.D1.81.D1.81.D0.BE.D0.B2">Диаграмма Классов</span></h3>
+<p>Это UML обзор наиболее важных классов модуля Деталей:
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Classes.jpg" class="image" title="Python классы содержащиеся в модуле Деталей"><img alt="Python классы содержащиеся в модуле Деталей" src="Part_Classes.jpg" width="744" height="520" /></a></div></div>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id=".D0.93.D0.B5.D0.BE.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.8F">Геометрия</span></h3>
+<p>Геометрические объекты являются строительными блоками для всех топологических объектов:
+</p>
+<ul><li> <b>GEOM</b> Базовый класс геометрических объектов</li>
+<li> <b>LINE</b> Прямая линия в 3D, задается начальной и конечной точкой</li>
+<li> <b>CIRCLE</b> Окружность или дуга задается центром, начальной и конечной точкой</li>
+<li> <b>......</b> И вскоре еще немного</li></ul>
+</div>
+<h3><span class="mw-headline" id=".D0.A2.D0.BE.D0.BF.D0.BE.D0.BB.D0.BE.D0.B3.D0.B8.D1.8F">Топология</span></h3>
+<p>Доступны нижеследующие топологические типы данных:
+</p>
+<ul><li> <b>COMPOUND</b> Группа из топологических объектов любого типа.</li>
+<li> <b>COMPSOLID</b> Составное твердое тело, как набор твердых тел соединенными гранями. Он расширяет понятие Ломаной кривой(WIRE) и оболочки(SHELL) для твердых тел.</li>
+<li> <b>SOLID</b> Часть пространства ограниченная оболочкой. Она трехмерная.</li>
+<li> <b>SHELL</b> Набор граней соединенных между собой через ребра. Оболочки могут быть открытыми или закрытыми.</li>
+<li> <b>FACE</b> В 2D это часть плоскости; в 3D это часть поверхности. Это геометрия ограничена (обрезана) по контуам. Она двухмерная.</li>
+<li> <b>WIRE</b> Набор ребер соединенных через вершины. Он может быть как открытым, так и закрытым в зависимости от того связаны ли крайние ребра или нет.</li>
+<li> <b>EDGE</b> Топологический элемент соответствующий ограниченной кривой. Ребро как правило ограничивается вершинами. Оно одномерное.</li>
+<li> <b>VERTEX</b> Топологический элемент соответствующий точке. Обладает нулевой размерность.</li>
+<li> <b>SHAPE</b> общий термин охватывающий все выше сказанное.</li></ul>
+<h2><span class="mw-headline" id=".D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80.D1.8B">Примеры</span></h2>
+<h3><span class="mw-headline" id=".D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BF.D1.80.D0.BE.D1.81.D1.82.D0.B5.D0.B9.D1.88.D0.B5.D0.B9_.D1.82.D0.BE.D0.BF.D0.BE.D0.BB.D0.BE.D0.B3.D0.B8.D0.B8">Создание простейшей топологии</span></h3>
+<div class="mw-translate-fuzzy">
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Wire.png" class="image" title="Wire"><img alt="Wire" src="Wire.png" width="260" height="137" /></a></div>
+</div>
+<p><br />
+Теперь мы создадим топологию из геометрических примитивов. 
+Для изучения мы используем деталь(part) , как показано на 
+картинке состоящую из четырех вершин, двух окружностей и двух линий.
+</p>
+<h4><span class="mw-headline" id=".D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.93.D0.B5.D0.BE.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D0.B8">Создание Геометрии</span></h4>
+<p>сначала мы должны создать отдельную деталь из данной ломаной.
+И мы должны убедиться что вершины геометрических частей расположены  <b>на тех же</b> позициях. В противном случае позже мы не смогли бы  соеденить геометрические части в топологию!
+</p><p>Так мы создаем новые точки:
+</p>
+<pre>from FreeCAD import Base
+V1 = Base.Vector(0,10,0)
+V2 = Base.Vector(30,10,0)
+V3 = Base.Vector(30,-10,0)
+V4 = Base.Vector(0,-10,0) </pre>
+<h4><span class="mw-headline" id="Arc">Arc</span></h4>
+<div class="mw-translate-fuzzy">
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Circel.png" class="image" title="Circle"><img alt="Circle" src="Circel.png" width="111" height="135" /></a></div>
+</div>
+<p><br />
+Создавая дугу из окружности мы создаем вспомогательную точку и создаем дугу через три точки:
+</p>
+<pre>VC1 = Base.Vector(-10,0,0)
+C1 = Part.Arc(V1,VC1,V4)
+# and the second one
+VC2 = Base.Vector(40,0,0)
+C2 = Part.Arc(V2,VC2,V3) </pre>
+<h4><span class="mw-headline" id="Line">Line</span></h4>
+<div class="mw-translate-fuzzy">
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Line.png" class="image" title="Line"><img alt="Line" src="Line.png" width="175" height="76" /></a></div>
+</div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>Линия может быть очень просто создана из точек:
+</p>
+</div>
+<pre>L1 = Part.LineSegment(V1,V2)
+# and the second one
+L2 = Part.LineSegment(V3,V4) </pre>
+<p><i>Note: in FreeCAD 0.16 Part.Line was used, for FreeCAD 0.17 Part.LineSegment has to be used</i>
+</p>
+<h4><span class="mw-headline" id=".D0.A1.D0.BE.D0.B5.D0.B4.D0.B8.D0.BD.D1.8F.D0.B5.D0.BC_.D0.B2.D1.81.D0.B5_.D0.B2.D0.BC.D0.B5.D1.81.D1.82.D0.B5">Соединяем все вместе</span></h4>
+<p>Последний шаг собираем все основные геометрические элементы вместе и получаем форму:
+</p>
+<pre>S1 = Part.Shape([C1,L1,C2,L2]) </pre>
+<h4><span class="mw-headline" id=".D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BF.D1.80.D0.B8.D0.B7.D0.BC.D1.8B">Создание призмы</span></h4>
+<p>Теперь вытягиваем ломанную по направлению и фактически получаем 3D форму:
+</p>
+<pre>W = Part.Wire(S1.Edges)
+P = W.extrude(Base.Vector(0,0,10)) </pre>
+<h4><span class="mw-headline" id="Show_it_all">Show it all</span></h4>
+<pre>Part.show(P) </pre>
+<h3><span class="mw-headline" id=".D0.9A.D1.80.D0.B0.D1.82.D0.BA.D0.BE.D0.B5_.D0.BE.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5">Краткое описание</span></h3>
+<p>Вы легко можете создать базовый топологический объект с помощью методов "make...()" содержащихся в модуле Деталей:
+</p>
+<pre>b = Part.makeBox(100,100,100)
+Part.show(b) </pre>
+<p>Куча других  доступных make...() методов:
+</p>
+<ul><li> makeBox(l,w,h,[p,d]) -- Создает коробку расположенную в точке p и  в указанном направлении d с размерами (l,w,h). По умолчанию p установлен как Vector(0,0,0) и d установлен как Vector(0,0,1)</li>
+<li> makeCircle(radius,[p,d,angle1,angle2]) -- Создает окружность с заданным радиусом. По умолчанию p=Vector(0,0,0), d=Vector(0,0,1), angle1=0 и angle2=360</li>
+<li> makeCompound(list) -- Создает составное тело из списка форм</li>
+<li> makeCone(radius1,radius2,height,[p,d,angle]) -- Создает конус с заданным радиусами и высотой. По умолчанию p=Vector(0,0,0), d=Vector(0,0,1) и angle=360</li>
+<li> makeCylinder(radius,height,[p,d,angle]) -- Создает цилиндр с заданным радиусом и высотой. По умолчанию p=Vector(0,0,0), d=Vector(0,0,1) и angle=360</li>
+<li> makeLine((x1,y1,z1),(x2,y2,z2)) -- Создает линию проходящую через две точки</li>
+<li> makePlane(length,width,[p,d]) -- Создает плоскость с заданной длинной и шириной. По умолчанию p=Vector(0,0,0) и d=Vector(0,0,1)</li>
+<li> makePolygon(list) -- Создает многоугольник из списка точек</li>
+<li> makeSphere(radius,[p,d,angle1,angle2,angle3]) -- Создает  сферу с заданным радиусом. По умолчанию p=Vector(0,0,0), d=Vector(0,0,1), angle1=0, angle2=90 и angle3=360</li>
+<li> makeTorus(radius1,radius2,[p,d,angle1,angle2,angle3]) -- Создает тор по заданными радиусамi.По умолчанию p=Vector(0,0,0), d=Vector(0,0,1), angle1=0, angle2=360 и angle3=360</li></ul>
+<p>See the <a href="Part_API.html" title="Part API">Part API</a> page for a complete list of available methods of the Part module.
+</p>
+<h3><span class="mw-headline" id=".D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D1.8B.D0.B5_.D0.BE.D0.B1.D1.8A.D1.8F.D1.81.D0.BD.D0.B5.D0.BD.D0.B8.D1.8F">Подробные объяснения</span></h3>
+<p>Сначала импортируем следующее:
+</p>
+<pre>import Part
+from FreeCAD import Base </pre>
+<h4><span class="mw-headline" id="Creating_a_Vector">Creating a Vector</span></h4>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euclidean_vector">Vectors</a> are one of the most 
+important pieces of information when building shapes. They contain a 3 numbers 
+usually (but not necessarily always) the x, y and z cartesian coordinates. You 
+create a vector like this:
+</p>
+<pre>myVector = Base.Vector(3,2,0) </pre>
+<p>We just created a vector at coordinates x=3, y=2, z=0. In the Part module, 
+vectors are used everywhere. Part shapes also use another kind of point 
+representation, called Vertex, which is acually nothing else than a container 
+for a vector. You access the vector of a vertex like this:
+</p>
+<pre>myVertex = myShape.Vertexes[0]
+print myVertex.Point
+&gt; Vector (3, 2, 0) </pre>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A0.D0.B5.D0.B1.D1.80.D0.BE.3F">Как создать Ребро?</span></h4>
+<p>Ребра не что иное как линия с двумя вершинами:
+</p>
+<pre>edge = Part.makeLine((0,0,0), (10,0,0))
+edge.Vertexes
+&gt; [&lt;Vertex object at 01877430&gt;, &lt;Vertex object at 014888E0&gt;] </pre>
+<p>Примечание: Вы не можете создать ребро передав две вершины.
+</p>
+<pre>vec1 = Base.Vector(0,0,0)
+vec2 = Base.Vector(10,0,0)
+line = Part.LineSegment(vec1,vec2)
+edge = line.toShape() </pre>
+<p>Вы можете узнать длинну и центр ребра, вот так:
+</p>
+<pre>edge.Length
+&gt; 10.0
+edge.CenterOfMass
+&gt; Vector (5, 0, 0) </pre>
+<h4><span class="mw-headline" id="Putting_the_shape_on_screen">Putting the shape on screen</span></h4>
+<p>So far we created an edge object, but it doesn't appear anywhere on screen. 
+This is because we just manipulated python objects here. The FreeCAD 3D scene 
+only displays what you tell it to display. To do that, we use this simple 
+method:
+</p>
+<pre>Part.show(edge) </pre>
+<p>An object will be created in our FreeCAD document, and our "edge" shape 
+will be attributed to it. Use this whenever it's time to display your 
+creation on screen. 
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BB.D0.BE.D0.BC.D0.B0.D0.BD.D0.BD.D1.83.D1.8E_.D0.BA.D1.80.D0.B8.D0.B2.D1.83.D1.8E.3F">Как создать ломанную кривую?</span></h4>
+<p>Ломанная может быть создана из списка ребер  или даже из списка ломаных:
+</p>
+<pre>edge1 = Part.makeLine((0,0,0), (10,0,0))
+edge2 = Part.makeLine((10,0,0), (10,10,0))
+wire1 = Part.Wire([edge1,edge2]) 
+edge3 = Part.makeLine((10,10,0), (0,10,0))
+edge4 = Part.makeLine((0,10,0), (0,0,0))
+wire2 = Part.Wire([edge3,edge4])
+wire3 = Part.Wire([wire1,wire2])
+wire3.Edges
+&gt; [&lt;Edge object at 016695F8&gt;, &lt;Edge object at 0197AED8&gt;, &lt;Edge object at 01828B20&gt;, &lt;Edge object at 0190A788&gt;]
+Part.show(wire3) </pre>
+<p>Part.show(wire3) будет отображать четыре лини как квадарат:
+</p>
+<pre>wire3.Length
+&gt; 40.0
+wire3.CenterOfMass
+&gt; Vector (5, 5, 0)
+wire3.isClosed()
+&gt; True
+wire2.isClosed()
+&gt; False </pre>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.93.D1.80.D0.B0.D0.BD.D1.8C.3F">Как создать Грань?</span></h4>
+<p>Действительны , только грани созданные из замкнутых ломаных.
+В данном примере, wire3 замкнутая ломанная,а  wire2 не замкнута (смотри выше)
+</p>
+<pre>face = Part.Face(wire3)
+face.Area
+&gt; 99.999999999999972
+face.CenterOfMass
+&gt; Vector (5, 5, 0)
+face.Length
+&gt; 40.0
+face.isValid()
+&gt; True
+sface = Part.Face(wire2)
+face.isValid()
+&gt; False </pre>
+<p>Только грани обладают поверхностью, а не ломанные и ребра.
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BE.D0.BA.D1.80.D1.83.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C.3F">Как создать окружность?</span></h4>
+<p>circle = Part.makeCircle(radius,[center,dir_normal,angle1,angle2]) -- Создает окружность с заданным радиусом
+</p><p>По умолчанию, center=Vector(0,0,0), dir_normal=Vector(0,0,1), angle1=0 and angle2=360.
+Окружность может быть просто создана, как здесь:
+</p>
+<pre>circle = Part.makeCircle(10)
+circle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (0, 0, 0), Direction&#160;: (0, 0, 1)) </pre>
+<p>Если вы хотите создать её с определенным положением и в определенном направлении
+</p>
+<pre>ccircle = Part.makeCircle(10, Base.Vector(10,0,0), Base.Vector(1,0,0))
+ccircle.Curve
+&gt; Circle (Radius&#160;: 10, Position&#160;: (10, 0, 0), Direction&#160;: (1, 0, 0)) </pre>
+<p>Окружность будет создана на расстоянии 10 от базовой(оригинальной) координаты х x и будет обращена в сторону оси x.
+Примечание: makeCircleпринимает только тип Base.Vector() в качестве позиции и нормали а не кортеж.
+Вы также можете создать часть окружности, задав угол начальный и конечный угол, как тут:
+</p>
+<pre>from math import pi
+arc1 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 0, 180)
+arc2 = Part.makeCircle(10, Base.Vector(0,0,0), Base.Vector(0,0,1), 180, 360) </pre>
+<p>Обе arc1 и arc2 вместе составляют окружность.
+Углы задаются в градусах, если вы хотите задать раддианами, просто преобразуйте используя формулу:
+degrees = radians * 180/PI
+или используя pythonовский math модуль (прежде, конечно, выполнив import math):
+degrees = math.degrees(radians)
+</p>
+<pre>degrees = math.degrees(radians) </pre>
+<div class="mw-translate-fuzzy">
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.94.D1.83.D0.B3.D1.83_.D0.BF.D0.BE_.D1.82.D0.BE.D1.87.D0.BA.D0.B0.D0.BC.3F">Как создать Дугу по точкам?</span></h4>
+<p>К сожалению нет функции makeArc но мы обладаем функцией Part.Arc для созданимя дуги проходящей через три точки.
+В основном эта может быть дуга соединящая начальную и конечную точку через средню точку.
+Part.Arc создает объект дугу on which на котором .toShape() вызванная для получения объекта ребра, 
+которое обычно создается с помошью makeLine или makeCircle
+</p>
+</div>
+<pre>arc = Part.Arc(Base.Vector(0,0,0),Base.Vector(0,5,0),Base.Vector(5,5,0))
+arc
+&gt; &lt;Arc object&gt;
+arc_edge = arc.toShape() </pre>
+<p>Примечание: Дуга допускает только Base.Vector() для задания точек, а не кортеж.
+arc_edge это то что мы хотим, мы можем показать его используя Part.show(arc_edge).
+Если вы хотите небольшую часть круга, в качестве дуги, это тоже возможно:
+</p>
+<pre>from math import pi
+circle = Part.Circle(Base.Vector(0,0,0),Base.Vector(0,0,1),10)
+arc = Part.Arc(c,0,pi) </pre>
+<p>Arcs are valid edges, like lines. So they can be used in wires too.
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BC.D0.BD.D0.BE.D0.B3.D0.BE.D1.83.D0.B3.D0.BE.D0.BB.D1.8C.D0.BD.D0.B8.D0.BA_.D0.B8.D0.BB.D0.B8_.D0.BB.D0.B8.D0.BD.D0.B8.D1.8E_.D0.BF.D0.BE_.D1.82.D0.BE.D1.87.D0.BA.D0.B0.D0.BC.3F">Как создать многоугольник или линию по точкам?</span></h4>
+<p>Линия по нескольким точкам, не что иное как создание ломаной с множеством ребер.
+функция makePolygon берет список точек и создает ломанную по этим точкам:
+</p>
+<pre>lshape_wire = Part.makePolygon([Base.Vector(0,5,0),Base.Vector(0,0,0),Base.Vector(5,0,0)]) </pre>
+<h4><span class="mw-headline" id="Creating_a_Bezier_curve">Creating a Bezier curve</span></h4>
+<p>Bézier curves are used to model smooth curves using a series of poles (points) and optional weights.  The function below makes a Part.BezierCurve from a series of FreeCAD.Vector points.  (Note: when "getting" and "setting" a single pole or weight indices start at 1, not 0.)
+</p>
+<pre>def makeBCurveEdge(Points):
+   geomCurve = Part.BezierCurve()
+   geomCurve.setPoles(Points)
+   edge = Part.Edge(geomCurve)
+   return(edge) </pre>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.BF.D0.BB.D0.BE.D1.81.D0.BA.D0.BE.D1.81.D1.82.D1.8C.3F">Как создать плоскость?</span></h4>
+<p>Плоскасть это ровная поверхность, в смысле 2D грань
+makePlane(length,width,[start_pnt,dir_normal]) -- Создает плоскость
+По умолчанию start_pnt=Vector(0,0,0) и dir_normal=Vector(0,0,1).
+dir_normal=Vector(0,0,1) создат плоскость нормальную к оси z.
+dir_normal=Vector(1,0,0) создат плоскость нормальную к оси х:
+</p>
+<pre>plane = Part.makePlane(2,2)
+plane
+&gt;&lt;Face object at 028AF990&gt;
+plane = Part.makePlane(2,2, Base.Vector(3,0,0), Base.Vector(0,1,0))
+plane.BoundBox
+&gt; BoundBox (3, 0, 0, 5, 0, 2) </pre>
+<p>BoundBox является параллелепипед вмещающих плоскость с диагональю, начиная с (3,0,0) и концом в (5,0,2).
+Здесь толщинаhe BoundBoxпо оси y равна нулю.
+</p><p>примечание: makePlane доступны только Base.Vector() для задания start_pnt и dir_normal а не кортежи
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D1.8D.D0.BB.D0.BB.D0.B8.D0.BF.D1.81.3F">Как создать эллипс?</span></h4>
+<p>Создать эллипс можно несколькими путями:
+</p>
+<pre>Part.Ellipse() </pre>
+<p>Создает эллипс с  большой полуосью 2 и малой полуосью 1 с центром 
+в (0,0,0)
+</p>
+<pre>Part.Ellipse(Ellipse) </pre>
+<p>Создает копию данного эллипса
+</p>
+<pre>Part.Ellipse(S1,S2,Center) </pre>
+<p>Создаст эллипс с центров точке Center, где
+плоскость эллипса определяет  Center, S1 и S2,
+это большая ось ззаданная  Center и S1,
+это больший радиус  расстояние между Center и S1, и
+меньший радиус это расстояние между S2 и юольшей осью.
+</p>
+<pre>Part.Ellipse(Center,MajorRadius,MinorRadius) </pre>
+<p>Создает эллипс с большим и меньшим радиусом MajorRadius и
+MinorRadius, и расположенным в плоскости заданной точкой Center и
+нормалью (0,0,1)
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(10,0,0),Base.Vector(0,5,0),Base.Vector(0,0,0))
+Part.show(eli.toShape()) </pre>
+<p>в приведенном выше коде мы ввели S1, S2 и center.
+Аналогично Дуге, Эллипс также создает объект, а не ребро, 
+так что мы должны превратить его в ребро используя toShape() для отображения
+</p><p>Примечание: Дуга допускает только Base.Vector() для задания точек, а не кортеж.
+</p>
+<pre>eli = Part.Ellipse(Base.Vector(0,0,0),10,5)
+Part.show(eli.toShape()) </pre>
+<p>Для верхнем конструкторе Эллипса мы ввели center, MajorRadius и MinorRadius
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A2.D0.BE.D1.80.3F">Как создать Тор?</span></h4>
+<p>makeTorus(radius1,radius2,[pnt,dir,angle1,angle2,angle]) -- Создает тор с указаными радиусами и углами.
+По умолчанию pnt=Vector(0,0,0),dir=Vector(0,0,1),angle1=0,angle1=360 и angle=360
+</p><p>Расмотрим тор как маленький круг, вытянутый вдоль большого круга:
+</p><p>radius1 это радиус большого круга, radius2 это радиус малого круга,
+pnt это центр тора и dir это направление нормали. 
+angle1 и angle2 углы в радианах для малого круга, создаст дугу
+последний параметр  angle создаст секцию(часть) тора:
+</p>
+<pre>torus = Part.makeTorus(10, 2) </pre>
+<p>В коде выше, был создан тор с диаметром 20(радиус 10) и толщиной 4(малая окружность радиусом 2)
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,180) </pre>
+<p>В приведенном выше коде, создан кусочек тора
+</p>
+<pre>tor=Part.makeTorus(10,5,Base.Vector(0,0,0),Base.Vector(0,0,1),0,360,180) </pre>
+<p>В приведенном выше коде, создан полу тор, изменен только последний параметр т.е. angle а остальные углы установлены по умолчанию.
+</p><p>Подстановка угла 180 создаст тор от 0 до 180 т.е. половину
+</p>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.B1.D0.BB.D0.BE.D0.BA_.D0.B8.D0.BB.D0.B8_.D0.BF.D0.B0.D1.80.D0.B0.D0.BB.D0.B5.D0.BB.D0.B5.D0.BF.D0.B8.D0.BF.D0.B5.D0.B4.3F">Как создать блок или паралелепипед?</span></h4>
+<p>makeBox(length,width,height,[pnt,dir]) -- Создает блок расположенный в pnt с размерами (length,width,height)
+</p><p>По умолчанию pnt=Vector(0,0,0) и dir=Vector(0,0,1)
+</p>
+<pre>box = Part.makeBox(10,10,10)
+len(box.Vertexes)
+&gt; 8 </pre>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A1.D1.84.D0.B5.D1.80.D1.83.3F">Как создать Сферу?</span></h4>
+<p>makeSphere(radius,[pnt, dir, angle1,angle2,angle3]) -- Создает сферу с заданным радиусом.
+По умолчанию pnt=Vector(0,0,0), dir=Vector(0,0,1), angle1=-90, angle2=90 и angle3=360. 
+angle1 и angle2 это вертиуальный минимум и максимум сферы(срезает часть сферы снизу или сверху),
+angle3 определяет замкнутое ли это тело вращения или его секция
+</p>
+<pre>sphere = Part.makeSphere(10)
+hemisphere = Part.makeSphere(10,Base.Vector(0,0,0),Base.Vector(0,0,1),-90,90,180) </pre>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.A6.D0.B8.D0.BB.D0.B8.D0.BD.D0.B4.D1.80.3F">Как создать Цилиндр?</span></h4>
+<p>makeCylinder(radius,height,[pnt,dir,angle]) -- Создает цилиндр с указанным радиусом и высотой
+</p><p>По умолчанию pnt=Vector(0,0,0),dir=Vector(0,0,1) и angle=360
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder = Part.makeCylinder(5,20)
+partCylinder = Part.makeCylinder(5,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)</pre></div>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D1.81.D0.BE.D0.B7.D0.B4.D0.B0.D1.82.D1.8C_.D0.9A.D0.BE.D0.BD.D1.83.D1.81.3F">Как создать Конус?</span></h4>
+<p>makeCone(radius1,radius2,height,[pnt,dir,angle]) -- Создает конус с указанными радиусами и высотой
+</p><p>По умолчанию pnt=Vector(0,0,0), dir=Vector(0,0,1) и angle=360
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cone = Part.makeCone(10,0,20)
+semicone = Part.makeCone(10,0,20,Base.Vector(20,0,0),Base.Vector(0,0,1),180)</pre></div>
+<h2><span class="mw-headline" id="Modifying_shapes">Modifying shapes</span></h2>
+<p>There are several ways to modify shapes. Some are simple transformation operations 
+such as moving or rotating shapes, other are more complex, such as unioning and
+subtracting one shape from another. Be aware that 
+</p>
+<h3><span class="mw-headline" id="Transform_operations">Transform operations</span></h3>
+<h4><span class="mw-headline" id="Translating_a_shape">Translating a shape</span></h4>
+<p>Translating is the act of moving a shape from one place to another. 
+Any shape (edge, face, cube, etc...) can be translated the same way:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape = Part.makeBox(2,2,2)
+myShape.translate(Base.Vector(2,0,0))</pre></div>
+<p>This will move our shape "myShape" 2 units in the x direction.
+</p>
+<h4><span class="mw-headline" id="Rotating_a_shape">Rotating a shape</span></h4>
+<p>To rotate a shape, you need to specify the rotation center, the axis, 
+and the rotation angle:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape.rotate(Vector(0,0,0),Vector(0,0,1),180)</pre></div>
+<p>The above code will rotate the shape 180 degrees around the Z Axis.
+</p>
+<h4><span class="mw-headline" id="Generic_transformations_with_matrixes">Generic transformations with matrixes</span></h4>
+<p>A matrix is a very convenient way to store transformations in the 3D
+world. In a single matrix, you can set translation, rotation and scaling
+values to be applied to an object. For example:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat = Base.Matrix()
+myMat.move(Base.Vector(2,0,0))
+myMat.rotateZ(math.pi/2)</pre></div>
+<p>Note: FreeCAD matrixes work in radians. Also, almost all matrix operations
+that take a vector can also take 3 numbers, so those 2 lines do the same thing:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat.move(2,0,0)
+myMat.move(Base.Vector(2,0,0))</pre></div>
+<p>When our matrix is set, we can apply it to our shape. FreeCAD provides 2
+methods to do that: transformShape() and transformGeometry(). The difference
+is that with the first one, you are sure that no deformations will occur (see
+"scaling a shape" below). So we can apply our transformation like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> myShape.trasformShape(myMat)</pre></div>
+<p>or
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myShape.transformGeometry(myMat)</pre></div>
+<h4><span class="mw-headline" id="Scaling_a_shape">Scaling a shape</span></h4>
+<p>Scaling a shape is a more dangerous operation because, unlike translation 
+or rotation, scaling non-uniformly (with different values for x, y and z) 
+can modify the structure of the shape. For example, scaling a circle with
+a higher value horizontally than vertically will transform it into an
+ellipse, which behaves mathematically very differently. For scaling, we
+can't use the transformShape, we must use transformGeometry():
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>myMat = Base.Matrix()
+myMat.scale(2,1,1)
+myShape=myShape.transformGeometry(myMat)</pre></div>
+<h3><span class="mw-headline" id=".D0.9B.D0.BE.D0.B3.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5_.D0.9E.D0.BF.D0.B5.D1.80.D0.B0.D1.86.D0.B8.D0.B8">Логические Операции</span></h3>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D0.B2.D1.8B.D1.80.D0.B5.D0.B7.D0.B0.D1.82.D1.8C_.D0.BE.D0.B4.D0.BD.D1.83_.D1.84.D0.BE.D1.80.D0.BC.D1.83_.D0.B8.D0.B7_.D0.B4.D1.80.D1.83.D0.B3.D0.B8.D1.85.3F">Как вырезать одну форму из других?</span></h4>
+<p>cut(...) - Вычисление различий задано в топологическом классе shape.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+sphere = Part.makeSphere(5,Base.Vector(5,0,0))
+diff = cylinder.cut(sphere)</pre></div>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D0.BF.D0.BE.D0.BB.D1.83.D1.87.D0.B8.D1.82.D1.8C_.D0.BF.D0.B5.D1.80.D0.B5.D1.81.D0.B5.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D0.B2.D1.83.D1.85_.D1.84.D0.BE.D1.80.D0.BC.3F">Как получить пересечение двух форм?</span></h4>
+<p>common(...) - Пересечение задано в топологическом классе shape
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+common = cylinder1.common(cylinder2)</pre></div>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D0.BE.D0.B1.D1.8A.D0.B5.D0.B4.D0.B8.D0.BD.D0.B8.D1.82.D1.8C_.D0.B4.D0.B2.D0.B5_.D1.84.D0.BE.D1.80.D0.BC.D1.8B.3F">Как объединить две формы?</span></h4>
+<p>fuse(...) - Объединение задано в топологическом классе shape
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+fuse = cylinder1.fuse(cylinder2)</pre></div>
+<h4><span class="mw-headline" id=".D0.9A.D0.B0.D0.BA_.D0.BF.D0.BE.D0.BB.D1.83.D1.87.D0.B8.D1.82.D1.8C_.D1.81.D0.B5.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D1.82.D0.B5.D0.BB.D0.B0_.D0.B8_.D0.B7.D0.B0.D0.B4.D0.B0.D0.BD.D0.BE.D0.B9_.D1.84.D0.BE.D1.80.D0.BC.D1.8B.3F">Как получить сечение тела и заданой формы?</span></h4>
+<p>section(...) - Сечение задано в топологическом классе shape.
+</p><p>Вернет секущую кривую, состоящую из ребер
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>cylinder1 = Part.makeCylinder(3,10,Base.Vector(0,0,0),Base.Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Base.Vector(5,0,-5),Base.Vector(0,0,1))
+section = cylinder1.section(cylinder2)
+section.Wires
+> []
+section.Edges
+> [&lt;Edge object at 0D87CFE8>, &lt;Edge object at 019564F8>, &lt;Edge object at 0D998458>, 
+ &lt;Edge  object at 0D86DE18>, &lt;Edge object at 0D9B8E80>, &lt;Edge object at 012A3640>, 
+ &lt;Edge object at 0D8F4BB0>]</pre></div>
+<h4><span class="mw-headline" id="Extrusion">Extrusion</span></h4>
+<p>Extrusion is the act of "pushing" a flat shape in a certain direction resulting in
+a solid body. Think of a circle becoming a tube by "pushing it out": 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>circle = Part.makeCircle(10)
+tube = circle.extrude(Base.Vector(0,0,2))</pre></div>
+<p>If your circle is hollow, you will obtain a hollow tube. If your circle is actually 
+a disc, with a filled face, you will obtain a solid cylinder:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>wire = Part.Wire(circle)
+disc = Part.Face(wire)
+cylinder = disc.extrude(Base.Vector(0,0,2))</pre></div>
+<h2><span class="mw-headline" id=".D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.A4.D0.BE.D1.80.D0.BC">Исследование Форм</span></h2>
+<p>Вы легко можете исследовать структуру топологических данных:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+b = Part.makeBox(100,100,100)
+b.Wires
+w = b.Wires[0]
+w
+w.Wires
+w.Vertexes
+Part.show(w)
+w.Edges
+e = w.Edges[0]
+e.Vertexes
+v = e.Vertexes[0]
+v.Point</pre></div>
+<p>Если ввести строчку выше в интепритатор python , вы получите хорошее представление об устройстве Part объектов. Здесь, наша команда makeBox() создает твердое тело. Это тело, как и все Part тела, содержит грани. Грани, всегда содержат ломанные, которые являются набором ребер ограничивающих грань. Каждая грань обладает ровно одной замкнутой ломаной. В ломанной, мы можем посмотреть на отдельно на каждое ребро, и по краям каждого ребра , мы можем увидеть вершины. Очевидно, что прямые ребра обладают только двумя вершинами. Вершины модуля Part  являются OCC(OpenCascade) формами, но они обладают атрибутом Point который возвращает FreeCAD вектор. 
+</p>
+<h3><span class="mw-headline" id=".D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.A0.D1.91.D0.B1.D0.B5.D1.80">Исследование Рёбер</span></h3>
+<p>В случае ребра, которое является произвольной кривой, вы наверняка захотите произвести дискретизицию. В FreeCAD ребра задаются с помощью параметра длинны. Это означает что вы можете перемещатся вдоль ребра/кривой задавая длинну:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+box = Part.makeBox(100,100,100)
+anEdge = box.Edges[0]
+print anEdge.Length</pre></div>
+<p>Теперь вы получить доступ ко всем свойствам ребра, с помощью длинны или позиции. Это означает, что у ребра 
+в 100mm длинной, начальная позиция это 0 а конечная это 100. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>anEdge.tangentAt(0.0)      # tangent direction at the beginning
+anEdge.valueAt(0.0)        # Point at the beginning
+anEdge.valueAt(100.0)      # Point at the end of the edge
+anEdge.derivative1At(50.0) # first derivative of the curve in the middle
+anEdge.derivative2At(50.0) # second derivative of the curve in the middle
+anEdge.derivative3At(50.0) # third derivative of the curve in the middle
+anEdge.centerOfCurvatureAt(50) # center of the curvature for that position
+anEdge.curvatureAt(50.0)   # the curvature
+anEdge.normalAt(50)        # normal vector at that position (if defined)</pre></div>
+<h2><span class="mw-headline" id=".D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.B2.D1.8B.D0.B4.D0.B5.D0.BB.D0.B5.D0.BD.D0.B8.D1.8F.28.D0.B2.D1.8B.D0.B1.D0.BE.D1.80.D0.B0.29">Использование выделения(выбора)</span></h2>
+<p>Здесь мы увидим как можно использовать "выделение", которое пользователь сделал в программе просмотра.
+прежде всего мы создадим блок и отобразим его в окне просмотра
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+Part.show(Part.makeBox(100,100,100))
+Gui.SendMsgToActiveView("ViewFit")</pre></div>
+<p>Теперь выберем грани или ребра. С помощью этого сценария вы можете, поворить все выделенные объекты и их под элементы:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>for o in Gui.Selection.getSelectionEx():
+print o.ObjectName
+for s in o.SubElementNames:
+print "name: ",s
+for s in o.SubObjects:
+print "object: ",s</pre></div>
+<p>Выделим несколько ребер и этот сценарий подсчитает их сумарную длину:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>length = 0.0
+for o in Gui.Selection.getSelectionEx():
+for s in o.SubObjects:
+length += s.Length
+print "Length of the selected edges:" ,length</pre></div>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="OCC_.D0.B1.D1.83.D1.82.D1.8B.D0.BB.D1.8C">OCC бутыль</span></h3>
+<p>Типовой пример на <a rel="nofollow" class="external text" href="http://www.opencascade.org/org/gettingstarted/appli/">OpenCasCade Getting Started Page</a> можно узнать как построить бутыль.
+Также это отличный пример для FreeCAD. В самом деле вы можете последовать нашему примеру изложенному ниже и странице OCC  одновременно, вы лучше поймете как реализованы OCC структуры в FreeCAD.
+</p><p>Готовый сценарий описанный ниже, также включен в установленный FreeCAD (в папке Mod/Part ) и может быть вызван интепритатором python, вводом:
+</p>
+</div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+import MakeBottle
+bottle = MakeBottle.makeBottle()
+Part.show(bottle)</pre></div>
+<h4><span class="mw-headline" id=".D0.93.D0.BE.D1.82.D0.BE.D0.B2.D1.8B.D0.B9_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B9">Готовый сценарий</span></h4>
+<p>Здесь  представлен готовый сценарий MakeBottle:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part, FreeCAD, math
+from FreeCAD import Base
+
+def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)
+   
+   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.LineSegment(aPnt1,aPnt2)
+   aSegment2=Part.LineSegment(aPnt4,aPnt5)
+   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])
+   
+   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # rotate around the z-axis
+   
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])
+   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)
+   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)
+   myBody = myBody.fuse(myNeck)
+   
+   faceToRemove = 0
+   zMax = -1.0
+   
+   for xp in myBody.Faces:
+       try:
+           surf = xp.Surface
+           if type(surf) == Part.Plane:
+               z = surf.Position.z
+               if z > zMax:
+                   zMax = z
+                   faceToRemove = xp
+       except:
+           continue
+   
+   myBody = myBody.makeFillet(myThickness/12.0,myBody.Edges)
+   
+   return myBody
+
+el = makeBottle()
+Part.show(el)</pre></div>
+<h4><span class="mw-headline" id=".D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D1.8B.D0.B5_.D0.BE.D0.B1.D1.8A.D1.8F.D1.81.D0.BD.D0.B5.D0.BD.D0.B8.D1.8F_2">Подробные объяснения</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part, FreeCAD, math
+from FreeCAD import Base</pre></div>
+<p>Нам ,конечно, необходимы Part модуль, а также FreeCAD.Base модуль, который содержит основные структуры FreeCAD такие как векторы и матрицы.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):
+   aPnt1=Base.Vector(-myWidth/2.,0,0)
+   aPnt2=Base.Vector(-myWidth/2.,-myThickness/4.,0)
+   aPnt3=Base.Vector(0,-myThickness/2.,0)
+   aPnt4=Base.Vector(myWidth/2.,-myThickness/4.,0)
+   aPnt5=Base.Vector(myWidth/2.,0,0)</pre></div>
+<p>Здесь мы задаем нашу функцию makeBottle. Эта функция может быть вызвана без аргументов, как мы делали выше, в этом случае будут использоваться значения по умолчанию для ширины, высоты и толщины. Затем мы определили несколько точек которые будут использоваться для построения базового сечения.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+   aSegment1=Part.LineSegment(aPnt1,aPnt2)
+   aSegment2=Part.LineSegment(aPnt4,aPnt5)</pre></div>
+<p>Здесь мы фактически задаём геометрию: дугу, созданую по 3 точкам, и два линейных сегменты, созданные по 2 точкам.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aEdge1=aSegment1.toShape()
+   aEdge2=aArcOfCircle.toShape()
+   aEdge3=aSegment2.toShape()
+   aWire=Part.Wire([aEdge1,aEdge2,aEdge3])</pre></div>
+<p>Запомнили раличие между геометрией и формой? Здесь мы создаем форму из нашей строительной геометрии 3 рёбер (ребра могут быть прямыми или кривыми), затем из рёбер создается ломанная.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   aTrsf=Base.Matrix()
+   aTrsf.rotateZ(math.pi) # rotate around the z-axis
+   aMirroredWire=aWire.transformGeometry(aTrsf)
+   myWireProfile=Part.Wire([aWire,aMirroredWire])</pre></div>
+<p>На данный момент мы построили только половину сечения. Проще, чем строить таким же образом целое сечение, мы можем просто отразить то что мы сделали и склеить две половинки. Сначала создадим матрицу(Нео ау). Матрица является распространенным способом произвести изменения над объектом в  3D пространстве, также она может содержать в одной структуре все базовые преобразования которые позволяют  3D объекты(перемещение, вращение и масштабирование). Здесь , после создания матрицы, мы отражаем её и создаем копию нашеё ломанной, применя к ней преобразование матрицой. Теперь мы получили две ломанные и мы можем создать из них третью ломаную, так как ломанные это всего лишь список ребер.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   myFaceProfile=Part.Face(myWireProfile)
+   aPrismVec=Base.Vector(0,0,myHeight)
+   myBody=myFaceProfile.extrude(aPrismVec)
+   myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)</pre></div>
+<p>Теперь мы получили замкнутую ломаную, которую можно обратить в грань. После мы получили грань, мы можем вытянуть её. Сделаа это ,мы действительно получим твердое тело. Теперь мы добавим небольшое скругление к нашему объекту, потому что мы заботимся о качественном дизайне, разве нет?
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   neckLocation=Base.Vector(0,0,myHeight)
+   neckNormal=Base.Vector(0,0,1)
+   myNeckRadius = myThickness / 4.
+   myNeckHeight = myHeight / 10
+   myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)</pre></div>
+<p>Теперь когда тело нашей бутыли создано, нам нужно создать горлышко. Так  мы создаем новое твердое тело ,это цилиндр.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   myBody = myBody.fuse(myNeck)</pre></div>
+<p>Очень мощная операция слияния, которая обычно называется в других приложениях объединением. Она заботится о склеивании, о том что должно быть приклено и удаляет детали которые нужно удалить.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>   return myBody</pre></div>
+<div class="mw-translate-fuzzy">
+<p>Теперь мы получаем нашу твердотельную Деталь как результат нашей функции. Это Деталь - твердотельная, как и любая другая Деталь форма, может быть свзана с объектом в документе  FreeCAD, с помошью:
+</p>
+</div> 
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>el = makeBottle()
+Part.show(el)</pre></div>
+<div class="mw-translate-fuzzy">
+<p>или , ещё проще:
+</p>
+</div>
+<h2><span class="mw-headline" id="Box_pierced">Box pierced</span></h2>
+<p>Here a complete example of building a box pierced.
+</p><p>The construction is done side by side and when the cube is finished, it is hollowed out of a cylinder through.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+from math import sqrt, pi, sin, cos, asin
+from FreeCAD import Base
+
+size = 10
+poly = Part.makePolygon( [ (0,0,0), (size, 0, 0), (size, 0, size), (0, 0, size), (0, 0, 0)])
+
+face1 = Part.Face(poly)
+face2 = Part.Face(poly)
+face3 = Part.Face(poly)
+face4 = Part.Face(poly)
+face5 = Part.Face(poly)
+face6 = Part.Face(poly)
+     
+myMat = FreeCAD.Matrix()
+myMat.rotateZ(math.pi/2)
+face2.transformShape(myMat)
+face2.translate(FreeCAD.Vector(size, 0, 0))
+
+myMat.rotateZ(math.pi/2)
+face3.transformShape(myMat)
+face3.translate(FreeCAD.Vector(size, size, 0))
+
+myMat.rotateZ(math.pi/2)
+face4.transformShape(myMat)
+face4.translate(FreeCAD.Vector(0, size, 0))
+
+myMat = FreeCAD.Matrix()
+myMat.rotateX(-math.pi/2)
+face5.transformShape(myMat)
+
+face6.transformShape(myMat)               
+face6.translate(FreeCAD.Vector(0,0,size))
+
+myShell = Part.makeShell([face1,face2,face3,face4,face5,face6])   
+
+mySolid = Part.makeSolid(myShell)
+mySolidRev = mySolid.copy()
+mySolidRev.reverse()
+
+myCyl = Part.makeCylinder(2,20)
+myCyl.translate(FreeCAD.Vector(size/2, size/2, 0))
+
+cut_part = mySolidRev.cut(myCyl)
+
+Part.show(cut_part)</pre></div>
+<h2><span class="mw-headline" id=".D0.97.D0.B0.D0.B3.D1.80.D1.83.D0.B7.D0.BA.D0.B0_.D0.B8_.D0.A1.D0.BE.D1.85.D1.80.D0.B0.D0.BD.D0.B5.D0.BD.D0.B8.D0.B5">Загрузка и Сохранение</span></h2>
+<p>Есть несколько путей чтобы сохранения вышей работы в Part  модули. Вы конечно можете сохранить ваш FreeCAD документ, а также вы можете сохранить Part(Деталь) объект напрямую в обычные CAD форматы, такие как BREP, IGS, STEP и STL.
+</p><p>Сохраненить форму в файл , легко. Есть доступные для всех форм методы exportBrep(), exportIges(), exportStl() и exportStep() . Таким образом:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+s = Part.makeBox(0,0,0,10,10,10)
+s.exportStep("test.stp")</pre></div>
+<p>это сохранит наш блок в файл формата STEP. Для загрузки BREP, IGES или STEP файлов, просто сделайте наоборот:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Part
+s = Part.Shape()
+s.read("test.stp")</pre></div>
+<p>To convert an <b>.stp</b> in <b>.igs</b> file simply&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import Part
+ s = Part.Shape()
+ s.read("file.stp")       # incoming file igs, stp, stl, brep
+ s.exportIges("file.igs") # outbound file igs</pre></div>
+<p>Примечание этот импорт или открытие BREP, IGES or STEP файлов также можно сделать напрямую с помощью меню File -&gt; Open or File -&gt; Import. На данный момент экспорт ещё не включен, но будет там в ближайшее время.
+</p>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/ru&amp;oldid=289225">http://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/ru&amp;oldid=289225</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

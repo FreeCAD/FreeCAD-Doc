@@ -1,0 +1,343 @@
+<html><head><title>Material/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Material/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Cette page vous renseigne sur le système de données des matériaux dans FreeCAD. 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#R.C3.A9sum.C3.A9"><span class="tocnumber">1</span> <span class="toctext">Résumé</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A8gles"><span class="tocnumber">2</span> <span class="toctext">Règles</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Outils"><span class="tocnumber">3</span> <span class="toctext">Outils</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Base_de_donn.C3.A9es_de_mat.C3.A9riaux"><span class="tocnumber">4</span> <span class="toctext">Base de données de matériaux</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Material.py"><span class="tocnumber">5</span> <span class="toctext">Material.py</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Le_format_de_fichier_de_carte_des_mat.C3.A9riaux_FreeCAD"><span class="tocnumber">6</span> <span class="toctext">Le format de fichier de carte des matériaux FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Exemples"><span class="tocnumber">6.1</span> <span class="toctext">Exemples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Propri.C3.A9t.C3.A9s_du_mat.C3.A9riau"><span class="tocnumber">7</span> <span class="toctext">Propriétés du matériau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#G.C3.A9n.C3.A9ralit.C3.A9s"><span class="tocnumber">7.1</span> <span class="toctext">Généralités</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#M.C3.A9canique"><span class="tocnumber">7.2</span> <span class="toctext">Mécanique</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Graphique"><span class="tocnumber">7.3</span> <span class="toctext">Graphique</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#M.C3.A9thode_des_.C3.A9l.C3.A9ments_finis"><span class="tocnumber">7.4</span> <span class="toctext">Méthode des éléments finis</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Dynamique_des_fluides_computationnelle"><span class="tocnumber">7.5</span> <span class="toctext">Dynamique des fluides computationnelle</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Architecture_et_BIM"><span class="tocnumber">7.6</span> <span class="toctext">Architecture et BIM</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="R.C3.A9sum.C3.A9">Résumé</span></h2>
+<p>Puisqu'il est difficile, voire impossible de définir un ensemble fixe ou complet de propriétés de matériaux, nous allons procéder simplement. Chaque objet où FreeCAD doit faire face avec un matériau, aura une propriété nommée "Matériau", qui est une liste de clé/valeur qui peut contenir un nombre infini de propriétés du matériau. Puisqu'il s'agit d'une façon très simple et évolutive de faire face à ces données, il y a également un danger de chaos. C'est pour cela que cette page sert à définir certaines règles et propriétés de base pour traiter une charte-propriétés-matières.
+</p>
+<h2><span class="mw-headline" id="R.C3.A8gles">Règles</span></h2>
+<p>Chaque jeu de propriétés a une entrée obligatoire qui est <b>"Name"</b>. Il s'agit de la clé principale du matériau. Les autres propriétés du matériau sont facultatives ou peuvent être récupérés à partir d'un matériau d'une Base de données (DB). 
+</p><p>Les noms des propriétés (key) sont classés par chaînes séparées par des traits de soulignement. La première sous-chaîne est nommée par l'application ou en standard, ce qui suit peut être utilisé plus tard pour les propriétés de groupe. Les valeurs peuvent également être regroupées par des traits de soulignement, par exemple pour séparer les différentes sortes d'acier.
+</p><p>Exemples&#160;:
+</p>
+<ul><li> Name=Steel_Cast</li>
+<li> SpecificWeight=7.85 (at 20° in kg/mm3)</li>
+<li> EN10027_name = S235JR+AR (steel standard EN 10027-1)</li>
+<li> FEM_YoungsModulus = xx (in  mm−1·kg·s−2)</li>
+<li> FEM_YoungsModulus_Z</li>
+<li> FEM_YoungsModulus_X</li></ul>
+<p>Chaque propriété de description est humainement lisible sur cette page, avec des liens vers des informations complémentaires (par exemple <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal">Wikipedia</a>). 
+</p><p>Pour chaque propriété une unité doit être définie, l'unité est basée sur l'unité interne de FreeCAD mm-kg-s&#160;! Qui permet une traduction et utilisation cohérente. 
+</p><p>La clé (Name) et la valeur de la propriété utilisent uniquement des caractères ASCII (7 bits). Les touches sont rédigées selon la casse mais interprétées sans respecter la casse.   
+</p><p>Les traits de soulignement permettent un historique et la propriété éditeur/visionneuse permettant leur pliage.
+</p>
+<h2><span class="mw-headline" id="Outils">Outils</span></h2>
+<p>Il y a quelques bonnes ressources de matériaux accessibles facilement&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.dimensionengine.com/">Units calculater</a> pour obtenir des informations sur les matériaux dans l'unité nécessaire à FreeCAD.</li>
+<li> <a rel="nofollow" class="external free" href="http://www.matweb.com/">http://www.matweb.com/</a> <a rel="nofollow" class="external text" href="http://matweb.com/reference/terms.aspx">gratuit</a> base de données gratuite avec des milliers de caractéristiques de matériaux.</li></ul>
+<h2><span class="mw-headline" id="Base_de_donn.C3.A9es_de_mat.C3.A9riaux">Base de données de matériaux</span></h2>
+<p>Étant donné que la norme ci-dessus est appliquée, il serait stupide de stocker toutes les propriétés au niveau des objets. Fondamentalement, nous pouvons construire une Base de données de matériaux avec le nom comme clé principale. Donc si vous n'avez pas de besoins spéciaux pour votre matériau, vous avez juste a définir par exemple Name=Steel et FreeCAD récupérera toutes les propriétés dans cette Base de données. Chaque propriété supplémentaire que vous définirez dans le plan se substituera à celui de la Base de données. 
+</p><p>À l'avenir, nous pourrons héberger cette base de données quelque part sur le Web et créer une base de données de matériaux OpenSource générale.
+</p><p>Pour le moment, je pense à une compilation d'un mini-jeu de données avec un ensemble de matériaux "de base" et leurs propriétés de base, et une version complète basée sur SQLite.
+</p>
+<h2><span class="mw-headline" id="Material.py">Material.py</span></h2>
+<p>Étant donné que les manipulations des propriétés des matériaux sont un travail fastidieux, nous devrions mettre en place un module principal en Python appelé Material.py. Ce sera l'endroit pour mettre en œuvre toutes sortes de méthodes d'assistance pour choisir un matériau adapté.
+</p>
+<ul><li> Calcul de masse par Volume et densité</li>
+<li> Traduction en différents systèmes d'unités</li>
+<li> Calculs nécessaires dans l'application spéciale (p. ex., FEM)</li>
+<li> et toutes choses que nous ne connaissons pas encore </li></ul>
+<p>Le module doit être implémenté et peut être exécuté dans FreeCAD ou rester seul en ligne de commande par le module Python (charte-matériau-propriété).
+</p>
+<h2><span class="mw-headline" id="Le_format_de_fichier_de_carte_des_mat.C3.A9riaux_FreeCAD">Le format de fichier de carte des matériaux FreeCAD</span></h2>
+<p>Travailler avec des matériaux demande souvent des importations/exportations de définitions des matériaux. Un fichier de format défini est nécessaire. Puisque nous avons seulement une forme de clé/valeur, nous pouvons utiliser un format simple et facile de lecture et d'analyse du fichier. Le format <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/INI_file">ini-file</a> est choisi. Son standard de l'analyseur est déjà disponible. Par exemple le <a rel="nofollow" class="external text" href="http://docs.python.org/2/library/configparser.html">module configurateur en Python</a>. 
+</p><p>Chaque définition de matière réside dans un fichier avec extension .FCMat. Certains de ces fichiers font partie du source de FreeCAD et sont compilés dans le fichier binaire. Il s'agit de sauver des dépenses dans la distribution et l'accès. Mais les fichiers peuvent aussi être placés et répartis à différents endroits pour accepter les autres définitions de matériaux non standards. 
+</p>
+<h3><span class="mw-headline" id="Exemples">Exemples</span></h3>
+<pre>; Dernière modification 1 April 2001 by John Doe
+
+Name=Steel_Cast
+Father=Steel
+Source=Some material book everyone knows (or not)&#160;;Some comment
+ 
+[EN10027]
+; steel standard EN 10027-1
+Name=S235JR+AR      
+
+[Graphic]
+Color_Emissiv = 255,255,255
+</pre>
+<h2><span class="mw-headline" id="Propri.C3.A9t.C3.A9s_du_mat.C3.A9riau">Propriétés du matériau</span></h2>
+<p>Voici maintenant la description des propriétés du matériau convenues. N'hésitez pas à ajouter un paragraphe pour les propriétés de matériaux de votre champ d'application. 
+</p>
+<h3><span class="mw-headline" id="G.C3.A9n.C3.A9ralit.C3.A9s">Généralités</span></h3>
+<table border="1" style="text-align:left; width:80%;">
+<caption> Propriétés générales des matériaux
+</caption>
+<tr>
+<th> Nom de la propriété
+</th>
+<th> Description
+</th>
+<th> Unité/Type de donnée
+</th></tr>
+<tr>
+<th> Name
+</th>
+<td> Nom unique de la propriété, suivant les règles décrites ci-dessus </td>
+<td> ASCII string 7-bit
+</td></tr>
+<tr>
+<th> Father
+</th>
+<td> Nom du groupe de matériaux à qui ce matériau appartient. Si ce matériau est défini il hérite de toutes les propriétés Father (Parent). Ce qui signifie que s'il n'est pas défini les propriétés Father (Parent) seront utilisées.  </td>
+<td> ASCII string 7-bit
+</td></tr>
+<tr>
+<th> Description
+</th>
+<td> Un espace réservé pour une plus longue description du matériau </td>
+<td> ASCII string 7-bit
+</td></tr>
+<tr>
+<th> SpecificWeight
+</th>
+<td> Le poids spécifique (également connu sous le nom du poids unitaire) est le poids (plus exactement la masse) par unité de volume d'un matériau. Voir: <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Specific_weight">Specific_weight</a>  </td>
+<td> kg/mm^3
+</td></tr>
+<tr>
+<th> Vendor
+</th>
+<td> Spécifie la marque ou le fournisseur du matériau </td>
+<td> ASCII string 7-bit
+</td></tr>
+<tr>
+<th> ProductURL
+</th>
+<td> Une URL où trouver plus d'informations sur le matériau </td>
+<td> ASCII string 7-bit
+</td></tr>
+<tr>
+<th> SpecificPrice
+</th>
+<td> Le prix unitaire de ce matériau. Les unités peuvent beaucoup varier (USD/m³, EUR/pièce, etc...) </td>
+<td> ASCII string 7-bit
+</td></tr></table>
+<p><b>ToDos (à faire):</b> ajouter certaines propriétés avec un système de commandes de matériaux (métal, alliage, minéral, bois...)
+</p>
+<h3><span class="mw-headline" id="M.C3.A9canique">Mécanique</span></h3>
+<div class="mw-translate-fuzzy">
+<table border="1" style="text-align:left; width:80%;">
+<caption> Propriétés des matériaux utilisés en génie mécanique
+</caption>
+<tr>
+<th> Nom de la propriété
+</th>
+<th> Description
+</th>
+<th> Unité/Type de donnée
+</th></tr>
+<tr>
+<th> YoungsModulus
+</th>
+<td> Module de Young, également connu sous le nom de Module de traction ou module d'élasticité, est une mesure de raideur d'un matériau élastique et est une quantité utilisée pour caractériser les matériaux. Voir: <a rel="nofollow" class="external autonumber" href="http://fr.wikipedia.org/wiki/Module_de_Young">[1]</a>
+</td>
+<td> kg*mm^-1*s^-2 (MPa)
+</td></tr>
+<tr>
+<th>UltimateTensileStrength
+</th>
+<td> Résistance à la traction ultime ...
+</td>
+<td> N'*mm^-2 (kPa)
+</td></tr>
+<tr>
+<th>Hardness
+</th>
+<td> Dureté ...
+</td>
+<td>
+</td></tr>
+<tr>
+<th> EN-10027-1
+</th>
+<td> Dans le cas de l'acier, la <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Steel_grades">nuance d'acier</a> telle que définie dans la norme européenne <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/European_Committee_for_Standardization">European standard</a> No. 10027-1. </td>
+<td> string ASCII 7-bit
+</td></tr></table>
+</div>
+<p><b>ToDos (à faire):</b> ajouter encore des propriétés requises pour la conception mécanique.
+</p>
+<h3><span class="mw-headline" id="Graphique">Graphique</span></h3>
+<p>Cette section définit les propriétés du matériau qui sont liées à l'apparence visuelle du matériau. Le  
+</p>
+<table border="1" style="text-align:left; width:80%;">
+<caption> visual appearance
+</caption>
+<tr>
+<th> Nom de la propriété
+</th>
+<th> Description
+</th>
+<th> Unité/Type de donnée
+</th></tr>
+<tr>
+<th> AmbientColor
+</th>
+<td> Couleur d'ambiance dans le modèle de couleur Coin3D</td>
+<td> float,float,float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> DiffuseColor
+</th>
+<td> Diffusion de Couleur dans le modèle de couleur Coin3D</td>
+<td> float,float,float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> SpecularColor
+</th>
+<td> Couleur spéculaire dans le modèle de couleur Coin3D</td>
+<td> float,float,float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> EmissiveColor
+</th>
+<td> Couleur émissive dans la palette de couleurs Coin3D</td>
+<td> float,float,float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> Shininess
+</th>
+<td> Couleur d'ambiance dans le modèle de couleur Coin3D</td>
+<td> float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> Transparency
+</th>
+<td> Transparence de Couleur dans le modèle de couleur Coin3D</td>
+<td> float range: 0.0-1.0
+</td></tr>
+<tr>
+<th> VertxShader
+</th>
+<td> Programme de nuancier vertex au sens de <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/OpenGL_Shading_Language">GlSl</a> </td>
+<td> Multi line string ASCII 7-bit
+</td></tr>
+<tr>
+<th> FragmentShader
+</th>
+<td> Programme de shader (ombre) de fragment, tel que défini dans <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/OpenGL_Shading_Language">GlSl</a> </td>
+<td> Multi line string ASCII 7-bit
+</td></tr></table>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="M.C3.A9thode_des_.C3.A9l.C3.A9ments_finis">Méthode des éléments finis</span></h3>
+<p><b>ToDos (à faire):</b> Constituer la collection des propriétés du matériau FEM.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="Dynamique_des_fluides_computationnelle">Dynamique des fluides computationnelle</span></h3>
+<p><b>ToDos (à faire):</b> Constituer la collection des propriétés du matériau CFM.
+</p>
+</div>
+<h3><span class="mw-headline" id="Architecture_et_BIM">Architecture et BIM</span></h3>
+<div class="mw-translate-fuzzy">
+<table border="1" style="text-align:left; width:80%;">
+<caption> Propriétés des matériaux utilisés dans la conception architecturale
+</caption>
+<tr>
+<th> Nom de la propriété
+</th>
+<th> Description
+</th>
+<th> Unité/Type de donnée
+</th></tr>
+<tr>
+<th> StandardFormat
+</th>
+<td> Le système de spécification standard utilisé dans ce matériau (ASTM, MasterFormat, CSI, OmniClass, etc...)</td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> StandardCode
+</th>
+<td> Le code spécifique de ce matériau dans le format standard ci-dessus</td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> FireStandard
+</th>
+<td> La norme de résistance au feu utilisée dans le matériau</td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> FireClass
+</th>
+<td> La <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Fire-resistance_rating">classe de résistance au feu</a> du matériau selon la norme ci-dessus</td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> ThermalConductivity
+</th>
+<td> La <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Conductivit%C3%A9_thermique">conductivité thermique (R ou coefficient lambda)</a> qui indique la capacité de transfert de chaleur d'un matériau </td>
+<td> W/m²K
+</td></tr>
+<tr>
+<th> SoundTransmission
+</th>
+<td> Le coefficient de transmission sonore de ce matériau </td>
+<td> W/m²K
+</td></tr>
+<tr>
+<th> Finish
+</th>
+<td> Le type de finition/couche de surface de ce matériau </td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> Color
+</th>
+<td> La couleur de ce matériau</td>
+<td> String ASCII 7-bit
+</td></tr>
+<tr>
+<th> UnitsArea
+</th>
+<td> Le nombre d'unités de ce matériel nécessaire pour remplir une certaine zone</td>
+<td> String ASCII 7-bit
+</td></tr></table>
+<p><b>ToDos (à faire):</b> Ajouter la durabilité &amp; les propriétés LEED
+</p>
+</div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Material/fr&amp;oldid=288875">http://www.freecadweb.org/wiki/index.php?title=Material/fr&amp;oldid=288875</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

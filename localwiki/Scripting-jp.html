@@ -1,0 +1,116 @@
+<html><head><title>Scripting/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scripting/jp</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Scripting/jp&amp;redirect=no" class="mw-redirect" title="Scripting/jp">Scripting/jp</a>)</span></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crystal_Clear_app_terminal.png" class="image" title="150"><img alt="150" src="Crystal_Clear_app_terminal.png" width="128" height="128" /></a></div>
+<p>これはFreeCAD内部により深く踏みいりたい人向けのページです。ここではあなたの必要に応じてFreeCADをカスタマイズする方法について学ぶことができます。
+</p><p>このページはまだ書き始められたばかりです。もしあなたの探している情報が見つからなかったり、ここにリンクされていないどこかのページですばらしい情報を見つけたら<a href="https://www.freecadweb.org/wiki/index.php?title=Talk:Power_users_hub" title="Talk:Power users hub">トークページ</a>にコメントを残すか、あるいは<a rel="nofollow" class="external text" href="Help_FreeCAD.html">ここにあなた自身の手で書き足してください！</a>
+</p><p>FreeCADの優れた機能のひとつはスクリプト制御によって拡張することができることです。これによって何かをコンパイルしたり、ソースコードに触れることなく大規模な拡張を行うことができます。スクリプト部分は全て<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>によって作成されています。非常に強力でありながらシンプルなプログラミング言語です。簡単なPythonスクリプトを使ってFreeCADの任意の部分に完全なアクセスをおこなうことができます。
+例えば以下のようなことが可能です：
+</p>
+<ul><li> <b>ジオメトリーの作成と変更</b>： あなたにとっては必要なのにデフォルトのFreeCADインストールにはない特別なオブジェクトはありませんか？新しいオブジェクトの型を簡単に作ることができます。ゼロから作ることもできますし、既に存在する型を変更して作ることもできます。</li>
+<li> <b>自作ツールやコマンドの作成</b>： 現在でもFreeCADは既に幅広い機能を持っていますが、エンドユーザー向けのベンチなツールやコマンドはまだ多くはありません。</li></ul>
+<p>しかし既にあなた独自のツールを作ることが簡単に出来るようになっています。
+</p>
+<ul><li> <b>インターフェイスの変更</b>： FreeCADのユーザーインターフェイスは現段階ではまだ非常に基礎的なものになっています。しかし必要に応じてそれを拡張するために必要なものは全て揃っています。例えばあなた独自のツールのためのツールバーを作ったり、ツールを操作するための特別なパネルを作ったりといったことが可能です。</li>
+<li><b>シーン表示の変更</b>： FreeCADではジオメトリーを作成し計算する処理とそのジオメトリーを画面に表示する処理が分離されています。あなたは画面に表示されるシーンの内容に完全にアクセスすることができます。従って表示を変更したり、それを操作したり、情報表示やドラッグ表示、リンク表示や一時的な表示などあらゆる種類の自作処理やスクリーンウィジットを追加することができます。</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#FreeCAD.E3.81.AE.E3.82.AB.E3.82.B9.E3.82.BF.E3.83.9E.E3.82.A4.E3.82.BA"><span class="tocnumber">1</span> <span class="toctext">FreeCADのカスタマイズ</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#FreeCAD.E3.81.A7.E3.81.AE.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">2</span> <span class="toctext">FreeCADでのスクリプト処理</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Modules"><span class="tocnumber">2.1</span> <span class="toctext">Modules</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#API.E9.96.A2.E6.95.B0"><span class="tocnumber">3</span> <span class="toctext">API関数</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E9.AB.98.E5.BA.A6.E3.81.AA.E5.A4.89.E6.9B.B4"><span class="tocnumber">4</span> <span class="toctext">高度な変更</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Python.E3.83.81.E3.83.A5.E3.83.BC.E3.83.88.E3.83.AA.E3.82.A2.E3.83.AB"><span class="tocnumber">5</span> <span class="toctext">Pythonチュートリアル</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E3.82.B3.E3.83.9F.E3.83.A5.E3.83.8B.E3.83.86.E3.82.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E3.83.97.E3.83.AD.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88"><span class="tocnumber">6</span> <span class="toctext">コミュニティーによるプロジェクト</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="FreeCAD.E3.81.AE.E3.82.AB.E3.82.B9.E3.82.BF.E3.83.9E.E3.82.A4.E3.82.BA">FreeCADのカスタマイズ</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Interface_Customization/jp" title="Interface Customization/jp">インターフェイスのカスタマイズ</a>： まずはツールバーやショートカットから始めてみましょう</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/jp" title="Macros/jp">マクロを使った作業</a>： よく繰り返す操作やPythonコードを簡単に記録できます</li></ul>
+<h2><span class="mw-headline" id="FreeCAD.E3.81.A7.E3.81.AE.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">FreeCADでのスクリプト処理</span></h2>
+<p><b>一般</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/jp" title="Introduction to Python/jp">Python入門</a>： このページ下部の他のPythonチュートリアルも参照してください</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/jp" title="Python scripting tutorial/jp">FreeCADスクリプト処理チュートリアル</a>： FreeCADでの一般的なPythonスクリプト処理の概要</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp" title="FreeCAD Scripting Basics/jp">FreeCADスクリプト処理の基礎</a>： 基本・・・</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Gui_Command/jp" title="Gui Command/jp">GUIコマンド</a>： GUIへの自作コマンドの追加</li>
+<li> FreeCADでの混在した<a href="https://www.freecadweb.org/wiki/index.php?title=Units/jp" title="Units/jp">単位</a>の使用</li></ul>
+<h3><span class="mw-headline" id="Modules">Modules</span></h3>
+<p>As the functionality of FreeCAD is separated in Modules which deal with special data types and applications. FreeCAD has built-in modules and Extension Modules (plug-ins). Once plugin modules are installed, they become availible to you as easily as the built-in modules. The modules described below are the default modules, includeed in every FreeCAD installation.
+</p>
+<ul><li> The <a href="https://www.freecadweb.org/wiki/index.php?title=Builtin_modules/jp" title="Builtin modules/jp">Builtin modules</a> are the principal FreeCAD modules. They contain tools for manipulating general FreeCAD configurations, documents and their contents.</li></ul>
+<p><b>メッシュを使った作業</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp" title="Mesh Scripting/jp">メッシュのスクリプト処理</a>： <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">メッシュモジュール</a>の操作方法</li></ul>
+<p><b>パーツを使った作業</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>： FreeCADで<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">Open CASCADE Technology</a>ツールとデータがどのように使用されているか</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp" title="Topological data scripting/jp">トポロジーデータのスクリプト処理</a>： パートモジュールの操作方法</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=PythonOCC/jp&amp;action=edit&amp;redlink=1" class="new" title="PythonOCC/jp (page does not exist)">PythonOCC</a>： OpenCASCADEの力の全てを解き放つ方法</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/jp" title="Mesh to Part/jp">メッシュからパートへ</a>： オブジェクト型間での変換</li></ul>
+<p><b>Coinシーングラフへのアクセス</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/jp" title="Scenegraph/jp">Coin/Inventorシーングラフ</a>： FreeCADのシーン表現がどのように動作しているか</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/jp" title="Pivy/jp">Pivy</a>： シーングラフへのアクセスとその変更方法</li></ul>
+<p><b>Qtインターフェイスの制御</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=PyQt/jp" title="PyQt/jp">PyQt</a>： インターフェイスへのアクセスとその内容の変更方法</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCADGui/jp" title="Embedding FreeCADGui/jp">FreeCADのGUIの使用</a>：PyQtを使った別のQtアプリケーションでのFreeCADのGUIの使用</li></ul>
+<p><b>パラメトリックオブジェクトを使った作業</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/jp" title="Scripted objects/jp">スクリプトオブジェクト</a>： FreeCADでの完全にPythonで作成されたスクリプトオブジェクトの作り方</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/jp" title="Drawing Module/jp">ドローイングモジュール</a>： 三次元から二次元への処理の自動化</li></ul>
+<p><b>サンプル</b>
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/jp" title="Code snippets/jp">コードスニペット</a>： あなたのスクリプトの一部として使えるFreeCAD用Pythonコード集。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/jp" title="Line drawing function/jp">ライン描画機能</a>： ラインを描画するための簡単なツールの作り方</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/jp" title="Dialog creation/jp">ダイアログ作成</a>： Qtデザイナーを使ってダイアログを作成し、それをFreeCADで使う方法</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/jp" title="Embedding FreeCAD/jp">FreeCADの埋め込み</a>： FreeCADをPythonモジュールとして他のアプリケーションにインポートする方法</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">製図ワークベンチ</a>： 基本的な二次元描画機能をFreeCADで使えます。全てPythonで書かれているのであなたが独自のモジュールを作りたい場合は良い例になるでしょう。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_vector_math_library/jp&amp;action=edit&amp;redlink=1" class="new" title="FreeCAD vector math library/jp (page does not exist)">FreeCADベクトル演算ライブラリー</a>： FreeCADのベクトルを操作するためのいくつかの便利な関数です。このライブラリーは製図モジュールにも含まれています。.</li></ul>
+<h2><span class="mw-headline" id="API.E9.96.A2.E6.95.B0">API関数</span></h2>
+<p>APIの完全なドキュメントは <a href="https://www.freecadweb.org/wiki/index.php?title=Category:API/jp" title="Category:API/jp">ここ</a>.にあります。まだ未完成なものであることに注意してください。これはこのウィキに自動で追加する方法をまだ私たちが見つけられていないためです。より詳細な情報はFreeCADのモジュールを直接見てください。
+</p>
+<h2><span class="mw-headline" id=".E9.AB.98.E5.BA.A6.E3.81.AA.E5.A4.89.E6.9B.B4">高度な変更</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/jp" title="Start up and Configuration/jp">スタートアップと設定</a>： スタートアップとコマンドラインオプション</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/jp" title="Install on Windows/jp">Windows上でのインストール</a>： Windows用インストーラーの使用</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/jp" title="CompileOnWindows/jp">Window上でのFreeCADのコンパイル</a>と<a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/jp" title="CompileOnUnix/jp">Unix上でのFreeCADのコンパイル</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/jp" title="Branding/jp">ブランディング</a>： ソースコードに簡単な変更を加えてFreeCADの外観の一部を変更することができます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/jp" title="Extra python modules/jp">追加のPythonモジュール</a>： これらの強力なモジュールを使ってFreeCADのPythonインタープリターを拡張しましょう！</li></ul>
+<h2><span class="mw-headline" id="Python.E3.83.81.E3.83.A5.E3.83.BC.E3.83.88.E3.83.AA.E3.82.A2.E3.83.AB">Pythonチュートリアル</span></h2>
+<p>FreeCADに限定しないその他のチュートリアルです。もしあなたがPythonの初心者であれば興味を持つかもしれません。
+</p><p><b>Python</b>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://docs.python.org/tut/tut.html">公式Pythonチュートリアル</a>： Pythonを知るための非常に詳細なチュートリアル</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python">非プログラマー向けのPythonチュートリアル</a>： すばらしいウィキブック</li>
+<li> <a rel="nofollow" class="external text" href="http://npt.cc.rsu.ru/user/wanderer/ODP/Python_for_Newbies.htm">初心者のためのPython</a>： 基本事項を全て抑えた一つの大きなチュートリアル</li></ul>
+<p><b>PyQt</b> - PythonでFreeCADのQtユーザーインターフェイスを作成、管理する方法
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.cs.usfca.edu/~afedosov/qttut/">基礎的なPyQtチュートリアル</a>： シンプルで短いLinuxベースのチュートリアル。PyQtとQtデザイナーがどのように動作するかを説明しています</li>
+<li> <a rel="nofollow" class="external text" href="http://zetcode.com/tutorials/pyqt4/firstprograms/">PyQt4での初めてのプログラム</a>： プラットフォーム依存のないチュートリアル。PythonとQtの演習が載っています</li>
+<li> <a rel="nofollow" class="external text" href="http://vizzzion.org/?id=pyqt">PythonでのQtアプリケーションプログラミング</a>： QtとPythonを使った全ての処理を網羅したより詳細なチュートリアル</li></ul>
+<p><b>Pivy</b> - FreeCADの3Dシーンを操作する方法
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/documentation/pycon">基礎的なPivyチュートリアル</a>： 公式Pivyサイトにある非常に簡単なチュートリアル</li>
+<li> <a rel="nofollow" class="external text" href="http://www.google.com.br/url?sa=U&amp;start=3&amp;q=http://studierstube.icg.tu-graz.ac.at/doc/pdf/PivyStudierstubeTutorial.pdf&amp;ei=XyC1Sc2wOeCKmQem_eHnBQ&amp;usg=AFQjCNEYhb-0DcUc6OxFVijAe1epBb-4aA">studierstubeのPivy入門</a>： チュートリアルではありませんがPivyがどのように動作していうのかをわかりやすく説明してます</li></ul>
+<h2><span class="mw-headline" id=".E3.82.B3.E3.83.9F.E3.83.A5.E3.83.8B.E3.83.86.E3.82.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E3.83.97.E3.83.AD.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88">コミュニティーによるプロジェクト</span></h2>
+<p><a href="FreeCAD_Community_Portal.html" title="FreeCAD Community Portal">コミュニティーポータル</a>でFreeCADユーザーコミュニティによって運営されている他のFreeCADベースのプロジェクトを見つけることができます。もしあなたが新しいFreeCADプロジェクトを始めようとしているのならそこにあるリストを確認してください！もしあなたが<a href="https://www.freecadweb.org/wiki/index.php?title=Help_FreeCAD/jp" title="Help FreeCAD/jp">FreeCADの手助け</a>をしたいのであればあなたにできることを載せたページもあります。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/jp&amp;oldid=211464">http://www.freecadweb.org/wiki/index.php?title=Power_users_hub/jp&amp;oldid=211464</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

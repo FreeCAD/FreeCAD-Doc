@@ -1,0 +1,297 @@
+<html><head><title>Macro PartToVRML/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro PartToVRML/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Macro_PartToVRML"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartToVRML.png" class="image"><img alt="PartToVRML.png" src="32px-PartToVRML.png" width="32" height="31" srcset="/wiki/images/thumb/f/f8/PartToVRML.png/48px-PartToVRML.png 1.5x, PartToVRML.png 2x" /></a> Macro Macro PartToVRML</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro converti un objet Part en objet VRML meshe.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Easyw-fc&amp;action=edit&amp;redlink=1" class="new" title="User:Easyw-fc (page does not exist)">Easyw-fc</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.9.2
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-02-22
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Macro_PartToVRML"><span class="tocnumber">1</span> <span class="toctext">Macro Macro PartToVRML</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Script"><span class="tocnumber">3</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Links"><span class="tocnumber">4</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro converti un objet Parts en objet VRML meshe pour les petites tailles et un chargement plus rapide utilisez (VRML models Kicad et Blender)
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>L’icône pour votre barre d'outils <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartToVRML.png" class="image" title="PartToVRML"><img alt="PartToVRML" src="PartToVRML.png" width="64" height="62" /></a> 
+</p><p><b>Macro_PartToVRML.FCMacro</b>
+</p>
+<pre>
+
+# -*- coding: utf-8 -*-
+
+# PartToVRML.FCMacro
+# creates VRML model of selected object(s), with colors (for Kicad and Blender compatibility)
+# useful messages on Report view
+#
+
+__title__ = "PartToVRML"
+__author__ = "easyw-fc, hyOzd"
+__url__     = "http://www.freecadweb.org/"
+__version__ = "1.9.2"
+__date__    = "22/02/2016"
+
+__Comment__ = "This macro creates VRML model of selected object(s), with colors (for Kicad and Blender compatibility)"
+__Web__ = "http://www.freecadweb.org/"
+__Wiki__ = "http://www.freecadweb.org/wiki/index.php?title=Macro_PartToVRML"
+__Icon__  = "/usr/lib/freecad/Mod/plugins/icons/Macro_PartToVRML.png"
+__IconW__  = "C:/Users/User Name/AppData/Roaming/FreeCAD/Macro_PartToVRML.png"
+__Help__ = "start the macro and follow the instructions"
+__Status__ = "stable"
+__Requires__ = "Freecad"
+
+# FreeCAD VRML python exporter is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This sw is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with expVrmlColor.FCMacro.  If not, see
+# &lt;http://www.gnu.org/licenses/&gt;.
+
+## export VRML from FreeCAD is a python macro that will export simplified VRML of 
+## a (multi)selected Part or fused Part to VRML optimized to Kicad and compatible with Blender
+## the size of VRML is much smaller compared to the one exported from FC Gui
+## and the loading/rendering time is smaller too
+## change mesh deviation to increase quality of VRML
+
+## to do 
+#  export material properties to vrml
+
+import FreeCAD,FreeCADGui,Part,Mesh
+import PySide
+from PySide import QtGui, QtCore
+from collections import namedtuple
+import sys, os
+from os.path import expanduser
+
+#clearing previous messages
+mw=Gui.getMainWindow()
+c=mw.findChild(QtGui.QPlainTextEdit, "Python console")
+c.clear()
+r=mw.findChild(QtGui.QTextEdit, "Report view")
+r.clear()
+
+def say(msg):
+    FreeCAD.Console.PrintMessage(msg)
+    FreeCAD.Console.PrintMessage('\n')
+
+# points: [Vector, Vector, ...]
+# faces: [(pi, pi, pi), ], pi: point index
+# color: (Red, Green, Blue), values range from 0 to 1.0
+Mesh = namedtuple('Mesh', ['points', 'faces', 'color', 'transp'])
+
+def shapeToMesh(shape, color, transp, scale=None):
+    mesh_deviation=0.03 #the smaller the best quality, 1 coarse; 0.03 good compromise&#160;:)
+    mesh_data = shape.tessellate(mesh_deviation)
+    points = mesh_data[0]
+    if scale&#160;!= None:
+        points = map(lambda p: p*scale, points)
+    newMesh= Mesh(points = points,
+                faces = mesh_data[1],
+                color = color, transp=transp)
+    return newMesh
+        
+def exportVRML(objects, filepath):
+    """Export given list of Mesh objects to a VRML file.
+
+    `Mesh` structure is defined at root."""
+
+    with open(filepath, 'w') as f:
+        # write the standard VRML header
+        f.write("#VRML V2.0 utf8\n\n")
+        for obj in objects:
+            f.write("Shape { geometry IndexedFaceSet \n{ coordIndex [")
+            # write coordinate indexes for each face
+            f.write(','.join("%d,%d,%d,-1"&#160;% f for f in obj.faces))
+            f.write("]\n") # closes coordIndex
+            f.write("coord Coordinate { point [")
+            # write coordinate points for each vertex
+            #f.write(','.join('%.3f&#160;%.3f&#160;%.3f'&#160;% (p.x, p.y, p.z) for p in obj.points))
+            f.write(','.join('%.3f&#160;%.3f&#160;%.3f'&#160;% (p.x, p.y, p.z) for p in obj.points))
+            f.write("]\n}") # closes Coordinate
+            #shape_col=(1.0, 0.0, 0.0)#, 0.0)
+            f.write("}\n") # closes points
+            #say(obj.color)
+            shape_col=obj.color[:-1] #remove last item
+            #say(shape_col)
+            shape_transparency=obj.transp
+            f.write("appearance Appearance{material Material{diffuseColor&#160;%f&#160;%f&#160;%f\n"&#160;% shape_col)
+            f.write("transparency&#160;%f}}"&#160;% shape_transparency)
+            f.write("}\n") # closes Shape
+        say(filepath+' written')
+###
+
+def export(componentObjs, fullfilePathName, scale=None):
+    """ Exports given ComponentModel object using FreeCAD.
+
+    `componentObjs`&#160;: a ComponentObjs list
+    `fullfilePathName`&#160;: name of the FC file, extension is important
+    
+    """
+    
+    exp_name=componentObjs[0].Label
+    path, fname = os.path.split(fullfilePathName)
+    fname=os.path.splitext(fname)[0]
+    if scale&#160;!= None:
+        filename=path+os.sep+exp_name+'.wrl'
+    else:
+        filename=path+os.sep+exp_name+'_1_1.wrl'
+    say(filename)    
+    color=[]
+    Diffuse_color=[]
+    transparency=[]
+    for obj in componentObjs:
+        say(obj.Label)
+        color.append(Gui.ActiveDocument.getObject(obj.Name).ShapeColor)
+        transparency.append(Gui.ActiveDocument.getObject(obj.Name).Transparency/100.0)
+        #say("color")
+        #say(Gui.ActiveDocument.getObject(obj.Name).DiffuseColor)
+        Diffuse_color.append(Gui.ActiveDocument.getObject(obj.Name).DiffuseColor)
+    i=0
+    meshes=[]
+    #say("diffuse color")
+    #say(Diffuse_color)
+    indexColor=0;
+    color_vector=[]
+    applyDiffuse=0
+    for obj in componentObjs:
+        shape1=obj.Shape
+        single_color=Diffuse_color[i];
+        #check lenght color
+        #say("len color")
+        #say(len(single_color))
+        #colors less then faces
+        if(len(single_color)!=len(shape1.Faces)):
+            applyDiffuse=0;
+            #copy color to all faces
+        #else copy singolar colors for faces
+        else:
+            applyDiffuse=1;
+            for color in single_color:
+                color_vector.append(color)
+        #say("color_vector")
+        #say(color_vector)
+        for index in range(len(shape1.Faces)):
+            #say("color x")
+            #say(color_vector[indexColor])
+            singleFace=shape1.Faces[index]
+            if(applyDiffuse):
+                #say(color_vector[indexColor])
+                meshes.append(shapeToMesh(singleFace, color_vector[indexColor], transparency[i], scale))
+            else:
+                #say(single_color[0])
+                meshes.append(shapeToMesh(singleFace, single_color[0], transparency[i], scale))
+            indexColor=indexColor+1
+            #meshes.append(shapeToMesh(face, Diffuse_color[i], transparency[i], scale))
+        color_vector=[]
+        indexColor=0;
+        i=i+1            
+    exportVRML(meshes, filename)
+    return
+###
+
+def go_export():
+    sel = FreeCADGui.Selection.getSelection()
+    if not sel:
+        FreeCAD.Console.PrintWarning("Select something first!\n\n")
+        msg="export VRML from FreeCAD is a python macro that will export simplified VRML of "
+        msg+="a (multi)selected Part or fused Part to VRML optimized to Kicad and compatible with Blender "
+        msg+="the size of VRML is much smaller compared to the one exported from FC Gui "
+        msg+="and the loading/rendering time is also smaller\n"
+        msg+="change mesh deviation to increase quality of VRML"
+        say(msg)
+    else:
+        objs = []
+        for obj in sel:
+                objs.append(obj)
+                #say(obj.Label)
+                #say(obj.Name)
+        say(fullFilePathName)
+        #say(objs)
+        export(objs, fullFilePathName, scale=None)
+        export(objs, fullFilePathName, 0.3937)
+    
+doc = FreeCAD.ActiveDocument
+if doc!=None:
+    fullFilePathName=doc.FileName
+    if fullFilePathName=="":
+        home = expanduser("~")
+        fullFilePathName=home+os.sep+doc.Label+'.FCStd'
+        say('path not found, saving to '+fullFilePathName)
+        #say(fullFilePathName)
+    else:
+        fullFilePathName = os.path.dirname(os.path.abspath(fullFilePathName))
+        fullFilePathName=fullFilePathName+os.sep+doc.Label+'.FCStd'
+        say(fullFilePathName)
+    go_export()
+
+</pre>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p>La discussion forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=14099">export VRML from FreeCAD with python for smaller size, kicad and Blender compatible</a>
+</p><p>La macro inverse, <a href="Macro_MeshToPart.html" title="Macro MeshToPart">Macro_MeshToPart</a>
+</p>
+</div>
+<div style="clear:both"></div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_PartToVRML/fr&amp;oldid=240094">http://www.freecadweb.org/wiki/index.php?title=Macro_PartToVRML/fr&amp;oldid=240094</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

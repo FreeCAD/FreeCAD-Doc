@@ -1,0 +1,90 @@
+<html><head><title>Pivy/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a> is a python binding library for <a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>, the 3D-rendering library used in FreeCAD. When imported in a running python interpreter, it allows to dialog directly with any running Coin3d <a href="Scenegraph.html" title="Scenegraph">scenegraphs</a>, such as the FreeCAD 3D views, or even to create new ones. Pivy is bundled in standard FreeCAD installation.
+</p><p>Библиотека coin разделена на несколько частей, собственно coin, для управления древами сцен и привязки к различным GUI системам, таким как windows или, в нашем случае, qt. Эти модули также доступны pivy, если они представлены в системе. Модуль coin всегда присутствует, и это то что мы будем использовать в любом случае, поэтому мы не должны хаботится о наших привзках нашего 3D отображения, к различным интерфейсам, это уже сделано в самом FreeCAD. Все что вам нужно, так это сделать ЭТО:
+</p>
+<pre>from pivy import coin </pre>
+<h2><span class="mw-headline" id=".D0.9F.D0.BE.D0.BB.D1.83.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D0.BE.D1.81.D1.82.D1.83.D0.BF.D0.B0_.D0.B8_.D0.B8.D0.B7.D0.BC.D0.B5.D0.BD.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D1.80.D0.B5.D0.B2.D0.B0_.D1.81.D1.86.D0.B5.D0.BD">Получение доступа и изменение древа сцен</span></h2>
+<p>Мы говорили на странице  <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/ru" title="Scenegraph/ru">Scenegraph</a> как  организована типичная Coin сцена. Все что добавляется в окно трехмерного отображения FreeCAD , coin scenegraph, организует схожим образом. у нас есть один корневой узел, и все объекты на экране его потомки.
+</p><p>FreeCAD обладает простым способом получит доступ к корневому узлу(вершине) древа сцена 3D вида:
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg </pre>
+<p>Это вернет корневой узел:
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; </pre>
+<p>Мы сразу же можем просмотреть потомков, нашей сцены:
+</p>
+<pre>for node in sg.getChildren():
+    print node </pre>
+<p>Некоторые из этих узлов, такие как SoSeparators или SoGroups, также могут обладать потомками. Полный список доступных coin объектов можно найти в <a rel="nofollow" class="external text" href="http://coin3d.bitbucket.org/Coin/classes.html">оффициальной документаци coin</a>.
+</p><p>Давайте, сейчас, попробуем добавить что-нибудь в наше древо сцены. Мы добавим милейший красный куб:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>и здесь наш(милый) красный куб. Теперь попробуем следующее:
+</p>
+<pre>col.rgb=(1,1,0) </pre>
+<p>Видите? все по прежнему доступно и изменяемо на лету. Не нужно что-нибудь пересчитывать или перересовывать, coin позаботится обо всем. Вы можете что-то в ваше древо сцен, изменить свойства, скрыть этот объект, показать временный объект, что угодно. Конечно это касается только отображения трехмерного вида. Это отображение получается при считывании FreeCAD-ом файла при открытии, и когда объект нужно перечитать. Так что, если вы изменили какой-нибудь аспект в существующем FreeCAD объекте,эти изменения будут потеряны, если объект перечитают, или же повторно откроют.
+</p><p>Ключ к работе с древом сцен в ваших сценариях, чтобы обладать доступом к определенным свойствам узлов вы добавляете то что вам нужно. Например, если нам нужно переместить наш куб, мы добавили бы узел SoTranslation в нашему обычному узлу, м выглядело бы это так:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>Помните, что в дереве сцен openInventor, важен порядок. Узел влияет на то что будет дальше, вы можете сказать нечто вроде: цет красны, куб, цвет желтый, сфера, и вы получите красный куб и желтую сферу. Если мы добавим перемещение сейчас в нашу существующий узел, он будет стоять после куба и не будет влиять на него. Если мы вставили его до его создания, как показано выше, мы могли бы сейчас сделать:
+</p>
+<pre>trans.translation.setValue([2,0,0]) </pre>
+<p>И наш куб прыгает на 2 единицы вправо.
+Наконец, удалим что-нибудь, введя:
+</p>
+<pre>sg.removeChild(myCustomNode) </pre>
+<h2><span class="mw-headline" id=".D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BE.D0.B1.D1.80.D0.B0.D1.82.D0.BD.D1.8B.D1.85_.D0.B2.D1.8B.D0.B7.D0.BE.D0.B2.D0.BE.D0.B2">Использование обратных вызовов</span></h2>
+<p><a rel="nofollow" class="external text" href="http://ru.wikipedia.org/wiki/Callback_%28%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%29">Функция обратного вызова</a> это система, позволяет библиотекам которые вы используете, такой как наша библиотека coin , возвращать вызов, это означает, возможность вызова определенных функций  с вашего запущенного python объекта. Это очень полезно, потому что это способ которыйм coin может сообщить вам , о конкретных событиях происходящих на сцене. Coin может наблюдать за множеством различных вещей, таких как положение курсора, нажатия клавиши мыши, нажатые клавиши клавиатуры, и множество других вещей.
+</p><p>FreeCAD способен легко испльзовать такие функции обратного вызова:
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+ 
+ButtonTest() </pre>
+<p>Функция обратного вызова, должна быть инициализирована объектом, потому что объект должен по прежнему работать, когда будут происходить обратные вызовы. Смотри также <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">полный список</a> возможных событий и их парамметров, или <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">официальную документацию coin</a>.
+</p>
+<h2><span class="mw-headline" id=".D0.94.D0.BE.D0.BA.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D0.B0.D1.86.D0.B8.D1.8F">Документация</span></h2>
+<p>К сожалению сам pivy , ещё не обладает надлежащей документацией, но так как это точный перевод coin на Python, вы можете смело использовать документацию по coin как введение и используя стиль python вместо  c++ стиля (например SoFile::getClassTypeId() в pivy будет SoFile.getClassId())
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/ru&amp;oldid=217990">http://www.freecadweb.org/wiki/index.php?title=Pivy/ru&amp;oldid=217990</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

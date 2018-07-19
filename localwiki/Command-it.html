@@ -1,0 +1,75 @@
+<html><head><title>Command/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Command/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Un comando di FreeCAD è ciò che viene eseguito quando si preme un pulsante della barra degli strumenti o si digita una scorciatoia da tastiera. Può essere un'azione molto semplice, come cambiare il livello di zoom della vista 3D o ruotare il punto di vista oppure un sistema complesso che apre le finestre di dialogo e attende che l'utente esegua delle specifiche attività.
+</p><p>Ogni comando di FreeCAD ha un nome univoco, che appare nella pagina <a href="Command_Reference.html" title="Command Reference">Command_Reference</a> se originale inglese, e nella pagina <a href="/wiki/Command_Reference/it" title="Command Reference/it">Command_Reference/it</a>  per le traduzioni . I comandi possono essere lanciati da un pulsante della barra degli strumenti, da una voce di menu o da uno script python o dalla console python, eseguendo:
+</p>
+<pre>FreeCADGui.runCommand("my_Command_Name")
+</pre>
+<p>I comandi di FreeCAD sono definiti per ambienti (workbench). Normalmente gli ambienti aggiungono le loro definizioni di comando all'avvio di FreeCAD, quindi il comando esiste ed è disponibile non appena viene avviato FreeCAD, non importa se l'ambiente corrispondente è stato attivato o meno. In alcuni casi, però, l'autore dell'ambiente può aver deciso, per non sovraccaricare troppo il processo di avvio di FreeCAD, di caricare le definizioni dei comandi solo all'avvio dell'ambiente. In questi casi, il comando è disponibile solo dopo che l'ambiente è stato attivato (si è passati ad esso almeno una volta usando il selettore dei workbench).
+</p><p>Dato che la maggior parte richiede l'interazione dell'utente, i comandi di FreeCAD sono disponibili solo in modalità GUI e non in modalità console. Tuttavia, per praticità, la maggior parte dei comandi di FreeCAD ha una corrispondente funzione Python (come Part.makeBox o Draft.makeLine), o si può eseguire il codice che è molto facile da replicare in uno script Python.
+</p><p>I comandi possono essere definiti sia in C++ che in Python.
+</p><p>Esempio di definizione di un comando C++ (di solito definito in /Mod/ModuleName/Gui/Command.cpp):
+</p>
+<pre>DEF_STD_CMD_A(StdCmdMyCommand);
+
+StdCmdMyCommand::StdCmdMyCommand()
+ &#160;: Command("Std_My_Command")
+{
+    sGroup        = QT_TR_NOOP("File");
+    sMenuText     = QT_TR_NOOP("My Command");
+    sToolTipText  = QT_TR_NOOP("Runs my command in the active document");
+    sWhatsThis    = "Std_MyCommand";
+    sStatusTip    = QT_TR_NOOP("Runs my command in the active document");
+    sPixmap       = "MyCommand.svg";
+    sAccel        = "Ctrl+A";
+}
+
+void StdCmdExport::activated(int iMsg)
+{
+    // place here the code to be executed when the command is ran
+}
+
+bool StdCmdMyCommand::isActive(void)
+{
+    // here you have a chance to return true or false depending if your command must be shown as active or inactive (greyed).
+}
+
+// the command must be "registered" in FreeCAD's command system
+CommandManager &amp;rcCmdMgr = Application::Instance-&gt;commandManager();
+rcCmdMgr.addCommand(new StdCmdMyCommand()); </pre>
+<p>e un comando simile in Python (nessuna regola per dove deve essere posizionato, ogni ambiente Python fa come meglio crede ...)
+</p>
+<pre>class MyCommand:
+
+    def __init__(self):
+        # you can add things here like defining some variables that must exist at all times
+
+    def GetResources(self):
+        return {'Pixmap' &#160;: 'MyCommand.svg',
+                    'Accel'&#160;: "Ctrl+A",
+                    'MenuText': QtCore.QT_TRANSLATE_NOOP("My_Command", "My Command"),
+                   'ToolTip': QtCore.QT_TRANSLATE_NOOP("My_Command", "Runs my command in the active document")}
+
+    def Activated(self):
+        # place here the code to be executed when the command is ran
+
+    def isActive(self):
+        # here you have a chance to return True or False depending if your command must be shown as active or inactive (greyed).
+
+# the command must be "registered" in FreeCAD's command system
+FreeCADGui.addCommand('My_Command',MyCommand()) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Command/it&amp;oldid=268849">http://www.freecadweb.org/wiki/index.php?title=Command/it&amp;oldid=268849</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

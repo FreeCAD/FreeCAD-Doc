@@ -1,0 +1,195 @@
+<html><head><title>Line drawing function/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Line drawing function/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>此页显示了如何在Python中很容易地建立高级的功能。在本练习中，我们将建立一个新的工具，绘制一条直线。这个工具可以链接到FreeCAD命令，该命令可以调用该接口的任何元素，如菜单项或工具栏按钮。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E4.B8.BB.E8.84.9A.E6.9C.AC"><span class="tocnumber">1</span> <span class="toctext">主脚本</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E8.AF.A6.E7.BB.86.E8.A7.A3.E9.87.8A"><span class="tocnumber">2</span> <span class="toctext">详细解释</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E6.B5.8B.E8.AF.95.EF.BC.86.E4.BD.BF.E7.94.A8.E8.84.9A.E6.9C.AC"><span class="tocnumber">3</span> <span class="toctext">测试＆使用脚本</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.9C.A8FreeCAD_.E6.8E.A5.E5.8F.A3.E4.B8.AD.E6.B3.A8.E5.86.8C.E8.BF.99.E4.B8.AA.E8.84.9A.E6.9C.AC"><span class="tocnumber">4</span> <span class="toctext">在FreeCAD 接口中注册这个脚本</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E6.83.B3.E8.A6.81.E6.9B.B4.E5.A4.9A.E5.90.97.EF.BC.9F"><span class="tocnumber">5</span> <span class="toctext">想要更多吗？</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E4.B8.BB.E8.84.9A.E6.9C.AC">主脚本</span></h2>
+<p>First we will write a script containing all our functionality. Then, we will save this in a file, and import it in FreeCAD, so all classes and functions we write will be availible to FreeCAD. So, launch your favorite text editor, and type the following lines:
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+
+class line:
+    "this class will create a line after the user clicked 2 points on the screen"
+    def __init__(self):
+        self.view = FreeCADGui.ActiveDocument.ActiveView
+        self.stack = []
+        self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint)  
+
+    def getpoint(self,event_cb):
+        event = event_cb.getEvent()
+        if event.getState() == SoMouseButtonEvent.DOWN:
+            pos = event.getPosition()
+            point = self.view.getPoint(pos[0],pos[1])
+            self.stack.append(point)
+            if len(self.stack) == 2:
+                l = Part.Line(self.stack[0],self.stack[1])
+                shape = l.toShape()
+                Part.show(shape)
+                self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+</pre>
+<h2><span class="mw-headline" id=".E8.AF.A6.E7.BB.86.E8.A7.A3.E9.87.8A">详细解释</span></h2>
+<pre>import Part, FreeCADGui
+from pivy.coin import *
+</pre>
+<p>In Python, when you want to use functions from another module, you need to import it. In our case, we will need functions from the <a href="Part_Module.html" title="Part Module">Part Module</a>, for creating the line, and from the Gui module (FreeCADGui), for accessing the 3D view. We also need the complete contents of the coin library, so we can use directly all coin objects like SoMouseButtonEvent, etc...
+</p>
+<pre>class line:
+</pre>
+<p>Here we define our main class. Why do we use a class and not a function? The reason is that we need our tool to stay "alive" while we are waiting for the user to click on the screen. A function ends when its task has been done, but an object (a class defines an object) stays alive until it is destroyed.
+</p>
+<pre>"this class will create a line after the user clicked 2 points on the screen"
+</pre>
+<p>In Python, every class or function can have a description string. This is particularly useful in FreeCAD, because when you'll call that class in the interpreter, the description string will be displayed as a tooltip.
+</p>
+<pre>def __init__(self):
+</pre>
+<p>Python classes can always contain an __init__ function, which is executed when the class is called to create an object. So, we will put here everything we want to happen when our line tool begins.
+</p>
+<pre>self.view = FreeCADGui.ActiveDocument.ActiveView
+</pre>
+<p>In a class, you usually want to append <i>self.</i> before a variable name, so it will be easily accessible to all functions inside and outside that class. Here, we will use self.view to access and manipulate the active 3D view.
+</p>
+<pre>self.stack = []
+</pre>
+<p>Here we create an empty list that will contain the 3D points sent by the getpoint function.
+</p>
+<pre>self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint)
+</pre>
+<p>This is the important part: Since it is actually a <a rel="nofollow" class="external text" href="http://www.coin3d.org/">coin3D</a> scene, the FreeCAD uses coin callback mechanism, that allows a function to be called everytime a certain scene event happens. In our case, we are creating a callback for <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/group__events.html">SoMouseButtonEvent</a> events, and we bind it to the getpoint function. Now, everytime a mouse button is pressed or released, the getpoint function will be executed.
+</p><p>Note that there is also an alternative to addEventCallbackPivy() called addEventCallback() which dispenses the use of pivy. But since pivy is a very efficient and natural way to access any part of the coin scene, it is much better to use it as much as you can!
+</p>
+<pre>def getpoint(self,event_cb):
+</pre>
+<p>Now we define the getpoint function, that will be executed when a mouse button is pressed in a 3D view. This function will receive an argument, that we will call event_cb. From this event callback we can access the event object, which contains several pieces of information (mode info <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">here</a>).
+</p>
+<pre>if event.getState() == SoMouseButtonEvent.DOWN:
+</pre>
+<p>The getpoint function will be called when a mouse button is pressed or released. But we want to pick a 3D point only when pressed (otherwise we would get two 3D points very close to each other). So we must check for that here.
+</p>
+<pre>pos = event.getPosition()
+</pre>
+<p>Here we get the screen coordinates of the mouse cursor
+</p>
+<pre>point = self.view.getPoint(pos[0],pos[1])
+</pre>
+<p>This function gives us a FreeCAD vector (x,y,z) containing the 3D point that lies on the focal plane, just under our mouse cursor. If you are in camera view, imagine a ray coming from the camera, passing through the mouse cursor, and hitting the focal plane. There is our 3D point. If we are in orthogonal view, the ray is parallel to the view direction.
+</p>
+<pre>self.stack.append(point)
+</pre>
+<p>We add our new point to the stack
+</p>
+<pre>if len(self.stack) == 2:
+</pre>
+<p>Do we have enough points already? if yes, then let's draw the line!
+</p>
+<pre>l = Part.Line(self.stack[0],self.stack[1])
+</pre>
+<p>Here we use the function Line() from the <a href="Part_Module.html" title="Part Module">Part Module</a> that creates a line from two FreeCAD vectors. Everything we create and modify inside the Part module, stays in the Part module. So, until now, we created a Line Part. It is not bound to any object of our active document, so nothing appears on the screen.
+</p>
+<pre>shape = l.toShape()
+</pre>
+<p>The FreeCAD document can only accept shapes from the Part module. Shapes are the most generic type of the Part module. So, we must convert our line to a shape before adding it to the document.
+</p>
+<pre>Part.show(shape)
+</pre>
+<p>The Part module has a very handy show() function that creates a new object in the document and binds a shape to it. We could also have created a new object in the document first, then bound the shape to it manually.
+</p>
+<pre>self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+</pre>
+<p>Since we are done with our line, let's remove the callback mechanism, that consumes precious CPU cycles.
+</p>
+<h2><span class="mw-headline" id=".E6.B5.8B.E8.AF.95.EF.BC.86.E4.BD.BF.E7.94.A8.E8.84.9A.E6.9C.AC">测试＆使用脚本</span></h2>
+<p>Now, let's save our script to some place where the FreeCAD python interpreter will find it. When importing modules, the interpreter will look in the following places: the python installation paths, the FreeCAD bin directory, and all FreeCAD modules directories. So, the best solution is to create a new directory in one of the FreeCAD <a href="Installing_more_workbenches.html" title="Installing more workbenches">Mod directories</a>, and to save our script in it. For example, let's make a "MyScripts" directory, and save our script as "exercise.py".
+</p><p>Now, everything is ready, let's start FreeCAD, create a new document, and, in the python interpreter, issue:
+</p>
+<pre>import exercise
+</pre>
+<p>If no error message appear, that means our exercise script has been loaded. We can now check its contents with:
+</p>
+<pre>dir(exercise)
+</pre>
+<p>The command dir() is a built-in python command that lists the contents of a module. We can see that our line() class is there, waiting for us. Now let's test it:
+</p>
+<pre>exercise.line()
+</pre>
+<p>Then, click two times in the 3D view, and bingo, here is our line! To do it again, just type exercise.line() again, and again, and again... Feels great, no?
+</p>
+<h2><span class="mw-headline" id=".E5.9C.A8FreeCAD_.E6.8E.A5.E5.8F.A3.E4.B8.AD.E6.B3.A8.E5.86.8C.E8.BF.99.E4.B8.AA.E8.84.9A.E6.9C.AC">在FreeCAD 接口中注册这个脚本</span></h2>
+<p>Now, for our new line tool to be really cool, it should have a button on the interface, so we don't need to type all that stuff everytime. The easiest way is to transform our new MyScripts directory into a full FreeCAD workbench. It is easy, all that is needed is to put a file called <b>InitGui.py</b> inside your MyScripts directory. The InitGui.py will contain the instructions to create a new workbench, and add our new tool to it. Besides that we will also need to transform a bit our exercise code, so the line() tool is recognized as an official FreeCAD command. Let's start by making an InitGui.py file, and write the following code in it:
+</p>
+<pre>class MyWorkbench (Workbench): 
+   MenuText = "MyScripts"
+   def Initialize(self):
+       import exercise
+       commandslist = ["line"]
+       self.appendToolbar("My Scripts",commandslist)
+Gui.addWorkbench(MyWorkbench())
+</pre>
+<p>By now, you should already understand the above script by yourself, I think: We create a new class that we call MyWorkbench, we give it a title (MenuText), and we define an Initialize() function that will be executed when the workbench is loaded into FreeCAD. In that function, we load in the contents of our exercise file, and append the FreeCAD commands found inside to a command list. Then, we make a toolbar called "My Scripts" and we assign our commands list to it. Currently, of course, we have only one tool, so our command list contains only one element. Then, once our workbench is ready, we add it to the main interface.
+</p><p>But this still won't work, because a FreeCAD command must be formatted in a certain way to work. So we will need to transform a bit our line() tool. Our new exercise.py script will now look like this:
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+class line:
+ "this class will create a line after the user clicked 2 points on the screen"
+ def Activated(self):
+   self.view = FreeCADGui.ActiveDocument.ActiveView
+   self.stack = []
+   self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint) 
+ def getpoint(self,event_cb):
+   event = event_cb.getEvent()
+   if event.getState() == SoMouseButtonEvent.DOWN:
+     pos = event.getPosition()
+     point = self.view.getPoint(pos[0],pos[1])
+     self.stack.append(point)
+     if len(self.stack) == 2:
+       l = Part.Line(self.stack[0],self.stack[1])
+       shape = l.toShape()
+       Part.show(shape)
+       self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+ def GetResources(self): 
+     return {'Pixmap'&#160;: 'path_to_an_icon/line_icon.png', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
+FreeCADGui.addCommand('line', line())
+</pre>
+<p>What we did here is transform our __init__() function into an Activated() function, because when FreeCAD commands are run, they automatically execute the Activated() function. We also added a GetResources() function, that informs FreeCAD where it can find an icon for the tool, and what will be the name and tooltip of our tool. Any jpg, png or svg image will work as an icon, it can be any size, but it is best to use a size that is close to the final aspect, like 16x16, 24x24 or 32x32.
+Then, we add the line() class as an official FreeCAD command with the addCommand() method.
+</p><p>That's it, we now just need to restart FreeCAD and we'll have a nice new workbench with our brand new line tool!
+</p>
+<h2><span class="mw-headline" id=".E6.83.B3.E8.A6.81.E6.9B.B4.E5.A4.9A.E5.90.97.EF.BC.9F">想要更多吗？</span></h2>
+<p>If you liked this exercise, why not try to improve this little tool? There are many things that can be done, like for example:
+</p>
+<ul><li> Add user feedback: until now we did a very bare tool, the user might be a bit lost when using it. Sowe could add some feedback, telling him what to do next. For example, you could issue messages to the FreeCAD console. Have a look in the FreeCAD.Console module</li>
+<li> Add a possibility to type the 3D points coordinates manually. Look at the python input() function, for example</li>
+<li> Add the possibility to add more than 2 points</li>
+<li> Add events for other things: Now we just check for Mouse button events, what if we would also do something when the mouse is moved, like displaying current coordinates?</li>
+<li> Give a name to the created object</li></ul>
+<p>Don't hesitate to write your questions or ideas on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>!
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/cn&amp;oldid=211452">http://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/cn&amp;oldid=211452</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

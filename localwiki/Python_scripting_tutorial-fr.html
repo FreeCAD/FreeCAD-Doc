@@ -1,0 +1,286 @@
+<html><head><title>Python scripting tutorial/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Python scripting tutorial/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Programming
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Ecrire_du_code_Python"><span class="tocnumber">2</span> <span class="toctext">Ecrire du code Python</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Exploration_de_FreeCAD"><span class="tocnumber">3</span> <span class="toctext">Exploration de FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Vecteurs_et_Positions"><span class="tocnumber">4</span> <span class="toctext">Vecteurs et Positions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#App_and_Gui"><span class="tocnumber">5</span> <span class="toctext">App and Gui</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Les_modules"><span class="tocnumber">6</span> <span class="toctext">Les modules</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Mesh_.28Maillage.29"><span class="tocnumber">7</span> <span class="toctext">Mesh (Maillage)</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Part_.28Bo.C3.AEte_.C3.A0_outils.29"><span class="tocnumber">8</span> <span class="toctext">Part (Boîte à outils)</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Draft_.28projet_de_dessin.29"><span class="tocnumber">9</span> <span class="toctext">Draft (projet de dessin)</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Interface"><span class="tocnumber">10</span> <span class="toctext">Interface</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Macros"><span class="tocnumber">11</span> <span class="toctext">Macros</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+<a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Python_%28programming_language%29">Python</a> est un langage de programmation très simple à utiliser et très facile à apprendre. Il est open-source, multi-plateforme, et peut être utilisé pour un large éventail d'applications, de la programmation de simples scripts sur console à des programmes très complexes.<br /> Mais l'une de ses utilisations les plus répandues est comme langage de script, car il est facilement à intégrable dans d'autres applications. C'est exactement de cette manière qu'il est utilisée dans FreeCAD. A partir de la console python, ou à partir de vos propres scripts, vous pouvez programmer FreeCAD, et lui faire exécuter des commandes très complexes pour lesquelles il n'y a pas encore d'outils disponibles dans l'interface graphique.
+</p><p>Par exemple, à partir d'un script python, vous pouvez:
+</p>
+<ul><li>créer de nouveaux objets</li>
+<li>modifier les objets existants</li>
+<li>modifier la représentation 3D de ces objets</li>
+<li>modifier l'interface de FreeCAD</li></ul>
+<p>Il y a aussi d'autres manières d'utiliser Python dans FreeCad:<br />
+</p>
+<ul><li>Avec l'<a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/fr" title="FreeCAD Scripting Basics/fr"> interpréteur Python inclus Dans FreeCAD</a>, où vous pouvez exécuter de simples commandes, du style "ligne de commande".</li>
+<li>Avec des <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/fr" title="Macros/fr">macros</a> , qui sont des moyen simples et efficaces pour ajouter rapidement un outil manquant à l'interface de FreeCAD.</li>
+<li>A partir de scripts externes, qui peuvent être utilisés pour programmer des choses beaucoup plus complexes, comme par exemple des <a href="https://www.freecadweb.org/wiki/index.php?title=Workbenches/fr" title="Workbenches/fr">boîtes à outils</a>.</li></ul>
+<p>Dans ce tutoriel, nous allons apprendre à créer facilement des scripts très simples, mais il y a beaucoup plus de documentation sur les scripts Python <a href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/fr" title="Power users hub/fr"> sur ce wiki</a>. <br />
+Si vous êtes débutant en Python et que vous voulez comprendre comment il fonctionne, nous avons également un petit tutoriel d'<a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/fr" title="Introduction to Python/fr">introduction à Python</a>.
+</p><p><b>Important</b> Avant de travailler avec les scripts Python, ouvrez la fenêtre de préférences <b>Édition-&gt;Préférence-&gt;Fenêtre de sortie</b> et cochez les deux cases du fond&#160;:
+</p>
+<ul><li> Rediriger les messages interne Python vers la Vue rapport</li>
+<li> Rediriger les erreurs internes de Python vers la vue rapport</li></ul>
+<p>Ensuite, allez dans le menu <b>Affichage-&gt;Panneaux</b> et cochez&#160;:
+</p>
+<ul><li> Vue Rapport</li></ul>
+<p>Cela vous évitera de nombreux soucis
+</p>
+<h2><span class="mw-headline" id="Ecrire_du_code_Python">Ecrire du code Python</span></h2>
+<p>Il y a deux manières d'écrire du code python dans FreeCAD: à partir de la console python, dans la barre de menus, cliquez sur <b>Affichage--&gt; Vues--&gt; Console Python</b> ou de l'éditeur de macros <b>Outils--&gt; Macros</b>. Dans console Python, vous écrivez les lignes de code Python, une par une, elles seront exécutées lorsque vous appuyez sur la touche <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ENTREE</span>. Et dans l'éditeur de macros, les macros peuvent contenir un script plus complexe fait de plusieurs lignes de code, ici, ce code sera exécuté uniquement lorsque vous cliquerez sur <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Exécutez la macro dans l'éditeur</span> (triangle vert).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:616px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_pythoninterpreter.jpg" class="image"><img alt="" src="Screenshot_pythoninterpreter.jpg" width="614" height="228" class="thumbimage" /></a>  <div class="thumbcaption">The FreeCAD python console</div></div></div></div>
+<p>Dans ce tutoriel, vous pouvez travailler avec deux méthodes, soit par copier/coller chaque ligne par ligne dans la console python puis valider avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">ENTREE</span> à chaque ligne (<b>Affichage--&gt; Vues--&gt; Console Python</b>), ou par copier/coller l'intégralité du code dans une nouvelle fenêtre macro (<b>Outils--&gt; Macros</b>).
+</p>
+<h2><span class="mw-headline" id="Exploration_de_FreeCAD">Exploration de FreeCAD</span></h2>
+<p>Commençons par créer un nouveau document&#160;:
+</p>
+<pre>doc = FreeCAD.newDocument() </pre>
+<p>Vous pouvez donner un nom au nouveau document en faisant&#160;:
+</p>
+<pre>doc = FreeCAD.newDocument(<b>"Projet01"</b>) <i>mettre le nom entre guillemets car c'est une chaîne de caractères alphabétique</i> 
+</pre>
+<p>Si vous collez ce code dans la console Python de FreeCAD , vous remarquerez que dès que vous tapez (au clavier) "<b>FreeCAD.</b>" (<i>Attention à la casse <b>Freecad</b> est différent de <b>FreeCAD</b></i>), à l'instant ou vous entrez le "<b>.</b>" une petite fenêtre apparaît instantanément avec une liste de saisie, vous permettant de sélectionner rapidement le reste de votre ligne, avec une cerise sur le gâteau, le passage de la souris sur chaque entrée de la liste d'auto-complétion affiche une info-bulle qui vous informe sur son utilisation. Cela rend très pratique l'exploration des fonctionnalités disponibles. Avant de choisir "<b>NewDocument</b>", nous jetons un regard sur les autres options disponibles.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:616px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_classbrowser.jpg" class="image"><img alt="" src="Screenshot_classbrowser.jpg" width="614" height="228" class="thumbimage" /></a>  <div class="thumbcaption">The autocomplete mechanism of the FreeCAD python console</div></div></div></div>
+<p>Maintenant, notre nouveau document est créé. Le même résultat est obtenu en cliquant sur "<b>Fichier--&gt;Nouveau</b>" ou, sur la barre d'outils cliquez sur "<b>Créer un nouveau document vide</b>". En fait, la plupart des boutons dans FreeCAD ne font rien d’autre qu'exécuter une ou deux lignes de code Python. Encore mieux, vous pouvez définir une option dans "<b>Edit--&gt; Préférences--&gt; Général--&gt; Macro</b>" et cocher "<b>montrer les commandes de script dans la console python</b>". Ce qui permet d'afficher dans la console toutes les commandes Python des boutons cliqués, commandes exécutées etc. Cette opportunité est très utile pour apprendre et reproduire les fonctions et les macros utilisées elle peut aussi de cette manière constituer un historique des commandes.
+</p><p>Maintenant revenons à notre document, et voyons ce que nous pouvons faire avec lui&#160;:
+</p>
+<pre>doc. </pre>
+<p>Explorons les options disponibles dans la fenêtre qui vient de s'afficher.<br />
+En règle générale,<br />
+</p>
+<ul><li>les noms qui commencent par une <b>Majuscule</b> sont des <b>attributs</b>, ils contiennent une valeur,<br /></li>
+<li>les noms qui commencent par une <b>minuscule</b> sont des <b>fonctions</b> (également appelés méthodes), ils font quelque chose,<br /></li>
+<li>les noms qui commencent et finissent par un double <b>__soulignement__</b> servent généralement pour le fonctionnement interne du module, et vous ne devriez pas vous soucier d'eux.<br /></li></ul>
+<p>Nous allons utiliser une des méthodes suivantes pour ajouter un nouvel objet à notre document&#160;:
+</p>
+<pre>box = doc.addObject("Part::Box","myBox") </pre>
+<p>Rien ne se passe&#160;! Pourquoi&#160;? Parce que FreeCAD est conçu pour de gros projets. Plus tard, il travaillera avec des centaines d'objets complexes, tous dépendants les uns des autres. Faire une petite modification dans un objet pourra avoir des conséquences importantes sur l'ensemble du document, vous devrez peut-être le redéfinir, ce qui pourrait prendre beaucoup de temps. Pour cette raison, peu de commandes mettront de manière automatique le projet à jour.<br /> 
+Vous devrez le faire manuellement&#160;:
+</p>
+<pre>doc.recompute() </pre>
+<p>Vu&#160;? Maintenant, notre boîte est apparue&#160;! La plupart des boutons qui ajoutent des objets dans FreeCAD font 2 choses&#160;: ajouter l'objet, et recalculer. Si vous avez activé l'option "Montrer les commandes du script dans la console Python", essayez d'ajouter une sphère avec le bouton GUI, vous verrez s'afficher les deux lignes de code Python en cours d'exécution l'une après l'autre.
+</p><p>Mais que deviens notre "<b>Part::Box</b>" vous demandez-vous&#160;? Et, comment peut-on savoir quels autres types d'objets peuvent être ajoutés&#160;?<br />
+Tout est ici&#160;:
+</p>
+<pre>doc.supportedTypes() </pre>
+<p>Maintenant, nous allons explorer le contenu de notre "<b>box</b>".<br />
+Tapez&#160;:
+</p>
+<pre>box. </pre>
+<p>Nous voyons immédiatement des choses intéressantes comme&#160;:
+</p>
+<pre>box.Height </pre>
+<p>Ceci affichera la hauteur courante de notre "<b>box</b>".<br />
+Maintenant, nous allons essayer de changer cette valeur,<br />
+Tapez&#160;:
+</p>
+<pre>box.Height = 5 </pre>
+<p>Si vous sélectionnez votre <b>box</b> avec la souris, vous verrez que dans le panneau de propriétés, dans l'onglet "<b>Données</b>", la propriété "<b>Height</b>" apparaît.<br /> Toutes les propriétés d'un objet qui se trouve dans FreeCAD se trouvent là (mais aussi dans le menu "<b>Affichage--&gt;Vues--&gt;Affichage des propriétés</b>", nous verrons cela plus tard), et sont directement accessibles par la console Python aussi, par leurs noms, comme nous l'avons fait avec la propriété "<b>Height</b>".
+Essayez de modifier les autres valeurs de votre <b>box</b>.
+</p>
+<h2><span class="mw-headline" id="Vecteurs_et_Positions">Vecteurs et Positions</span></h2>
+<p><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Vecteur">Les vecteurs</a> sont un concept tout à fait fondamental dans n'importe quelle application 3D. Il s'agit de 3 nombres représentés par (<b>x, y </b>et<b> z</b>), décrivant un point ou une position précise dans l'espace 3D. Un grand nombre de choses peuvent être faites avec ces vecteurs, tels que, additions, soustractions, projections <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Espace_vectoriel">et bien plus encore</a>. <br />
+Dans les vecteurs, FreeCAD travaille de cette façon&#160;:
+</p>
+<pre>myvec = FreeCAD.Vector(2,0,0)
+myvec
+myvec.x
+myvec.y
+othervec = FreeCAD.Vector(0,3,0)
+sumvec = myvec.add(othervec) </pre>
+<p>Une autre caractéristique commune des objets dans FreeCAD est leur <a href="Tasks_Placement.html" title="Tasks Placement"><b>emplacement</b></a> dans l'espace, (accessible par le volet <b>Vue combinée → Propriétés → Données → Placement</b>, <a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_01_fr_00.png" class="image" title="Tache_Placement"><img alt="Tache_Placement" src="256px-Tache_Placement_01_fr_00.png" width="256" height="15" srcset="/wiki/images/thumb/8/80/Tache_Placement_01_fr_00.png/384px-Tache_Placement_01_fr_00.png 1.5x, /wiki/images/8/80/Tache_Placement_01_fr_00.png 2x" /></a> ou, par le menu <b> Édition → Positionnement...</b>).<br />
+Chaque objet, possède des attributs d'emplacement qui contiennent, la position (base), et, l'orientation (rotation) de l'objet. Ils sont faciles à manipuler.<br />
+Par exemple pour déplacer notre objet&#160;:
+</p>
+<pre>box.Placement
+box.Placement.Base
+box.Placement.Base = sumvec
+ 
+otherpla = FreeCAD.Placement()
+box.Placement = otherpla </pre>
+<p>Avant d'aller plus loin, vous devez comprendre quelques concepts importants.
+</p>
+<h2><span class="mw-headline" id="App_and_Gui">App and Gui</span></h2>
+<p>Au départ, FreeCAD a été conçu de manière à travailler comme une application en ligne de commande, sans interface utilisateur. Par conséquent, presque tout est séparé entre une composante "<b>géometrie</b>" et une composante "<b>visuelle</b>". Lorsque vous travaillez en mode ligne de commande, la partie <b>geometry</b> est présente, mais toute la partie <b>View</b> est tout simplement désactivée. Presque n'importe quel objet dans FreeCAD est donc composé de deux parties, un <b>Object</b> et un <b>ViewObject</b>.
+</p><p>Pour illustrer ce concept, voyons notre objet <b>box</b>, les propriétés géométriques du box, comme ses dimensions, sa position, etc .. sont stockés dans l'<b>Object</b>, tandis que ses propriétés visuelles, telles que sa couleur, l'épaisseur de la ligne, etc. sont stockées dans <b>ViewObject</b>. <br />
+Tout ces paramètres sont visibles (et modifiables) dans la fenêtre <b>Propriété--&gt; onglets</b> "<b>Vue</b>" et "<b>Données</b>".<br />
+La commande <b>ViewObject</b> est accessible comme ceci&#160;:
+</p>
+<pre>vo = box.ViewObject </pre>
+<p>Vous pouvez également modifier les propriétés de l'onglet "Vue"&#160;:
+</p>
+<pre>vo.Transparency = 80
+vo.hide()
+vo.show() </pre>
+<p>Lorsque vous démarrez FreeCAD, la console python charge 2 modules de base&#160;: <b>FreeCAD</b> et <b>FreeCADGui</b> (qui peuvent également être consultés par leurs raccourcis <b>App</b> et <b>Gui</b>). Ils contiennent toutes sortes de fonctionnalités génériques pour travailler avec des documents et leurs objets. Pour illustrer notre concept, observez que <b>FreeCAD</b> et <b>FreeCADGui</b> contiennent un attribut <b>ActiveDocument</b>, qui est le document courant. <b>FreeCAD.ActiveDocument</b> et <b>FreeCADGui.ActiveDocument</b> ne sont pas le même objet. Ce sont, les deux composantes d'un document FreeCAD, et ils contiennent des attributs et des méthodes différentes.<br /> 
+Par exemple, <b>FreeCADGui.ActiveDocument</b> contient <b>ActiveView</b>, qui est la vue 3D actuellement ouverte.
+</p>
+<h2><span class="mw-headline" id="Les_modules">Les modules</span></h2>
+<p>Maintenant, vous devez sûrement vous demander qu'est-ce que l'on peut faire d'autre, mis à part "<b>Part::Box</b>"? <br />
+D'origine, l'application FreeCAD n'est qu'un conteneur plus ou moins  vide. Sans ses modules, FreeCAD ne peut guère faire plus que de créer de nouveaux documents vides. La véritable puissance de FreeCAD réside dans ses modules. Chaque module ajoute non seulement de nouveaux outils à l'interface, mais, aussi de nouvelles commandes Python et de nouveaux types d'objets. Par conséquent, plusieurs types d'objets différents, voire totalement incompatibles entre eux peuvent parfaitement coexister dans le même document. <br />
+Les modules les plus importants dans FreeCAD, que nous allons voir dans ce tutoriel, sont <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr">Part Module (Atelier Pièce)</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/fr" class="mw-redirect" title="Mesh Module/fr">Mesh Module (Atelier Maillage)</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher Workbench (Atelier Sketcher (Esquisse))</a> ou <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Draft Module (Planche à dessin)</a>.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Atelier Sketcher (Esquisse)</a> et <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Draft Module (Planche à dessin)</a> utilisent tous les deux <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr">Part Module (Atelier Pièce)</a> pour créer et gérer leurs objets, qui sont représentés par les bords, modélisation surfacique ou (<a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/B-Rep">B-Rep</a>).<br /> 
+Alors que <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Mesh Module (Atelier Maillage)</a> est totalement indépendant et gère ses propres objets.<br /> 
+Nous en saurons plus tout à l'heure.
+</p><p>Vous pouvez en savoir plus sur tous les types d'objets disponibles dans le document courant comme ceci:
+</p>
+<pre>doc.supportedTypes() </pre>
+<p>Même si les différents modules de FreeCAD ont ajoutés leurs types d'objets, les modules ne sont pas automatiquement chargé dans la console python dans le but d'éviter de ralentir le démarrage. Les modules, ne sont chargés que lorsque vous en avez besoin.<br />
+Ainsi, par exemple, pour explorer ce qui est à l'intérieur de "Part Module" (Atelier Pièce), faites:
+</p>
+<pre>import Part
+Part. </pre>
+<p>Mais nous parlerons plus en détail du module "Part module" ci-dessous.
+</p><p>Maintenant, vous en savez un peu plus sur les différents modules de FreeCAD: Les modules de base (FreeCAD, FreeCADGui), et les modules des outils (Part, Mesh, Sketcher).<br /> Les autres modules importants sont le module scène 3d (<a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/fr" title="Pivy/fr">Pivy</a>) et le module d'interface (<a href="https://www.freecadweb.org/wiki/index.php?title=PySide/fr" title="PySide/fr">PySide</a>) dont nous allons parler ci-dessous. 
+</p><p>Maintenant il est temps de découvrir les modules les plus importants, qui sont, les "<b>workbench modules</b>" (modules plan de travail).
+</p>
+<h2><span class="mw-headline" id="Mesh_.28Maillage.29">Mesh (Maillage)</span></h2>
+<p>L'outil "<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Polygon_mesh"><b>Mesh (mailles)</b></a>" est un type d'objet 3D très simple, utilisé par exemple par <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Google_SketchUp">Google SketchUp</a> , <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Blender">Blender</a> ou <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/3ds_Max">3D studio Max</a>. <br />
+Il est composé de 3 éléments: <br />
+</p>
+<ul><li>1 de <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Point_(géométrie)"><b>points</b></a> (également appelé <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Sommet_(géométrie)">sommets</a> ou <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Vertex_(geometry)">Vertex</a>)<br /></li>
+<li>2 de <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Droite_projective"><b>lignes</b></a>, (également appelé bords ou arêtes)<br /></li>
+<li>3 de <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Face_(géométrie)"><b>faces</b></a>. <br /></li></ul>
+<p>Dans de nombreuses applications, FreeCAD inclus des faces qui possèdent que 3 sommets. Mais bien sûr, rien ne vous empêche d'avoir la face d'un gros avion avec une multitude de triangles <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Coplanaire">coplanaires</a>.
+</p><p>Les objets Mesh (mailles) sont simples, cela peut être un point négatif, mais pour de nombreuses applications telles que celles citées ci-dessus, il s'agit d'un avantage, parce qu'ils sont tellement simples que vous pouvez très facilement en avoir des millions dans un seul document. Dans FreeCAD, cependant, ils ne sont pas très utilisés, et sont surtout présent pour permettre l'importation de fichiers au format "Mesh" (<a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/STL_(format)">.Stl</a>, <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Objet_3D_(format_de_fichier)">.Obj</a>) provenant d'autres applications.<br /> 
+Ce format a également été largement utilisé comme module de test principal dans les premiers mois de la vie de FreeCAD.
+</p><p>L'objet <b>Mesh</b> et l'objet <b>FreeCAD</b> sont deux choses totalement différentes. Vous pouvez voir l'objet FreeCAD <b>comme conteneur</b> d'un Objet Mesh (nous le verrons ci-dessous, avec les Objets Part). <br />
+Ainsi, afin d'ajouter un Objet Mesh à FreeCAD, nous devons d'abord créer un Objet FreeCAD, créer un Objet Mesh et après, ajouter l'Objet Mesh à l'Objet FreeCAD:
+</p>
+<pre>import Mesh
+mymesh = Mesh.createSphere()
+mymesh.
+mymesh.Facets
+mymesh.Points
+ 
+meshobj = doc.addObject("Mesh::Feature","MyMesh")
+meshobj.Mesh = mymesh
+doc.recompute() </pre>
+<p>Il s'agit ici d'un exemple classique, qui utilise la méthode <b>createSphere()</b> pour créer automatiquement une sphère, mais vous pouvez très bien créer des maillages personnalisés à partir de rien, en définissant leurs sommets et leurs faces.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/fr" title="Mesh Scripting/fr">Ici plus de renseignements sur les scripts Mesh ...</a>
+</p>
+<h2><span class="mw-headline" id="Part_.28Bo.C3.AEte_.C3.A0_outils.29">Part (Boîte à outils)</span></h2>
+<p>La <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr"> boîte à outils</a> est le module le plus puissant de l'ensemble FreeCAD. Il permet de créer et de manipuler des objets <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/B-Rep">B-Rep</a>. Ce type d'objet, contrairement à Mesh, peut avoir une grande variété de composantes. Pour mémoire, B-rep qui signifie <b>boundary representation</b>, ce qui signifie en français <b>Représentation par les Bords</b> ou <b>modélisation surfacique</b>. Ces surfaces peuvent être une grande variété d'objets, tel que des surfaces planes ou des surfaces très complexes <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/NURBS">NURBS</a> (pour Non-Uniform Rational Basis Splines). Ils contribuent également à la notion de volume.
+</p><p>La Boîte à outils est basée sur la puissante bibliothèque OpenCascade, qui permet un large éventail d'opérations complexes, qui peuvent être facilement effectuées sur ces objets, tels que, les opérations booléennes, le filetage, balayage, etc ..
+</p><p>Le module fonctionne en partie de la même manière que le module Mesh:<br />
+Vous créez un Objet FreeCAD puis un Objet Part et après, ajoutez l'Objet Part à l'Objet FreeCAD:
+</p>
+<pre>import Part
+myshape = Part.makeSphere(10)
+myshape.
+myshape.Volume
+myshape.Area
+
+shapeobj = doc.addObject("Part::Feature","MyShape")
+shapeobj.Shape = myshape
+doc.recompute() </pre>
+<p>Le module Part (tout comme le module Mesh) dispose également d'un raccourci qui crée automatiquement un Objet dans FreeCAD et lui ajoute une forme, vous pouvez ainsi sauter les 3 dernières lignes ci-dessus:
+</p>
+<pre>Part.show(myshape) </pre>
+<p>En explorant le contenu de myShape. dans la fenêtre, vous remarquerez de nombreuses et intéressantes options disponibles, comme Faces, Edges, Vertexes, Solids or Shells, et un large éventail d'opérations tels que opérations geometriques (soustraction), commune (intersection) ou d'un fusion (union).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/fr" title="Topological data scripting/fr"> Ici plus de renseignements sur données topologiques de scripts Part</a>
+</p>
+<h2><span class="mw-headline" id="Draft_.28projet_de_dessin.29">Draft (projet de dessin)</span></h2>
+<p>FreeCAD dispose de nombreux modules, comme <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher (esquisse)</a> ou <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Draft (projet)</a> , qui créent aussi des objets Part, en ajoutant des paramètres, ou même de réaliser une nouvelle gestion des paramètres géométriques des pièces. L'exemple box ci-dessus, est un bon exemple d'objet paramétrique. Pour redéfinir le box, tout ce que vous devez faire, est de spécifier une série de paramètres, comme la hauteur, la largeur et longueur. Sur la base de ces modifications, l'objet sera recalculé automatiquement. FreeCAD vous permet de créer de tels objets en python.
+</p><p>Le <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Module Draft</a> ajoute une série d'objets de types 2D paramétriques (qui sont tous des objets Part) tels que les lignes et les cercles, et fournit également quelques fonctions génériques qui ne travaillent pas seulement sur ​​les objets fabriqués, mais sur n'importe quel objet Part.<br />
+Pour voir ce qui est disponible, il suffit de faire:
+</p>
+<pre>import Draft
+Draft.
+rec = Draft.makeRectangle(5,2)
+mvec = FreeCAD.Vector(4,4,0)
+Draft.move(rec,mvec)
+Draft.move(box,mvec) </pre>
+<h2><span class="mw-headline" id="Interface">Interface</span></h2>
+<p>L'interface utilisateur (Gui) de FreeCAD est faite avec <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Qt">Qt</a>, un puissant système de création d'interface visuelle graphique, chargé de construire et de gérer, commandes, menus, barres d'outils, boutons 3D ... Qt fournit un module, appelé <a href="https://www.freecadweb.org/wiki/index.php?title=PySide/fr" title="PySide/fr">PySide</a> (<a href="PySide.html" title="PySide">en</a>), qui permet à Python d'accéder et de modifier les interfaces contruites avec <b>Qt</b>, comme FreeCAD. <br />
+Essayons de travailler avec l'interface Qt et de construire une simple boîte de dialogue:
+</p>
+<pre>from PySide import QtGui
+QtGui.QMessageBox.information(None,"Apollo program","Houston, we have a problem") </pre>
+<p>Et voilà, une boîte de dialogue qui apparaît, et nous voyons aussi l'icone de FreeCAD, ce qui signifie que Qt sait que l'ordre d'affichage de la fenêtre a été fait à l'intérieur de l'application FreeCAD. Nous pouvons donc facilement et partiellement modifier l'interface de FreeCAD.
+</p><p>Qt est un système de construction d'interface très puissant, qui vous permet de faire des choses très complexes, mais Qt possède aussi une panoplie d'outils tel que Qt Designer avec lequel vous pouvez concevoir vos boîtes de dialogue graphique et de les ajouter à l'interface de FreeCAD avec quelques lignes de code Python.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=PySide/fr" title="PySide/fr">Plus de renseignements sur PyQt ici</a> et ici <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/PyQt">PyQt</a>
+</p>
+<h2><span class="mw-headline" id="Macros">Macros</span></h2>
+<p>Maintenant que vous avez une bonne connaissance des notions de base, où allons-nous placer nos scripts Python&#160;? et, comment allons-nous les lancer à partir de FreeCAD? <br />
+Il y a pour cela un mécanisme appelé, macro. Une macro est tout simplement un script en Python, qui peut être ensuite ajouté à la barre d'outils et d'être lancé à partir d'un simple clic de souris.<br />
+FreeCAD est fournit avec un petit éditeur de texte (Macro -&gt; Macros -&gt; Créer) où vous pouvez écrire ou coller des scripts. Une fois script terminé, allez dans <b>Outils -&gt; Personnaliser -&gt; Macros</b> et vous pouvez définir un bouton pour votre macro, et ce bouton peut être ajouté à la barre d'outils.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/fr" title="Power users hub/fr">Ici plus de documentations sur les script dans FreeCAD</a>.
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/fr&amp;oldid=271139">http://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/fr&amp;oldid=271139</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

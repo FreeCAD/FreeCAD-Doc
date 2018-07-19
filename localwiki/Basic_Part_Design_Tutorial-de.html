@@ -1,0 +1,210 @@
+<html><head><title>Basic Part Design Tutorial/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic Part Design Tutorial/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="mw-translate-fuzzy">
+<table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Thema
+</th></tr>
+<tr>
+<td class="ctEven">{{{Topic}}}
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Anfänger
+</td></tr>
+<tr>
+<th class="ctOdd">Zeit zum Abschluss
+</th></tr>
+<tr>
+<td class="ctEven">weniger als eine Stunde
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">Mark Stephen (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a>)
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.14.3700 oder neuer
+</td></tr>
+<tr>
+<th class="ctOdd">Beispieldatei(en)
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Bevor_es_losgeht"><span class="tocnumber">2</span> <span class="toctext">Bevor es losgeht</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Die_Aufgabe"><span class="tocnumber">3</span> <span class="toctext">Die Aufgabe</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Zeichnung_des_Bauteils"><span class="tocnumber">4</span> <span class="toctext">Zeichnung des Bauteils</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Konstruktion_des_Bauteils"><span class="tocnumber">5</span> <span class="toctext">Konstruktion des Bauteils</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Kernmodell_aus_einem_Block"><span class="tocnumber">5.1</span> <span class="toctext">Kernmodell aus einem Block</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Merkmale_mit_Tasche_und_externer_Geometrie"><span class="tocnumber">5.2</span> <span class="toctext">Merkmale mit Tasche und externer Geometrie</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Merkmale_mit_Block_und_externer_Geometrie"><span class="tocnumber">5.3</span> <span class="toctext">Merkmale mit Block und externer Geometrie</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Merkmal_mit_Tasche_und_externer_Geometrie"><span class="tocnumber">5.4</span> <span class="toctext">Merkmal mit Tasche und externer Geometrie</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Siehe_auch"><span class="tocnumber">6</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+</div>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>This tutorial is obsolete. It is valid for FC v0.16 and below. For 0.17+, see <a href="Basic_Part_Design_Tutorial_017.html" title="Basic Part Design Tutorial 017">Basic Part Design Tutorial 017</a>.</b></div>
+<p><br />
+Dieses Tutorial richtet sich an Anfänger und beschreibt einige, aber nicht alle, Werkzeuge und Techniken des Arbeitsbereichs <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/de" title="PartDesign Workbench/de">Part Design</a>. Dem Leser wird dabei Schritt für Schritt erklärt, wie das in der nachfolgenden Abbildung sichtbare Modell mittels Skizzen in FreeCAD erstellt werden kann.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial018.png" class="image"><img alt="PD WB Tutorial018.png" src="PD_WB_Tutorial018.png" width="450" height="450" /></a></div></div>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="Bevor_es_losgeht">Bevor es losgeht</span></h2>
+<p>Für das Tutorial wird empfohlen, zunächst einige der <a href="https://www.freecadweb.org/wiki/index.php?title=Preferences_Editor/de" title="Preferences Editor/de">Einstellungen</a> von FreeCAD zu ändern. Wechseln Sie zunächst in den Arbeitsbereich "Part Design" und wählen Sie die Einstellungen unter <b>Bearbeiten &gt; Einstellungen</b>. Im nun erscheinenden Fenster befindet sich links die Grafik <i>Part Design</i>, in der die gesuchten Optionen zu finden sind. Im dortigen Tab <i>Allgemeines</i> sollten alle drei Optionen innerhalb der Gruppe <i>Modelleinstellungen</i> aktiviert werden. Nach Abschluss des Tutorials können diese Änderungen wieder rückgängig gemacht werden. Nach einem Klick auf <i>Anwenden</i> und <i>OK</i> kann es losgehen.
+</p>
+</div>
+<h2><span class="mw-headline" id="Die_Aufgabe">Die Aufgabe</span></h2>
+<p>In diesem Tutorial werden Sie den Arbeitsbereich <i>Part Design</i> dazu nutzen, ein dreidimensionales Festkörpermodell des Objektes in der nachfolgenden <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/de" title="Drawing Module/de">Zeichnung</a> zu erstellen. Alle dafür notwendigen Maße sind gegeben. Sie beginnen mit der Erstellung eines Kernmodells, das nach und nach um Merkmale erweitert wird. Dieser Merkmale werden durch Skizzen beschrieben und fügen entweder Material zum Festkörpermodell hinzu oder entfernen es. Es werden dabei nicht alle vorhandenen Möglichkeiten des Arbeitsbereichs <i>Part Design</i> genutzt, jedoch ausreichend viele für die weitere Einarbeitung in FreeCAD. 
+</p>
+<h2><span class="mw-headline" id="Zeichnung_des_Bauteils">Zeichnung des Bauteils</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial_Drawing_Sheet.png" class="image"><img alt="Tutorial Drawing Sheet.png" src="Tutorial_Drawing_Sheet.png" width="1488" height="1052" /></a>
+</p>
+<h2><span class="mw-headline" id="Konstruktion_des_Bauteils">Konstruktion des Bauteils</span></h2>
+<h3><span class="mw-headline" id="Kernmodell_aus_einem_Block">Kernmodell aus einem Block</span></h3>
+<p>Beginnend mit einem neuen Dokument und dem gewählten Arbeitsbereich <i>Part Design</i> sollte zunächst eine neue Skizze durch einen Klick auf <i>Skizze erstellen</i> in der linken Combo-Ansicht oder auf das Icon <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> erstellt werden. Es sollte nun ein Dialog erscheinen, in dem die Zeichenebene (hier: YZ) und der Versatz dieser Ebene (hier: 0) gewählt werden. Nach einem Klick auf <i>OK</i> beginnt das Skizzieren.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial001.png" class="image"><img alt="PD WB Tutorial001.png" src="PD_WB_Tutorial001.png" width="270" height="316" /></a></div></div>
+<p>Als nächstes wird das Mehrfachlinienwerkzeug <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> benötigt, um eine grobe Skizze wie in der nachfolgenden Abbildung zu erzeugen. Die Skizze muss nicht perfekt sein, weil die Details im Nachhinein mittels Beschränkungen und Bemaßungen festgelegt werden können. Einige der Beschränkungen wurden möglicherweise bereits automatisch eingefügt, falls die Checkbox <i>Automatische Randbedingungen</i> aktiv war, alle anderen müssen wie folgt selbst festgelegt werden. 
+</p>
+<ol><li> Wähle die beiden näherungsweise horizontalen Linien per Mausklick aus und klicke auf die <i>Horizontale Beschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.svg" class="image"><img alt="Constraint Horizontal.svg" src="Constraint_Horizontal.svg" width="32" height="32" /></a>.</li>
+<li> Wähle die rechte vertikale Linie aus und klicke auf die <i>Vertikale Beschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.svg" class="image"><img alt="Constraint Vertical.svg" src="Constraint_Vertical.svg" width="32" height="32" /></a>.</li>
+<li> Falls Start- und Endpunkt der Mehrfachlinie noch nicht verbunden sind, so können diese durch Auswahl und einen Klick auf <i>Koinzidenzbeschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.svg" class="image"><img alt="Constraint PointOnPoint.svg" src="Constraint_PointOnPoint.svg" width="32" height="32" /></a> verbunden werden.</li>
+<li> Die rechte und die untere Linie sollen dieselbe Länge haben, was durch die <i>Gleichheitsbeschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.svg" class="image"><img alt="Constraint EqualLength.svg" src="Constraint_EqualLength.svg" width="32" height="32" /></a> ermöglicht wird.</li>
+<li> Wird nacheinander auf die untere Linie und auf <i>Horizontalen Abstand festlegen</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.svg" class="image"><img alt="Constraint HorizontalDistance.svg" src="Constraint_HorizontalDistance.svg" width="32" height="32" /></a> geklickt, so wird diese Linie, und damit auch die rechte Linie, bemaßt (hier: 26 mm).</li>
+<li> Auf demselben Wege soll die obere Linie mit 5 mm bemaßt werden.</li>
+<li> Werden nun der linke untere Eckpunkt, der rechte obere Eckpunkt und der Nullpunkt ausgewählt und auf <i>Symmetriebeschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.svg" class="image"><img alt="Constraint Symmetric.svg" src="Constraint_Symmetric.svg" width="32" height="32" /></a> geklickt, so sind beide Eckpunkt von nun an symmetrisch gegenüber dem Nullpunkt der Skizze.</li></ol>
+<p>Die Skizze sollte nun vollständig festgelegt sein, d.h. frei von Freiheitsgraden sein, was an der Meldung <i>Vollständig eingeschränkte Skizze</i> auf der linken Seite erkannt werden kann. Falls alles richtig gemacht wurde, sieht die Skizze nun wie in der nachfolgenden Abbildung aus. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial002.png" class="image"><img alt="PD WB Tutorial002.png" src="PD_WB_Tutorial002.png" width="450" height="450" /></a></div></div>
+<p>In der Combo-Ansicht kann nun auf <i>Schließen</i> geklickt werden, um die Bearbeitung der Skizze zu beenden. Mit einem Klick auf <i>Block</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.svg" class="image"><img alt="PartDesign Pad.svg" src="PartDesign_Pad.svg" width="32" height="32" /></a> erscheint links ein Menü mit Abfragen bezüglich der Eigenschaften des Blocks. In diesem Fall soll der Block eine Länge von 53 mm haben und symmetrisch zur Zeichenebene sein. Letzteres bringt Vorteile beim Einfügen von Merkmalen und kann durch Aktivieren der Checkbox <i>Symmetrisch zu einer Ebene</i> erreicht werden. Damit ist das Kernmodell fertig und wird im Folgenden nur noch um Merkmale ergänzt.
+</p><p>Ein (englischsprachiges) Video der in diesem Abschnitt des Tutorials benutzten Schritte gibt es <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=UacO5Pa4gIM%7Chier">[1]</a>.
+</p>
+<h3><span class="mw-headline" id="Merkmale_mit_Tasche_und_externer_Geometrie">Merkmale mit Tasche und externer Geometrie</span></h3>
+<p>Mit der Maus oder dem Ansicht-Menü kann das Modell gedreht werden, um auch die Rückseite zu sehen. Auf dieser Rückseite muss nun eine neue Skizze erstellt werden. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial003.png" class="image"><img alt="PD WB Tutorial003.png" src="PD_WB_Tutorial003.png" width="450" height="450" /></a></div></div>
+<p>Nach Auswahl der Rückseite per Mausklick kann wiederum über <i>Skizze erstellen</i> in der linken Combo-Ansicht oder das Icon <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> eine Skizze erstellt werden. Wähle nun das Rechteck-Werkzeug <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.svg" class="image"><img alt="Sketcher CreateRectangle.svg" src="Sketcher_CreateRectangle.svg" width="32" height="32" /></a> und erstelle eine Zeichnung wie in der nachfolgenden Abbildung. Es folgen die hierbei notwendigen Beschränkungen und Bemaßungen.
+</p>
+<ol><li> Wähle eine der beiden horizontalen Linien und klicke auf <i>Horizontalen Abstand festlegen</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.svg" class="image"><img alt="Constraint HorizontalDistance.svg" src="Constraint_HorizontalDistance.svg" width="32" height="32" /></a> mit dem Maß 5 mm.</li>
+<li> Wähle eine der beiden vertikalen Linien und klicke auf <i>Vertikalen Abstand festlegen</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.svg" class="image"><img alt="Constraint VerticalDistance.svg" src="Constraint_VerticalDistance.svg" width="32" height="32" /></a> mit dem Maß 11 mm.</li>
+<li> Nutze das Werkzeug <i>Externe Geometrie</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.svg" class="image"><img alt="Sketcher External.svg" src="Sketcher_External.svg" width="32" height="32" /></a> um die rechte obere Ecke des Kernmodells in diese Skizze zu projizieren. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial004.png" class="image"><img alt="PD WB Tutorial004.png" src="PD_WB_Tutorial004.png" width="450" height="450" /></a></div></div>
+<p>Wähle jetzt den gerade erstellten Projektionspunkt mit dem <i>Externe Geometrie</i>-Werkzeug und wähle zudem den oberen rechten Eckpunkt des in der Skizze vorhandenen Rechtecks. Durch einen nun folgenden Klick auf <i>Koinzidenzbeschränkung</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.svg" class="image"><img alt="Constraint PointOnPoint.svg" src="Constraint_PointOnPoint.svg" width="32" height="32" /></a> wird das Rechteck und damit auch die Skizze vollständig festgelegt. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial005.png" class="image"><img alt="PD WB Tutorial005.png" src="PD_WB_Tutorial005.png" width="450" height="450" /></a></div></div>
+<p>Die Bearbeitung der Skizze kann nun über <i>Schließen</i> oben im Aufgaben-Tab im ComboView-Fenster beendet werden, dann das Werkzeug <i>Tasche</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.svg" class="image"><img alt="PartDesign Pocket.svg" src="PartDesign_Pocket.svg" width="32" height="32" /></a> aus der Werkzeugleiste oder aus dem Part Design-Menü. Es macht das Gegenteil des Werkzeugs <i>Block</i>, indem es Material entfernt. Beide Vorgänge werden als Merkmale bezeichnet. In diesem Fall soll nun diese Tasche mit der Option <i>Durch Alles</i> verwendet werden, um einen Teil des Kernmodells zu entfernen. Anschließend klicken Sie den <i>OK</i>-Button 
+</p><p>Für die nun folgende Aktion muss sichergestellt sein, dass die zuvor erstellte Tasche im Modellbaum ausgewählt ist. Durch einen Klick auf <i>Gespiegelt</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.svg" class="image"><img alt="PartDesign Mirrored.svg" src="PartDesign_Mirrored.svg" width="32" height="32" /></a> kann dieses Merkmal nun auf die andere Seite des Modells kopiert werden. In diesem Fall muss dabei im linken Menü die Option <i>Horizontale Skizzenachse</i> gewählt werden. Dieser Kopiervorgang funktioniert hier nur, weil zuvor beim Erstellen des Blocks die Option <i>Symmetrisch zu einer Ebene</i> gewählt wurde. Falls alles richtig gemacht wurde, sollte das Modell in der axometrischen Ansicht nun folgendermaßen aussehen. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial006.png" class="image"><img alt="PD WB Tutorial006.png" src="PD_WB_Tutorial006.png" width="450" height="450" /></a></div></div>
+<p>Ein (englischsprachiges) Video der in diesem Abschnitt des Tutorials benutzten Schritte gibt es <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=nnVQDjUpS3o%7Chier">[2]</a>.
+</p>
+<h3><span class="mw-headline" id="Merkmale_mit_Block_und_externer_Geometrie">Merkmale mit Block und externer Geometrie</span></h3>
+<p>Zurück auf der Rückseite des Modells muss wiederum eine Skizze wie zuvor eingefügt werden. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial007.png" class="image"><img alt="PD WB Tutorial007.png" src="PD_WB_Tutorial007.png" width="450" height="450" /></a></div></div>
+<p>Auf der neuen Skizze wird ein Rechteck wie in der folgenden Abbildung eingefügt. Ebenso wie beim vorherigen Merkmal, werden auch hier die Maße und Beschränkungen festgelegt.
+</p>
+<ol><li> Wähle eine horizontale Linie und klicke auf <i>Horizontalen Abstand festlegen</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.svg" class="image"><img alt="Constraint HorizontalDistance.svg" src="Constraint_HorizontalDistance.svg" width="32" height="32" /></a> mit dem Maß 16.7 mm.</li>
+<li> Wähle eine vertikale Linie und klicke auf <i>Vertikalen Abstand festlegen</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.svg" class="image"><img alt="Constraint VerticalDistance.svg" src="Constraint_VerticalDistance.svg" width="32" height="32" /></a> mit dem Maß 7 mm.</li>
+<li> Nutze das Werkzeug <i>Externe Geometrie</i> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.svg" class="image"><img alt="Sketcher External.svg" src="Sketcher_External.svg" width="32" height="32" /></a> um die linke obere Ecke des Kernmodells zu projezieren.</li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial008.png" class="image"><img alt="PD WB Tutorial008.png" src="PD_WB_Tutorial008.png" width="450" height="450" /></a></div></div>
+<p>Durch Auswahl der gerade projizierten Ecke und der oberen linken Ecke des Rechtecks werden mit Hilfe der <i>Koinzidenzbeschränkung</i> die noch vorhanderen Freiheitsgrade beseitigt und die Skizze vollständig festgelegt. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial009.png" class="image"><img alt="PD WB Tutorial009.png" src="PD_WB_Tutorial009.png" width="450" height="450" /></a></div></div>
+<p>Als nächstes Erzeugen wir mit dem Werkzeug <i>Block</i> eine Extrusion und geben ihr die Länge 26 mm und aktivieren die Option <i>Umgekehrt</i>. Letzteres bewirkt, dass der Block in Richtung des Kernmodells verläuft und nicht nach außen. Das Ergebnis sollte wie folgt aussehen. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial010.png" class="image"><img alt="PD WB Tutorial010.png" src="PD_WB_Tutorial010.png" width="450" height="450" /></a></div></div>
+<div class="mw-translate-fuzzy">
+<p>Nochmals wird die Funktion <i>Gespiegelt</i> dazu verwendet, das Merkmal auf die andere Seite des Modells zu kopieren. Dazu muss zunächst <i>Pad001</i> im Modellbaum gewählt und anschließend <i>Gespiegelt</i> angeklickt werden. Als Spiegelebene wird wiederum die Horizontale im Auswahlmenü gewählt.
+</p>
+</div>
+<p>Ein (englischsprachiges) Video der in diesem Abschnitt des Tutorials benutzten Schritte gibt es <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=DZOF21fNVDs%7Chier">[3]</a>.
+</p>
+<h3><span class="mw-headline" id="Merkmal_mit_Tasche_und_externer_Geometrie">Merkmal mit Tasche und externer Geometrie</span></h3>
+<p>Betrachtet man das Objekt von vorne, so lässt sich bereits eine deutliche Ähnlichkeit zum Objekt in der zu Beginn vorgegebenen Zeichnung erkennen. Für das letzte Merkmal muss nun die vordere, schräge Seite des Körpers ausgewählt werden.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial011.png" class="image"><img alt="PD WB Tutorial011.png" src="PD_WB_Tutorial011.png" width="450" height="450" /></a></div></div>
+<p>In einer neuen Skizze auf dieser schrägen Seite muss nun ein Rechteck erstellt und mit folgenden Beschränkungen ausgestattet werden. 
+</p>
+<ol><li> Wähle eine vertikale und eine horizontale Linie des Rechtecks und klicke auf die <i>Gleichheitsbeschränkung</i>.</li>
+<li> Wähle eine der vier Seiten und klicke auf <i>Distanz festlegen</i> mit dem Maß 17 mm.</li>
+<li> Mit dem Werkzeug <i>Externe Geometrie</i> muss nun die rechte, obere Ecke der hellgrau dargestellten Oberfläche gewählt und in die Skizze projiziert werden (siehe Abbildung). </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial012.png" class="image"><img alt="PD WB Tutorial012.png" src="PD_WB_Tutorial012.png" width="450" height="450" /></a></div></div>
+<p>Gemäß den Maßen der nachfolgenden Abbildungen sollen folgende Beschränkungen erstellt werden.
+</p>
+<ol><li> Zwischen dem projizierten Eckpunkt und dem oberen, rechten Eckpunkt des Rechtecks eine horizontale Distanz von 7 mm.</li>
+<li> Zwischen dem projizierten Eckpunkt und dem oberen, rechten Eckpunkt des Rechtecks eine vertikale Distanz von 11 mm.</li></ol>
+<p>Das Ergebnis sollte folgendermaßen aussehen. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial013.png" class="image"><img alt="PD WB Tutorial013.png" src="PD_WB_Tutorial013.png" width="450" height="450" /></a></div></div>
+<p>Würde an dieser Stelle mit der Skizze einfach eine Tasche erstellt werden, so wäre diese senkrecht zur Skizzierebene und dies ist hierbei nicht erwünscht. Die Tasche soll stattdessen senkrecht zur Rückseite sein, wobei jedoch die Maße geändert werden müssen. Dies kann entweder von Hand durch trigonometrische Berechnung der neuen Maße geschehen oder alternativ durch Verwendung der in FreeCAD bereits vorhandenen Möglichkeiten. Letzteres ist einfacher und soll im Folgenden geschehen. Um die gerade erstellt Skizze auf die Rückseite projizieren zu können, muss diese erstmal extrudiert werden. Dazu wird ein kleiner Block aus dieser Skizze als Hilfsmittel erstellt. Dieser Block kann danach auf eine neue Skizze auf der Rückseite des Objektes projiziert werden und somit für die notwendige Tasche genutzt werden.
+</p><p>Im ersten Schritt wird aus der Skizze eine kleine Box der Länge 1 mm erstellt. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial014.png" class="image"><img alt="PD WB Tutorial014.png" src="PD_WB_Tutorial014.png" width="450" height="450" /></a></div></div>
+<p>Ein (englischsprachiges) Video der in diesem Abschnitt des Tutorials benutzten Schritte gibt es <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=a0hsJtbFW4Y%7Chier">[4]</a>.
+</p><p>Im nächsten Schritt drehen wir das Modell und erstellen eine neue Skizze auf der Rückseite. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial015.png" class="image"><img alt="PD WB Tutorial015.png" src="PD_WB_Tutorial015.png" width="450" height="450" /></a></div></div>
+<p>Im Skizziermodus muss nun das Modell gedreht werden, um die Kanten des gerade erstellten Quaders projizieren zu können. Mit dem Werkzeug <i>Externe Geometrie</i> werden nun zwei zueinander senkrechte Seiten des dünnen Quaders gewählt und somit in die rückseitige Skizze projiziert. Die folgende Abbildung verdeutlicht diese Kanten nochmal (rote Kreise). 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial016.png" class="image"><img alt="PD WB Tutorial016.png" src="PD_WB_Tutorial016.png" width="450" height="450" /></a></div></div>
+<p>Zurück in der Skizze sind nun die zwei Projektionslinien zu sehen, die wir gerade auf der Vorderseite erzeugt haben. Ergänzt wird die Skizze durch ein Rechteck, dessen Ecken über die <i>Koinzidenzbeschränkung</i> mit den Projektionslinien wie folgt verknüpft werden.
+</p>
+<ol><li> Wähle den oberen linken Eckpunkt des Rechtecks und den oberen linken Eckpunkt der Projektion und klicke auf <i>Koinzidenzbeschränkung</i>.</li>
+<li> Wähle den unteren rechten Eckpunkt des Rechtecks und den unteren rechten Eckpunkt der Projektion und klicke auf <i>Koinzidenzbeschränkung</i>.</li></ol>
+<p>Das Ergebnis sollte folgendermaßen aussehen. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial017.png" class="image"><img alt="PD WB Tutorial017.png" src="PD_WB_Tutorial017.png" width="450" height="450" /></a></div></div>
+<div class="mw-translate-fuzzy">
+<p>Der letzte Schritt dieses Tutorials besteht aus dem Einfügen einer Tasche für die eben erstellte Skizze. Dabei muss die Option <i>Durch Alles</i> gewählt werden. Nach einem Klick auf <i>OK</i> ist das Modell fertig.
+</p>
+</div>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial019.png" class="image"><img alt="PD WB Tutorial019.png" src="PD_WB_Tutorial019.png" width="671" height="493" /></a></div></div>
+<p>Ein (englischsprachiges) Video der in diesem Abschnitt des Tutorials benutzten Schritte gibt es <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=dlQV9OkXWOI%7Chier">[5]</a>.
+</p><p>Your model will have some extra lines on it compared to the images in this tutorial.  To remove these extra lines, change to the OpenSCAD workbench, select Pocket001 (in v0.17 and later select Body) from the hierarchy tree, and click the Refine Shape tool: <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RefineShapeFeature.png" class="image"><img alt="OpenSCAD RefineShapeFeature.png" src="32px-OpenSCAD_RefineShapeFeature.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/OpenSCAD_RefineShapeFeature.png/48px-OpenSCAD_RefineShapeFeature.png 1.5x, /wiki/images/9/93/OpenSCAD_RefineShapeFeature.png 2x" /></a>.  This creates a refined version of the model that is parametrically linked to Pocket001 and so is also linked to the entire history of the model.  If we change, for example, the numerical value of a distance constraint the Refined Shape will update.  In contrast, the Part WorkBench also has a Refine Shape tool in the pulldown menu, and it creates a Refined Shape that is more like a snapshot of the model as it existed when the Refine Shape tool was used.  If we change (for example again) the numerical value of a distance constraint, Refine Shape created from the Part Workbench remains the same and does not update.
+</p><p>Dieses Tutorial und Ihr Modell sind beendet.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li>Links zu begleitenden Videos wurden hinzugefügt.</li>
+<li>FreeCAD-Datei zum Vergleich (erstellt mit 0.16.6706) <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/Examples/blob/master/Basic_Part_Design_Tutorial_Example_Files/Basic_Part_Design_Tutorial.FCStd">Download</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/de&amp;oldid=275613">http://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/de&amp;oldid=275613</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

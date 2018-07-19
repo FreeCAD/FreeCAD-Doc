@@ -1,0 +1,131 @@
+<html><head><title>Part Module/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Module/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>FreeCADのCAD機能は<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">OpenCasCade</a>カーネルをその基礎としています。FreeCADはパートモジュールによってOpenCasCadeオブジェクトとその機能へのアクセス・利用を行なっています。OpenCascadeはプロフェッショナル用のCADカーネルでその機能は3D形状操作、3D形状オブジェクトに特化しています。<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">メッシュモジュール</a> のオブジェクトと異なりパートオブジェクトはより複雑で、明確なブーリアン演算、変更履歴、パラメトリックな動作などのより高度な処理が可能です。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_example.jpg" class="image"><img alt="Part example.jpg" src="Part_example.jpg" width="634" height="406" /></a>
+</p><p>FreeCADでのパート形状の例
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.83.84.E3.83.BC.E3.83.AB"><span class="tocnumber">1</span> <span class="toctext">ツール</span></a></li>
+<li class="toclevel-1"><a href="#.E3.83.97.E3.83.AA.E3.83.9F.E3.83.86.E3.82.A3.E3.83.96"><span class="tocnumber">2</span> <span class="toctext">プリミティブ</span></a></li>
+<li class="toclevel-1"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.A4.89.E6.9B.B4"><span class="tocnumber">3</span> <span class="toctext">オブジェクトの変更</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E3.83.96.E3.83.BC.E3.83.AA.E3.82.A2.E3.83.B3.E6.BC.94.E7.AE.97"><span class="tocnumber">4</span> <span class="toctext">ブーリアン演算</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E6.A6.82.E5.BF.B5.E3.81.AE.E8.AA.AC.E6.98.8E"><span class="tocnumber">5</span> <span class="toctext">概念の説明</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">6</span> <span class="toctext">スクリプト処理</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E4.BE.8B"><span class="tocnumber">7</span> <span class="toctext">例</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E3.83.84.E3.83.BC.E3.83.AB">ツール</span></h3>
+<p>パートモジュールツールは全てパートモジュールを読み込んだ時点で表示される<b>Part</b>メニューにあります。 
+</p>
+<h3><span class="mw-headline" id=".E3.83.97.E3.83.AA.E3.83.9F.E3.83.86.E3.82.A3.E3.83.96">プリミティブ</span></h3>
+<p>プリミティブオブジェクトを作成するためのツールです。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Box/jp" title="Part Box/jp">ボックス</a>: 寸法を指定してボックスを描きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cone.png" class="image"><img alt="Part Cone.png" src="32px-Part_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/1/13/Part_Cone.png/48px-Part_Cone.png 1.5x, /wiki/images/1/13/Part_Cone.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cone/jp" title="Part Cone/jp">円錐</a>: 寸法を指定して円錐を描きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cylinder.png" class="image"><img alt="Part Cylinder.png" src="32px-Part_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/d/d4/Part_Cylinder.png/48px-Part_Cylinder.png 1.5x, /wiki/images/d/d4/Part_Cylinder.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cylinder/jp" title="Part Cylinder/jp">円筒</a>: 寸法を指定して円筒を描きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Sphere.png" class="image"><img alt="Part Sphere.png" src="32px-Part_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/4/4b/Part_Sphere.png/48px-Part_Sphere.png 1.5x, /wiki/images/4/4b/Part_Sphere.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sphere/jp" title="Part Sphere/jp">球</a>: 寸法を指定して球を描きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Torus.png" class="image"><img alt="Part Torus.png" src="32px-Part_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/8/8b/Part_Torus.png/48px-Part_Torus.png 1.5x, /wiki/images/8/8b/Part_Torus.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Torus/jp" title="Part Torus/jp">トーラス</a>: 寸法を指定してトーラス（円環）を描きます</li></ul>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.A4.89.E6.9B.B4">オブジェクトの変更</span></h3>
+<p>既存のオブジェクトを変更するためのツールです。変更するオブジェクトを選択して使用します。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Booleans.png" class="image"><img alt="Part Booleans.png" src="32px-Part_Booleans.png" width="32" height="32" srcset="/wiki/images/thumb/8/89/Part_Booleans.png/48px-Part_Booleans.png 1.5x, /wiki/images/8/89/Part_Booleans.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/jp" title="Part Booleans/jp">ブーリアン</a>: オブジェクトのブーリアン演算を行います</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fuse.png" class="image"><img alt="Part Fuse.png" src="32px-Part_Fuse.png" width="32" height="32" srcset="/wiki/images/thumb/c/c6/Part_Fuse.png/48px-Part_Fuse.png 1.5x, /wiki/images/c/c6/Part_Fuse.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fuse/jp" title="Part Fuse/jp">結合</a>: 二つのオブジェクトを結合します（和集合）</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Common.png" class="image"><img alt="Part Common.png" src="32px-Part_Common.png" width="32" height="32" srcset="/wiki/images/thumb/9/9a/Part_Common.png/48px-Part_Common.png 1.5x, /wiki/images/9/9a/Part_Common.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Common/jp" title="Part Common/jp">共通部</a>: 二つのオブジェクトの共通部分を抽出します（共通集合）</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="32px-Part_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/48px-Part_Cut.png 1.5x, /wiki/images/4/4a/Part_Cut.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cut/jp" title="Part Cut/jp">切り取り</a>: オブジェクトを別のオブジェクトから切り取ります（減算）</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="32px-Part_Extrude.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/48px-Part_Extrude.png 1.5x, /wiki/images/d/df/Part_Extrude.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Extrude/jp" title="Part Extrude/jp">押し出し</a>: オブジェクトの平面を押し出します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/jp" title="Part Fillet/jp">フィレット</a>: オブジェクトのエッジをフィレット処理（丸め処理）します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Revolve.png" class="image"><img alt="Part Revolve.png" src="32px-Part_Revolve.png" width="32" height="32" srcset="/wiki/images/thumb/1/12/Part_Revolve.png/48px-Part_Revolve.png 1.5x, /wiki/images/1/12/Part_Revolve.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Revolve/jp" title="Part Revolve/jp">回転体</a>: 別のオブジェクトを軸周りに回転させてオブジェクトを作成します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Section.png" class="image"><img alt="Part Section.png" src="32px-Part_Section.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/Part_Section.png/48px-Part_Section.png 1.5x, /wiki/images/a/ab/Part_Section.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Section/jp" title="Part Section/jp">分割</a>: 分割面をオブジェクトに交差させることで切断面を作成します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Chamfer.png" class="image"><img alt="Part Chamfer.png" src="32px-Part_Chamfer.png" width="32" height="32" srcset="/wiki/images/thumb/8/87/Part_Chamfer.png/48px-Part_Chamfer.png 1.5x, /wiki/images/8/87/Part_Chamfer.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Chamfer/jp" title="Part Chamfer/jp">面取り</a>: オブジェクトのエッジを面取りします</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Mirror.png" class="image"><img alt="Part Mirror.png" src="32px-Part_Mirror.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/Part_Mirror.png/48px-Part_Mirror.png 1.5x, /wiki/images/9/93/Part_Mirror.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Mirror/jp" title="Part Mirror/jp">ミラー</a>: 指定された鏡面に対して選択されたオブジェクトの鏡像を作成します</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".E3.83.96.E3.83.BC.E3.83.AA.E3.82.A2.E3.83.B3.E6.BC.94.E7.AE.97">ブーリアン演算</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanOperations.png" class="image" title="An example of union (Fuse), intersection (Common) and difference (Cut)"><img alt="An example of union (Fuse), intersection (Common) and difference (Cut)" src="500px-Part_BooleanOperations.png" width="500" height="384" srcset="/wiki/images/thumb/d/df/Part_BooleanOperations.png/750px-Part_BooleanOperations.png 1.5x, /wiki/images/thumb/d/df/Part_BooleanOperations.png/1000px-Part_BooleanOperations.png 2x" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+結合（ヒューズ）、交差（共通部分）、差（カット）の一例
+</p>
+<h3><span class="mw-headline" id=".E6.A6.82.E5.BF.B5.E3.81.AE.E8.AA.AC.E6.98.8E">概念の説明</span></h3>
+<p>OpenCasCadeにおける用語では幾何プリミティブと（位相）シェイプは明確に区別されます。幾何プリミティブとは点、ライン、円、平面、それにB-スプライン曲線や曲面などのより複雑なタイプのものです。シェイプは頂点、エッジ、ワイヤー、面、ソリッド、それに他のシェイプの合成物です。幾何プリミティブは3Dシーン上に直接表示されることはありませんがシェイプの形状を作成するためには重要な役割を果たします。例えばエッジははラインまたは円の一部から作成されます。
+</p><p>つまり幾何プリミティブとは"形のない"構成単位であり、シェイプはその上に作られた実際の空間的な形状であると言えるでしょう。
+</p><p>その完全なリストを入手したい場合は<a rel="nofollow" class="external text" href="http://www.opencascade.org/org/doc/">OCCドキュメント</a>（あるいは<a rel="nofollow" class="external text" href="http://opencascade.sourcearchive.com/documentation/6.3.0.dfsg.1-1/classes.html">sourcearchive.com</a>）を参照し、 <b>Geom_*</b>（幾何プリミティブの場合）と<b>TopoDS_*</b>（シェイプの場合）を検索してください。幾何オブジェクトとシェイプの違いについてより詳しい説明を読むことができます。残念なことに公式のOCCドキュメントはオンラインで利用することができず（アーカイブをダウンロードしなければなりません）、またそのほとんどがプログラマー向けのものでエンドユーザーに向けたものではないことに注意してください。ただしこれから始めるために必要な情報についてはここで十分確認することができるはずです。
+</p><p>実のところ幾何オブジェクトは大きく二つに分けることができます。カーブとサーフェスです。カーブ（ライン、円・・・）からはエッジを直接的に作成でき、サーフェス（平面、円筒・・・）からはフェイスを作成できます。例えば幾何プリミティブのラインは無限の長さを持ちます。つまり基底ベクトルと方向ベクトルによって定義されているのです。しかしそのシェイプ表現は始点と終点によって長さを制限されなければなりません。同様に直方体 -- ソリッド -- は六つの制限つき平面によって作成されます。
+</p><p>エッジやフェイスからはその対となる幾何プリミティブに戻ることもできます。
+</p><p>このようにしてシェイプから非常に複雑なパーツを作成したり、逆に複雑なシェイプからそれを構成するサブシェイプを全て抜き出したりすることが可能になっているのです。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">スクリプト処理</span></h3>
+<p>パートモジュールで使用されている主なデータ構造はOpenCascadeの<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Boundary_representation">BRep（境界表現）</a>データ型です。
+現在ではパートモジュールのほとんど全ての機能とオブジェクト型がPythonスクリプトから利用可能になっています。これにはLineやCircle（あるいはArc）などの幾何プリミティブとVertexes、Edges、Wires、Faces、SolidsそしてCompoundsなどTopoShapesの全てが含まれます。これらの各オブジェクトにはいくつかの異なる作成方法があり、またオブジェクトの一部、特にTopoShapesではブーリアン演算の和集合/差集合/共通集合といったより高度な操作が可能になっています。パートモジュールの機能の詳細については<a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp" title="FreeCAD Scripting Basics/jp">FreeCADスクリプト処理の基礎</a>ページを調べてください。
+</p>
+<h3><span class="mw-headline" id=".E4.BE.8B">例</span></h3>
+<p>ライン要素を作成するにはPythonコンソールを開き、以下のように入力します：
+</p>
+<pre>import Part,PartGui 
+doc=App.newDocument()  
+l=Part.Line()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0)
+doc.addObject("Part::Feature","Line").Shape=l.toShape() 
+doc.recompute()
+</pre>
+<p>上記のPythonスクリプトの例をステップごとに見ていきましょう：
+</p>
+<pre>import Part,PartGui
+doc=App.newDocument()
+</pre>
+<p>パートモジュールを読み込み、新しいドキュメントを作成します。
+</p>
+<pre>l=Part.Line()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0)
+</pre>
+<p>ラインは実際は線分なので始点と終点があります。
+</p>
+<pre>doc.addObject("Part::Feature","Line").Shape=l.toShape()
+</pre>
+<p>Partオブジェクト型をドキュメントに追加し、追加したオブジェクトの'Shape'プロパティに線分のシェイプ表現を代入します。ここで理解すべき重要な点は幾何プリミティブ（Part.Line）を使ってそこから位相シェイプを作成した（toShape()メソッド）ということです。ドキュメントに追加できるのはシェイプだけです。FreeCADでは幾何プリミティブはシェイプのための"作成用構造体"として使用されます。
+</p>
+<pre>doc.recompute()
+</pre>
+<p>ドキュメントを更新します。新しいパートオブジェクトの視覚的な表現を用意するための処理でもあります。
+</p><p>LineはPart.Line(point1,point2)という風にその始点と終点をコンストラクタで直接指定して作成することもできますし、ここで行ったようにデフォルトのラインを作成してあとでそのプロパティを設定することもできるということを憶えておいてください。
+</p><p>同じようにして円を作ることもできます：
+</p>
+<pre>import Part
+doc = App.activeDocument()
+c = Part.Circle() 
+c.Radius=10.0  
+f = doc.addObject("Part::Feature", "Circle")
+f.Shape = c.toShape()
+doc.recompute()
+</pre>
+<p>先ほどと同様、円（幾何プリミティブ）を使ってそのシェイプを作成しました。もちろんこの後、下記のような方法で作成した形状にアクセスすることができます：
+</p>
+<pre>s = f.Shape
+e = s.Edges[0]
+c = e.Curve
+</pre>
+<p>ここではオブジェクトfのシェイプを取得した後、そのエッジのリストを取得しています。今回の場合、エッジは一つしかありません。円一つからシェイプ全体を作成しているためです。従ってEdgesリストの最初のアイテムだけ取得し、その後でそのCurve（曲線）を取得しています。Edgeは全てCurveを持ちます。これはエッジの元になっている幾何プリミティブです。
+</p><p>さらに詳しく知りたい場合は<a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp" title="Topological data scripting/jp">位相データのスクリプト処理</a>ページを見て下さい。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp&amp;oldid=174433">http://www.freecadweb.org/wiki/index.php?title=Part_Module/jp&amp;oldid=174433</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

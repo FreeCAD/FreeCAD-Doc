@@ -1,0 +1,119 @@
+<html><head><title>Part JoinCutout/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part JoinCutout/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_JoinCutout"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_JoinCutout.png" class="image"><img alt="Part JoinCutout.png" src="32px-Part_JoinCutout.png" width="32" height="32" srcset="/wiki/images/thumb/c/c4/Part_JoinCutout.png/48px-Part_JoinCutout.png 1.5x, /wiki/images/c/c4/Part_JoinCutout.png 2x" /></a> Part JoinCutout</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Расположение в меню
+</th></tr>
+<tr>
+<td class="ctEven">Деталь → Join → Cutout for Object
+</td></tr>
+<tr>
+<th class="ctOdd">Верстаки
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Быстрые клавиши
+</th></tr>
+<tr>
+<td class="ctEven">отсутствуют
+</td></tr>
+<tr>
+<th class="ctOdd">См. также
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinConnect/ru" title="Part JoinConnect/ru">Connect</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinEmbed/ru" title="Part JoinEmbed/ru">Embed</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/ru" title="Part Booleans/ru">Part Booleans</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Thickness/ru" title="Part Thickness/ru">Part Thickness</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_JoinCutout"><span class="tocnumber">1</span> <span class="toctext">Part JoinCutout</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">5</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Algorithm"><span class="tocnumber">6</span> <span class="toctext">Algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Notes"><span class="tocnumber">6.1</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Scripting"><span class="tocnumber">7</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Version"><span class="tocnumber">8</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Coutout tool creates a cutout in a walled object (e.g., a pipe) to fit another walled object.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Cutout.png" class="image"><img alt="JoinFeatures Cutout.png" src="600px-JoinFeatures_Cutout.png" width="600" height="403" srcset="/wiki/images/5/57/JoinFeatures_Cutout.png 1.5x" /></a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select the base object first, then the object to define the cutout. <br /> The order of selection is important. It is enough to select one sub-shape of each object (e.g., faces).</li>
+<li> Invoke the Part JoinCutout command.</li></ol>
+<p>A Part JoinFeature object is created, with Mode set to 'Cutout'. Original objects are hidden, and the result of cutting is shown in 3D view.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Base</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>: Reference to base object (the one to make the cutout in). The object should be a single solid.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tool</b>: Reference to tool object (the object that is to fit into the cutout). The object can be a single solid, or a <a href="Part_MakeCompound.html" title="Part MakeCompound">valid compound</a> of solids.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b>: The mode of operation, equals 'Cutout' (Changing that will transform the tool into another Part_JoinXXX). The value of 'bypass' can be used to temporarily disable the long computations (a compound of Base and Tool will be created, which is a fast operation).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Refine</b>: Sets whether to apply <a href="Part_RefineShape.html" title="Part RefineShape">Refine</a> operation or not, to the final shape. The default value is determined by a 'Automatically refine shape after boolean operation' checkbox in PartDesign preferences. When Mode property is 'bypass', Refine is ignored (never applied).</li></ul>
+<h2><span class="mw-headline" id="Example">Example</span></h2>
+<ol><li> Create a pipe by applying <a href="Part_Thickness.html" title="Part Thickness">thickness</a> to a <a href="Part_Cylinder.html" title="Part Cylinder">cylinder</a>: <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step1.png" class="image"><img alt="JoinFeatures Example step1.png" src="320px-JoinFeatures_Example_step1.png" width="320" height="240" srcset="/wiki/images/thumb/f/fb/JoinFeatures_Example_step1.png/480px-JoinFeatures_Example_step1.png 1.5x, /wiki/images/f/fb/JoinFeatures_Example_step1.png 2x" /></a></li>
+<li> Create another, smaller diameter pipe, and <a href="Placement.html" title="Placement">place</a> it so that it pierces the wall of the first pipe: <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step2.png" class="image"><img alt="JoinFeatures Example step2.png" src="320px-JoinFeatures_Example_step2.png" width="320" height="240" srcset="/wiki/images/thumb/d/da/JoinFeatures_Example_step2.png/480px-JoinFeatures_Example_step2.png 1.5x, /wiki/images/d/da/JoinFeatures_Example_step2.png 2x" /></a></li>
+<li> Select the first pipe, then the second pipe (order of selection is important), and click the 'Cutout for object' option from the Join tools dropdown toolbar button. <br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures_Example_step3_Cutout.png" class="image"><img alt="JoinFeatures Example step3 Cutout.png" src="320px-JoinFeatures_Example_step3_Cutout.png" width="320" height="240" srcset="/wiki/images/thumb/9/9e/JoinFeatures_Example_step3_Cutout.png/480px-JoinFeatures_Example_step3_Cutout.png 1.5x, /wiki/images/9/9e/JoinFeatures_Example_step3_Cutout.png 2x" /></a></li></ol>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span></h2>
+<p>The algorithms behind Join tools are quite simple, and understanding them is important to use the tools correctly.
+</p><p>1. Base object is <a href="Part_Cut.html" title="Part Cut">boolean-cut</a> with Tool object. The resulting shape is a set (<a href="Part_MakeCompound.html" title="Part MakeCompound">compound</a>) of non-intersecting solids (typically, two). 
+</p><p>2. The resulting compound is filtered: only the largest solid is kept.
+</p><p>3. If Refine property is true, the resulting shape is <a href="Part_RefineShape.html" title="Part RefineShape">refined</a>.
+<br /><br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:JoinFeatures-Algo-Cutout.png" class="image"><img alt="JoinFeatures-Algo-Cutout.png" src="800px-JoinFeatures-Algo-Cutout.png" width="800" height="360" srcset="/wiki/images/a/a0/JoinFeatures-Algo-Cutout.png 1.5x" /></a>
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<ul><li> If after step 1, the object remains in one piece, the result of Cutout will be equivalent to <a href="Part_Cut.html" title="Part Cut">boolean cut</a> of Base with Tool.</li>
+<li> Now, the tool will produce unexpected result, if a compound is supplied as Base. This may be changed in the future.</li>
+<li> Because the largest piece is determined by comparing volumes of pieces, the tool can only work with solids. This may be changed in the future.</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The Join tools can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>JoinFeatures.makePartJoinFeature(name = 'Cutout', mode = 'Cutout')</b>
+</pre>
+<ul><li> Creates an empty Cutout feature (or other Join feature, depending on mode passed). The properties Base and Tool must be assigned explicitly, afterwards.</li>
+<li> Returns the newly created object.</li></ul>
+<p>Example:
+</p>
+<pre>import JoinFeatures
+j = JoinFeatures.makePartJoinFeature(name = 'Cutout', mode = 'Cutout' )
+j.Base = FreeCADGui.Selection.getSelection()[0]
+j.Tool = FreeCADGui.Selection.getSelection()[1] </pre>
+<p>The tool itself is implemented in Python, see /Mod/Part/JoinFeatures.py under where FreeCAD is installed.
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.16.5069
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_JoinCutout/ru&amp;oldid=201398">http://www.freecadweb.org/wiki/index.php?title=Part_JoinCutout/ru&amp;oldid=201398</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

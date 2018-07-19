@@ -1,0 +1,155 @@
+<html><head><title>Assembly project/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Assembly project/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/jp&amp;action=edit&amp;redlink=1" class="new" title="Development roadmap/jp (page does not exist)">開発ロードマップ</a>の一部にある<b>アセンブリ</b>モジュールのプロジェクト計画です。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E7.9B.AE.E7.9A.84.E3.81.A8.E5.8E.9F.E5.89.87"><span class="tocnumber">1</span> <span class="toctext">目的と原則</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E6.88.90.E6.9E.9C.E7.89.A9"><span class="tocnumber">2</span> <span class="toctext">成果物</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.83.96.E3.83.AC.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.9F.E3.83.B3.E3.82.B0"><span class="tocnumber">3</span> <span class="toctext">ブレインストーミング</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.83.9E.E3.83.AB.E3.83.81.E3.83.A2.E3.83.87.E3.83.AB"><span class="tocnumber">3.1</span> <span class="toctext">マルチモデル</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.83.97.E3.83.AD.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.83.9E.E3.83.8D.E3.83.BC.E3.82.B8.E3.83.A1.E3.83.B3.E3.83.88"><span class="tocnumber">3.2</span> <span class="toctext">プロジェクトマネージメント</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E8.91.97.E4.BD.9C.E6.A8.A9"><span class="tocnumber">3.3</span> <span class="toctext">著作権</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#ISO10303"><span class="tocnumber">3.4</span> <span class="toctext">ISO10303</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E3.82.A2.E3.82.BB.E3.83.B3.E3.83.96.E3.83.AA.E6.8B.98.E6.9D.9F"><span class="tocnumber">3.5</span> <span class="toctext">アセンブリ拘束</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E9.81.8B.E5.8B.95.E5.AD.A6"><span class="tocnumber">3.6</span> <span class="toctext">運動学</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E3.83.90.E3.83.BC.E3.82.B8.E3.83.A7.E3.83.B3.E7.AE.A1.E7.90.86"><span class="tocnumber">3.7</span> <span class="toctext">バージョン管理</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#.E3.82.A4.E3.83.B3.E3.83.95.E3.83.A9.E3.82.B9.E3.83.88.E3.83.A9.E3.82.AF.E3.83.81.E3.83.A3"><span class="tocnumber">4.1</span> <span class="toctext">インフラストラクチャ</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#.E3.83.9E.E3.83.AB.E3.83.81.E3.83.A2.E3.83.87.E3.83.AB_2"><span class="tocnumber">4.1.1</span> <span class="toctext">マルチモデル</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#.E3.83.91.E3.83.BC.E3.83.88.E3.83.84.E3.83.AA.E3.83.BC"><span class="tocnumber">4.1.2</span> <span class="toctext">パートツリー</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#.E3.83.89.E3.83.A9.E3.83.83.E3.82.B0.2F.E3.83.89.E3.83.AD.E3.83.83.E3.83.97.2F.E3.82.B3.E3.83.94.E3.83.BC.2F.E3.83.9A.E3.83.BC.E3.82.B9.E3.83.88.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.AE.E7.B5.B1.E5.90.88"><span class="tocnumber">4.1.3</span> <span class="toctext">ドラッグ/ドロップ/コピー/ペーストのインターフェイスの統合</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#.E5.A4.96.E9.83.A8.E3.83.AA.E3.82.BD.E3.83.BC.E3.82.B9"><span class="tocnumber">4.1.4</span> <span class="toctext">外部リソース</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.83.A2.E3.83.87.E3.83.AB"><span class="tocnumber">4.2</span> <span class="toctext">オブジェクトモデル</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#.E3.82.A2.E3.82.BB.E3.83.B3.E3.83.96.E3.83.AA.E6.8B.98.E6.9D.9F.E3.82.BD.E3.83.AB.E3.83.90.E3.83.BC"><span class="tocnumber">4.3</span> <span class="toctext">アセンブリ拘束ソルバー</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#.E7.89.A9.E7.90.86.E3.82.B7.E3.83.9F.E3.83.A5.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9"><span class="tocnumber">4.4</span> <span class="toctext">物理シミュレーションインターフェイス</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#.E6.AC.A1.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">5</span> <span class="toctext">次のアクション</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E7.9B.AE.E7.9A.84.E3.81.A8.E5.8E.9F.E5.89.87">目的と原則</span></h2>
+<p>これはアセンブリモジュールと製品作成機能の実装を目標としたソフトウェア開発計画です。FreeCADのCADモジュールである<b>パートとアセンブリ</b>に対するいくつかの<b>コア機能</b>の実装が関係します。
+</p><p>開発ステップはここで計画され、適切な形式の変更ログを作成するために課題追跡システムでトラッキングされます：
+<a rel="nofollow" class="external text" href="http://apps.sourceforge.net/mantisbt/free-cad/my_view_page.php">課題トラッカー</a>
+</p>
+<h2><span class="mw-headline" id=".E6.88.90.E6.9E.9C.E7.89.A9">成果物</span></h2>
+<p>このプロジェクトの目標はFreeCADで次に示すような設計作業を行えるようにすることです：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Gripper.jpg" class="image"><img alt="Gripper.jpg" src="400px-Gripper.jpg" width="400" height="355" srcset="/wiki/images/thumb/7/78/Gripper.jpg/600px-Gripper.jpg 1.5x, /wiki/images/thumb/7/78/Gripper.jpg/800px-Gripper.jpg 2x" /></a>
+</p><p>これはモデルのやり取りを簡単に行えるようにできるだけISO10303仕様に近づけた拘束を伴う様々な種類のパートの統合を行う<b>アセンブリ</b>の使用によって可能になる予定です。
+</p><p>もう一つの目標は運動学用の<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Dynamics_Engine">ODE</a>を利用できるようにすることです。
+</p>
+<h2><span class="mw-headline" id=".E3.83.96.E3.83.AC.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.9F.E3.83.B3.E3.82.B0">ブレインストーミング</span></h2>
+<h3><span class="mw-headline" id=".E3.83.9E.E3.83.AB.E3.83.81.E3.83.A2.E3.83.87.E3.83.AB">マルチモデル</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:MultiModel.png" class="image"><img alt="MultiModel.png" src="600px-MultiModel.png" width="600" height="341" srcset="/wiki/images/thumb/7/70/MultiModel.png/900px-MultiModel.png 1.5x, /wiki/images/thumb/7/70/MultiModel.png/1200px-MultiModel.png 2x" /></a></div>
+<p>現実世界での設計の重要な特徴は設計を取り扱い可能な断片に分割するということです。設計上の全ての側面を一度に取り扱うのは不可能です。これは形状についても、FEMやCAMといったエンジニアリング的な作業についても当てはまることです。そこでFreeCADでモデルを分割できるようにする必要があります。これによっていくつかのことが可能なります：
+</p>
+<ul><li> <b>遅延読み込み</b> - グラフィックスや作業をしている部分のメインメモリといったリソース以外は不必要になります</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Concurrent_engineering"><b>コンカレントエンジニアリング</b></a> - 大人数で同じ設計に対して作業できるようになります</li>
+<li> Fine grained <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Version_control"><b>バージョン管理</b></a> -  設計の様々な側面に対してより適切な管理を行えるようになります</li>
+<li> その他にもあります....</li></ul>
+<p>マルチモデルの設計は次のようになります：
+</p>
+<h3><span class="mw-headline" id=".E3.83.97.E3.83.AD.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.83.9E.E3.83.8D.E3.83.BC.E3.82.B8.E3.83.A1.E3.83.B3.E3.83.88">プロジェクトマネージメント</span></h3>
+<p>マルチモデルでは一つのプロジェクトに対して多くのファイルが存在し、そのほとんどが共有ディレクトリに置かれます。プロジェクトファイルとプロジェクトブラウザによってファイルは構造化されます。またプロジェクトに関する追加情報やプロジェクトのウェブサイトを保存することもできます。
+</p><p>1. "シンプル"モードと"プロジェクト"モードの二つのモード。シンプルではドキュメントが一つだけ存在し、全てのアセンブリとパーツはそのドキュメントの中にあります。プロジェクトが開かれたり作成されたりするとFreeCADはプロジェクトモードに移行します。
+</p><p>2. プロジェクト。ドライブ上のFCPrjファイルの位置がルートディレクトリを定義します。このディレクトリの下のファイルは全てそのルートディレクトリに対する相対パスで定義されます。左側の追加ビューには扱っているファイルに対するディレクトリツリーを表示するProjectExplorerが存在するようになります。このルートディレクトリはSVNサンドボックスのルートとしても使用され、これによって作業後の共有やバージョン管理が容易になります。（ロート外やサーバー共有、ウェブ上のソースに対する）外部参照は分離可能な形でProjectExplorer内に表示されます（各ファイルサーバーやウェブサーバーを擬似的なディレクトリとする）。これによって外部参照の高速な閲覧や再ルーティングが可能になります。
+</p>
+<h3><span class="mw-headline" id=".E8.91.97.E4.BD.9C.E6.A8.A9">著作権</span></h3>
+<p>3Dモデルの著作権は興味深い分野です。3Dモデルは著作権保護の対象になりません。モデルの<b>作成者</b>は著作権を持ちますが、そのモデルによって表現される形状は特許や意匠特許によってしか保護されません（アメリカの場合）。しかも特許によって保護されるのは利益の発生する物理的な作成物だけなのです。その一例が<a rel="nofollow" class="external text" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=D464,651.PN.&amp;OS=PN/D464,651&amp;RS=PN/D464,651">Microsoft製マウスの意匠特許</a>です。
+</p><p>作成者（著作権保有者）と設計のモデル/製品/ファイルに対する全種類のライセンスについては記憶しておく必要があります。ライセンスに関しては私はCCライセンスをよく使います。
+<a rel="nofollow" class="external free" href="http://creativecommons.org/">http://creativecommons.org/</a>
+</p><p>CCライセンスの略称キー:
+</p>
+<ul><li> BY = 表示のみ</li>
+<li> BY-ND = 表示-改変禁止</li>
+<li> BY-NC-ND = 表示-非営利- 改変禁止</li>
+<li> BY-NC = 表示-非営利</li>
+<li> BY-NC-SA = 表示-非営利- 継承</li>
+<li> BY-SA = 表示-継承</li>
+<li> PD =  パブリックドメインなツールあるいは他のパブリックドメインな作品の一つを経由しパブリックドメインとして表示あるいは献呈；パブリックドメインな作品からの派生物は希望する任意のライセンス条項の下で作成者によって作成、ライセンスされる。</li></ul>
+<p>さらにURLのリンク先には（カスタムライセンス用に）全てのライセンスのドキュメントがあります。
+</p>
+<h3><span class="mw-headline" id="ISO10303">ISO10303</span></h3>
+<p>ISO10303（STEP）はこの分野では非常に重要です。これは私が知る限りでは唯一の広く議論され認められた適切な標準化済み製品構造定義です。
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Product_structure_modeling_Process-Data_diagram.gif" class="image"><img alt="Product structure modeling Process-Data diagram.gif" src="500px-Product_structure_modeling_Process-Data_diagram.gif" width="500" height="556" srcset="/wiki/images/thumb/f/f7/Product_structure_modeling_Process-Data_diagram.gif/750px-Product_structure_modeling_Process-Data_diagram.gif 1.5x, /wiki/images/f/f7/Product_structure_modeling_Process-Data_diagram.gif 2x" /></a></div>
+<p>以下に情報があるリンクをいくつか紹介します：
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/ISO_10303">WikipediaのISO10303の項目</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Main_Page">WikiStep.org</a> ほとんどはSTEP-NCについてですが多くの基礎情報があります</li>
+<li> STEPでの<a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/Product_Basics">製品構造</a></li>
+<li> 複数のSTEPの<a rel="nofollow" class="external text" href="http://www.wikistep.org/index.php/STEP_Tutorial">例</a></li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/ISO_10303-11">ISO10303-11</a> モデル化言語（EXPRESS）について</li>
+<li> 製品モデリングについての<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Structure_Modeling">Wikipediaの項目</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part41">パート41の概要 -- 製品概要とサポートの基礎</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/step_irs/index.html#part44">パート41（第2版）の概要 -- 製品構造の構成</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.steptools.com/support/stdev_docs/express/ap214/index.html">小規模なAP214ファイルの例</a></li></ul>
+<h3><span class="mw-headline" id=".E3.82.A2.E3.82.BB.E3.83.B3.E3.83.96.E3.83.AA.E6.8B.98.E6.9D.9F">アセンブリ拘束</span></h3>
+<p>大規模なモデルと製品を組みあげる上で重要な役割を果すのがアセンブリ拘束です。これはパーツをどのように製品にアセンブルするかを表す固有のルールを定式化したもので、固定、面対面、角度、オフセットなどの主要なものを始めとしていくつかのパターンがあります。パーツが変更された場合にもこれらの拘束が維持できるようにするには特殊なソルバーが必要になります。このソルバーはスケッチャーのソルバーとは根本的に異なるものです。おそらくこれにはグラフベースのアプローチを使う必要があると思うのですが...
+</p>
+<h3><span class="mw-headline" id=".E9.81.8B.E5.8B.95.E5.AD.A6">運動学</span></h3>
+<p>さらに高度な手段としては<a rel="nofollow" class="external text" href="http://ode.org/">ODE</a>かそれに類したライブラリの使用があるでしょう。これを使って機械的運動学シミュレーションを満たすようにパーツやアセンブリを統合するのです。これを使えば衝突判定や機械システムの状態の調査が可能になります。
+</p>
+<h3><span class="mw-headline" id=".E3.83.90.E3.83.BC.E3.82.B8.E3.83.A7.E3.83.B3.E7.AE.A1.E7.90.86">バージョン管理</span></h3>
+<p>バージョン管理と分散開発は重要な点です。マルチモデルの設計では設計を小さな断片に分解してチーム内で分散して作業することが可能です。ソフトウェア開発者にとっては"分散"と"バージョン"は聞き慣れた言葉です。ぜひ<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Distributed_Version_Control_System">DVCS</a>を使いましょう。よい比較検討記事が<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comparison_of_revision_control_software#Technical_information">ここ</a>にあります。
+</p><p>私たちが扱うのは膨大なデータであり、簡単に差分を取ることができないようなものです。従って使えるものはスナップショット永続的なモデルを使用しているものだけです。たんに差分を蓄積するだけのシステムでは私たちのデータの場合、深刻な問題が起きるでしょう（個人的にMercurialとCatiaのファイルで試したことがあります）。商用と非フリーなものを除くと基本的には<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Git_%28software%29">Git</a>と<a rel="nofollow" class="external text" href="http://subversion.apache.org/">SVN</a>しかありません。
+</p><p>この作業でのGitの使用は二つの大きな課題があります：
+</p>
+<ul><li> Gitは非常に複雑です。　リモートのリポジトリへのマージ（プッシュ、プル）はもちろん、非線形な開発パスに沿ったブランチ、マージ、タグ付けは問題を多いに複雑にしています。それをユーザーから隠蔽するのは非常に難しい作業になるでしょう。</li>
+<li> Gitでは特定のファイルタイプに対してマージと差分を行うハンドラを使用することができます。私たちの場合、.fcstdのためのハンドラが必要になるでしょう。このハンドラでFreeCADドキュメントを調べ、オブジェクトやフィーチャー、パラメータの変更点表示とマージを行うことができなければなりません。これも簡単なことではありません。</li></ul>
+<p>しかしGitを使えば高級なPLMシステムでさえ夢に見るような多くの可能性が開けるでしょう...
+</p>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<p>以下に優れたアセンブリ/製品設計に必要となる開発項目を挙げておきます：
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.83.95.E3.83.A9.E3.82.B9.E3.83.88.E3.83.A9.E3.82.AF.E3.83.81.E3.83.A3">インフラストラクチャ</span></h3>
+<p>アセンブリではFreeCADの基盤システムとインフラストラクチャ層への変更が必要になるでしょう。
+</p>
+<h4><span class="mw-headline" id=".E3.83.9E.E3.83.AB.E3.83.81.E3.83.A2.E3.83.87.E3.83.AB_2">マルチモデル</span></h4>
+<p>マルチモデルはFreeCADの設計当初から念頭にあったことです。そのために私たちはマルチドキュメントインターフェイスを採用し、無制限の数のドキュメントを読み込めるようにしました。しかし私たちは複数のドキュメントをビュー（パートツリー）に表示できるように3Dビューを中心に改善する必要があります。
+</p>
+<h4><span class="mw-headline" id=".E3.83.91.E3.83.BC.E3.83.88.E3.83.84.E3.83.AA.E3.83.BC">パートツリー</span></h4>
+<p>アセンブリではパーツやサブアセンブリによる複合物がメインワークフローとなるのでツリーの中でパーツをまとめる（グループ化する）ツールを実装する必要があります。DocumentObjectGroupとは異なり、アセンブリのグループは子グループの表示と配置を扱えなければなりません。もっとも良いのはそれぞれにViewProviderを取り付けることです。そのためにはViewProviderがClaimChildren()インターフェイスのようなものもつ必要があります。
+</p>
+<h4><span class="mw-headline" id=".E3.83.89.E3.83.A9.E3.83.83.E3.82.B0.2F.E3.83.89.E3.83.AD.E3.83.83.E3.83.97.2F.E3.82.B3.E3.83.94.E3.83.BC.2F.E3.83.9A.E3.83.BC.E3.82.B9.E3.83.88.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.AE.E7.B5.B1.E5.90.88">ドラッグ/ドロップ/コピー/ペーストのインターフェイスの統合</span></h4>
+<p>ツリーまたは3DビューでViewProviderとWorkbencheがドラッグ/ドロップ/コピー/ペーストの操作を完全に制御できるようなインターフェイス。
+</p>
+<h4><span class="mw-headline" id=".E5.A4.96.E9.83.A8.E3.83.AA.E3.82.BD.E3.83.BC.E3.82.B9">外部リソース</span></h4>
+<p>（内部または外部のブラウザからの）ドープリンクの制御。つまり（潜在的に）低速な接続（http）経由でのリソースの読み込み。
+</p>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.83.A2.E3.83.87.E3.83.AB">オブジェクトモデル</span></h3>
+<p>必要な概念を取り扱うクラスツリー。参照、インターフェイス、ドキュメントリンク、ビュー、複合物、拘束、設定など他にも多くのものがあります...
+</p>
+<h3><span class="mw-headline" id=".E3.82.A2.E3.82.BB.E3.83.B3.E3.83.96.E3.83.AA.E6.8B.98.E6.9D.9F.E3.82.BD.E3.83.AB.E3.83.90.E3.83.BC">アセンブリ拘束ソルバー</span></h3>
+<p>スケッチャーソルバーのインターフェイスと非常に似通ったアセンブリ拘束ソルバーとのインターフェイスを定義しなければなりません。
+</p>
+<h3><span class="mw-headline" id=".E7.89.A9.E7.90.86.E3.82.B7.E3.83.9F.E3.83.A5.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9">物理シミュレーションインターフェイス</span></h3>
+<p>アセンブリのパーツの位置を制御する外部の（マルチ）フィジックスシミュレーションソフトウェアとのインターフェイス。運動学テストとDMUを行うために"bullet"または"ODE"を使えるようにしなければならないでしょう。
+</p>
+<h2><span class="mw-headline" id=".E6.AC.A1.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.B7.E3.83.A7.E3.83.B3">次のアクション</span></h2>
+<ul><li> オブジェクトモデル</li>
+<li> 0.12のリリースブランチができるまで待機</li></ul>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Assembly_project/jp&amp;oldid=16650">http://www.freecadweb.org/wiki/index.php?title=Assembly_project/jp&amp;oldid=16650</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,104 @@
+<html><head><title>FEM FemMesh2Mesh/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM FemMesh2Mesh/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="FEM_FemMesh2Mesh"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FemMesh2Mesh.png" class="image"><img alt="FEM FemMesh2Mesh.png" src="32px-FEM_FemMesh2Mesh.png" width="32" height="32" srcset="/wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/48px-FEM_FemMesh2Mesh.png 1.5x, /wiki/images/5/5f/FEM_FemMesh2Mesh.png 2x" /></a> FEM FemMesh2Mesh</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Mesh → FEM mesh to mesh
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Fem_Workbench/fr" class="mw-redirect" title="Fem Workbench/fr">FEM</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=FEM_tutorial/fr" title="FEM tutorial/fr">FEM tutorial</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#FEM_FemMesh2Mesh"><span class="tocnumber">1</span> <span class="toctext">FEM FemMesh2Mesh</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scrip"><span class="tocnumber">4</span> <span class="toctext">Scrip</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Convertir_2D_.C3.A9l.C3.A9ments"><span class="tocnumber">5</span> <span class="toctext">Convertir 2D éléments</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cet outil converti une surface un élément 3D ou un élément FEM maille sélectionné en un élément maille . En interne, l'élément FEM maille choisi est unique (non partagé entre deux éléments) et l'utilise pour créer une face ou un élément maille. Optionnellement il permet de créer un maillage déformé causé par les forces établies . Ceci est fait par ajout du déplacement de FEM résultant des nœuds du maillage.
+</p><p>Les éléments bidimensionnels du maillage FEM ne sont pas pris en compte. Si vous devez les convertir, vous pouvez utiliser le script python ci-dessous.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<ol><li> Sélectionnez un objet FEM maille (Optionnellement sélectionnez un résultat FEM ajouté)</li>
+<li> Pressez le bouton <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FemMesh2Mesh.png" class="image"><img alt="FEM FemMesh2Mesh.png" src="24px-FEM_FemMesh2Mesh.png" width="24" height="24" srcset="/wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/36px-FEM_FemMesh2Mesh.png 1.5x, /wiki/images/thumb/5/5f/FEM_FemMesh2Mesh.png/48px-FEM_FemMesh2Mesh.png 2x" /></a>FEM mesh to mesh</span></li></ol>
+<h2><span class="mw-headline" id="Scrip">Scrip</span></h2>
+<p>Exemple:
+</p>
+<ul><li> Téléchargez l'exemple pour Windows "C:\Program Files\FreeCAD 0.16\Mod\Fem\test_files\ccx" et lancez le code suivant</li></ul>
+<pre>femmesh_obj = App.ActiveDocument.getObject("Result_mesh").FemMesh
+result = App.ActiveDocument.getObject("CalculiX_static_results")
+import femmesh.femmesh2mesh
+out_mesh = femmesh.femmesh2mesh.femmesh_2_mesh(femmesh_obj, result)
+import Mesh
+Mesh.show(Mesh.Mesh(out_mesh)) </pre>
+<h2><span class="mw-headline" id="Convertir_2D_.C3.A9l.C3.A9ments">Convertir 2D éléments</span></h2>
+<p>Sélectionnez une maille et lancez le code suivant dans la fenêtre Python de FreeCAD
+</p>
+<pre>import Mesh
+
+def extend_by_triangle(i, j, k):
+    triangle = [input_mesh.getNodeById(element_nodes[i]),
+                input_mesh.getNodeById(element_nodes[j]),
+                input_mesh.getNodeById(element_nodes[k])]
+    return output_mesh.extend(triangle) 
+
+selection = FreeCADGui.Selection.getSelection()
+input_mesh = App.ActiveDocument.getObject(selection[0].Name).FemMesh
+output_mesh = []
+for element in input_mesh.Faces:
+    element_nodes = input_mesh.getElementNodes(element)
+    if len(element_nodes) in [3, 6]:  # tria3 or tria6 (ignoring mid-nodes)
+        extend_by_triangle(0, 1, 2)
+    elif len(element_nodes) in [4, 8]:  # quad4 or quad8 (ignoring mid-nodes)
+        extend_by_triangle(0, 1, 2)
+        extend_by_triangle(2, 3, 0)
+
+obj = Mesh.Mesh(output_mesh)
+Mesh.show(obj) </pre>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_FemMesh2Mesh/fr&amp;oldid=257777">http://www.freecadweb.org/wiki/index.php?title=FEM_FemMesh2Mesh/fr&amp;oldid=257777</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

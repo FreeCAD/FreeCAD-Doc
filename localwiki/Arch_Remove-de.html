@@ -1,0 +1,83 @@
+<html><head><title>Arch Remove/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Remove/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 200px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Komponente_Entfernen"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="32px-Arch_Remove.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/48px-Arch_Remove.png 1.5x, /wiki/images/d/dc/Arch_Remove.png 2x" /></a> Komponente Entfernen</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menüeintrag
+</th></tr>
+<tr>
+<td class="ctEven">Architektur → Komponente entfernen
+</td></tr>
+<tr>
+<th class="ctOdd">Arbeitsbereich
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/de" title="Arch Module/de">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Standardtastenkürzel
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">Siehe auch
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/de" title="Arch Add/de">Teil Hinzufügen</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Komponente_Entfernen"><span class="tocnumber">1</span> <span class="toctext">Komponente Entfernen</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Beschreibung"><span class="tocnumber">2</span> <span class="toctext">Beschreibung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Anwendung"><span class="tocnumber">3</span> <span class="toctext">Anwendung</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripting"><span class="tocnumber">4</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Beschreibung">Beschreibung</span></h2>
+<p>Das Entfernen-Werkzeug erlaubt zwei Arten von Operationen:
+</p>
+<ul><li> Entfernen einer Subkomponente von einem Architekturobjekt, z.B. das Entfernen des Quaders,welcher im <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/de" title="Arch Add/de">Teil Hinzufügen</a>-Beispiel einer Wand hinzugefügt wurde;</li>
+<li> Subtrahieren eines <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/de" title="Part Module/de">Primitiven</a>-basierten Objektes von einer Architekturkomponente wie z.B. einer  <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Wall/de" title="Arch Wall/de">Wand</a> oder einem <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/de" title="Arch Structure/de">Bauelement</a>.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove_example.jpg" class="image"><img alt="Arch Remove example.jpg" src="600px-Arch_Remove_example.jpg" width="600" height="200" srcset="/wiki/images/a/a3/Arch_Remove_example.jpg 1.5x" /></a>
+</p><p>Im obigen Bild wird ein Quader von einer Wand subtrahiert.
+</p>
+<h2><span class="mw-headline" id="Anwendung">Anwendung</span></h2>
+<ol><li> Wählen Sie eine Subkomponente in einem Architekturobjekt, <b>oder</b>:</li>
+<li> Wählen Sie ein oder mehrere Objekte, anschließend die Komponente von dem die Objekte entfernt werden sollen (dieses Objekt muss das zuletzt selektierte Objekt sein).</li>
+<li> Drücken Sie den <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="16px-Arch_Remove.png" width="16" height="16" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/24px-Arch_Remove.png 1.5x, 32px-Arch_Remove.png 2x" /></a> <b>Entfernen</b></span>-Knopf</li></ol>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>Das Entfernen-Werkzeug kann in <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/de" title="Macros/de">Makros</a> ebenso wie aus der Python-Konsole heraus mit folgender Funktion angesprochen werden:
+</p>
+<pre><b>removeComponents (objectsList,[hostObject])</b>
+</pre>
+<ul><li> entfernt die gegebenen Objekte vom Elternobjekt.Ist ein Zielobjekt angegeben, wird stattdessen versucht, die gegebenen Objekte als Aussparungen zum Zielobjekt hinzuzufügen.</li></ul>
+<pre>import FreeCAD, Arch, Draft, Part
+line = Draft.makeWire([FreeCAD.Vector(0,0,0),FreeCAD.Vector(2,2,0)])
+wall = Arch.makeWall(line)
+box = Part.makeBox(1,1,1)
+Arch.addComponents(box,wall)
+Arch.removeComponents(box) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Remove/de&amp;oldid=263276">http://www.freecadweb.org/wiki/index.php?title=Arch_Remove/de&amp;oldid=263276</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

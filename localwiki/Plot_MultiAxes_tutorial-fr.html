@@ -1,0 +1,181 @@
+<html><head><title>Plot MultiAxes tutorial/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Plot MultiAxes tutorial/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Plot workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Traceur_de_donn.C3.A9es"><span class="tocnumber">2</span> <span class="toctext">Traceur de données</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Cr.C3.A9ation_de_donn.C3.A9es_Plot"><span class="tocnumber">2.1</span> <span class="toctext">Création de données Plot</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Fonction_ajoutant_de_nouveaux_axes_de_dessin"><span class="tocnumber">2.2</span> <span class="toctext">Fonction ajoutant de nouveaux axes de dessin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Configurer_Plot"><span class="tocnumber">3</span> <span class="toctext">Configurer Plot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Configurer_les_axes"><span class="tocnumber">3.1</span> <span class="toctext">Configurer les axes</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Configurer_les_Series"><span class="tocnumber">3.2</span> <span class="toctext">Configurer les Series</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Afficher_la_grille_et_les_l.C3.A9gendes"><span class="tocnumber">3.3</span> <span class="toctext">Afficher la grille et les légendes</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#D.C3.A9finition_des_.C3.A9tiquettes_axiales"><span class="tocnumber">3.4</span> <span class="toctext">Définition des étiquettes axiales</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#D.C3.A9finition_de_la_position_des_.C3.A9l.C3.A9ments"><span class="tocnumber">3.5</span> <span class="toctext">Définition de la position des éléments</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Sauver_Plot"><span class="tocnumber">4</span> <span class="toctext">Sauver Plot</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Avant de commencer ce didacticiel, lisez le <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">Tutoriel de base</a>. Dans ce tutoriel, vous apprendrez comment créer, et, modifier un tracé <b>multi-axes</b>.
+</p><p>Ici, vous en apprendrez plus sur le <b><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">module Plot</a></b>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_MultiAxes_Example.png" class="image" title="exemple Multiaxes Plot"><img alt="exemple Multiaxes Plot" src="480px-Plot_MultiAxes_Example.png" width="480" height="220" srcset="/wiki/images/thumb/2/2f/Plot_MultiAxes_Example.png/720px-Plot_MultiAxes_Example.png 1.5x, /wiki/images/thumb/2/2f/Plot_MultiAxes_Example.png/960px-Plot_MultiAxes_Example.png 2x" /></a></div></div>
+<center><span style="font-variant:small-caps">exemple Plot Multiaxes.</span></center>
+<p>Dans l'image précédente, vous pouvez avoir une idée du résultat que l'on peut obtenir.
+</p><p>Dans ce tutoriel, vous apprendrez&#160;:
+</p>
+<ul><li> Comment créer un <b>multiaxes Plot</b> à partir de la Console Python.</li>
+<li> Comment faire pour modifier les propriétés des axes.</li>
+<li> Comment contrôler la grille/légende, lorsque plusieurs axes sont présent.</li>
+<li> Comment faire pour modifier des étiquettes (labels), des titres, et, des positions des légendes.</li></ul>
+<h2><span class="mw-headline" id="Traceur_de_donn.C3.A9es">Traceur de données</span></h2>
+<p>Comme nous l'avons fait dans le <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">tutoriel</a>, nous utiliserons la console Python intégrée, ou des <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/fr" title="Macros/fr">macros</a>, afin de tracer les données, avec la différence, que dans ce cas nous tracerons les données dans deux axes différents.
+</p>
+<h3><span class="mw-headline" id="Cr.C3.A9ation_de_donn.C3.A9es_Plot">Création de données Plot</span></h3>
+<p>Dans cet exemple, nous allons tracer 3 fonctions, deux, sont celles utilisées dans <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">le Tutoriel de base</a>, et, un polynôme.
+</p><p>Le problème est que, un <b>polynôme</b>, aura besoin de nouveaux axes, la raison est, la variation de la gamme, qui est différente de toutes les autres.
+</p><p>Les commandes suivantes, vont nous créer des tableaux de données&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import math
+p = range(0,1001)
+x = [2.0*xx/1000.0 for xx in p]
+y = [xx**2.0 for xx in x]
+t = [tt/1000.0 for tt in p]
+s = [math.sin(math.pi*2.0*tt) for tt in t]
+c = [math.cos(math.pi*2.0*tt) for tt in t]</pre></div>
+<p>Comme <b>x</b> passe de <b>0</b> à <b>2</b>, la fonction <b>y</b>, a une valeur maximale de <b>4</b>, donc, si nous essayons de tracer cette fonction avec des formules trigonométrique, au moins une fonction sera tronquée, ou mal ajustée, alors nous aurons besoin d'un <b>Plot multi-axes</b>.
+</p><p>La fonction <b>Plot multi-axes</b> de FreeCAD, est orienté de manière à obtenir un <b>Plot</b> à axes multiples, pour ne pas obtenir de multiples combinaisons dans le même document.
+</p>
+<h3><span class="mw-headline" id="Fonction_ajoutant_de_nouveaux_axes_de_dessin">Fonction ajoutant de nouveaux axes de dessin</span></h3>
+<p>Nous allons exécuter une fonction polynomiale à axes principaux. Si tous vos axes ont la même taille alors, il n'est pas pertinent que la fonction soit mesurées dans les axes, mais il faut que votre <b>Plot</b> aie des axes de dimensions différentes (comme dans cet exemple), les axes principaux doivent être plus grand (car ces axes ont un fond blanc).
+</p><p>Pour ce faire, il suffit de lancer une commande&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Plot
+Plot.plot(x,y,r"$x^2$")</pre></div>
+<p>Dans cet exemple, nous transmettons directement l'étiquette (label) de la série pour la légende. Notez que la chaîne d'étiquettes, a le préfixe <b>r</b>, afin d'éviter que Python ne tente d'interpréter les caractères spéciaux (symbole <b>\</b> qui est fréquemment utilisé dans la syntaxe <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>).
+</p><p>Maintenant nous pouvons tracer des fonctions trigonométriques, mais avant, créez de nouveaux axes. Dans <b><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">FreeCAD Plot module</a></b> lorsque vous créez de nouveaux axes, ces axes sont sélectionnés comme actifs, donc, de nouveaux <b>Plots</b>, seront associés à ces axes.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Plot.addNewAxes()
+Plot.plot(t,s,r"$\sin\left( 2 \pi t \right)$")
+Plot.plot(t,c,r"$\cos\left( 2 \pi t \right)$")</pre></div>
+<p>Comme vous pouvez le voir <b>Plot</b> est devenu fou, avec axes qui pointes, et, qui s'empiètent, courbes de même couleur, etc.. .
+</p><p>Maintenant nous avons besoin d'utiliser <b><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">FreeCAD Plot module</a></b>, avec la complexité de ce graphique.
+</p>
+<h2><span class="mw-headline" id="Configurer_Plot">Configurer Plot</span></h2>
+<h3><span class="mw-headline" id="Configurer_les_axes">Configurer les axes</span></h3>
+<p>La fonction <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">FreeCAD Plot module</a> fournit un outil, pour modifier les propriétés de chacun des axes.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Axes.png" class="image" title="Axes configuration tool icon"><img alt="Axes configuration tool icon" src="Plot_Axes.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Axes configuration tool icon.</span></center>
+<p>La première chose que vous trouverez dans l'outil, <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Axes/fr" title="text-top=Ajouter, effacer ou éditer les axes Plot"><img alt="text-top=Ajouter, effacer ou éditer les axes Plot" src="16px-Plot_Axes.png" width="16" height="16" srcset="/wiki/images/thumb/1/10/Plot_Axes.png/24px-Plot_Axes.png 1.5x, /wiki/images/thumb/1/10/Plot_Axes.png/32px-Plot_Axes.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Axes/fr" title="Plot Axes/fr">Plot_Axes</a></span>, est le sélecteur d'axes actif. 
+Pour l'instant, nous allons travailler sur l'ensemble des axes 1, la dernière chose que nous générons
+</p><p>Puisque les axes actifs sont les derniers, les axes actifs sont placés en premier. 
+</p><p>L'outil axes, comme l'outil <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Labels/fr" title="text-top=Éditer les labels"><img alt="text-top=Éditer les labels" src="16px-Plot_Labels.png" width="16" height="16" srcset="/wiki/images/thumb/8/8e/Plot_Labels.png/24px-Plot_Labels.png 1.5x, /wiki/images/thumb/8/8e/Plot_Labels.png/32px-Plot_Labels.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Labels/fr" title="Plot Labels/fr">Plot_Labels</a></span>, permettent de définir les axes actifs, et, permettent de tracer plus de données dans l'axe que vous souhaitez (y compris ajouter/supprimer des axes). Pour l'instant, nous allons travailler sur les axes sélectionnés, et, qui sont associés aux fonctions trigonométriques.
+</p><p>Utilisez les ascenseurs pour modifier les réglages, déplaçons le curseur gauche pour les réglages <b>horizontaux</b>, et, le curseur du bas pour les réglages <b>verticaux</b> (essayez d'imiter l'exemple) afin de réduire la taille des axes.
+</p><p>Nous pouvons alors définir l'alignement des axes, et, changer en haut, et, à droite, en définissant un petit décalage de deux unités.
+</p>
+<h3><span class="mw-headline" id="Configurer_les_Series">Configurer les Series</span></h3>
+<p>Pour définir les propriétés des <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Series/fr" title="text-top=Éditer les séries titres et style"><img alt="text-top=Éditer les séries titres et style" src="16px-Plot_Series.png" width="16" height="16" srcset="/wiki/images/thumb/1/16/Plot_Series.png/24px-Plot_Series.png 1.5x, /wiki/images/thumb/1/16/Plot_Series.png/32px-Plot_Series.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Series/fr" title="Plot Series/fr">Plot_Series</a></span> que nous avons fait, regardez dans <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">Tutoriel</a>.
+</p>
+<h3><span class="mw-headline" id="Afficher_la_grille_et_les_l.C3.A9gendes">Afficher la grille et les légendes</span></h3>
+<p>Les <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Grid/fr" title="text-top=Afficher/Cacher la grille"><img alt="text-top=Afficher/Cacher la grille" src="16px-Plot_Grid.png" width="16" height="16" srcset="/wiki/images/thumb/a/a9/Plot_Grid.png/24px-Plot_Grid.png 1.5x, /wiki/images/thumb/a/a9/Plot_Grid.png/32px-Plot_Grid.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Grid/fr" title="Plot Grid/fr">Plot_Grid (grilles)</a></span>, et, les <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="text-top=Afficher/Cacher les légendes"><img alt="text-top=Afficher/Cacher les légendes" src="16px-Plot_Legend.png" width="16" height="16" srcset="/wiki/images/thumb/0/07/Plot_Legend.png/24px-Plot_Legend.png 1.5x, /wiki/images/thumb/0/07/Plot_Legend.png/32px-Plot_Legend.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="Plot Legend/fr">Plot_Legend (légendes)</a></span> apparaissent cachées avec les mêmes outils utilisés dans le <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">tutoriel</a>, mais dans ce cas, le comportement est un peu différent, en raison de la présence de <b>deux axes différents</b>.
+</p><p>Concernant les lignes de la grille, vous pouvez, afficher les lignes pour chaque ensemble d'axes, par exemple, si vous essayez d'afficher une grille maintenant vous montrerez uniquement la grille des fonctions trigonométriques, donc afin de montrer la grille du tracé de la fonction polynôme, vous avez besoin de mettre les axes actifs à <b>0</b> (en utilisant l'outil de configuration des <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Axes/fr" title="text-top=Ajouter, effacer ou éditer les axes Plot"><img alt="text-top=Ajouter, effacer ou éditer les axes Plot" src="16px-Plot_Axes.png" width="16" height="16" srcset="/wiki/images/thumb/1/10/Plot_Axes.png/24px-Plot_Axes.png 1.5x, /wiki/images/thumb/1/10/Plot_Axes.png/32px-Plot_Axes.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Axes/fr" title="Plot Axes/fr">Plot_Axes</a></span>), pour utiliser l'outil <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Grid/fr" title="text-top=Afficher/Cacher la grille"><img alt="text-top=Afficher/Cacher la grille" src="16px-Plot_Grid.png" width="16" height="16" srcset="/wiki/images/thumb/a/a9/Plot_Grid.png/24px-Plot_Grid.png 1.5x, /wiki/images/thumb/a/a9/Plot_Grid.png/32px-Plot_Grid.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Grid/fr" title="Plot Grid/fr">Plot_Grid</a></span> une autre fois (il faut appuyer une deuxième fois sur l'outil).
+</p><p>Au sujet de la <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="text-top=Afficher/Cacher les légendes"><img alt="text-top=Afficher/Cacher les légendes" src="16px-Plot_Legend.png" width="16" height="16" srcset="/wiki/images/thumb/0/07/Plot_Legend.png/24px-Plot_Legend.png 1.5x, /wiki/images/thumb/0/07/Plot_Legend.png/32px-Plot_Legend.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="Plot Legend/fr">légende (Plot_Legend)</a></span>, la légende sera la même pour les deux axes, vous pouvez donc choisir les axes que vous souhaitez, afin d'afficher la <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="text-top=Afficher/Cacher les légendes"><img alt="text-top=Afficher/Cacher les légendes" src="16px-Plot_Legend.png" width="16" height="16" srcset="/wiki/images/thumb/0/07/Plot_Legend.png/24px-Plot_Legend.png 1.5x, /wiki/images/thumb/0/07/Plot_Legend.png/32px-Plot_Legend.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="Plot Legend/fr">légende (Plot_Legend)</a></span>, mais il est fortement recommandé, d'utiliser les plus grands (0 dans cet exemple), parce que la position sera référée, à cet axe de coordonnées.
+</p><p>Il est possible que vous affichiez une légende, et, que cette légende soit très mal placée, patientez un peu, ce problème sera résolu plus tard.
+</p>
+<h3><span class="mw-headline" id="D.C3.A9finition_des_.C3.A9tiquettes_axiales">Définition des étiquettes axiales</span></h3>
+<p>Vous pouvez définir des étiquettes, et, des axes avec le même outil, utilisé dans <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">previous Tutoriel</a>, à la différence près, que maintenant vous avez plus d'axes.
+</p><p>Les étiquettes utilisées sur les axes, sont habituellement, une par axe, il n'y a pas de différence significative, mais le <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">Module Plot de FreeCAD</a> permet de définir un titre en plus par axe.
+</p><p>Dans cet exemple nous ne ne mettons un titre, qu'aux axes principaux, alors la valeur&#160;:
+</p><p><b>Axes 0:</b>
+</p>
+<ul><li> Title = Multiaxes example</li>
+<li> X Label = $x$</li>
+<li> Y Label = $\mathrm{f} \left( x \right)$</li></ul>
+<p><b>Axes 1:</b>
+</p>
+<ul><li> X Label = $t$</li>
+<li> Y Label = $\mathrm{f} \left( t \right)$</li></ul>
+<p>La valeur de la police est <b>20</b> pour tous, sauf le titre, qui utilise une valeur de police de <b>24</b>.
+</p><p>Que se passe-t-il avec la légende, et, le titre mal placé, intersection avec le deuxième ensemble d'axes, donc nous devons résoudre ces deux problèmes.
+</p>
+<h3><span class="mw-headline" id="D.C3.A9finition_de_la_position_des_.C3.A9l.C3.A9ments">Définition de la position des éléments</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/fr" title="Plot Module/fr">FreeCAD Plot module</a> fournit un outil pour définir la position de plusieurs éléments, comme, les <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Series/fr" title="text-top=Éditer les séries titres et style"><img alt="text-top=Éditer les séries titres et style" src="16px-Plot_Series.png" width="16" height="16" srcset="/wiki/images/thumb/1/16/Plot_Series.png/24px-Plot_Series.png 1.5x, /wiki/images/thumb/1/16/Plot_Series.png/32px-Plot_Series.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Series/fr" title="Plot Series/fr">titres (Series)</a></span>, les <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Labels/fr" title="text-top=Éditer les labels"><img alt="text-top=Éditer les labels" src="16px-Plot_Labels.png" width="16" height="16" srcset="/wiki/images/thumb/8/8e/Plot_Labels.png/24px-Plot_Labels.png 1.5x, /wiki/images/thumb/8/8e/Plot_Labels.png/32px-Plot_Labels.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Labels/fr" title="Plot Labels/fr">labels</a></span>, ou la <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="text-top=Afficher/Cacher les légendes"><img alt="text-top=Afficher/Cacher les légendes" src="16px-Plot_Legend.png" width="16" height="16" srcset="/wiki/images/thumb/0/07/Plot_Legend.png/24px-Plot_Legend.png 1.5x, /wiki/images/thumb/0/07/Plot_Legend.png/32px-Plot_Legend.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Legend/fr" title="Plot Legend/fr">légende</a></span>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Positions.png" class="image" title="Position editor icon"><img alt="Position editor icon" src="Plot_Positions.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Position editor icon.</span></center>
+<p>Lorsque vous exécutez l'outil, vous voyez une liste, avec tous les éléments modifiables.
+</p><p>Les éléments de titres, ainsi que les légendes, peuvent être déplacés dans les deux sens, les étiquettes des axes, ne peuvent être déplacées uniquement sur l'orientation des axes.
+</p><p>Sélectionnez le titre des axes <b>0</b>, et, déplacez-le vers (<b>0.24,1.01</b>), puis sélectionnez la légende, et, déplacez-le dans une meilleure position. Vous pouvez augmenter la dimension de la police.
+</p>
+<h2><span class="mw-headline" id="Sauver_Plot">Sauver Plot</span></h2>
+<p>Vous pouvez sauver votre travail avec <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Save/fr" title="text-top=Sauver"><img alt="text-top=Sauver" src="16px-Plot_Save.png" width="16" height="16" srcset="/wiki/images/thumb/f/f6/Plot_Save.png/24px-Plot_Save.png 1.5x, /wiki/images/thumb/f/f6/Plot_Save.png/32px-Plot_Save.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Save/fr" title="Plot Save/fr">Plot_Save</a></span>. Ou allez voir dans le <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/fr" title="Plot Basic tutorial/fr">tutorial</a>, comment faire, si vous l'avez oublier.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/fr&amp;oldid=177547">http://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/fr&amp;oldid=177547</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,130 @@
+<html><head><title>TechDraw API/en</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>TechDraw API/en</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>These functions are part of the TechDraw module and can be used in scripts and macros or from the python interpreter, once the TechDraw module has been imported.  Good examples of basic TechDraw scripting can be found in the <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD/tree/master/src/Mod/TechDraw/TDTest">unit test scripts</a>. 
+</p><p>See the <a href="TechDrawGui_API.html" title="TechDrawGui API">TechDrawGui module API</a> for more functions.
+</p><p>Example:
+</p>
+<pre>import FreeCAD
+import TechDraw
+page = FreeCAD.ActiveDocument.addObject('TechDraw::DrawPage','Page')
+FreeCAD.ActiveDocument.addObject('TechDraw::DrawSVGTemplate','Template')
+FreeCAD.ActiveDocument.Template.Template = templateFileSpec
+FreeCAD.ActiveDocument.Page.Template = FreeCAD.ActiveDocument.Template
+page.ViewObject.show()
+view = FreeCAD.ActiveDocument.addObject('TechDraw::DrawViewPart','View')
+rc = page.addView(view) </pre>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>EdgeWalker</b></big> ( <i>listOfEdges, [bool]</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Creates wires from edges in input by planar graph traversal.  Optionally exclude the OuterWire by setting optional parameter to false.
+</p><p><small><b>Returns</b>:</small> List of wires sorted by size (descending)
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>findOuterWire</b></big> ( <i>listOfEdges</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Finds the OuterWire (largest) of a list of edges (that form a planar graph).
+</p><p><small><b>Returns</b>:</small> Outer wire
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>findShapeOutline</b></big> ( <i>TopoShape, scale, direction</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Project shape in direction and find outer wire of result.
+</p><p><small><b>Returns</b>:</small> Outline wire
+</p>
+</div>
+</div>
+<p><br />
+</p>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>viewPartAsDxf</b></big> ( <i>DrawViewPart</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Return the edges of a DrawViewPart in Dxf format.
+</p><p><small><b>Returns</b>:</small> String
+</p>
+</div>
+</div>
+<p><br />
+</p>
+Example<pre>fileSpecDxf = "fcOut.dxf"
+v = App.ActiveDocument.View
+s = TechDraw.viewPartAsDxf(v)
+dxfEnd = "0\nEOF\n"
+dxfFile = open(fileSpecDxf, "w")
+dxfFile.write(s)
+dxfFile.write(dxfEnd)
+dxfFile.close() </pre>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>viewPartAsSvg</b></big> ( <i>DrawViewPart</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Return the edges of a DrawViewPart in Svg format.
+</p><p><small><b>Returns</b>:</small> String
+</p>
+</div>
+</div>
+<p><br />
+</p>
+Example<pre>fileSpecSvg = "fcOut.svg"
+v = App.ActiveDocument.View
+s = TechDraw.viewPartAsSvg(v)
+head = '&lt;svg\n' + \
+       'xmlns="http://www.w3.org/2000/svg" version="1.1" \n' + \
+       'xmlns:freecad="http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace"&gt;\n'
+tail = '\n&lt;/svg&gt;'
+svgFile = open(fileSpecSvg, "w")
+svgFile.write(head)
+svgFile.write(s)
+svgFile.write(tail)
+svgFile.close() </pre>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>writeDXFView</b></big> ( <i>DrawViewPart, FileName</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Save the DrawViewPart in Dxf.
+</p><p><small><b>Returns</b>:</small> File
+</p>
+</div>
+</div>
+<p><br />
+</p>
+Example<pre>import TechDraw
+TechDraw.writeDXFView(myPart,myFileName) </pre>
+<div class="api">
+<div class="function"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Method.png" class="image"><img alt="Method.png" src="Method.png" width="16" height="16" /></a> <big><b>writeDXFPage</b></big> ( <i>DrawPage, FileName</i> )</div>
+<div class="description">
+<p><small><b>Description</b>:</small> Save the DrawPage in Dxf.
+</p><p><small><b>Returns</b>:</small> File
+</p>
+</div>
+</div>
+<p><br />
+</p>
+Example<pre>import TechDraw
+TechDraw.writeDXFPage(myPage,myFileName) </pre>
+<p><br />
+Back to <a href="TechDraw_Module.html" title="TechDraw Module">TechDraw</a>.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=TechDraw_API/en&amp;oldid=280068">http://www.freecadweb.org/wiki/index.php?title=TechDraw_API/en&amp;oldid=280068</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

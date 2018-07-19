@@ -1,0 +1,132 @@
+<html><head><title>Resource framework project/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Resource framework project/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Этот проект задумывался как ресурсная база FreeCAD, он является частью <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/ru" title="Development roadmap/ru">плана развития</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.D0.A6.D0.B5.D0.BB.D0.B8_.D0.B8_.D0.BF.D1.80.D0.B8.D0.BD.D1.86.D0.B8.D0.BF.D1.8B"><span class="tocnumber">1</span> <span class="toctext">Цели и принципы</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.A0.D0.B5.D0.B7.D1.83.D0.BB.D1.8C.D1.82.D0.B0.D1.82"><span class="tocnumber">2</span> <span class="toctext">Результат</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.D0.9C.D0.BE.D0.B7.D0.B3.D0.BE.D0.B2.D0.BE.D0.B9_.D1.88.D1.82.D1.83.D1.80.D0.BC"><span class="tocnumber">3</span> <span class="toctext">Мозговой штурм</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.D1.82.D0.BE_.D0.BA.D0.B0.D0.BA_.D1.81.D0.B4.D0.B5.D0.BB.D0.B0.D0.BD.D0.B0_.D1.83_.D0.B4.D1.80.D1.83.D0.B3.D0.B8.D1.85"><span class="tocnumber">3.1</span> <span class="toctext">то как сделана у других</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.D0.92.D0.B0.D1.80.D0.B8.D0.B0.D0.BD.D1.82.D1.8B_.D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D1.8F"><span class="tocnumber">3.2</span> <span class="toctext">Варианты Использования</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#The_Blendswap_website"><span class="tocnumber">3.2.1</span> <span class="toctext">The Blendswap website</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#.D0.92.D0.BE.D0.B7.D0.BC.D0.BE.D0.B6.D0.BD.D1.8B.D0.B5_.D1.81.D0.B8.D1.81.D1.82.D0.B5.D0.BC.D1.8B_.D0.BA.D0.BE.D0.BD.D1.82.D1.80.D0.BE.D0.BB.D1.8F_.D0.B2.D0.B5.D1.80.D1.81.D0.B8.D0.B9"><span class="tocnumber">3.3</span> <span class="toctext">Возможные системы контроля версий</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.D0.9B.D0.B8.D1.86.D0.B5.D0.BD.D0.B7.D0.B8.D1.8F"><span class="tocnumber">3.4</span> <span class="toctext">Лицензия</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Creative_Commons"><span class="tocnumber">3.4.1</span> <span class="toctext">Creative Commons</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#ISO_16016"><span class="tocnumber">3.4.2</span> <span class="toctext">ISO 16016</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#.D0.9A.D0.BE.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.B8.D1.80.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5"><span class="tocnumber">3.5</span> <span class="toctext">Конструирование</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#.D0.90.D1.80.D1.85.D0.B8.D1.82.D0.B5.D0.BA.D1.82.D1.83.D1.80.D0.B0"><span class="tocnumber">3.6</span> <span class="toctext">Архитектура</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#.D0.9E.D1.80.D0.B3.D0.B0.D0.BD.D0.B8.D0.B7.D0.B0.D1.86.D0.B8.D1.8F"><span class="tocnumber">4</span> <span class="toctext">Организация</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#.D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5"><span class="tocnumber">4.1</span> <span class="toctext">Исследование</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#.D0.9F.D1.80.D0.BE.D0.B5.D0.BA.D1.82.D0.B8.D1.80.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5"><span class="tocnumber">4.2</span> <span class="toctext">Проектирование</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#.D0.94.D0.B0.D0.BB.D1.8C.D0.BD.D0.B5.D0.B9.D1.88.D0.B8.D0.B5_.D0.B4.D0.B5.D0.B9.D1.81.D1.82.D0.B2.D0.B8.D1.8F"><span class="tocnumber">5</span> <span class="toctext">Дальнейшие действия</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".D0.A6.D0.B5.D0.BB.D0.B8_.D0.B8_.D0.BF.D1.80.D0.B8.D0.BD.D1.86.D0.B8.D0.BF.D1.8B">Цели и принципы</span></h2>
+<p>Это проект разрабатываемого ПО, с целью реализации возможностей <b>PDM</b> . Речь идет о реализации необходимых частей и кусочков.
+</p><p>Этапы развития, планируются здесь и отслеживаются в разделе Issue системы отслеживания ошибок чтобы получить хорошо сформированный список изменений: <a rel="nofollow" class="external text" href="http://apps.sourceforge.net/mantisbt/free-cad/my_view_page.php">Issue tracker</a>
+</p>
+<h2><span class="mw-headline" id=".D0.A0.D0.B5.D0.B7.D1.83.D0.BB.D1.8C.D1.82.D0.B0.D1.82">Результат</span></h2>
+<ul><li> Система контроля версий для больших конструкторских проектов</li>
+<li> для работы с другими пользователями через интернет; <b>Сотрудничество</b></li>
+<li> Каталоги стандартных частей доступные при работающем, а также не работающем соединении с интернетом.</li></ul>
+<h2><span class="mw-headline" id=".D0.9C.D0.BE.D0.B7.D0.B3.D0.BE.D0.B2.D0.BE.D0.B9_.D1.88.D1.82.D1.83.D1.80.D0.BC">Мозговой штурм</span></h2>
+<h3><span class="mw-headline" id=".D1.82.D0.BE_.D0.BA.D0.B0.D0.BA_.D1.81.D0.B4.D0.B5.D0.BB.D0.B0.D0.BD.D0.B0_.D1.83_.D0.B4.D1.80.D1.83.D0.B3.D0.B8.D1.85">то как сделана у других</span></h3>
+<p>Вот некоторые ссылки на сопоставимые коммерческие продукты:
+</p>
+<ul><li> PTC's <a rel="nofollow" class="external text" href="http://www.ptc.com/product/windchill/pdmlink">PDMLink</a> - <i>"...when all product stakeholders are accessing a single, trusted, central data repository, manufacturers have the power to expertly manage all forms of digital product development data ... PDMLink is the ideal solution. Web-based for easy enterprise-wide access, this industry-proven product data management (PDM) system supports geographically dispersed teams while managing critical processes such as change/configuration management, and detailed design."</i></li>
+<li> Aras Corp. <a rel="nofollow" class="external text" href="http://www.aras.com/">Aras PLM Software</a> - They appear to offer Open Source solutions, this may be worth investigating further...</li></ul>
+<h3><span class="mw-headline" id=".D0.92.D0.B0.D1.80.D0.B8.D0.B0.D0.BD.D1.82.D1.8B_.D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D1.8F">Варианты Использования</span></h3>
+<p><i>Предложенное Charles</i>
+</p><p>Конечно будут различные типы людей использующих это ПО для по различным причинам и им могут потребоваться различные PDM решения, было бы здорово найти решение (в этой области) которое будет универсально. Я вижу следующие различные методы разработки (также должны быть и другие):
+</p>
+<ul><li> Individual users - they will probably be a significant percentage of people working this way and they may be fairly self-contained, but revision control and branching still useful. Many of these people may be working in parts of the world where internet access is flaky or expensive, so they maybe working offline for long periods. Would be nice to make these individual projects very easily replicable by other people if it is a good piece of work - so the design can be evolved in multiple directions at once - lots of Darwinian evolution and faster exporing of the solution space</li></ul>
+<ul><li> Небольшие команды людей, работающих вместе - возможно, из одного и того-же учебного заведения - но каждый  человек в отдельности может захотеть свободы в изучения всех аспектов(сторон) проекта, а не быть жестко назначенным к определенной части проекта. Мы находим это, в основном позволяющим больше вариантов которые просто изучить и предоставляют большую гибкость.</li></ul>
+<ul><li> Большой конструкторский проект с открытым исходным кодом - множество членов распыленных географически. Зеркала open-source проектов ПО - где , похоже, лбщая тенденция к распределеннм системам (в действительности Python <a rel="nofollow" class="external text" href="http://mail.python.org/pipermail/python-dev/2009-March/087931.html">Перемещен</a> на DVCS в прошлом месяце). Я вижу проектирование и инженерная деятельность движутся в схожем направлении. Так что я думаю это одна из причин серьезно задуматься, о том как распределенная система будет работать в CAD - и если мы решим это, мы получим преимущество над другими поставщиками комерческих CAD! Я убежден, чо это решение (если мы не будем работать на ним,другие разработчики CAD будут!)</li></ul>
+<ul><li> Болеее жесткая иерархия проекта - это могут быть некоторые проекты где команды предпочитают договоренность, но я вижу это только внутри популярных компаний.</li></ul>
+<h4><span class="mw-headline" id="The_Blendswap_website">The Blendswap website</span></h4>
+<p><a rel="nofollow" class="external text" href="http://www.blendswap.com/">Blendswap</a> - in thier own words - is <i>"...the place to find and share blends with the entire world. You make awesome blends, share them in the biggest repository of open source 3D models made with the awesome Open Source 3D suite Blender."</i>
+</p><p><a rel="nofollow" class="external text" href="http://www.blender.org/">Blender</a> is a very popular open source '3D content creation suite'.
+</p><p>Whilst not a CAD program, there are many parallels to be drawn and lessons to be learnt from the way Blender and it's community has gone about doing things.
+</p><p>Blendswap is an excellent example of an <b>online</b> repository. It's key features that I beleive we can learn from are:
+</p>
+<ul><li> Provides detailed thumbnail images on the website. This allows people to freely browse and find content quickly.</li>
+<li> The models (blend files) come with clear license details (these details are also quicky viewable at a glance from the thumbnail, via a Creative Commons logo).</li></ul>
+<h3><span class="mw-headline" id=".D0.92.D0.BE.D0.B7.D0.BC.D0.BE.D0.B6.D0.BD.D1.8B.D0.B5_.D1.81.D0.B8.D1.81.D1.82.D0.B5.D0.BC.D1.8B_.D0.BA.D0.BE.D0.BD.D1.82.D1.80.D0.BE.D0.BB.D1.8F_.D0.B2.D0.B5.D1.80.D1.81.D0.B8.D0.B9">Возможные системы контроля версий</span></h3>
+<p>Это лишь шажок к размышлению о системах контроля версий и способов их использования в разработке современного ПО. Существую два различных подхода к этому вопросу:
+</p>
+<ul><li> Строение в виде, центрального сервера (<a rel="nofollow" class="external text" href="http://subversion.tigris.org/">Subversion</a> или <a rel="nofollow" class="external text" href="http://www.nongnu.org/cvs/">CVS</a>)</li>
+<li> Строение в виде, распределенной системы (<a rel="nofollow" class="external text" href="http://www.selenic.com/mercurial/wiki/">Mercurial</a>, <a rel="nofollow" class="external text" href="http://bazaar-vcs.org/">Bazaar</a> и <a rel="nofollow" class="external text" href="http://git-scm.com/">Git</a>)</li></ul>
+<p>Хотя Варианты Использования требуют распределенных систем контроля версий, все названные имеет серьезный недостаток. Если вы клонируете репозиторий все предыдущие версии будут скопированы на ваш компьютер. Которые в случае данных CAD , могут измеряться Мб размерами. В отличие от них, системы с централизированным сервером производят только проверку изменений и поэтому передают относительно небольшой объем данных. 
+</p>
+<h3><span class="mw-headline" id=".D0.9B.D0.B8.D1.86.D0.B5.D0.BD.D0.B7.D0.B8.D1.8F">Лицензия</span></h3>
+<p>В распределенных интернет проектах необходимо чтобы каждый документ обладал ясной лицензией. Это очень важно если вы думает о каталогах. Каталог частей используемых в проекте (свободных или несвободных) и необходимо  чтобы они обладали ясной лицензией что сделает их использование прозрачным(ясным). Так как существуют различные системы лицензирования, здесь указаны возможные лицензии CAD файлов:
+</p>
+<h4><span class="mw-headline" id="Creative_Commons">Creative Commons</span></h4>
+<p>Лицензия CC очень популярна для творческих материалов, вы можете найти её описание здесь:
+<a rel="nofollow" class="external free" href="http://creativecommons.org">http://creativecommons.org</a>
+</p>
+<h4><span class="mw-headline" id="ISO_16016">ISO 16016</span></h4>
+<p>fraganaut01 дает на способ подключить другую систему лицензирования для CAD:
+</p>
+<ul><li> Авторские права поставщика (небольшие ограничения)</li>
+<li> См. уведомление о защите ISO16016 (нет специальных ограничений)</li>
+<li> Конфиденциально, только для внутреннего использования. Используется  только обязательство по обеспечению конфиденциальности. См. уведомление о защите ISO16016</li>
+<li> Конфиденциально, только для внутреннего использования. См. уведомление о защите ISO16016</li>
+<li> Любое распространение только с прямого согласия составителя</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".D0.9A.D0.BE.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.B8.D1.80.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5">Конструирование</span></h3>
+<p>Все контролируемые данные, каталоги, учебники и.т.д, должны обладать каким-либо представлением в FreeCAD. Все это можно свести к понятию  <b>Ресурс</b>. Там должен быть класс разработки хранящий информацию о ресурсе и различный в разных ситуациях.
+</p>
+<h3><span class="mw-headline" id=".D0.90.D1.80.D1.85.D0.B8.D1.82.D0.B5.D0.BA.D1.82.D1.83.D1.80.D0.B0">Архитектура</span></h3>
+<p>Этот тип услуг по определению является ограниченным не только машиной пользователя. Больше информации об  <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Cloud_computing">Облачных Вычислениях</a> предоставляемых различными сервисами на разных серверах. Можно выделить четыре типа серверов:
+</p>
+<ul><li> Дешевый сервер - <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a></li>
+<li> Полноценный сервер (например Ubuntu/Debian сервер)</li>
+<li> Сервер загрузок - например sf.net</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/BitTorrent_(protocol)">BitTorrent</a> tracker </li></ul>
+<p>Это создает следующую картину:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ResourceFramework.png" class="image"><img alt="ResourceFramework.png" src="1000px-ResourceFramework.png" width="1000" height="613" srcset="/wiki/images/thumb/e/e5/ResourceFramework.png/1500px-ResourceFramework.png 1.5x, /wiki/images/e/e5/ResourceFramework.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id=".D0.9E.D1.80.D0.B3.D0.B0.D0.BD.D0.B8.D0.B7.D0.B0.D1.86.D0.B8.D1.8F">Организация</span></h2>
+<h3><span class="mw-headline" id=".D0.98.D1.81.D1.81.D0.BB.D0.B5.D0.B4.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5">Исследование</span></h3>
+<p>С начало необходимо проверить различные варианты систем контроля версий. Чтобы получить точные цифры от том как видут себя CAD данные.
+</p>
+<h3><span class="mw-headline" id=".D0.9F.D1.80.D0.BE.D0.B5.D0.BA.D1.82.D0.B8.D1.80.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5">Проектирование</span></h3>
+<p>Проектирование классов для для основных Ресурсов.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id=".D0.94.D0.B0.D0.BB.D1.8C.D0.BD.D0.B5.D0.B9.D1.88.D0.B8.D0.B5_.D0.B4.D0.B5.D0.B9.D1.81.D1.82.D0.B2.D0.B8.D1.8F">Дальнейшие действия</span></h2>
+<ul><li> Создать тестовые хранилища на Сервере и на двух локальных машинах</li>
+<li> Тестирование различных вариантов использования</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Resource_framework_project/ru&amp;oldid=124129">http://www.freecadweb.org/wiki/index.php?title=Resource_framework_project/ru&amp;oldid=124129</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

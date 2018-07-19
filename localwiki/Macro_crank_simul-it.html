@@ -1,0 +1,126 @@
+<html><head><title>Macro crank simul/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro crank simul/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Crank_Simul"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Crank Simul</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Simulazione di cinematismo biella manovella.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Kwahoo&amp;action=edit&amp;redlink=1" class="new" title="User:Kwahoo (page does not exist)">kwahoo</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-06-13
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Crank_Simul"><span class="tocnumber">1</span> <span class="toctext">Crank Simul</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Uso"><span class="tocnumber">2</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Il_File"><span class="tocnumber">3</span> <span class="toctext">Il File</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Lo_Script"><span class="tocnumber">4</span> <span class="toctext">Lo Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>La mia semplice animazione utilizza sketch e il suo solutore per determinare la posizione del pistone e la posizione/rotazione della biella.
+</p><p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crank_00.gif" class="image"><img alt="Crank 00.gif" src="Crank_00.gif" width="462" height="394" /></a></div><div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Uso">Uso</span></h3>
+<p>Per provare l'animazione:
+</p><p>Scaricare i file e poi copiare il codice nella console Python di FreeCAD.
+</p><p>1. Aprire il file allegato
+</p><p>Per interrompere l'animazione digitare:
+</p>
+<pre>animation.stop() </pre>
+<h3><span class="mw-headline" id="Il_File">Il File</span></h3>
+<p><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=5954">crank_simul.fcstd</a>
+</p>
+<h3><span class="mw-headline" id="Lo_Script">Lo Script</span></h3>
+<p>crank_simul.FCMacro
+</p>
+<pre>import FreeCAD as App, FreeCADGui as Gui, Part, time, sys, math, Draft, DraftGeomUtils
+from PySide import QtGui,QtCore
+
+class Animation(object):
+    def __init__(self):
+        App.Console.PrintMessage('init')
+
+        App.ActiveDocument.recompute()
+
+        self.timer = QtCore.QTimer()
+        QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.my_update)
+        self.timer.start(50)
+
+        self.an = 0.1
+
+    def my_update(self):
+        string = '{0}'.format(self.an)
+        self.an = self.an + 0.01 if self.an &lt; (2 * math.pi) else 0.0
+
+        angle = math.degrees(self.an)
+        App.ActiveDocument.Sketch.setDatum(5,App.Units.Quantity(str(angle)+' deg'))
+        App.ActiveDocument.recompute()
+        p1 = App.ActiveDocument.Sketch.Shape.Vertexes[0].Point
+        p2 = App.ActiveDocument.Sketch.Shape.Vertexes[1].Point
+        conrodangle = math.degrees(Draft.DraftVecUtils.angle(App.Vector(1,0,0),(p1-p2))) - 90
+        App.ActiveDocument.getObject("Cylinder").Placement = App.Placement(p1,App.Rotation(App.Vector(1,0,0),-90))
+        App.ActiveDocument.getObject("Sketch001").Placement = App.Placement(p1,App.Rotation(App.Vector(0,0,1),conrodangle))
+
+    def stop(self):
+        self.timer.stop()
+         
+
+animation = Animation() </pre>
+<h3><span class="mw-headline" id="Link">Link</span></h3>
+<p>La discussione nel forum: <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=24&amp;t=6815&amp;hilit=animation#p55092">Inline-four engine animation</a>
+</p><p>Il blog: <a rel="nofollow" class="external text" href="http://freecad-tutorial.blogspot.be/">freecad-tutorial.blogspot</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_crank_simul/it&amp;oldid=239972">http://www.freecadweb.org/wiki/index.php?title=Macro_crank_simul/it&amp;oldid=239972</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

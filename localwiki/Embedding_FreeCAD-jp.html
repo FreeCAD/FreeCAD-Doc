@@ -1,0 +1,78 @@
+<html><head><title>Embedding FreeCAD/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Embedding FreeCAD/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>他のプログラムやスタンドアローンのPythonコンソールにFreeCADをPythonモジュールとしてインポートするための機能は驚くほど充実しています。FreeCADのモジュールとコンポーネントの全てをまとめてインポートできるのです。FreeCADのGUIをPythonモジュールとしてインポートすることさえできます・・多少の制約はありますが。
+</p>
+<h3><span class="mw-headline" id="GUI.E3.81.AA.E3.81.97.E3.81.A7FreeCAD.E3.82.92.E4.BD.BF.E7.94.A8">GUIなしでFreeCADを使用</span></h3>
+<p>まずはじめに思いつく直接的で簡単で便利な応用はFreeCADドキュメントをあなたのプログラムにインポートすることです。次の例ではFreeCADドキュメントのPartジオメトリーを<a rel="nofollow" class="external text" href="http://www.blender.org">blender</a>にインポートしています。スクリプトはこれで全てです。このシンプルさにあなたが感動してくれるといいのですが：
+</p>
+<pre>FREECADPATH = '/opt/FreeCAD/lib' # FreeCAD.soファイルまたはFreeCAD.dllファイルのパス
+import Blender, sys
+sys.path.append(FREECADPATH)
+
+def import_fcstd(filename):
+   try:
+       import FreeCAD
+   except ValueError:
+       Blender.Draw.PupMenu('Error%t|FreeCAD library not found. Please check the FREECADPATH variable in the import script is correct')
+   else:
+       scene = Blender.Scene.GetCurrent()
+       import Part
+       doc = FreeCAD.open(filename)
+       objects = doc.Objects
+       for ob in objects:
+           if ob.Type[:4] == 'Part':
+               shape = ob.Shape
+               if shape.Faces:
+                   mesh = Blender.Mesh.New()
+                   rawdata = shape.tessellate(1)
+                   for v in rawdata[0]:
+                       mesh.verts.append((v.x,v.y,v.z))
+                   for f in rawdata[1]:
+                       mesh.faces.append.append(f)
+                   scene.objects.new(mesh,ob.Name)
+       Blender.Redraw()
+
+def main():
+   Blender.Window.FileSelector(import_fcstd, 'IMPORT FCSTD', 
+                       Blender.sys.makename(ext='.fcstd'))    
+
+# This lets you import the script without running it
+if __name__=='__main__':
+   main()
+</pre>
+<p>まず重要なのはPythonがちゃんとFreeCADライブラリを見つけ出しているかの確認です。それが済めば私たちが使っているPartなどFreeCADモジュール全てを自動的に利用できるようになります。そこでまずPythonがモジュールを検索する位置を示すsys.path変数を取り、そこにFreeCADのlibのパスを追加しています。ここで行った変更は一時的なものでPythonインタプリタの終了時に消えます。これとは別にFreeCADライブラリをPythonの検索パスの一つにリンクさせることもできます。今回のスクリプトではパスを定数（FREECADPATH）に入れています。こうしておけば他のユーザーが自分のシステム用にスクリプトを調整するのが簡単になるでしょう。
+</p><p>いったんライブラリのロード（try/except部分）が行われれば、いよいよFreeCADを使って作業を行うことができます。やり方はFreeCAD独自の内部Pythonインタプリタの時と同じです。main()関数を使って渡されたFreeCADドキュメントを開き、そのオブジェクトのリストを作成しています。それから関心のあるPartジオメトリーだけを選び出すために各オブジェクトのTypeプロパティに "Part"が入っているかどうか確認し、それをモザイク構造（tessellate）に変換します。
+</p><p>このモザイク構造から頂点のリストと頂点をインデックスとして定義された面のリストが作成されます。これで完璧です。何しろblenderがメッシュを定義するのと全く同じ方法なのですから。やっていることは馬鹿馬鹿しいほど単純です。ただ両方のリストの内容をblenderのmeshのvertsとfacesに追加するだけです。全て終わったら画面を再描画して終わりです！
+</p><p>もちろんこのスクリプトは非常に簡単なものなので（実を言うともっと応用的なものも<a rel="nofollow" class="external text" href="http://yorik.orgfree.com/scripts/import_freecad.py">作ってあります</a>）、あなたはこれを拡張したくなるでしょう。例えばメッシュオブジェクトのインポート、面の無いPartジオメトリーのインポート、FreeCADで読める他のファイルフォーマットのインポートといったものが考えられます。またジオメトリーをFreeCADドキュメントとしてエクスポートしたいと思うかもしれません。同じようにしてできます。あるいはダイアログを使ってユーザーが何をインポートするか選べるようにしたいと思うかも。他にもあるでしょう。実際の所、これら全てに共通して言える利点はあなたが選んだプログラムの結果出力用にFreeCADに基礎となる作業をさせることができる、ということなのです。
+</p>
+<h3><span class="mw-headline" id="GUI.E3.81.82.E3.82.8A.E3.81.A7FreeCAD.E3.82.92.E4.BD.BF.E7.94.A8">GUIありでFreeCADを使用</span></h3>
+<p>バージョン4.2からQtには興味深い機能が追加されました。Qt-GUI依存のプラグインを非Qtなホストアプリケーションに埋め込み、ホスト側のイベントループを共有できるようになったのです。
+</p><p>特にFreeCADについて言えば、これは別のアプリケーション内から全体のユーザーインターフェイスごとFreeCADをインポートでき、ホストアプリケーションがFreeCADを完全に制御できるということを意味します。
+</p><p>これを行うためのPythonコードは全部でたったのニ行です。
+</p>
+<pre>import FreeCADGui 
+FreeCADGui.showMainWindow()
+</pre>
+<p>もしホストアプリケーションがQtベースであればこの方法はQtがサポートされている全てのプラットフォームで動作します。ただしホスト側はFreeCADと同じバージョンのQtとリンクされている必要があります。さもないと予期しない実行時エラーが起きる可能性があります。
+</p><p>非Qtなアプリケーションでも知っておく必要のある制約はごくわずかです。この方法は恐らく他のツールキットと一緒に使っても動作しません。
+Windowsの場合、ホストアプリケーションはWin32を直接使用しているかwxWidgets、MFC、WinFormなど内部でWin32APIを使用しているツールキットを使用していなければなりません。X11下で動作するためにはホストアプリケーションは"glib"ライブラリをリンクしている必要があります。
+</p><p>またコンソールアプリケーションではこの方法は使えないことに注意してください。なぜならイベントループ実行が存在しないからです。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/jp&amp;oldid=211440">http://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/jp&amp;oldid=211440</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

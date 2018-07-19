@@ -1,0 +1,187 @@
+<html><head><title>FreeCAD-Ship s60 tutorial (II)/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD-Ship s60 tutorial (II)/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tema
+</th></tr>
+<tr>
+<td class="ctEven">Ship Workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Nivel
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Tiempo para completar
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Versión de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Archivo(s) de ejemplo(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introducci.C3.B3n"><span class="tocnumber">2</span> <span class="toctext">Introducción</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Pesos_del_buque"><span class="tocnumber">3</span> <span class="toctext">Pesos del buque</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Tanques"><span class="tocnumber">4</span> <span class="toctext">Tanques</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Creaci.C3.B3n_de_la_geometr.C3.ADa"><span class="tocnumber">4.1</span> <span class="toctext">Creación de la geometría</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Creaci.C3.B3n_de_las_instancias_de_tanque."><span class="tocnumber">4.2</span> <span class="toctext">Creación de las instancias de tanque.</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#GZ_curve_computation"><span class="tocnumber">4.3</span> <span class="toctext">GZ curve computation</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Resultados"><span class="tocnumber">4.4</span> <span class="toctext">Resultados</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+Before starting this tutorial, please ensure that you have already performed <a href="FreeCAD-Ship_s60_tutorial.html" title="FreeCAD-Ship s60 tutorial">the first part</a>.
+</p><p>You can learn more about <a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship here</a>
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><center><b>Usuarios de Windows</b></center>
+<center>FreeCAD-Ship se integró oficialmente en FreeCAD recientemente, y por tanto pueden encontrarse algunos fallos.</center>
+<center>Si su instalación no dispone de los iconos, por favor renombre la carpeta <b>ShipIcons</b> del directorio</center>
+<center>C:\Program Files (x86)\FreeCAD0.13\Mod\Ship</center>
+<center>como <b>Icons</b>, y reinicie FreeCAD.</center></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Introducci.C3.B3n">Introducción</span></h2>
+<p>En el tutorial anterior nos centramos en cálculos hidrostáticos, mientras que en el presente tutorial comenzaremos a trabajar con pesos, aprendiendo a definir los pesos del barco y sus tanques, para así poder calcular la curva de GZ, que es el parámetro hidrostático más importante en cuanto a estabilidad transversal del buque se refiere. GZ es el brazo del momento estático generado cuando el buque adquiere una escora. Por supuesto siempre que GZ sea positivo, el barco tendrá un momento adrizante que tratará de reponer la situación de equilibrio anterior a la escora, pero cuando GZ se torna negativo la estabilidad del buque se habrá agotado, tendiendo éste a dar la vuelta buscando un nuevo equilibrio.
+</p><p>La IMO (Organización Marítima Internacional) establece los siguientes criterios mínimos de estabilidad transversal:
+</p>
+<ul><li> <i>GM</i> &gt;= 0.15 m. <i>GM</i> (altura metacéntrica) es la tangente inicial de la curva de <i>GZ</i>.</li>
+<li> El valor máximo de <i>GZ</i> se debe dar a escoras superiores a 30 grados.</li>
+<li> Con una escora de 30 grados <i>GZ</i> debe ser al menos de 0.2 m.</li>
+<li> El área por debajo de la curva de <i>GZ</i> hasta los 40 grados de escora debe ser al menos de 0.090 m · rad.</li>
+<li> El área por debajo de la curva de <i>GZ</i> hasta los 30 grados de escora debe ser al menos de 0.055 m · rad.</li>
+<li> El área por debajo de la curva de <i>GZ</i> entre los 30 y los 40 grados de escora debe ser al menos de 0.030 m · rad.</li></ul>
+<p>Trabajaremos en este tutorial sobre nuestro serie 60, generando una distribución irreal de tanques y pesos.
+</p>
+<h2><span class="mw-headline" id="Pesos_del_buque">Pesos del buque</span></h2>
+<p>De cara a poder calcular la curva de GZ se necesita conocer el peso del buque, y la posición del centro de gravedad para cada ángulo de escora. de tal forma que los pesos se pueden dividir en dos categorías:
+</p>
+<ul><li> Pesos fijos que se mueven solidariamente con el barco.</li>
+<li> Tanques, cuyo líquido en su interior modifica su forma desplazando el centro de gravedad, siendo necesario recalcularlo para ángulo de escora.</li></ul>
+<p>Cada tipo de peso tiene una herramienta específica en FreeCAD-Ship.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-WeightIco.png" class="image" title="Icono de la herramienta de definición de pesos."><img alt="Icono de la herramienta de definición de pesos." src="FreeCAD-Ship-WeightIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icono de la herramienta de definición de pesos.</span></center>
+<p>La herramienta de definición de pesos se usa para definir los pesos de la primera categoría. En el momento en que se lanza la herramienta por primera vez para un barco, este inicializa un peso como su peso en rosca, que es igual a su desplazamiento, y esta situado en la coordenada longitudinal del centro de empujes y en la flotación. Este peso en rosca se guarda automáticamente independientemente de si aceptamos o cancelamos. Normalmente existen al menos dos importantes partidas de peso:
+</p>
+<ul><li> Estructura.</li>
+<li> Motores.</li></ul>
+<p>Nostros vamos a establecer los siguientes pesos y posiciones para nuestro serie 60:
+</p>
+<ul><li> Structure, 15000 kg, (-0.1, 0, 1.25) m</li>
+<li> Starboard engine, 5000 kg, (-6.5, -0.65, 0.5) m</li>
+<li> Board engine, 5000 kg, (-6.5, 0.65, 0.5) m</li>
+<li> Emergency engine, 2500 kg, (0.2, 0, 2.5) m</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60WeightsPreview.png" class="image" title="Vista previa de los pesos."><img alt="Vista previa de los pesos." src="FreeCAD-Ship-S60WeightsPreview.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">Vista previa de los pesos.</span></center>
+<p>Los pesos se previsualizan en la ventana 3D. Todas estas anotaciones se eliminarán al terminar de trabajar con la herramienta, luego no se preocupe de ellas.
+</p>
+<h2><span class="mw-headline" id="Tanques">Tanques</span></h2>
+<p>Los tanques se generan a partir de geometrías solidas, de una forma similar a como trabajamos para crear un buque. Por tanto comenzaremos creando dos solidos (uno a cada banda) que más tarde convertiremos en instancias tanque. En este ejemplo nos limitaremos a considerar dos tanques a proa, aunque usualmente un barco puede tener decenas o incluso cientos de ellos.
+</p>
+<h3><span class="mw-headline" id="Creaci.C3.B3n_de_la_geometr.C3.ADa">Creación de la geometría</span></h3>
+<p>Para generar la geometría nos cambiados al <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/es" title="Part Module/es">modulo de piezas</a>, y creamos una caja sólida.
+</p><p>Las dimensions de la caja, y su posición, no nos convienen, y por tanto vamos a modificarla. Para ello la seleccionamos en el árbol de <b>etiquetas y atributos</b>, y en la pestaña Datos desplegamos el emplazamiento, y dentro de él la posición, cambiando la coordenada <i>x</i> a 1.5, y la coordenada <i>z</i> a -1. También modificamos la longitud de la caja por 5.0 (las unidades pueden estar en milímetros, no te preocupes por ello).
+</p><p>La geometría de nuestro tanque será la parte común de la caja que acabamos de crear, y del barco. Como estamos interesados en la geometría del barco podemos ocultar nuestra instancia de buque <b>Ship</b>, y mostrar la geometría <b>s60_IowaUniversity</b>. Seleccionando la caja y la geometría del buque empleamos la herramienta intersección, generandose así la geometría de nuestro tanque de estribor.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60TankGeometry.png" class="image" title="Geometría del tanque generada."><img alt="Geometría del tanque generada." src="FreeCAD-Ship-S60TankGeometry.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">Geometría del tanque generada.</span></center>
+<p>Para generar la geometría del tanque de babor simplemente seleccionamos nuestro tanque a estribor y ejecutamos la herramienta de simetría, tomando XZ como plano de simetría.
+</p><p>Para convertir las geometrías en el tipo convencional simplemente cargamos el <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/es" title="Draft Module/es">módulo de esbozado</a>, y ejecutamos promocionar sobre cada una de las geometrías generadas. Podemos renombrar las geometrías como:
+</p>
+<ul><li> StarboardTankGeom</li>
+<li> BoardTankGeom</li></ul>
+<p>También podemos borrar la caja, pues no la necesitaremos más. 
+</p>
+<h3><span class="mw-headline" id="Creaci.C3.B3n_de_las_instancias_de_tanque.">Creación de las instancias de tanque.</span></h3>
+<p>Recuperando nuestro <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCADShip_Workbench/es" class="mw-redirect" title="FreeCADShip Workbench/es">módulo FreeCAD-Ship</a>, podremos encontrar la herramienta de generación de tanques.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-TankIco.png" class="image" title="Icono de la herramienta de generación de tanques."><img alt="Icono de la herramienta de generación de tanques." src="FreeCAD-Ship-TankIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icono de la herramienta de generación de tanques.</span></center>
+<p>Ahora seleccionamos la geometría <b>StarboardTankGeom</b> y ejecutamos la herramienta de generación de tanques, abriéndose un diálogo donde estableceremos un llenado del 40%, y una densidad del fluido de 925 kg/m&#179; (Aproximadamente fuel pesado). Al aceptar una nueva instancia llamada <b>Tank</b> nos aparecera, nosotros la podemos renombrar como <b>StarboardTank</b>.
+</p><p>Repetimos la misma operación para generar el tanque <b>BoardTank</b> de babor.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60WeightsTanksPreview.png" class="image" title="Vista de todos los pesos del buque."><img alt="Vista de todos los pesos del buque." src="FreeCAD-Ship-S60WeightsTanksPreview.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">Vista de todos los pesos del buque.</span></center>
+<p>En la figura anterior se muestra el buque al que vamos a calcular su curva de GZ.
+</p>
+<h3><span class="mw-headline" id="GZ_curve_computation">GZ curve computation</span></h3>
+<p>FreeCAD-Ship provide a tool to easily compute a <i>GZ</i> curve.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Ship_GZ.svg" class="image" title="GZ curve computation tool icon."><img alt="GZ curve computation tool icon." src="Ship_GZ.svg" width="128" height="128" /></a></div></div>
+<center><span style="font-variant:small-caps">GZ curve computation tool icon.</span></center>
+<p>Con la instancia buque seleccionada lanzamos la herramienta. Lo primero que encontramos en el diálogo es una lista con todos los tanques presentes en el documento. Como en nuestro caso queremos emplear los dos tanques los seleccionamos en la lista, remarcándose con un fondo diferente.
+</p><p>La herramienta puede informarnos sobre el calado y el desplazamiento resultantes, para lo que presionamos sobre <b>Actualizar desplazamiento y calado</b>, operación que puede tomar algún tiempo. Recibiremos la siguiente información:
+</p>
+<ul><li> Desplazamiento = 37505.5 kg</li>
+<li> Calado = 0.818664 m</li></ul>
+<p>Luego nos encontramos en una situación de carga de poco desplazamiento, puesto que el calado es un 20% inferior al de diseño. Normalmente bajos calados implican una mala estabilidad, de tal forma que dependiendo de los resultados de la curva GZ, puede ser necesario (si se desea operar en ésta condición) añadir tanques de lastre en el fondo de cara a rebajar el centro de gravedad y aumentar el calado.
+</p><p>La herramienta también puede calcular automáticamente el trimado del buque (presionando sobre <b>Auto</b>), operación que puede tomar alrededor de un minuto en éste caso. En este caso el buque tomaría un trimado de 0.95 grados por popa. Nosotros no consideraremos trimado ninguno (0 grados).
+</p><p>También debemos introducir los ángulos de escora a considerar. En este ejemplo queremos conocer el comportamiento del buque a cualquier ángulo, luego establecemos los siguientes valores:
+</p>
+<ul><li> 0 grados de escora inicial.</li>
+<li> 180 grados de escora final.</li>
+<li> 46 puntos, o un punto por cada 2 grados de escora. El cálculo de GZ puede llevar largos tiempos de computación, dependiendo de la complejidad de la geometría y el número de puntos solicitados, luego tenga cuidado con este valor.</li></ul>
+<p>Al aceptar la herramienta comienza a calcular. Si arrancaste FreeCAD desde una terminal podrás conocer el progreso del cálculo, e incluso detenerlo con <b>Ctrl+C</b>. En unos segundos recibiremos la curva de GZ.
+</p><p>La herramienta emplea <a rel="nofollow" class="external text" href="http://www.pyxplot.org.uk/">pyxplot</a> y <a rel="nofollow" class="external text" href="http://www.ghostscript.com/">ghostscript</a>, al igual que el generador de curvas de áreas o el de hidrostáticas. Puede encontrar el archivo <b>gz.dat</b> generado en el directorio que se indica en la vista de informe (Vista/Vistas/Vista de informe), pudiendo cargar este archivo desde un programa de hojas de cálculo (por ejemplo <a rel="nofollow" class="external text" href="http://www.libreoffice.org">libreOffice</a>). Junto al archivo de salida se situán algunos archivos adicionales:
+</p>
+<ul><li> <b>gz.dat</b>: Datos de la curva de GZ.</li>
+<li> <b>gz.pyxplot</b>: Guión para pyxplot para la generación de la figura.</li>
+<li> <b>gz.eps</b>: Imagen en formato EPS.</li>
+<li> <b>gz.png</b>: Imagen en formato PNG.</li></ul>
+<p>Estos archivos se sobreescribirán la próxima vez que lance la herramienta, luego cópielos en otro lugar si desea conservarlos.
+</p>
+<h3><span class="mw-headline" id="Resultados">Resultados</span></h3>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-s60GZ.png" class="image" title="Curva de GZ."><img alt="Curva de GZ." src="800px-FreeCAD-Ship-s60GZ.png" width="800" height="516" srcset="/wiki/images/0/06/FreeCAD-Ship-s60GZ.png 1.5x" /></a></div></div>
+<center><span style="font-variant:small-caps">Curva de GZ.</span></center>
+<p>El máximo valor de <i>GZ</i> se sitúa a 45 grados, muy por encima de los 30 grados que exige la normativa. Con una escora de 30 grados <i>GZ</i> vale 0.25 m, siendo el mínimo de 0.2 metros. El área bajo la curva de GZ hasta los 30 grados es de 0.065 m·rad, mientras que hasta los cuarenta grados de escora computa 0.092 m·rad, ambos valores por encima de los exigidos. Sin embargo, el área bajo la curva de GZ entre los 30 y los 40 grados de escora es de 0.027 m·rad, valor por debajo del mínimo exigido por la normativa de la IMO.
+</p><p>Para solucionarlo sería necesario lastrar el buque en ésta condición de carga. Por otra parte, podemos ver como la curva de GZ da valores positivos hasta los 95 grados, siendo insuficiente para cumplir los requerimientos de la IMO, lo que nos da una idea de lo exigente de los criterios aplicables a la estabilidad de buques.
+</p><p>Of course this example is not real (first for all fuel tanks cannot be placed in the double bottom structure, or using hull side as structure), but is a good example in order to learn to use <a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship</a>.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial_(II)/es&amp;oldid=185382">http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial_(II)/es&amp;oldid=185382</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

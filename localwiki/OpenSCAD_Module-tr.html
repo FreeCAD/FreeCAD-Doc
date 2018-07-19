@@ -1,0 +1,80 @@
+<html><head><title>OpenSCAD Module/tr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>OpenSCAD Module/tr</h1></div>
+
+<div id="mw-content-text" lang="tr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>The OpenSCAD module is in an early stage of development.
+</p><p>The OpenSCAD module offers interoperability with the open source software <a rel="nofollow" class="external text" href="http://www.openscad.org/">OpenSCAD</a>.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCADexamaple1.png" class="image" title="An example of imported OpenSCAD geometry"><img alt="An example of imported OpenSCAD geometry" src="OpenSCADexamaple1.png" width="480" height="320" /></a>
+</p><p>It contains an <a href="OpenSCAD_CSG.html" title="OpenSCAD CSG">importer</a> which allows you to open the <a href="OpenSCAD_CSG.html" title="OpenSCAD CSG">.csg</a> output from OpenSCAD in FreeCAD.
+</p><p>The <a href="OpenSCAD_CSG.html" title="OpenSCAD CSG">exporter</a> outputs a CSG based (sub-)tree to <a href="OpenSCAD_CSG.html" title="OpenSCAD CSG">.csg</a>. Geometry which is not based on CSG operations and is exported as a mesh. 
+The OpenSCAD module contains a toolbox with functions to modify the feature tree and repair models.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#OpenSCAD_language_and_file_format"><span class="tocnumber">1</span> <span class="toctext">OpenSCAD language and file format</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#GUI_Commands"><span class="tocnumber">2</span> <span class="toctext">GUI Commands</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Preferences"><span class="tocnumber">2.1</span> <span class="toctext">Preferences</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Limitations"><span class="tocnumber">3</span> <span class="toctext">Limitations</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Hints"><span class="tocnumber">4</span> <span class="toctext">Hints</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Tutorials"><span class="tocnumber">5</span> <span class="toctext">Tutorials</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="OpenSCAD_language_and_file_format">OpenSCAD language and file format</span></h2>
+<p>The OpenSCAD language allows the use of variables and loops. It allows you to specify submodules to reuse geometry and code. This high degree of flexibility makes parsing very complex. Currently the OpenSCAD module in FreeCAD can not handle the OpenSCAD language natively.
+Instead, if OpenSCAD is installed, it can be used to convert the input to an output format named 'CSG'. It is a subset of the OpenSCAD Language and can be used as the input to OpenSCAD for further processing.
+During conversion all parametric behavior is lost - all variable names are discarded, loops expanded and mathematical expressions evaluated.
+</p>
+<h2><span class="mw-headline" id="GUI_Commands">GUI Commands</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_ColorCodeShape.png" class="image"><img alt="OpenSCAD ColorCodeShape.png" src="32px-OpenSCAD_ColorCodeShape.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/OpenSCAD_ColorCodeShape.png/48px-OpenSCAD_ColorCodeShape.png 1.5x, /wiki/images/3/3f/OpenSCAD_ColorCodeShape.png 2x" /></a> <a href="OpenSCAD_ColorCodeShape.html" title="OpenSCAD ColorCodeShape">Color Code Shape</a>: Change the color of selected or all shapes based on their validity.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_ReplaceObject.png" class="image"><img alt="OpenSCAD ReplaceObject.png" src="32px-OpenSCAD_ReplaceObject.png" width="32" height="32" srcset="/wiki/images/thumb/1/14/OpenSCAD_ReplaceObject.png/48px-OpenSCAD_ReplaceObject.png 1.5x, /wiki/images/1/14/OpenSCAD_ReplaceObject.png 2x" /></a> <a href="OpenSCAD_ReplaceObject.html" title="OpenSCAD ReplaceObject">Replace Object</a>: Replace an object in the feature tree.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RemoveSubtree.png" class="image"><img alt="OpenSCAD RemoveSubtree.png" src="32px-OpenSCAD_RemoveSubtree.png" width="32" height="32" srcset="/wiki/images/thumb/0/09/OpenSCAD_RemoveSubtree.png/48px-OpenSCAD_RemoveSubtree.png 1.5x, /wiki/images/0/09/OpenSCAD_RemoveSubtree.png 2x" /></a> <a href="OpenSCAD_RemoveSubtree.html" title="OpenSCAD RemoveSubtree">Remove Subtree</a>: Removes the selected objects and all children that are not referenced from other objects.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RefineShapeFeature.png" class="image"><img alt="OpenSCAD RefineShapeFeature.png" src="32px-OpenSCAD_RefineShapeFeature.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/OpenSCAD_RefineShapeFeature.png/48px-OpenSCAD_RefineShapeFeature.png 1.5x, /wiki/images/9/93/OpenSCAD_RefineShapeFeature.png 2x" /></a> <a href="OpenSCAD_RefineShapeFeature.html" title="OpenSCAD RefineShapeFeature">Refine Shape Feature</a>: Create Refine Shape Feature.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_IncreaseTolerance.png" class="image"><img alt="OpenSCAD IncreaseTolerance.png" src="32px-OpenSCAD_IncreaseTolerance.png" width="32" height="32" srcset="/wiki/images/thumb/b/b1/OpenSCAD_IncreaseTolerance.png/48px-OpenSCAD_IncreaseTolerance.png 1.5x, /wiki/images/b/b1/OpenSCAD_IncreaseTolerance.png 2x" /></a> <a href="OpenSCAD_IncreaseTolerance.html" title="OpenSCAD IncreaseTolerance">Increase Tolerance Feature</a>: Increases tolerance of edges/faces/vertex of selected object(s).</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_Edgestofaces.png" class="image"><img alt="OpenSCAD Edgestofaces.png" src="32px-OpenSCAD_Edgestofaces.png" width="32" height="33" srcset="/wiki/images/thumb/f/f2/OpenSCAD_Edgestofaces.png/48px-OpenSCAD_Edgestofaces.png 1.5x, /wiki/images/thumb/f/f2/OpenSCAD_Edgestofaces.png/64px-OpenSCAD_Edgestofaces.png 2x" /></a> <a href="OpenSCAD_Edgestofaces.html" title="OpenSCAD Edgestofaces">Convert Edges To Faces</a>: Convert edges to faces. Useful to prepare imported DXF geometry for extrusion.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_ExpandPlacements.png" class="image"><img alt="OpenSCAD ExpandPlacements.png" src="32px-OpenSCAD_ExpandPlacements.png" width="32" height="33" srcset="/wiki/images/thumb/d/de/OpenSCAD_ExpandPlacements.png/48px-OpenSCAD_ExpandPlacements.png 1.5x, /wiki/images/thumb/d/de/OpenSCAD_ExpandPlacements.png/64px-OpenSCAD_ExpandPlacements.png 2x" /></a> <a href="OpenSCAD_ExpandPlacements.html" title="OpenSCAD ExpandPlacements">Expand Placements</a>: Expand all placements downwards the FeatureTree.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_ExplodeGroup.png" class="image"><img alt="OpenSCAD ExplodeGroup.png" src="32px-OpenSCAD_ExplodeGroup.png" width="32" height="32" srcset="/wiki/images/thumb/4/4d/OpenSCAD_ExplodeGroup.png/48px-OpenSCAD_ExplodeGroup.png 1.5x, /wiki/images/4/4d/OpenSCAD_ExplodeGroup.png 2x" /></a> <a href="OpenSCAD_ExplodeGroup.html" title="OpenSCAD ExplodeGroup">Explode Group</a>: Explodes fused part primitives.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_AddOpenSCADElement.png" class="image"><img alt="OpenSCAD AddOpenSCADElement.png" src="32px-OpenSCAD_AddOpenSCADElement.png" width="32" height="32" srcset="/wiki/images/thumb/c/c4/OpenSCAD_AddOpenSCADElement.png/48px-OpenSCAD_AddOpenSCADElement.png 1.5x, /wiki/images/c/c4/OpenSCAD_AddOpenSCADElement.png 2x" /></a> <a href="OpenSCAD_AddOpenSCADElement.html" title="OpenSCAD AddOpenSCADElement">Add OpenSCAD Element</a>: Add an OpenSCAD element by entering OpenSCAD code into the task panel.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_MeshBoolean.png" class="image"><img alt="OpenSCAD MeshBoolean.png" src="32px-OpenSCAD_MeshBoolean.png" width="32" height="32" srcset="/wiki/images/thumb/2/28/OpenSCAD_MeshBoolean.png/48px-OpenSCAD_MeshBoolean.png 1.5x, /wiki/images/2/28/OpenSCAD_MeshBoolean.png 2x" /></a> <a href="OpenSCAD_MeshBoolean.html" title="OpenSCAD MeshBoolean">Mesh Boolean</a>: Creates new mesh object by boolean operation from shapes.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_Hull.png" class="image"><img alt="OpenSCAD Hull.png" src="32px-OpenSCAD_Hull.png" width="32" height="32" srcset="/wiki/images/thumb/e/ec/OpenSCAD_Hull.png/48px-OpenSCAD_Hull.png 1.5x, /wiki/images/e/ec/OpenSCAD_Hull.png 2x" /></a> <a href="OpenSCAD_Hull.html" title="OpenSCAD Hull">Hull</a>: Apllies a hull to selected shapes.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_Minkowski.png" class="image"><img alt="OpenSCAD Minkowski.png" src="32px-OpenSCAD_Minkowski.png" width="32" height="32" srcset="/wiki/images/thumb/c/ca/OpenSCAD_Minkowski.png/48px-OpenSCAD_Minkowski.png 1.5x, /wiki/images/c/ca/OpenSCAD_Minkowski.png 2x" /></a> <a href="OpenSCAD_Minkowski.html" title="OpenSCAD Minkowski">Minkowski</a>: Applies a minkowski sum to selected shapes.</li></ul>
+<h3><span class="mw-headline" id="Preferences">Preferences</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_DlgParameter.png" class="image"><img alt="Std DlgParameter.png" src="32px-Std_DlgParameter.png" width="32" height="32" srcset="/wiki/images/thumb/6/6d/Std_DlgParameter.png/48px-Std_DlgParameter.png 1.5x, /wiki/images/6/6d/Std_DlgParameter.png 2x" /></a> <a href="OpenSCAD_Preferences.html" title="OpenSCAD Preferences">Preferences...</a>: Preferences disposable in OpenSCAD Tools.</li></ul>
+<p><br />
+</p><p><br />
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Limitations">Limitations</span></h2>
+<p>OpenSCAD creates constructive solid geometry as well as importing mesh files and extruding 2d geometry (from dxf files). FreeCAD allows you to create CSG with primitives as well. The FreeCAD geometry kernel (OCCT) works using a boundary representation.
+Therefore conversion from CSG to BREP should, in theory, be possible whereas conversion from BREP to CSG is, in general, not.
+</p><p>OpenSCAD works internally on meshes. Some operations which are useful on meshes are not meaningful on a BREP model and can not be fully supported.  Among these are convex hull, minkowski sum, glide and subdiv. Currently we run the OpenSCAD binary in order to perform hull and minkwoski operations and import the result. This means that the involved geometry will be triangulated. In OpenSCAD non-uniform scaling is often used, which does not impose any problems when using meshes. In our geometry kernel geometric primitives (lines, circular sections, etc) are converted to BSpline prior to performing such deformations. Those BSplines are known to cause trouble in later boolean operations. An automatic solution is not available at the moment. Please feel free to post to the forum if you encounter such problems. Often such problems can be solved be remodeling small parts. A deformation of a cylinder can substituted by an extrusion of an ellipses.
+</p>
+<h2><span class="mw-headline" id="Hints">Hints</span></h2>
+<p>When importing DXF set the Draft precision to a sensible amount as this will affect the detection of connected edges.
+</p><p>If FreeCAD crashes when importing CSG, it is strongly recommended that you enable 'automatically check model after boolean operation' in Menu → Edit → Preferences → Part Design → Model setting
+</p>
+<h2><span class="mw-headline" id="Tutorials">Tutorials</span></h2>
+<ul><li> <a href="Import_OpenSCAD_code.html" title="Import OpenSCAD code">Import OpenSCAD code</a></li></ul>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="https://freecadweb.org/tracker/search.php?tag_string=OpenSCAD">Open tickets tagged "Openscad" on the FreeCAD bugtracker</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.thingiverse.com/tag:openscad">Things tagged with "OpenSCAD" on Thingiverse</a></li></ul>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=OpenSCAD_Module/tr&amp;oldid=282966">http://www.freecadweb.org/wiki/index.php?title=OpenSCAD_Module/tr&amp;oldid=282966</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

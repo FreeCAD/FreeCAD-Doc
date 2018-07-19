@@ -1,0 +1,99 @@
+<html><head><title>Arch Space/uk</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Space/uk</h1></div>
+
+<div id="mw-content-text" lang="uk" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Arch_Space"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Space.png" class="image"><img alt="Arch Space.png" src="32px-Arch_Space.png" width="32" height="32" srcset="/wiki/images/thumb/8/83/Arch_Space.png/48px-Arch_Space.png 1.5x, /wiki/images/8/83/Arch_Space.png 2x" /></a> Arch Space</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Меню прокату
+</th></tr>
+<tr>
+<td class="ctEven">Arch → Space
+</td></tr>
+<tr>
+<th class="ctOdd">Верстаки
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/uk" title="Arch Module/uk">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Ярлик за умовчанням
+</th></tr>
+<tr>
+<td class="ctEven">S P
+</td></tr>
+<tr>
+<th class="ctOdd">Дивись також
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Arch_Space.html"><span class="tocnumber">1</span> <span class="toctext">Arch Space</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Scripting"><span class="tocnumber">5</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Limitations"><span class="tocnumber">6</span> <span class="toctext">Limitations</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>The Space tool allows you to define an empty volume, either by basing it on a solid shape, or by defining its boundaries, or a mix of both. If it is based solely on boundaries, the volume is calculated by starting from the bounding box of all the given boundaries, and subtracting the spaces behind each boundary. The space object always defines a solid volume. The floor area of a space object, calculated by intersecting a horizontal plane at the center of mass of the space volume, can also be displayed, by setting the display mode of the space object to "detailed".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Space_example.jpg" class="image"><img alt="Arch Space example.jpg" src="640px-Arch_Space_example.jpg" width="640" height="346" srcset="/wiki/images/c/c7/Arch_Space_example.jpg 1.5x" /></a>
+</p><p>In the above image, a space object is created from an existing solid object, then two wall faces are added as boundaries, and the display mode is set to "detailed" to show the floor area.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select an existing solid object, or faces on boundary objects</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Space.png" class="image"><img alt="Arch Space.png" src="16px-Arch_Space.png" width="16" height="16" srcset="/wiki/images/thumb/8/83/Arch_Space.png/24px-Arch_Space.png 1.5x, 32px-Arch_Space.png 2x" /></a> <a href="Arch_Space.html" title="Arch Space">Arch Space</a></span> button, or press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">S</span>, <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">P</span> keys</li></ol>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>: The base object, if any (must be a solid)</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Boundaries</b>: A list of optional boundary elements</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The space tool can be used in python scripts and <a href="Macros.html" title="Macros">macros</a> by using the following function:
+</p>
+<pre>makeSpace(objects) </pre>
+<ul><li> Creates a space object from the given objects. </li>
+<li> Objects can be one document object, in which case it becomes the base shape of the space object, or a list of selection objects as returned by FreeCADGui.Selection.getSelectionEx(), or a list of tuples (object, subobjectname).</li>
+<li> Returns the newly created space object.</li></ul>
+<p>Example:
+</p>
+<pre>import FreeCAD, Arch, Part
+b = Part.makeBox(2,2,2)
+FreeCAD.ActiveDocument.addObject("Part::Feature","Box").Shape=b
+sp = makeSpace([FreeCAD.ActiveDocument.Box]) </pre>
+<p>After a space object is created, selected faces can be added to it with the following function:
+</p>
+<pre>import FreeCADGui
+Arch.addSpaceBoundaries(sp, FreeCADGui.Selection.getSelectionEx()) </pre>
+<p>Boundaries can also be removed with:
+</p>
+<pre>Arch.removeSpaceBoundaries(sp, FreeCADGui.Selection.getSelectionEx()) </pre>
+<h2><span class="mw-headline" id="Limitations">Limitations</span></h2>
+<ul><li> Not available below FreeCAD version 0.14</li>
+<li> The boundaries properties is currently not editable via GUI</li>
+<li> See the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=9&amp;t=4275">forum announcement</a></li></ul>
+<div style="clear:both"></div>
+<p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Space/uk&amp;oldid=173797">http://www.freecadweb.org/wiki/index.php?title=Arch_Space/uk&amp;oldid=173797</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

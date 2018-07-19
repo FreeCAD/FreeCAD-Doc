@@ -1,0 +1,613 @@
+<html><head><title>Robot 6-Axis/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Robot 6-Axis/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Robot Workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">Unknown
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Exempel_Kuka"><span class="tocnumber">2</span> <span class="toctext">Exempel Kuka</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kinematik"><span class="tocnumber">2.1</span> <span class="toctext">Kinematik</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Visuell_representation"><span class="tocnumber">2.2</span> <span class="toctext">Visuell representation</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#KR_210"><span class="tocnumber">2.3</span> <span class="toctext">KR 210</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#KR_500"><span class="tocnumber">2.4</span> <span class="toctext">KR 500</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Denna artikel handlar om hur man hämtar in en standard 6-Axlig industrirobot till FreeCAD för simulering
+</p><p>Beskrivningen följer <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Denavit-Hartenberg_Parameters">Denavit-Hartenberg Parameter</a> systemet, som även beskrivs i John J. Craigs bok "Introduction to Robotics". 
+</p>
+<h2><span class="mw-headline" id="Exempel_Kuka">Exempel Kuka</span></h2>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kuka KR-16</b>
+
+</caption>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaKR16.jpg" class="image"><img alt="KukaKR16.jpg" src="KukaKR16.jpg" width="414" height="396" /></a>
+</td>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaParts.jpg" class="image"><img alt="KukaParts.jpg" src="KukaParts.jpg" width="253" height="268" /></a>
+</td>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaAxisPosition.jpg" class="image"><img alt="KukaAxisPosition.jpg" src="KukaAxisPosition.jpg" width="346" height="290" /></a>
+</td></tr></table>
+<h3><span class="mw-headline" id="Kinematik">Kinematik</span></h3>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>3D applikationer</b>
+</caption>
+<tr>
+<th> Segment
+</th>
+<th> Parameter
+</th>
+<th> Beskrivning
+</th></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaBase.jpg" class="image"><img alt="KukaBase.jpg" src="KukaBase.jpg" width="223" height="250" /></a>
+</td>
+<td>
+</td>
+<td> Basens konfiguration
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment1.jpg" class="image"><img alt="KukaSegment1.jpg" src="KukaSegment1.jpg" width="223" height="238" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{1} = q_{1}&lt;/math&gt; 
+</p><p>&lt;math&gt;d_{1} = 675 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{1} = 260 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{1} = −90&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 1
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment2.jpg" class="image"><img alt="KukaSegment2.jpg" src="KukaSegment2.jpg" width="221" height="249" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{2} = q_{2} - 90&lt;/math&gt;° 
+</p><p>&lt;math&gt;d_{2} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{2} = 680 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{2} = 0&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 2
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment3.jpg" class="image"><img alt="KukaSegment3.jpg" src="KukaSegment3.jpg" width="221" height="255" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{3} = q_{3} &lt;/math&gt; 
+</p><p>&lt;math&gt;d_{3} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{3} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{3} = 90&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 3
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment4.jpg" class="image"><img alt="KukaSegment4.jpg" src="KukaSegment4.jpg" width="237" height="240" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{4} = q_{4} &lt;/math&gt; 
+</p><p>&lt;math&gt;d_{4} = -670 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{4} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{4} = -90&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 4
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment5.jpg" class="image"><img alt="KukaSegment5.jpg" src="KukaSegment5.jpg" width="221" height="233" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{5} = q_{5} &lt;/math&gt; 
+</p><p>&lt;math&gt;d_{5} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{5} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{5} = 90&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 5
+</td></tr>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaSegment6.jpg" class="image"><img alt="KukaSegment6.jpg" src="KukaSegment6.jpg" width="257" height="240" /></a>
+</td>
+<td>
+<p>&lt;math&gt;\theta_{6} = q_{6} &lt;/math&gt; 
+</p><p>&lt;math&gt;d_{6} = 0 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;a_{6} = -158 mm &lt;/math&gt; 
+</p><p>&lt;math&gt;\alpha_{6} = 180&lt;/math&gt;° 
+</p>
+</td>
+<td> Segment 6
+</td></tr></table>
+<p>Detta leder till följande tabell:
+</p>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kinematik tabell</b>
+</caption>
+<tr>
+<th> &lt;math&gt;i&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta&lt;/math&gt; </th>
+<th> &lt;math&gt;d&lt;/math&gt; </th>
+<th> &lt;math&gt;a&lt;/math&gt; </th>
+<th> &lt;math&gt;\alpha&lt;/math&gt;
+</th></tr>
+<tr>
+<td> 1  </td>
+<td> q1       </td>
+<td> 675 mm  </td>
+<td>   260 mm </td>
+<td> -90°
+</td></tr>
+<tr>
+<td> 2  </td>
+<td> q2 - 90° </td>
+<td> 0 mm    </td>
+<td>   680 mm </td>
+<td> 0°
+</td></tr>
+<tr>
+<td> 3  </td>
+<td> q3       </td>
+<td> 0 mm    </td>
+<td>     0 mm </td>
+<td> 90°
+</td></tr>
+<tr>
+<td> 4  </td>
+<td> q4       </td>
+<td> -670 mm </td>
+<td>     0 mm </td>
+<td> -90°
+</td></tr>
+<tr>
+<td> 5  </td>
+<td> q5       </td>
+<td> 0 mm    </td>
+<td>     0 mm </td>
+<td> 90°
+</td></tr>
+<tr>
+<td> 6  </td>
+<td> q6       </td>
+<td> -158 mm </td>
+<td>     0 mm </td>
+<td> 180°
+</td></tr></table>
+<p>Eftersom Kuka robotarna inte har alla axlar i 0 i den ritade  L-Positionen, så behöver vi ändra 
+axel 2 &amp; 3 med 90°.
+</p><p><br />
+</p>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kinematik tabell</b>
+</caption>
+<tr>
+<th> &lt;math&gt;i&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta&lt;/math&gt; </th>
+<th> &lt;math&gt;d&lt;/math&gt; </th>
+<th> &lt;math&gt;a&lt;/math&gt; </th>
+<th> &lt;math&gt;\alpha&lt;/math&gt;
+</th></tr>
+<tr>
+<td> 1  </td>
+<td> q1       </td>
+<td> 675 mm  </td>
+<td>   260 mm </td>
+<td> -90°
+</td></tr>
+<tr>
+<td> 2  </td>
+<td> q2       </td>
+<td> 0 mm    </td>
+<td>   680 mm </td>
+<td> 0°
+</td></tr>
+<tr>
+<td> 3  </td>
+<td> q3 - 90° </td>
+<td> 0 mm    </td>
+<td>     0 mm </td>
+<td> 90°
+</td></tr>
+<tr>
+<td> 4  </td>
+<td> q4       </td>
+<td> -670 mm </td>
+<td>     0 mm </td>
+<td> -90°
+</td></tr>
+<tr>
+<td> 5  </td>
+<td> q5       </td>
+<td> 0 mm    </td>
+<td>     0 mm </td>
+<td> 90°
+</td></tr>
+<tr>
+<td> 6  </td>
+<td> q6       </td>
+<td> -158 mm </td>
+<td>     0 mm </td>
+<td> 180°
+</td></tr></table>
+<p>I databladet så hittar vi ytterligare information om axlarna:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaAxisData.jpg" class="image"><img alt="KukaAxisData.jpg" src="KukaAxisData.jpg" width="947" height="145" /></a>
+</p><p>Vilket leder till den kompletta tabellen:
+</p>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kinematik tabell</b>
+</caption>
+<tr>
+<th> &lt;math&gt;i&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta&lt;/math&gt; </th>
+<th> &lt;math&gt;d&lt;/math&gt; </th>
+<th> &lt;math&gt;a&lt;/math&gt; </th>
+<th> &lt;math&gt;\alpha&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{min}&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{max}&lt;/math&gt; </th>
+<th> Axis Speed
+</th></tr>
+<tr>
+<td> 1  </td>
+<td> 0       </td>
+<td> 675   </td>
+<td>   260  </td>
+<td> -90  </td>
+<td> -185 </td>
+<td> 185 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 2  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>   680  </td>
+<td> 0    </td>
+<td> -155 </td>
+<td> 35  </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 3  </td>
+<td> - 90    </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 154 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 4  </td>
+<td> 0       </td>
+<td> -670  </td>
+<td>     0  </td>
+<td> -90  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 5  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 130 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 6  </td>
+<td> 0       </td>
+<td> -158  </td>
+<td>     0  </td>
+<td> 180  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 615
+</td></tr></table>
+<h3><span class="mw-headline" id="Visuell_representation">Visuell representation</span></h3>
+<p>FreeCAD kan generera en grov bild ur kinematiktabellen. Men om du vill komma närmare
+verkligheten så kan du använda en VRML fil med robotens utseende för simuleringen.
+T.ex. <a rel="nofollow" class="external text" href="http://kuka.com">Kuka</a> handhar VRML filer för sina modeller. 
+VRML filen laddas under skapandet av den specifika roboten 
+i FreeCAD. För att FreeCAD ska kunna röra axlarna så måste vi redigera  
+VRML filen och sätta in speciella omvandlingsnoder som FreeCAD kan hitta 
+och manipulera.
+</p><p>Detta visas återigen med exemplet Kuka KR 16.
+med start från rad 1:
+</p>
+<pre>#VRML V2.0 utf8
+#
+# This VRML97 file was exported using eM-Workplace
+# (c) Tecnomatix Technologies GmbH &amp; Co. KG
+#     Heisenberg-Bogen 1
+#     D-85609 Aschheim-Dornach
+#     GERMANY
+#
+#Background
+#{
+#   skyColor   [0.752941 0.752941 0.752941]
+#}
+Transform
+{
+   #rotation 1 0 0 -1.5707963
+   #scale .001 .001 .001
+   children
+   [
+           DEF AOBJ_0001_000_TRAFO Transform
+           {
+              children
+              [
+...
+</pre>
+<p>Du ser att denna fil är exporterad med en robotsimuleringsmjukvara som kallas för Tecnomatix. Ta bort denna notis och skriv in en URL var du fick denna fil ifrån, därför att Tecnomatix har ingen upphovsrätt på filinnehållet. Det är endast en omvandlare! Först av allt så tar vi bort <b>Background</b> noden. Ta sedan bort  <b>rotation</b> och <b>scale</b> noden för att få modellen i mm och uppåtpekande Z.
+</p><p>Aldeles vid slutet:
+</p>
+<pre>  ] }
+  ] }
+  ] }
+  ]
+}
+#ROUTE SENS_04_OBJ.rotation_changed TO AXIS_04_OBJ.rotation
+#ROUTE SENS_27_OBJ.rotation_changed TO AXIS_27_OBJ.rotation
+#ROUTE SENS_32_OBJ.rotation_changed TO AXIS_32_OBJ.rotation
+#ROUTE SENS_44_OBJ.rotation_changed TO AXIS_44_OBJ.rotation
+#ROUTE SENS_46_OBJ.rotation_changed TO AXIS_46_OBJ.rotation
+#ROUTE SENS_49_OBJ.rotation_changed TO AXIS_49_OBJ.rotation
+#DEF AnySIMTimer TimeSensor
+#{
+#   cycleInterval 1.000000
+#   loop          TRUE
+#}
+</pre>
+<p>Kommentera bort <b>TimeSensor</b> och de 6 rutterna. Dessa 6 rader ger dig ett tips på var robotens axlar är någonstans! 
+Sök först efter "AXIS_04_OBJ" som tar dig till den platsen:
+</p>
+<pre>...
+    Transform { rotation 1 0 0 1.570796 children [
+        DEF SENS_04_OBJ-0001 CylinderSensor
+        {
+           diskAngle 1.570796
+           minAngle  -3.228859
+           maxAngle  3.228859
+           offset    0.000000
+        }
+      DEF FREECAD_AXIS1 Transform { rotation 0 1 0 0 children [
+      DEF AXIS_04_OBJ-0001 Transform
+     {
+        children
+        [
+        Transform { rotation 1 0 0 -1.570796 children [
+           DEF AOBJ_0001_003_TRAFO Transform
+           {
+              rotation 1.000000 0.000000 0.000000 3.141593
+              translation -600.000000 500.000000 300.000000
+              children
+              [
+...
+</pre>
+<p>Du måste precis innan definitionen av denna nod sätta in raden <b>"DEF FREECAD_AXIS1 Transform { rotation 0 1 0 0 children ["</b>  vilket är FreeCADs ankare för att förflytta axeln.
+</p><p>Gör nu detsamma för  <b>FREECAD_AXIS2</b>,<b>FREECAD_AXIS3</b>,<b>FREECAD_AXIS4</b>,<b>FREECAD_AXIS5</b> och <b>FREECAD_AXIS6</b>.
+Glöm inte de stängande parenteserna vid slutet av filen, och du är färdig!
+</p><p>Du kan ladda VRML:en genom att exemplifiera roboten:
+</p>
+<pre>App.activeDocument().addObject("Robot::RobotObject","Robot")
+App.activeDocument().Robot.RobotVrmlFile = "C:/_Projekte/FreeCAD0.9_build/mod/Robot/Lib/Kuka/kr16.wrl"
+</pre>
+<p>vilket ska ge dig detta resultat:
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaKR16FreeCAD.jpg" class="image"><img alt="KukaKR16FreeCAD.jpg" src="KukaKR16FreeCAD.jpg" width="1020" height="704" /></a>
+</p>
+<h3><span class="mw-headline" id="KR_210">KR 210</span></h3>
+<p><a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Robot/Lib/Kuka/kr_210_2.pdf">Data sheet</a>
+</p>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kinematik tabell</b>
+</caption>
+<tr>
+<th> &lt;math&gt;i&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta&lt;/math&gt; </th>
+<th> &lt;math&gt;d&lt;/math&gt; </th>
+<th> &lt;math&gt;a&lt;/math&gt; </th>
+<th> &lt;math&gt;\alpha&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{min}&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{max}&lt;/math&gt; </th>
+<th> Axis Speed
+</th></tr>
+<tr>
+<td> 1  </td>
+<td> 0       </td>
+<td> 750   </td>
+<td>   350  </td>
+<td> -90  </td>
+<td> -185 </td>
+<td> 185 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 2  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>   1250 </td>
+<td> 0    </td>
+<td> -155 </td>
+<td> 35  </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 3  </td>
+<td> - 90    </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 154 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 4  </td>
+<td> 0       </td>
+<td> -1100 </td>
+<td>     0  </td>
+<td> -90  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 5  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 130 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 6  </td>
+<td> 0       </td>
+<td> -230  </td>
+<td>     0  </td>
+<td> 180  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 615
+</td></tr></table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="KR_500">KR 500</span></h3>
+<p><a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Robot/Lib/Kuka/kr_500_2.pdf">Data sheet</a>
+</p>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Kinematik tabell</b>
+</caption>
+<tr>
+<th> &lt;math&gt;i&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta&lt;/math&gt; </th>
+<th> &lt;math&gt;d&lt;/math&gt; </th>
+<th> &lt;math&gt;a&lt;/math&gt; </th>
+<th> &lt;math&gt;\alpha&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{min}&lt;/math&gt; </th>
+<th> &lt;math&gt;\theta_{max}&lt;/math&gt; </th>
+<th> Axis Speed
+</th></tr>
+<tr>
+<td> 1  </td>
+<td> 0       </td>
+<td> 1045  </td>
+<td>   500  </td>
+<td> -90  </td>
+<td> -185 </td>
+<td> 185 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 2  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>   1300 </td>
+<td> 0    </td>
+<td> -155 </td>
+<td> 35  </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 3  </td>
+<td> - 90    </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 154 </td>
+<td> 156
+</td></tr>
+<tr>
+<td> 4  </td>
+<td> 0       </td>
+<td> -1025 </td>
+<td>     0  </td>
+<td> -90  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 5  </td>
+<td> 0       </td>
+<td> 0     </td>
+<td>     0  </td>
+<td> 90   </td>
+<td> -130 </td>
+<td> 130 </td>
+<td> 330
+</td></tr>
+<tr>
+<td> 6  </td>
+<td> 0       </td>
+<td> -250  </td>
+<td>     0  </td>
+<td> 180  </td>
+<td> -350 </td>
+<td> 350 </td>
+<td> 615
+</td></tr></table>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/sv&amp;oldid=177587">http://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/sv&amp;oldid=177587</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

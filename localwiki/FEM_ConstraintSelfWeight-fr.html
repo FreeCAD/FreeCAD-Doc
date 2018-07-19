@@ -1,0 +1,97 @@
+<html><head><title>FEM ConstraintSelfWeight/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM ConstraintSelfWeight/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="FEM_ConstraintSelfWeight"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ConstraintSelfWeight.png" class="image"><img alt="FEM ConstraintSelfWeight.png" src="32px-FEM_ConstraintSelfWeight.png" width="32" height="32" srcset="/wiki/images/thumb/9/97/FEM_ConstraintSelfWeight.png/48px-FEM_ConstraintSelfWeight.png 1.5x, /wiki/images/9/97/FEM_ConstraintSelfWeight.png 2x" /></a> FEM ConstraintSelfWeight</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Model → Mechanical Constraints → Constraint self weight
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=FEM_Module/fr" title="FEM Module/fr">FEM</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">C,W
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=FEM_tutorial/fr" title="FEM tutorial/fr">FEM tutorial</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#FEM_ConstraintSelfWeight"><span class="tocnumber">1</span> <span class="toctext">FEM ConstraintSelfWeight</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripting"><span class="tocnumber">4</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Solver_CalculiX"><span class="tocnumber">5</span> <span class="toctext">Solver CalculiX</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Limitations"><span class="tocnumber">5.1</span> <span class="toctext">Limitations</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Editing_CalculiX_input_file"><span class="tocnumber">5.2</span> <span class="toctext">Editing CalculiX input file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Solver_Z88"><span class="tocnumber">6</span> <span class="toctext">Solver Z88</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Constraint self weight defines gravity acceleration 9,81 m/s^2 acting on the whole model in the prescribed direction.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li>Click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ConstraintSelfWeight.png" class="image"><img alt="FEM ConstraintSelfWeight.png" src="32px-FEM_ConstraintSelfWeight.png" width="32" height="32" srcset="/wiki/images/thumb/9/97/FEM_ConstraintSelfWeight.png/48px-FEM_ConstraintSelfWeight.png 1.5x, /wiki/images/9/97/FEM_ConstraintSelfWeight.png 2x" /></a> or choose <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Model</span> → <b>Mechanical Constraints</b> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ConstraintSelfWeight.png" class="image"><img alt="FEM ConstraintSelfWeight.png" src="32px-FEM_ConstraintSelfWeight.png" width="32" height="32" srcset="/wiki/images/thumb/9/97/FEM_ConstraintSelfWeight.png/48px-FEM_ConstraintSelfWeight.png 1.5x, /wiki/images/9/97/FEM_ConstraintSelfWeight.png 2x" /></a> Constraint self weight</span>  from the top menu or press <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span> then <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">W</span> keys.</li>
+<li>You can modify the direction of gravitation by changing its vector coordinates in the property bar of newly created ConstraintSelfWeight object.</li></ol>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<ul><li> new object</li></ul>
+<pre>import ObjectsFem
+ObjectsFem.makeConstraintSelfWeight( name ) </pre>
+<ul><li> add object to the analysis named Analysis</li></ul>
+<pre>App.ActiveDocument.Analysis.Member = App.ActiveDocument.Analysis.Member + [ (object) ] </pre>
+<ul><li> example:</li></ul>
+<pre>import ObjectsFem
+selfweight_obj = ObjectsFem.makeConstraintSelfWeight( 'MySelfWeightObject' )
+App.ActiveDocument.Analysis.Member = App.ActiveDocument.Analysis.Member + [selfweight_obj] </pre>
+<h2><span class="mw-headline" id="Solver_CalculiX">Solver CalculiX</span></h2>
+<h3><span class="mw-headline" id="Limitations">Limitations</span></h3>
+<ul><li>You need to modify .inp file to edit gravity acceleration.</li>
+<li>Self weight is applied to the element set Eall means to the whole model.</li></ul>
+<h3><span class="mw-headline" id="Editing_CalculiX_input_file">Editing CalculiX input file</span></h3>
+<p>Acceleration constant can be edited by hand modification after generating CalculiX input file.
+</p><p>Example of lines in .inp file:
+</p>
+<pre>*DLOAD
+Eall,GRAV,9810,0.0,0.0,-1.0 </pre>
+<p>where 9810 is gravity acceleration in [mm/s^2]
+</p>
+<h2><span class="mw-headline" id="Solver_Z88">Solver Z88</span></h2>
+<ul><li> not implemented in Z88 solver (March 2017)</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_ConstraintSelfWeight/fr&amp;oldid=258002">http://www.freecadweb.org/wiki/index.php?title=FEM_ConstraintSelfWeight/fr&amp;oldid=258002</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,111 @@
+<html><head><title>Draft mapping files/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft mapping files/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Il modulo Draft è in grado di importare i file creati da qualsiasi programma capace di esportare file DXF. Ma dal momento che FreeCAD è molto diverso da <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Autocad">AutoCAD</a> e dagli altri programmi CAD 2D, si potrebbe desiderare di tradurre automaticamente le entità DXF nel modo in cui appaiono in FreeCAD.
+</p><p>Ad esempio, i programmi CAD 2D usano spesso uno sfondo nero, in modo da creare il disegno con colori vivaci, come il giallo, verde, ecc, poi, quando si stampa il disegno, i colori brutti vengono mappati in nero con diverse larghezze di linea.
+</p><p>Poiché FreeCAD non è un clone di AutoCAD, non c'è bisogno di usare i colori brutti. In FreeCAD i concetti di colore, larghezza di linea, o strati sono in realtà molto diversi. Quindi, possiamo approfittare di questo nuovo ambiente e lavorare, per esempio, con linee nere su sfondo bianco. Possiamo anche usare diverse larghezze di linea, perciò il nostro disegno apparirà sullo schermo più o meno allo stesso modo in cui verrà stampato (notare che per ora, la stampa del disegno da FreeCAD non è ancora supportata, un po 'più di pazienza!).
+</p><p>Per utilizzare un file di mappatura, esplorare semplicemente Modifica -&gt; Preferenze -&gt; Draft -&gt; dxf settings e selezionare le due opzioni:
+</p>
+<ul><li> Import style: Map colors to linewidths </li>
+<li> Mapping file: navigate to a .csv file (vedere sotto)</li></ul>
+<p>Queste impostazioni saranno le impostazioni predefinite la prossima volta che si importa un file DXF.
+</p><p>Il modulo Draft accetta come file di mappatura due tipi di .cvs sia file delimitato da virgole che tabulato:
+</p>
+<h4><span class="mw-headline" id="convertire_gli_stili_di_stampa_di_autocad">convertire gli stili di stampa di autocad</span></h4>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Autocad">AutoCAD</a> salva i suoi stili di stampa come file .CTB. Se si apre il gestore dello stile di stampa da AutoCAD, si apre effettivamente una finestra di Explorer che mostra la posizione in cui i file sono salvati. L'importatore DXF non può utilizzare questi file direttamente perché, come avrete capito, sono codificati. Fortunatamente, c'è un bel <a rel="nofollow" class="external text" href="http://www.noliturbare.com/index.php">CTB viewer &amp; convertitore</a> free che può convertire i file CTB in file CSV separati da tabulazione.
+I file .cvs generati da questo programma possono essere utilizzati immediatamente, e possono anche essere modificati con qualsiasi foglio di calcolo.
+</p>
+<h4><span class="mw-headline" id="Creare_i_propri_file_.csv">Creare i propri file .csv</span></h4>
+<p>Creare i file di mappatura è anche molto facile. Può essere fatto in un foglio di calcolo o in qualsiasi editor di testo. La regola è semplice: servono 3 colonne separate da una tabulazione (premere il tasto TAB). La prima colonna è il colore di AutoCAD, la seconda colonna è il valore RGB del colore linea di FreeCAD formattata in questo modo: 255,255,255 e la terza colonna è la larghezza della linea di FreeCAD in pixel. La prima riga non verrà letta. Così, per esempio, si può farne uno come questo:
+</p>
+<table>
+
+<tr>
+<td> dxf color
+</td>
+<td> freecad color
+</td>
+<td> freecad linewidth
+</td></tr>
+<tr>
+<td> 1
+</td>
+<td> 0,0,0
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> 0,0,0
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> 3
+</td>
+<td> 0,0,0
+</td>
+<td> 3
+</td></tr>
+<tr>
+<td> 4
+</td>
+<td> 0,0,0
+</td>
+<td> 4
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> 0,0,0
+</td>
+<td> 5
+</td></tr>
+<tr>
+<td> 6
+</td>
+<td> 0,0,0
+</td>
+<td> 6
+</td></tr>
+<tr>
+<td> 7
+</td>
+<td> 0,0,0
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 8
+</td>
+<td> 80,80,80
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 9
+</td>
+<td> 160,160,160
+</td>
+<td> 1
+</td></tr></table>
+<p>La tabella precedente converte il colore 1 (rosso) in nero (0,0,0)/1 pixel, il colore 2 (giallo) in nero /2 pixel, il colore 8 (darkgrey) in una tonalità di grigio scuro (80,80, 80) e 1 pixel di larghezza, ecc, ecc. È possibile specificare solo i colori che servono. Quello che non è stato specificato riceverà il colore e larghezza di riga predefiniti.
+</p><p>Non dimenticare che non verrà utilizzata la prima riga, quindi essa è utilizzabile per la scrittura dei titoli di colonna per esempio.
+Se si scrive un file .csv in un foglio di calcolo (come <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Openoffice">OpenOffice</a>), fare attenzione che a volte il foglio di calcolo pensa che quanto si è scritto è un numero 100,100,100 (unmilionecentomilacento) e si desidera rimuovere le virgole. Inoltre, quando si salva il file come .cvs, assicurarsi di specificare che deve essere separato da tabulazione e non separato da virgole.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/it&amp;oldid=109441">http://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/it&amp;oldid=109441</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,170 @@
+<html><head><title>FEM tutorial/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM tutorial/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Finite Element Analysis
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Beginner
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">10 minutes + Solver time
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven"><a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/index.php?title=User:Drei">Drei</a>
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6700 or above
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introducci.C3.B3n"><span class="tocnumber">2</span> <span class="toctext">Introducción</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Requirements"><span class="tocnumber">3</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Procedimiento"><span class="tocnumber">4</span> <span class="toctext">Procedimiento</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Modelado"><span class="tocnumber">4.1</span> <span class="toctext">Modelado</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Creating_the_Analysis"><span class="tocnumber">4.2</span> <span class="toctext">Creating the Analysis</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Netgen"><span class="tocnumber">4.2.1</span> <span class="toctext">Netgen</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#GMSH"><span class="tocnumber">4.2.2</span> <span class="toctext">GMSH</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Constraints_and_Forces"><span class="tocnumber">4.3</span> <span class="toctext">Constraints and Forces</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Final_preparations"><span class="tocnumber">4.4</span> <span class="toctext">Final preparations</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Running_the_Solver"><span class="tocnumber">4.5</span> <span class="toctext">Running the Solver</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Standard_Procedure"><span class="tocnumber">4.5.1</span> <span class="toctext">Standard Procedure</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Quick_Procedure"><span class="tocnumber">4.5.2</span> <span class="toctext">Quick Procedure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Analyzing_Results"><span class="tocnumber">4.6</span> <span class="toctext">Analyzing Results</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h3><span class="mw-headline" id="Introducci.C3.B3n">Introducción</span></h3>
+<p>Este tutorial tiene como propósito el introducir al lector a la forma de trabajo básica del módulo FEM, así como a la mayoría de las herramientas disponibles para realizar un análisis estático.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_tutorial_result.png" class="image"><img alt="FEM tutorial result.png" src="480px-FEM_tutorial_result.png" width="480" height="270" srcset="/wiki/images/thumb/9/9e/FEM_tutorial_result.png/720px-FEM_tutorial_result.png 1.5x, /wiki/images/thumb/9/9e/FEM_tutorial_result.png/960px-FEM_tutorial_result.png 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
+<ul><li> FreeCAD version 0.16.6700 or above</li>
+<li> <a rel="nofollow" class="external text" href="http://sourceforge.net/projects/netgen-mesher/">Netgen</a> and/or <a rel="nofollow" class="external text" href="http://geuz.org/gmsh/">GMSH</a> is installed on the system</li>
+<li> In the case of GMSH, installation of  <a rel="nofollow" class="external text" href="https://github.com/psicofil/Macros_FreeCAD">psicofil's macro</a> is recommended</li>
+<li> <a rel="nofollow" class="external text" href="http://www.calculix.de/">Calculix</a> is installed on the system</li>
+<li> The reader has the basic knowledge to use the Part and PartDesign Workbenches</li></ul>
+<h3><span class="mw-headline" id="Procedimiento">Procedimiento</span></h3>
+<h4><span class="mw-headline" id="Modelado">Modelado</span></h4>
+<p>En este ejemplo un Cubo es utilizado como objeto de estudio, pero modelos creados en los bancos de trabajo Parte y Diseño de Parte pueden ser utilizados en su lugar.
+</p>
+<ol><li> Crear un nuevo documento</li>
+<li> Activar el módulo Part </li>
+<li> Crear un Cubo</li>
+<li> Cambiar sus <b>Dimensiones</b> a las siguientes:
+<ol><li> Altura:  1.000 mm</li>
+<li> Longitud: 8.000 mm</li>
+<li> Ancho: 1.000 mm</li></ol></li></ol>
+<p>Ahora tenemos un modelo con el que se puede trabajar.
+</p>
+<h4><span class="mw-headline" id="Creating_the_Analysis">Creating the Analysis</span></h4>
+<h5><span class="mw-headline" id="Netgen">Netgen</span></h5>
+<ol><li> Select the model </li>
+<li> Click <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Analysis.png" class="image"><img alt="FEM Analysis.png" src="16px-FEM_Analysis.png" width="16" height="16" srcset="/wiki/images/thumb/5/57/FEM_Analysis.png/24px-FEM_Analysis.png 1.5x, /wiki/images/thumb/5/57/FEM_Analysis.png/32px-FEM_Analysis.png 2x" /></a> <a href="FEM_Analysis.html" title="FEM Analysis">New mechanical analysis</a> from the menu to create an analysis from the object that was selected</li>
+<li> In the meshing dialog, click <b>OK</b></li></ol>
+<p>También es posible arrastrar y depositar una malla a un Análisis Mecánico que no contenga una malla desde la vista del árbol
+</p>
+<h5><span class="mw-headline" id="GMSH">GMSH</span></h5>
+<p>El uso del macro de psicofil es recomendado, y es usado para este ejemplo.
+</p>
+<ol><li> Active el macro</li>
+<li> Seleccione el objeto que desee utilizar, en este caso nuestro Cubo</li>
+<li> Habilite la opción <b>Create Mechanical Analysis from mesh</b></li>
+<li> Clic <b>OK</b></li></ol>
+<p>Hemos mallado nuestro objeto y estamos listos para agregar restricciones y fuerzas.
+</p>
+<h4><span class="mw-headline" id="Constraints_and_Forces">Constraints and Forces</span></h4>
+<ol><li> Hide the mesh from the Tree View.</li>
+<li> Show the original model</li>
+<li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FixedConstraint.png" class="image"><img alt="FEM FixedConstraint.png" src="16px-FEM_FixedConstraint.png" width="16" height="16" srcset="/wiki/images/thumb/d/d3/FEM_FixedConstraint.png/24px-FEM_FixedConstraint.png 1.5x, /wiki/images/thumb/d/d3/FEM_FixedConstraint.png/32px-FEM_FixedConstraint.png 2x" /></a> <a href="FEM_ConstraintFixed.html" title="FEM ConstraintFixed">Create FEM fixed constraint</a></li>
+<li> Select the back face of the Cube (face on the <b>YZ</b> axis) and click OK</li>
+<li> Select  <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ForceConstraint.png" class="image"><img alt="FEM ForceConstraint.png" src="16px-FEM_ForceConstraint.png" width="16" height="16" srcset="/wiki/images/thumb/5/5f/FEM_ForceConstraint.png/24px-FEM_ForceConstraint.png 1.5x, /wiki/images/thumb/5/5f/FEM_ForceConstraint.png/32px-FEM_ForceConstraint.png 2x" /></a> <a href="FEM_ConstraintForce.html" title="FEM ConstraintForce">Create FEM force constraint</a></li>
+<li> Select the front face of the Cube (the face parallel to the back face) and set the <b>Area load</b>  value to 9000000.00</li>
+<li> Set the <b>Direction</b> to <b>-Z</b> by selecting one of the face edges parallel to that direction.</li>
+<li> Click OK</li></ol>
+<p>Hemos establecido las restricciones y fuerzas para nuestro estudio estático.
+</p>
+<h4><span class="mw-headline" id="Final_preparations">Final preparations</span></h4>
+<ol><li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Material.png" class="image"><img alt="FEM Material.png" src="16px-FEM_Material.png" width="16" height="16" srcset="/wiki/images/thumb/1/1e/FEM_Material.png/24px-FEM_Material.png 1.5x, /wiki/images/1/1e/FEM_Material.png 2x" /></a> <a href="FEM_MaterialSolid.html" title="FEM MaterialSolid">Mechanical material...</a> and choose Calculix as the material</li>
+<li> Click <b>OK</b></li></ol>
+<h4><span class="mw-headline" id="Running_the_Solver">Running the Solver</span></h4>
+<h5><span class="mw-headline" id="Standard_Procedure">Standard Procedure</span></h5>
+<ol><li> Select the solver object <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Solver.png" class="image"><img alt="FEM Solver.png" src="16px-FEM_Solver.png" width="16" height="13" srcset="/wiki/images/thumb/b/b7/FEM_Solver.png/24px-FEM_Solver.png 1.5x, /wiki/images/thumb/b/b7/FEM_Solver.png/32px-FEM_Solver.png 2x" /></a> contained in the <b>Mechanical Analysis</b></li>
+<li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Calculation.png" class="image"><img alt="FEM Calculation.png" src="16px-FEM_Calculation.png" width="16" height="18" srcset="/wiki/images/thumb/4/4a/FEM_Calculation.png/24px-FEM_Calculation.png 1.5x, /wiki/images/thumb/4/4a/FEM_Calculation.png/32px-FEM_Calculation.png 2x" /></a> <a href="FEM_SolverControl.html" title="FEM SolverControl">Start calculation</a> from the menu</li>
+<li> Select <b>Write Calculix Input File</b></li>
+<li> Select <b>Run Calculix</b></li>
+<li> Click <b>Close</b></li></ol>
+<h5><span class="mw-headline" id="Quick_Procedure">Quick Procedure</span></h5>
+<ol><li> Select the solver object <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Solver.png" class="image"><img alt="FEM Solver.png" src="16px-FEM_Solver.png" width="16" height="13" srcset="/wiki/images/thumb/b/b7/FEM_Solver.png/24px-FEM_Solver.png 1.5x, /wiki/images/thumb/b/b7/FEM_Solver.png/32px-FEM_Solver.png 2x" /></a> contained in the <b>Mechanical Analysis</b></li>
+<li> Click on <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_RunCalculiXccx.png" class="image"><img alt="FEM RunCalculiXccx.png" src="16px-FEM_RunCalculiXccx.png" width="16" height="16" srcset="/wiki/images/thumb/8/85/FEM_RunCalculiXccx.png/24px-FEM_RunCalculiXccx.png 1.5x, /wiki/images/thumb/8/85/FEM_RunCalculiXccx.png/32px-FEM_RunCalculiXccx.png 2x" /></a> <a href="FEM_SolverRun.html" title="FEM SolverRun">Quick Analysis</a>.</li></ol>
+<h4><span class="mw-headline" id="Analyzing_Results">Analyzing Results</span></h4>
+<ol><li> From the <b>Object Tree</b>, select the <b>Results</b> object</li>
+<li> Select <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ShowResult.png" class="image"><img alt="FEM ShowResult.png" src="16px-FEM_ShowResult.png" width="16" height="16" srcset="/wiki/images/thumb/f/f5/FEM_ShowResult.png/24px-FEM_ShowResult.png 1.5x, /wiki/images/thumb/f/f5/FEM_ShowResult.png/32px-FEM_ShowResult.png 2x" /></a> <a href="FEM_ResultShow.html" title="FEM ResultShow">Show result</a></li>
+<li> Choose among the different Result types to view the results</li>
+<li> The slider at the bottom can be used to alter the mesh visualization. This allows us to visualize the deformation experienced by  the object, keep in mind that this is an approximation.</li>
+<li> To remove the results select <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_PurgeResults.png" class="image"><img alt="FEM PurgeResults.png" src="16px-FEM_PurgeResults.png" width="16" height="16" srcset="/wiki/images/thumb/e/eb/FEM_PurgeResults.png/24px-FEM_PurgeResults.png 1.5x, /wiki/images/thumb/e/eb/FEM_PurgeResults.png/32px-FEM_PurgeResults.png 2x" /></a> <a href="FEM_ResultsPurge.html" title="FEM ResultsPurge">Purge results</a></li></ol>
+<div class="note"><b>Comparison to previous example file</b>
+<p>If you select the <b>Z displacement</b> result type, you can see that the obtained value is almost identical to the test example provided by FreeCAD. Differences may occur due to the quality of the mesh and the number of nodes it possesses.
+</p>
+</div>
+<p><br />
+We are now finished with the basic workflow for the <a href="FEM_Module.html" title="FEM Module">FEM Module</a>.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_tutorial/es&amp;oldid=229172">http://www.freecadweb.org/wiki/index.php?title=FEM_tutorial/es&amp;oldid=229172</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

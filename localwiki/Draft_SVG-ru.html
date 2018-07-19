@@ -1,0 +1,72 @@
+<html><head><title>Draft SVG/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft SVG/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_inkscape.jpg" class="image"><img alt="Screenshot inkscape.jpg" src="Screenshot_inkscape.jpg" width="800" height="448" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Opening"><span class="tocnumber">1</span> <span class="toctext">Opening</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Importing"><span class="tocnumber">2</span> <span class="toctext">Importing</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Exporting"><span class="tocnumber">3</span> <span class="toctext">Exporting</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Preferences"><span class="tocnumber">4</span> <span class="toctext">Preferences</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Unit_Handling"><span class="tocnumber">5</span> <span class="toctext">Unit Handling</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Opening">Opening</span></h3>
+<p>This function imports SVG files as workable 2D objects, as opposed to the built-in drawing module which imports svg files as sheet drawings.
+The following SVG objects get imported at the moment:
+</p>
+<ul><li> PATH objects</li>
+<li> LINE objects</li>
+<li> RECT objects</li>
+<li> CIRCLE objects</li>
+<li> ELLIPSE objects</li>
+<li> POLYGON objects</li>
+<li> POLYLINE objects</li></ul>
+<h3><span class="mw-headline" id="Importing">Importing</span></h3>
+<p>Works the same way as opening but creates the objects in the active document instead of creating a new one.
+</p>
+<h3><span class="mw-headline" id="Exporting">Exporting</span></h3>
+<p>The following objects can be exported in an SVG file:
+</p>
+<ul><li> Lines and wires (polylines)</li>
+<li> Arcs and circles</li>
+<li> Faces</li>
+<li> Texts</li>
+<li> Dimensions</li></ul>
+<p>Keep in mind that SVG is a 2D format, so all Z information will be disregarded (all objects will be flattened).
+</p>
+<h3><span class="mw-headline" id="Preferences">Preferences</span></h3>
+<p>The following parameters can be specified in the <a href="Draft_Preferences.html" title="Draft Preferences">Draft Preferences</a> tab (menu Edit -&gt; Preferences -&gt; Draft):
+</p>
+<ul><li> Import/Export -&gt; Import style: This lets you choose the way objects from the svg file will be drawn in FreeCAD. You can choose between:
+<ul><li> None: this is the faster way, there is no conversion, all objects will be black with 2px width (FreeCAD default)</li>
+<li> Use default color and linewidth: All imported objects will take current linewidth/color from the draft command bar</li>
+<li> Original color and linewidth: Objects will keep the color and linewidth (if specified) they have in the svg file</li></ul></li>
+<li> Import/Export -&gt; Export Style: 
+<ul><li> Translated: All elements are translated that their coordinates are positive. This should aid display and printing. The output coordinate system is NOT cosistent between individualy exported elements.</li>
+<li> Raw: The position of all elements preserved. This intended for CAM usage for example in PyCAM. Layers or Slices exported individualy will match.</li></ul></li>
+<li> General settings -&gt; Internal precision level:
+<ul><li> This value is used to check if a bezier curve segment has to be considered a straight line. If you import detailed paths, like rendered text, you may want to increase this setting up to 6. If you are working with Inkscape please consider to raise the precision in the SVG file, well. (Inkscape Menu -&gt; File -&gt; Inkscape Preferences -&gt; SVG Output -&gt; Numeric Precision)</li></ul></li></ul>
+<h3><span class="mw-headline" id="Unit_Handling">Unit Handling</span></h3>
+<p>When exporting, a User Unit (px) equals one millimeter. 
+</p><p>When importing, the width, height and viewBox attributes are respected. All elements are scaled to their size in millimeter, which is FreeCAD internal unit. If the SVG does not contain information on its physical size, it is assumed to have 90 DPI resolution.
+Using absoulte units in attributes inside the SVG should be avoided. Relative units like em,ex and&#160;% are currently not supported.
+</p><p>The SVG Editor Inkscape currently works only with 90 DPI documents. No matter which unit is selected in Inkscape. All the output has to be considered converted to 90 DPI and <b>rounded</b> to 6 decimal places. As FreeCAD (and the SVG standard) is agnostic to the precision of rounding done in Inkscape these values will not be rounded on input. And odd values in millimeter will remain.
+If you need the SVG import not to be rounded, work on User Units (px) in Inkscape. Scaling can be done after the import to FreeCAD or by changing the width, height and viewbox attributes.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_SVG/ru&amp;oldid=199001">http://www.freecadweb.org/wiki/index.php?title=Draft_SVG/ru&amp;oldid=199001</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

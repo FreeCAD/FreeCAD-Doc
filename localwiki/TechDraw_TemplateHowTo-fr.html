@@ -1,0 +1,83 @@
+<html><head><title>TechDraw TemplateHowTo/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>TechDraw TemplateHowTo/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="Comment_cr.C3.A9er_un_mod.C3.A8le_TechDraw">Comment créer un modèle TechDraw</span></h3>
+</div>
+<p>Ce manuel suppose que vous connaissez FreeCAD, Inkscape et Svg.
+</p><p>Nous allons créer un modèle simple pour le papier de format Lettre US en orientation paysage. Une copie du résultat de ce HowTo est disponible dans votre répertoire FreeCAD Template (HowToExample.svg).
+</p>
+<ul><li> ouvrir un nouveau document dans Inkscape</li>
+<li> dans les propriétés du document
+<ul><li> sélectionnez une taille de page (lettre US) et l'orientation (paysage)</li>
+<li> définir les unités par défaut et les unités de taille de page en mm (279,4 x 215,9)</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkDocProp.png" class="image"><img alt="InkDocProp.png" src="800px-InkDocProp.png" width="800" height="450" srcset="/wiki/images/thumb/8/87/InkDocProp.png/1200px-InkDocProp.png 1.5x, /wiki/images/8/87/InkDocProp.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> utiliser l'éditeur XML pour ajouter une clause d'espace de noms freecad à l'élément &lt;svg&gt;
+<ul><li> xmlns: freecad = "<a rel="nofollow" class="external free" href="Svg_Namespace.html">http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace</a>"</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLNameSpace.png" class="image"><img alt="InkXMLNameSpace.png" src="800px-InkXMLNameSpace.png" width="800" height="360" srcset="/wiki/images/thumb/6/6b/InkXMLNameSpace.png/1200px-InkXMLNameSpace.png 1.5x, /wiki/images/6/6b/InkXMLNameSpace.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> dessiner des contours, des numéros de zone, des axes, etc.</li>
+<li> dessine les cases et les lignes pour le cartouche.</li>
+<li> ajouter et positionner votre texte statique</li>
+<li> ajoutez et positionnez votre texte éditable</li>
+<li> vous avez maintenant votre œuvre terminée - quelque chose comme ceci:</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkFinishedArt.png" class="image"><img alt="InkFinishedArt.png" src="800px-InkFinishedArt.png" width="800" height="421" srcset="/wiki/images/thumb/b/b7/InkFinishedArt.png/1200px-InkFinishedArt.png 1.5x, /wiki/images/b/b7/InkFinishedArt.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> utiliser l'éditeur XML pour ajouter une balise "freecad: editable" à chaque élément &lt;text&gt; éditable
+<ul><li> attribuer un nom de champ significatif à chaque texte modifiable</li></ul></li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLeditableTag.png" class="image"><img alt="InkXMLeditableTag.png" src="800px-InkXMLeditableTag.png" width="800" height="344" srcset="/wiki/images/thumb/b/b2/InkXMLeditableTag.png/1200px-InkXMLeditableTag.png 1.5x, /wiki/images/b/b2/InkXMLeditableTag.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> utilisez l'éditeur XML pour ajuster la vue pour qu'elle corresponde à la taille de votre page en mm</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkXMLviewBox.png" class="image"><img alt="InkXMLviewBox.png" src="800px-InkXMLviewBox.png" width="800" height="360" srcset="/wiki/images/thumb/a/a9/InkXMLviewBox.png/1200px-InkXMLviewBox.png 1.5x, /wiki/images/a/a9/InkXMLviewBox.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Votre modèle apparaîtra maintenant beaucoup trop grand.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:InkMuchTooBig.png" class="image"><img alt="InkMuchTooBig.png" src="800px-InkMuchTooBig.png" width="800" height="421" srcset="/wiki/images/thumb/6/6e/InkMuchTooBig.png/1200px-InkMuchTooBig.png 1.5x, /wiki/images/6/6e/InkMuchTooBig.png 2x" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Nous devons le réduire.
+<ul><li> Modifier&gt; Sélectionner tout dans tous les calques (ou sélectionner la case pour s'assurer de tout sélectionner)</li>
+<li> ajuster les W: et H: spinboxes pour correspondre à la taille de votre œuvre en mm
+<ul><li> taille de la page moins les marges applicables</li></ul></li>
+<li> utilisez les boîtes de sélection "Aligner et distribuer" ou X / Y pour positionner l'illustration sur la page si nécessaire.</li>
+<li> Votre modèle devrait maintenant avoir l'air juste, comme il l'a fait dans l'image d'art fini ci-dessus.</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Assurez-vous que tous vos textes modifiables sont "dissociés" (shift-ctl-g)</li>
+<li> sélectionnez tout sur votre page (zone de sélection ou Modifier&gt; Sélectionner tout) et Edition&gt; Copier</li>
+<li> Calque&gt; Supprimer le calque courant</li>
+<li> Modifier&gt; Coller sur place</li></ul>
+<p><br />
+</p>
+<ul><li> Votre modèle devrait maintenant regarder à droite et ne devrait pas avoir de transformations indésirables</li>
+<li> Enregistrez votre modèle</li>
+<li> Essayez-le dans FreeCAD.</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTemplateHow.png" class="image"><img alt="FCTemplateHow.png" src="FCTemplateHow.png" width="855" height="373" /></a></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>- N'utilisez pas les calques tant que vous n'avez pas maîtrisé la création de modèles sans eux. Les calques (et les groupes) peuvent automatiquement insérer des transformations indésirables dans votre fichier SVG.
+</p><p>Retourner à <a href="https://www.freecadweb.org/wiki/index.php?title=TechDraw_Templates/fr" title="TechDraw Templates/fr">Modèles</a>.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=TechDraw_TemplateHowTo/fr&amp;oldid=257339">http://www.freecadweb.org/wiki/index.php?title=TechDraw_TemplateHowTo/fr&amp;oldid=257339</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

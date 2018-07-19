@@ -1,0 +1,125 @@
+<html><head><title>Constraint PointOnPoint/pt</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Constraint PointOnPoint/pt</h1></div>
+
+<div id="mw-content-text" lang="pt" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Constraint_PointOnPoint"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> Constraint PointOnPoint</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Localização do menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Sketcher constraints → Constrain coincident
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/pt" title="Sketcher Workbench/pt">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/pt" title="PartDesign Workbench/pt">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Atalho padrão
+</th></tr>
+<tr>
+<td class="ctEven">Nenhum
+</td></tr>
+<tr>
+<th class="ctOdd">Veja também
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Lock/pt" title="Constraint Lock/pt">Constraint Lock</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/pt" title="Constraint PointOnObject/pt">Constraint Point onto Object</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Constraint_PointOnPoint"><span class="tocnumber">1</span> <span class="toctext">Constraint PointOnPoint</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_Use"><span class="tocnumber">3</span> <span class="toctext">How to Use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripting"><span class="tocnumber">4</span> <span class="toctext">Scripting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#General_scripting"><span class="tocnumber">4.1</span> <span class="toctext">General scripting</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Identifying_the_numbering_of_a_line"><span class="tocnumber">4.2</span> <span class="toctext">Identifying the numbering of a line</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Identifying_the_numbering_of_the_vertices_of_a_line"><span class="tocnumber">4.3</span> <span class="toctext">Identifying the numbering of the vertices of a line</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Example"><span class="tocnumber">4.4</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Create a coincident constraint on the selected item
+</p><p>This constraint tool takes two points as its argument and serves to make the two points <i>coincident</i>. (Meaning to make them as-one-point).
+</p><p>In practical terms this constraint tool is useful when there is a break in a profile for example - where two lines end near each other and need to be joined - a coincident constraint on their end-points will close the gap.
+</p>
+<h2><span class="mw-headline" id="How_to_Use">How to Use</span></h2>
+<p>As stated above, this tool takes two arguments - both are points.
+</p>
+<ol><li>Firstly it is necessary to highlight two distinct points. (Note this will not work if, for example, you attempt to select the start and end point of the same line).</li>
+<li>Highlighting of a drawing item is achieved by moving the mouse over the item and clicking the left-mouse-button.</li>
+<li>A highlighted item will change colour to green.</li>
+<li>Subsequent items can be highlighted by repeating the above procedure(s) NOTE: There is no-need to hold-down any special key like Ctrl to achieve multiple item selection in a drawing.</li>
+<li>Once you have two points highlighted, left-clicking on the 'PointOnPoint'  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> constraint will cause the two points to become <i>coincident</i> and be replaced by a single point.</li></ol>
+<p>NOTE: In order to make two points coincident, FreeCAD must necessarily move one, or both, of the original points.
+</p>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<h3><span class="mw-headline" id="General_scripting">General scripting</span></h3>
+<p>The constraint can be created from macros and from the python console by using the following command:
+</p>
+<pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',LineFixed,PointOfLineFixed,LineMoving,PointOfLineMoving)) </pre>
+<p>where :
+</p>
+<ul><li>Sketch is a sketch object</li>
+<li>LineFixed is the number of the line, that will not move  by applying the constraint</li>
+<li>PointOfLineFixed is the number of the vertex of the line LineFixed that has to fulfilled the constraint</li>
+<li>LineMoving is the number of the line, that will move by applying the constraint</li>
+<li>PointOfLineMoving is the number of the line LineMoving, that has to fulfilled the constraint</li></ul>
+<p>The main issue by using this function is to identify correctly the line number and the vertex number of the lines you want to process.
+</p><p>The next paragraph will explain you how to identify the numbering of a line and of a vertex of a line.
+</p>
+<h3><span class="mw-headline" id="Identifying_the_numbering_of_a_line">Identifying the numbering of a line</span></h3>
+<p>I have drawn three lines as shown in the following figure.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure1.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure1.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure1.jpg" width="600" height="239" srcset="/wiki/images/0/0e/PartDesignConstraintPointOnPointScriptingFigure1.jpg 1.5x" /></a>
+</p><p>By moving the cursor of the mouse above the line you can see the line number at the bottom left of the FreeCAD windows, see next figure.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure2.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure2.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure2.jpg" width="600" height="342" srcset="/wiki/images/thumb/d/db/PartDesignConstraintPointOnPointScriptingFigure2.jpg/900px-PartDesignConstraintPointOnPointScriptingFigure2.jpg 1.5x, /wiki/images/thumb/d/db/PartDesignConstraintPointOnPointScriptingFigure2.jpg/1200px-PartDesignConstraintPointOnPointScriptingFigure2.jpg 2x" /></a>
+</p><p>Unfortunately the numbering displayed on the FreeCAD windows start from 1 whereas the numbering of the line used to script start from 0: this means that you have to retrieve one each time you want to refer to a line.
+</p>
+<h3><span class="mw-headline" id="Identifying_the_numbering_of_the_vertices_of_a_line">Identifying the numbering of the vertices of a line</span></h3>
+<p>The vertices of one line can only have the value 1 or 2. (Don’t ask me, why the vertices numbering does not start from 0 …) The vertices are numbered  according to their order of creation. To find out the order of their creation (If you have a lot of lines, you cannot remember which vertex you have created first), you just have to move the cursor of your mouse above the two vertices of one line, see following figure.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure3.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure3.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure3.jpg" width="600" height="342" srcset="/wiki/images/thumb/2/23/PartDesignConstraintPointOnPointScriptingFigure3.jpg/900px-PartDesignConstraintPointOnPointScriptingFigure3.jpg 1.5x, /wiki/images/thumb/2/23/PartDesignConstraintPointOnPointScriptingFigure3.jpg/1200px-PartDesignConstraintPointOnPointScriptingFigure3.jpg 2x" /></a>
+</p><p>If you read e.g.  4 and 5, it means that the vertex 4 will be referenced by using the number 1 in the script command and the vertex 5 will be referenced by using the number 2 in the script command. Etc.
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<p>Let us take the previous example of the three lines. The subsequent figure indicates the numbering of each line and their vertices according to the convention for scripting.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" src="PartDesignConstraintPointOnPointScriptingFigure3Bis.jpg" width="600" height="264" /></a> 
+</p><p>blue text = numbering of line, black text = numbering of vertices
+</p><p>The command
+</p>
+<pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',1,2,2,1)) </pre>
+<p>yields following result:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure4.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure4.jpg" src="PartDesignConstraintPointOnPointScriptingFigure4.jpg" width="600" height="291" /></a>
+</p><p>The command
+</p>
+ <pre>Sketch.addConstraint(Sketcher.Constraint('Coincident',0,2,2,2)) </pre>
+<p>yields following result:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesignConstraintPointOnPointScriptingFigure5.jpg" class="image"><img alt="PartDesignConstraintPointOnPointScriptingFigure5.jpg" src="600px-PartDesignConstraintPointOnPointScriptingFigure5.jpg" width="600" height="243" srcset="/wiki/images/7/7d/PartDesignConstraintPointOnPointScriptingFigure5.jpg 1.5x" /></a>
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnPoint/pt&amp;oldid=216663">http://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnPoint/pt&amp;oldid=216663</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

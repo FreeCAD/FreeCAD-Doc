@@ -1,0 +1,164 @@
+<html><head><title>Plot MultiAxes tutorial/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Plot MultiAxes tutorial/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Plot - Grafico
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Intermedio
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Creare_il_grafico"><span class="tocnumber">2</span> <span class="toctext">Creare il grafico</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Creare_i_dati"><span class="tocnumber">2.1</span> <span class="toctext">Creare i dati</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Tracciare_le_funzioni.2C_aggiungere_nuovi_assi"><span class="tocnumber">2.2</span> <span class="toctext">Tracciare le funzioni, aggiungere nuovi assi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Configurare_il_grafico"><span class="tocnumber">3</span> <span class="toctext">Configurare il grafico</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Configurare_gli_assi"><span class="tocnumber">3.1</span> <span class="toctext">Configurare gli assi</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Configurare_le_serie"><span class="tocnumber">3.2</span> <span class="toctext">Configurare le serie</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Mostrare_la_griglia_e_la_legenda"><span class="tocnumber">3.3</span> <span class="toctext">Mostrare la griglia e la legenda</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Definire_le_etichette_degli_assi"><span class="tocnumber">3.4</span> <span class="toctext">Definire le etichette degli assi</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Riposizionare_gli_elementi_del_grafico"><span class="tocnumber">3.5</span> <span class="toctext">Riposizionare gli elementi del grafico</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Salvare_il_grafico"><span class="tocnumber">4</span> <span class="toctext">Salvare il grafico</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Prima di seguire questo tutorial è bene leggere la <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">guida di base sui Grafici</a>.<br />In questo tutorial si descrive come creare e modificare un <b>Grafico Multi-asse</b>.<br /> Consultare anche la sezione <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Modulo Grafico</a>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_MultiAxes_Example.png" class="image" title="Esempio di grafico multiasse"><img alt="Esempio di grafico multiasse" src="600px-Plot_MultiAxes_Example.png" width="600" height="275" srcset="/wiki/images/thumb/2/2f/Plot_MultiAxes_Example.png/900px-Plot_MultiAxes_Example.png 1.5x, /wiki/images/2/2f/Plot_MultiAxes_Example.png 2x" /></a></div></div>
+<center><span style="font-variant:small-caps">Esempio di grafico multi-asse.</span></center>
+<p>Nell'immagine precedente si può vedere il risultato finale approssimativo di questa esercitazione. In questo tutorial si descrive come:
+</p>
+<ul><li> Creare un grafico Multi-asse dalla console Python.</li>
+<li> Modificare le proprietà degli assi.</li>
+<li> Controllare la griglia e la legenda quando sono presenti più sistemi di assi.</li>
+<li> Riposizionare le etichette, i titoli e le legende.</li></ul>
+<h2><span class="mw-headline" id="Creare_il_grafico">Creare il grafico</span></h2>
+<p>Come descritto nella <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">guida di base</a>, si usa la console Python o le macro per tracciare i dati, con la differenza che in questo caso i dati sono tracciati in due diversi sistemi di assi.
+</p>
+<h3><span class="mw-headline" id="Creare_i_dati">Creare i dati</span></h3>
+<p>In questo esempio, vengono tracciate 3 funzioni: le due utilizzate nel <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">precedente tutorial</a>, e una nuova funzione  polinomiale. Il polinomio ha bisogno di un nuovo sistema di assi in quanto il suo campo di variazione è diverso da tutti gli altri.<br /> I seguenti comandi creano i gruppi di dati necessari:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import math
+p = range(0,1001)
+x = [2.0*xx/1000.0 for xx in p]
+y = [xx**2.0 for xx in x]
+t = [tt/1000.0 for tt in p]
+s = [math.sin(math.pi*2.0*tt) for tt in t]
+c = [math.cos(math.pi*2.0*tt) for tt in t]</pre></div>
+<p>Dato che x varia tra 0 e 2, la funzione y varia tra 0 e 4, quindi provando a tracciare questa funzione con quelle trigonometriche, che variano invece  tra 0 e 1, almeno una funzione verrà troncata o scalata male, perciò serve un grafico MultiAsse.<br />In FreeCAD il grafico Multiasse è destinato a produrre un grafico con più assi, e non per produrre più grafici nello stesso documento.
+</p>
+<h3><span class="mw-headline" id="Tracciare_le_funzioni.2C_aggiungere_nuovi_assi">Tracciare le funzioni, aggiungere nuovi assi</span></h3>
+<p>In questo esempio la funzione polinomiale viene tracciata nel sistema di assi principali. Se tutti gli assi hanno stesse dimensioni non è rilevante in quali assi viene tracciata una funzione, ma se il grafico ha assi con dimensioni diverse, come in questo caso, gli assi principali devono essere quelli più grandi (perché hanno lo sfondo bianco).<br />Per tracciare la prima curva basta lanciare i seguenti comandi:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Plot
+Plot.plot(x,y,r"$x^2$")</pre></div>
+<p>Questa volta si passa anche direttamente l'etichetta della serie per la legenda. Notare che la stringa passata come argomento etichetta ha il prefisso <b>r</b> per evitare che Python tenti di interpretare i caratteri speciali (il simbolo <b>\</b> è usato di frequente nella sintassi <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a>).
+</p><p>Per tracciare le funzioni trigonometriche è necessario creare prima dei nuovi assi.<br />Nel modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Grafico</a> di FreeCAD quando si creano dei nuovi assi essi sono selezionati come quelli attivi, e pertanto i nuovi tracciati sono associati a questi nuovi assi.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Plot.addNewAxes()
+Plot.plot(t,s,r"$\sin\left( 2 \pi t \right)$")
+Plot.plot(t,c,r"$\cos\left( 2 \pi t \right)$")</pre></div>
+<p>Come si può vedere il grafico ha un pessimo aspetto, con le tacche degli assi sovrapposte, le curve dello stesso colore, ecc. Per risolvere questi problemi ora si passa a usare il modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Grafico</a> di FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Configurare_il_grafico">Configurare il grafico</span></h2>
+<h3><span class="mw-headline" id="Configurare_gli_assi">Configurare gli assi</span></h3>
+<p>Il modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Grafico</a> di FreeCAD fornisce uno strumento per modificare le proprietà di ogni asse.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Axes.png" class="image" title="Icona dello strumento di configurazione degli assi."><img alt="Icona dello strumento di configurazione degli assi." src="Plot_Axes.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento di configurazione degli assi.</span></center>
+<p>La prima cosa che si trova nello strumento degli assi è il selettore degli assi attivi. Siccome gli assi attivi sono gli ultimi, ora è attivo il sistema 1. Lo strumento degli assi, come lo strumento delle etichette, permette di impostare gli assi attivi, consentendo di tracciare più dati negli stessi assi (compreso aggiungere o rimuovere gli assi). Per il momento si lavora sul sistema di assi selezionato, che è quello associato alle funzioni trigonometriche.
+</p><p>Nei cursori delle dimensioni, spostare a sinistra i cursori orizzontali e in basso quelli verticali per ridurre le dimensioni degli assi (cercare di emulare l'esempio). Dopo impostare l'allineamento degli assi, spostarli in alto a destra impostando un piccolo offset di due unità.
+</p>
+<h3><span class="mw-headline" id="Configurare_le_serie">Configurare le serie</span></h3>
+<p>Impostare le proprietà delle serie, come descritto nella <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">guida di base</a>.
+</p>
+<h3><span class="mw-headline" id="Mostrare_la_griglia_e_la_legenda">Mostrare la griglia e la legenda</span></h3>
+<p>La griglia e legenda sono mostrate e nascoste con gli stessi strumenti utilizzati nel <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">tutorial precedente</a>, ma in questo caso il comportamento è un po' diverso a causa della presenza di due diversi sistemi di assi.
+</p><p>Per quanto concerne le linee della griglia, è possibile visualizzarle indipendentemente per ogni set di assi, e, ad esempio, se ora si prova a mostrare la griglia viene mostrata solo la griglia delle funzioni trigonometriche. Per visualizzare la griglia della funzione polinomiale prima si devono attivare gli assi 0 (utilizzando lo strumento di configurazione degli assi) e poi utilizzare nuovamente lo strumento della griglia (è possibile che sia necessario premerlo due volte).
+</p><p>Per quanto riguarda la legenda, essa è unica per entrambi i sistemi di assi ed è possibile scegliere quali assi utlizzare per mostrarla, ma si consiglia vivamente di utilizzare i più grandi (0 in questo esempio) perché la posizione viene riferita alle coordinate di questi assi. Se adesso si visualizza la legenda si può osservare che è posizionata male, questo problema sarà risolto in seguito.
+</p>
+<h3><span class="mw-headline" id="Definire_le_etichette_degli_assi">Definire le etichette degli assi</span></h3>
+<p>È possibile impostare le etichette degli assi con lo stesso strumento utilizzato nella <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">guida di base</a>, con la differenza che ora ci sono più assi. Dal momento che le etichette degli assi sono una per ogni asse, non è una differenza significativa, ma il modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Grafico</a> di FreeCAD consente anche di impostare un titolo per il sistema di assi. Ecco come impostare solo il titolo degli assi principali:
+</p><p><b>Axes 0:</b>
+</p>
+<ul><li> Title = Multiaxes example</li>
+<li> X Label = $x$</li>
+<li> Y Label = $\mathrm{f} \left( x \right)$</li></ul>
+<p><b>Axes 1:</b>
+</p>
+<ul><li> X Label = $t$</li>
+<li> Y Label = $\mathrm{f} \left( t \right)$</li></ul>
+<p>Impostare inoltre 20 come fontsize per tutti, escluso il titolo che utilizza una dimensione di scrittura di 24. Come accaduto con la legenda, il titolo è posizionato male, interseca gli assi del secondo set, quindi ora bisogna risolvere entrambi i problemi.
+</p>
+<h3><span class="mw-headline" id="Riposizionare_gli_elementi_del_grafico">Riposizionare gli elementi del grafico</span></h3>
+<p>Il modulo <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Module/it" title="Plot Module/it">Grafico</a> di FreeCAD fornisce uno strumento per impostare la posizione di alcuni elementi del grafico, come titoli, etichette o legenda.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Positions.png" class="image" title="Icona dello strumento Posizione"><img alt="Icona dello strumento Posizione" src="Plot_Positions.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Icona dello strumento Posizione.</span></center>
+<p>Quando si esegue lo strumento viene visualizzato un elenco con tutti gli elementi riposizionabili. I titoli e la legenda possono essere spostati in tutte le direzioni, invece le etichette degli assi possono essere mossi solo sulla direzione assi. Selezionare il titolo degli assi 0 e spostarlo in (0.24,1.01), quindi selezionare la legenda e spostarla in una posizione migliore. È anche possibile aumentare la dimensione dei caratteri delle etichette della legenda.
+</p>
+<h2><span class="mw-headline" id="Salvare_il_grafico">Salvare il grafico</span></h2>
+<p>Ora è possibile salvare il lavoro. Consultare il <a href="https://www.freecadweb.org/wiki/index.php?title=Plot_Basic_tutorial/it" title="Plot Basic tutorial/it">tutorial di base</a> se non si ricorda come farlo.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/it&amp;oldid=214641">http://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/it&amp;oldid=214641</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,92 @@
+<html><head><title>Pivy/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a> is a python binding library for <a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>, the 3D-rendering library used in FreeCAD. When imported in a running python interpreter, it allows to dialog directly with any running Coin3d <a href="Scenegraph.html" title="Scenegraph">scenegraphs</a>, such as the FreeCAD 3D views, or even to create new ones. Pivy is bundled in standard FreeCAD installation.
+</p><p>Die Coin3d-Bibliothek ist in mehrere Stücke geteilt, Coin selbst, für die Manipulation von Szenengraphen und Bindungen für mehrere GUI-Systeme, wie z.B. Windows, oder, wie in unserem Fall, qt. Diese Module stehen auch pivy zur Verfügung, abhängig davon, ob sie auf dem System vorhanden sind. Das coin-modul ist immer vorhanden, und es ist das, was wir ohnehin verwenden werden, somit brauchen wir uns nicht mehr um unsere Verankerung des 3D-Display in jeder Schnittstelle zu kümmern, dies wird bereits durch FreeCAD selbst getan. Alles, was wir tun müssen, ist dies:
+</p>
+<pre>from pivy import coin </pre>
+<h2><span class="mw-headline" id="Zugreifen_auf_und_.C3.84ndern_im_Szenengraph">Zugreifen auf und Ändern im Szenengraph</span></h2>
+<p>Wir sahen in der <a href="Scenegraph.html" title="Scenegraph">Scenegraph</a>-Seite, wie eine typische Münze Szene organisiert ist. Alles, was in einer FreeCAD-3D-Ansicht erscheint, ist ein Coin-Szenengraph und immer auf die gleiche Weise organisiert. Wir haben einen Wurzelknoten, und alle Objekte auf dem Bildschirm sind seine Kinder.
+</p><p>FreeCAD hat eine einfache Möglichkeit, auf den Root-Knoten eines 3D-Ansicht Szenengraph zugreifen:
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg </pre>
+<p>Dies gibt den Root-Knoten aus:
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; </pre>
+<p>Wir können die unmittelbaren Kinder unserer Szene untersuchen:
+</p>
+<pre>for node in sg.getChildren():
+    print node </pre>
+<p>Einige dieser Knoten, wie SoSeparators oder SoGroups, können selbst Kinder haben. Die vollständige Liste der verfügbaren Coin-Objekte kann man nachlesen in der <a rel="nofollow" class="external text" href="http://coin3d.bitbucket.org/Coin/classes.html">offiziellen coin-Dokumentation</a>.
+</p><p>Lasst uns versuchen, jetzt etwas zu unserem Szenengraph hinzuzufügen. Wir fügen einen schönen roten Würfel ein:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>und da ist unser (schöner) roter Würfel. Jetzt wollen wir dies hier versuchen:
+</p>
+<pre>col.rgb=(1,1,0) </pre>
+<p>Sehen Sie? Alles ist immer noch zugänglich und on-the-fly modifizierbar. Keine Notwendigkeit, neu zu berechnen oder alles neu zu zeichnen, Coin kümmert sich schon um alles. Sie können Elemnte zum Szenengraph hinzufügen, Eigenschaften ändern, Dinge verbergen,  temporäre Objekte anzeigen, einfach alles. Natürlich betrifft diese nur die Anzeige in der 3D-Ansicht. Diese Anzeige wird von FreeCAD bei öffnen einer Datei neu berechnet, und wenn ein Objekt eine Neuberechnung benötigt.
+Also, diese Änderungen gehen verloren, wenn Sie den Aspekt eines vorhandenen FreeCAD-Objekts ändern, wenn das Objekt neu berechnet wird oder wenn Sie die Datei wiederer öffnen.
+</p><p>Ein Schlüssel zum Bearbeiten des Szenengraphen mit Ihren Skripten ist, in der Lage zu sein, auf bestimmte Eigenschaften der Knoten die Sie hinzugefügten, bei Bedarf zugreifen zu können. Zum Beispiel, wenn wir unseren Würfel bewegen wollten, hätten wir einen SoTranslation-Knoten zu unserem benutzerdefinierten Knoten hinzugefügt, und es hätte dann so ausgesehen:
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode) </pre>
+<p>Denken Sie daran, dass in einem OpenInventor-Szenengraph, die Reihenfolge wichtig ist. Ein Knoten beeinflusst das, was als nächstes kommt, so können Sie etwas sagen wie: Farbe rot, Würfel, Farbe gelb, Kugel, und Sie werden einen roten Würfel und eine gelbe Kugel bekommen. Wenn wir das Verschieben jetzt zu unserem vorhandenen benutzerdefinierten Knoten hinzufügen würden, würde es nach dem Würfel kommen, und diesen nicht betreffen. Wenn wir es bei der Erstellung eingefügt hätten, wie hier oben, könnten wir jetzt folgendes tun:
+</p>
+<pre>trans.translation.setValue([2,0,0]) </pre>
+<p>Und unser Würfel würde damit 2 Einheiten nach rechts springen.
+Schließlich wird das Entfernen von etwas, wie folgt erledigt:
+</p>
+<pre>sg.removeChild(myCustomNode) </pre>
+<h2><span class="mw-headline" id="Verwenden_von_R.C3.BCckruf-mechanismen">Verwenden von Rückruf-mechanismen</span></h2>
+<p>Ein <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Callback_%28computer_science%29">Rückruf-mechanismus</a> ist ein System, das einer Bibliothek erlaubt, wie zum Beispiel unserer Coin-Bibliothek, uns zurück zu rufen, das heißt, eine bestimmte Funktion von Ihrem laufenden Python-Objekt abzufordern. Das ist äußerst nützlich, weil COIN Sie auf diese Weise benachrichtigen kann, wenn ein bestimmtes Ereignis in der Szene eintritt. Coin kann sehr verschiedene Dinge beobachten, wie zum Beispiel Maus-Position, Mausklicks, gedrückte Tasten der Tastatur, und noch viele andere Dinge.
+</p><p>FreeCAD bietet eine einfache Möglichkeit, solche Rückrufe zu verwenden:
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+ 
+ButtonTest() </pre>
+<p>Der Rückruf muss von einem Objekt abgesetzt werden, weil das Objekt noch ausgeführt werden muss, wenn der Rückruf auftritt.
+Beachten Sie auch die <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">complete list</a> möglicher Ereignisse und deren Parameter, oder die <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">offiziellen coin-Dokumentation</a>.
+</p>
+<h2><span class="mw-headline" id="Dokumentation">Dokumentation</span></h2>
+<p>Leider hat pivy selbst noch keine richtige Dokumentation, aber da es eine genaue Übersetzung von Coin gibt, können Sie problemlos die Coin-Dokumentation als Referenz nutzen, und Python-Stil verwenden, anstatt C++-Stil (z. B. SoFile::getClassTypeId() würde in pivy zu dem werden: SoFile.getClassId())
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/de&amp;oldid=217984">http://www.freecadweb.org/wiki/index.php?title=Pivy/de&amp;oldid=217984</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

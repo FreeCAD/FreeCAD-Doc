@@ -1,0 +1,89 @@
+<html><head><title>Constraint Internal Alignment/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Constraint Internal Alignment/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Constraint_InternalAlignment"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAlignment.png" class="image"><img alt="Constraint InternalAlignment.png" src="32px-Constraint_InternalAlignment.png" width="32" height="32" srcset="/wiki/images/thumb/3/33/Constraint_InternalAlignment.png/48px-Constraint_InternalAlignment.png 1.5x, /wiki/images/3/33/Constraint_InternalAlignment.png 2x" /></a> Constraint InternalAlignment</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Расположение в меню
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Ограничения эскиза → Привязать к внутренней геометрии
+</td></tr>
+<tr>
+<th class="ctOdd">Верстаки
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/ru" title="Sketcher Workbench/ru">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/ru" title="PartDesign Workbench/ru">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Быстрые клавиши
+</th></tr>
+<tr>
+<td class="ctEven">Ctrl+A
+</td></tr>
+<tr>
+<th class="ctOdd">См. также
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Show_Hide_Internal_Geometry/ru" title="Sketcher Show Hide Internal Geometry/ru">Показать/скрыть внутреннюю геометрию</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Ellipse/ru" title="Sketcher Ellipse/ru">Ellipse</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Constraint_InternalAlignment"><span class="tocnumber">1</span> <span class="toctext">Constraint InternalAlignment</span></a>
+<ul>
+<li class="toclevel-2 tocsection-1"><a href="#Description"><span class="tocnumber">1.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Operation_on_Ellipse"><span class="tocnumber">1.2</span> <span class="toctext">Operation on Ellipse</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Scripting"><span class="tocnumber">1.3</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Version"><span class="tocnumber">1.4</span> <span class="toctext">Version</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description">Description</span></h4>
+<p>This constraint aligns lines and points to particular places of a complex sketcher element (there is just one "complex" element so far, the <a href="Sketcher_Ellipse.html" title="Sketcher Ellipse">Ellipse</a>).
+</p><p>For <a href="Sketcher_Ellipse.html" title="Sketcher Ellipse">Ellipse</a> and its <a href="Sketcher_Arc_of_Ellipse.html" title="Sketcher Arc of Ellipse">Arc</a>, it supports constraining lines to become major and minor diameters, and constraining <a href="Sketcher_Point.html" title="Sketcher Point">points</a> to positions of ellipse's foci.
+</p><p>The constraint requires a lot of effort to use in the way other constraints are. It is hidden in the menu, and not exposed on any toolbars by default. There is a helper tool called <a href="Sketcher_Show_Hide_Internal_Geometry.html" title="Sketcher Show Hide Internal Geometry">Show/Hide Internal Geometry</a> which is exposed on workbenches' toolbars and aimed to completely remove the need to invoke the constraint manually.
+</p>
+<h4><span class="mw-headline" id="Operation_on_Ellipse">Operation on Ellipse</span></h4>
+<ol><li> Select elements to be aligned and an ellipse. The ellipse must be selected last. Accepted are up to two lines and up to two points.</li>
+<li> Invoke the constraint by picking the menu item (Sketch/Part Design → Sketcher constraints → Constrain InternalAlignment).</li></ol>
+<p>The first line that was selected gets aligned to become ellipse's major diameter (but if it is not occupied already by another line, otherwise it will become minor diameter). The second line is aligned to become minor radius. The lines are automatically switched to <a href="Sketcher_ConstructionMode.html" title="Sketcher ConstructionMode">construction</a>.
+</p><p>Likewise, the first point is constrained to become the first unoccupied focus, and the second point goes to the other focus.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Scripting">Scripting</span></h4>
+<pre>Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseMajorDiameter', index_of_line, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseMinorDiameter', index_of_line, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseFocus1', index_of_point, 1, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseFocus2', index_of_point, 1, index_of_ellipse)) </pre>
+<p>Remarks: 
+</p>
+<dl><dd> <tt>Sketch</tt> is a sketch object.</dd>
+<dd> Number <tt>1</tt> in the focus calls stands for starting point of a point element (it is ignored).</dd></dl>
+<h4><span class="mw-headline" id="Version">Version</span></h4>
+<p>Introduced in FreeCAD v0.15.4309
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Internal_Alignment/ru&amp;oldid=197900">http://www.freecadweb.org/wiki/index.php?title=Constraint_Internal_Alignment/ru&amp;oldid=197900</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,86 @@
+<html><head><title>Mesh Workbench/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Workbench/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p>El <b>Entorno de trabajo para mallas</b> maneja <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">triangle mesh</a>. Las mallas son un tipo especial de objeto 3D, compuesto de triángulos conectados por sus bordes y sus esquinas (también llamados vértices).
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="An example of a mesh object"><img alt="An example of a mesh object" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>Un ejemplo de un objeto <i>malla</i>
+</p><p>Muchas aplicaciones 3D usan mallas como su objeto 3D básico, como <a rel="nofollow" class="external text" href="http://es.wikipedia.org/wiki/Google_SketchUp">sketchup</a>, <a rel="nofollow" class="external text" href="http://es.wikipedia.org/wiki/Blender">blender</a>, <a rel="nofollow" class="external text" href="http://es.wikipedia.org/wiki/Autodesk_Maya">maya</a> o <a rel="nofollow" class="external text" href="http://es.wikipedia.org/wiki/Autodesk_3ds_Max">3d studio max</a>. Dado que las <i>mallas</i> son objetos muy simples, que contiene sólo los vértices (puntos), los bordes y las caras (triangulares), son muy fáciles de crear, modificar, dividir, estirar, y fácilmente se puede pasar de una aplicación a otra sin ningún tipo de pérdida. Además, ya que contienen datos muy sencillos, las aplicaciones 3D pueden manejar gran cantidad de mallas sin ningún problema. Por estas razones, las mallas son a menudo el tipo de objeto 3D de elección preferente en aplicaciones de tratamiento de películas, animación y creación de imágenes.
+</p><p>En el campo de la ingeniería, sin embargo, las mallas presentan una gran limitación: son objetos muy simples, solo compuestos de puntos, líneas y caras. Solo están hechos de superficies y no tienen información masiva, por lo que no se comportan como sólidos. En una malla no hay forma automática de saber si un punto está dentro o fuera del objeto. Esto significa que todas las operaciones basadas en sólidos, como la suma o la resta, siempre son un poco difíciles de realizar en las mallas, y retorna errores a menudo.
+</p><p>En FreeCAD, dado que es una aplicación de ingeniería, obviamente preferiríamos trabajar con tipos más inteligentes de objetos 3D, que puedan transportar más información, como masa, comportamiento sólido o incluso parámetros personalizados. El módulo de malla se creó por primera vez para servir como banco de pruebas, pero para poder leer, manipular y convertir mallas también es muy importante para FreeCAD. Muy a menudo, en su flujo de trabajo, recibirá datos 3D en formato de malla. Necesitará manejar esos datos, analizarlos para detectar errores u otros problemas que impidan convertirlos a objetos más inteligentes y, finalmente, manejados en el <a href="Part_Module.html" title="Part Module">Part Module</a>.
+</p>
+<h3><span class="mw-headline" id="Usando_el_m.C3.B3dulo_de_Malla">Usando el módulo de Malla</span></h3>
+<p>El módulo de malla tiene actualmente una interfaz muy simple, todas sus funciones están agrupadas en la entrada del menú <b>Malla</b>. Las operaciones más importantes que puede hacer actualmente con mallas son:
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ImportMesh.png" class="image"><img alt="Mesh ImportMesh.png" src="32px-Mesh_ImportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Mesh_ImportMesh.png/48px-Mesh_ImportMesh.png 1.5x, /wiki/images/2/27/Mesh_ImportMesh.png 2x" /></a> <a href="Mesh_Import.html" title="Mesh Import"> Import Mesh</a>: Importar mallas en varios formatos de archivo</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_ExportMesh.png" class="image"><img alt="Mesh ExportMesh.png" src="32px-Mesh_ExportMesh.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_ExportMesh.png/48px-Mesh_ExportMesh.png 1.5x, /wiki/images/0/0f/Mesh_ExportMesh.png 2x" /></a> <a href="Mesh_Export.html" title="Mesh Export"> Export Mesh</a>: exporta mallas en varios formatos de archivo</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MeshFromShape.png" class="image"><img alt="Mesh MeshFromShape.png" src="32px-Mesh_MeshFromShape.png" width="32" height="32" srcset="/wiki/images/thumb/2/24/Mesh_MeshFromShape.png/48px-Mesh_MeshFromShape.png 1.5x, /wiki/images/2/24/Mesh_MeshFromShape.png 2x" /></a> <a href="Mesh_MeshFromShape.html" title="Mesh MeshFromShape"> Create Mesh from shape</a>: convierte objetos <a href="Part_Module.html" title="Part Module"> Part</a> en mallas</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Imagen:_Mesh_HarmonizeNormals.png&amp;action=edit&amp;redlink=1" class="new" title="Imagen: Mesh HarmonizeNormals.png (page does not exist)"> 32px</a> <a href="Mesh_HarmonizeNormals.html" title="Mesh HarmonizeNormals"> Harmonize Normals</a>: Armonizar las normales</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FlipNormals.png" class="image"><img alt="Mesh FlipNormals.png" src="32px-Mesh_FlipNormals.png" width="32" height="32" srcset="/wiki/images/thumb/3/31/Mesh_FlipNormals.png/48px-Mesh_FlipNormals.png 1.5x, /wiki/images/3/31/Mesh_FlipNormals.png 2x" /></a> <a href="Mesh_FlipNormals.html" title="Mesh FlipNormals"> Flip Normalls</a>: Flip <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">normals</a></li>
+<li> <a href="Mesh_FillHoles.html" title="Mesh FillHoles"> Fill Holes ...</a>: Rellenar agujeros</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> <a href="Mesh_FillInteractiveHole.html" title="Mesh FillInteractiveHole"> Close hole</a>: Cerrar agujeros en mallas</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RemoveComponents.png" class="image"><img alt="Mesh RemoveComponents.png" src="32px-Mesh_RemoveComponents.png" width="32" height="32" srcset="/wiki/images/thumb/b/b0/Mesh_RemoveComponents.png/48px-Mesh_RemoveComponents.png 1.5x, /wiki/images/b/b0/Mesh_RemoveComponents.png 2x" /></a> <a href="Mesh_RemoveComponents.html" title="Mesh RemoveComponents"> Remove components...</a>: Eliminar componentes de mallas</li>
+<li> <a href="Mesh_RemoveCompByHand.html" title="Mesh RemoveCompByHand"> Remove components by hand...</a>: Eliminar componentes de mallas a mano</li>
+<li> <a href="Mesh_AddTriangle.html" title="Mesh AddTriangle"> Add triangle</a>: Agregar triángulo</li>
+<li> <a href="Mesh_Smooth.html" title="Mesh Smooth"> Smooth ...</a>: alisar malla</li></ul>
+<p><br />
+</p>
+<ul><li> <b>Analizar</b> curvatura, caras y comprobar si una malla se puede convertir de forma segura en un sólido
+<ul><li> <a href="Mesh_EvaluateRepair.html" title="Mesh EvaluateRepair">Evaluate &amp; Repair mesh...</a>: Evalúa y repara mallas</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Imagen:_Mesh_EvaluateFacet.png&amp;action=edit&amp;redlink=1" class="new" title="Imagen: Mesh EvaluateFacet.png (page does not exist)"> 32px</a> <a href="Mesh_EvaluateFacet.html" title="Mesh EvaluateFacet"> Face Info</a>: Da información sobre las caras</li>
+<li> <a href="Mesh_EvaluateCurvature.html" title="Mesh EvaluateCurvature"> Curvature Info</a>: proporciona información sobre la curvatura</li>
+<li> <a href="Mesh_EvaluateSolid.html" title="Mesh EvaluateSolid"> Check solid mesh</a>: Comprueba si el sólido se puede convertir a una malla</li>
+<li> <a href="Mesh_BoundingBox.html" title="Mesh BoundingBox"> Boundings info ...</a>: Evalúa el cuadro delimitador de una malla</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.png" class="image"><img alt="Mesh Regular Solid.png" src="32px-Mesh_Regular_Solid.png" width="32" height="32" srcset="/wiki/images/thumb/d/d9/Mesh_Regular_Solid.png/48px-Mesh_Regular_Solid.png 1.5x, /wiki/images/d/d9/Mesh_Regular_Solid.png 2x" /></a> <a href="Mesh_BuildRegularSolid.html" title="Mesh BuildRegularSolid"> Regular solid ...</a> Crea mallas primitivas , como cubos, cilindros, conos o esferas:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.png" class="image"><img alt="Mesh Cube.png" src="32px-Mesh_Cube.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cube.png/48px-Mesh_Cube.png 1.5x, /wiki/images/d/df/Mesh_Cube.png 2x" /></a> Crea un cubo de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.png" class="image"><img alt="Mesh Cylinder.png" src="32px-Mesh_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/2/26/Mesh_Cylinder.png/48px-Mesh_Cylinder.png 1.5x, /wiki/images/2/26/Mesh_Cylinder.png 2x" /></a> Crear un cilindro de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.png" class="image"><img alt="Mesh Cone.png" src="32px-Mesh_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cone.png/48px-Mesh_Cone.png 1.5x, /wiki/images/d/df/Mesh_Cone.png 2x" /></a> Crea un cono de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.png" class="image"><img alt="Mesh Sphere.png" src="32px-Mesh_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/Mesh_Sphere.png/48px-Mesh_Sphere.png 1.5x, /wiki/images/9/98/Mesh_Sphere.png 2x" /></a> Crea una esfera de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.png" class="image"><img alt="Mesh Ellipsoid.png" src="32px-Mesh_Ellipsoid.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Mesh_Ellipsoid.png/48px-Mesh_Ellipsoid.png 1.5x, /wiki/images/9/9f/Mesh_Ellipsoid.png 2x" /></a> Crea un elipsoide de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.png" class="image"><img alt="Mesh Torus.png" src="32px-Mesh_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/3/36/Mesh_Torus.png/48px-Mesh_Torus.png 1.5x, /wiki/images/3/36/Mesh_Torus.png 2x" /></a> Crear un toro de malla</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Realiza operaciones '<b> Booleanas </b> con mallas
+<ul><li> <a href="Mesh_Union.html" title="Mesh Union"> Union</a>: hace una unión (fusión) con mallas</li>
+<li> <a href="Mesh_Intersection.html" title="Mesh Intersection"> Intersection</a>: hace una intersección (común) en mallas</li>
+<li> <a href="Mesh_Difference.html" title="Mesh Difference">Difference</a>: Hace una diferencia (corte) en mallas</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="Mesh_Merge.html" title="Mesh Merge"> Merge</a>: combina mallas</li>
+<li> <a href="Mesh_SelectMesh.html" title="Mesh SelectMesh"> Select Mesh</a>: selecciona mallas</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cut.png" class="image"><img alt="Mesh Cut.png" src="32px-Mesh_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/7/73/Mesh_Cut.png/48px-Mesh_Cut.png 1.5x, /wiki/images/7/73/Mesh_Cut.png 2x" /></a> <a href="Mesh_Cut.html" title="Mesh Cut"> Cut mesh</a>: Corta mallas a lo largo de una línea</li>
+<li> <a href="Mesh_SplitMesh.html" title="Mesh SplitMesh"> Split Mesh</a>: divide mallas</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MakeSegment.png" class="image"><img alt="Mesh MakeSegment.png" src="32px-Mesh_MakeSegment.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_MakeSegment.png/48px-Mesh_MakeSegment.png 1.5x, /wiki/images/0/0f/Mesh_MakeSegment.png 2x" /></a> <a href="Mesh_MakeSegment.html" title="Mesh MakeSegment"> Make segment</a>: Hace un segmento</li>
+<li> <a href="Mesh_TrimMesh.html" title="Mesh TrimMesh"> Trim mesh</a>: Recorta mallas</li>
+<li> <a href="Mesh_TrimMeshWithPlane.html" title="Mesh TrimMeshWithPlane"> Trim mesh with a plane</a>: Recorta mallas con un plano</li>
+<li> <a href="Mesh_CreateMeshSegment.html" title="Mesh CreateMeshSegment"> Create mesh segments...</a>: Crea segmentos de malla</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_CurvaturePlot.png" class="image"><img alt="Mesh CurvaturePlot.png" src="32px-Mesh_CurvaturePlot.png" width="32" height="32" srcset="/wiki/images/thumb/3/3b/Mesh_CurvaturePlot.png/48px-Mesh_CurvaturePlot.png 1.5x, /wiki/images/3/3b/Mesh_CurvaturePlot.png 2x" /></a> <a href="Mesh_CurvaturePlot.html" title="Mesh CurvaturePlot"> Curvature Plot</a>: crea un diagrama de curvatura</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<p>Estas son solo algunas de las operaciones básicas actualmente presentes en la interfaz del módulo Mesh.
+<br />
+Hay más herramientas de malla disponibles en <a href="OpenSCAD_Workbench.html" class="mw-redirect" title="OpenSCAD Workbench">OpenSCAD Workbench</a>.
+<br />
+Pero las mallas de FreeCAD también pueden manejarse de muchas maneras por <a href="Mesh_Scripting.html" title="Mesh Scripting"> scripting</a>.
+</p>
+<h2><span class="mw-headline" id="Enlaces">Enlaces</span></h2>
+<ul><li> <a href="Mesh_Import.html" title="FreeCAD and Mesh Import">FreeCAD and Mesh Import</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/es&amp;oldid=290062">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/es&amp;oldid=290062</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

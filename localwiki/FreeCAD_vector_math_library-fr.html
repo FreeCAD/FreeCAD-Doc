@@ -1,0 +1,86 @@
+<html><head><title>FreeCAD vector math library/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD vector math library/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Ceci est un fichier Python contenant une série de fonctions utiles pour manipuler des vecteurs dans FreeCAD. Il suffit de coller le code suivant dans un fichier Python, et d'importer ce fichier dans votre script Python dans le but de l'utiliser. Cette bibliothèque est incluse dans <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/fr" title="Draft Module/fr">Draft Module</a> et peut être consulté à partir de l'interpréteur python&#160;:
+</p>
+<pre>from draftlibs import DraftVecUtils
+</pre>
+<p>Les vecteurs sont les fondations de pratiquement toutes les formes géométriques 3D, il est donc utile de connaître un peu  plus et comprendre comment ces fonctions peuvent  vous être utiles. Une série de bonnes adresses pour apprendre les bases des vecteur mathématiques&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://en.wikipedia.org/wiki/Vector_space">http://en.wikipedia.org/wiki/Vector_space</a></li>
+<li> <a rel="nofollow" class="external free" href="http://fr.wikipedia.org/wiki/Espace_vectoriel">http://fr.wikipedia.org/wiki/Espace_vectoriel</a></li>
+<li> <a rel="nofollow" class="external free" href="http://maths-wiki.wikispaces.com/Vectors">http://maths-wiki.wikispaces.com/Vectors</a></li>
+<li> <a rel="nofollow" class="external free" href="http://darksleep.com/player/opengl_coordinate_system_and_matrix_math.html">http://darksleep.com/player/opengl_coordinate_system_and_matrix_math.html</a></li></ul>
+<pre>
+ "Vector math library for FreeCAD"
+
+ import math,FreeCAD
+ 
+ def add(first, other):
+ "add(Vector,Vector) - adds two vectors"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return FreeCAD.Vector(first.x+other.x, first.y+other.y, first.z+other.z)
+ 
+ def sub(first, other): 
+ "sub(Vector,Vector) - subtracts second vector from first one"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return FreeCAD.Vector(first.x-other.x, first.y-other.y, first.z-other.z)
+ 
+ def scale(first,scalar):
+ "scale(Vector,Float) - scales (multiplies) a vector by a factor"
+ if isinstance(first,FreeCAD.Vector):
+ return FreeCAD.Vector(first.x*scalar, first.y*scalar, first.z*scalar)
+ 
+ def length(first):
+ "lengh(Vector) - gives vector length"
+ if isinstance(first,FreeCAD.Vector):
+ return math.sqrt(first.x*first.x + first.y*first.y + first.z*first.z)
+ 
+ def dist(first, other):
+ "dist(Vector,Vector) - returns the distance between both points/vectors"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return length(sub(first,other))
+ 
+ def normalized(first):
+ "normalized(Vector) - returns a unit vector"
+ if isinstance(first,FreeCAD.Vector):
+ l=length(first)
+ return FreeCAD.Vector(first.x/l, first.y/l, first.z/l)
+ 
+ def dotproduct(first, other):
+ "dotproduct(Vector,Vector) - returns the dot product of both vectors"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return (first.x*other.x + first.y*other.y + first.z*other.z)
+ 
+ def crossproduct(first, other=FreeCAD.Vector(0,0,1)):
+ "crossproduct(Vector,Vector) - returns the cross product of both vectors. 
+ If only one is specified, cross product is made with vertical axis, thus returning its perpendicular in XY plane"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return FreeCAD.Vector(first.y*other.z - first.z*other.y, first.z*other.x - first.x*other.z, first.x*other.y - first.y*other.x)
+ 
+ def angle(first, other=FreeCAD.Vector(1,0,0)):
+ "angle(Vector,Vector) - returns the angle in radians between the two vectors. 
+ If only one is given, angle is between the vector and the horizontal East direction"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return math.acos(dotproduct(normalized(first),normalized(other)))
+ 
+ def project(first, other):
+ "project(Vector,Vector): projects the first vector onto the second one"
+ if isinstance(first,FreeCAD.Vector) and isinstance(other,FreeCAD.Vector):
+ return scale(other, dotproduct(first,other)/dotproduct(other,other))
+</pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_vector_math_library/fr&amp;oldid=158197">http://www.freecadweb.org/wiki/index.php?title=FreeCAD_vector_math_library/fr&amp;oldid=158197</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

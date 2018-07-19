@@ -1,0 +1,112 @@
+<html><head><title>Branding/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Branding/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>この記事ではFreeCADの<b>ブランディング</b>について説明しています。ブランディングとはFreeCADをベースとしてあなた独自のアプリケーションを作成することを意味します。あなただけの実行ファイルやスプラッシュスクリーンを作ることもできますし、完全に作り直したプログラムの作成さえ可能です。FreeCADは柔軟なアーキテクチャをしており、特定の目的のためのあなたのプログラムの基盤として簡単に使用することができます。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E6.A6.82.E8.A6.81"><span class="tocnumber">1</span> <span class="toctext">概要</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E7.94.BB.E5.83.8F"><span class="tocnumber">2</span> <span class="toctext">画像</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E3.82.A2.E3.82.A4.E3.82.B3.E3.83.B3"><span class="tocnumber">2.1</span> <span class="toctext">アイコン</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E8.83.8C.E6.99.AF.E7.94.BB.E5.83.8F"><span class="tocnumber">2.2</span> <span class="toctext">背景画像</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E6.A6.82.E8.A6.81">概要</span></h3>
+<p>ブランディングのほとんどは<b>MainCmd.cpp</b>または<b>MainGui.cpp</b>で行われます。これらのプロジェクトはFreeCADの実行ファイルを生成します。あなた独自のブランドを作るにはMainプロジェクトまたはMainGuiプロジェクトをコピーしてFooApp.exeといった独自の名前の実行ファイルにするだけです。
+新しい外観のための最も重要な設定はmain()関数内で行うことができます。以下にブランディング制御のためのコードを記載しておきます：
+</p><p><code>
+</p>
+<pre>int main( int argc, char ** argv )
+{
+  // Name and Version of the Application
+  App::Application::Config()["ExeName"] = "FooApp.exe";
+  App::Application::Config()["ExeVersion"] = "0.7";
+
+  // set the banner (for loging and console)
+  App::Application::Config()["ConsoleBanner"] = sBanner;
+  App::Application::Config()["AppIcon"] = "FCIcon";
+  App::Application::Config()["SplashPicture"] = "FooAppSplasher";
+  App::Application::Config()["StartWorkbench"] = "Part design";
+  App::Application::Config()["HiddenDockWindow"] = "Property editor";
+  App::Application::Config()["SplashAlignment" ] = "Bottom|Left";
+  App::Application::Config()["SplashTextColor" ] = "#000000"; // black
+
+  // Inits the Application 
+  App::Application::Config()["RunMode"] = "Gui";
+  App::Application::init(argc,argv);
+
+  Gui::BitmapFactory().addXPM("FooAppSplasher", ( const char** ) splash_screen);
+
+  Gui::Application::initApplication();
+  Gui::Application::runApplication();
+  App::Application::destruct();
+
+  return 0;
+}
+</pre>
+<p></code>
+最初のConfigでプログラムの名前を定義しています。これはコンパイラ設定やリネームによって変更できる実行ファイルの名前ではなく、Windowsでのタスクバーや、Unix系でのプログラムリストに表示される名前です。
+</p><p>次の行ではFooAppアプリケーションの設定を定義しています。Configの記述方法と内容については<a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/jp" title="Start up and Configuration/jp">起動と設定</a>.を見てください。
+</p>
+<h3><span class="mw-headline" id=".E7.94.BB.E5.83.8F">画像</span></h3>
+<p>全ての画像リソースはコンパイルでFreeCADに組み込まれます。これによって読み込み時の遅延時間が減り、インストールもコンパクトになるのです。画像はCの構文を使用した基本的にはテキスト形式のXPM形式でインクルードされます。原理的にはこの画像をテキストエディタで描くことも可能ですが、実際はあなたの好きな画像編集プログラムを使って画像を作成し後でXPM形式に変換したほうが楽でしょう。
+</p><p>GNUの画像編集プログラムである<a rel="nofollow" class="external text" href="http://gimp.org/">Gimp</a>ではXPMファイルの保存が可能です。
+</p><p>変換にはFreeCADに付属している<i><a href="https://www.freecadweb.org/wiki/index.php?title=ImageConv/jp" title="ImageConv/jp">ImageConv</a></i>ツールを使うことができます。このツールは以下にあります。
+</p>
+<pre>/trunk/src/Tools/ImageTools/ImageConv
+</pre>
+<p>これを使えば画像を変換するだけではなく画像が登録される<i>BmpFactoryIcons.cpp</i>ファイルを自動で更新することもできます。典型的な使用方法は以下の例のようなシンプルなものです：
+</p>
+<pre>ImageConv -i InputImage.png -o OutputImage.xpm
+</pre>
+<p>この例ではファイル<i>InputImage.png</i>をXPM形式に変換し、その結果をファイル<i>OutputImage.xpm</i>に書き込んでいます。
+</p><p>main()内の
+</p>
+<pre>Gui::BitmapFactory().addXPM("FooAppSplasher", ( const char** ) splash_screen);
+</pre>
+<p>の行でFreeCADのBitmapFactory内の画像をインクルードしています。
+</p>
+<h4><span class="mw-headline" id=".E3.82.A2.E3.82.A4.E3.82.B3.E3.83.B3">アイコン</span></h4>
+<p>ウィンドウタイトルなどに表示されるメインアプリケーションアイコン<i>FCIcon</i>は
+</p>
+<pre>/trunk/src/Gui/Icons/images.cpp
+</pre>
+<p>内の以下の行以降で定義されています。
+</p>
+<pre>static const char *FCIcon[]={
+</pre>
+<p>これをあなたの好みのアイコンと置き換え、FreeCADを再コンパイルすればあなた独自のブランド作成のための手順は終わりです。このファイルの中には他にもたくさんのアイコンがあり、あなたの好みに応じて変更可能です。
+</p><p>新しいアイコンを追加する必要がある場合は
+</p>
+<pre>/trunk/src/Gui/Icons/BmpFactoryIcons.cpp
+</pre>
+<p>の中に定義してください、そうすればFreeCADからのアクセスが可能になります。
+</p>
+<h4><span class="mw-headline" id=".E8.83.8C.E6.99.AF.E7.94.BB.E5.83.8F">背景画像</span></h4>
+<p>ドキュメントがないウィンドウが開かれた際には背景画像が表示されます。スプラッシュ画面と同様、これは<i>developers.h</i>内の以下から始まる部分で定義されています：
+</p>
+<pre>static const char* const background[]={
+</pre>
+<p>背景には低コントラストな画像を選ぶべきです。さもないとユーザーを苛立たせてしまうでしょう。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Branding/jp&amp;oldid=211460">http://www.freecadweb.org/wiki/index.php?title=Branding/jp&amp;oldid=211460</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

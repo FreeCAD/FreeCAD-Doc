@@ -1,0 +1,246 @@
+<html><head><title>FEM project/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM project/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Этот проект план для интеграции МКЭ(Метод конечных элементов) в FreeCAD , является частью <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/ru" title="Development roadmap/ru">Плана развития</a>.
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Units"><span class="tocnumber">1</span> <span class="toctext">Units</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.9C.D0.BE.D0.B7.D0.B3.D0.BE.D0.B2.D0.BE.D0.B9_.D1.88.D1.82.D1.83.D1.80.D0.BC"><span class="tocnumber">2</span> <span class="toctext">Мозговой штурм</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.D0.9F.D0.BE.D1.82.D0.B5.D0.BD.D1.86.D0.B8.D0.B0.D0.BB.D1.8C.D0.BD.D1.8B.D0.B5_.D0.B3.D0.B5.D0.BD.D0.B5.D1.80.D0.B0.D1.82.D0.BE.D1.80.D1.8B_.D1.81.D0.B5.D1.82.D0.BE.D0.BA"><span class="tocnumber">2.1</span> <span class="toctext">Потенциальные генераторы сеток</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.D0.9F.D0.BE.D1.82.D0.B5.D0.BD.D1.86.D0.B8.D0.B0.D0.BB.D1.8C.D0.BD.D1.8B.D0.B5_.D1.80.D0.B5.D1.88.D0.B0.D1.82.D0.B5.D0.BB.D0.B8"><span class="tocnumber">2.2</span> <span class="toctext">Потенциальные решатели</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#calculix_examples"><span class="tocnumber">2.3</span> <span class="toctext">calculix examples</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.D0.93.D0.B5.D0.BD.D0.B5.D1.80.D0.B0.D1.82.D0.BE.D1.80_.D1.81.D0.B5.D1.82.D0.BE.D0.BA"><span class="tocnumber">2.4</span> <span class="toctext">Генератор сеток</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Units">Units</span></h2>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Units</b>
+</caption>
+<tr>
+<th>Length </th>
+<th>Time </th>
+<th>Mass </th>
+<th>Force </th>
+<th>Pressure </th>
+<th>Velocity </th>
+<th>Density</th>
+<th> Energy </th>
+<th>Gravity
+</th></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>kg m/s2 </td>
+<td> N/m2  </td>
+<td>m/s </td>
+<td> kg/m3 </td>
+<td> kgm2/s2  </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>N </td>
+<td> Pa </td>
+<td> m/s </td>
+<td> m kg/l  </td>
+<td> J </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>g </td>
+<td>mN</td>
+<td> mPa </td>
+<td> m/s </td>
+<td> micro  kg/l </td>
+<td> mJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td>kN </td>
+<td>  kPa </td>
+<td> m/s </td>
+<td> kg/l </td>
+<td> kJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>kg </td>
+<td> MN </td>
+<td> MPa </td>
+<td> km/s </td>
+<td> m  kg/l </td>
+<td> MJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>g </td>
+<td> kN </td>
+<td> kPa </td>
+<td> km/s </td>
+<td> micro kg/l </td>
+<td> kJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>Mg (ton) </td>
+<td> GN </td>
+<td> GPa </td>
+<td> km/s </td>
+<td> kg/l </td>
+<td> GJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td> kg </td>
+<td> mN </td>
+<td> kPa </td>
+<td> mm/s </td>
+<td> M kg/l </td>
+<td> micro J </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm</td>
+<td> s </td>
+<td>g </td>
+<td> micro N </td>
+<td> Pa </td>
+<td> mm/s </td>
+<td> g/mm3 </td>
+<td> nJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td> N </td>
+<td> MPa </td>
+<td> mm/s </td>
+<td> Mg/mm3 </td>
+<td>  mJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> kg </td>
+<td> kN </td>
+<td> GPa </td>
+<td> m/s </td>
+<td> M </td>
+<td> kg/l J </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms </td>
+<td>g </td>
+<td> N </td>
+<td> MPa </td>
+<td> m/s </td>
+<td> k kg/l </td>
+<td> mJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> Mg (ton) </td>
+<td> MN </td>
+<td> TPa </td>
+<td> m/s </td>
+<td> G  kg/l </td>
+<td> kJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>g </td>
+<td> daN </td>
+<td> 10^5 Pa (bar)  </td>
+<td> dam/s </td>
+<td> kg/l </td>
+<td> dJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>kg </td>
+<td> 10^4 N (kdaN) </td>
+<td> 10^8 Pa (kbar) </td>
+<td> dam/s </td>
+<td> k kg/l </td>
+<td> hJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td> Mg (ton) 10^7 </td>
+<td> N(MdaN) </td>
+<td>10^11 Pa (Mbar) </td>
+<td> dam/s </td>
+<td> M kg/l </td>
+<td>10^5 J </td>
+<td>9.81e-4
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".D0.9C.D0.BE.D0.B7.D0.B3.D0.BE.D0.B2.D0.BE.D0.B9_.D1.88.D1.82.D1.83.D1.80.D0.BC">Мозговой штурм</span></h2>
+<h3><span class="mw-headline" id=".D0.9F.D0.BE.D1.82.D0.B5.D0.BD.D1.86.D0.B8.D0.B0.D0.BB.D1.8C.D0.BD.D1.8B.D0.B5_.D0.B3.D0.B5.D0.BD.D0.B5.D1.80.D0.B0.D1.82.D0.BE.D1.80.D1.8B_.D1.81.D0.B5.D1.82.D0.BE.D0.BA">Потенциальные генераторы сеток</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Netgen.jpg" class="image"><img alt="Netgen.jpg" src="300px-Netgen.jpg" width="300" height="229" srcset="/wiki/images/thumb/2/2a/Netgen.jpg/450px-Netgen.jpg 1.5x, /wiki/images/thumb/2/2a/Netgen.jpg/600px-Netgen.jpg 2x" /></a></div>
+<p>Некоторые генераторы представлены здесь:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.hpfem.jku.at/netgen/">Netgen</a> очень хороший генератор сеток, LGPL с поддержкой некоторых библиотек</li>
+<li> <a rel="nofollow" class="external text" href="http://www.salome-platform.org/">Salome</a> сложный пакет, да и из него трудно получить необходимый нам код!?</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> python библиотека оболочка позволяющая взаимодействовать Salome и генератору сеток Netgen, может быть самым быстрым и наиболее полным путем интеграции генераторов</li></ul>
+<h3><span class="mw-headline" id=".D0.9F.D0.BE.D1.82.D0.B5.D0.BD.D1.86.D0.B8.D0.B0.D0.BB.D1.8C.D0.BD.D1.8B.D0.B5_.D1.80.D0.B5.D1.88.D0.B0.D1.82.D0.B5.D0.BB.D0.B8">Потенциальные решатели</span></h3>
+<p>Некоторые решатели представлены здесь:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.calculix.de/">Calculix</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.code-aster.org">Code-Aster</a> очень многофункциональный решатель с привязками к  python</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> библиотека python которая предлагает (в настоящее время) грубый интерфейс для взаимодействия с  Code_Aster, который также может быть быстрым способом получить работающее решение.</li></ul>
+<h3><span class="mw-headline" id="calculix_examples">calculix examples</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://dip28p.web.fc2.com/calculix/netgen2calculix/index.html">gut example with contact</a></li></ul>
+<h3><span class="mw-headline" id=".D0.93.D0.B5.D0.BD.D0.B5.D1.80.D0.B0.D1.82.D0.BE.D1.80_.D1.81.D0.B5.D1.82.D0.BE.D0.BA">Генератор сеток</span></h3>
+<ul><li> Тестирования генераторов сеток экспертами</li>
+<li> Анализ структуры ПО и возможные обледенения</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_project/ru&amp;oldid=186375">http://www.freecadweb.org/wiki/index.php?title=FEM_project/ru&amp;oldid=186375</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

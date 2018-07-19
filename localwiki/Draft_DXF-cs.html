@@ -1,0 +1,85 @@
+<html><head><title>Draft DXF/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft DXF/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_qcad.jpg" class="image"><img alt="Screenshot qcad.jpg" src="Screenshot_qcad.jpg" width="800" height="443" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Otev.C3.ADr.C3.A1n.C3.AD"><span class="tocnumber">1</span> <span class="toctext">Otevírání</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing"><span class="tocnumber">2</span> <span class="toctext">Installing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Automatically"><span class="tocnumber">2.1</span> <span class="toctext">Automatically</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Manually"><span class="tocnumber">2.2</span> <span class="toctext">Manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Importov.C3.A1n.C3.AD"><span class="tocnumber">3</span> <span class="toctext">Importování</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exportov.C3.A1n.C3.AD"><span class="tocnumber">4</span> <span class="toctext">Exportování</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#P.C5.99edvolby"><span class="tocnumber">5</span> <span class="toctext">Předvolby</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Otev.C3.ADr.C3.A1n.C3.AD">Otevírání</span></h3>
+<p>Tato funkce otevírá soubory DXF (jakoukoliv verzi od 12 do 2007) v novém výkresu.
+V současné době jsou podporovány následující objekty DXF:
+</p>
+<ul><li> přímky</li>
+<li> lomené čáry a lwpolylines</li>
+<li> kružnice</li>
+<li> oblouky</li>
+<li> vrstvy (vrstvy obsahující objekty jsou konvertovány do skupin FreeCADu)</li>
+<li> texty a mtexty</li>
+<li> kótování</li>
+<li> bloky (pouze konstrukce; texty, kóty a atributy uvnitř bloků jsou přeskočeny)</li>
+<li> body <span style="font-size:x-small;"><a href="Release_notes_0.13.html" class="mw-redirect" title="Release notes 0.13">available in version 0.13</a></span></li></ul>
+<ul><li> vynášecí čáry <span style="font-size:x-small;"><a href="Release_notes_0.13.html" class="mw-redirect" title="Release notes 0.13">available in version 0.13</a></span></li></ul>
+<p>Ostatní DXF entity nejsou v současné době importovány, protože zatím nejsou ve FreeCADU implementovány korespondující objekty. Jakmile budou implementovány nové funkcionality, bude pravděpodobně možné importovat více typů entit.
+</p>
+<h3><span class="mw-headline" id="Installing">Installing</span></h3>
+<p><b>Warning</b>:  For license reasons, the dxf import/export libraries are not part of the FreeCAD source code anymore. For that reason, they must be installed by you, the user, after you install FreeCAD. There is a way to allow FreeCAD to do that automatically, or you can do it manually.
+</p>
+<h4><span class="mw-headline" id="Automatically">Automatically</span></h4>
+<p>Starting from version 0.15, you only need to mark the Edit-&gt; Preferences -&gt; Import/Export -&gt; DXF/DWG -&gt; "Allow FreeCAD to automatically download the DXF libraries" option to have FreeCAD take automatically care of doenloading and installing these libraries. For older versions, you will need to do it manually.
+</p>
+<h4><span class="mw-headline" id="Manually">Manually</span></h4>
+<p>Libraries must be downloaded from <a rel="nofollow" class="external free" href="https://github.com/yorikvanhavre/Draft-dxf-importer">https://github.com/yorikvanhavre/Draft-dxf-importer</a>
+There is a very complete step-by-step <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">tutorial</a> that will explain you the necessary steps.
+</p>
+<h3><span class="mw-headline" id="Importov.C3.A1n.C3.AD">Importování</span></h3>
+<p>Pracuje stejným způsobem jako otevření, ale obsah DXF souboru se přidá do aktivního dokumentu místo zakládání nového dokumentu.
+</p><p>Tutorial: <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">Dxf Importer Install</a>
+</p>
+<h3><span class="mw-headline" id="Exportov.C3.A1n.C3.AD">Exportování</span></h3>
+<p>Exportovaný DXF je kompatibilní s Autocadem verze 12 a vyšší, takže by mělo být možné jej otevřít v jakékoliv aplikaci, která podporuje DXF formát.
+V současnosti jsou exportovány následující objekty FreeCADu:
+</p>
+<ul><li> přímky a dráty (lomené čáry)</li>
+<li> oblouky a kružnice</li>
+<li> texty</li>
+<li> barvy jsou mapovány z RGB barev objektů na indexy barev Autocadu (ACI). Černá bude vždy "podle vrstvy"</li>
+<li> vrstvy jsou mapovány z názvů skupin. Jsou-li skupiny "zahnízděny" (skupina ve skupině), pak je jméno vrstvy podle nejhlubší skupiny.</li>
+<li> kóty, které jsou exportovány ve "Standardním" stylu kót</li></ul>
+<h3><span class="mw-headline" id="P.C5.99edvolby">Předvolby</span></h3>
+<p>V záložce <a href="Draft_Preferences.html" title="Draft Preferences">Předvoby kreslení</a> (menu Úpravy -&gt; Předvolby -&gt; Kreslení) mohou být specifikovány následující parametry:
+</p>
+<ul><li> Styl importu: Ten umožňuje vybrat způsob jak budou objekty z DXF souboru vykresleny ve FreeCADu. Výběr je mezi:
+<ul><li> Žádný: to je rychlejší způsob bez konverzí, všechny objekty budou černé se šířkou 2px (defaultně podle FreeCADu)</li>
+<li> Použít defaultní barvu a tloušťku čáry: všechny importované DXF objekty budou přebírat barvu a tloušťku čáry z příkazového pruhu kreslení</li>
+<li> Originální barvu a tloušťku čáry: Objektům zůstane barva a tloušťka čáry (pokud je specifikována) jakou mají v DXF souboru</li>
+<li> Barvy mapovány na tloušťku čáry: Je-li vybrána tato volba, bude využit mapovací soubor uvedený dále</li></ul></li>
+<li> Mapovací soubor barev: Tato volba umožňuje specifikovat mapovací soubor, který bude využit pro transformaci DXF barev a tloušťek čar stejným způsobem jak funguje nákresový styl v Autocadu. Mapovací soubor musí být textový soubor s oddělovacím znakem tabelátorem. Existuje šikovná utilita nazvaná <a rel="nofollow" class="external text" href="http://www.noliturbare.com/TablePrintGUI.php">Prohlížeč nákresového stylu</a>, která může konvertovat soubory Autocadu CTB nebo STB (nákresové styly) do souboru s oddělovacími tabulátory, které jsou připraveny k použití ve FreeCADu. Existuje i druhá možnost využít připravené <a href="Draft_mapping_files.html" title="Draft mapping files">mapovací soubory</a> dostupné zde.</li>
+<li> Import textů: To umožňuje specifikovat, zda chcete importovat DXF texty a kótování nebo ne. Mnoho textů může učinit práci ve FreeCADu velmi obtížnou, takže někdy se může tato volba docela hodit..</li>
+<li> Import objektů rozložení: Zapnutím tohoto přepínače se importuje objekt prostoru papíru. Budou spojeny ve stejném dokumentu s objektem prostoru modelu.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_DXF/cs&amp;oldid=141310">http://www.freecadweb.org/wiki/index.php?title=Draft_DXF/cs&amp;oldid=141310</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

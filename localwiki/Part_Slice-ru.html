@@ -1,0 +1,117 @@
+<html><head><title>Part Slice/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Slice/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_Slice"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Slice.png" class="image"><img alt="Part Slice.png" src="32px-Part_Slice.png" width="32" height="32" srcset="/wiki/images/thumb/f/f7/Part_Slice.png/48px-Part_Slice.png 1.5x, /wiki/images/f/f7/Part_Slice.png 2x" /></a> Part Slice</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Расположение в меню
+</th></tr>
+<tr>
+<td class="ctEven">Деталь → Split → Slice
+</td></tr>
+<tr>
+<th class="ctOdd">Верстаки
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Быстрые клавиши
+</th></tr>
+<tr>
+<td class="ctEven">отсутствуют
+</td></tr>
+<tr>
+<th class="ctOdd">См. также
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_BooleanFragments/ru" title="Part BooleanFragments/ru">Part Boolean Fragments</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_XOR/ru&amp;action=edit&amp;redlink=1" class="new" title="Part XOR/ru (page does not exist)">Part XOR</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_CompJoinFeatures/ru" title="Part CompJoinFeatures/ru">Join features</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/ru" title="Part Booleans/ru">Part Booleans</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_Slice"><span class="tocnumber">1</span> <span class="toctext">Part Slice</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example:_making_puzzle"><span class="tocnumber">5</span> <span class="toctext">Example: making puzzle</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Scripting"><span class="tocnumber">6</span> <span class="toctext">Scripting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Version"><span class="tocnumber">7</span> <span class="toctext">Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Tool to split shapes by intersection with other shapes. For example, for a box and a plane, a compound of two solids is created.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Slice_Demo.png" class="image"><img alt="Part Slice Demo.png" src="600px-Part_Slice_Demo.png" width="600" height="252" srcset="/wiki/images/thumb/a/a9/Part_Slice_Demo.png/900px-Part_Slice_Demo.png 1.5x, /wiki/images/a/a9/Part_Slice_Demo.png 2x" /></a>
+</p><p>(on the picture above, the pieces were moved apart manually afterwards, to reveal the slicing)
+</p><p>The output shape occupies the same space as the original. But it is split where it intersects with other shapes. The split pieces are put into a compound (or compsolid), so the object appears to remain in one piece. You need to explode the compound to get the individual pieces. If you want to access the individual pieces in a parametric way you can use <a href="Part_CompoundFilter.html" title="Part CompoundFilter">Part CompoundFilter</a> for the purpose. For quick non parametric access use <a href="Draft_Downgrade.html" title="Draft Downgrade">Draft Downgrade</a>.
+</p><p>The tool has three modes: "Standard", "Split", and "CompSolid".
+</p><p>"Standard" and "Split" differ by the action of the tool on wires, shells and compsolids: if "Split", those are separated; if "Standard", they are kept together (get extra segments).
+</p><p>Compounding structure in "Standard" and "Split" modes follows the compounding structure of shape being sliced. 
+</p><p>In "CompSolid" mode, the output is a compsolid (or a compound of compsolids, if the resulting solids form more than one island of connectedness). Compsolid is a set of solids connected by faces; they are related to solids like wires are related to edges, and shells are related to faces; the name is probably a shortened phrase "composite solid".
+</p><p>The overall action of the tool is very similar to <a href="Part_BooleanFragments.html" title="Part BooleanFragments">Boolean Fragments</a>, except only the pieces from the first shape are in the result.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select the object to be sliced, first, and then some objects to slice with. <br /> The order of selection is important. Compounds with self-intersections are not allowed (self-intersections sometimes can be accounted for by passing the compound through <a href="Part_BooleanFragments.html" title="Part BooleanFragments">BooleanFragments</a>)</li>
+<li> Invoke the Part Slice command.</li></ol>
+<p>A Slice parametric object is created. Original objects are hidden, and the result of intersection is shown in 3D view.
+</p>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Slice</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>: Object to be sliced.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tools</b>: List of objects to slice with. (as of FreeCAD v0.17.8053, this property is not displayed in property editor, and can only be accessed via Python).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b>: "Standard", "Split", or "CompSolid". "Split" is default. Standard and Split differ by the action of the tool on aggregation type shapes: if Split, those are separated; otherwise they are kept together (get extra segments).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tolerance</b>: "fuzziness" value. This is an extra tolerance to apply when searching for intersections, in addition to tolerances stored in the input shapes.</li></ul>
+<h2><span class="mw-headline" id="Example:_making_puzzle">Example: making puzzle</span></h2>
+<ol><li> Switch to <a href="Sketcher_Workbench.html" title="Sketcher Workbench">Sketcher Workbench</a>, create an new sketch. Draw a rectangle that will outline the overall shape of the puzzle. Close the sketch.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step1.png" class="image"><img alt="Slice example step1.png" src="320px-Slice_example_step1.png" width="320" height="239" srcset="/wiki/images/thumb/e/e1/Slice_example_step1.png/480px-Slice_example_step1.png 1.5x, /wiki/images/thumb/e/e1/Slice_example_step1.png/640px-Slice_example_step1.png 2x" /></a></li>
+<li> Switch to <a href="Part_Module.html" title="Part Module">Part workbench</a>. Select the sketch, and pick Part-&gt;Create face from sketch (in menu).<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step2.png" class="image"><img alt="Slice example step2.png" src="320px-Slice_example_step2.png" width="320" height="239" srcset="/wiki/images/thumb/f/f2/Slice_example_step2.png/480px-Slice_example_step2.png 1.5x, /wiki/images/thumb/f/f2/Slice_example_step2.png/640px-Slice_example_step2.png 2x" /></a></li>
+<li> Switch to Sketcher workbench, and create another sketch on the same plane. Using polyline tool, draw the lines that will split the puzzle into pieces.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step3.png" class="image"><img alt="Slice example step3.png" src="320px-Slice_example_step3.png" width="320" height="239" srcset="/wiki/images/thumb/4/42/Slice_example_step3.png/480px-Slice_example_step3.png 1.5x, /wiki/images/thumb/4/42/Slice_example_step3.png/640px-Slice_example_step3.png 2x" /></a></li>
+<li> Switch to Part workbench. Select the splitter sketch, and apply <a href="Part_BooleanFragments.html" title="Part BooleanFragments">Part Boolean Fragments</a>. This will insert vertices where lines of splitter sketch intersect. Having them is essential for the next step to work.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step4.png" class="image"><img alt="Slice example step4.png" src="320px-Slice_example_step4.png" width="320" height="239" srcset="/wiki/images/thumb/a/a0/Slice_example_step4.png/480px-Slice_example_step4.png 1.5x, /wiki/images/thumb/a/a0/Slice_example_step4.png/640px-Slice_example_step4.png 2x" /></a></li>
+<li> Select the rectangular face, and the BooleanFragments of splitter sketch, and apply Part Split.<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step5.png" class="image"><img alt="Slice example step5.png" src="320px-Slice_example_step5.png" width="320" height="239" srcset="/wiki/images/thumb/c/cb/Slice_example_step5.png/480px-Slice_example_step5.png 1.5x, /wiki/images/thumb/c/cb/Slice_example_step5.png/640px-Slice_example_step5.png 2x" /></a></li>
+<li> Switch to Draft workbench, and apply Draft Downgrade to the result. You should get all the pieces as "Face00X" in document tree, that can be moved independently. Done!<br /><a href="https://www.freecadweb.org/wiki/index.php?title=File:Slice_example_step6.png" class="image"><img alt="Slice example step6.png" src="320px-Slice_example_step6.png" width="320" height="239" srcset="/wiki/images/thumb/3/3b/Slice_example_step6.png/480px-Slice_example_step6.png 1.5x, /wiki/images/thumb/3/3b/Slice_example_step6.png/640px-Slice_example_step6.png 2x" /></a></li></ol>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The tool can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>BOPTools.SplitFeatures.makeSlice(name)</b>
+</pre>
+<ul><li> Creates an empty Slice feature. The 'Base' and 'Tools' properties must be assigned explicitly, afterwards.</li>
+<li> Returns the newly created object.</li></ul>
+<p>Slice can also be applied to plain shapes, without the need to have a document object, via:
+</p>
+<pre><b>Part.BOPTools.SplitAPI.slice(base_shape, tool_shapes, mode, tolerance = 0.0)</b>
+</pre>
+<p>This can be useful for making custom Python scripted features.
+</p><p><br />
+Example:
+</p>
+<pre>import Part
+j = Part.BOPTools.SplitFeatures.makeSlice(name= 'Slice')
+j.Base = FreeCADGui.Selection.getSelection()[0]
+j.Tools = FreeCADGui.Selection.getSelection()[1:] </pre>
+<p>The tool itself is implemented in Python, see /Mod/Part/BOPTools/SplitFeatures.py under where FreeCAD is installed.
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>The tool was introduced in FreeCAD v0.17.8053. FreeCAD needs to be compiled with OCC 6.9.0 or later; otherwise, the tool is unavailable.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Slice/ru&amp;oldid=289553">http://www.freecadweb.org/wiki/index.php?title=Part_Slice/ru&amp;oldid=289553</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

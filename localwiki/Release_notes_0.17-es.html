@@ -1,0 +1,240 @@
+<html><head><title>Release notes 0.17/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Release notes 0.17/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="itsfree" style="text-align:left;color:black;background:#f6f6f6;margin:1em 7em;padding:0.5em 2em;border:2px solid #a7d7f9;">
+"Esta edición de FreeCad está dedicada a nuestro amigo Roland Frank <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=8&amp;t=25673">quien nos dejó el 2017</a>. Él fue un activo y muy apreciado miembro del foro de FreeCAD. Además sus video-tutoriales en los canales de Youtube <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=_HEvhclR4-o&amp;list=PL6fZ68Cq3L8k0JhxnIVjZQN26cn9idJrj">Learn FreeCAD</a> y <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=m49z0weonog&amp;list=PLsrwVwvqYb8G4Ri0iz1JIebsOXkgoytAY">BPLFRE</a> ayudaron a muchas personas a iniciarse en FreeCAD."</div>
+<p>FreeCAD 0.17 fue lanzado el 06 de abril, 2018. Puedes obtenerlo de la página de <a href="https://www.freecadweb.org/wiki/index.php?title=Download/es" title="Download/es">descarga</a>. Este es un resumen de los cambios más interesantes. La lista completa de cambios puede ser vista en <a rel="nofollow" class="external text" href="https://www.freecadweb.org/tracker/changelog_page.php?version_id=73">MantisBT bugtracker FC 0.17 changelog</a>.
+</p><p>Notas de anteriores lanzamientos pueden ser vistas en la página <a href="https://www.freecadweb.org/wiki/index.php?title=Getting_started/es" title="Getting started/es">Comenzando</a>.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Release017_Title.jpg" class="image"><img alt="Release017 Title.jpg" src="800px-Release017_Title.jpg" width="800" height="526" srcset="/wiki/images/6/62/Release017_Title.jpg 1.5x" /></a></div>
+<p><i>Garden Railway Coach O&amp;K (por el usuario de FreeCAD "Garden Railway Coach O&amp;K", ver <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=24&amp;t=17261">Users Showcase</a>)</i>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Principales_Novedades"><span class="tocnumber">1</span> <span class="toctext">Principales Novedades</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Generalidades"><span class="tocnumber">2</span> <span class="toctext">Generalidades</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Entorno_de_Trabajo_Arch"><span class="tocnumber">3</span> <span class="toctext">Entorno de Trabajo Arch</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Ambiente_de_Trabajo_Draft"><span class="tocnumber">4</span> <span class="toctext">Ambiente de Trabajo Draft</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Ambiente_de_Trabajo_FEM"><span class="tocnumber">5</span> <span class="toctext">Ambiente de Trabajo FEM</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Ambiente_de_Trabajo_Part"><span class="tocnumber">6</span> <span class="toctext">Ambiente de Trabajo Part</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Ambiente_de_Trabajo_PartDesign"><span class="tocnumber">7</span> <span class="toctext">Ambiente de Trabajo PartDesign</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Ambiente_de_Trabajo_Path"><span class="tocnumber">8</span> <span class="toctext">Ambiente de Trabajo Path</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Ambiente_de_Trabajo_Sketcher"><span class="tocnumber">9</span> <span class="toctext">Ambiente de Trabajo Sketcher</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Ambiente_de_Trabajo_Spreadsheet"><span class="tocnumber">10</span> <span class="toctext">Ambiente de Trabajo Spreadsheet</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Ambiente_de_Trabajo_Surface"><span class="tocnumber">11</span> <span class="toctext">Ambiente de Trabajo Surface</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Ambiente_de_Trabajo_TechDraw"><span class="tocnumber">12</span> <span class="toctext">Ambiente de Trabajo TechDraw</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#M.C3.B3dulos_Adicionales"><span class="tocnumber">13</span> <span class="toctext">Módulos Adicionales</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Principales_Novedades">Principales Novedades</span></h2>
+<p>Han pasado casi dos años desde la anterior versión 0.16, pero el equipo de FreeCAD no permaneció inactivo durante este período. Más de 6,800 revisiones fueron agregadas al código fuente de FreeCAD. En comparación, ¡esto es más de tres veces el trabajo hecho entre v0.16 y v0.15! La mayoría de los entornos de trabajo existentes se beneficiaron de las mejoras y se agregaron dos nuevos entornos de trabajo. También han sido desarrollados nuevos módulos adicionales por la comunidad. Algunos de los cambios más importantes:
+</p><p><br />
+El entorno de trabajo "PartDesign" ha sido completamente revisado. Ahora hay un nuevo contenedor llamado "Body" que contiene una cadena de funciones y alivia la necesidad de asignar bocetos a caras planas. Nuevas herramientas para crear geometrías de referencia (datum) como puntos, ejes y planos hacen que el diseño de piezas sea mucho más versátil.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Body_tree.png" class="image"><img alt="PartDesign Body tree.png" src="PartDesign_Body_tree.png" width="180" height="291" /></a></div>
+<p>El nuevo <a href="AddonManager.html" title="AddonManager">"Addon manager"</a> disponible en el menu "Herramientas" (el cual estaba previamente disponible como <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-addons">addons installer macro</a>) hace que la instalación y actualización de módulos y macros adicionales sea mucho más fácil y estandarizada para Windows, Mac OS X y Linux.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Addon_manager.png" class="image"><img alt="Addon manager.png" src="300px-Addon_manager.png" width="300" height="262" srcset="/wiki/images/e/e6/Addon_manager.png 1.5x" /></a></div>
+<p>El entorno "Sketcher" ahora soporta la creacion de B-spline con muchas formas de controlar curvas y desplegar información de estas.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FC017_Sketcher_B-spline_01.png" class="image"><img alt="FC017 Sketcher B-spline 01.png" src="300px-FC017_Sketcher_B-spline_01.png" width="300" height="215" srcset="/wiki/images/thumb/2/24/FC017_Sketcher_B-spline_01.png/450px-FC017_Sketcher_B-spline_01.png 1.5x, FC017_Sketcher_B-spline_01.png 2x" /></a></div>
+<p>El nuevo entorno "TechDraw" tiene como objetivo reemplazar el entorno de trabajo "Drawing", y ya tiene más funcionalidades que el antiguo entorno.
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:TechDraw_Workbench_Example.png" class="image"><img alt="TechDraw Workbench Example.png" src="300px-TechDraw_Workbench_Example.png" width="300" height="212" srcset="/wiki/images/thumb/0/02/TechDraw_Workbench_Example.png/450px-TechDraw_Workbench_Example.png 1.5x, /wiki/images/thumb/0/02/TechDraw_Workbench_Example.png/600px-TechDraw_Workbench_Example.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Generalidades">Generalidades</span></h2>
+<ul><li> Yorik van Havre escribió "<a href="https://www.freecadweb.org/wiki/index.php?title=Manual:Introduction" title="Manual:Introduction">The FreeCAD Manual</a>" como un libro introductorio de como usar FreeCAD.</li>
+<li> Los recálculos de documentos ahora se pueden deshabilitar / habilitar a través del menú contextual.</li>
+<li> Se agregó un nuevo estilo de navegación Revit. </li>
+<li> Nuevo indicador de navegación en la parte inferior derecha de la ventana de FreeCAD que permite un acceso rápido a los estilos de navegación.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FC017_Navigation_Indicator_01.png" class="image"><img alt="FC017 Navigation Indicator 01.png" src="FC017_Navigation_Indicator_01.png" width="441" height="170" /></a>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:FC017_Navigation_Indicator_02.png" class="image"><img alt="FC017 Navigation Indicator 02.png" src="FC017_Navigation_Indicator_02.png" width="421" height="270" /></a>
+</p>
+<ul><li> El <a href="Std_DependencyGraph.html" title="Std DependencyGraph">dependency graph</a> se benefició de mejoras gráficas.</li>
+<li> La importación de archivos STEP aprovecha el nuevo <a href="Std_Part.html" title="Std Part">Part container</a> y lo usa para organizar un ensamblaje STEP en subconjuntos, siguiendo más de cerca la estructura del documento original. stpZ (un formato STEP comprimido) ahora es compatible.</li>
+<li> La mayoría de los íconos de FreeCAD fueron reelaborados para cumplir mejor con las pautas del estilo Tango.</li></ul>
+<ul><li> El proyecto FreeCAD reconoce las contribuciones de su comunidad al agregar una pestaña de créditos en el diálogo <i> Acerca de FreeCAD </i>. Las nuevas pestañas de Licencias y Bibliotecas incluyen la licencia de FreeCAD y proporcionan información sobre bibliotecas usadas de terceros.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:AboutFreeCAD_Credits.png" class="image"><img alt="AboutFreeCAD Credits.png" src="300px-AboutFreeCAD_Credits.png" width="300" height="380" srcset="/wiki/images/thumb/3/35/AboutFreeCAD_Credits.png/450px-AboutFreeCAD_Credits.png 1.5x, /wiki/images/3/35/AboutFreeCAD_Credits.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Entorno_de_Trabajo_Arch">Entorno de Trabajo Arch</span></h2>
+<ul><li> Nueva herramienta <a href="Arch_Schedule.html" title="Arch Schedule">Arch Schedule</a>: esta herramienta ha sido completamente reescrita, y ahora ofrece una forma mucho más flexible de reunir datos del documento en una hoja de cálculo, utilizando diferentes tipos de consultas, como contar todos los objetos de un cierto tipo, o resumiendo el volumen total de una cierta categoría de objetos.</li></ul>
+<ul><li> Nuevo set de <a href="Arch_Pipe.html" title="Arch Pipe">herramienta de tuberías</a> para diseñar sistemas de tuberías. Puede usar líneas, bocetos o cables como base para colocar tubos y crear automáticamente conexiones entre 2 o 3 tubos.</li></ul>
+<ul><li> La herramienta <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/es" title="Arch Structure/es">Arch Estructura</a> ahora ha sido ampliada con una serie de nuevas librerías de partes para construir elementos prefabricados de hormigón.</li></ul>
+<ul><li> Durante la edición 2017 del <a href="Google_Summer_of_Code.html" class="mw-redirect" title="Google Summer of Code">Google Summer of Code</a>, en la cual FreeCAD participó, la herramienta <a href="Arch_Rebar.html" title="Arch Rebar">Arch Rebar</a> fue ampliada y se le proveyó de una interfaz de usuario amigable para agregar fácilmente varios tipos de barras estándar de refuerzo a sus estructuras de concreto.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Rebar_preview.png" class="image"><img alt="Arch Rebar preview.png" src="640px-Arch_Rebar_preview.png" width="640" height="343" srcset="/wiki/images/thumb/0/06/Arch_Rebar_preview.png/960px-Arch_Rebar_preview.png 1.5x, /wiki/images/thumb/0/06/Arch_Rebar_preview.png/1280px-Arch_Rebar_preview.png 2x" /></a>
+</p>
+<ul><li> La herramienta <a href="Arch_Window.html" title="Arch Window">Arch Ventanas</a> tiene varias mejoras, tales como la posibilidad de definir subcomponentes como abatibles, mostrar símbolos de apertura, abrirse y tener paneles de persiana.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Door_preview.png" class="image"><img alt="Arch Door preview.png" src="640px-Arch_Door_preview.png" width="640" height="489" srcset="/wiki/images/5/52/Arch_Door_preview.png 1.5x" /></a>
+</p>
+<ul><li> La herramientas <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Axis/es" title="Arch Axis/es">Arch Ejes</a> también se han reescrito y permiten sistemas más complejos al combinar diferentes series de ejes. También se pueden personalizar para mostrar diferentes tipos de situaciones, como niveles. </li></ul>
+<ul><li> Una nueva herramienta <a href="Arch_Grid.html" title="Arch Grid">Arch Grid</a> permite crear fácilmente objetos base similar a un cuadriculado estirando, uniendo o dividiendo celdas. Estos objetos de rejilla se pueden usar como sistemas de ejes o como bases para arreglos complejos de ventanas o paneles.</li></ul>
+<ul><li> Las nuevas herramientas <a href="Arch_Panel_Cut.html" title="Arch Panel Cut">Panel tools</a> fueron específicamente diseñadas para la construccion de paneles. Permiten construir un modelo compuesto por <a href="Arch_Panel.html" title="Arch Panel"> Arch Panels</a>, y luego generan placas con los patrones que pueden ser utilizadas por <a href="Path_Workbench.html" title="Path Workbench">Path Workbench</a> para generar código para máquinas de corte. </li></ul>
+<ul><li> Una nueva herramienta <a href="Arch_Nest.html" title="Arch Nest">Nesting</a> (aun experimental), que permite crear paneles de corte colocando automáticamente los patrones 2D en una silueta contenedora.</li></ul>
+<ul><li> <a href="Arch_MultiMaterial.html" title="Arch MultiMaterial">Multi-materials</a> se han incorporado al Ambiente de Trabajo Arch. Permiten crear automáticamente muros multicapa o controlar los diferentes materiales de objetos compuestos como ventanas.</li></ul>
+<ul><li> El exportador de formatos OBJ y DAE del Ambiente de Trabajo Arch ahora admite materiales, tanto al importar como al exportar.</li></ul>
+<ul><li> Se ha agregado el soporte de importación para el formato <a href="Arch_3DS.html" title="Arch 3DS">3DS</a>.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Draft">Ambiente de Trabajo Draft</span></h2>
+<ul><li> <a href="Draft_AutoGroup.html" title="Draft AutoGroup">Autogroup system</a>: El Ambiente de Trabajo Draft ahora presenta un botón de autogrupo en su barra de herramientas. Cuando se activa, todos los objetos Draft y Arch recién creados se colocarán automáticamente en ese grupo.</li></ul>
+<ul><li> <a href="Draft_Slope.html" title="Draft Slope">Slope tool</a>: Cuando es usada sobre una <a href="Draft_Line.html" title="Draft Line">Draft Line</a> o una <a href="Draft_Wire.html" title="Draft Wire">Draft Wire</a>, esta herramienta te permitirá darle una pendiente/inclinación. Es decir, los puntos intermedios y finales obtendrán un valor Z más bajo, por lo que todo el objeto obtiene una inclinación constante. Esto es útil para usar Lineas o Wires como bases para objetos que necesitan una inclinación precisa, como paneles de techo o tuberías de alcantarillado.</li></ul>
+<ul><li> <a href="Draft_SetWorkingPlaneProxy.html" title="Draft SetWorkingPlaneProxy">Working Plane proxies</a>: Cuando se trabaja con <a href="Draft_SelectPlane.html" title="Draft SelectPlane">Draft working planes</a>, a menudo es necesario almacenar ubicaciones de plano de trabajo que usa con frecuencia. Esto ahora es posible colocando uno de esos "proxies" en su documento. Recordará la ubicación del plano de trabajo actual y también puede restaurar la vista actual y/o la visibilidad de los objetos.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_WP_preview.png" class="image"><img alt="Draft WP preview.png" src="640px-Draft_WP_preview.png" width="640" height="424" srcset="/wiki/images/thumb/f/fa/Draft_WP_preview.png/960px-Draft_WP_preview.png 1.5x, /wiki/images/f/fa/Draft_WP_preview.png 2x" /></a>
+</p>
+<ul><li> <a href="Draft_Stretch.html" title="Draft Stretch">Draft Stretch</a>: El Ambiente de Trabajo Draft ahora tiene una herramienta de estiramiento, que permite mover los vértices de varios objetos Draft a la vez.</li></ul>
+<ul><li> <a href="Draft_Label.html" title="Draft Label">Draft Label</a>: Con esta herramienta, uno puede colocar etiquetas en el documento. Estas, al ser compuestas de una pieza de texto y una línea guía, pueden estar libre o ancladas a un objeto específico. El texto puede ser personalizado, o mostrar automáticamente el contenido de una propiedad del objeto de destino.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Label_Preview.png" class="image"><img alt="Draft Label Preview.png" src="640px-Draft_Label_Preview.png" width="640" height="452" srcset="/wiki/images/5/5a/Draft_Label_Preview.png 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_FEM">Ambiente de Trabajo FEM</span></h2>
+<ul><li> FEM Mesh
+<ul><li> <b>Objeto Gmsh</b> es un objeto de malla, que permite usar la herramienta de malla Gmesh dentro de FreeCAD. Varias opciones de Gmesh son compatibles.</li>
+<li> <b>Objeto de capa límite para gmsh</b> hace posible crear una capa límite.</li>
+<li> <b>Objeto de grupo de malla para gmsh</b> hace posible crear nodos y grupos de elementos. Los nombres pueden ser cambiados por el usuario.</li>
+<li> <b>Objeto de malla de región para gmsh</b> hace posible definir regiones de malla con diferentes tamaños de elementos de malla para nodos, bordes, caras y volúmenes.</li>
+<li> <b>GUI clear mesh tool</b> borra la malla pero mantiene todos los ajustes de malla. Esto es muy útil si los archivos deben ser compartidos.</li>
+<li> <b>GUI print mesh information tool</b> imprime todo tipo de información de malla.</li>
+<li> <b>Proveedor de vista de malla GUI</b> puede mostrar malla de cuádruple cara así como elementos de malla hexadecimal, pentaeder y de pirámide.</li>
+<li> <b> Modelo de datos de malla </b>se actualizó a SMESH a la versión 7.7.1 <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/commit/666a3e5a">https://github.com/FreeCAD/FreeCAD/commit/666a3e5a</a></li>
+<li> <b>Mesh API</b> se extendió para leer los datos del grupo de malla de los datos de malla de FreeCAD SMESH FEM por Python. Esta fue la base para el objeto grupal Gmsh.</li>
+<li> <b>Mesh API</b> se amplió para exportar grupos de malla al formato de archivo inp Abaqus y CalculiX.</li>
+<li> <b>Herramienta de malla 2 de malla FEM</b>convierte una superficie de una malla de volumen en una malla para el módulo de malla de FreeCAD.</li>
+<li> <b>Problemas de malla:</b>Los Jacobianos no positivos son un problema frecuente en las mallas FEM. Los elementos que tienen Jacobianos no positivos en el solver CalculiX están coloreados en FreeCAD.</li>
+<li> <b>Fenics</b> Se ha agregado la importación y exportación del formato de malla Fenics.</li></ul></li></ul>
+<ul><li> Objetos
+<ul><li> <b>Objeto de rotación de haz</b> permite el análisis de haces girados alrededor de su eje principal.</li>
+<li> <b>Objeto material no lineal</b> agrega comportamiento de material no lineal a FreeCAD FEM. Es compatible con el cambio lineal de la curva de tensión de esfuerzo.</li>
+<li> <b>Material fluido</b> ...</li>
+<li> <b>Velocidad de flujo inicial de restricción</b> ...</li>
+<li> <b>Límite de fluido de restricción</b></li>
+<li> <b>Potencial electrostático de restricción</b> ...</li>
+<li> <b>Fuente de calor del cuerpo de restricción</b> ...</li>
+<li> <b>Transformación de restricción</b> ...</li>
+<li> <b>Temperatura de restricción</b> ...</li>
+<li> <b>Contacto de restricción</b> ...</li>
+<li> <b>Rotación del plano de restricción</b> ...</li>
+<li> <b>Restricción del peso propio</b> ...</li></ul></li></ul>
+<ul><li> Solver
+<ul><li> <b>Solver frame work</b> se escribió desde cero durante un proyecto de Google Summer of Code.</li>
+<li> Se agregó soporte para el software de solución FEM <b>ElmerFEM</b>, <a rel="nofollow" class="external free" href="https://www.csc.fi/web/elmer">https://www.csc.fi/web/elmer</a>.</li>
+<li> Dentro del trabajo del Solver frame work, el tipo de análisis puede ser elegido por un <b>objeto de ecuación</b> (solo para Elmer Solver, ATM)</li>
+<li> Se agregó compatibilidad básica para el software de solución FEM <b>Z88</b>, <a rel="nofollow" class="external free" href="https://en.z88.de/z88os/">https://en.z88.de/z88os/</a>.</li>
+<li> <b>CalculiX</b> fue portado al Solver frame work. El objeto de resolución de ccxtools permanece en FreeCAD FEM porque está muy bien probado y tiene controles previos ampliados.</li></ul></li></ul>
+<ul><li> Calculix Analysis
+<ul><li> <b>Análisis estructural térmico acoplado</b> ...</li>
+<li> <b>Análisis de análisis de flujo de tubería 1D</b> ...</li>
+<li> <b>Modelos acoplados de Beam Shell Solid</b>...</li></ul></li></ul>
+<ul><li> Post Procesamiento Estandar
+<ul><li> <b>Shell and beam 3D output</b> Permite emitir el análisis de vigas y revestimiento como un 3D sólido para ver las tensiones en secciones.</li>
+<li> <b>Peeq strain</b> Se ha agregado soporte para deformación plástica equivalente al objeto de resultado, lector de resultados y procesamiento posterior de vtk.</li></ul></li></ul>
+<ul><li> Post Processing Extendido
+<ul><li> <i> 'VTK' 'Se agregó un postprocesamiento ampliado basado en VTK.</i></li>
+<li> <b>Filtro de clips</b> ...</li>
+<li> <b>Filtro de clip escalar</b> ...</li>
+<li> <b>Cut filter</b> ...</li>
+<li> <b>Ajustar filtro vectorial</b> ...</li>
+<li> <b>Tensiones linealizadas</b> ...</li>
+<li> <b>Datos en el punto</b> Una herramienta para obtener los datos del resultado para un punto específico.</li>
+<li> <b>Datos a lo largo de la línea</b> Una herramienta para obtener los resultados de una línea específica impresa como un diagrama.</li></ul></li></ul>
+<ul><li> Arreglos, código y otras cosas
+<ul><li> Se ha ampliado el "conjunto de pruebas unitarias" para el Ambiente de Trabajo FEM.</li>
+<li> La <b>base del código</b> ha sido mejorada enormemente.</li>
+<li> La mayoría del código FEM ha sido portado a <b>Python3</b>.</li>
+<li> Además, se han encontrado <b>toneladas de errores</b> que fueron arreglados.</li>
+<li> Todos los <b>íconos</b> han sido redibujados suigiendo las pautas.</li>
+<li> <b>Formateo de código</b> No debe haber más pestañas y espacios en blanco en todo el código fuente de FEM.</li>
+<li> Los códigos Python están de acuerdo con la mayoría de las reglas de <b>flake8</b>.</li>
+<li> Se corrigieron docenas de <b>errores tipográficos</b>dentro del código fuente (hasta donde sé, esto se aplica a todo FreeCAD, luzpaz los encuentra a todos como encontrar una aguja en el pajar).</li></ul></li></ul>
+<ul><li> Algunas Imágenes</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Bridge-all.png" class="image"><img alt="Bridge-all.png" src="640px-Bridge-all.png" width="640" height="321" srcset="/wiki/images/thumb/f/f0/Bridge-all.png/960px-Bridge-all.png 1.5x, /wiki/images/thumb/f/f0/Bridge-all.png/1280px-Bridge-all.png 2x" /></a>
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Bridge-detail.png" class="image"><img alt="Bridge-detail.png" src="640px-Bridge-detail.png" width="640" height="321" srcset="/wiki/images/thumb/4/49/Bridge-detail.png/960px-Bridge-detail.png 1.5x, /wiki/images/thumb/4/49/Bridge-detail.png/1280px-Bridge-detail.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Part">Ambiente de Trabajo Part</span></h2>
+<ul><li> El kernel de modelado geométrico de Open Cascade se actualizó de 6.8.0 a 7.2.0 (la versión real de OCC puede depender de la plataforma / distro). Esta versión trae una gran cantidad de correcciones de errores en operaciones booleanas, algoritmo de eliminación de línea oculta, y permite agregar nuevas características al Ambiente de Trabajo Part.</li></ul>
+<ul><li> Nuevas funciones: <a href="Part_BooleanFragments.html" title="Part BooleanFragments"> Boolean Fragments</a>, <a href="Part_Slice.html" title="Part Slice"> Slice</a> y <a href="https://www.freecadweb.org/wiki/index.php?title=Part_XOR&amp;action=edit&amp;redlink=1" class="new" title="Part XOR (page does not exist)"> XOR</a>.</li></ul>
+<ul><li> Gracias a las nuevas características anteriores, los sólidos compuestos (compsolids) ahora se pueden crear en FreeCAD. Son de gran utilidad en FEM.</li></ul>
+<ul><li> <a href="Part_JoinConnect.html" title="Part JoinConnect"> Connect</a> Se mejoró el rendimiento y la confiabilidad, y la herramienta se hizo más versátil.</li></ul>
+<ul><li> Nueva función: <a href="Part_Offset2D.html" title="Part Offset2D">2D Offset</a>, para hacer offset sobre planar wires.</li></ul>
+<ul><li> Mejora: la herramienta <a href="Part_Extrude.html" title="Part Extrude">Part Extrude</a> ahora admite la dirección paramétrica Normal, la dirección controlada por el borde vinculado, la inversión, la segunda longitud, el segundo ángulo de inclinación y la simétrica. Además, la casilla de verificación Make Solid ahora se marca automáticamente si se abre el cuadro de diálogo y el objeto seleccionado es un wire cerrado (por ejemplo, un sketch).</li></ul>
+<ul><li> Mejora: la herramienta <a href="Part_Revolve.html" title="Part Revolve">Part Revolve</a> ahora admite el enlace paramétrico al eje de revolución.</li></ul>
+<ul><li> La nueva utilidad <a href="Part_Attachment.html" title="Part Attachment">Part Attachment</a> accesible desde el menú <i> Part → Attachment... </i> se puede usar para unir paramétricamente la mayoría de los tipos de objetos a otra geometría.</li></ul>
+<ul><li> El nuevo <a href="Std_Part.html" title="Std Part"> Contenedor Part</a> se puede usar para agrupar la mayoría de los tipos de formas y moverlas como una unidad. También contiene planos y ejes estándar para adjuntar objetos. Servirá de base para el futuro Ambiente de trabajo Assembly al proporcionar una forma de mover partes. Está disponible en todos los bancos de trabajo desde una barra de herramientas junto con <a href="Std_Group.html" title="Std Group"> Group</a>.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_PartDesign">Ambiente de Trabajo PartDesign</span></h2>
+<p>El banco de trabajo PartDesign recibió cambios masivos, fruto de los esfuerzos combinados de múltiples desarrolladores durante un período de 5 años.
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign017-teaser-motor-core.png" class="image"><img alt="PartDesign017-teaser-motor-core.png" src="800px-PartDesign017-teaser-motor-core.png" width="800" height="425" srcset="/wiki/images/thumb/8/80/PartDesign017-teaser-motor-core.png/1200px-PartDesign017-teaser-motor-core.png 1.5x, /wiki/images/thumb/8/80/PartDesign017-teaser-motor-core.png/1600px-PartDesign017-teaser-motor-core.png 2x" /></a>
+</p>
+<ul><li> El nuevo contenedor <a href="PartDesign_Body.html" title="PartDesign Body"> Body</a> contiene una cadena de características de PartDesign que forman un único sólido contiguo. También contiene planos y ejes estándar para adjuntar objetos. Gracias al contenedor de Body, ya no es necesario mapear bocetos en las caras al agregar características. Este requisito era una limitación importante de la antigua PartDesign, que podría causar que muchos modelos se rompan con los cambios de parámetros. Por lo tanto, ahora se recomienda evitar el mapeo de bocetos en las caras siempre que sea posible.</li></ul>
+<ul><li> Nuevas funciones aditivas y sustractivas: <a href="PartDesign_CompPrimitiveAdditive.html" title="PartDesign CompPrimitiveAdditive"> Primitives</a>, <a href="PartDesign_AdditiveLoft.html" title="PartDesign AdditiveLoft"> Loft</a>, <a href="PartDesign_AdditivePipe.html" title="PartDesign AdditivePipe"> Sweep</a>, <a href="PartDesign_Thickness.html" title="PartDesign Thickness"> Thickness</a>.</li></ul>
+<ul><li> Nuevas características de referencia, que son <a href="PartDesign_Plane.html" title="PartDesign Plane"> planes</a>, <a href="PartDesign_Line.html" title="PartDesign Line"> líneas</a> y <a href="PartDesign_Point.html" title="PartDesign Point"> puntos</a> útiles para colocar sketches, alineación y servir como ejes de revolución.</li></ul>
+<ul><li> Nueva conmutación automática del banco de trabajo entre PartDesign y Sketcher. Al crear un nuevo boceto desde el entorno de trabajo de PartDesign, una vez que se establece el archivo adjunto de boceto, la interfaz de usuario cambia automáticamente al banco de trabajo de Sketcher y sus herramientas en el modo de edición. Cuando se cierra el boceto, la interfaz de usuario vuelve al banco de trabajo de PartDesign y restaura la vista a su estado anterior. Por lo tanto, las herramientas de Sketcher se eliminaron de las barras de herramientas de PartDesign para liberar espacio para las nuevas características de PartDesign.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Path">Ambiente de Trabajo Path</span></h2>
+<p>El Ambiente de trabajo Path se ha revisado de forma masiva en la versión 0.17. La revisión general vio la eliminación de todos los códigos HeeksCNC más antiguos y el reemplazo de la envoltura de la libraría python con el nuevo módulo de Path-Area. Como resultado, las operaciones se han vuelto mucho más poderosas, más rápidas, con una base de código simplificada.
+</p>
+<ul><li> El soporte para operaciones 2.5D está completo, incluidos <a href="Path_Contour.html" title="Path Contour"> contour</a>, <a href="Path_MillFace.html" title="Path MillFace"> face-milling</a>, <a href="Path_Pocket_Shape.html" title="Path Pocket Shape"> pocketing</a>, <a href="Path_ProfileFace.html" title="Path ProfileFace"> perfiling</a>, y <a href="Path_Drilling.html" title="Path Drilling"> drilling</a>.</li></ul>
+<ul><li> Soporte limitado para operaciones <a href="Path_Pocket_3D.html" title="Path Pocket 3D"> 3D pocketing</a>.</li></ul>
+<ul><li> Path puede usar <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> como objeto base para agrupar varias partes para el corte 2D.</li></ul>
+<ul><li> Introducción de <a href="Path_Job.html" title="Path Job">Path Job</a>. El "Job" ahora es un objeto central del flujo de trabajo de path. Organiza y coordina múltiples operaciones, herramientas, material de stock, orientación de partes y alineación. Un Job personalizado puede guardarse como una 'Plantilla de trabajo' y reutilizarse para simplificar la configuración de trabajos futuros. Job SetupSheets proporciona un mecanismo para automatizar la configuración de la profundidad y la configuración de velocidad.</li></ul>
+<ul><li> Todas las operaciones tienen una consistente organización del panel de tareas</li></ul>
+<ul><li> <a href="Path_Post.html" title="Path Post"> post-processors</a> nuevos o mejorados para LinuxCNC, Smoothieboard, GRBL, Phillips, OpenSBP (shopbot), Roland Modela, Centroid, Fablin y Dynapath. La mayoría de los postprocesadores admiten argumentos.</li></ul>
+<ul><li> Mejorado <a href="Path_ToolLibraryEdit.html" title="Path ToolLibraryEdit"> tool library</a> y editor.</li></ul>
+<ul><li> La herramienta <a href="Path_Inspect.html" title="Path Inspect">Path Inspect</a> permite resaltar comandos individuales para visualizar la ruta y explorar gcode.</li></ul>
+<ul><li> La herramienta <a href="Path_Simulator.html" title="Path Simulator">Path Simulator</a> realiza un corte simulado en 3D para visualizar la ejecución de Path.</li></ul>
+<ul><li> Las operaciones de Dress-up pueden usarse para refinar las operaciones principales y agregar complejidad adicional. Existen Dressups para <a href="Path_DressupDogbone.html" title="Path DressupDogbone"> 'dogbone'</a> corners, <a href="Path_DressupTag.html" title="Path DressupTag"> etiquetas de retención</a>, <a href="Path_DressupRampEntry.html" title="Path DressupRampEntry"> ramp entry</a>, y <a href="Path_DressupDragKnife.html" title="Path DressupDragKnife"> dragknife</a> 'corner actions'</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Sketcher">Ambiente de Trabajo Sketcher</span></h2>
+<ul><li> Los sketches ahora pueden adjuntarse en una amplia variedad de formas, no solo para caras planas como solían ser. De particular importancia es el accesorio perpendicular a los bordes, útil para hacer perfiles para <a href="Part_Sweep.html" title="Part Sweep">sweeping</a>.</li></ul>
+<ul><li> Los enlaces de geometría externa ya no están limitados solo al objeto al que se asigna el croquis. La geometría de otros bocetos es compatible. Los enlaces de geometría externa se pueden crear dentro de un Part container, o un contenedor Body, o incluso un proyecto completo si no se usan contenedores de Part y Body.</li></ul>
+<ul><li> Automatización de visibilidad: ahora, cuando comienza a editar un sketch, los objetos que dependen de él se ocultan automáticamente para despejar la vista, y los objetos utilizados para los enlaces de geometría externos se muestran automáticamente; las visibilidades antiguas se restauran al cerrar el sketch.</li></ul>
+<ul><li> Nuevo modo de creación continua de restricción: las herramientas de restricción ahora están activas incluso sin ningún elemento seleccionado. Presione una restricción, luego seleccione los objetos para aplicar la restricción.</li></ul>
+<ul><li> Nuevo arco de hipérbola y arco de herramientas de creación de parábolas.</li></ul>
+<ul><li> Nueva herramienta de edición de Extend bordes .</li></ul>
+<ul><li> Nueva herramienta de creación B-spline, con muchas formas de controlar curvas (grado, multiplicidad de nudos, punto de control del peso) e información de visualización (polígono de control, cresta de curvatura, indicador de multiplicidad de nudos).</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FC017_Sketcher_B-spline_01.png" class="image"><img alt="FC017 Sketcher B-spline 01.png" src="FC017_Sketcher_B-spline_01.png" width="590" height="422" /></a>
+</p>
+<ul><li> Nueva herramienta <b>Carbon Copy</b> para copiar la geometría de otro sketch.</li></ul>
+<ul><li> El espacio virtual cambia todas las restricciones a un "espacio virtual" diferente, de hecho, los oculta de la vista.</li></ul>
+<ul><li> La caja de Constraints List incluye la capacidad de ocultar la alineación interna, así como el ocultamiento individual de las restricciones con una casilla de verificación.</li></ul>
+<ul><li> El Block constrain elimina todos los grados de libertad para un elemento de geometría en el lugar con el uso de una única restricción. Debería ser particularmente útil trabajar con B-Splines, que son engorrosos de restringir.</li></ul>
+<ul><li> Nuevo polígono regular con número de lados definido por el usuario.</li></ul>
+<ul><li> Solucionadores de bosquejos alternativos disponibles a través de "Mostrar control de solucionador avanzado en la barra de tareas" en las preferencias de Sketcher.</li></ul>
+<ul><li> Geometry style based rendering order permite reordenar entre geometría normal, de construcción y externa. Útil cuando este tipo de geometría se superpone.</li></ul>
+<ul><li> Ahora, el solver sustituye automáticamente una combinación de restricción coincidente + tangente con una restricción tangente punto a punto, ya que el primero es un uso incorrecto que induce un error de tolerancia que puede causar problemas adicionales en el modelo. El usuario es advertido de la sustitución por un cuadro de diálogo que se puede desactivar en las preferencias de Sketcher desactivando "Notificar sustituciones de restricciones automáticas".</li></ul>
+<ul><li> Nueva casilla de verificación en la vista de tareas del modo de edición "Evitar restricciones automáticas redundantes"</li></ul>
+<ul><li> Las restricciones horizontales y verticales se pueden usar para alinear los puntos seleccionados.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Spreadsheet">Ambiente de Trabajo Spreadsheet</span></h2>
+<ul><li> Se agregó un importador de archivos de Excel.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_Surface">Ambiente de Trabajo Surface</span></h2>
+<ul><li> Una nueva adición en v0.17, por ahora el Ambiente de trabajo Surface tiene 4 comandos de creación de superficie.</li></ul>
+<h2><span class="mw-headline" id="Ambiente_de_Trabajo_TechDraw">Ambiente de Trabajo TechDraw</span></h2>
+<p><a href="TechDraw_Module.html" title="TechDraw Module"> TechDraw</a> es un nuevo ambiente de trabajo para la creación de dibujos técnicos que tiene como objetivo reemplazar el viejo ambiente de trabajo Drawing. FreeCAD v0.17 todavía incluye el ambiente de trabajo Drawing, por lo que aún puede abrir y editar sus archivos que contienen páginas de Drawing, pero Drawing se eliminará en una versión futura. Algunas de las cosas nuevas y emocionantes que TechDraw trae:
+</p>
+<ul><li> La mayoría de las herramientas del Ambiente de trabajo Drawing tienen una contraparte de TechDraw.</li>
+<li> Creación y manipulación de vistas más fáciles. Las vistas se pueden tomar por su borde con el mouse y arrastradas por la página. La alineación de vistas ortogonales se puede bloquear.</li>
+<li> Mejor gestión del tipo de línea (duro, suave, iso, costura). Mejor eliminación de línea oculta gracias a una biblioteca actualizada <a href="/wiki/Glossary#_OCC" title="Glossary"> OCC</a>.</li>
+<li> Vista de sección, creación de vista de detalle.</li>
+<li> Mejor gestión de plantillas.</li>
+<li> Dimensionamiento ahora es compatible, a través de herramientas de múltiples dimensiones: horizontal, vertical, longitud, radial, diámetro, angular.</li>
+<li> Herramientas de decoración: hatching, hatching compatible con la especificación Autodesk PAT, símbolos, imágenes.</li></ul>
+<h2><span class="mw-headline" id="M.C3.B3dulos_Adicionales">Módulos Adicionales</span></h2>
+<p>Algunos de los nuevos módulos de comunidad que se crearon.
+</p>
+<ul><li> <a href="Manipulator_Workbench.html" title="Manipulator Workbench"> Manipulator Workbench</a> está destinado a ayudar en la alineación, movimiento, rotación y medición de objetos 3D (Part Design permitido) a través de una interfaz gráfica de usuario amigable. </li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/tomate44/CurvesWB">Curves</a>, una colección de herramientas para crear y editar curvas y superficies NURBS.</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/microelly2/freecad-nurbs">Nurbs</a>, una colección de scripts para gestionar superficies y curvas de forma libre.</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/edwardvmills/Silk">Silk</a>, una colección de herramientas de modelado de superficies NURBS enfocadas en bajo grado y continuidad de costura.</li></ul>
+<ul><li> <a href="Flamingo_Workbench.html" title="Flamingo Workbench"> Flamingo Workbench</a>, un conjunto de comandos y objetos personalizados de FreeCAD que ayudan a acelerar el dibujo de marcos y tuberías.</li></ul>
+<ul><li> <a href="Civil_Engineering_Workbench.html" title="Civil Engineering Workbench"> Ambiente de Trabajo para Ingeniería civil / transporte</a></li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/juanvanyo/FreeCAD-GDT">GDT</a>, dimensionamiento geométrico y tolerancias (GD &amp; T).</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/jmplonka/InventorLoader">InventorLoader</a> para importar archivos de Autodesk Inventor (en desarrollo).</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/KicadStepUp_Workbench">Kicad StepUp Workbench</a> está destinado a ayudar a los usuarios de KiCad y FreeCAD en la colaboración ECAD y MCAD.</li></ul>
+<p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.17/es&amp;oldid=276339">http://www.freecadweb.org/wiki/index.php?title=Release_notes_0.17/es&amp;oldid=276339</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

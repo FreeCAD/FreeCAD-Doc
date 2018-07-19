@@ -1,0 +1,86 @@
+<html><head><title>Branding/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Branding/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Эта статья описывает <b>Брендинг</b>  FreeCAD. Брендинг средств для начала вашего собственного приложения основанного на FreeCAD. Это может быть как ваш собственный исполняемый файл или загрузочная картинка так и полностью переработанная программа. На базе гибкой архитектуры FreeCAD, её легко использовать как основу для собственной целевой программы.
+</p>
+<h3><span class="mw-headline" id=".D0.93.D0.BB.D0.B0.D0.B2.D0.BD.D0.BE.D0.B5">Главное</span></h3>
+<p>Болшинство брендинга(не знаю как с этим словом обращаться) делается в <b>MainCmd.cpp<i> или </i>MainGui.cpp</b>. Эти Проекты генерируют исполняемые файлы FreeCAD. Чтобы сделать ваш собственный Бренд просто скопируйте Main или MainGui проекты и дайте исполняемым файлам собственное имя, например FooApp.exe. 
+Наиболее важные настройки для нового облика можно сделать в одном месте в main() функции. Вот участок кода, который управляет брендингом:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> int main( int argc, char ** argv )
+ {
+   // Name and Version of the Application
+   App::Application::Config()["ExeName"] = "FooApp";
+   App::Application::Config()["ExeVersion"] = "0.7";
+ 
+   // set the banner (for loging and console)
+   App::Application::Config()["CopyrightInfo"] = sBanner;
+   App::Application::Config()["AppIcon"] = "FooAppIcon";
+   App::Application::Config()["SplashScreen"] = "FooAppSplasher";
+   App::Application::Config()["StartWorkbench"] = "Part design";
+   App::Application::Config()["HiddenDockWindow"] = "Property editor";
+   App::Application::Config()["SplashAlignment" ] = "Bottom|Left";
+   App::Application::Config()["SplashTextColor" ] = "#000000"; // black
+ 
+   // Inits the Application 
+   App::Application::Config()["RunMode"] = "Gui";
+   App::Application::init(argc,argv);
+ 
+   Gui::BitmapFactory().addXPM("FooAppSplasher", ( const char** ) splash_screen);
+ 
+   Gui::Application::initApplication();
+   Gui::Application::runApplication();
+   App::Application::destruct();
+ 
+   return 0;
+ }</pre></div>
+<p>Первая запись Config определяет название программы. Это не имя исполняемого файла, который может быть изменен путем переименования или настройки компилятора, а имя, которое отображается в панели задач в Windows или в списке программ в Unix системах.
+</p><p>Следующие строки определяют Config записи вашего FooApp Приложения. Описание Config и его элементов вы можете найти в  <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/ru" title="Start up and Configuration/ru">запуске и конфигурации</a>.
+</p>
+<h3><span class="mw-headline" id="Images">Images</span></h3>
+<p>Image resources are compiled into FreeCAD using <a rel="nofollow" class="external text" href="http://qt-project.org/doc/qt-4.8/resources.html">Qt's resource system</a>. Therefore you have to write a .qrc file, an XML-based file format that lists image files on the disk but also any other kind of resource files. To load the compiled resources inside the application you have to add a line
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> Q_INIT_RESOURCE(FooApp);</pre></div>
+<p>into the main() function. Alternatively, if you have an image in XPM format you can directly include it into your main.cpp and add the following line to register it:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> Gui::BitmapFactory().addXPM("FooAppSplasher", ( const char** ) splash_screen);</pre></div>
+<h3><span class="mw-headline" id="Branding_XML">Branding XML</span></h3>
+<p>In FreeCAD there is also a method supported without writing a customized main() function. For this method you must write a file name called branding.xml and put it into the installation directory of FreeCAD. Here is an example with all supported tags:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> &lt;?xml version="1.0" encoding="utf-8"?>
+ &lt;Branding>
+ &lt;Application>FooApp&lt;/Application>
+ &lt;WindowTitle>Foo App in title bar&lt;/WindowTitle>
+ &lt;BuildVersionMajor>1&lt;/BuildVersionMajor>
+ &lt;BuildVersionMinor>0&lt;/BuildVersionMinor>
+ &lt;BuildRevision>1234&lt;/BuildRevision>
+ &lt;BuildRevisionDate>2014/1/1&lt;/BuildRevisionDate>
+ &lt;CopyrightInfo>(c) My copyright&lt;/CopyrightInfo>
+ &lt;MaintainerUrl>Foo App URL&lt;/MaintainerUrl>
+ &lt;ProgramLogo>Path to logo (appears in bottom right corner)&lt;/ProgramLogo>
+ &lt;WindowIcon>Path to icon file&lt;/WindowIcon>
+ &lt;ProgramIcons>Path to program icons&lt;/ProgramIcons>
+ &lt;SplashScreen>splashscreen.png&lt;/SplashScreen>
+ &lt;SplashAlignment>Bottom|Left&lt;/SplashAlignment>
+ &lt;SplashTextColor>#ffffff&lt;/SplashTextColor>
+ &lt;SplashInfoColor>#c8c8c8&lt;/SplashInfoColor>
+ &lt;StartWorkbench>PartDesignWorkbench&lt;/StartWorkbench>
+ &lt;/Branding></pre></div>
+<p>All of the listed tags are optional.
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Branding/ru&amp;oldid=114394">http://www.freecadweb.org/wiki/index.php?title=Branding/ru&amp;oldid=114394</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

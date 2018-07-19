@@ -1,0 +1,246 @@
+<html><head><title>Macro Section/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Section/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>(parametrico!)
+</p>
+<table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Sezione"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Sezione</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Implementazione alternativa di <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Section/it" title="Part Section/it">Sezione</a> (parametrica)
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:DeepSOIC" title="User:DeepSOIC">DeepSOIC</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.1
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-04-28
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Sezione"><span class="tocnumber">1</span> <span class="toctext">Sezione</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Installazione"><span class="tocnumber">2</span> <span class="toctext">Installazione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Uso:"><span class="tocnumber">3</span> <span class="toctext">Uso:</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Section_Screenshot.png" class="image"><img alt="Macro Section Screenshot.png" src="1000px-Macro_Section_Screenshot.png" width="1000" height="393" srcset="/wiki/images/b/b6/Macro_Section_Screenshot.png 1.5x" /></a>
+<p><br />
+Lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Section/it" title="Part Section/it">Part Sezione</a> produce dei bordi discontinui e gran numero di segmenti (nodi), e questo non è molto adatto per il percorso di <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sweep/it" title="Part Sweep/it">Sweep</a>.
+</p><p>Questa macro fa la stessa cosa estraendo i bordi della sezione dal risultato di una fusione generale (GFA). Il risultato è più continuo e ha meno nodi. Non è ancora perfetto per lo sweep, ma il risultato è più soddisfacente che utilizzando semplicemente la Sezione di Part.
+</p><p>Richiede FreeCAD v0.17+ built against OCC no less than 6.9.0 (testato con 7.0.0).
+</p>
+<h2><span class="mw-headline" id="Installazione">Installazione</span></h2>
+<p>Scaricare questo file e salvarlo nella directory delle macro:
+</p><p><a rel="nofollow" class="external free" href="https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Section/MacroSection.py">https://github.com/DeepSOIC/FreeCAD-Macros/raw/master/Section/MacroSection.py</a>
+</p>
+<h2><span class="mw-headline" id="Uso:">Uso:</span></h2>
+<ol><li> Selezionare due forme</li>
+<li> Nel menu di FreeCAD: Macro -&gt; Macro... -&gt; fare doppio clic su MacroSection.FCMacro . Viene creato un nuovo oggetto.</li></ol>
+<p>Dopo aver eseguito la macro una volta, puoi aggiungere un pulsante della barra degli strumenti. Vai su Strumenti-&gt; Personalizza, Barre degli strumenti, seleziona MacroSelezione nell'elenco a discesa a sinistra e aggiungi il comando a una qualsiasi delle tue barre degli strumenti personalizzate.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+MacroSection.py:
+</p>
+<pre>#***************************************************************************
+#*                                                                         *
+#*   Copyright (c) 2016 - Victor Titov (DeepSOIC)                          *
+#*                                               &lt;vv.titov@gmail.com&gt;      *  
+#*                                                                         *
+#*   This program is free software; you can redistribute it and/or modify  *
+#*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+#*   as published by the Free Software Foundation; either version 2 of     *
+#*   the License, or (at your option) any later version.                   *
+#*   for detail see the LICENCE text file.                                 *
+#*                                                                         *
+#*   This program is distributed in the hope that it will be useful,       *
+#*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+#*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+#*   GNU Library General Public License for more details.                  *
+#*                                                                         *
+#*   You should have received a copy of the GNU Library General Public     *
+#*   License along with this program; if not, write to the Free Software   *
+#*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+#*   USA                                                                   *
+#*                                                                         *
+#***************************************************************************
+
+__title__="Macro Section"
+__author__ = "DeepSOIC"
+__doc__ = '''
+Macro Section.
+Alternative implementation of Part Section tool.
+Requires FreeCAD v0.17+ and OCC 6.9.0+
+
+Instructions:
+First of all, save this macro as MacroSection.py, into a location from where it can be imported. FC's standard macro location is the best place to do that.
+
+Select two shapes to compute section between.
+Then, in Py console:
+
+import MacroSection
+MacroSection.run()
+
+OR
+
+just run this file as a macro.
+
+Parametric Section object is created.
+'''
+if __name__ == "__main__": #being run as a macro
+    import MacroSection
+    MacroSection.run()
+
+import FreeCAD as App
+if App.GuiUp:
+    import FreeCADGui as Gui
+import Part
+
+def makeSectionFeature():
+    '''makeSectionFeature(): makes a Section parametric feature object. Returns the new object.'''
+    selfobj = App.ActiveDocument.addObject("Part::FeaturePython","Section")
+    Section(selfobj)
+    ViewProviderSection(selfobj.ViewObject)
+    return selfobj
+
+class Section:
+    "The Section feature object"
+    def __init__(self,selfobj):
+        selfobj.addProperty("App::PropertyLink","Base","Section","Input shape")
+        selfobj.addProperty("App::PropertyLink","Tool","Section","Input shape")
+        selfobj.Proxy = self
+
+    def execute(self,selfobj):
+        import BOPTools
+        import BOPTools.ShapeMerge
+        from BOPTools.Utils import HashableShape
+        
+        if len(selfobj.Base.Shape.Faces) == 0 or len(selfobj.Tool.Shape.Faces) == 0:
+            raise ValueError("Shapes must have at least one face each.")
+        sh1 = Part.Compound(selfobj.Base.Shape.Faces)
+        sh2 = Part.Compound(selfobj.Tool.Shape.Faces)
+        pieces, map = sh1.generalFuse([sh2])
+        pieces = pieces.childShapes()
+        assert(len(pieces) == 2)
+        
+        edges1 = set([HashableShape(edge) for edge in pieces[0].Edges])
+        edges2 = set([HashableShape(edge) for edge in pieces[1].Edges])
+        edges_to_return = list(set.intersection(edges1, edges2))
+        edges_to_return = [edge.Shape for edge in edges_to_return] #convert hashable shapes back to plain shapes
+        print("returning {num} edges of total {tot}".format(num= len(edges_to_return), tot= len(edges1)+len(edges2)))
+        
+        selfobj.Shape = BOPTools.ShapeMerge.mergeWires(edges_to_return)
+
+class ViewProviderSection:
+    def __init__(self,vobj):
+        vobj.Proxy = self
+       
+    def getIcon(self):
+        return ":/icons/Part_Section.svg"
+
+    def attach(self, vobj):
+        self.ViewObject = vobj
+        self.Object = vobj.Object
+  
+    def __getstate__(self):
+        return None
+
+    def __setstate__(self,state):
+        return None
+
+    def claimChildren(self):
+        return [self.Object.Base, self.Object.Tool]
+        
+    def onDelete(self, feature, subelements): # subelements is a tuple of strings
+        try:
+            self.Object.Base.ViewObject.show()
+            self.Object.Tool.ViewObject.show()
+        except Exception as err:
+            App.Console.PrintError("Error in onDelete: " + err.message)
+        return True
+
+class CommandMacroSection:
+    "Command to create Section feature"
+    def GetResources(self):
+        return {'Pixmap' &#160;: ":/icons/Part_Section.svg",
+                'MenuText': "Section",
+                'Accel': "",
+                'ToolTip': "Macro_Section: alternative implementation of Part Section tool"}
+
+    def Activated(self):
+        run()
+    def IsActive(self):
+        if App.ActiveDocument:
+            return True
+        else:
+            return False
+
+if App.GuiUp:
+    Gui.addCommand("Macro_Section", CommandMacroSection())
+
+def run():
+    sel = Gui.Selection.getSelectionEx()
+    try:
+        if len(sel)&#160;!= 2:
+            raise Exception("Select two shapes to compute section between, first! Then run this macro.")
+        try:
+            App.ActiveDocument.openTransaction("Macro Section")
+            selfobj = makeSectionFeature()
+            selfobj.Base = sel[0].Object
+            selfobj.Tool = sel[1].Object
+            selfobj.Base.ViewObject.hide()
+            selfobj.Tool.ViewObject.hide()
+            
+            selfobj.Proxy.execute(selfobj)
+        finally:
+            App.ActiveDocument.commitTransaction()
+    except Exception as err:
+        from PySide import QtGui
+        mb = QtGui.QMessageBox()
+        mb.setIcon(mb.Icon.Warning)
+        mb.setText(err.message)
+        mb.setWindowTitle("Macro Section")
+        mb.exec_() </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Section/it&amp;oldid=277965">http://www.freecadweb.org/wiki/index.php?title=Macro_Section/it&amp;oldid=277965</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

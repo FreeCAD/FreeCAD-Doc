@@ -1,0 +1,133 @@
+<html><head><title>Macro JointWire/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro JointWire/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="JointWire"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> JointWire</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Toto makro umožňuje najít a spojit nespojené hrany do jedné uzavřené nespojené použitím přímky.
+<p>Jako vstup dostává matici tvarů ([shape1,, shape2,...])
+</p>
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Tremblou&amp;action=edit&amp;redlink=1" class="new" title="User:Tremblou (page does not exist)">Tremblou</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/cs" title="Macros recipes/cs">Makro návody</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/cs" title="How to install macros/cs">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/cs" title="Customize Toolbars/cs">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2011-08-24
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#JointWire"><span class="tocnumber">1</span> <span class="toctext">JointWire</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Toto makro umožňuje najít a spojit nespojené hrany do jedné uzavřené nespojené použitím přímky.
+Jako vstup dostává matici tvarů ([shape1,, shape2,...])
+</p><p><br />
+</p>
+<pre>def findWires(edges):
+    def verts(shape):
+                return [shape.Vertexes[0].Point,shape.Vertexes[-1].Point]
+        def group(shapes):
+                shapesIn = shapes[:]
+                pointTst = []
+        pointOut =[]
+        for s in shapesIn&#160;:
+            pointTst=pointTst+[s.Vertexes[0].Point]
+            pointTst=pointTst+[s.Vertexes[-1].Point]
+        print pointTst               
+        changed = False
+                for s in shapesIn:
+                        if len(s.Vertexes) &lt; 2:
+                print "one vertex, its a circle, just add"
+                        else:                             
+                                for v in verts(s):
+                    twoDot=0
+                                        for vv in pointTst:
+                                                if v == vv:
+                            twoDot=twoDot+1                           
+                        if v==vv and twoDot==2&#160;:                   
+                            changed = True
+                            print "found matching vert"
+                            break
+                                    if twoDot&lt;2:
+                        print "didn't find any matching vert..."
+                        pointOut.append(v)
+         print "Dots non connected", pointOut
+                return(changed,pointOut)
+    def joint(point):
+        for p in range(len(point)/2)&#160;:
+            print point
+            deltI=Part.Vertex(100,100,100).Point
+            pos=1
+            for pp in range(len(point)-1)&#160;:
+                print "position:",pp+1
+                if len(point)-1&gt;1:
+                    deltN=(point[0]-point[pp+1])
+                    if deltN.Length&lt;deltI.Length:
+                        deltI=deltN
+                        pos=pp+1
+                        print "changement",pos
+                else:
+                    pos=1   
+            print "points a joindre",point[0],point[pos]
+            if point[0]!=point[pos]:
+                Part.show(Part.makePolygon([point[0],point[pos]]))
+            else:
+                print "WARNING les points ont la meme valeurs "
+            point.pop(0)
+            point.pop(pos-1)
+        point=0 #to have a return normally void
+        return(point)
+    working = True
+        edgeSet = edges
+    result = group(edgeSet)
+        working = result[0]
+        edgeSet = result[1]
+    joint(result[1])
+        return result[1] </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_JointWire/cs&amp;oldid=240801">http://www.freecadweb.org/wiki/index.php?title=Macro_JointWire/cs&amp;oldid=240801</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

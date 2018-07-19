@@ -1,0 +1,193 @@
+<html><head><title>Module Creation/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Module Creation/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>FreeCADでの新しいモジュールとワークベンチの追加はとても簡単です。ここで言うモジュールとはFreeCADの任意の拡張機能のことで、ワークベンチとはいくつかのツールバーとメニューをまとめた特別なGUI設定のことです。通常は独自のワークベンチを備えた新しいモジュールを作ります。
+</p><p>モジュールはC++またはPythonまたはそれらを混ぜたものでプログラムされます。ただしモジュールの初期化ファイルは必ずPythonでなければなりません。初期化ファイルでの新しいモジュールの設定は簡単で、手作業でも行えますしFreeCADのビルドツールでも行えます。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#FreeCAD.E3.83.93.E3.83.AB.E3.83.89.E3.83.84.E3.83.BC.E3.83.AB"><span class="tocnumber">1</span> <span class="toctext">FreeCADビルドツール</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E6.96.B0.E3.81.97.E3.81.84.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.82.92.E6.89.8B.E4.BD.9C.E6.A5.AD.E3.81.A7.E8.A8.AD.E5.AE.9A.E3.81.99.E3.82.8B"><span class="tocnumber">2</span> <span class="toctext">新しいモジュールを手作業で設定する</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E6.96.B0.E3.81.97.E3.81.84.E3.83.AF.E3.83.BC.E3.82.AF.E3.83.99.E3.83.B3.E3.83.81.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">3</span> <span class="toctext">新しいワークベンチの作成</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Python.E3.81.A7.E3.81.AEFreeCAD.E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">4</span> <span class="toctext">PythonでのFreeCADコマンドの作成</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#C.2B.2B.E3.81.A7.E3.81.AEFreeCAD.E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">5</span> <span class="toctext">C++でのFreeCADコマンドの作成</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="FreeCAD.E3.83.93.E3.83.AB.E3.83.89.E3.83.84.E3.83.BC.E3.83.AB">FreeCADビルドツール</span></h2>
+<p>FreeCADでの<b>新しいアプリケーションモジュールの作成</b>は非常に単純です。FreeCADの開発ツリーの中には<i><a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Build_Tool/jp" title="FreeCAD Build Tool/jp">FreeCADビルドツール</a></i> (fcbt)が存在し、これがあなたにとって最も重要なものになります。
+</p>
+<pre>trunk/src/Tools/fcbt.py
+</pre>
+<p>の下にある<a href="http://en.wikipedia.org/wiki/Python_(programming_language)" class="extiw" title="wikipedia:Python (programming language)">Python</a>スクリプトがそれです。Pythonインタプリタが正しくインストールされていればこのスクリプトを次のコマンドラインで実行できます。
+</p>
+<pre>python fcbt.py
+</pre>
+<p>すると次の様なメニューが表示されます：
+</p>
+<pre>FreeCAD Build Tool
+Usage:
+   fcbt &lt;command name&gt; [command parameter] 
+possible commands are:
+ - DistSrc         (DS)   Build a source Distr. of the current source tree
+ - DistBin         (DB)   Build a binary Distr. of the current source tree
+ - DistSetup       (DI)   Build a Setup Distr. of the current source tree
+ - DistSetup       (DUI)  Build a User Setup Distr. of the current source tree
+ - DistAll         (DA)   Run all three above modules
+ - BuildDoc        (BD)   Create the documentation (source docs)
+ - NextBuildNumber (NBN)  Increase the Build Number of this Version
+ - CreateModule    (CM)   Insert a new FreeCAD Module in the module directory
+
+For help on the modules type:
+  fcbt &lt;command name&gt;&#160;?
+</pre>
+<p>コマンドプロンプトに<i>CM</i>と入力するとモジュールの作成が開始します：
+</p>
+<pre>Insert command: <i>CM</i>
+</pre>
+<p>次にあなたの新しいモジュールの名前を指定するように促されます：
+</p>
+<pre>Please enter a name for your application: <i>TestMod</i>
+</pre>
+<p><i>エンター</i>を押すとfcbtはあなたのモジュールが必要とする全てのファイルを次の新しいフォルダにコピーします：
+</p>
+<pre>trunk/src/Mod/TestMod/
+</pre>
+<p>次にファイル全てに対してあなたの新しいモジュールの名前での変更が行われます。それが終われば後はあなたのワークスペース（Windows）またはmakefileのターゲット（UNIX）に"appTestMod"と"appTestModGui"の二つの新しいプロジェクトを追加するだけです。これで終わりです！
+</p>
+<h2><span class="mw-headline" id=".E6.96.B0.E3.81.97.E3.81.84.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.82.92.E6.89.8B.E4.BD.9C.E6.A5.AD.E3.81.A7.E8.A8.AD.E5.AE.9A.E3.81.99.E3.82.8B">新しいモジュールを手作業で設定する</span></h2>
+<p>新しいモジュールを作るためには二つの作業が必要です：
+</p>
+<ul><li> FreeCADのModフォルダ（インストールパス/FreeCAD/Modまたはユーザーパス/.FreeCAD/Modのどちらか）に新しい<b>フォルダ</b>を作成。名前は好きなものを使用できます。</li>
+<li> そのフォルダの中に<b>InitGui.py</b>ファイルを置きます。このファイルはFreeCAD起動時に自動で実行されます（例えば中にprint("hello world")と書いてみてください）。</li></ul>
+<p>さらに<b>Init.py</b>ファイルを置くこともできます。InitGui.pyファイルがFreeCADをGUIモードで実行した時にしか読み込まれないのに対してInit.pyファイルは常に読み込まれます。ただしワークベンチを作成しようとする場合にはInitGui.pyを置きましょう。言うまでもなくワークベンチはGUIでしか使用されないからです。
+</p>
+<h2><span class="mw-headline" id=".E6.96.B0.E3.81.97.E3.81.84.E3.83.AF.E3.83.BC.E3.82.AF.E3.83.99.E3.83.B3.E3.83.81.E3.81.AE.E4.BD.9C.E6.88.90">新しいワークベンチの作成</span></h2>
+<p>InitGui.pyファイルの中でまず行いたいのはワークベンチを定義することです。以下にあなたが使うことのできる最小のコードを記載しておきます：
+</p>
+<pre>class MyWorkbench ( Workbench ):
+"My workbench object"
+Icon = """
+/* XPM */
+static const char *test_icon[]={
+"16 16 2 1",
+"a c #000000",
+". c None",
+"................",
+"................",
+"..############..",
+"..############..",
+"..############..",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"................",
+"................"};
+"""
+MenuText = "My Workbench"
+ToolTip = "This is my extraordinary workbench"
+
+        def GetClassName(self):
+               return "Gui::PythonWorkbench"
+
+def Initialize(self):
+import myModule1, myModule2
+self.appendToolbar("My Tools", ["MyCommand1","MyCommand2"])
+self.appendMenu("My Tools", ["MyCommand1","MyCommand2"])
+Log ("Loading MyModule... done\n")
+
+def Activated(self):
+               # 必要な場合はここで処理を行う...
+Msg ("MyWorkbench.Activated()\n")
+
+def Deactivated(self):
+               # 必要な場合はここで処理を行う...
+Msg ("MyWorkbench.Deactivated()\n")
+
+FreeCADGui.addWorkbench(MyWorkbench)
+</pre>
+<p>ワークベンチには次の属性が全て定義されている必要があります：
+</p>
+<ul><li> Icon。XPM画像です（GIMPを始めとしたほとんどのソフトウェアで画像をテキストファイルであるXPM形式に変換できます。変換した内容をここにペーストしてください）。</li>
+<li> MenuText。ワークベンチリストに表示されるワークベンチ名です。</li>
+<li> Tooltip。マウスオーバーした際に表示されます。</li>
+<li> Initialize()。FreeCAD起動の際に実行され、ここでワークベンチが使用する全てのメニューとツールバーが作成されなければなりません。モジュールをC++で作成する場合はこのInitGui.pyファイルの中ではなくC++モジュールの中でメニューとツールバーを定義することもできます。大事なのはモジュールがアクティブ化された時ではなく、今、メニューとツールバーを作成することなのです。</li>
+<li> Activated()。ユーザーがあなたのワークベンチに切り替えた際に実行されます。</li>
+<li> Deactivated()。ユーザーがあなたのワークベンチから他のワークベンチに切り替えるか、FreeCADを終了した際に実行されます。</li></ul>
+<h2><span class="mw-headline" id="Python.E3.81.A7.E3.81.AEFreeCAD.E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.81.AE.E4.BD.9C.E6.88.90">PythonでのFreeCADコマンドの作成</span></h2>
+<p>通常、自作ツール（FreeCADではコマンドと呼ばれます）は全て他のモジュールに定義してツールバーやメニューが作成される前にそのモジュールをインポートするようにします。以下にあなたがコマンドの定義で使うことのできる最小のコードを記載しておきます：
+</p>
+<pre>import FreeCAD,FreeCADGui
+
+class MyTool:
+"My tool object"
+
+       def GetResources(self):
+               return {"MenuText": "My Command",
+                       "Accel": "Ctrl+M",
+                       "ToolTip": "My extraordinary command",
+                       "Pixmap" &#160;: """
+/* XPM */
+static const char *test_icon[]={
+"16 16 2 1",
+"a c #000000",
+". c None",
+"................",
+"................",
+"..############..",
+"..############..",
+"..############..",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"......####......",
+"................",
+"................"};
+"""}
+
+       def IsActive(self):
+               if FreeCAD.ActiveDocument == None:
+                       return False
+               else:
+                       return True
+
+def Activated(self):
+               # ここで何か処理する...
+
+FreeCADGui.addCommand('MyCommand1',MyTool())
+</pre>
+<ul><li> GetResources()メソッドはツールの視覚属性が入った辞書を返さなければなりません。Accelでショートカットキーが定義されますがこれは必須ではありません。</li>
+<li> IsActive()メソッドはメニューやツールバー内でコマンドがアクティブか、グレーアウトしているかを定義します。</li>
+<li> Activated()メソッドはツールバーボタン、メニューまたはスクリプトによってコマンドが呼ばれた際に実行されます。</li></ul>
+<h2><span class="mw-headline" id="C.2B.2B.E3.81.A7.E3.81.AEFreeCAD.E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.81.AE.E4.BD.9C.E6.88.90">C++でのFreeCADコマンドの作成</span></h2>
+<p>ドキュメント作成予定
+</p><p><br />
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Module_Creation/jp&amp;oldid=211457">http://www.freecadweb.org/wiki/index.php?title=Module_Creation/jp&amp;oldid=211457</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

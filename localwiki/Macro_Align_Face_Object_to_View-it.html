@@ -1,0 +1,101 @@
+<html><head><title>Macro Align Face Object to View/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Align Face Object to View/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Allinea_la_faccia_dell.27oggetto_alla_vista"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Allinea la faccia dell'oggetto alla vista</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Questa macro dirige la faccia dell'oggetto sul lato del ActiveView.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-01-16
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Allinea_la_faccia_dell.27oggetto_alla_vista"><span class="tocnumber">1</span> <span class="toctext">Allinea la faccia dell'oggetto alla vista</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Uso"><span class="tocnumber">3</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Questa macro orienta la faccia dell'oggetto verso la ActiveView (telecamera).
+Nel caso della faccia di un foro (o di una faccia interna o di un cilindro) orienta la faccia della foratura verso lo schermo.
+</p>
+<h2><span class="mw-headline" id="Uso">Uso</span></h2>
+<ul><li> Selezionare l'oggetto ed eseguire la macro</li>
+<li> L'oggetto viene orientato verso la telecamera</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_Align_Face_Object_to_View.FCMacro</b>
+</p>
+<pre># This macro directs the face of the object on the side of the ActiveView (camera)
+# extact
+# 16/01/2015
+
+__title__="FCCamera"
+__author__ = "Mario52"
+
+import pivy
+from pivy import coin
+
+try:
+    v=Gui.Selection.getSelectionEx()[0].SubObjects[0].Surface.Axis    # to Axis
+#    v = Gui.Selection.getSelectionEx()[0].SubObjects[0].normalAt(0,0) # normalAt
+    r=App.Rotation(App.Vector(0,0,1),v)
+    Gui.ActiveDocument.ActiveView.setCameraOrientation(r.Q)
+except Exception:
+    App.Console.PrintError("Select a face and run the macro"+"\n") </pre>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p>Original macro by wmayer <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=7029&amp;p=56735&amp;hilit=Shape.Face4#p56735">Looking for some helpful GUI-commands</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Align_Face_Object_to_View/it&amp;oldid=239900">http://www.freecadweb.org/wiki/index.php?title=Macro_Align_Face_Object_to_View/it&amp;oldid=239900</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

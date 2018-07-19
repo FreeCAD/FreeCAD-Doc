@@ -1,0 +1,120 @@
+<html><head><title>Macro ArrayCopy/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro ArrayCopy/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="ArrayCopy"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> ArrayCopy</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Beschreibung
+</th></tr>
+<tr>
+<td class="ctEven left">This macro copies the selected object several times, on an array grid
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">Yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/de" title="Macros recipes/de">Liste von Macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/de" title="How to install macros/de">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/de" title="Customize Toolbars/de">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Datum zuletzt geändert
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-05-04
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#ArrayCopy"><span class="tocnumber">1</span> <span class="toctext">ArrayCopy</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>This macro copies the selected object several times, on an array grid. You can define the number of rows and columns and the distance between them.
+</p><p><br />
+</p>
+<pre>import FreeCAD, FreeCADGui, Part
+from PySide import QtGui,QtCore
+ 
+def proceed():
+    try:
+        u = (int(l1.text()),float(l2.text()))   
+        v = (int(l3.text()),float(l4.text()))
+    except:
+        FreeCAD.Console.PrintError("Wrong input! Only numbers allowed...\n")
+    sel = FreeCADGui.Selection.getSelection()
+    if sel:
+        sel = sel[0]
+        name = sel.Name   
+        shape = sel.Shape
+        for column in range(u[0]):
+            for row in range(v[0]):
+                if (column&#160;!= 0) or (row&#160;!= 0):
+                    delta = FreeCAD.Vector(column*u[1],row*v[1],0)   
+                    newshape = sel.Shape.copy()
+                    newshape.translate(delta)
+                    newobject = FreeCAD.ActiveDocument.addObject("Part::Feature",name)
+                    newobject.Shape = newshape
+    else:
+        FreeCAD.Console.PrintError("Error: One object must be selected")
+    hide()
+ 
+def hide():
+    dialog.hide()
+ 
+dialog = QtGui.QDialog()
+dialog.resize(200,300)
+dialog.setWindowTitle("Array")
+la = QtGui.QVBoxLayout(dialog)
+t1 = QtGui.QLabel("number of columns")
+la.addWidget(t1)
+l1 = QtGui.QLineEdit()
+la.addWidget(l1)
+t2 = QtGui.QLabel("distance between columns")
+la.addWidget(t2)
+l2 = QtGui.QLineEdit()
+la.addWidget(l2)
+t3 = QtGui.QLabel("number of rows")
+la.addWidget(t3)
+l3 = QtGui.QLineEdit()
+la.addWidget(l3)
+t4 = QtGui.QLabel("distance between rows")   
+la.addWidget(t4)
+l4 = QtGui.QLineEdit()
+la.addWidget(l4)
+okbox = QtGui.QDialogButtonBox(dialog)
+okbox.setOrientation(QtCore.Qt.Horizontal)
+okbox.setStandardButtons(QtGui.QDialogButtonBox.Cancel </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_ArrayCopy/de&amp;oldid=240751">http://www.freecadweb.org/wiki/index.php?title=Macro_ArrayCopy/de&amp;oldid=240751</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,357 @@
+<html><head><title>Start up and Configuration/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Start up and Configuration/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Denna sida visar olika sätt att starta FreeCAD och de viktigaste konfigurationsegenskaperna. 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Starta_FreeCAD_fr.C3.A5n_Kommandoraden"><span class="tocnumber">1</span> <span class="toctext">Starta FreeCAD från Kommandoraden</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kommandoradsalternativ"><span class="tocnumber">1.1</span> <span class="toctext">Kommandoradsalternativ</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Respons_och_konfigurationsfiler"><span class="tocnumber">1.2</span> <span class="toctext">Respons och konfigurationsfiler</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#G.C3.B6mda_alternativ"><span class="tocnumber">1.3</span> <span class="toctext">Gömda alternativ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#K.C3.B6ra_FreeCAD_utan_anv.C3.A4ndargr.C3.A4nssnitt"><span class="tocnumber">2</span> <span class="toctext">Köra FreeCAD utan användargränssnitt</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Konfigurationssetet"><span class="tocnumber">3</span> <span class="toctext">Konfigurationssetet</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Anv.C3.A4ndarrelaterad_information"><span class="tocnumber">3.1</span> <span class="toctext">Användarrelaterad information</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Kommandoradsargument"><span class="tocnumber">3.2</span> <span class="toctext">Kommandoradsargument</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Systemrelaterat"><span class="tocnumber">3.3</span> <span class="toctext">Systemrelaterat</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Bygga_relaterad_information"><span class="tocnumber">3.4</span> <span class="toctext">Bygga relaterad information</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#M.C3.A4rkningsrelaterat"><span class="tocnumber">3.5</span> <span class="toctext">Märkningsrelaterat</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Starta_FreeCAD_fr.C3.A5n_Kommandoraden">Starta FreeCAD från Kommandoraden</span></h2>
+<p>FreeCAD kan startas normalt, genom att dubbelklicka på dess skrivbordsikon eller genom att välja den från startmenyn, men det kan också startas direkt från kommandoraden. Detta tillåter dig att ändra några av standard uppstartsalternativen.
+</p>
+<h3><span class="mw-headline" id="Kommandoradsalternativ">Kommandoradsalternativ</span></h3>
+<p>Kommandoradsalternativen förändras ofta, så därför är det en bra ide att kontrollera alternativen genom att skriva:
+</p>
+<pre>FreeCAD --help
+</pre>
+<p>Från svaret kan du läsa de möjliga parametrarna:
+</p>
+<pre>Usage:
+FreeCAD [options] File1 File2 .....
+Allowed options:  
+
+Generic options:
+ -v [ --version ]      print version string
+ -h [ --help ]         print help message
+ -c [ --console ]      start in console mode
+ --response-file arg   can be specified with '@name', too
+</pre>
+<pre>Configuration:
+ -l [ --write-log ] arg    write a log file to default location(Run FreeCAD --h to see default location)
+ --log-file arg            Unlike to --write-log this allows to log to an arbitrary file
+ -u [ --user-cfg] arg      User config file to load/save user settings
+ -s [ --system-cfg] arg    System config file to load/save system settings
+ -t [ --run-test ] arg     test level
+ -M [ --module-path ] arg  additional module paths
+ -P [ --python-path ] arg  additional python paths 
+</pre>
+<p>EX: (Windows)
+</p>
+<pre>"C:\Program Files\FreeCAD 0.14\bin\FreeCAD.exe" -M "N:\FreeCAD\Mod\Draft" -M "N:\FreeCAD\Mod\Part" -M "N:\FreeCAD\Mod\Drawing" -u "N:\FreeCAD\Config\user.cfg" -s "N:\FreeCAD\Config\system.cfg" </pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Respons_och_konfigurationsfiler">Respons och konfigurationsfiler</span></h3>
+<p>FreeCAD kan läsa en del av dessa alternativ från en konfigurationsfil. Denna fil måste ligga i bin sökvägen och måste ha namnet FreeCAD.cfg. Tänk på att alternativ som specificeras på kommandoraden har högre prioritet än konfigurationsfilen!
+</p><p>En del operativsystem har en låg gräns på kommandoradens längd. Det vanliga sättet att komma runt dessa begränsningar är att använda responsfiler. En responsfil är bara en konfigurationsfil som använder samma syntax som kommandoraden. Om kommandoraden specificerar namnet på den responsfil som ska användas, så laddas den och läses i tillägg till kommandoraden:
+</p>
+<pre>FreeCAD @ResponseFile.txt </pre>
+<p>eller: 
+</p>
+<pre>FreeCAD --response-file=ResponseFile.txt </pre>
+<h3><span class="mw-headline" id="G.C3.B6mda_alternativ">Gömda alternativ</span></h3>
+<p>Det finns en del alternativ som inte visas för användaren. Dessa alternativ är egentligen X-fönsterparametrar som läses av fönstersystemet:
+</p>
+<ul><li> -display display, väljer X skärmen (standard är $DISPLAY).</li>
+<li> -geometry geometry, väljer klientgeometrin för det första fönstret som visas.</li>
+<li> -fn or -font font, definierar applikationens typsnitt. Typsnittet ska specificeras med en X logisk typsnittsbeskrivning.</li>
+<li> -bg or -background color, väljer standard bakgrundsfärg och en applikationspalett (ljusa och mörka skuggor beräknas).</li>
+<li> -fg or -foreground color, väljer standard förgrundsfärg.</li>
+<li> -btn or -button color, väljer standard knappfärg.</li>
+<li> -name name, väljer applikationsnamnet.</li>
+<li> -title title, väljer applikationstiteln.</li>
+<li> -visual TrueColor, tvingar applikationen att använda TrueColor på en 8-bits skärm.</li>
+<li> -ncols count, Begränsar antalet färger som allokeras i färgkuben på en 8-bitars skärm, om applikationen använder QApplication::ManyColor färgspecifikationen. Om antalet är 216 så används en 6x6x6 färgkub (d.v.s. 6 nivåer på rött, 6 på grönt, och 6 på blått); för andra värden, så används en kub som är ungefärligt proportionell till en 2x3x1 kub.</li>
+<li> -cmap, får applikationen att installera en privat färgkarta på en 8-bitars skärm.</li></ul>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="K.C3.B6ra_FreeCAD_utan_anv.C3.A4ndargr.C3.A4nssnitt">Köra FreeCAD utan användargränssnitt</span></h2>
+</div>
+<div class="mw-translate-fuzzy">
+<p>FreeCAD startar normalt i gränssnittsläge, men du kan också tvinga det att starta i konsolläge genom att skriva:
+</p>
+</div>
+<pre>FreeCAD -c
+</pre>
+<p>på kommandoraden. I konsolläge, så kommer inget användargränssnitt att visas, och du kommer att presenteras med en pythontolks prompt. Från den pythonprompten så har du samma funktionalitet som den pythontolk som körs inuti FreeCAD gränssnittet, med normal åtkomst till alla FreeCADs moduler och plugin, förutom FreeCADGui modulen. Tänk på att moduler som beror på FreeCADGui kanske inte heller finns tillgängliga.
+</p><p>Python scripts/FreeCAD macro files can be specified as command line arguments to either of the executables mentioned above.
+</p>
+<h2><span class="mw-headline" id="Konfigurationssetet">Konfigurationssetet</span></h2>
+<p>Vid varje uppstart så undersöker FreeCAD sin omgivning och kommandoradsparametrarna. Det bygger upp ett  <b>configuration set</b> vilket innehåller den huvudsakliga körinformationen. Denna information används senare för att avgöra vilken plats som användardata eller loggfiler ska sparas. Det är också mycket viktigt för postmortem analyser. Därför så sparas det i loggfilen.
+</p>
+<h3><span class="mw-headline" id="Anv.C3.A4ndarrelaterad_information">Användarrelaterad information</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Användarkonfiguration
+</caption>
+<tr>
+<th> Konfig. var. namn    </th>
+<th> Förklaring                         </th>
+<th> Exempel M$                 </th>
+<th> Exempel Posix (Linux)
+</th></tr>
+<tr>
+<td> UserAppData          </td>
+<td> Sökväg där FreeCAD lagrar användarrelaterad applikationsdata. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD </td>
+<td>/home/username/.FreeCAD
+</td></tr>
+<tr>
+<td> UserParameter        </td>
+<td> Fil där FreeCAD lagrar användarrelaterad applikationsdata. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\user.cfg </td>
+<td>/home/username/.FreeCAD/user.cfg
+</td></tr>
+<tr>
+<td> SystemParameter      </td>
+<td> Fil där FreeCAD lagrar applikationsrelaterad data. </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\system.cfg </td>
+<td>/home/username/.FreeCAD/system.cfg
+</td></tr>
+<tr>
+<td> UserHomePath         </td>
+<td> Nuvarande användares sökväg till hem mappen  </td>
+<td>  C:\Documents and Settings\username\My Documents </td>
+<td>/home/username
+</td></tr></table>
+<h3><span class="mw-headline" id="Kommandoradsargument">Kommandoradsargument</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Användarkonfiguration
+</caption>
+<tr>
+<th> Konfig. var. namn    </th>
+<th> Förklaring                         </th>
+<th> Exempel
+</th></tr>
+<tr>
+<td> LoggingFile          </td>
+<td> 1 om loggningen är påslagen </td>
+<td> 1
+</td></tr>
+<tr>
+<td> LoggingFileName      </td>
+<td> Filnamn där loggen sparas </td>
+<td>  C:\Documents and Settings\username\Application Data\FreeCAD\FreeCAD.log
+</td></tr>
+<tr>
+<td> RunMode              </td>
+<td> Detta indikerar hur huvudslingan kommer att fungera. <b>"Script"</b> innebär att det givna skriptet anropas och avslutas efter det. <b>"Cmd"</b> kör kommandotolken. <b>"Internal"</b> kör ett internt skript. <b>"Gui"</b> startar händelseslingan för gränssnittet. <b>"Module"</b> laddar en given python modul. </td>
+<td> "Cmd"
+</td></tr>
+<tr>
+<td> FileName             </td>
+<td> Innebörd beror på RunMode </td>
+<td>
+</td></tr>
+<tr>
+<td> ScriptFileName       </td>
+<td> Innebörd beror på RunMode </td>
+<td>
+</td></tr>
+<tr>
+<td> Verbose              </td>
+<td>  FreeCADs pratighet, d.v.s. hur mycket som loggas      </td>
+<td> "" eller "strict"
+</td></tr>
+<tr>
+<td> OpenFileCount        </td>
+<td>Innehåller antalet filer som öppnas genom kommandoradsargument   </td>
+<td> "12"
+</td></tr>
+<tr>
+<td> AdditionalModulePaths</td>
+<td>Innehåller sökvägen för de extramoduler som ges i kommandoraden   </td>
+<td> "extraModules/"
+</td></tr></table>
+<h3><span class="mw-headline" id="Systemrelaterat">Systemrelaterat</span></h3>
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Användarkonfiguration
+</caption>
+<tr>
+<th> Konfig. var. namn    </th>
+<th> Förklaring                        </th>
+<th> Exempel M$                 </th>
+<th> Exempel Posix (Linux)
+</th></tr>
+<tr>
+<td> AppHomePath          </td>
+<td> Sökväg där FreeCAD är installerat </td>
+<td> c:/Progam Files/FreeCAD_0.7</td>
+<td> /user/local/FreeCAD_0.7
+</td></tr>
+<tr>
+<td> PythonSearchPath     </td>
+<td> Innehåller en lista på sökvägar där python söker efter moduler. Detta är vid uppstart och kan ändras under körning  </td>
+<td>  </td>
+<td>
+</td></tr></table>
+<p>En del bibliotek behöver anropa systemmiljövariabler. ibland när det är ett problem med en FreeCAD installation, så beror det på att en del miljövariabler saknas eller är felinställda. Därför dupliceras några viktiga variabler i Konfigurationen och sparas i loggfilen.
+</p><p><b>Python relaterade miljövariabler:</b>
+</p>
+<ul><li> PYTHONPATH</li>
+<li> PYTHONHOME</li>
+<li> TCL_LIBRARY</li>
+<li> TCLLIBPATH</li></ul>
+<p><b>OpenCascade relaterade miljövariabler:</b>
+</p>
+<ul><li> CSF_MDTVFontDirectory</li>
+<li> CSF_MDTVTexturesDirectory</li>
+<li> CSF_UnitsDefinition</li>
+<li> CSF_UnitsLexicon</li>
+<li> CSF_StandardDefaults</li>
+<li> CSF_PluginDefaults</li>
+<li> CSF_LANGUAGE</li>
+<li> CSF_SHMessage</li>
+<li> CSF_XCAFDefaults</li>
+<li> CSF_GraphicShr</li>
+<li> CSF_IGESDefaults</li>
+<li> CSF_STEPDefaults</li></ul>
+<p><b>System relaterade miljövariabler:</b>
+</p>
+<ul><li> PATH</li></ul>
+<h3><span class="mw-headline" id="Bygga_relaterad_information">Bygga relaterad information</span></h3>
+<div class="mw-translate-fuzzy">
+<p>Tabellen nedan visar tillgänglig information om Byggversionen. Det flesta av dem kommer från Subversion förrådet. dessa saker behövs för att exakt återuppbygga en version!
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Användarkonfiguration
+</caption>
+<tr>
+<th> Konfig. var. namn      </th>
+<th> Förklaring                         </th>
+<th> Exempel
+</th></tr>
+<tr>
+<td> BuildVersionMajor    </td>
+<td> Byggningens Major Versionsnummer. Definierad i src/Build/Version.h.in   </td>
+<td> 0
+</td></tr>
+<tr>
+<td> BuildVersionMinor    </td>
+<td> Byggningens Minor Versionsnummer. Definierad i src/Build/Version.h.in   </td>
+<td> 7
+</td></tr>
+<tr>
+<td> BuildRevision        </td>
+<td> Källkodens SVN Repository Revisionnummer i byggningen. Genererad av SVN    </td>
+<td> 356
+</td></tr>
+<tr>
+<td> BuildRevisionRange   </td>
+<td> Område för olika ändringar     </td>
+<td>  123-356
+</td></tr>
+<tr>
+<td> BuildRepositoryURL   </td>
+<td> URL adress för förråd    </td>
+<td> <a rel="nofollow" class="external free" href="https://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk/src">https://free-cad.svn.sourceforge.net/svnroot/free-cad/trunk/src</a>
+</td></tr>
+<tr>
+<td> BuildRevisionDate    </td>
+<td> Datum av ovanstående Revision    </td>
+<td> 2007/02/03 22:21:18
+</td></tr>
+<tr>
+<td> BuildScrClean        </td>
+<td> Indikerar om källkoden har ändrats efter kontroll   </td>
+<td> Källkod ändrad
+</td></tr>
+<tr>
+<td> BuildScrMixed        </td>
+<td>       </td>
+<td> Källkod inte blandad
+</td></tr></table>
+</div>
+<h3><span class="mw-headline" id="M.C3.A4rkningsrelaterat">Märkningsrelaterat</span></h3>
+<p>Dessa konfigurationspunkter är relaterade till FreeCADs märkningsmekanism. Se <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/sv" title="Branding/sv">Branding/sv</a> för mer detaljer.
+</p>
+<div class="mw-translate-fuzzy">
+<table border="2" cellpadding="4" cellspacing="0" style="margin-top:1em; margin-bottom:1em; background:#f9f9f9; border:1px #aaa solid; border-collapse:collapse;">
+<caption> Användarkonfiguration
+</caption>
+<tr>
+<th> Konfig. var. namn    </th>
+<th> Förklaring                         </th>
+<th> Exempel
+</th></tr>
+<tr>
+<td> ExeName              </td>
+<td> Namn på den byggda körfilen. Kan skilja sig från FreeCAD om en annan main.cpp används.     </td>
+<td> FreeCAD.exe
+</td></tr>
+<tr>
+<td> ExeVersion           </td>
+<td> Allmän version som visas vid uppstart   </td>
+<td> V0.7
+</td></tr>
+<tr>
+<td> AppIcon              </td>
+<td> Ikon som används för körfilen, visas i Applikationens huvudfönster.     </td>
+<td> "FCIcon"
+</td></tr>
+<tr>
+<td> ConsoleBanner        </td>
+<td> Den banner som visas i konsolläge     </td>
+<td>
+</td></tr>
+<tr>
+<td> SplashPicture        </td>
+<td> Namn på den ikon som används till uppstartsskärmen    </td>
+<td> "FreeCADSplasher"
+</td></tr>
+<tr>
+<td> SplashAlignment      </td>
+<td> Textjustering i uppstartsdialogen    </td>
+<td>Left"
+</td></tr>
+<tr>
+<td> SplashTextColor      </td>
+<td> Textfärg i uppstartsfönstret    </td>
+<td> "#000000"
+</td></tr>
+<tr>
+<td> StartWorkbench       </td>
+<td> Namn på den arbetsbänk som ska startas automatiskt efter uppstart     </td>
+<td> "Part design"
+</td></tr>
+<tr>
+<td> HiddenDockWindow     </td>
+<td> Lista på  dockningsfönster (separerade av semikolon) som kommer att inaktiveras </td>
+<td> "Property editor"
+</td></tr></table>
+</div>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/sv&amp;oldid=281841">http://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/sv&amp;oldid=281841</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

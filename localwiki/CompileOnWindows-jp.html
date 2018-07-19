@@ -1,0 +1,278 @@
+<html><head><title>CompileOnWindows/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnWindows/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>この記事では、Windows上でFreeCADをコンパイルする方法を順番にで説明しています。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.89.8D.E6.8F.90.E6.9D.A1.E4.BB.B6"><span class="tocnumber">1</span> <span class="toctext">前提条件</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#cMake.E3.82.92.E7.94.A8.E3.81.84.E3.81.9F.E3.83.93.E3.83.AB.E3.83.89"><span class="tocnumber">2</span> <span class="toctext">cMakeを用いたビルド</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#cMake.E3.81.B8.E3.81.AE.E5.88.87.E3.82.8A.E6.9B.BF.E3.81.88"><span class="tocnumber">2.1</span> <span class="toctext">cMakeへの切り替え</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.83.93.E3.83.AB.E3.83.89.E3.83.97.E3.83.AD.E3.82.BB.E3.82.B9.E3.81.AE.E8.A8.AD.E5.AE.9A"><span class="tocnumber">2.2</span> <span class="toctext">ビルドプロセスの設定</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.83.93.E3.83.AB.E3.83.89.E5.87.A6.E7.90.86.E3.81.AE.E3.82.AA.E3.83.97.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">2.3</span> <span class="toctext">ビルド処理のオプション</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#cMake_.E3.81.A8_Visual_Studio_2008.E3.82.92.E4.BD.BF.E3.81.86.E6.96.B9.E6.B3.95"><span class="tocnumber">2.4</span> <span class="toctext">cMake と Visual Studio 2008を使う方法</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.83.A9.E3.82.A4.E3.83.B3.E3.83.93.E3.83.AB.E3.83.89"><span class="tocnumber">2.5</span> <span class="toctext">コマンドラインビルド</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#.E4.BB.A5.E5.89.8D.E3.81.AE.E3.83.90.E3.83.BC.E3.82.B8.E3.83.A7.E3.83.B3.E3.81.AE.E3.83.93.E3.83.AB.E3.83.89"><span class="tocnumber">3</span> <span class="toctext">以前のバージョンのビルド</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#LibPack.E3.81.AE.E4.BD.BF.E7.94.A8"><span class="tocnumber">3.1</span> <span class="toctext">LibPackの使用</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Visual_Studio.E3.81.A7.E3.81.AE.E3.83.87.E3.82.A3.E3.83.AC.E3.82.AF.E3.83.88.E3.83.AA.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97"><span class="tocnumber">3.1.1</span> <span class="toctext">Visual Studioでのディレクトリセットアップ</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="#Includes"><span class="tocnumber">3.1.1.1</span> <span class="toctext">Includes</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#Libs"><span class="tocnumber">3.1.1.2</span> <span class="toctext">Libs</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="#Executables"><span class="tocnumber">3.1.1.3</span> <span class="toctext">Executables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-14"><a href="#Python.E3.81.AE.E5.BF.85.E8.A6.81.E6.80.A7"><span class="tocnumber">3.1.2</span> <span class="toctext">Pythonの必要性</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#VC8.E3.81.A7.E3.81.AE.E6.B3.A8.E6.84.8F.E4.BA.8B.E9.A0.85"><span class="tocnumber">3.1.3</span> <span class="toctext">VC8での注意事項</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#.E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB"><span class="tocnumber">3.2</span> <span class="toctext">コンパイル</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#.E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB.E5.BE.8C"><span class="tocnumber">3.3</span> <span class="toctext">コンパイル後</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#.E3.81.9D.E3.81.AE.E4.BB.96.E3.81.AE.E3.82.82.E3.81.AE"><span class="tocnumber">3.4</span> <span class="toctext">その他のもの</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E5.89.8D.E6.8F.90.E6.9D.A1.E4.BB.B6">前提条件</span></h3>
+<p>必要なのは、主にコンパイラです。Windows上で我々は最新のサービスパックを適用したMS VisualStudio 8コンパイラ（またはVC++ Express）を使用しています。CygwinやMinGWのgccを使用するのはたぶん可能ですが、今までのところ試されたり移植されたりしていません。我々はVC8 Express Editionを使用するように移植しました。あなたは例えばWindows.hを得るために、Windows Platform SDKをダウンロードする必要があります。また、あなたは正常にFreeCADをコンパイルするために、すべての<a href="https://www.freecadweb.org/wiki/index.php?title=Third_Party_Libraries/jp" title="Third Party Libraries/jp">サードパーティ製のライブラリ</a>が必要です。
+</p><p>あなたがMSのコンパイラーを使用する場合、Windows上でFreeCADを構築するために必要なすべてのLIBSを提供するFreeCAD LibPackをダウンロードするでしょう。
+</p><p>その他の前提条件は、（および有用なプログラム）は以下のとおりです。:
+</p>
+<ul><li> cMake</li>
+<li> TortoiseGit</li>
+<li> Python 2.6</li>
+<li> WiX (Windows installer XML v3.0) - msiインストーラを作りたい場合</li></ul>
+<p>　システムパスに、以下のプログラムへのパスを加えることも必要です。:
+</p>
+<ul><li> Libpack</li>
+<li> git (TortoiseGitではなく、git.exe)</li>
+<li> python</li></ul>
+<h3><span class="mw-headline" id="cMake.E3.82.92.E7.94.A8.E3.81.84.E3.81.9F.E3.83.93.E3.83.AB.E3.83.89">cMakeを用いたビルド</span></h3>
+<p>　まず、 <a rel="nofollow" class="external text" href="http://www.cmake.org/cmake/resources/software.html">cMakeをダウンロード</a>してビルドマシンにインストールします。
+</p>
+<h4><span class="mw-headline" id="cMake.E3.81.B8.E3.81.AE.E5.88.87.E3.82.8A.E6.9B.BF.E3.81.88">cMakeへの切り替え</span></h4>
+<p>バージョン0.9から、様々なコンパイラのためのbuild/makeファイルを生成するのに cMakeを利用します。我々は、.vcproj ファイルをもう提供しません。もし、以前のバージョンのFreeCAD(バージョン0.8以前)をビルドしたい場合、この記事の後ろにある"以前のバージョンのビルド"を参照して下さい。
+</p><p>我々は30を超えるビルド対象や様々なコンパイラへの対応のためのプロジェクトファイルを維持するのが苦痛になってきたので切り替えました。cMakeを使うことで、我々はまだ主として使うコンパイラはMS VC9 Expressですが、Code::Blocks、Qt CreaterやEclipse CDT等の代替IDEを使用できる可能性がでてきました。
+将来的には商標権のあるコンパイラソフトウェアを利用せずに、Windows上でビルドすることを計画しています。
+</p>
+<h4><span class="mw-headline" id=".E3.83.93.E3.83.AB.E3.83.89.E3.83.97.E3.83.AD.E3.82.BB.E3.82.B9.E3.81.AE.E8.A8.AD.E5.AE.9A">ビルドプロセスの設定</span></h4>
+<p>CMakeのでFreeCADを構築するための最初のステップは、環境を構成することです。これには基本的に以下の２つの方法があります。:
+</p>
+<ul><li> LibPackを利用する</li>
+<li> 必要なライブラリをすべてインストールして、cMakeにそれらを見つけてもらう。</li></ul>
+<p>前者の方法では、あなたはLibPackのパスをcMakeで設定するだけでよく、残りの部分は自動的に実行され、以下のような画面が表示されます。:
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:CMake_Screen.png" class="image"><img alt="CMake Screen.png" src="CMake_Screen.png" width="666" height="497" /></a>
+</p><p>LibPackのパスが 変数 <b>FREECAD_LIBPACK_DIR</b> に設定されていることを確認してください。すべてのincludeとパスが設定されいることから始めます。あなたはただ <b>Generate</b> ボタンを押す必要があり、プロジェクトファイルが生成されます。
+</p><p>もし <b>FREECAD_LIBPACK_USE</b> オプションをoffにした場合、設定はあなたのシステム内から全ての必要なライブラリを探します。多かれ少なかれ、うまくいくかどうかはライブラリに依存します。そのため、幾つかのパスは手動で定義する必要がしばしばあります。cMakeは、見つからないものや、指定すべきものをあなたに指摘します。
+</p>
+<h4><span class="mw-headline" id=".E3.83.93.E3.83.AB.E3.83.89.E5.87.A6.E7.90.86.E3.81.AE.E3.82.AA.E3.83.97.E3.82.B7.E3.83.A7.E3.83.B3">ビルド処理のオプション</span></h4>
+<p>cmakeのビルドシステムは、ビルドプロセス上で多くの柔軟性を私たちに提供します。　これは、我々はいくつかの機能またはモジュールをオフに切り替えることができるということです。これはLinuxのカーネルビルドに似ています。ビルドプロセスを決定するために、多くのスイッチがあります。
+</p><p>以下はスイッチの説明です。我々はビルドの柔軟性をより向上させたいので、これらは将来的には大きく変更する可能性が高いです。
+</p>
+<table class="wikitable" style="text-align:left">
+<caption> Link table
+</caption>
+<tr>
+<th> 変数名       </th>
+<th> 説明  </th>
+<th> 標準値
+</th></tr>
+<tr>
+<td> FREECAD_LIBPACK_USE </td>
+<td> FreeCAD LibPack の使用の切替え  </td>
+<td> Win32 では on, それ以外では off
+</td></tr>
+<tr>
+<td> FREECAD_LIBPACK_DIR </td>
+<td> LibPack のディレクトリ </td>
+<td> FreeCAD SOURCE dir
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_GUI   </td>
+<td> GUI関連のモジュール全てのビルド </td>
+<td> ON
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_CAM   </td>
+<td> CAM モジュールのビルド　実験的! </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_INSTALLER </td>
+<td> Windowsインストーラ用のプロジェクトファイルの作成 </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_DOXYGEN_DOCU </td>
+<td> ソースコードドキュメントのプロジェクトファイル作成 </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_MAINTAINERS_BUILD </td>
+<td> リリースビルドするときだけにonにする必要あり </td>
+<td> OFF
+</td></tr></table>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="cMake_.E3.81.A8_Visual_Studio_2008.E3.82.92.E4.BD.BF.E3.81.86.E6.96.B9.E6.B3.95">cMake と Visual Studio 2008を使う方法</span></h4>
+<p>まずCMakeのGUIを起動し、ソースフォルダを選択しインストール先のフォルダを追加し、 "設定"をクリックしてください。CMakeはジェネレータを選択するように求められます - FreeCADのお勧めは "Visual Studio 9 2008"です。
+</p><p>"次へ"ボタンをクリックした後、LibPackを見つけることができないため、CMakeはエラーを出力します。 "FREECAD_LIBPACK_DIR"変数にどこにLibpackフォルダがあるかを手動で選択する必要があります。その後、もう一度 "設定"をクリックする必要があります。configureが行われた後、 "Generate"をクリックしてください。cMakeの作業を終了後、それを閉じることができます。
+</p><p>Visual Studioを使用する前に、我々は（最初に構築する際に、一度だけこれを行う必要がある）システムパスにlibpackを追加する必要があります。あなたは "Panel&gt;&gt;System&gt;&gt;Advanced System Settings"をたどる必要があります。"System properties"ダイアログで、 "Advanced"タブの下に"Environment Variables"ボタンがあります。それをクリックしてください。それをクリックした後、パスにlibpackを追加します。他のパス変数とは";"で区別します。
+</p><p>次にVisual Studio 2008 を起動する必要があります。Visual C++ Express2008でも同様に動作します。ビルドの前に、binフォルダを libpack¥bin フォルダから、(cMakeで生成された)binフォルダにコピーするのは良い手順です。
+</p><p>この後、"File &gt;&gt; Open &gt;&gt; Project/Solution"をたどってください。cMakeのビルドで生成されたファイルから、FreeCAD_Trunk.slnを開く必要があります。それを開いたら、ツールバーにある3つのポップアップメニューがあるでしょう。それらの一つは"Debug"になっています。これを"Release"に切り替えます。"Build &gt;&gt; Build Solution"を実行します (もしくは F7キーを押します) 。このプロセスにはかなりの時間がかかります。
+</p><p>それが終了したら、"Debug &gt;&gt; Start without Debugging"を実行します。ポップアップウィンドウに、exeファイルを選択するように求められます。　"Executable File Name" の下にあるポップアップメニューをクリックし、"Browse"を選択します。ソースファイルがあるbinフォルダに移動し、FreeCAD.exeを選択します。
+</p><p>作業完了です!
+</p>
+<h4><span class="mw-headline" id=".E3.82.B3.E3.83.9E.E3.83.B3.E3.83.89.E3.83.A9.E3.82.A4.E3.83.B3.E3.83.93.E3.83.AB.E3.83.89">コマンドラインビルド</span></h4>
+<p>ここではコマンドラインからFreeCADを構築する例を示します。:
+</p>
+<pre>rem @echo off
+rem   Build script, uses vcbuild to completetly build FreeCAD
+
+rem update trunc
+d:
+cd "D:\_Projekte\FreeCAD\FreeCAD_0.9"
+"C:\Program Files (x86)\Subversion\bin\svn.exe" update 
+
+rem  set the aprobiated Variables here or outside in the system
+
+set PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem
+set INCLUDE=
+set LIB=
+
+rem Register VS Build programms
+call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+
+rem Set Standard include paths
+set INCLUDE=%INCLUDE%;%FrameworkSDKDir%\include
+set INCLUDE=%INCLUDE%;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Include
+
+rem Set lib Pathes
+set LIB=%LIB%;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib
+set LIB=%LIB%;%PROGRAMFILES%\Microsoft Visual Studio\VC98\Lib
+
+rem Start the Visuall Studio build process
+"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcpackages\vcbuild.exe" "D:\_Projekte\FreeCAD FreeCAD_0.9_build\FreeCAD_trunk.sln" /useenv
+</pre>
+<h3><span class="mw-headline" id=".E4.BB.A5.E5.89.8D.E3.81.AE.E3.83.90.E3.83.BC.E3.82.B8.E3.83.A7.E3.83.B3.E3.81.AE.E3.83.93.E3.83.AB.E3.83.89">以前のバージョンのビルド</span></h3>
+<h4><span class="mw-headline" id="LibPack.E3.81.AE.E4.BD.BF.E7.94.A8">LibPackの使用</span></h4>
+<p>FreeCADのコンパイルを簡単にするために、我々はすべての必要なライブラリのコレクションを提供しています。それは、<a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a>と呼ばれています。あなたはそれをSourceForgeの <a rel="nofollow" class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=49159">ダウンロードページ</a> で見つけることができます。
+</p><p>あなたは、以下の環境変数を設定する必要があります。:
+</p>
+<dl><dd><b>FREECADLIB</b> = "D:\Wherever\LIBPACK"</dd></dl>
+<dl><dd><b>QTDIR</b> = "%FREECADLIB%"</dd></dl>
+<p>％FREECADLIB％\ bin"および"％FREECADLIB％\ dll"の場所を、システムPATH変数に追加します。Windowsは再帰的に環境変数を置き換えないので、"％FREECADLIB％"をパス名で付け替える必要があることに留意してください。
+</p>
+<h5><span class="mw-headline" id="Visual_Studio.E3.81.A7.E3.81.AE.E3.83.87.E3.82.A3.E3.83.AC.E3.82.AF.E3.83.88.E3.83.AA.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97">Visual Studioでのディレクトリセットアップ</span></h5>
+<p>Visual Studioの幾つかのサーチパスをセットする必要があります。
+これらを変更するには、<i>Tools→Options→Directory とメニューをたどります。</i>
+</p>
+<h6><span class="mw-headline" id="Includes">Includes</span></h6>
+<p>以下のサーチパスをincludeパスのサーチリストに追加します。
+</p>
+<ul><li>&#160;%FREECADLIB%\include</li>
+<li>&#160;%FREECADLIB%\include\Python</li>
+<li>&#160;%FREECADLIB%\include\boost</li>
+<li>&#160;%FREECADLIB%\include\xercesc</li>
+<li>&#160;%FREECADLIB%\include\OpenCascade</li>
+<li>&#160;%FREECADLIB%\include\OpenCV</li>
+<li>&#160;%FREECADLIB%\include\Coin</li>
+<li>&#160;%FREECADLIB%\include\SoQt</li>
+<li>&#160;%FREECADLIB%\include\QT</li>
+<li>&#160;%FREECADLIB%\include\QT\Qt3Support</li>
+<li>&#160;%FREECADLIB%\include\QT\QtCore</li>
+<li>&#160;%FREECADLIB%\include\QT\QtGui</li>
+<li>&#160;%FREECADLIB%\include\QT\QtNetwork</li>
+<li>&#160;%FREECADLIB%\include\QT\QtOpenGL</li>
+<li>&#160;%FREECADLIB%\include\QT\QtSvg</li>
+<li>&#160;%FREECADLIB%\include\QT\QtUiTools</li>
+<li>&#160;%FREECADLIB%\include\QT\QtXml</li>
+<li>&#160;%FREECADLIB%\include\Gts</li>
+<li>&#160;%FREECADLIB%\include\zlib</li></ul>
+<h6><span class="mw-headline" id="Libs">Libs</span></h6>
+<p>以下のサーチパスをlibパスのサーチリストに追加します。
+</p>
+<ul><li>&#160;%FREECADLIB%\lib</li></ul>
+<h6><span class="mw-headline" id="Executables">Executables</span></h6>
+<p>以下のサーチパスをexecutableパスのサーチリストに追加します。
+</p>
+<ul><li>&#160;%FREECADLIB%\bin</li>
+<li> TortoiseSVN バイナリをインストールしたディレクトリ、 普段は "C:\Programm Files\TortoiseSVN\bin", これは <i>SubWVRev.exe</i> が Subversionからバージョン番号を抽出する分散ビルドの時に必要です 。</li></ul>
+<h5><span class="mw-headline" id="Python.E3.81.AE.E5.BF.85.E8.A6.81.E6.80.A7">Pythonの必要性</span></h5>
+<p>コンパイル時にいくつかのPythonスクリプトが実行されます。そのため、PythonインタプリタはOS上で動作しなければいけません。それを確認するには、コマンドボックスを使用します。Pythonのライブラリが正しくインストールされていない場合は、"python.exeを見つけることができません"といったエラーメッセージが表示されます。あなたはLibPackを使用する場合もbinディレクトリでpython.exeを使用することができます。
+</p>
+<h5><span class="mw-headline" id="VC8.E3.81.A7.E3.81.AE.E6.B3.A8.E6.84.8F.E4.BA.8B.E9.A0.85">VC8での注意事項</span></h5>
+<p>VC6とVC8ではバージョンが異なるため、VC8でプロジェクトをビルドする場合、WildMagicライブラリのリンク情報を変更する必要があります。両方のバージョンは"LIBPACK/DLL"で提供されています。AppMeshのプロジェクトのプロパティで、wm.dllのライブラリ名をVC8バージョンに変更します。DebugとReleaseの構成で、それを変えることを忘れないでください。
+</p>
+<h4><span class="mw-headline" id=".E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB">コンパイル</span></h4>
+<p>すべての前提条件に適合させたあとは、コンパイルはVC内でマウスクリックするだけでできると思います。
+</p>
+<h4><span class="mw-headline" id=".E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB.E5.BE.8C">コンパイル後</span></h4>
+<p>すべての前提条件に適合した後、コンパイルは - うまくいけば - VCではでマウスクリックのみで実行できます。:
+</p>
+<ul><li> <i>python.exe</i> and <i>python_d.exe</i> from <i>LIBPACK/bin</i></li>
+<li> <i>python25.dll</i> and <i>python25_d.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>python25.zip</i> from <i>LIBPACK/bin</i></li>
+<li> make a copy of <i>Python25.zip</i> and rename it to <i>Python25_d.zip</i></li>
+<li> <i>QtCore4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtGui4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>boost_signals-vc80-mt-1_34_1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>boost_program_options-vc80-mt-1_34_1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>xerces-c_2_8.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>zlib1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>coin2.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>soqt1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtOpenGL4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtNetwork4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtSvg4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtXml4.dll</i> from <i>LIBPACK/bin</i></li></ul>
+<p>バージョン2.5よりも古いPythonを使用した<a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a>を使っている場合、さらに2つのファイルをコピーする必要があります。:
+</p>
+<ul><li> <i>zlib.pyd</i> and <i>zlib_d.pyd</i> from <i>LIBPACK/bin/lib</i>. This is needed by python to open the zipped python library.</li>
+<li> <i>_sre.pyd</i> and <i>_sre_d.pyd</i> from <i>LIBPACK/bin/lib</i>. This is needed by python for the built in help system.</li></ul>
+<p>Pythonエラーで実行できない場合は、zlib*.pyd ファイルの一つが不足しています。
+</p>
+<h4><span class="mw-headline" id=".E3.81.9D.E3.81.AE.E4.BB.96.E3.81.AE.E3.82.82.E3.81.AE">その他のもの</span></h4>
+<p>ソースコードのドキュメントを構築する場合は、 <a rel="nofollow" class="external text" href="http://www.stack.nl/~dimitri/doxygen/">DoxyGen</a>が必要です。
+</p><p>インストーラパッケージを作成するには <a rel="nofollow" class="external text" href="http://wix.sourceforge.net/">WIX</a>が必要です。
+</p><p><br />
+コンパイル時にいくつかのPythonスクリプトが実行されます。そのため、Pythonインタプリタが適切に動作する必要があります。
+</p><p>詳細は ソース内の"README.Linux"にも記載があります。
+</p><p>まずはじめに、Qt Designer用のFreeCADのすべてのカスタムヴィジェットを提供するQtプラグインを構築すべきです。ソースファイルは以下にあります。
+</p>
+<pre>//src/Tools/plugins/widget//.
+</pre>
+<p>これまでのところ我々は、makefileを提供していません。しかし、以下を実行すると、 
+</p>
+<pre>qmake plugin.pro
+</pre>
+<p>makefileが作成されます。これを実行後、makeを実行するとライブラリが作成されます。 
+</p>
+<pre>//libFreeCAD_widgets.so//.
+</pre>
+<p>このライブラリをQt Designerに認識させるために、以下の場所にファイルをコピーする必要があります。
+</p>
+<pre>//$QTDIR/plugin/designer//.
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/jp&amp;oldid=174370">http://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/jp&amp;oldid=174370</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

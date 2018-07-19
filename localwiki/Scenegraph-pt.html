@@ -1,0 +1,62 @@
+<html><head><title>Scenegraph/pt</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scenegraph/pt</h1></div>
+
+<div id="mw-content-text" lang="pt" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>FreeCAD is basically a collage of different powerful libraries, the most important being <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">openCascade</a>, for managing and constructing geometry, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Coin3D">Coin3d</a> to display that geometry, and <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Qt_(toolkit)">Qt</a> to put all this in a nice Graphical User Interface.
+</p><p>The geometry that appears in the 3D views of FreeCAD are rendered by the Coin3D library. Coin3D is an implementation of the <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a> standard. The openCascade software also provides the same functionality, but it was decided, at the very beginnings of FreeCAD, not to use the built-in openCascade viewer and rather switch to the more performant coin3D software. A good way to learn about that library is the book <a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/Membres/Francois.Faure/doc/inventorMentor/sgi_html/">Open Inventor Mentor</a>.
+</p><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a> is actually a 3D scene description language. The scene described in openInventor is then rendered in OpenGL on your screen. Coin3D takes care of doing this, so the programmer doesn't need to deal with complex openGL calls, he just has to provide it with valid OpenInventor code. The big advantage is that openInventor is a very well-known and well documented standard.
+</p><p>One of the big jobs FreeCAD does for you is basically to translate openCascade geometry information into openInventor language.
+</p><p>OpenInventor describes a 3D scene in the form of a <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Scene_graph">scenegraph</a>, like the one below:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scenegraph.gif" class="image"><img alt="Scenegraph.gif" src="Scenegraph.gif" width="422" height="496" /></a>
+image from <a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>
+</p><p>An openInventor scenegraph describes everything that makes part of a 3D scene, such as geometry, colors, materials, lights, etc, and organizes all that data in a convenient and clear structure. Everything can be grouped into sub-structures, allowing you to organize your scene contents pretty much the way you like. Here is an example of an openInventor file:
+</p>
+<pre>#Inventor V2.0 ascii
+ 
+Separator { 
+    RotationXYZ {
+       axis Z
+       angle 0
+    }
+    Transform {
+       translation 0 0 0.5
+    }
+    Separator {
+       Material {
+          diffuseColor 0.05 0.05 0.05
+       }
+       Transform {
+          rotation 1 0 0 1.5708
+          scaleFactor 0.2 0.5 0.2
+       }
+       Cylinder {
+       }
+    }
+} </pre>
+<p>As you can see, the structure is very simple. You use separators to organize your data into blocks, a bit like you would organize your files into folders. Each statement affects what comes next, for example the first two items of our root separator are a rotation and a translation, both will affect the next item, which is a separator. In that separator, a material is defined, and another transformation. Our cylinder will therefore be affected by both transformations, the one who was applied directly to it and the one that was applied to its parent separator.
+</p><p>We also have many other types of elements to organize our scene, such as groups, switches or annotations. We can define very complex materials for our objects, with color, textures, shading modes and transparency. We can also define lights, cameras, and even movement. It is even possible to embed pieces of scripting in openInventor files, to define more complex behaviours.
+</p><p>If you are interested in learning more about openInventor, head directly to its most famous reference, the <a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>.
+</p><p>In FreeCAD, normally, we don't need to interact directly with the openInventor scenegraph. Every object in a FreeCAD document, being a mesh, a part shape or anything else, gets automatically converted to openInventor code and inserted in the main scenegraph that you see in a 3D view. That scenegraph gets updated continuously when you do modifications, add or remove objects to the document. In fact, every object (in App space) has a view provider (a corresponding object in Gui space), responsible for issuing openInventor code.
+</p><p>But there are many advantages to be able to access the scenegraph directly. For example, we can temporarily change the appearence of an object, or we can add objects to the scene that have no real existence in the FreeCAD document, such as construction geometry, helpers, graphical hints or tools such as manipulators or on-screen information.
+</p><p>FreeCAD itself features several tools to see or modify openInventor code. For example, the following python code will show the openInventor representation of a selected object:
+</p>
+<pre>obj = FreeCAD.ActiveDocument.ActiveObject
+viewprovider = obj.ViewObject
+print viewprovider.toString() </pre>
+<p>But we also have a python module that allows complete access to anything managed by Coin3D, such as our FreeCAD scenegraph. So, read on to <a href="Pivy.html" title="Pivy">Pivy</a>.
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/pt&amp;oldid=175388">http://www.freecadweb.org/wiki/index.php?title=Scenegraph/pt&amp;oldid=175388</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

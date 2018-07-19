@@ -1,0 +1,334 @@
+<html><head><title>Code snippets/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Code snippets/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>本页包含一些用户经验和论坛讨论的例子，代码片段。阅读这些代码，然后写开始您自己的脚本...
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.85.B8.E5.9E.8B_InitGui.py_.E6.96.87.E4.BB.B6"><span class="tocnumber">1</span> <span class="toctext">典型 InitGui.py 文件</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.85.B8.E5.9E.8B.E6.A8.A1.E5.9D.97.E6.96.87.E4.BB.B6.E7.A4.BA.E4.BE.8B"><span class="tocnumber">2</span> <span class="toctext">典型模块文件示例</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E5.AF.BC.E5.85.A5.E6.96.B0.E6.96.87.E4.BB.B6.E6.A0.BC.E5.BC.8F"><span class="tocnumber">3</span> <span class="toctext">导入新文件格式</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E6.B7.BB.E5.8A.A0.E7.BA.BF"><span class="tocnumber">4</span> <span class="toctext">添加线</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E6.B7.BB.E5.8A.A0.E5.A4.9A.E8.BE.B9.E5.BD.A2"><span class="tocnumber">5</span> <span class="toctext">添加多边形</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E7.BB.84.E4.B8.AD.E6.B7.BB.E5.8A.A0.EF.BC.8F.E5.88.A0.E9.99.A4.E5.AF.B9.E8.B1.A1"><span class="tocnumber">6</span> <span class="toctext">组中添加／删除对象</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E6.B7.BB.E5.8A.A0.E7.BD.91.E6.A0.BC"><span class="tocnumber">7</span> <span class="toctext">添加网格</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E6.B7.BB.E5.8A.A0.E5.9C.86.E5.BC.A7.E6.88.96.E5.9C.86"><span class="tocnumber">8</span> <span class="toctext">添加圆弧或圆</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.E5.AF.B9.E8.B1.A1.E6.98.BE.E7.A4.BA.E7.9A.84.E8.AE.BF.E9.97.AE.E5.92.8C.E6.9B.B4.E6.94.B9"><span class="tocnumber">9</span> <span class="toctext">对象显示的访问和更改</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#.E9.80.9A.E8.BF.87Python.E5.9C.A83D.E6.9F.A5.E7.9C.8B.E5.99.A8.E4.B8.AD.E8.A7.82.E5.AF.9F.E9.BC.A0.E6.A0.87.E4.BA.8B.E4.BB.B6"><span class="tocnumber">10</span> <span class="toctext">通过Python在3D查看器中观察鼠标事件</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#.E7.94.A8_Python_.E6.93.8D.E4.BD.9C.E5.9C.BA.E6.99.AF.E5.9B.BE"><span class="tocnumber">11</span> <span class="toctext">用 Python 操作场景图</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#.E6.B7.BB.E5.8A.A0.E5.92.8C.E5.88.A0.E9.99.A4.E5.9C.BA.E6.99.AF.E5.9B.BE.E4.B8.AD.E7.9A.84.E5.AF.B9.E8.B1.A1"><span class="tocnumber">12</span> <span class="toctext">添加和删除场景图中的对象</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#.E6.B7.BB.E5.8A.A0.E8.87.AA.E5.AE.9A.E4.B9.89.E9.83.A8.E4.BB.B6.E5.88.B0.E7.95.8C.E9.9D.A2"><span class="tocnumber">13</span> <span class="toctext">添加自定义部件到界面</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#.E6.B7.BB.E5.8A.A0.E6.A0.87.E7.AD.BE.E7.9A.84.E7.BB.84.E5.90.88.E8.A7.86.E5.9B.BE"><span class="tocnumber">14</span> <span class="toctext">添加标签的组合视图</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#.E6.89.93.E5.BC.80.E4.B8.80.E4.B8.AA.E7.BD.91.E9.A1.B5"><span class="tocnumber">15</span> <span class="toctext">打开一个网页</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#.E8.8E.B7.E5.8F.96.E7.BD.91.E9.A1.B5.E5.86.85.E5.AE.B9"><span class="tocnumber">16</span> <span class="toctext">获取网页内容</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E5.85.B8.E5.9E.8B_InitGui.py_.E6.96.87.E4.BB.B6">典型 InitGui.py 文件</span></h3>
+<p>Every module must contain, besides your main module file, an InitGui.py file, responsible for inserting the module in the main Gui. This is an example of a simple one. 
+</p>
+<pre>class ScriptWorkbench (Workbench): 
+    MenuText = "Scripts"
+    def Initialize(self):
+        import Scripts # assuming Scripts.py is your module
+        list = ["Script_Cmd"] # That list must contain command names, that can be defined in Scripts.py
+        self.appendToolbar("My Scripts",list) 
+        
+Gui.addWorkbench(ScriptWorkbench())
+</pre>
+<h3><span class="mw-headline" id=".E5.85.B8.E5.9E.8B.E6.A8.A1.E5.9D.97.E6.96.87.E4.BB.B6.E7.A4.BA.E4.BE.8B">典型模块文件示例</span></h3>
+<p>This is an example of a main module file, containing everything your module does. It is the Scripts.py file invoked by the previous example. You can have all your custom commands here.
+</p>
+<pre>import FreeCAD, FreeCADGui 
+
+class ScriptCmd: 
+   def Activated(self): 
+       # Here your write what your ScriptCmd does...
+       FreeCAD.Console.PrintMessage('Hello, World!')
+   def GetResources(self): 
+       return {'Pixmap'&#160;: 'path_to_an_icon/myicon.png', 'MenuText': 'Short text', 'ToolTip': 'More detailed text'} 
+      
+FreeCADGui.addCommand('Script_Cmd', ScriptCmd())
+</pre>
+<h3><span class="mw-headline" id=".E5.AF.BC.E5.85.A5.E6.96.B0.E6.96.87.E4.BB.B6.E6.A0.BC.E5.BC.8F">导入新文件格式</span></h3>
+<p>Making an importer for a new filetype in FreeCAD is easy. FreeCAD doesn't consider that you import data in an opened document, but rather that you simply can directly open the new filetype. So what you need to do is to add the new file extension to FreeCAD's list of known extensions, and write the code that will read the file and create the FreeCAD objects you want:
+</p><p>This line must be added to the InitGui.py file to add the new file extension to the list:
+</p>
+<pre># Assumes Import_Ext.py is the file that has the code for opening and reading .ext files
+FreeCAD.addImportType("Your new File Type (*.ext)","Import_Ext") 
+</pre>
+<p>Then in the Import_Ext.py file:
+</p>
+<pre>def open(filename): 
+   doc=App.newDocument()
+   # here you do all what is needed with filename, read, classify data, create corresponding FreeCAD objects
+   doc.recompute()
+</pre>
+<p>To export your document to some new filetype works the same way, except that you use:
+</p>
+<pre>FreeCAD.addExportType("Your new File Type (*.ext)","Export_Ext") 
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E7.BA.BF">添加线</span></h3>
+<p>A line simply has 2 points.
+</p>
+<pre>import Part,PartGui 
+doc=App.activeDocument() 
+# add a line element to the document and set its points 
+l=Part.Line()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0)
+doc.addObject("Part::Feature","Line").Shape=l.toShape() 
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E5.A4.9A.E8.BE.B9.E5.BD.A2">添加多边形</span></h3>
+<p>A polygon is simply a set of connected line segments (a polyline in AutoCAD). It doesn't need to be closed.
+</p>
+<pre>import Part,PartGui 
+doc=App.activeDocument()
+n=list() 
+# create a 3D vector, set its coordinates and add it to the list 
+v=App.Vector(0,0,0) 
+n.append(v) 
+v=App.Vector(10,0,0) 
+n.append(v) 
+#... repeat for all nodes 
+# Create a polygon object and set its nodes 
+p=doc.addObject("Part::Polygon","Polygon") 
+p.Nodes=n 
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E7.BB.84.E4.B8.AD.E6.B7.BB.E5.8A.A0.EF.BC.8F.E5.88.A0.E9.99.A4.E5.AF.B9.E8.B1.A1">组中添加／删除对象</span></h3>
+<pre>doc=App.activeDocument() 
+grp=doc.addObject("App::DocumentObjectGroup", "Group") 
+lin=doc.addObject("Part::Feature", "Line")
+grp.addObject(lin) # adds the lin object to the group grp
+grp.removeObject(lin) # removes the lin object from the group grp
+</pre>
+<p>Note: You can even add other groups to a group...
+</p>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E7.BD.91.E6.A0.BC">添加网格</span></h3>
+<pre>import Mesh
+doc=App.activeDocument()
+# create a new empty mesh
+m = Mesh.Mesh()
+# build up box out of 12 facets
+m.addFacet(0.0,0.0,0.0, 0.0,0.0,1.0, 0.0,1.0,1.0)
+m.addFacet(0.0,0.0,0.0, 0.0,1.0,1.0, 0.0,1.0,0.0)
+m.addFacet(0.0,0.0,0.0, 1.0,0.0,0.0, 1.0,0.0,1.0)
+m.addFacet(0.0,0.0,0.0, 1.0,0.0,1.0, 0.0,0.0,1.0)
+m.addFacet(0.0,0.0,0.0, 0.0,1.0,0.0, 1.0,1.0,0.0)
+m.addFacet(0.0,0.0,0.0, 1.0,1.0,0.0, 1.0,0.0,0.0)
+m.addFacet(0.0,1.0,0.0, 0.0,1.0,1.0, 1.0,1.0,1.0)
+m.addFacet(0.0,1.0,0.0, 1.0,1.0,1.0, 1.0,1.0,0.0)
+m.addFacet(0.0,1.0,1.0, 0.0,0.0,1.0, 1.0,0.0,1.0)
+m.addFacet(0.0,1.0,1.0, 1.0,0.0,1.0, 1.0,1.0,1.0)
+m.addFacet(1.0,1.0,0.0, 1.0,1.0,1.0, 1.0,0.0,1.0)
+m.addFacet(1.0,1.0,0.0, 1.0,0.0,1.0, 1.0,0.0,0.0)
+# scale to a edge langth of 100
+m.scale(100.0)
+# add the mesh to the active document
+me=doc.addObject("Mesh::Feature","Cube")
+me.Mesh=m
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E5.9C.86.E5.BC.A7.E6.88.96.E5.9C.86">添加圆弧或圆</span></h3>
+<pre>import Part
+doc = App.activeDocument()
+c = Part.Circle() 
+c.Radius=10.0  
+f = doc.addObject("Part::Feature", "Circle") # create a document with a circle feature 
+f.Shape = c.toShape() # Assign the circle shape to the shape property 
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E5.AF.B9.E8.B1.A1.E6.98.BE.E7.A4.BA.E7.9A.84.E8.AE.BF.E9.97.AE.E5.92.8C.E6.9B.B4.E6.94.B9">对象显示的访问和更改</span></h3>
+<p>Each object in a FreeCAD document has an associated view representation object that stores all the parameters that define how the object appear, like color, linewidth, etc...
+</p>
+<pre>gad=Gui.activeDocument()   # access the active document containing all 
+                          # view representations of the features in the
+                          # corresponding App document 
+
+v=gad.getObject("Cube")    # access the view representation to the Mesh feature 'Cube' 
+v.ShapeColor               # prints the color to the console 
+v.ShapeColor=(1.0,1.0,1.0) # sets the shape color to white
+</pre>
+<h3><span class="mw-headline" id=".E9.80.9A.E8.BF.87Python.E5.9C.A83D.E6.9F.A5.E7.9C.8B.E5.99.A8.E4.B8.AD.E8.A7.82.E5.AF.9F.E9.BC.A0.E6.A0.87.E4.BA.8B.E4.BB.B6">通过Python在3D查看器中观察鼠标事件</span></h3>
+<p>The Inventor framework allows to add one or more callback nodes to the scenegraph of the viewer. By default in FreeCAD one callback node is installed per viewer which allows to add global or static C++ functions. In the appropriate Python binding some methods are provided to make use of this technique from within Python code.
+</p>
+<pre>App.newDocument()
+v=Gui.activeDocument().activeView()
+
+#This class logs any mouse button events. As the registered callback function fires twice for 'down' and
+#'up' events we need a boolean flag to handle this.
+class ViewObserver:
+   def logPosition(self, info):
+       down = (info["State"] == "DOWN")
+       pos = info["Position"]
+       if (down):
+           FreeCAD.Console.PrintMessage("Clicked on position: ("+str(pos[0])+", "+str(pos[1])+")\n")
+      
+o = ViewObserver()
+c = v.addEventCallback("SoMouseButtonEvent",o.logPosition)
+</pre>
+<p>Now, pick somewhere on the area in the 3D viewer and observe the messages in the output window. To finish the observation just call
+</p>
+<pre>v.removeEventCallback("SoMouseButtonEvent",c)
+</pre>
+<p>The following event types are supported
+</p>
+<ul><li> SoEvent -- all kind of events</li>
+<li> SoButtonEvent -- all mouse button and key events</li>
+<li> SoLocation2Event -- 2D movement events (normally mouse movements)</li>
+<li> SoMotion3Event -- 3D movement events (normally spaceball)</li>
+<li> SoKeyboardEvent -- key down and up events</li>
+<li> SoMouseButtonEvent -- mouse button down and up events</li>
+<li> SoSpaceballButtonEvent -- spaceball button down and up events</li></ul>
+<p>The Python function that can be registered with addEventCallback() expects a dictionary. Depending on the watched event the dictionary can contain different keys. 
+</p><p>For all events it has the keys: 
+</p>
+<ul><li> Type -- the name of the event type i.e. SoMouseEvent, SoLocation2Event, ... </li>
+<li> Time -- the current time as string </li>
+<li> Position -- a tuple of two integers, mouse position </li>
+<li> ShiftDown -- a boolean, true if Shift was pressed otherwise false </li>
+<li> CtrlDown -- a boolean, true if Ctrl was pressed otherwise false </li>
+<li> AltDown -- a boolean, true if Alt was pressed otherwise false </li></ul>
+<p>For all button events, i.e. keyboard, mouse or spaceball events 
+</p>
+<ul><li> State -- A string 'UP' if the button was up, 'DOWN' if it was down or 'UNKNOWN' for all other cases </li></ul>
+<p>For keyboard events: 
+</p>
+<ul><li> Key -- a character of the pressed key </li></ul>
+<p>For mouse button event 
+</p>
+<ul><li> Button -- The pressed button, could be BUTTON1, ..., BUTTON5 or ANY </li></ul>
+<p>For spaceball events: 
+</p>
+<ul><li> Button -- The pressed button, could be BUTTON1, ..., BUTTON7 or ANY </li></ul>
+<p>And finally motion events: 
+</p>
+<ul><li> Translation -- a tuple of three floats </li>
+<li> Rotation -- a quaternion for the rotation, i.e. a tuple of four floats</li></ul>
+<h3><span class="mw-headline" id=".E7.94.A8_Python_.E6.93.8D.E4.BD.9C.E5.9C.BA.E6.99.AF.E5.9B.BE">用 Python 操作场景图</span></h3>
+<p>It is also possible to get and change the scenegraph in Python, with the 'pivy' module -- a Python binding for Coin.
+</p>
+<pre>from pivy.coin import *                # load the pivy module
+view = Gui.ActiveDocument.ActiveView   # get the active viewer
+root = view.getSceneGraph()            # the root is an SoSeparator node
+root.addChild(SoCube())
+view.fitAll()
+</pre>
+<p>The Python API of pivy is created by using the tool SWIG. As we use in FreeCAD some self-written nodes you cannot create them directly in Python.
+However, it is possible to create a node by its internal name. An instance of the type 'SoFCSelection' can be created with
+</p>
+<pre>type = SoType.fromName("SoFCSelection")
+node = type.createInstance()
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E5.92.8C.E5.88.A0.E9.99.A4.E5.9C.BA.E6.99.AF.E5.9B.BE.E4.B8.AD.E7.9A.84.E5.AF.B9.E8.B1.A1">添加和删除场景图中的对象</span></h3>
+<p>Adding new nodes to the scenegraph can be done this way. Take care of always adding a SoSeparator to contain the geometry, coordinates and material info of a same object. The following example adds a red line from (0,0,0) to (10,0,0):
+</p>
+<pre>from pivy import coin
+sg = Gui.ActiveDocument.ActiveView.getSceneGraph()
+co = coin.SoCoordinate3()
+pts = [[0,0,0],[10,0,0]]
+co.point.setValues(0,len(pts),pts)
+ma = coin.SoBaseColor()
+ma.rgb = (1,0,0)
+li = coin.SoLineSet()
+li.numVertices.setValue(2)
+no = coin.SoSeparator()
+no.addChild(co)
+no.addChild(ma)
+no.addChild(li)
+sg.addChild(no)
+</pre>
+<p>To remove it, simply issue:
+</p>
+<pre>sg.removeChild(no)
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E8.87.AA.E5.AE.9A.E4.B9.89.E9.83.A8.E4.BB.B6.E5.88.B0.E7.95.8C.E9.9D.A2">添加自定义部件到界面</span></h3>
+<p>You can create custom widgets with Qt designer, transform them into a python script, and then load them into the FreeCAD interface with PyQt4.
+</p><p>The python code produced by the Ui python compiler (the tool that converts qt-designer .ui files into python code) generally looks like this (it is simple, you can also code it directly in python):
+</p>
+<pre>class myWidget_Ui(object):
+ def setupUi(self, myWidget):
+   myWidget.setObjectName("my Nice New Widget")
+   myWidget.resize(QtCore.QSize(QtCore.QRect(0,0,300,100).size()).expandedTo(myWidget.minimumSizeHint())) # sets size of the widget
+
+   self.label = QtGui.QLabel(myWidget) # creates a label
+   self.label.setGeometry(QtCore.QRect(50,50,200,24)) # sets its size
+   self.label.setObjectName("label") # sets its name, so it can be found by name
+
+ def retranslateUi(self, draftToolbar): # built-in QT function that manages translations of widgets
+   myWidget.setWindowTitle(QtGui.QApplication.translate("myWidget", "My Widget", None, QtGui.QApplication.UnicodeUTF8))
+   self.label.setText(QtGui.QApplication.translate("myWidget", "Welcome to my new widget!", None, QtGui.QApplication.UnicodeUTF8))
+</pre>
+<p>Then, all you need to do is to create a reference to the FreeCAD Qt window, insert a custom widget into it, and "transform" this widget into yours with the Ui code we just made:
+</p>
+<pre> app = QtGui.qApp
+ FCmw = app.activeWindow() # the active qt window, = the freecad window since we are inside it
+ myNewFreeCADWidget = QtGui.QDockWidget() # create a new dckwidget
+ myNewFreeCADWidget.ui = myWidget_Ui() # load the Ui script
+ myNewFreeCADWidget.ui.setupUi(myNewFreeCADWidget) # setup the ui
+ FCmw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myNewFreeCADWidget) # add the widget to the main window
+</pre>
+<h3><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E6.A0.87.E7.AD.BE.E7.9A.84.E7.BB.84.E5.90.88.E8.A7.86.E5.9B.BE">添加标签的组合视图</span></h3>
+<p>The following code allows you to add a tab to the FreeCAD ComboView, besides the "Project" and "Tasks" tabs. It also uses the uic module to load an ui file directly in that tab.
+</p>
+<pre>from PyQt4 import QtGui,QtCore
+from PyQt4 import uic
+#from PySide import QtGui,QtCore
+
+def getMainWindow():
+   "returns the main window"
+   # using QtGui.qApp.activeWindow() isn't very reliable because if another
+   # widget than the mainwindow is active (e.g. a dialog) the wrong widget is
+   # returned
+   toplevel = QtGui.qApp.topLevelWidgets()
+   for i in toplevel:
+       if i.metaObject().className() == "Gui::MainWindow":
+           return i
+   raise Exception("No main window found")
+
+def getComboView(mw):
+   dw=mw.findChildren(QtGui.QDockWidget)
+   for i in dw:
+       if str(i.objectName()) == "Combo View":
+           return i.findChild(QtGui.QTabWidget)
+   raise Exception("No tab widget found")
+
+mw = getMainWindow()
+tab = getComboView(getMainWindow())
+tab2=QtGui.QDialog()
+tab.addTab(tab2,"A Special Tab")
+uic.loadUi("/myTaskPanelforTabs.ui",tab2)
+tab2.show()
+
+#tab.removeTab(2)
+</pre>
+<h3><span class="mw-headline" id=".E6.89.93.E5.BC.80.E4.B8.80.E4.B8.AA.E7.BD.91.E9.A1.B5">打开一个网页</span></h3>
+<pre>import WebGui
+WebGui.openBrowser("<a rel="nofollow" class="external free" href="http://www.example.com">http://www.example.com</a>")
+</pre>
+<h3><span class="mw-headline" id=".E8.8E.B7.E5.8F.96.E7.BD.91.E9.A1.B5.E5.86.85.E5.AE.B9">获取网页内容</span></h3>
+<pre>from PyQt4 import QtGui,QtWebKit
+a = QtGui.qApp
+mw = a.activeWindow()
+v = mw.findChild(QtWebKit.QWebFrame)
+html = unicode(v.toHtml())
+print html
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/cn&amp;oldid=211451">http://www.freecadweb.org/wiki/index.php?title=Code_snippets/cn&amp;oldid=211451</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

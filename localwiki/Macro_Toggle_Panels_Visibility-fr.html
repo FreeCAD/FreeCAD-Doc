@@ -1,0 +1,107 @@
+<html><head><title>Macro Toggle Panels Visibility/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Toggle Panels Visibility/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Toggle_Panels_Visibility"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Toggle_Views_Visibility.png" class="image"><img alt="Macro Toggle Views Visibility.png" src="32px-Macro_Toggle_Views_Visibility.png" width="32" height="32" srcset="/wiki/images/thumb/d/d0/Macro_Toggle_Views_Visibility.png/48px-Macro_Toggle_Views_Visibility.png 1.5x, /wiki/images/d/d0/Macro_Toggle_Views_Visibility.png 2x" /></a> Macro Toggle Panels Visibility</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro permet de basculer la visibilité des différentes vues de FreeCAD, la fenêtre active (3D ou Python) utilise tout l'espace disponible de l'écran.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Piffpoof" title="User:Piffpoof">Piffpoof</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-01-17
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Toggle_Panels_Visibility"><span class="tocnumber">1</span> <span class="toctext">Macro Toggle Panels Visibility</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">3</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Usage"><span class="tocnumber">4</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Interface_Utilisateur"><span class="tocnumber">5</span> <span class="toctext">Interface Utilisateur</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Script"><span class="tocnumber">6</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Pendant votre usage de FreeCAD, il arrive souvent que vous avez besoin de plusieurs fenêtres complémentaire (Combo View, Console Python, etc.) . Inversement, vous avez souvent besoin de concentrer sur le contenu principale (votre dessin). Ce macro permets de cacher ou révéler les fenêtres complémentaire avec un clique.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Pour installer ce Macro, mettez le code dans votre dossier a Macro et lancez le a partir de votre barre à outils ou de votre liste des Macros. Il est préférable de créer une bouton pour le lancer dans votre barre à outils pour le rendre plus accessible.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une Macro</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Personnaliser la barre d'outils </a></li></ul>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Cliquez le bouton associé dans votre barre à outils ou exécuter le a partir de votre liste des Macros. Les fenêtres complémentaire de Python console, Report view et Combo view vont changer leur état de visible a caché ou inversement.
+</p>
+<h2><span class="mw-headline" id="Interface_Utilisateur">Interface Utilisateur</span></h2>
+<p>Sur lancement du macro (par bouton ou a partir du liste des macros) les fenêtres complémentaire vont apparaître ou disparaître.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<pre># macro to toggle visibility of Report view, Python console, Combo view
+from PySide import QtCore, QtGui
+mainWindow = FreeCADGui.getMainWindow()
+dockWidgets = mainWindow.findChildren(QtGui.QDockWidget)
+for dw in dockWidgets:
+if dw.objectName() == "Python console":
+pcWidget = dw
+   if dw.objectName() == "Combo View":
+   cvWidget = dw
+   if dw.objectName() == "Report view":
+ rvWidget = dw
+     
+if pcWidget.isVisible():
+   pcWidget.hide()
+   cvWidget.hide()
+   rvWidget.hide()
+else:
+   pcWidget.show()
+   cvWidget.show()
+   rvWidget.show() </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Toggle_Panels_Visibility/fr&amp;oldid=239904">http://www.freecadweb.org/wiki/index.php?title=Macro_Toggle_Panels_Visibility/fr&amp;oldid=239904</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

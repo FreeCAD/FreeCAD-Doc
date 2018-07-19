@@ -1,0 +1,99 @@
+<html><head><title>Mesh Workbench/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Workbench/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<div class="mw-translate-fuzzy">
+<p><b>Pracovní plocha Síť</b> pracuje s <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">trojúhelníkovými sítěmi</a>. Sítě jsou speciální typ 3D objektů, složených z trojúhelníků spojených jejich hranami a rohy (zvané také vrcholy).
+</p>
+</div>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="Příklad síťového objektu"><img alt="Příklad síťového objektu" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>Příklad síťového objektu
+</p><p>Mnoho 3D aplikací používá s=tě jako svůj primární typ objektů, jako  <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Sketchup">(software) SketchUp</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Blender_(software)">Blender</a>, <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Maya_(software)">Maya</a> nebo <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/3d_max">3d studio max</a>. Protože sítě jsou velmi jednoduché objekty, které obsahují pouze vrcholy (body), hrany a (trojúhelníkové) plochy, jsou snadno vytvořitelné, modifikovatelné, dají se dělit, natahovat a mohou být snadno předávané z jedné aplikace do druhé bez jakékoliv ztráty. Kromě toho, protože obsahují velmi jednoduchá data, mohou jich 3D aplikace obsahovat velmi velké množství bez jakýchkoliv problémů. Z těchto důvodů jsou sítě velmi často 3D objekty využívané v aplikacích pracujících s filmy, animacemi a při tvorbě obrázků.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Na poli inženýringu však sítě představují jeden velký problém: Jsou to velmi hloupé objekty složené pouze z bodů, přímek a ploch. Jsou vytvořeny pouze z povrchů a nemají žádnou informaci o hmotě, takže se nechovají jako tělesa. V sítích není žádný automatický způsob jak zjistit jestli je bod uvnitř nebo zvenku objektu. To znamená, že všechny operace nad tělesy, jako je přidávání nebo odebírání, jsou u sítí vždy trochu složitější a často vracejí chyby.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p>Ve FreeCADu, protože to je inženýrská aplikace, bychom měli zřejmě preferovat práci s inteligentnějšími typy 3D objektů, které nesou více informací jako je hmotnost, funkce tělesa nebo i uživatelské informace. Modul Síť byl původně vytvořen aby sloužil jako "testbed" (vývojové prostředí), ale to aby sítě bylo možno číst, manipulovat s nimi a konvertovat je, je pro FreeCAD také velmi důležité. Ve Vaší práci také velmi často dostanete data v síťovém formátu. Bude s nimi potřebovat pracovat, anayzovat je, vyhledávat chyby nebo jiné problémy které zabraňují v jejich konverzi do inteligentnějších objektů a nakonec s nimi pracovat v <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/cs" title="Part Module/cs">Modulu Díl</a>.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="Pou.C5.BEit.C3.AD_modulu_S.C3.AD.C5.A5">Použití modulu Síť</span></h3>
+</div>
+<div class="mw-translate-fuzzy">
+<p>V současné době má modul Síť velmi jednoduché rozhraní, všechny jeho funkce jsou seskupeny v menu <b>Síť</b>. Nejdůležitějšími funkcemi, které v současné době můžete provádět se sítěmi jsou: 
+</p>
+<ul><li> Importovat sítě v několika souborových formátech</li>
+<li> Exportovat sítě v několika souborových formátech</li>
+<li> Konvertovat objekty <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/cs" title="Part Module/cs">Díl</a> do sítí</li>
+<li> Analyzovat zaoblení, plochy, a kontrolovat jestli mohou být bezpečně konvertovány do těles</li>
+<li> Flip mesh <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">normals</a></li>
+<li> Uzavírat mezery v sítích</li>
+<li> Odebírat plochy ze sítí</li>
+<li> Spojovat, odebírat a protínat sítě</li>
+<li> Vytvářet síťová primitiva (základní geometrické objekty), jako jsou kostky, koule, kužely nebo válce</li>
+<li> Dělit sítě podle přímky</li></ul>
+</div>
+<p><br />
+</p>
+<ul><li> <b>Analyze</b> curvature, faces, and check if a mesh can be safely converted into a solid
+<ul><li> <a href="Mesh_EvaluateRepair.html" title="Mesh EvaluateRepair">Evaluate &amp; Repair mesh...</a>: Evaluates and repairs meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_EvaluateFacet.png" class="image"><img alt="Mesh EvaluateFacet.png" src="32px-Mesh_EvaluateFacet.png" width="32" height="32" srcset="/wiki/images/thumb/9/96/Mesh_EvaluateFacet.png/48px-Mesh_EvaluateFacet.png 1.5x, /wiki/images/9/96/Mesh_EvaluateFacet.png 2x" /></a> <a href="Mesh_EvaluateFacet.html" title="Mesh EvaluateFacet">Face Info</a>: Gives info on faces</li>
+<li> <a href="Mesh_EvaluateCurvature.html" title="Mesh EvaluateCurvature">Curvature Info</a>: Gives info on curvature</li>
+<li> <a href="Mesh_EvaluateSolid.html" title="Mesh EvaluateSolid">Check solid mesh</a>: Checks the solid if it can be converted to a mesh</li>
+<li> <a href="Mesh_BoundingBox.html" title="Mesh BoundingBox">Boundings info...</a>: Evaluates the bounding box of a mesh</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.png" class="image"><img alt="Mesh Regular Solid.png" src="32px-Mesh_Regular_Solid.png" width="32" height="32" srcset="/wiki/images/thumb/d/d9/Mesh_Regular_Solid.png/48px-Mesh_Regular_Solid.png 1.5x, /wiki/images/d/d9/Mesh_Regular_Solid.png 2x" /></a> <a href="Mesh_BuildRegularSolid.html" title="Mesh BuildRegularSolid">Regular solid...</a> Create mesh primitives, like cubes, cylinders, cones, or spheres:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.png" class="image"><img alt="Mesh Cube.png" src="32px-Mesh_Cube.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cube.png/48px-Mesh_Cube.png 1.5x, /wiki/images/d/df/Mesh_Cube.png 2x" /></a> Create a mesh cube</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.png" class="image"><img alt="Mesh Cylinder.png" src="32px-Mesh_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/2/26/Mesh_Cylinder.png/48px-Mesh_Cylinder.png 1.5x, /wiki/images/2/26/Mesh_Cylinder.png 2x" /></a> Create a mesh cylinder</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.png" class="image"><img alt="Mesh Cone.png" src="32px-Mesh_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Mesh_Cone.png/48px-Mesh_Cone.png 1.5x, /wiki/images/d/df/Mesh_Cone.png 2x" /></a> Create a mesh cone</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.png" class="image"><img alt="Mesh Sphere.png" src="32px-Mesh_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/Mesh_Sphere.png/48px-Mesh_Sphere.png 1.5x, /wiki/images/9/98/Mesh_Sphere.png 2x" /></a> Create a mesh sphere</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.png" class="image"><img alt="Mesh Ellipsoid.png" src="32px-Mesh_Ellipsoid.png" width="32" height="32" srcset="/wiki/images/thumb/9/9f/Mesh_Ellipsoid.png/48px-Mesh_Ellipsoid.png 1.5x, /wiki/images/9/9f/Mesh_Ellipsoid.png 2x" /></a> Create a mesh ellipsoid</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.png" class="image"><img alt="Mesh Torus.png" src="32px-Mesh_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/3/36/Mesh_Torus.png/48px-Mesh_Torus.png 1.5x, /wiki/images/3/36/Mesh_Torus.png 2x" /></a> Create a mesh torus</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Do <b>Boolean</b> operations with meshes
+<ul><li> <a href="Mesh_Union.html" title="Mesh Union">Union</a>: Does a union (fusion) on meshes</li>
+<li> <a href="Mesh_Intersection.html" title="Mesh Intersection">Intersection</a>: Does an intersection (common) on meshes</li>
+<li> <a href="Mesh_Difference.html" title="Mesh Difference">Difference</a>: Does a difference (cut) on meshes</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="Mesh_Merge.html" title="Mesh Merge">Merge</a>: Merges meshes</li>
+<li> <a href="Mesh_SelectMesh.html" title="Mesh SelectMesh">Select Mesh</a>: Selects meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cut.png" class="image"><img alt="Mesh Cut.png" src="32px-Mesh_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/7/73/Mesh_Cut.png/48px-Mesh_Cut.png 1.5x, /wiki/images/7/73/Mesh_Cut.png 2x" /></a> <a href="Mesh_Cut.html" title="Mesh Cut">Cut mesh</a>: Cut meshes along a line</li>
+<li> <a href="Mesh_SplitMesh.html" title="Mesh SplitMesh">Split Mesh</a>: Splits meshes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_MakeSegment.png" class="image"><img alt="Mesh MakeSegment.png" src="32px-Mesh_MakeSegment.png" width="32" height="32" srcset="/wiki/images/thumb/0/0f/Mesh_MakeSegment.png/48px-Mesh_MakeSegment.png 1.5x, /wiki/images/0/0f/Mesh_MakeSegment.png 2x" /></a> <a href="Mesh_MakeSegment.html" title="Mesh MakeSegment">Make segment</a>: Makes a segment</li>
+<li> <a href="Mesh_TrimMesh.html" title="Mesh TrimMesh">Trim mesh</a>: Trims meshes</li>
+<li> <a href="Mesh_TrimMeshWithPlane.html" title="Mesh TrimMeshWithPlane">Trim mesh with a plane</a>: Trims meshes with a plane</li>
+<li> <a href="Mesh_CreateMeshSegment.html" title="Mesh CreateMeshSegment">Create mesh segments...</a>: Creates mesh segments</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_CurvaturePlot.png" class="image"><img alt="Mesh CurvaturePlot.png" src="32px-Mesh_CurvaturePlot.png" width="32" height="32" srcset="/wiki/images/thumb/3/3b/Mesh_CurvaturePlot.png/48px-Mesh_CurvaturePlot.png 1.5x, /wiki/images/3/3b/Mesh_CurvaturePlot.png 2x" /></a> <a href="Mesh_CurvaturePlot.html" title="Mesh CurvaturePlot">Curvature Plot</a>: Creates a curvature plot</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<div class="mw-translate-fuzzy">
+<p>To jsou jenom některé ze základních aktuálně dostupných operací v rozhraní modulu Síť. Ale sítě  FreecADu také mohou být zpracovávány mnoha dalšími způsoby pomocí <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/cs" title="Mesh Scripting/cs"> skriptování</a>.
+</p>
+</div>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="FreeCAD_and_Mesh_Import.html" title="FreeCAD and Mesh Import">FreeCAD and Mesh Import</a></li></ul>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/cs&amp;oldid=290004">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/cs&amp;oldid=290004</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

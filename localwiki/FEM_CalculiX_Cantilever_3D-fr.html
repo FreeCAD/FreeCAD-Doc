@@ -1,0 +1,194 @@
+<html><head><title>FEM CalculiX Cantilever 3D/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM CalculiX Cantilever 3D/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Analyse des Éléments finis
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Débutant
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">10 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/index.php?title=User:Berndhahnebach">Bernd</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6377 ou au-dessus
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Exigences_.3D"><span class="tocnumber">3</span> <span class="toctext">Exigences =</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Configurer_le_fichier_d.27exemple"><span class="tocnumber">3.1</span> <span class="toctext">Configurer le fichier d'exemple</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Charger_l.27Atelier_D.C3.A9marrage"><span class="tocnumber">3.1.1</span> <span class="toctext">Charger l'Atelier Démarrage</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Charger_le_fichier_exemple"><span class="tocnumber">3.1.2</span> <span class="toctext">Charger le fichier exemple</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Activer_le_conteneur_d.27analyse"><span class="tocnumber">3.1.3</span> <span class="toctext">Activer le conteneur d'analyse</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Conteneur_d.27analyse_et_ses_objets"><span class="tocnumber">3.1.4</span> <span class="toctext">Conteneur d'analyse et ses objets</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Visualisation_des_r.C3.A9sultats"><span class="tocnumber">3.1.5</span> <span class="toctext">Visualisation des résultats</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Purger_les_Resultats"><span class="tocnumber">3.1.6</span> <span class="toctext">Purger les Resultats</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Ex.C3.A9cuter_la_FEA"><span class="tocnumber">3.1.7</span> <span class="toctext">Exécuter la FEA</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Ex.C3.A9cuter_Rapidement_la_FEA"><span class="tocnumber">3.1.8</span> <span class="toctext">Exécuter Rapidement la FEA</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Modification_de_la_direction_de_la_charge_et_de_la_valeur_celle-ci"><span class="tocnumber">3.1.9</span> <span class="toctext">Modification de la direction de la charge et de la valeur celle-ci</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Et_Ensuitet.3F"><span class="tocnumber">3.1.10</span> <span class="toctext">Et Ensuitet?</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Introduction">Introduction</span></h3>
+<p>Cet exemple est destiné à montrer à quoi une simple analyse des éléments finis (FEA) dans FreeCADs <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_Module/fr" title="FEM Module/fr"> Module FEM</a> ressemble et comment les résultats peuvent être visualisés. Il est montré comment déclencher un FEA et comment changer la valeur de la charge et la direction de la charge. En outre, étant donné que le fichier d'exemple est fourni avec une installation FreeCAD, il est facile de vérifier si le module FEM est configuré correctement.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic00.jpg" class="image"><img alt="FEM example01 pic00.jpg" src="700px-FEM_example01_pic00.jpg" width="700" height="438" srcset="/wiki/images/thumb/1/1a/FEM_example01_pic00.jpg/1050px-FEM_example01_pic00.jpg 1.5x, /wiki/images/thumb/1/1a/FEM_example01_pic00.jpg/1400px-FEM_example01_pic00.jpg 2x" /></a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Exigences_.3D">Exigences =</span></h2>
+<ul><li> Version FreeCAD = 0,166377 ou plus.</li>
+<li> Cela pourrait être vérifié dans le menu Aide -&gt; sur FreeCAD. Le numéro de révision doit être supérieur à 6377</li>
+<li> Aucun logiciel externe n'est nécessaire pour charger le fichier d'exemple, afficher le maillage et la géométrie ainsi que pour visualiser les résultats.</li>
+<li> Pour relancer le FEA, le logiciel Solver CalculiX doit être installé sur votre ordinateur. Probablement le solveur a déjà été installé avec FreeCAD. Si le solveur CalculiX n'est pas installé, voir <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_Install/fr" title="FEM Install/fr">Installation FEM </a>.</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Configurer_le_fichier_d.27exemple">Configurer le fichier d'exemple</span></h3>
+<h4><span class="mw-headline" id="Charger_l.27Atelier_D.C3.A9marrage">Charger l'Atelier Démarrage</span></h4>
+<ul><li> Démarrez FreeCAD</li>
+<li> L'Atelier Démarrage doit être chargé</li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Charger_le_fichier_exemple">Charger le fichier exemple</span></h4>
+<ul><li> Accédez aux exemples de projets et cliquez sur "Charger un exemple d'analyse FEM"</li>
+<li> Si en raison d'opérations ultérieures, certaines géométries, contraintes ou  résultats sont interrompus ou supprimés, répétez simplement les étapes ci-dessus.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic01.jpg" class="image"><img alt="FEM example01 pic01.jpg" src="700px-FEM_example01_pic01.jpg" width="700" height="424" srcset="/wiki/images/thumb/3/37/FEM_example01_pic01.jpg/1050px-FEM_example01_pic01.jpg 1.5x, /wiki/images/thumb/3/37/FEM_example01_pic01.jpg/1400px-FEM_example01_pic01.jpg 2x" /></a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Activer_le_conteneur_d.27analyse">Activer le conteneur d'analyse</span></h4>
+<ul><li> Pour travailler avec une analyse, celle-ci doit être activée.</li>
+<li> Dans l'arborescence, cliquez droit sur <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Analysis.png" class="image"><img alt="FEM Analysis.png" src="32px-FEM_Analysis.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/FEM_Analysis.png/48px-FEM_Analysis.png 1.5x, /wiki/images/5/57/FEM_Analysis.png 2x" /></a> MechanicalAnalysis -&gt; Activate analysis</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic02.jpg" class="image"><img alt="FEM example01 pic02.jpg" src="700px-FEM_example01_pic02.jpg" width="700" height="438" srcset="/wiki/images/thumb/8/8f/FEM_example01_pic02.jpg/1050px-FEM_example01_pic02.jpg 1.5x, /wiki/images/thumb/8/8f/FEM_example01_pic02.jpg/1400px-FEM_example01_pic02.jpg 2x" /></a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Conteneur_d.27analyse_et_ses_objets">Conteneur d'analyse et ses objets</span></h4>
+<ul><li> Si l'analyse est activée, FreeCAD lui-même changera l'espace de travail actuel en FEM.</li>
+<li> Il existe au moins les 5 objets nécessaires pour effectuer une analyse mécanique statique.</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Analysis.png" class="image"><img alt="FEM Analysis.png" src="32px-FEM_Analysis.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/FEM_Analysis.png/48px-FEM_Analysis.png 1.5x, /wiki/images/5/57/FEM_Analysis.png 2x" /></a> conteneur d'analyse</li></ul>
+<ol><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Solver.png" class="image"><img alt="FEM Solver.png" src="32px-FEM_Solver.png" width="32" height="27" srcset="/wiki/images/thumb/b/b7/FEM_Solver.png/48px-FEM_Solver.png 1.5x, /wiki/images/thumb/b/b7/FEM_Solver.png/64px-FEM_Solver.png 2x" /></a> un solveur</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Material.png" class="image"><img alt="FEM Material.png" src="FEM_Material.png" width="32" height="32" /></a> un matériau</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_FixedConstraint.png" class="image"><img alt="FEM FixedConstraint.png" src="32px-FEM_FixedConstraint.png" width="32" height="32" srcset="/wiki/images/thumb/d/d3/FEM_FixedConstraint.png/48px-FEM_FixedConstraint.png 1.5x, /wiki/images/thumb/d/d3/FEM_FixedConstraint.png/64px-FEM_FixedConstraint.png 2x" /></a> une contrainte fixée</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ForceConstraint.png" class="image"><img alt="FEM ForceConstraint.png" src="32px-FEM_ForceConstraint.png" width="32" height="32" srcset="/wiki/images/thumb/5/5f/FEM_ForceConstraint.png/48px-FEM_ForceConstraint.png 1.5x, /wiki/images/thumb/5/5f/FEM_ForceConstraint.png/64px-FEM_ForceConstraint.png 2x" /></a> une contrainte de force</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Create.png" class="image"><img alt="FEM Create.png" src="32px-FEM_Create.png" width="32" height="27" srcset="/wiki/images/thumb/1/19/FEM_Create.png/48px-FEM_Create.png 1.5x, /wiki/images/thumb/1/19/FEM_Create.png/64px-FEM_Create.png 2x" /></a> un maillage FEM</li></ol>
+<ul><li> Puisque dans l'exemple ici les résultats sont inclus, il y a un sixième objet, les résultats <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ShowResult.png" class="image"><img alt="FEM ShowResult.png" src="16px-FEM_ShowResult.png" width="16" height="16" srcset="/wiki/images/thumb/f/f5/FEM_ShowResult.png/24px-FEM_ShowResult.png 1.5x, /wiki/images/thumb/f/f5/FEM_ShowResult.png/32px-FEM_ShowResult.png 2x" /></a>.</li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Visualisation_des_r.C3.A9sultats">Visualisation des résultats</span></h4>
+<ul><li> Assurez-vous que l'analyse est activée.</li>
+<li> Assurez-vous que l'analyse contient toujours l'objet résultant, sinon reculez le fichier d'exemple.</li>
+<li> Cliquez dans l'icône de la barre d'outils  <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_ShowResult.png" class="image"><img alt="FEM ShowResult.png" src="16px-FEM_ShowResult.png" width="16" height="16" srcset="/wiki/images/thumb/f/f5/FEM_ShowResult.png/24px-FEM_ShowResult.png 1.5x, /wiki/images/thumb/f/f5/FEM_ShowResult.png/32px-FEM_ShowResult.png 2x" /></a> <a href="FEM_ResultShow.html" title="FEM ResultShow">Afficher Résultat</a></li>
+<li> Dans la fenêtre de tâches, choisissez Déplacement Z. Il montre -88.443 mm dans la direction Z négative.</li>
+<li> Cela a du sens puisque la force est également dans la direction Z négative.</li>
+<li> Activez la case à cocher Show Displacement.</li>
+<li> Le curseur peut être utilisé pour modifier le maillage pour voir la déformation de manière simplifiée.</li>
+<li> Choisissez parmi les différents types de résultats pour afficher tous les types de résultats disponibles dans l'Interface Graphique Utilisateur.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic03.jpg" class="image"><img alt="FEM example01 pic03.jpg" src="400px-FEM_example01_pic03.jpg" width="400" height="496" srcset="/wiki/images/a/ac/FEM_example01_pic03.jpg 1.5x" /></a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Purger_les_Resultats">Purger les Resultats</span></h4>
+<ul><li> Assurez-vous que l'analyse est activée.</li>
+<li> Pour supprimer les résultats, sélectionnez l'icône dans la barre d'outils de  <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_PurgeResults.png" class="image"><img alt="FEM PurgeResults.png" src="32px-FEM_PurgeResults.png" width="32" height="32" srcset="/wiki/images/thumb/e/eb/FEM_PurgeResults.png/48px-FEM_PurgeResults.png 1.5x, /wiki/images/e/eb/FEM_PurgeResults.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_ResultsPurge/fr" title="FEM ResultsPurge/fr"> Purger les résultats</a></li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Ex.C3.A9cuter_la_FEA">Exécuter la FEA</span></h4>
+<ul><li> Dans l'arborescence, double-cliquez sur l'objet solveur <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Solver.png" class="image"><img alt="FEM Solver.png" src="32px-FEM_Solver.png" width="32" height="27" srcset="/wiki/images/thumb/b/b7/FEM_Solver.png/48px-FEM_Solver.png 1.5x, /wiki/images/thumb/b/b7/FEM_Solver.png/64px-FEM_Solver.png 2x" /></a>.</li>
+<li> Dans la fenêtre des tâches de l'objet solveur, assurez-vous que l'analyse statique est sélectionnée.</li>
+<li> Cliquez sur le fichier d'écriture .inp dans la même fenêtre de tâches. Regardez la fenêtre de journal jusqu'à ce qu'elle imprime "écriture terminée".</li>
+<li> Cliquez sur Exécuter CalculiX. Comme il s'agit d'une très petite analyse, il faudrait moins d'une seconde pour s'exécuter.</li>
+<li> Dans la fenêtre de texte, il doit imprimer en lettres vertes "CalculiX done!" et dans la ligne suivante "chargement des jeux de résultats ..."</li>
+<li> Vous avez terminé votre premier FEA dans FreeCAD s'il n'y a pas eu de message d'erreur.</li>
+<li> Cliquez sur Fermer dans la fenêtre de tâches.</li>
+<li> Un nouvel objet de résultat devrait être créé. Vous savez déjà comment visualiser les résultats .</li>
+<li> Si vous obtenez un message d'erreur sans solveur binaire ou similaire lors du déclenchement de la vérification d'analyse, voir <a href="FEM_Install.html" title="FEM Install">Installation FEM </a>.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic04.jpg" class="image"><img alt="FEM example01 pic04.jpg" src="400px-FEM_example01_pic04.jpg" width="400" height="548" srcset="/wiki/images/c/ca/FEM_example01_pic04.jpg 1.5x" /></a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Ex.C3.A9cuter_Rapidement_la_FEA">Exécuter Rapidement la FEA</span></h4>
+<ul><li> Dans l'arborescence, sélectionnez l'objet solveur <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Solver.png" class="image"><img alt="FEM Solver.png" src="32px-FEM_Solver.png" width="32" height="27" srcset="/wiki/images/thumb/b/b7/FEM_Solver.png/48px-FEM_Solver.png 1.5x, /wiki/images/thumb/b/b7/FEM_Solver.png/64px-FEM_Solver.png 2x" /></a> de l'analyse <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Analysis.png" class="image"><img alt="FEM Analysis.png" src="32px-FEM_Analysis.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/FEM_Analysis.png/48px-FEM_Analysis.png 1.5x, /wiki/images/5/57/FEM_Analysis.png 2x" /></a>.</li>
+<li> Dans la barre d'outils de l'icône, cliquez sur <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_RunCalculiXccx.png" class="image"><img alt="FEM RunCalculiXccx.png" src="32px-FEM_RunCalculiXccx.png" width="32" height="32" srcset="/wiki/images/thumb/8/85/FEM_RunCalculiXccx.png/48px-FEM_RunCalculiXccx.png 1.5x, /wiki/images/thumb/8/85/FEM_RunCalculiXccx.png/64px-FEM_RunCalculiXccx.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_SolverRun/fr" title="FEM SolverRun/fr"> Analyse rapide</a>.</li>
+<li> Le fichier de saisie Calculix sera écrit, CalculiX sera déclenché et l'objet résultant devrait être créé.</li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Modification_de_la_direction_de_la_charge_et_de_la_valeur_celle-ci">Modification de la direction de la charge et de la valeur celle-ci</span></h4>
+<ul><li> Dans l'arborescence, sélectionnez l'objet FEM mesh <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Create.png" class="image"><img alt="FEM Create.png" src="32px-FEM_Create.png" width="32" height="27" srcset="/wiki/images/thumb/1/19/FEM_Create.png/48px-FEM_Create.png 1.5x, /wiki/images/thumb/1/19/FEM_Create.png/64px-FEM_Create.png 2x" /></a> et appuyez sur la touche Espace.</li>
+<li> La visibilité de la maille FEM sera désactivée. Le modèle géométrique est encore visible.</li>
+<li> Dans l'arborescence, double-cliquez sur l'objet de contrainte de force pour ouvrir sa fenêtre de tâches.</li>
+<li> Dans la fenêtre de tâches, modifiez la valeur de charge à 500000000 N = 500 MN (l'unité de force dans la fenêtre de tâche doit être en N)</li>
+<li> Cliquez sur la direction du bouton.</li>
+<li> Sur le modèle géométrique, cliquez sur les bords longs dans la direction x.</li>
+<li> Les flèches rouges de la force changent de direction dans la direction x. Ils montrent la direction fixée.</li>
+<li> Comme la tension doit être appliquée à la boîte, la Direction inverse doit être déclenchée en cliquant dessus.</li>
+<li> Les flèches rouges de la force changeront de direction.</li>
+<li> Cliquez sur OK dans la fenêtre de tâches.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic05.jpg" class="image"><img alt="FEM example01 pic05.jpg" src="700px-FEM_example01_pic05.jpg" width="700" height="425" srcset="/wiki/images/thumb/2/29/FEM_example01_pic05.jpg/1050px-FEM_example01_pic05.jpg 1.5x, /wiki/images/thumb/2/29/FEM_example01_pic05.jpg/1400px-FEM_example01_pic05.jpg 2x" /></a>
+</p>
+<ul><li> Modifiez la visibilité de la maille FEM <a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_Create.png" class="image"><img alt="FEM Create.png" src="32px-FEM_Create.png" width="32" height="27" srcset="/wiki/images/thumb/1/19/FEM_Create.png/48px-FEM_Create.png 1.5x, /wiki/images/thumb/1/19/FEM_Create.png/64px-FEM_Create.png 2x" /></a> en la sélectionnant dans l'arborescence et en appuyant sur la touche espace.</li>
+<li> Vous savez déjà comment déclencher une analyse et comment visualiser les résultats.</li>
+<li> La déformation dans la direction x doit être de 19,05 mm.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FEM_example01_pic06.jpg" class="image"><img alt="FEM example01 pic06.jpg" src="400px-FEM_example01_pic06.jpg" width="400" height="490" srcset="/wiki/images/d/da/FEM_example01_pic06.jpg 1.5x" /></a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Et_Ensuitet.3F">Et Ensuitet?</span></h4>
+<ul><li> Nous avons maintenant terminé le de travail de base pour le <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_Module/fr" title="FEM Module/fr"> Module FEM</a>.</li>
+<li> Vous êtes maintenant prêt à faire le deuxième tutoriel <a href="https://www.freecadweb.org/wiki/index.php?title=FEM_tutorial/fr" title="FEM tutorial/fr"> FEM</a>.</li>
+<li> Nous créerons nous-même le CalculiX cantilever et comparerons les résultats avec la théorie de la poutre .</li></ul>
+<p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_CalculiX_Cantilever_3D/fr&amp;oldid=238461">http://www.freecadweb.org/wiki/index.php?title=FEM_CalculiX_Cantilever_3D/fr&amp;oldid=238461</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

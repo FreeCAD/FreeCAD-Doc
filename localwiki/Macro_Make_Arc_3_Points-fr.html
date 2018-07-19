@@ -1,0 +1,119 @@
+<html><head><title>Macro Make Arc 3 Points/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Make Arc 3 Points/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Make_Arc_3_Points"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Make_Arc_3_Points.png" class="image"><img alt="Macro Make Arc 3 Points.png" src="32px-Macro_Make_Arc_3_Points.png" width="32" height="32" srcset="/wiki/images/thumb/9/92/Macro_Make_Arc_3_Points.png/48px-Macro_Make_Arc_3_Points.png 1.5x, /wiki/images/9/92/Macro_Make_Arc_3_Points.png 2x" /></a> Macro Make Arc 3 Points</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Crée un arc sur 3 points sélectionnés.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">01.00
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-07-14
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Make_Arc_3_Points"><span class="tocnumber">1</span> <span class="toctext">Macro Make Arc 3 Points</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro crée un arc sur 3 points sélectionnés.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Lancez la macro, sélectionnez 3 points, un arc sera créé les coordonnées et la longueur de l'arc sont affichés dans la vue rapport.
+</p><p>(PS: il n'est pas obligé de tenir la touche Ctrl enfoncée)
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>L'icône pour votre barre d'outils <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Make_Arc_3_Points.png" class="image"><img alt="Macro Make Arc 3 Points.png" src="36px-Macro_Make_Arc_3_Points.png" width="36" height="36" srcset="/wiki/images/thumb/9/92/Macro_Make_Arc_3_Points.png/54px-Macro_Make_Arc_3_Points.png 1.5x, /wiki/images/9/92/Macro_Make_Arc_3_Points.png 2x" /></a>
+</p><p>Macro_Make_Arc_3_Points.FCMacro 
+</p>
+<pre># -*- coding: utf-8 -*-
+from FreeCAD import Base
+
+__title__   = "Macro_Make_Arc_3_points"
+__author__  = "Mario52"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.01"
+__date__    = "14/07/2016"
+
+global selected; selected = []
+App = FreeCAD
+
+class SelObserver:
+    print "Create Arc to 3 points ..."
+    def addSelection(self,doc,obj,sub,pnt):  # Selection 
+        global selected
+        selected.append(pnt)
+        if len(selected) == 1:
+            print "Point 1&#160;: ",FreeCAD.Vector(selected[0])
+        elif len(selected) == 2:
+            print "Point 2&#160;: ",FreeCAD.Vector(selected[1])
+        elif len(selected) == 3:
+            print "Point 3&#160;: ",FreeCAD.Vector(selected[2])
+            try:
+                C1 = Part.Arc(FreeCAD.Vector(selected[0]),FreeCAD.Vector(selected[1]),FreeCAD.Vector(selected[2]))
+                S1 = Part.Shape([C1])
+                W = Part.Wire(S1.Edges)
+                Part.show(W)
+                App.ActiveDocument.ActiveObject.Label   = "Arc_3_Points"
+                print "Length &#160;: ",W.Length
+            except Exception:
+                print "Three points are collinear or bad selection"
+            del selected[:]
+            FreeCADGui.Selection.removeObserver(s)
+            print "End Make_Arc_3_Points"
+            print "_____________________"
+
+s=SelObserver()
+FreeCADGui.Selection.addObserver(s) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Make_Arc_3_Points/fr&amp;oldid=240390">http://www.freecadweb.org/wiki/index.php?title=Macro_Make_Arc_3_Points/fr&amp;oldid=240390</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

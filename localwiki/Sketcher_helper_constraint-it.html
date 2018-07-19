@@ -1,0 +1,41 @@
+<html><head><title>Sketcher helper constraint/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher helper constraint/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id="Introduzione">Introduzione</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:502px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="image"><img alt="" src="500px-Sketcher_helper_constraint_example1.png" width="500" height="355" class="thumbimage" srcset="/wiki/images/a/ad/Sketcher_helper_constraint_example1.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="internal" title="Enlarge"></a></div>Esempio di vincolo di supporto (il Constraint5 - punto su cerchio) per un vincolo di tangenza (il Constraint6 nel modo "tangenza in un punto"). In questo caso viene usato un solo vincolo di supporto, poiché il punto di tangenza è il punto finale del diametro maggiore dell'ellisse, che si trova intrinsecamente sull'ellisse.</div></div></div>
+<p>Il vincolo di supporto è un normale vincolo di Sketcher che viene richiesto come parte di un vincolo più complesso, ed è mostrato nell'interfaccia per aiutare l'utente a gestire le ridondanze. Ad esempio, nel vincolo di <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_SnellsLaw/it" title="Constraint SnellsLaw/it">Rifrazione</a>, le due linee che rappresentano i raggi di luce devono essere collegate tra di loro con il vincolo di <a href="Constraint_PointOnPoint.html" title="Constraint PointOnPoint">Coincidenza</a> applicato nei punti finali, e la congiunzione deve trovarsi sull'interfaccia con il vincolo <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/it" title="Constraint PointOnObject/it">Punto su oggetto</a>. 
+</p><p>Quando sono necessari, i vincoli di supporto sono aggiunti automaticamente. Attualmente la decisione se sono necessari viene presa valutando l'errore del vincolo di supporto per lo stato attuale della geometria, ma questo potrebbe cambiare nelle future versioni. Se l'errore è sufficientemente piccolo, il vincolo è considerato inutile, e non viene aggiunto. In alcuni casi, questa logica può portare ad errori; ad esempio, il vincolo può essere soddisfatto per caso, e questo può accadere facilmente quando in Sketcher è attiva la funzione "Aggancia alla griglia". 
+</p><p>Se manca un vincolo di supporto, e le condizioni richieste non sono soddisfatte in altro modo, il "vincolo complesso" sarà difettoso. Si ottiene qualcosa di imprevedibile. Il vincolo difettoso può essere riparato aggiungendo manualmente il vincolo di supporto mancante.
+</p><p>Attualmente, i vincoli di supporto sono necessari per i seguenti vincoli:
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Tangent/it" title="Constraint Tangent/it">Tangente</a> nel modo "tangenza in un punto" sono necessari due vincoli "punto su oggetto"</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Perpendicular/it" title="Constraint Perpendicular/it">Perpendicolare</a> nel modo "perpendicolare in un punto" sono necessari due vincoli "punto su oggetto"</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_InternalAngle/it" title="Constraint InternalAngle/it">Angolo interno</a> nel modo "angolo in un punto" sono necessari due vincoli "punto su oggetto"</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_SnellsLaw/it" title="Constraint SnellsLaw/it">Rifrazione</a> sono necessari un vincolo "coincidenza" e un vincolo "punto su oggetto"</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Quando i vincoli che richiedono dei supporti sono aggiunti tramite gli script Python, i vincoli di supporto non vengono aggiunti automaticamente. In uno script si può replicare la decisione presa automaticamente dai comandi della UI testando le seguenti funzioni, che sono state aggiunte specificamente per questo scopo e che sono usate nelle routine dell'interfaccia:
+</p>
+<pre>Sketch.isPointOnCurve(icurve,x,y) </pre>
+<p>isPointOnCurve verifica se un punto virtuale, dato dalle coordinate <tt>x,y</tt> (virgola mobile) dello schizzo, è idoneo per soddisfare un virtuale vincolo di punto su oggetto - cioè si trova sulla curva specificata dalla curva di indice <tt>icurve</tt>. Restituisce True se il punto è sulla curva, e False se non lo è.
+</p>
+<pre>Sketch.calculateConstraintError(iconstr) </pre>
+<p>calculateConstraintError valuta una funzione di errore di un vincolo specificato dal suo indice <tt>iconstr</tt> nello schizzo. Se nel vincolo vi è una sola funzione di errore, il valore restituito è il valore restituito firmato della funzione di errore. Se al vincolo è associata più di una funzione di errore (cioè il vincolo rimuove più di un grado di libertà), il valore restituito è la radice della media del quadrato (RMS) di tutte le funzioni di errore (sempre positivo).
+</p>
+<h2><span class="mw-headline" id="Versione">Versione</span></h2>
+<p>I vincoli di supporto sono stati introdotti nella versione 0.15.4387
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/it&amp;oldid=138296">http://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/it&amp;oldid=138296</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,126 @@
+<html><head><title>Expressions/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Expressions/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span>
+</p><p><br />
+Ora è possibile definire le proprietà utilizzando espressioni matematiche. Nella GUI, gli spin box o i campi di input che sono legati alle proprietà contengono un'icona blu <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Expressions.png" class="image"><img alt="Sketcher Expressions.png" src="24px-Sketcher_Expressions.png" width="24" height="24" srcset="/wiki/images/thumb/b/b2/Sketcher_Expressions.png/36px-Sketcher_Expressions.png 1.5x, /wiki/images/thumb/b/b2/Sketcher_Expressions.png/48px-Sketcher_Expressions.png 2x" /></a>. Cliccando sull'icona, oppure digitando il segno di uguale (=), si porta in primo piano l'editor delle espressioni per quella particolare proprietà.
+</p><p>Una espressione di FreeCAD è un'espressione matematica che segue la normale notazione per gli operatori matematici standard (+, -, * e /) e le funzioni come descritto in seguito. Inoltre, l'espressione può fare riferimento ad altre proprietà, e anche utilizzare le condizioni. I numeri di un'espressione possono opzionalmente essere collegati ad una unità di misura.
+</p><p>Gli operatori e le funzioni sono unit-aware (consapevoli delle unità), e richiedono combinazioni di unità valide, se sono fornite. Ad esempio, 2mm + 4mm è un'espressione valida, mentre 2mm + 4 non lo è (il motivo di questo è che un'espressione come 1in + 4 molto probabilmente viene interpretata come 1in + 4in da un umano, ma tutte le unità vengono convertite nel sistema SI interno, e il sistema non è in grado di indovinare questo).
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Funzioni_Supportate"><span class="tocnumber">1</span> <span class="toctext">Funzioni Supportate</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Riferimento_ai_dati_CAD"><span class="tocnumber">2</span> <span class="toctext">Riferimento ai dati CAD</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Variabili_globali_nell.27ambito_del_documento"><span class="tocnumber">3</span> <span class="toctext">Variabili globali nell'ambito del documento</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Riferimenti_incrociati_nel_documento"><span class="tocnumber">4</span> <span class="toctext">Riferimenti incrociati nel documento</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Problemi_noti_.2F_attivit.C3.A0_rimanenti"><span class="tocnumber">5</span> <span class="toctext">Problemi noti / attività rimanenti</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Funzioni_Supportate">Funzioni Supportate</span></h2>
+<p>Nelle espressioni, sono supportate le seguenti funzioni, usando uno o due argomenti: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh, ceil, floor, trunc, round.
+</p><p>Le funzioni di aggregazione: min, max, count, sum, stddev, e average.
+Le funzioni di aggregazione possono prendere uno o più argomenti, separati da virgola o punto e virgola. Gli argomenti possono includere degli intervalli (due celle separate da due punti), ad es =average(B1:B8). Questi vengono interpretati come le proprietà B1, B2, ... B8.
+</p><p>Le funzioni trigonometriche utilizzano i gradi come unità di default; fornire "rad" se si desidera che utilizzino i radianti.
+</p><p>Le costanti pi greco ed e sono predefinite
+</p><p>L'istruzione condizionale funziona così: = condition&#160;? resultTrue&#160;: resultFalse
+</p><p>La condizione è definita come un'espressione che restituisce 0 (per false) o non-zero per true. Sono definiti i seguenti operatori di confronto: ==,&#160;!=, &gt;, &lt;, &gt;=, and &lt;=.
+</p><p>Le formule sono scritte in questo modo: 2 * Length, dove Length è una proprietà contenuta nell'oggetto dell'espressione.
+</p>
+<h2><span class="mw-headline" id="Riferimento_ai_dati_CAD">Riferimento ai dati CAD</span></h2>
+<p>In un'espressione è possibile utilizzare i dati provenienti da altre parti della costruzione. La sintassi per un riferimento a un campo è il seguente: object.property. Se la proprietà è un composto di campi, si può accedere ad esempio con object.property.field. 
+</p><p>La tabella seguente mostra alcuni esempi:
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>Dati CAD
+</th>
+<th>Chiamata nell'espressione
+</th>
+<th>Risultato
+</th></tr>
+<tr>
+<td>Lunghezza parametrica di un Cubo di Parte
+</td>
+<td>Cube.Length
+</td>
+<td>Lunghezza con unità in mm
+</td></tr>
+<tr>
+<td>Volume del Cubo
+</td>
+<td>Cube.Shape.Volume
+</td>
+<td>Volume  in mm&#179; senza unità
+</td></tr>
+<tr>
+<td>Tipo di forma del Cubo
+</td>
+<td>Cube.Shape.ShapeType
+</td>
+<td>Stringa: Solid
+</td></tr>
+<tr>
+<td>Etichetta del Cubo
+</td>
+<td>Cube.Label
+</td>
+<td>Stringa: Cube
+</td></tr>
+<tr>
+<td>coordinata x del centro di massa del Cubo
+</td>
+<td>Cube.Shape.CenterOfMass.x
+</td>
+<td>coordinata x in mm senza unità
+</td></tr>
+<tr>
+<td>Valore di un vincolo in uno schizzo
+</td>
+<td>Constraints.Width
+</td>
+<td>Valore numerico del vincolo di nome 'Width' nello schizzo
+</td></tr>
+<tr>
+<td>Valore di un alias in spreadsheet
+</td>
+<td>Spreadsheet.Depth
+</td>
+<td>Valore dell'alias "Depth" nel foglio "Spreadsheet"
+</td></tr>
+<tr>
+<td>Valore di una proprietà locale
+</td>
+<td>Length
+</td>
+<td>Valore della proprietà Length, ad es. di un oggetto Pad, oppure Length2 nello stesso oggetto se l'espressione è già usata.
+</td></tr></table>
+<h2><span class="mw-headline" id="Variabili_globali_nell.27ambito_del_documento">Variabili globali nell'ambito del documento</span></h2>
+<p>Al momento in FreeCAD non esiste il concetto di variabili globali. Invece, utilizzando l'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/it" title="Spreadsheet Workbench/it">Spreadsheet</a>, si possono definire delle variabili arbitrarie come celle in un foglio di calcolo, e poi assegnare loro un nome utilizzando la proprietà alias della cella (tasto destro del mouse sulla cella). Dopo si può accedere alla variabile da qualsiasi espressione, come per qualsiasi altra proprietà di un oggetto.
+</p>
+<h2><span class="mw-headline" id="Riferimenti_incrociati_nel_documento">Riferimenti incrociati nel documento</span></h2>
+<p>Un documento può contenere un foglio di calcolo in cui i valori sono riferiti ad altri documenti.
+</p><p>Nota importante. È possibile utilizzare il nome di un documento per fare riferimento ad esso da altri documenti. Ora, quando si salva il documento per la prima volta si sceglie un determinato nome per il file, solitamente diverso da "Unnamed1" (o la sua versione tradotta), quindi quando si riapre il file i collegamenti sono persi. Perciò, si consiglia di creare prima il documento master, creare un foglio di calcolo, salvarlo e chiuderlo. Dopo la riapertura il nome è impostato sul nome del file di cui sopra. Successivamente è ancora possibile apportare modifiche e salvare il file, ma non si deve rinominarlo.
+</p><p>Quindi creare gli ulteriori documenti in cui si desidera aggiungere espressioni. Supponendo di aver chiamato il documento master "master" è possibile accedervi con un alias come questo: master#Spreadsheet.Length
+</p><p>Purtroppo, il checker integrato crea più confusione che aiuto perché restituisce sempre errori di analisi o sostiene che questo o quello non esiste. Quindi, basta continuare a digitare. Quando si è finito e il contenuto è corretto l'OK diventa improvvisamente attivo.
+</p><p>Naturalmente, dopo spetta all'utente il compito di caricare i documenti corrispondenti, quando si desidera cambiare qualcosa.
+</p>
+<h2><span class="mw-headline" id="Problemi_noti_.2F_attivit.C3.A0_rimanenti">Problemi noti / attività rimanenti</span></h2>
+<ul><li> I grafici delle dipendenze si basano sul rapporto tra gli oggetti del documento, non sulle proprietà. Questo significa che non è possibile fornire i dati a un oggetto e interrogare lo stesso oggetto, ad esempio, in un foglio di calcolo siccome sono considerate solo le proprietà non c'è una dipendenza ciclica. Per aggirare il problema, utilizzare più fogli di calcolo, ad esempio uno per sviluppare il modello, e uno per i rapporti.</li>
+<li> Non è implementato nessun gestore delle espressioni in cui siano elencate tutte le espressioni di un documento, e possano essere create, eliminate, interrogate, ecc.</li>
+<li> I bug aperti per le espressioni si trovano in <a rel="nofollow" class="external text" href="https://freecadweb.org/tracker/set_project.php?project_id=4;20">FreeCAD Bugtracker Expressions category</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Expressions/it&amp;oldid=271799">http://www.freecadweb.org/wiki/index.php?title=Expressions/it&amp;oldid=271799</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

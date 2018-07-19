@@ -1,0 +1,112 @@
+<html><head><title>Draft mapping files/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft mapping files/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>El módulo de Croquis es capaz de importar archivos creados en cualquier programa capaz de exportar archivos DXF. Pero debido a que FreeCAD es muy diferente a <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Autocad">AutoCAD</a> and other usual 2D CAD programs, you might want to translate automatically the way DXF entities appear in FreeCAD.
+</p><p>Por ejemplo los programas de CAD 2D frecuentemente utilizan un fondo negro, de modo que dibujas utilizando colores brillantes, como amarillo, verde, etc. Luego, cuando quieres imprimir tus dibujos, esos colores son traducidos al color negro con distintos espesores de línea.
+</p><p>Ya que FreeCAD no es un clon de AutoCAD, no necesitamos aguantar esos desagradables colores. Los conceptos de colores, espesor de línea, o capas son en realidad muy diferentes en FreeCAD. De modo que, podemos aprovechar este nuevo entorno y trabajar, por ejemplo, con líneas negras sobre un fondo blanco. También podemos utilizar diferentes espesores de línea, de modo que nuestros dibujos se parezcan bastante en pantalla a como serán impresos (observa que la impresión de planos desde FreeCAD aún no está soportada, un poco más de paciencia!).
+</p><p>Para utilizar archivos de traducción, simplemente accede a Editar -&gt; Preferencias -&gt; Croquis -&gt; Configuración DXF, y selecciona estas dos opciones:
+</p>
+<ul><li> Importar estilos: Mapa de colores a espesores de línea</li>
+<li> Archivo de traducción: accede a un archivo .csv (ver más abajo)</li></ul>
+<p>Esta configuración estará por defecto la próxima vez que importes un archivo DXF.
+</p><p>El módulo de Croquis acepta dos tipos de archivos de traducción .csv (separados por comas o por tabuladores):
+</p>
+<h4><span class="mw-headline" id="Convirtiendo_los_estilos_de_trazado_de_AutoCAD">Convirtiendo los estilos de trazado de AutoCAD</span></h4>
+<p><a rel="nofollow" class="external text" href="http://es.wikipedia.org/wiki/Autodesk_AutoCAD">AutoCAD</a> guarda sus estilos de trazado como archivos .CTB. Si abres el gestor de estilos de trazado de AutoCAD, abriras en realidad una ventana del explorador de Windows mostrando la ubicación en la que se han guardado dichos archivos. El importador de DXF no puede utilizar estos archivos directamente porque, lo has adivinado, están codificados. 
+Pero por fortuna, existe un buen <a rel="nofollow" class="external text" href="http://www.noliturbare.com/index.php">visor y conversor CTB</a> libre que puede convertir archivos CTB a archivos CSV separados por tabuladores.
+Los archivos .csv generados por este programa se pueden utilizar directamente, también se pueden editar con cualquier aplicación de hoja de cálculo.
+</p>
+<h4><span class="mw-headline" id="Creando_tus_propios_archivos_.csv">Creando tus propios archivos .csv</span></h4>
+<p>La creación de tus propios archivos de traducción también es bastante sencilla. Puede hacerse en una aplicación de hoja de cálculo o en cualquier editor de textos. La regla es simple: necesitas tres columnas separadas por tabulaciones (pulsa la tecla TAB). La primera columna es el color de AutoCAD, la segunda es el color de línea RGB de FreeCAD con un formato como este: 255,255,255 y la tercera columna es el espesor de línea de FreeCAD en pixels. La primera línea no se leerá. De modo que puedes crear un archivo como este:
+</p>
+<table>
+
+<tr>
+<td> dxf color
+</td>
+<td> freecad color
+</td>
+<td> freecad linewidth
+</td></tr>
+<tr>
+<td> 1
+</td>
+<td> 0,0,0
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> 0,0,0
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> 3
+</td>
+<td> 0,0,0
+</td>
+<td> 3
+</td></tr>
+<tr>
+<td> 4
+</td>
+<td> 0,0,0
+</td>
+<td> 4
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> 0,0,0
+</td>
+<td> 5
+</td></tr>
+<tr>
+<td> 6
+</td>
+<td> 0,0,0
+</td>
+<td> 6
+</td></tr>
+<tr>
+<td> 7
+</td>
+<td> 0,0,0
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 8
+</td>
+<td> 80,80,80
+</td>
+<td> 1
+</td></tr>
+<tr>
+<td> 9
+</td>
+<td> 160,160,160
+</td>
+<td> 1
+</td></tr></table>
+<p>La tabla de arriba convertirá el color 1 (rojo) a negro (0,0,0) / 1 pixel, el color 2 (amarillo) a  negro / 2 pixels, el color 8 (gris oscuro) a un color oscuro parecido (80,80,80) y 1 pixel de espesor, etc. Puedes especificar sólo los colores que necesites. Lo que no necesites especificar se recibirá con el color y espesor de línea por defecto.
+</p><p>No te olvides de que la primera línea no se utiliza, de modo que puedes emplearla para escribir los títulos de las columnas.
+Si escribes un archivo .csv en una hoja de cálculo (como <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Openoffice">OpenOffice</a>), ten cuidado!! porque a veces la hoja de cálculo pensará que algo escrito 100,100,100 es un número y querrá eliminar las comas. También, cuando guardes el archivo como .csv, asegúrate de especificar que debe ser separado por tabuladores y no separado por comas.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/es&amp;oldid=100590">http://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/es&amp;oldid=100590</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

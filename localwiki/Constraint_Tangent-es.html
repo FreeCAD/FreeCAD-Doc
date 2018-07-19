@@ -1,0 +1,137 @@
+<html><head><title>Constraint Tangent/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Constraint Tangent/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id=".7B.7B.7BName.2Fes.7D.7D.7D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Tangent.png" class="image"><img alt="Constraint Tangent.png" src="32px-Constraint_Tangent.png" width="32" height="32" srcset="/wiki/images/thumb/1/1a/Constraint_Tangent.png/48px-Constraint_Tangent.png 1.5x, /wiki/images/1/1a/Constraint_Tangent.png 2x" /></a> {{{Name/es}}}</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Ubicación en el Menú
+</th></tr>
+<tr>
+<td class="ctEven">Croquizador → Restricciones del Croquizador → Tangencia
+</td></tr>
+<tr>
+<th class="ctOdd">Entornos de trabajo
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/es" title="Sketcher Workbench/es">Croquizador</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/es" title="PartDesign Workbench/es">Diseño de Piezas</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Atajo de teclado por defecto
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">Ver también
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/es" title="Constraint PointOnObject/es">Punto en objeto</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.7B.7B.7BName.2Fes.7D.7D.7D"><span class="tocnumber">1</span> <span class="toctext">{{{Name/es}}}</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Between_two_curves_.28direct_tangency.29"><span class="tocnumber">3.1</span> <span class="toctext">Between two curves (direct tangency)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Between_two_endpoints_.28point-to-point_tangency.29"><span class="tocnumber">3.2</span> <span class="toctext">Between two endpoints (point-to-point tangency)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Between_curve_and_endpoint_.28point-to-curve_tangency.29"><span class="tocnumber">3.3</span> <span class="toctext">Between curve and endpoint (point-to-curve tangency)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Between_two_curves_at_point_.28tangent-via-point.29_.28v0.15.29"><span class="tocnumber">3.4</span> <span class="toctext">Between two curves at point (tangent-via-point) (v0.15)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Scripting"><span class="tocnumber">4</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Tangent Constraint makes two curves to touch each other (be tangent). Lines are treated infinite, and arcs are treated as full circles/ellipses. The constraint is also capable of connecting two curves, forcing them tangent at the joint, thus making the joint smooth.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<p>There are four different ways the constraint can be applied:
+</p>
+<ol><li> between two curves (available not for all curves)</li>
+<li> between two endpoints of a curve, making a smooth joint</li>
+<li> between a curve and an endpoint of another curve</li>
+<li> between two curves at user-defined point</li></ol>
+<p>To apply tangent constraint, one should the follow the steps:
+</p>
+<ul><li> Select two or three entities in the sketch.</li>
+<li> Invoke the constraint by clicking its icon on the toolbar, or selecting the menu item, or using keyboard shortcut.</li></ul>
+<h3><span class="mw-headline" id="Between_two_curves_.28direct_tangency.29">Between two curves (direct tangency)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode1.png" class="image"><img alt="Sketcher ConsraintTangent mode1.png" src="600px-Sketcher_ConsraintTangent_mode1.png" width="600" height="223" srcset="/wiki/images/e/ee/Sketcher_ConsraintTangent_mode1.png 1.5x" /></a>
+</p><p>Two curves will be made tangent, and the point of tangency will be implicit. This mode is applied if two curves were selected.
+</p><p><b>Accepted selection:</b>
+</p>
+<ul><li> line  +  line, circle, arc, ellipse, arc-of-ellipse</li>
+<li> circle, arc  +  circle, arc</li></ul>
+<p>If direct tangency between selected curves is not supported (e.g. between a circle and an ellipse), a helper point will be added to sketch automatically, and tangency-via-point will be applied.
+</p><p>It is not recommended to reconstruct the point of tangency by creating a point and constraining it to lie on both curves. It will work, but the convergence will be seriously slower, jumpier, and will require about twice as many iterations to converge than normal. Use other modes of this constraint if the point of tangency is needed.
+</p>
+<h3><span class="mw-headline" id="Between_two_endpoints_.28point-to-point_tangency.29">Between two endpoints (point-to-point tangency)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode2.png" class="image"><img alt="Sketcher ConsraintTangent mode2.png" src="600px-Sketcher_ConsraintTangent_mode2.png" width="600" height="340" srcset="/wiki/images/3/34/Sketcher_ConsraintTangent_mode2.png 1.5x" /></a>
+</p><p>In this mode, the endpoints are made coincident, and the joint is made tangent (C1-smooth, or "sharp", depending on the placement of curves before the constraint is applied). This mode is applied when two endpoints of two curves were selected. 
+</p><p><b>Accepted selection:</b>
+</p>
+<ul><li> endpoint of line/arc/arc-of-ellipse  +  endpoint of line/arc/arc-of-ellipse (i.e., two endpoints of any two curves)</li></ul>
+<h3><span class="mw-headline" id="Between_curve_and_endpoint_.28point-to-curve_tangency.29">Between curve and endpoint (point-to-curve tangency)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode3.png" class="image"><img alt="Sketcher ConsraintTangent mode3.png" src="600px-Sketcher_ConsraintTangent_mode3.png" width="600" height="278" srcset="/wiki/images/2/25/Sketcher_ConsraintTangent_mode3.png 1.5x" /></a>
+</p><p>In this mode, an endpoint of one curve is constrained to lie on the other curve, and the curves are forced tangent at the point. This mode is applied when a curve and an endpoint of another curve were selected.
+</p><p><b>Accepted selection:</b>
+</p>
+<ul><li> line, circle, arc, ellipse, arc-of-ellipse  +  endpoint of line/arc/arc-of-ellipse (i.e., any curve  +  endpoint of any curve)</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Between_two_curves_at_point_.28tangent-via-point.29_.28v0.15.29">Between two curves at point (tangent-via-point) (v0.15)</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConsraintTangent_mode4.png" class="image"><img alt="Sketcher ConsraintTangent mode4.png" src="600px-Sketcher_ConsraintTangent_mode4.png" width="600" height="366" srcset="/wiki/images/e/e7/Sketcher_ConsraintTangent_mode4.png 1.5x" /></a>
+</p><p>In this mode, two curves are made tangent, and the point of tangency is tracked. This mode is applied when two curves and a point were selected.
+</p><p><b>Accepted selection:</b>
+</p>
+<ul><li> any line/curve  +  any line/curve  +  any point</li></ul>
+<p>"Any point" can be a lone point, or a point of something, e.g. a center of a circle, an endpoint of an arc, or the origin.
+</p><p>For the constraint to work correctly, the point must be on both curves. So, as the constraint is invoked, the point will be automatically constrained onto both curves (<a href="Sketcher_helper_constraint.html" title="Sketcher helper constraint">helper constraints</a> will be added, if necessary), and the curves will be forced tangent at the point. These <a href="Sketcher_helper_constraint.html" title="Sketcher helper constraint">helper constraints</a> are plain regular constraints. They can be added manually, or deleted.
+</p><p>Compared to direct tangency, this constraint is slower, because there are more degrees of freedom involved, but if the point of tangency is needed, it is the recommended mode because it offers better convergence compared to direct tangency + point on two curves.
+</p><p>The placement of the point before the constraint is applied is a hint for the solver for where the tangency should be. With this constraint, one can constrain two ellipses to touch each other in two places.
+</p>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>Tangent Constraint can be created from <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following:
+</p>
+<pre># direct tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,icurve2))
+
+# point-to-point tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,pointpos1,icurve2,pointpos2))
+
+# point-to-curve tangency
+Sketch.addConstraint(Sketcher.Constraint('Tangent',icurve1,pointpos1,icurve2))
+
+# tangent-via-point (plain constraint, helpers are not added automatically)
+Sketch.addConstraint(Sketcher.Constraint('TangentViaPoint',icurve1,icurve2,geoidpoint,pointpos)) </pre>
+<p>where:
+</p>
+<dl><dd><ul><li> <tt>Sketch</tt> is a sketch object</li>
+<li> <tt>icurve1, icurve2</tt> are two integers identifying the curves to be made tangent. The integers are indexes in the sketch (the value, returned by Sketch.addGeometry).</li>
+<li> <tt>pointpos1, pointpos2</tt> should be 1 for start point and 2 for end point.</li>
+<li> <tt>geoidpoint</tt> and <tt>pointpos</tt> in TangentViaPoint are the indexes specifying the point of tangency. </li></ul></dd></dl>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Tangent/es&amp;oldid=150489">http://www.freecadweb.org/wiki/index.php?title=Constraint_Tangent/es&amp;oldid=150489</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

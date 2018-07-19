@@ -1,0 +1,246 @@
+<html><head><title>FEM project/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FEM project/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Ceci, est le plan du projet pour l'intégration de <b>FreeCAD FEM</b>, dans le cadre de <a href="Development_roadmap.html" title="Development roadmap">la feuille de route de développement</a>.
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Units"><span class="tocnumber">1</span> <span class="toctext">Units</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Pense_b.C3.AAte"><span class="tocnumber">2</span> <span class="toctext">Pense bête</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Potentiel_des_mailles"><span class="tocnumber">2.1</span> <span class="toctext">Potentiel des mailles</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Potentiel_du_Solveur"><span class="tocnumber">2.2</span> <span class="toctext">Potentiel du Solveur</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#calculix_examples"><span class="tocnumber">2.3</span> <span class="toctext">calculix examples</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Maillage"><span class="tocnumber">2.4</span> <span class="toctext">Maillage</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Units">Units</span></h2>
+<table class="wikitable" style="color:green; background-color:#ffffcc;" cellpadding="5" cellspacing="0" border="1">
+<caption> <b>Units</b>
+</caption>
+<tr>
+<th>Length </th>
+<th>Time </th>
+<th>Mass </th>
+<th>Force </th>
+<th>Pressure </th>
+<th>Velocity </th>
+<th>Density</th>
+<th> Energy </th>
+<th>Gravity
+</th></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>kg m/s2 </td>
+<td> N/m2  </td>
+<td>m/s </td>
+<td> kg/m3 </td>
+<td> kgm2/s2  </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>kg </td>
+<td>N </td>
+<td> Pa </td>
+<td> m/s </td>
+<td> m kg/l  </td>
+<td> J </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>g </td>
+<td>mN</td>
+<td> mPa </td>
+<td> m/s </td>
+<td> micro  kg/l </td>
+<td> mJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td>kN </td>
+<td>  kPa </td>
+<td> m/s </td>
+<td> kg/l </td>
+<td> kJ </td>
+<td> 9.81
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>kg </td>
+<td> MN </td>
+<td> MPa </td>
+<td> km/s </td>
+<td> m  kg/l </td>
+<td> MJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>g </td>
+<td> kN </td>
+<td> kPa </td>
+<td> km/s </td>
+<td> micro kg/l </td>
+<td> kJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>m </td>
+<td> ms </td>
+<td>Mg (ton) </td>
+<td> GN </td>
+<td> GPa </td>
+<td> km/s </td>
+<td> kg/l </td>
+<td> GJ </td>
+<td> 9.81e-6
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td> kg </td>
+<td> mN </td>
+<td> kPa </td>
+<td> mm/s </td>
+<td> M kg/l </td>
+<td> micro J </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm</td>
+<td> s </td>
+<td>g </td>
+<td> micro N </td>
+<td> Pa </td>
+<td> mm/s </td>
+<td> g/mm3 </td>
+<td> nJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> s </td>
+<td>Mg (ton) </td>
+<td> N </td>
+<td> MPa </td>
+<td> mm/s </td>
+<td> Mg/mm3 </td>
+<td>  mJ </td>
+<td> 9.81e+3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> kg </td>
+<td> kN </td>
+<td> GPa </td>
+<td> m/s </td>
+<td> M </td>
+<td> kg/l J </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms </td>
+<td>g </td>
+<td> N </td>
+<td> MPa </td>
+<td> m/s </td>
+<td> k kg/l </td>
+<td> mJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>mm </td>
+<td> ms</td>
+<td> Mg (ton) </td>
+<td> MN </td>
+<td> TPa </td>
+<td> m/s </td>
+<td> G  kg/l </td>
+<td> kJ </td>
+<td> 9.81e-3
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>g </td>
+<td> daN </td>
+<td> 10^5 Pa (bar)  </td>
+<td> dam/s </td>
+<td> kg/l </td>
+<td> dJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td>kg </td>
+<td> 10^4 N (kdaN) </td>
+<td> 10^8 Pa (kbar) </td>
+<td> dam/s </td>
+<td> k kg/l </td>
+<td> hJ </td>
+<td> 9.81e-4
+</td></tr>
+<tr>
+<td>cm </td>
+<td> ms </td>
+<td> Mg (ton) 10^7 </td>
+<td> N(MdaN) </td>
+<td>10^11 Pa (Mbar) </td>
+<td> dam/s </td>
+<td> M kg/l </td>
+<td>10^5 J </td>
+<td>9.81e-4
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Pense_b.C3.AAte">Pense bête</span></h2>
+<h3><span class="mw-headline" id="Potentiel_des_mailles">Potentiel des mailles</span></h3>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Netgen.jpg" class="image"><img alt="Netgen.jpg" src="300px-Netgen.jpg" width="300" height="229" srcset="/wiki/images/thumb/2/2a/Netgen.jpg/450px-Netgen.jpg 1.5x, /wiki/images/thumb/2/2a/Netgen.jpg/600px-Netgen.jpg 2x" /></a></div>
+<p>Ici, certains mailleurs&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.hpfem.jku.at/netgen/">Netgen</a> très bon mailleur, avec une bibliothèque <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Licence_publique_générale_limitée_GNU">LGPL</a>.</li>
+<li> <a rel="nofollow" class="external text" href="http://www.salome-platform.org/">Salome</a> paquet compliqué, et, difficile d'obtenir le code source que nous avons besoin&#160;!?</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> librairie <b>Python</b> avec la bibliothèque <a rel="nofollow" class="external text" href="http://www.salome-platform.org/">Salome</a> et le mailleur <a rel="nofollow" class="external text" href="http://www.hpfem.jku.at/netgen/">Netgen</a>, peut être le moyen le plus rapide et le plus complet pour intégrer le mailleur.</li></ul>
+<h3><span class="mw-headline" id="Potentiel_du_Solveur">Potentiel du Solveur</span></h3>
+<p>Ici, certains solveur&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.calculix.de/">Calculix</a> un logiciel libre, tris dimensionnel, programme structurel d'éléments finis</li>
+<li> <a rel="nofollow" class="external text" href="http://www.code-aster.org">Code-Aster</a> solveur très largement écrit en <b>Python</b>.</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythonocc.org/">PythonOCC</a> bibliothèque Python, qui propose également une interface (actuellement) approximativement comme <a rel="nofollow" class="external text" href="http://www.code-aster.org">Code-Aster</a>, serait un moyen simple et rapide d'obtenir une première solution de travail.</li></ul>
+<h3><span class="mw-headline" id="calculix_examples">calculix examples</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://dip28p.web.fc2.com/calculix/netgen2calculix/index.html">gut example with contact</a></li></ul>
+<h3><span class="mw-headline" id="Maillage">Maillage</span></h3>
+<ul><li> Test des générateurs de maillages par des experts.</li>
+<li> Analyser la structure du logiciel, et, élaborer une possible intégration.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FEM_project/fr&amp;oldid=186374">http://www.freecadweb.org/wiki/index.php?title=FEM_project/fr&amp;oldid=186374</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

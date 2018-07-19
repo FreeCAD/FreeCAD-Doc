@@ -1,0 +1,777 @@
+<html><head><title>CompileOnUnix/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnUnix/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>最近のLinuxディストリビューションでは、すべての依存パッケージがパッケージマネージャで提供されるので、FreeCADのビルドは簡単です。基本的には以下の３ステップです。
+</p>
+<pre>1) FreeCADのソースコードを取得
+2) 依存関係を取得 (FreeCADが依存するパッケージ)
+3) "cmake . &amp;&amp; make"でのコンパイル
+</pre>
+<p>以下は、全体のプロセスと、あなたが遭遇するかもしれない特異性についての詳細説明です。
+もしあなたが、以下のテキストで何らかの間違いや古い記述を見つけたとき(Linuxディストリビューションはしばしば変化するので)や、記述されていないディストリビューションを使用する場合は、テキストの修正にご協力ください。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.82.BD.E3.83.BC.E3.82.B9.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E5.8F.96.E5.BE.97"><span class="tocnumber">1</span> <span class="toctext">ソースファイルの取得</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Git"><span class="tocnumber">1.1</span> <span class="toctext">Git</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Gihub"><span class="tocnumber">1.2</span> <span class="toctext">Gihub</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.82.BD.E3.83.BC.E3.82.B9.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8"><span class="tocnumber">1.3</span> <span class="toctext">ソースパッケージ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#.E4.BE.9D.E5.AD.98.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8.E3.81.AE.E5.8F.96.E5.BE.97"><span class="tocnumber">2</span> <span class="toctext">依存パッケージの取得</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Debian_and_Ubuntu"><span class="tocnumber">2.1</span> <span class="toctext">Debian and Ubuntu</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Fedora"><span class="tocnumber">2.2</span> <span class="toctext">Fedora</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Gentoo"><span class="tocnumber">2.3</span> <span class="toctext">Gentoo</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#OpenSUSE"><span class="tocnumber">2.4</span> <span class="toctext">OpenSUSE</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E5.8F.A4.E3.81.8F.E3.81.A6.E4.B8.80.E8.88.AC.E7.9A.84.E3.81.A7.E3.81.AA.E3.81.84.E3.83.87.E3.82.A3.E3.82.B9.E3.83.88.E3.83.AA.E3.83.93.E3.83.A5.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">2.5</span> <span class="toctext">古くて一般的でないディストリビューション</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Eigen_3"><span class="tocnumber">2.5.1</span> <span class="toctext">Eigen 3</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#OpenCASCADE.E3.80.80.E3.82.B3.E3.83.9F.E3.83.A5.E3.83.8B.E3.83.86.E3.82.A3.E7.89.88_.28OCE.29"><span class="tocnumber">2.5.2</span> <span class="toctext">OpenCASCADE　コミュニティ版 (OCE)</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#OpenCASCADE_.E5.85.AC.E5.BC.8F.E7.89.88"><span class="tocnumber">2.5.3</span> <span class="toctext">OpenCASCADE 公式版</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#SoQt"><span class="tocnumber">2.5.4</span> <span class="toctext">SoQt</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Pivy"><span class="tocnumber">2.5.5</span> <span class="toctext">Pivy</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#FreeCAD_.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB"><span class="tocnumber">3</span> <span class="toctext">FreeCAD のコンパイル</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#cMake_.E3.82.92.E4.BD.BF.E3.81.86"><span class="tocnumber">3.1</span> <span class="toctext">cMake を使う</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#In-source_.E3.83.93.E3.83.AB.E3.83.89"><span class="tocnumber">3.1.1</span> <span class="toctext">In-source ビルド</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Out-of-source_.E3.83.93.E3.83.AB.E3.83.89"><span class="tocnumber">3.1.2</span> <span class="toctext">Out-of-source ビルド</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#.E8.A8.AD.E5.AE.9A.E3.82.AA.E3.83.97.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">3.1.3</span> <span class="toctext">設定オプション</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21"><a href="#autotools_.E3.82.92.E4.BD.BF.E3.81.86"><span class="tocnumber">3.2</span> <span class="toctext">autotools を使う</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#Qt_designer_.E3.83.97.E3.83.A9.E3.82.B0.E3.82.A4.E3.83.B3"><span class="tocnumber">3.2.1</span> <span class="toctext">Qt designer プラグイン</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Doxygen"><span class="tocnumber">3.2.2</span> <span class="toctext">Doxygen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24"><a href="#debian_package_.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">3.3</span> <span class="toctext">debian package の作成</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="#.E3.83.88.E3.83.A9.E3.83.96.E3.83.AB.E3.82.B7.E3.83.A5.E3.83.BC.E3.83.86.E3.82.A3.E3.83.B3.E3.82.B0"><span class="tocnumber">4</span> <span class="toctext">トラブルシューティング</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="#64bit_.E3.82.B7.E3.82.B9.E3.83.86.E3.83.A0.E3.81.A7.E3.81.AE.E6.B3.A8.E6.84.8F"><span class="tocnumber">4.1</span> <span class="toctext">64bit システムでの注意</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Automake_.E3.83.9E.E3.82.AF.E3.83.AD"><span class="tocnumber">4.2</span> <span class="toctext">Automake マクロ</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Fedora_13"><span class="tocnumber">4.3</span> <span class="toctext">Fedora 13</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Ubuntu_Lucid"><span class="tocnumber">4.4</span> <span class="toctext">Ubuntu Lucid</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="#Automatic_.E3.83.93.E3.83.AB.E3.83.89.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88"><span class="tocnumber">5</span> <span class="toctext">Automatic ビルドスクリプト</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="#Ubuntu_10.04_LTS_-_Lucid_Lynx_.2F_Ubuntu_10.10_Maverick_Meerkat_.2F_Ubuntu_11.04_Natty_Narwhal"><span class="tocnumber">5.1</span> <span class="toctext">Ubuntu 10.04 LTS - Lucid Lynx / Ubuntu 10.10 Maverick Meerkat / Ubuntu 11.04 Natty Narwhal</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#OpenSUSE_12.2"><span class="tocnumber">5.2</span> <span class="toctext">OpenSUSE 12.2</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#OpenSUSE_12.1"><span class="tocnumber">5.3</span> <span class="toctext">OpenSUSE 12.1</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#OpenSuse_11.2"><span class="tocnumber">5.4</span> <span class="toctext">OpenSuse 11.2</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="#OpenSuse_11.1"><span class="tocnumber">5.5</span> <span class="toctext">OpenSuse 11.1</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="#Debian_Squeeze"><span class="tocnumber">5.6</span> <span class="toctext">Debian Squeeze</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-37"><a href="#.E3.82.BD.E3.83.BC.E3.82.B9.E3.82.B3.E3.83.BC.E3.83.89.E3.81.AE.E3.82.A2.E3.83.83.E3.83.97.E3.83.87.E3.83.BC.E3.83.88"><span class="tocnumber">6</span> <span class="toctext">ソースコードのアップデート</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.82.BD.E3.83.BC.E3.82.B9.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E5.8F.96.E5.BE.97">ソースファイルの取得</span></h2>
+<p>FreeCADをコンパイルする前に、ソースコードを入手します。入手するには３つの方法があります。
+</p>
+<h3><span class="mw-headline" id="Git">Git</span></h3>
+<p>ソースコードを入手する一番早く良い方法は、リードオンリーのgitリポジトリを複製することです。(<a rel="nofollow" class="external text" href="http://git-scm.com/">git</a> パッケージをインストールしておく必要があります)
+</p><p><br />
+</p>
+<pre>git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a> freecad
+</pre>
+<p>上記を実行すると、"freecad"という新しいディレクトリに、最新バージョンFreeCADのソースコードのコピーを置きます。
+初めて free-cad.git.sourceforge.netに接続を試みると、sourceforgeのSSH鍵の認証を尋ねるメッセージを受け取ります。
+これは、通常、受け入れても安全です。（はっきりしないときは、sourceforge ウェブサイトのSSH鍵をチェックすることができます。）
+</p>
+<h3><span class="mw-headline" id="Gihub">Gihub</span></h3>
+<p>Gihub上のFreeCADレポジトリは、常に最新版です。
+<a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD_sf_master">github.com/FreeCAD/FreeCAD_sf_master</a>
+</p>
+<h3><span class="mw-headline" id=".E3.82.BD.E3.83.BC.E3.82.B9.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8">ソースパッケージ</span></h3>
+<p>別の方法として、ソースパッケージのダウンロードもできますが、それらはかなり古い可能性があるので、gitやsubversionで最新版のソースを入手するのが無難です。
+ディストリビューションによって、ソースパッケージの入手方法はいくつかあります。
+</p>
+<pre>Official FreeCAD source packages (distribution-independent): <a rel="nofollow" class="external free" href="https://sourceforge.net/projects/free-cad/files/FreeCAD%20Source/">https://sourceforge.net/projects/free-cad/files/FreeCAD%20Source/</a>
+Debian: <a rel="nofollow" class="external free" href="http://packages.debian.org/source/sid/freecad">http://packages.debian.org/source/sid/freecad</a>
+Ubuntu: <a rel="nofollow" class="external free" href="http://packages.ubuntu.com/source/precise/freecad">http://packages.ubuntu.com/source/precise/freecad</a>
+</pre>
+<h2><span class="mw-headline" id=".E4.BE.9D.E5.AD.98.E3.83.91.E3.83.83.E3.82.B1.E3.83.BC.E3.82.B8.E3.81.AE.E5.8F.96.E5.BE.97">依存パッケージの取得</span></h2>
+<p>LinuxでFreeCADをコンパイルするには、最初に<a href="https://www.freecadweb.org/wiki/index.php?title=Third_Party_Libraries/jp" title="Third Party Libraries/jp">サードパーティライブラリ</a>に記載されているすべてのライブラリをインストールする必要があります。
+一般的に、最近のディストリビューションでは、いくつかのパッケージをインストールするだけの問題です
+</p>
+<h3><span class="mw-headline" id="Debian_and_Ubuntu">Debian and Ubuntu</span></h3>
+<p>Debianベースのシステム(Debian, Ubuntu, Mint等)では、必要な全ての依存パッケージをインストールすることは簡単です。
+ライブラリのほとんどは、apt-getまたはSynapticパッケージマネージャを介して利用できます。
+インストールするために必要な全てのパッケージを、以下に記載します。
+あなたが使用しているディストリビューションの最新バージョンを使用しない場合は、以下のパッケージのいくつかは、リポジトリから欠落している可能性があることに注意してください。
+その場合、以下の <a href="#.E5.8F.A4.E3.81.8F.E3.81.A6.E4.B8.80.E8.88.AC.E7.9A.84.E3.81.A7.E3.81.AA.E3.81.84.E3.83.87.E3.82.A3.E3.82.B9.E3.83.88.E3.83.AA.E3.83.93.E3.83.A5.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3">#古くて一般的でないディストリビューション</a> セクションを参照してください。
+</p>
+<pre>build-essential
+cmake
+python
+libtool
+libcoin60-dev
+libsoqt4-dev
+libxerces-c-dev
+libboost-dev
+libboost-filesystem-dev
+libboost-regex-dev
+libboost-program-options-dev
+libboost-signals-dev
+libboost-thread-dev
+libqt4-dev
+libqt4-opengl-dev
+qt4-dev-tools
+python-dev
+こちらか:
+     libopencascade-dev (official opencascade version)
+または:
+     liboce*-dev (opencascade community edition)
+     oce-draw
+gfortran
+libeigen3-dev
+libqtwebkit-dev
+libode-dev
+swig
+libzipios++-dev
+</pre>
+<p>オプションで、以下の追加パッケージをインストールすることができます。
+</p>
+<pre>libsimage-dev (追加のイメージファイルフォーマットをサポートするCoinを作成するために必要)
+checkinstall (システムのパッケージマネージャにインストールしたファイルを登録するために必要。あとで簡単にアンインストールできます。)
+python-pivy (2D製図モジュールに必要)
+python-qt4 (2D製図モジュールに必要)
+doxygen and libcoin60-doc (ソースコードのドキュメントを生成する場合)
+libspnav-dev (Space NavigatorやSpace Pilot等の3Dconnexion製デバイスのサポート)
+</pre>
+<h3><span class="mw-headline" id="Fedora">Fedora</span></h3>
+<p>以下のパッケージが必要です。
+</p>
+<pre>cmake
+doxygen
+swig
+gcc-gfortran
+gettext
+dos2unix
+desktop-file-utils
+libXmu-devel
+freeimage-devel
+mesa-libGLU-devel
+OCE-devel
+python python-devel
+boost-devel
+tbb-devel
+eigen3-devel
+qt-devel
+qt-webkit-devel
+ode-devel
+xerces-c
+xerces-c-devel
+opencv-devel
+smesh-devel
+coin2-devel
+soqt-devel
+</pre>
+<p>以下はオプションです。
+</p>
+<pre>libspnav-devel (Space NavigatorやSpace Pilot等の3Dconnexion製デバイスのサポート)
+pivy ( <a rel="nofollow" class="external free" href="https://bugzilla.redhat.com/show_bug.cgi?id=458975">https://bugzilla.redhat.com/show_bug.cgi?id=458975</a>  Pivyは必須ではありませんが、ドラフトモジュールに必要 )
+</pre>
+<p>Fedoraでは公式のレポジトリではcoin2しか提供していないので、coin3でFreeCADをビルドすることはさらに面倒です。
+しかし、どうしてもという場合は、 <a rel="nofollow" class="external free" href="http://www.zultron.com/rpm-repo/">http://www.zultron.com/rpm-repo/</a> からcoin3-readyのパッケージをインストールすれば、
+全てのcoin3/soqt/pivyパッケージを再構築をせずにすみます。
+</p>
+<h3><span class="mw-headline" id="Gentoo">Gentoo</span></h3>
+<p>FreeCADのビルドには、以下のパッケージが必要です。
+</p>
+<pre>dev-cpp/eigen
+dev-games/ode
+dev-libs/boost
+dev-libs/xerces-c
+dev-python/pivy
+dev-python/PyQt4
+media-libs/coin
+media-libs/SoQt
+sci-libs/opencascade-6.5
+sys-libs/zlib
+virtual/fortran
+x11-libs/qt-gui
+x11-libs/qt-opengl
+x11-libs/qt-svg
+x11-libs/qt-webkit
+x11-libs/qt-xmlpatterns
+dev-lang/swig-2.0.4-r1
+app-admin/eselect-python-20091230
+dev-lang/python-2.7.2-r3
+dev-util/cmake-2.8.4
+sys-apps/findutils-4.4.0
+</pre>
+<p>最新のopencascadeが利用できないので、opencascadeをコンパイルしたくなるかもしれませんが、その場合は以下の追加ライブラリが必要です：
+</p>
+<pre>media-libs/ftgl
+virtual/opengl
+x11-libs/libXmu
+dev-lang/tcl-8.5.9
+dev-lang/tk-8.5.9-r1
+dev-tcltk/itcl-3.4_beta1
+dev-tcltk/itk-3.4_pre20090417
+dev-tcltk/tix-8.4.3
+x11-libs/gl2ps
+sys-devel/automake-1.11
+sys-devel/autoconf-2.68
+sys-devel/libtool
+dev-java/java-config-2.1.11-r3
+</pre>
+<h3><span class="mw-headline" id="OpenSUSE">OpenSUSE</span></h3>
+<p>以下のパッケージが必要です。
+</p>
+<pre>gcc
+cmake
+OpenCASCADE-devel
+libXerces-c-devel
+python-devel
+libqt4-devel
+python-qt4
+Coin-devel
+SoQt-devel
+boost-devel
+libode-devel
+libQtWebKit-devel
+libeigen3-devel
+gcc-fortran
+</pre>
+<p>FreeCAD 0.13が不安定なので、Eigen3とswigライブラリを追加する必要があります。それらは標準のレポジトリにはありません。それらは以下から１クリックインストールできます。
+</p><p><br />
+</p>
+<pre>Eigen3: <a rel="nofollow" class="external free" href="http://software.opensuse.org/search?q=eigen3&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true">http://software.opensuse.org/search?q=eigen3&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true</a>
+swig: <a rel="nofollow" class="external free" href="http://software.opensuse.org/search?q=swig&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true">http://software.opensuse.org/search?q=swig&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true</a>
+</pre>
+<p>Factory EducationのEigen3ライブラリは、しばしば問題を起こしていたので、KDE 4.8 Extraレポジトリのものを使ってください。
+</p>
+<h3><span class="mw-headline" id=".E5.8F.A4.E3.81.8F.E3.81.A6.E4.B8.80.E8.88.AC.E7.9A.84.E3.81.A7.E3.81.AA.E3.81.84.E3.83.87.E3.82.A3.E3.82.B9.E3.83.88.E3.83.AA.E3.83.93.E3.83.A5.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3">古くて一般的でないディストリビューション</span></h3>
+<p>他のディストリビューションでは、ユーザーからのフィードバックがほとんど無いので、必要なパッケージを見つけることが難しくなる場合があります。
+まず、<a href="https://www.freecadweb.org/wiki/index.php?title=Third_Party_Libraries/jp" title="Third Party Libraries/jp">サードパーティライブラリ</a>に記載されている必要なライブラリを用意することを試してください。
+そのうちのいくつかはお使いのディストリビューションで若干異なるパッケージ名（name、libname、name-dev、name-devel、等..）になっているかもしれないことに注意してください。
+</p><p><a href="http://en.wikipedia.org/wiki/GNU_Compiler_Collection" class="extiw" title="wikipedia:GNU Compiler Collection">GNU gcc コンパイラ</a> バージョン 3.0.0以上も必要です。
+FreeCADは完全にC++で記述されているので、g++も必要です。
+コンパイル中には、いくつかのPythonスクリプトも実行されます。
+そのため、Pythonインタプリタが正しく機能する必要があります。
+ビルドプロセスでのリンカの問題を避けるため、環境変数"LD_LIBRARY_PATH"、もしくは、"ld.so.conf"ファイルに、ライブラリへのパスを追加するのも良いでしょう。
+これは、最近のディストリビューションでは一般的なことです。
+</p><p>詳細は、ソースファイル内の"README.Linux"にも書かれています。
+</p><p>以下には、あなたのディストリビューションのリポジトリで見つけることができないかもしれない、いくつかのライブラリについての追加ヘルプです。
+</p>
+<h4><span class="mw-headline" id="Eigen_3">Eigen 3</span></h4>
+<p>Eigen3ライブラリは現在、Schecherモジュールを必要とします。 このライブラリは、Ubuntu 11.10のリポジトリ以降でのみ使用できます。 前のUbuntuのリリースでは、<a rel="nofollow" class="external text" href="http://packages.ubuntu.com/oneiric/libeigen3-dev">ここから</a> ダウンロードして手動でインストールするか、インストールする前に以下に示す方法のいずれかを使って、 <a rel="nofollow" class="external text" href="https://launchpad.net/~freecad-maintainers/+archive/freecad-daily">FreeCAD Daily Builds PPA</a> をソフトウェアのソースに加えてください。
+</p>
+<h4><span class="mw-headline" id="OpenCASCADE.E3.80.80.E3.82.B3.E3.83.9F.E3.83.A5.E3.83.8B.E3.83.86.E3.82.A3.E7.89.88_.28OCE.29">OpenCASCADE　コミュニティ版 (OCE)</span></h4>
+<p>OpenCasCade には最近分離した <a rel="nofollow" class="external text" href="http://github.com/tpaviot/oce">コミュニティ版</a> があり、これはビルドがはるかに簡単になっています。ご使用のシステムにかかわらず、FreeCADは"公式版"あるいはコミュニティ版のどちらかを利用することができます。OCEのウェブサイトにはビルド手順の詳細があります。
+</p>
+<h4><span class="mw-headline" id="OpenCASCADE_.E5.85.AC.E5.BC.8F.E7.89.88">OpenCASCADE 公式版</span></h4>
+<p>前文ではOpenCasCadeコミュニティ版はビルドが簡単であると紹介しましたが、公式版も動きます。
+</p><p>全てのLinuxディストリビューションはリポジトリ内に公式版のOpenCasCadeパッケージを持っていません。
+もし使えるリポジトリがあるなら、自分自身でリポジトリを確認する必要があります。
+少なくともDebian LennyとUbuntu Intrepidには、公式の.debパッケージが用意されています。
+古いDebianやUbuntuのリリース用に非公式パッケージを<a rel="nofollow" class="external text" href="http://lyre.mit.edu/~powell/opencascade">ここから</a>入手することができます。あなた自身のプライベートなdebパッケージをビルドするには、次の手順に従います。
+</p>
+<pre>wget <a rel="nofollow" class="external free" href="http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0.orig.tar.gz">http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0.orig.tar.gz</a>
+wget <a rel="nofollow" class="external free" href="http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0-7.dsc">http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0-7.dsc</a>
+wget <a rel="nofollow" class="external free" href="http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0-7.diff.gz">http://lyre.mit.edu/~powell/opencascade/opencascade_6.2.0-7.diff.gz</a>
+</pre>
+<pre>dpkg-source -x opencascade_6.2.0-7.dsc
+</pre>
+<pre># OCC build-deps をインストール
+sudo apt-get install build-essential devscripts debhelper autoconf
+automake libtool bison libx11-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev
+libglu1-mesa-dev java-gcj-compat-dev libxmu-dev
+</pre>
+<pre># Opencascade パッケージのビルド. 数時間以上かかる
+# 8GB以上のディスク空き容量
+cd opencascade-6.2.0&#160;; debuild
+</pre>
+<pre># 生成されたdebライブラリをインストール
+sudo dpkg -i libopencascade6.2-0_6.2.0-7_i386.deb
+libopencascade6.2-dev_6.2.0-7_i386.deb
+</pre>
+<p>もう一つの方法として、<a rel="nofollow" class="external text" href="http://www.opencascade.org">opencascade.org</a>から最新バージョンをダウンロードしてコンパイルすることもできます。
+普通にパッケージをインストールします。インストーラはSun公式のJava ランタイム(パッケージ名：sun-java6-jre)のプログラムであり、UbuntuにバンドルされているオープンソースのJava(gij)でないことに注意してください。
+必要に応じてそれをインストールします。
+</p>
+<pre>sudo apt-get remove gij
+sudo apt-get install sun-java6-jre
+</pre>
+<p>あなたがブラウザのプラグイン等の他のものでgijのJavaを使用している場合は注意してください、それらは動かなくなるでしょう。インストーラが動作しない場合は、以下を試してみてください。
+</p>
+<pre>java -cp path_to_file_setup.jar &lt;-Dtemp.dir=path_to_tmp_directory&gt; run
+</pre>
+<p>パッケージがインストールされたら、opencascade dir内の "ROS"ディレクトリに移動し、以下を実行します。
+</p>
+<pre>./configure --with-tcl=/usr/lib/tcl8.4 --with-tk=/usr/lib/tk8.4
+</pre>
+<p>ビルドすることができます。 ROSフォルダに戻って操作を行います。:
+</p>
+<pre>make
+</pre>
+<p>これは長い時間、数時間かかります。
+</p><p>それが終わったら、インストールを実行します。
+</p>
+<pre>sudo make install
+</pre>
+<p>ライブラリファイルは、/usr/local/lib にコピーされます。このフォルダは他のプログラムが自動的に見つけることができるので、このフォルダにコピーするのが良いです。別の方法としては、以下のようにします。これは"make install"と同じですが、後から簡単にアンインストールできるようにパッケージ管理システムに登録します。
+</p>
+<pre>sudo checkinstall
+</pre>
+<p>巨大な一時コンパイルファイルを以下のコマンドで今すぐクリーンアップしましょう。
+</p>
+<pre>make clean
+</pre>
+<p>可能性のあるエラー 1：OCC バージョン 6.2を使っている場合、コンパイラがmakeを実行し始めると同時にに止まります。
+もしこの現象が生じたら、"configure"スクリプトで、CXXFLAGS="$CXXFLAGS "の文を見つけて、CXXFLAGS="$CXXFLAGS -ffriend-injection -fpermissive"に修正します。それからconfigureをやり直してください。
+</p><p>可能性のあるエラー 2:：おそらく、幾つかのモジュール(WOKSH, WOKLibs, TKWOKTcl, TKViewerTest and TKDraw)は、tcl/tkのヘッダファイルが見つからないとエラーを出すでしょう。この場合、オプションがconfigureスクリプトに提供されていないので、手動でこれらのモジュールの各々のMakefileを編集する必要があります。：adm/makeや不良モジュールのフォルダに行きます。Makefileを修正して、CSF_TclLibs_INCLUDES = -I/usr/include と CSF_TclTkLibs_INCLUDES = -I/usr/include を設定し、/tck8.4 と /tk8.4を次のように追加します。: SCF_TclLibs_INCLUDES = -I/usr/include/tcl8.4 , SCF_TclTkLibs_INCLUDES = -I/usr/include/tk8.4
+</p>
+<h4><span class="mw-headline" id="SoQt">SoQt</span></h4>
+<p>最新のディストリビューションの場合、SoQtライブラリはQt4に対してコンパイルする必要があります。しかし、この記事の執筆時点で利用可能なSoQt4はDebian用のみであり、すべてのUbuntuにはパッケージがありません。バッケージをビルドするには、次の手順を実行します。:
+</p>
+<pre>wget <a rel="nofollow" class="external free" href="http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1.orig.tar.gz">http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1.orig.tar.gz</a>
+wget <a rel="nofollow" class="external free" href="http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1-6.dsc">http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1-6.dsc</a>
+wget <a rel="nofollow" class="external free" href="http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1-6.diff.gz">http://ftp.de.debian.org/debian/pool/main/s/soqt/soqt_1.4.1-6.diff.gz</a>
+dpkg-source -x soqt_1.4.1-6.dsc
+sudo apt-get install doxygen devscripts fakeroot debhelper libqt3-mt-dev qt3-dev-tools libqt4-opengl-dev
+cd soqt-1.4.1
+debuild
+sudo dpkg -i libsoqt4-20_1.4.1-6_i386.deb libsoqt4-dev_1.4.1-6_i386.deb libsoqt-dev-common_1.4.1-6_i386.deb
+</pre>
+<p>64bitのシステムの場合、i386の記述をamd64に変えてください。
+</p>
+<h4><span class="mw-headline" id="Pivy">Pivy</span></h4>
+<p>PivyはFreeCADのビルドや実行に必要ないですが、2D製図モジュールを動かすのに必要とされています。
+もしこのモジュールを使う予定が無いのであれば、Pivyは必要ありません。執筆時点では、Pivyは非常に新しいものであり、
+あなたのお使いのディストリビューションのリポジトリに無い可能性があります。もし、ディストリビューションのパッケージリポジトリにPivyを見つけることができない場合には、FreeCADのダウンロードページから Debian / Ubuntuのパッケージを入手することができます。
+</p><p><a rel="nofollow" class="external free" href="http://sourceforge.net/projects/free-cad/files/FreeCAD%20Linux/">http://sourceforge.net/projects/free-cad/files/FreeCAD%20Linux/</a>
+</p><p>または、自分自身でPivyをコンパイルします:
+</p><p><a href="/wiki/Extra_python_modules#Pivy" title="Extra python modules">Pivyコンパイル手順</a>
+</p>
+<h2><span class="mw-headline" id="FreeCAD_.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.91.E3.82.A4.E3.83.AB">FreeCAD のコンパイル</span></h2>
+<h3><span class="mw-headline" id="cMake_.E3.82.92.E4.BD.BF.E3.81.86">cMake を使う</span></h3>
+<p>CMakeは異なる対象システム（Linux、また、Windows、MacOSX、等）間で共通であるという大きな利点がある新しいビルドシステムです。FreeCADは現在、メインのビルドシステムとしてCMakeを使用しています。CMakeを使用してのコンパイルは、通常は非常に簡単であり、次の2つのステップで実行されます。最初のステップでは、cMakeは、すべての必要なプログラムやライブラリが、お使いのシステム上に存在しているかをチェックし、その後のコンパイルに必要なすべてのことを設定します。以下に詳述するように、いくつか選択する必要がある部分がありますが、FreeCADでは適切な標準値が付与されます。次のステップでは、FreeCADの実行形式を生成するコンパイルです。
+</p><p>FreeCADは大きなアプリケーションなので、コンパイルには少し時間がかかります(速いマシンでは10分、遅いマシンでは30分）。
+</p>
+<h4><span class="mw-headline" id="In-source_.E3.83.93.E3.83.AB.E3.83.89">In-source ビルド</span></h4>
+<p>FreeCADは、In-sourceでビルドされます、これはコンパイルで得られた全てのファイルはソースファイルと同じフォルダにあるという意味です。これはFreeCADだけに注目していて、フォルダを削除するだけで簡単に削除できるようにしたいならば良い方法です。しかし、しばしばコンパイルをする場合は、アウトオブソースビルドをおすすめします、これには、より多くの利点があります。以下のコマンドでfreecadをコンパイルします。
+</p>
+<pre>cd freecad (freecadのソースのをコピーしたフォルダ)
+cmake .
+make
+</pre>
+<p>あなたのFreeCADの実行形式は "bin" フォルダにあり、それを以下のコマンドで起動できます。
+</p>
+<pre>./bin/FreeCAD
+</pre>
+<h4><span class="mw-headline" id="Out-of-source_.E3.83.93.E3.83.AB.E3.83.89">Out-of-source ビルド</span></h4>
+<p>もしあなたがFreeCADの速い進化について行きたいなら、別のフォルダでビルドするのがずっと便利です。あなたがソースコードをアップデートするたびごとに、cMakeは、どのファイルが変更され、必要なものだけが再コンパイルされるということを賢く区別します。Out-of-sourceのビルドは、Gitシステムを利用していると、あなたはビルドシステムを壊すこと無く、他のブランチを簡単に試すことができるため、特に便利です。out-of-sourceでビルドするには、単純に、あなたのfreecadソースフォルダやbuildディレクトリとは異なるビルドフォルダを作成し、cMakeにソースフォルダを示します。
+</p>
+<pre>mkdir freecad-build
+cd freecad-build
+cmake ../freecad (or whatever the path is to your FreeCAD source folder)
+make
+</pre>
+<p>FreeCADの実行形式は、"bin"ディレクトリ(freecad-buildディレクトリ内)にあります。
+</p>
+<h4><span class="mw-headline" id=".E8.A8.AD.E5.AE.9A.E3.82.AA.E3.83.97.E3.82.B7.E3.83.A7.E3.83.B3">設定オプション</span></h4>
+<p>試験的または未完成のモジュールを使いたい場合は、それらをビルドする必要があります。これを行うには、設定段階で適切なオプションをセットする必要があります。コマンドラインで、-D &lt;var&gt;:&lt;type&gt;=&lt;value&gt;オプションをcMakeに渡すか、利用できるGUIフロントエンド（Debianでは、packages cmake-qt-gui や、cmake-curses-gui等）のどれかを使うことで実行できます。
+</p><p>例として、アッセンブリモジュールのビルドをコマンドラインで設定するために、以下を実行します。
+</p>
+<pre>cmake -D FREECAD_BUILD_ASSEMBLY:BOOL=ON <i>path-to-freecad-root</i>
+</pre>
+<p>利用できるオプションは、FreeCADのルートディレクトリの CmakeLists.txtファイルに書かれています。
+</p>
+<h3><span class="mw-headline" id="autotools_.E3.82.92.E4.BD.BF.E3.81.86">autotools を使う</span></h3>
+<p>FreeCADはcMakeを推奨しているので、Autotoolsからは離れている途中にありますが、現時点ではまだFreeCADを構築することが可能です。automakeとlibtoolがシステムにインストールされている必要があるため、Debian / Ubuntuでインストールするには以下を実行します。
+</p>
+<pre>aptitude install automake libtool
+</pre>
+<p>この設定は、gitやsubversionでソースファイルを持っている場合は、configureスクリプト等を作成するために、以下のコマンドを一番最初のステップで実行する必要があります。
+</p>
+<pre>./autogen.sh
+</pre>
+<p>ビルドプロセスのために、configureスクリプトが提供されています。 ビルドのための全ての設定を行うには、以下を実行します。
+</p>
+<pre>./configure
+</pre>
+<p>もしあなたが設定した全てのオプションの概要を確認するには、次のように入力します。
+</p>
+<pre>./configure --help
+</pre>
+<p>通常、あなたのライブラリが本当に珍しいディレクトリにインストールされていない限り、あなたはどのオプションも設定する必要はありません  。設定が完了したら、FreeCADのコンパイルは簡単です。
+</p>
+<pre>make
+</pre>
+<p>もし何らかのエラーがソースからのビルド中に発生したら、このページとREADME.Linux ファイルをダブルチェクしてください。そしてSourceForgeにある <a href="Tracker.html" title="Tracker">Bug Tracker</a> に行ってください。状態は"Any"とし、過去のコンパイル問題の投稿を見るために"Brouse"ボタンをクリックしてください。FreeCADが正常にビルドされた後は、以下を実行します。
+</p>
+<pre>make install
+</pre>
+<p>あなたのマシンにFrreeCADをインストールします。デフォルトのインストールディレクトリは以下のとおりです。
+</p>
+<pre>~/FreeCAD
+</pre>
+<p>あなたのホームフォルダにあるFreeCADフォルダにインストールします。この場合はroot権限は必要ありません。make installの代わりに、以下を実行します。
+</p>
+<pre>checkinstall
+</pre>
+<p>この方法で、FreeCADはあなたのパッケージマネジメントシステムを使ってインストールされます。そうすると、あとで簡単にアンインストールできます。しかし全てのFreeCADのインストールはシングルディレクトリにインストールされるため、FreeCADディレクトリを削除することも、アンインストールの有効な手段です。
+</p>
+<h4><span class="mw-headline" id="Qt_designer_.E3.83.97.E3.83.A9.E3.82.B0.E3.82.A4.E3.83.B3">Qt designer プラグイン</span></h4>
+<p>もしFreeCADのためのQtの機能を開発したいなら、FreeCADのカスタムウィジェットを提供しているQt Designerプラグインが必要です。以下のディレクトリに移動します。
+</p>
+<pre>freecad/src/Tools/plugins/widget
+</pre>
+<p>これまで、makefileを提供していませんでした。--しかし以下を実行すれば作られます。
+</p>
+<pre>qmake plugin.pro
+</pre>
+<p>これを実行した後で以下を実行すると、libFreeCAD_widgets.soライブラリが作成されます。
+</p>
+<pre>make
+</pre>
+<p>このライブラリをQt Designerに認識させるために、このファイルを $QTDIR/plugin/designer にコピーします。
+</p>
+<h4><span class="mw-headline" id="Doxygen">Doxygen</span></h4>
+<p>ソースコードに飛び込むのを大変なことだと感じている場合は、Doxygenが生成するFreeCADの <a href="https://www.freecadweb.org/wiki/index.php?title=Source_documentation/jp" title="Source documentation/jp">ソースドキュメント</a> を構築し参照することができます。
+</p>
+<h3><span class="mw-headline" id="debian_package_.E3.81.AE.E4.BD.9C.E6.88.90">debian package の作成</span></h3>
+<p>もしDebian packageをソースファイルからビルドする場合、まずはじめに以下のパッケージをインストールする必要があります。
+</p>
+<pre>dh-make
+devscripts
+lintian (optional, used for checking if packages are standard-compliant)
+</pre>
+<p>パッケージをビルドするにはコンソールを開き、FreeCADのディレクトリに行き、以下を実行します。
+</p>
+<pre>debuild
+</pre>
+<p>パッケージがビルドされたら、パッケージにエラーが含まれているかどうかをチェックするためにlintian使用することができます。
+</p>
+<pre>lintian your-fresh-new-freecad-package.deb (replace by the name of the package you just created)
+</pre>
+<h2><span class="mw-headline" id=".E3.83.88.E3.83.A9.E3.83.96.E3.83.AB.E3.82.B7.E3.83.A5.E3.83.BC.E3.83.86.E3.82.A3.E3.83.B3.E3.82.B0">トラブルシューティング</span></h2>
+<h3><span class="mw-headline" id="64bit_.E3.82.B7.E3.82.B9.E3.83.86.E3.83.A0.E3.81.A7.E3.81.AE.E6.B3.A8.E6.84.8F">64bit システムでの注意</span></h3>
+<p>64ビット用FreeCADを構築するとき、OpenCASCADE 64ビットパッケージには既知の問題があります。正常に動作するFreeCADを取得するために、あなたは ./configure スクリプトを、追加の定義として"_OCC64"を指定して実行する必要があるかもしれません。
+</p>
+<pre>./configure CXXFLAGS="-D_OCC64"
+</pre>
+<p>すでにビルドされたOpenCASCADEパッケージを使用している場合は、この定義が組み込まれているので、Debianベースのシステムの場合は、この回避策は必要ありません。上記の説明と同じ方法でFreeCADをコンパイルする必要があります。
+</p>
+<h3><span class="mw-headline" id="Automake_.E3.83.9E.E3.82.AF.E3.83.AD">Automake マクロ</span></h3>
+<p>FreeCADの configureスクリプトは、automakeのマクロ(bnv_have_qt.m4, coin.m4, soqt.m4)を利用していますが、それらはたまにインストールされていないことがあります。もし必要なら(configure時にエラーになった場合）、googleでそれらを探せば、簡単に見つけられるでしょう。それらは簡単なスクリプトで、/usr/share/aclocal フォルダに配置する必要があります。
+</p>
+<h3><span class="mw-headline" id="Fedora_13">Fedora 13</span></h3>
+<p>Fedora13でコンパイルとインストールをするには、いくつかのヒントやトリックが必要です。
+</p>
+<ul><li> 必要なパッケージ群をインストールします。ほとんどのはFedora 13のリポジトリから入手可能です。</li>
+<li> xercesのダウンロードおよびビルド</li>
+<li> OpenCascadeをダウンロードしてビルドします。XMUを指すようにする必要があります: ./configure --with-xmu-include=/usr/include/X11/Xmu --with-xmu-library=/usr/lib</li>
+<li> Pivyをダウンロードしてビルドします。 pivy/interfaces/soqt.iから、存在しない"SoQtSpaceball.h"の2つの参照を削除する必要があります。ビルドとインストールが実行できるように、これらの2行をコメントアウトしてください。</li>
+<li> Freecadを設定(configure)します. いくつかの項目を指定する必要があります。: ./configure --with-qt4-include=/usr/include --with-qt4-bin=/usr/lib/qt4/bin --with-occ-lib=/usr/local/lib --with-occ-include=/usr/local/inc --with-xercesc-lib=/usr/local/lib</li>
+<li> makeします。 - soqt の ldflags が "-LNONE" に設定されていて、そのため libtool でエラーが出たためにビルドが中断する問題に直面しました。</li></ul>
+<p>この問題を回避するために、/usr/local/Cons2/conf/soqt-default.cfg を修正したら、ldflagsが "-LNONE" でなく "" となりました。これにより、成功しました! 
+</p>
+<ul><li> make install を実行します。</li></ul>
+<h3><span class="mw-headline" id="Ubuntu_Lucid">Ubuntu Lucid</span></h3>
+<p>Ubuntu Lucidでは、qtwebkit-devはqt4-devに含まれているので、qtwebkit-devは必要ありません。
+</p>
+<h2><span class="mw-headline" id="Automatic_.E3.83.93.E3.83.AB.E3.83.89.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88">Automatic ビルドスクリプト</span></h2>
+<p>ここでは、FreeCADを完全ビルドに必要なものすべてを紹介します。
+1スクリプトでのアプローチでは、ディストリビューションをインストールした直後の状態では動作します。
+このコマンドは、rootのパスワード(パッケージのインストールのために)と外部のリポジトリサーバ、もしくはhttpsのsubversionリポジトリのfingerprintを尋ねてきます。
+これらのスクリプトは32bitもしくは64bit上で動かすべきです。
+それらのスクリプトはバージョンごとに書かれていますが、より新しいバージョンに対しても、
+必要ならば、ちょっとした変更をすれば動くと思います。
+</p><p>あなたが好むディストリビューション用のスクリプトを持っていたら、是非送ってください！
+我々はこの記事にそれを組み込みます。
+</p><p>このスクリプトは、 <a rel="nofollow" class="external text" href="https://launchpad.net/~freecad-maintainers/+archive/freecad-daily">FreeCAD Daily Builds PPA</a> リポジトリに追加されることから始まっていて、
+Eigen3ライブラリ(libeigen3-dev)のインストールに進むことができます。もしこのライブラリがすでにインストールされている場合は、スクリプトの最初の行を削除してください。
+</p>
+<h3><span class="mw-headline" id="Ubuntu_10.04_LTS_-_Lucid_Lynx_.2F_Ubuntu_10.10_Maverick_Meerkat_.2F_Ubuntu_11.04_Natty_Narwhal">Ubuntu 10.04 LTS - Lucid Lynx / Ubuntu 10.10 Maverick Meerkat / Ubuntu 11.04 Natty Narwhal</span></h3>
+<pre>sudo add-apt-repository ppa:freecad-maintainers/freecad-daily &amp;&amp; sudo apt-get update
+sudo apt-get install build-essential python libcoin60-dev libsoqt4-dev \
+libxerces-c2-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev \
+libboost-graph-dev libboost-iostreams-dev libboost-program-options-dev \
+libboost-serialization-dev libboost-signals-dev libboost-regex-dev libboost-thread-dev \
+libqt4-dev qt4-dev-tools python2.7-dev libopencascade-dev libsoqt4-dev \
+libode-dev subversion cmake libeigen2-dev libsimage-dev python-qt4 \
+libtool autotools-dev automake bison flex gfortran libeigen3-dev libqtwebkit-dev git
+</pre>
+<pre># source 最新版のチェックアウト
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a> freecad
+</pre>
+<pre># source ディレクトリに移動
+cd freecad
+</pre>
+<pre># 設定のビルド
+cmake .
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<pre># FreeCADの実行
+./FreeCAD
+</pre>
+<pre># 最新版へのアップデート
+</pre>
+<pre># source ディレクトリに移動
+cd freecad
+</pre>
+<pre># sourceをアップデート
+git pull
+</pre>
+<pre># 設定のビルド
+cmake .
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<h3><span class="mw-headline" id="OpenSUSE_12.2">OpenSUSE 12.2</span></h3>
+<p>このリリースで FreeCAD 0.13をコンパイルするには、外部リポジトリは必要ありません。
+しかしながら、python3-devとの互換性が無く、python3-devを削除する必要があります。
+FreeCADはOpenSUSE 12.2と同様に、GITからコンパイルできます。
+</p>
+<pre># 開発に必要なパッケージのインストール
+sudo zypper install gcc cmake OpenCASCADE-devel libXerces-c-devel \
+python-devel libqt4-devel python-qt4 Coin-devel SoQt-devel boost-devel \
+libode-devel libQtWebKit-devel libeigen3-devel gcc-fortran git swig
+</pre>
+<pre># 新しいディレクトリの作成と、そのディレクトリへの移動
+mkdir FreeCAD-Compiled
+cd FreeCAD-Compiled
+</pre>
+<pre># sourceの取得
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a>
+</pre>
+<pre># これから free-cad という場所にサブフォルダを持つことになります。そのフォルダはsourceを含んでいます。
+</pre>
+<pre># コンパイル用のフォルダを作成して、そこに移動します。
+mkdir FreeCAD-Build1
+cd FreeCAD-Build1
+</pre>
+<pre># 設定のビルド
+cmake ../free-cad
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<p>gitを使っているので、次回コンパイルしたい場合は、全てをクローンする必要はなく、gitから pullして、もう一度コンパイルするだけでよいです。
+</p>
+<pre># 以前に作成したfree-cadディレクトリに移動
+cd free-cad
+</pre>
+<pre># pull
+git pull
+</pre>
+<pre># 一つ上のディレクトリに戻る
+cd ..
+</pre>
+<pre># ここで前から最後のいくつかの手順を繰り返します。
+</pre>
+<pre># コンパイル用に他のディレクトリを作成し、そのディレクトリに移動
+mkdir FreeCAD-Build2
+cd FreeCAD-Build2
+</pre>
+<pre># 設定のビルド
+cmake ../free-cad
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<h3><span class="mw-headline" id="OpenSUSE_12.1">OpenSUSE 12.1</span></h3>
+<p>FreeCAD 0.13が不安定なので、Eigen3とswigライブラリを追加する必要があります、これは、標準のリポジトリにはないようです。それらは以下から1クリックでインストールできます。
+</p><p>Eigen3:
+<a rel="nofollow" class="external free" href="http://software.opensuse.org/search?q=eigen3&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true">http://software.opensuse.org/search?q=eigen3&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true</a>
+</p><p>swig:
+<a rel="nofollow" class="external free" href="http://software.opensuse.org/search?q=swig&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true">http://software.opensuse.org/search?q=swig&amp;baseproject=openSUSE%3A12.1&amp;lang=en&amp;exclude_debug=true</a>
+</p><p><br />
+</p>
+<pre># 開発に必要なパッケージのインストール
+sudo zypper install gcc cmake OpenCASCADE-devel libXerces-c-devel \
+python-devel libqt4-devel python-qt4 Coin-devel SoQt-devel boost-devel \
+libode-devel libQtWebKit-devel libeigen3-devel gcc-fortran git
+</pre>
+<pre># 新しいディレクトリの作成と、そのディレクトリへの移動
+mkdir FreeCAD-Compiled
+cd FreeCAD-Compiled
+</pre>
+<pre># sourceの取得
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a>
+</pre>
+<pre># これから free-cad という場所にサブフォルダを持つことになります。そのフォルダはsourceを含んでいます。
+</pre>
+<pre># コンパイル用にディレクトリを作成し、そのディレクトリに移動
+mkdir FreeCAD-Build1
+cd FreeCAD-Build1
+</pre>
+<pre># 設定のビルド
+cmake ../free-cad
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<p>gitを使っているので、次回コンパイルしたい場合は、全てをクローンする必要はなく、gitから pullして、もう一度コンパイルするだけでよいです。
+</p><p><br />
+</p>
+<pre># 以前に作成したfree-cadディレクトリに移動
+cd free-cad
+</pre>
+<pre># pull
+git pull
+</pre>
+<pre># 一つ上のディレクトリに戻る
+cd ..
+</pre>
+<pre># ここで前から最後のいくつかの手順を繰り返します。
+</pre>
+<pre># コンパイル用に他のディレクトリを作成し、そのディレクトリに移動
+mkdir FreeCAD-Build2
+cd FreeCAD-Build2
+</pre>
+<pre># 設定のビルド
+cmake ../free-cad
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<h3><span class="mw-headline" id="OpenSuse_11.2">OpenSuse 11.2</span></h3>
+<p>This script is <b>not working</b> at the moment because:
+このスクリプトは以下の理由により、現在 "動きません"
+</p>
+<ul><li> libXerces-c-devel が消えているようです…</li></ul>
+<pre># 開発に必要なパッケージのインストール
+sudo zypper install gcc cmake subversion OpenCASCADE-devel \
+libXerces-c-devel python-devel libqt4-devel  python-qt4 \
+Coin-devel SoQt-devel boost-devel libode-devel libQtWebKit-devel \
+libeigen2-devel gcc-fortran
+</pre>
+<pre># sourceの取得
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a> freecad
+</pre>
+<pre># sourceディレクトリに移動
+cd freecad
+</pre>
+<pre># 設定のビルド
+cmake .
+</pre>
+<pre># FreeCADのビルド
+nice make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<h3><span class="mw-headline" id="OpenSuse_11.1">OpenSuse 11.1</span></h3>
+<pre># リポジトリの追加 (OpenCascade用)
+sudo zypper -p <a rel="nofollow" class="external free" href="http://packman.unixheads.com/suse/11.1/">http://packman.unixheads.com/suse/11.1/</a>
+</pre>
+<pre># 開発に必要なパッケージのインストール
+sudo zypper install gcc cmake subversion OpenCASCADE-devel \
+libXerces-c-devel python-devel libqt4-devel  python-qt4 \
+Coin-devel SoQt-devel boost-devel libode-devel libQtWebKit-devel \
+libeigen2-devel
+</pre>
+<pre># sourceの取得
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a> freecad
+</pre>
+<pre># sourceディレクトリに移動
+cd freecad
+</pre>
+<pre># 設定のビルド
+cmake .
+</pre>
+<pre># FreeCADのビルド
+nice make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<h3><span class="mw-headline" id="Debian_Squeeze">Debian Squeeze</span></h3>
+<pre># 必要なツールとライブラリの取得
+sudo apt-get install build-essential python libcoin60-dev libsoqt4-dev \
+libxerces-c2-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev \
+libboost-graph-dev libboost-iostreams-dev libboost-program-options-dev \
+libboost-serialization-dev libboost-signals-dev libboost-regex-dev \
+libqt4-dev qt4-dev-tools python2.5-dev \
+libsimage-dev libopencascade-dev \
+libsoqt4-dev libode-dev subversion cmake libeigen2-dev python-pivy \
+libtool autotools-dev automake gfortran
+</pre>
+<pre># 最新sourceのcheckout
+git clone <a rel="nofollow" class="external free" href="git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad">git://free-cad.git.sourceforge.net/gitroot/free-cad/free-cad</a> freecad
+</pre>
+<pre># sourceディレクトリに移動
+cd freecad
+</pre>
+<pre># 設定のビルド
+cmake .
+</pre>
+<pre># FreeCADのビルド
+make
+</pre>
+<pre># FreeCADのテスト
+cd bin
+./FreeCAD -t 0
+</pre>
+<h2><span class="mw-headline" id=".E3.82.BD.E3.83.BC.E3.82.B9.E3.82.B3.E3.83.BC.E3.83.89.E3.81.AE.E3.82.A2.E3.83.83.E3.83.97.E3.83.87.E3.83.BC.E3.83.88">ソースコードのアップデート</span></h2>
+<p>FreeCADの開発は毎日行われ、バグフィックスや新機能が追加されています。cmakeシステムが賢くソースコードのアップデートして、変更部分のみをコンパイルすることができるため、以後のコンパイルがとても高速です。gitやsubversionのソースコードのアップデートはとても簡単です。
+</p>
+<pre>cd freecad (もしくはソースコードを最初にクローンした場所)
+git pull (gitを使っている場合)
+</pre>
+<p>適切なビルド用ディレクトリに移動し、cmakeを再度実行します(FreeCADに関しては、cmakeは、ヘルプメニューのバージョンナンバーのデータをアップデートをするので、）。しかしながら、cmake実行後はソースコードへのパスを設定する必要はなく、空白(スペース)と.(ドット)だけで良いです。
+</p>
+<pre>cd ../freecad-build (もしくはビルドディレクトリが置かれている場所)
+</pre>
+<pre>cmake .
+</pre>
+<pre>make
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/jp&amp;oldid=211354">http://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/jp&amp;oldid=211354</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

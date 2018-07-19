@@ -1,0 +1,88 @@
+<html><head><title>Draft DXF/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft DXF/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_qcad.jpg" class="image"><img alt="Screenshot qcad.jpg" src="Screenshot_qcad.jpg" width="800" height="443" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Apertura"><span class="tocnumber">1</span> <span class="toctext">Apertura</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing"><span class="tocnumber">2</span> <span class="toctext">Installing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Automatically"><span class="tocnumber">2.1</span> <span class="toctext">Automatically</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Manually"><span class="tocnumber">2.2</span> <span class="toctext">Manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Importaci.C3.B3n"><span class="tocnumber">3</span> <span class="toctext">Importación</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exportaci.C3.B3n"><span class="tocnumber">4</span> <span class="toctext">Exportación</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Preferencias"><span class="tocnumber">5</span> <span class="toctext">Preferencias</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Apertura">Apertura</span></h3>
+<p>Esta función abre un archivo DXF (cualquier versión desde la 12 hasta la 2007) en un nuevo dibujo.
+Los siguientes tipos de objetos DXF está soportados actualmente:
+</p>
+<ul><li> líneas</li>
+<li> polilíneas y lwpolilíneas (polilíneas aligeradas)</li>
+<li> circunferencias</li>
+<li> arcos</li>
+<li> capas (las capas que contienen objetos se convierten en Grupos en FreeCAD)</li>
+<li> textos y textos múltiples (mtext)</li>
+<li> cotas</li>
+<li> bloques (solo geometría. Los textos, cotas y atributos dentro de los bloques se ignorarán)</li>
+<li> puntos <span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.13/es" class="mw-redirect" title="Release notes 0.13/es">Disponible en la versión 0.13</a></span></li></ul>
+<p><br />
+</p>
+<ul><li> directrices <span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.13/es" class="mw-redirect" title="Release notes 0.13/es">Disponible en la versión 0.13</a></span></li></ul>
+<p><br />
+Otras entidades DXF no se importan actualmente porque no tienen correspondencia con los objetos de FreeCAD. Así como se implementen nuevas funcionalidades, será posible importar más tipos de entidades.
+</p>
+<h3><span class="mw-headline" id="Installing">Installing</span></h3>
+<p><b>Warning</b>:  For license reasons, the dxf import/export libraries are not part of the FreeCAD source code anymore. For that reason, they must be installed by you, the user, after you install FreeCAD. There is a way to allow FreeCAD to do that automatically, or you can do it manually.
+</p>
+<h4><span class="mw-headline" id="Automatically">Automatically</span></h4>
+<p>Starting from version 0.15, you only need to mark the Edit-&gt; Preferences -&gt; Import/Export -&gt; DXF/DWG -&gt; "Allow FreeCAD to automatically download the DXF libraries" option to have FreeCAD take automatically care of doenloading and installing these libraries. For older versions, you will need to do it manually.
+</p>
+<h4><span class="mw-headline" id="Manually">Manually</span></h4>
+<p>Libraries must be downloaded from <a rel="nofollow" class="external free" href="https://github.com/yorikvanhavre/Draft-dxf-importer">https://github.com/yorikvanhavre/Draft-dxf-importer</a>
+There is a very complete step-by-step <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">tutorial</a> that will explain you the necessary steps.
+</p>
+<h3><span class="mw-headline" id="Importaci.C3.B3n">Importación</span></h3>
+<p>Trabaja del mismo modo que la apertura, pero añadirá el contenido del archivo DXF al documento activo en lugar de crear un documento nuevo.
+</p><p>Tutorial: <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">Dxf Importer Install</a>
+</p>
+<h3><span class="mw-headline" id="Exportaci.C3.B3n">Exportación</span></h3>
+<p>El DXF exportado es compatible con AutoCAD versión 12 y superiores, de modo que debería abrirse en casi cualquier aplicación que soporte el formato DXF.
+Actualmente se exportan los siguientes objetos de FreeCAD:
+</p>
+<ul><li> líneas y wires (polilíneas)</li>
+<li> arcos y circunferencias</li>
+<li> textos</li>
+<li> los colores se traducen de los colores de los objetos RGB a los índices de colores de AutoCAD (ACI). El negro siempre será "Porcapa"</li>
+<li> las capas se traducen a partir de los nombres de los grupos. Cuando los grupos están anidados, el grupo de más bajo nivel le da el nombre a la capa.</li>
+<li> cotas, que se exportan con el estilo de cota "Standard"</li></ul>
+<h3><span class="mw-headline" id="Preferencias">Preferencias</span></h3>
+<p>Los siguientes parámetros se pueden especificar en la <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Preferences/es" title="Draft Preferences/es">Pestaña de preferencias</a> (menú Editar -&gt; Preferencias -&gt; Croquizado):
+</p>
+<ul><li> Importar estilo: Permite seleccionar el modo que se dibujarán los objetos del DXF en FreeCAD. Puedes escoger entre:
+<ul><li> Ninguno: este es el modo más rápido, sin conversiones, todos los objetos serán negros con un espesor de 2px (por defecto en FreeCAD)</li>
+<li> Utilizar color y espesor de líneas por defecto: Todos los objetos DXF importados cogerán el color/espesor de línea actual de la barra de comandos de croquizado</li>
+<li> Color y espesor de línea Original: Los objetos mantendrán el color y espesor de línea (si está especificado) que tenían en el archivo DXF</li>
+<li> Espesores de línea y Traducción de Colores: Si se selecciona esta opción, se utiliza la opción del archivo de traducción de abajo.</li></ul></li>
+<li> Archivo de traducción de colores: Esto permite especificar un archivo de traducción que será utilizado para traducir los colores DXF a colores y espesores de línea, del mismo modo que funciona un estilo de trazado en AutoCAD. El archivo de traducción debe ser un archivo de texto separado por tabuladores. Hay una buena utilidad gratuita llamada <a rel="nofollow" class="external text" href="http://www.noliturbare.com/TablePrintGUI.php">Plot style viewer</a> que puede convertir archivos CTB o STB de Autocad (estilos de trazado) a archivos separados por tabuladores listos para utilizarse en FreeCAD. Alternativamente, tenemos un par de <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/es" title="Draft mapping files/es">home-made archivos de traducción</a> disponibles aquí.</li>
+<li> Importar textos: Permite especificar si quieres importar textos y cotas del DXF o no. Muchos textos podrían hacer trabajar a FreeCAD muy lento, de modo que a veces podrías utilizar esta opción.</li>
+<li> Importar objetos de las presentaciones: Activa esta opción si quieres importar elementos del espacio papel. Se fusionarán en el mismo documento que los objetos del espacio modelo.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_DXF/es&amp;oldid=143248">http://www.freecadweb.org/wiki/index.php?title=Draft_DXF/es&amp;oldid=143248</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

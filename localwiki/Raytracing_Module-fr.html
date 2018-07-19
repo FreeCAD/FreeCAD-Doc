@@ -1,0 +1,189 @@
+<html><head><title>Raytracing Module/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Raytracing Module/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p>Le module Raytracing est utilisé pour générer des images photoréalistes de vos modèles en les interprétant avec un moteur de rendu externe. L'atelier de raytracing travaille avec <a href="/wiki/Raytracing_Module#_Templates.2Ffr" title="Raytracing Module"> modèles</a>, de la même manière que l'<a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Atelier de Dessin</a>, en vous permettant de créer un projet de Raytracing dans lequel vous ajoutez des vues de vos objets. Le projet peut alors être exporté vers un fichier prêt-à-interpréter ou être interprété directement.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_example.jpg" class="image"><img alt="Raytracing example.jpg" src="1024px-Raytracing_example.jpg" width="1024" height="574" srcset="/wiki/images/thumb/a/a4/Raytracing_example.jpg/1536px-Raytracing_example.jpg 1.5x, /wiki/images/a/a4/Raytracing_example.jpg 2x" /></a>
+</p><p>Actuellement, deux moteurs de rendu sont pris en charge: <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/POV-Ray">povray</a> et <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/LuxRender">LuxRender</a>. Pour être en mesure d'interpréter directement à partir de FreeCAD, au moins un de ces moteurs de rendu doit être installé sur votre système, et son chemin doit être configuré dans les préférences FreeCAD Raytracing. Cependant, sans aucun moteur de rendu installé, vous êtes toujours en mesure d'exporter un fichier de scène qui peut être utilisé plus tard, dans n'importe quel moteur de rendu, ou sur une autre machine.
+</p><p>L'atelier raytracing travaille avec le module <a href="/wiki/Raytracing_Module#Templates" title="Raytracing Module">templates</a>, qui sont des fichiers de scène complète pour le moteur de rendu externe, y compris les rayons et éventuellement les géométries supplémentaires tels que les plans au sol. Ces fichiers de scène contiennent des emplacements réservés, où FreeCAD insérera la position des caméras et d'informations géométriques des matériaux constituant chacun des objets que vous insérez dans le projet. Ce fichier étant mis à jour, la scène est ensuite exportée vers le moteur de rendu externe.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Outils"><span class="tocnumber">1</span> <span class="toctext">Outils</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Projet_Raytracing"><span class="tocnumber">1.1</span> <span class="toctext">Projet Raytracing</span></a></li>
+<li class="toclevel-2"><a href="#Utilitaires"><span class="tocnumber">1.2</span> <span class="toctext">Utilitaires</span></a></li>
+<li class="toclevel-2"><a href="#P.C3.A9f.C3.A9rences"><span class="tocnumber">1.3</span> <span class="toctext">Péférences</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-2"><a href="#Travail_typique"><span class="tocnumber">2</span> <span class="toctext">Travail typique</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Cr.C3.A9ation_manuelle_d.27un_fichier_povray"><span class="tocnumber">3</span> <span class="toctext">Création manuelle d'un fichier povray</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Script"><span class="tocnumber">3.1</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Sortir_des_fichiers_de_rendu"><span class="tocnumber">3.2</span> <span class="toctext">Sortir des fichiers de rendu</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Cr.C3.A9ation_d.27un_rendu_d.27_objet_personnalis.C3.A9"><span class="tocnumber">3.3</span> <span class="toctext">Création d'un rendu d' objet personnalisé</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Liens"><span class="tocnumber">3.4</span> <span class="toctext">Liens</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#POVRay"><span class="tocnumber">3.5</span> <span class="toctext">POVRay</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Luxrender"><span class="tocnumber">3.6</span> <span class="toctext">Luxrender</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Mod.C3.A8les"><span class="tocnumber">4</span> <span class="toctext">Modèles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Povray_2"><span class="tocnumber">4.1</span> <span class="toctext">Povray</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Luxrender_2"><span class="tocnumber">4.2</span> <span class="toctext">Luxrender</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Exportation_vers_Kerkythea"><span class="tocnumber">5</span> <span class="toctext">Exportation vers Kerkythea</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Outils">Outils</span></h2>
+<h3><span class="mw-headline" id="Projet_Raytracing">Projet Raytracing</span></h3>
+<p>Ces outils permettent d'exporter votre projet vers des moteurs de rendu externes
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_New.png" class="image"><img alt="Raytracing New.png" src="32px-Raytracing_New.png" width="32" height="32" srcset="/wiki/images/thumb/5/59/Raytracing_New.png/48px-Raytracing_New.png 1.5x, /wiki/images/5/59/Raytracing_New.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_New/fr" title="Raytracing New/fr">Nouveau projet PovRay</a> : Crée un nouveau projet POV-Ray</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Lux.png" class="image"><img alt="Raytracing Lux.png" src="32px-Raytracing_Lux.png" width="32" height="32" srcset="/wiki/images/thumb/0/05/Raytracing_Lux.png/48px-Raytracing_Lux.png 1.5x, /wiki/images/0/05/Raytracing_Lux.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Lux/fr" title="Raytracing Lux/fr">New LuxRender project</a>: Insère un nouveau projet  LuxRender dans le document</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_InsertPart.png" class="image"><img alt="Raytracing InsertPart.png" src="32px-Raytracing_InsertPart.png" width="32" height="32" srcset="/wiki/images/thumb/9/9e/Raytracing_InsertPart.png/48px-Raytracing_InsertPart.png 1.5x, /wiki/images/9/9e/Raytracing_InsertPart.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_InsertPart/fr" title="Raytracing InsertPart/fr">Insert part</a>: Insère une vue dans le projet raytracing</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_ResetCamera.png" class="image"><img alt="Raytracing ResetCamera.png" src="32px-Raytracing_ResetCamera.png" width="32" height="32" srcset="/wiki/images/thumb/9/92/Raytracing_ResetCamera.png/48px-Raytracing_ResetCamera.png 1.5x, /wiki/images/9/92/Raytracing_ResetCamera.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_ResetCamera/fr" title="Raytracing ResetCamera/fr">Reset camera</a>: Correspond à la position de la caméra d'un projet de raytracing dans l'affichage actuel</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_ExportProject.png" class="image"><img alt="Raytracing ExportProject.png" src="32px-Raytracing_ExportProject.png" width="32" height="32" srcset="/wiki/images/thumb/3/38/Raytracing_ExportProject.png/48px-Raytracing_ExportProject.png 1.5x, /wiki/images/3/38/Raytracing_ExportProject.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_ExportProject/fr" title="Raytracing ExportProject/fr">Export project</a>: Exporte un projet raytracing de la scène dans un fichier de rendu externe</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Render.png" class="image"><img alt="Raytracing Render.png" src="32px-Raytracing_Render.png" width="32" height="32" srcset="/wiki/images/thumb/c/c5/Raytracing_Render.png/48px-Raytracing_Render.png 1.5x, /wiki/images/c/c5/Raytracing_Render.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Render/fr" title="Raytracing Render/fr">Render</a>: Affiche le projet de rendu dans un un project exterieur de rendu</li></ul>
+<h3><span class="mw-headline" id="Utilitaires">Utilitaires</span></h3>
+<p>Ce sont des outils d'assistance pour effectuer certaines tâches manuellement
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Export.png" class="image"><img alt="Raytracing Export.png" src="32px-Raytracing_Export.png" width="32" height="32" srcset="/wiki/images/thumb/0/00/Raytracing_Export.png/48px-Raytracing_Export.png 1.5x, /wiki/images/0/00/Raytracing_Export.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Export/fr" title="Raytracing Export/fr">Exporter la vue vers povray</a>&#160;: Enregistrer la vue 3D active avec la caméra et tout son contenu dans un fichier povray</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Camera.png" class="image"><img alt="Raytracing Camera.png" src="32px-Raytracing_Camera.png" width="32" height="32" srcset="/wiki/images/thumb/d/d0/Raytracing_Camera.png/48px-Raytracing_Camera.png 1.5x, /wiki/images/d/d0/Raytracing_Camera.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Camera/fr" title="Raytracing Camera/fr">Exporter la caméra vers PovRay</a>: Exporte la position de la caméra de la vue 3D active dans un fichier povray</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Part.png" class="image"><img alt="Raytracing Part.png" src="32px-Raytracing_Part.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/Raytracing_Part.png/48px-Raytracing_Part.png 1.5x, /wiki/images/c/c7/Raytracing_Part.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Part/fr" title="Raytracing Part/fr">Exporter la pièce vers povray</a> : Enregistre la pièce sélectionnée (objet) sous forme de fichier povray</li></ul>
+<h3><span class="mw-headline" id="P.C3.A9f.C3.A9rences">Péférences</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_DlgParameter.png" class="image"><img alt="Std DlgParameter.png" src="32px-Std_DlgParameter.png" width="32" height="32" srcset="/wiki/images/thumb/6/6d/Std_DlgParameter.png/48px-Std_DlgParameter.png 1.5x, /wiki/images/6/6d/Std_DlgParameter.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Preferences/fr&amp;action=edit&amp;redlink=1" class="new" title="Raytracing Preferences/fr (page does not exist)">Préférences...</a>: Préférences disponibles dans Raytracing.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Travail_typique">Travail typique</span></h2>
+<ol><li> Créez ou ouvrez un projet dans FreeCAD, ajouter quelques objets <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/fr" title="Part Module/fr">Part-based</a> (le maillage n'est actuellement pas pris en charge)</li>
+<li> Créer un projet de Raytracing (luxrender ou povray)</li>
+<li> Sélectionnez les objets que vous souhaitez ajouter au projet raytracing et ajoutez-les au projet avec l'outil "Insert Part"</li>
+<li> Export ou de rendre directement</li></ol>
+<h2><span class="mw-headline" id="Cr.C3.A9ation_manuelle_d.27un_fichier_povray">Création manuelle d'un fichier povray</span></h2>
+<p>Les outils utilitaires décrits ci-dessus vous permettent d'exporter l'affichage 3D actuel et tout son contenu dans un fichier <a rel="nofollow" class="external text" href="http://www.povray.org/">Povray</a>. Tout d'abord, vous devez charger ou créer vos données CAO et positionner l'orientation de la vue 3D que vous le souhaitez. Puis choisissez "Utilities-&gt;Export View..." dans le menu de raytracing.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD_Raytracing.jpg" class="image"><img alt="FreeCAD Raytracing.jpg" src="FreeCAD_Raytracing.jpg" width="964" height="730" /></a></div></div>
+<p>Donnez un emplacement pour enregistrer le fichier *.pov. Après cela vous pouvez l'ouvrir dans <a rel="nofollow" class="external text" href="http://www.povray.org/">Povray</a> et obtenir le rendu&#160;:
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Povray.jpg" class="image"><img alt="Povray.jpg" src="Povray.jpg" width="805" height="825" /></a></div></div>
+<p>Comme d'habitude dans un rendu vous pouvez faire de grandes et belles photos&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scharniergreifer_render.jpg" class="image"><img alt="Scharniergreifer render.jpg" src="1024px-Scharniergreifer_render.jpg" width="1024" height="819" srcset="/wiki/images/2/2e/Scharniergreifer_render.jpg 1.5x" /></a>
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<h3><span class="mw-headline" id="Sortir_des_fichiers_de_rendu">Sortir des fichiers de rendu</span></h3>
+<p>Les modules Raytracing et RaytracingGui fournissent plusieurs méthodes pour écrire le contenu des scènes comme données  povray ou LuxRender. Les plus utiles sont Raytracing.getPartAsPovray () et Raytracing.getPartAsLux () pour interpréter un objet FreeCAD dans une définition de povray ou LuxRender et RaytracingGui.povViewCamera () et RaytracinGui.luxViewCamera () pour obtenir le point de vue actuel de la fenêtre 3D FreeCAD au format POV-Ray ou LuxRender.
+</p><p>Voici comment utiliser ces fonctions depuis l'interface Python&#160;:
+</p>
+<pre>import Raytracing,RaytracingGui
+OutFile = open('C:/Documents and Settings/jriegel/Desktop/test.pov','w')
+OutFile.write(open(App.getResourceDir()+'Mod/Raytracing/Templates/ProjectStd.pov').read())
+OutFile.write(RaytracingGui.povViewCamera())
+OutFile.write(Raytracing.getPartAsPovray('Box',App.activeDocument().Box.Shape,0.800000,0.800000,0.800000))
+OutFile.close()
+del OutFile </pre>
+<p>Et le même pour luxrender
+</p>
+<pre>import Raytracing,RaytracingGui
+OutFile = open('C:/Documents and Settings/jriegel/Desktop/test.lxs','w')
+OutFile.write(open(App.getResourceDir()+'Mod/Raytracing/Templates/LuxClassic.lxs').read())
+OutFile.write(RaytracingGui.luxViewCamera())
+OutFile.write(Raytracing.getPartAsLux('Box',App.activeDocument().Box.Shape,0.800000,0.800000,0.800000))
+OutFile.close()
+del OutFile </pre>
+<h3><span class="mw-headline" id="Cr.C3.A9ation_d.27un_rendu_d.27_objet_personnalis.C3.A9">Création d'un rendu d' objet personnalisé</span></h3>
+<p>Un élément à partir des vues d'objets standards de povray et  LuxRender  qui fournit une vue d'un objet partiel existant, et qui peut être inséré dans des projets de povray et LuxRender respectivement, un troisième objet existe, appelé RaySegment, qui peut être inséré dans des projets povray ou luxrender. Cet objet RaySegment n'est liée à aucun des objets FreeCAD, et peut contenir un code personnalisé povray  ou LuxRender, que vous pourriez souhaiter insérer dans votre projet de raytracing. Vous pouvez également l'utiliser, par exemple, pour sortir de vos objets FreeCAD d'une certaine façon, si vous n'êtes pas satisfait de la façon standard. Vous pouvez le créer et l'utiliser comme ceci à partir de la console python:
+</p>
+<pre>myRaytracingProject = FreeCAD.ActiveDocument.PovProject
+myCustomRenderObject = FreeCAD.ActiveDocument.addObject("Raytracing::RaySegment","myRenderObject")
+myRaytracingProject.addObject(myCustomRenderObject)
+myCustomRenderObject.Result = "// Hello from python!" </pre>
+<h3><span class="mw-headline" id="Liens">Liens</span></h3>
+<h3><span class="mw-headline" id="POVRay">POVRay</span></h3>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.spiritone.com/~english/cyclopedia/">http://www.spiritone.com/~english/cyclopedia/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.povray.org/">http://www.povray.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://en.wikipedia.org/wiki/POV-Ray">http://en.wikipedia.org/wiki/POV-Ray</a></li></ul>
+<h3><span class="mw-headline" id="Luxrender">Luxrender</span></h3>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.luxrender.net/">http://www.luxrender.net/</a></li></ul>
+<p>Autres moteurs de rendu libres (pour implémentation à venir)&#160;:
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.yafaray.org/">http://www.yafaray.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.mitsuba-renderer.org/">http://www.mitsuba-renderer.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.kerkythea.net/">http://www.kerkythea.net/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.artofillusion.org/">http://www.artofillusion.org/</a></li></ul>
+<p>Actuellement, il y a un nouvel atelier de Rendu en développement à l'appui de plusieurs back-ends comme moteur de rendu de Lux Renderer et Yafaray. Des informations pour l'utilisation de la version en développement peuvent être consultées ici <a href="https://www.freecadweb.org/wiki/index.php?title=Render_project/fr" title="Render project/fr">Render project</a>
+</p><p>Regardez ici pour l'état de développement du Module restituer <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_project/fr" title="Raytracing project/fr">Raytracing project</a>
+</p>
+<h2><span class="mw-headline" id="Mod.C3.A8les">Modèles</span></h2>
+<p>FreeCAD est livré avec une paire de modèles par défaut pour povray et luxrender, mais vous pouvez facilement créer votre propre modèle. Tout ce que vous devez faire est de créer un fichier de scène pour le moteur de rendu donné, puis avec un éditeur de texte, modifiez le manuellement pour insérer une balise spéciale que FreeCAD reconnaîtra et où il insérera son contenu (données de caméra et objets)
+</p>
+<h3><span class="mw-headline" id="Povray_2">Povray</span></h3>
+<p>Les fichiers de scène povray (ont une extension .pov) peuvent être créés manuellement avec un éditeur de texte (povray est fait principalement pour être utilisé comme un langage de script), mais aussi avec un large éventail d'applications 3D, comme <a rel="nofollow" class="external text" href="http://www.blender.org">blender</a>. Sur le <a rel="nofollow" class="external text" href="http://www.povray.org/">site de povray</a> vous trouverez plus d'informations et une liste des applications capables de produire des fichiers .pov.
+</p><p>Lorsque vous avez un fichier .pov prêt à l'emplois, vous devez l'ouvrir avec un éditeur de texte et faire deux opérations&#160;:
+</p>
+<ol><li> Supprimer les informations de la caméra, parce que FreeCAD placera ses propres données de caméra. Pour ce faire, recherchez un bloc de texte comme ceci&#160;: <b><tt>camera { ... }</tt></b>, qui décrit les paramètres de la caméra le supprimer (ou mettre "/ /" devant chaque ligne pour commenter les sorties).</li>
+<li> Insérer la ligne suivante quelque part&#160;: <tt>//RaytracingContent</tt>. C'est l'endroit où FreeCAD va insérer son contenu (données de caméra et objets). Vous pouvez, par exemple, mettez cette ligne à la fin du fichier.</li></ol>
+<p>Notez que FreeCAD ajoutera également certaines déclarations, que vous pourrez utiliser dans votre modèle, après la balise <tt>//RaytracingContent</tt>.
+</p><p>Ce sont&#160;:
+</p>
+<ul><li> cam_location: l'emplacement de la caméra</li>
+<li> cam_look_at&#160;: l'emplacement et le point de cible de la caméera</li>
+<li> cam_sky    &#160;: le vecteur supérieur de la caméra.</li>
+<li> cam_angle  &#160;: l'angle de la caméra</li></ul>
+<p>Si par exemple vous voulez placer une lampe au-dessus de la caméra, vous pouvez utiliser ceci&#160;:
+</p>
+<pre>light_source {
+ cam_location + cam_angle * 100
+ color rgb &lt;10, 10, 10&gt;
+} </pre>
+<h3><span class="mw-headline" id="Luxrender_2">Luxrender</span></h3>
+<p>Les fichiers LuxRender (avec extension <b>.lxs</b>) peuvent être des fichiers uniques, ou un fichier maître <b>.lxs</b> qui comprend la définition de l'ensemble <b>(.lxw)</b>, définition de la matière <b>(.lxm)</b> et les fichiers de définition de géométrie <b>(.lxo)</b>. Vous pouvez travailler avec les deux styles, mais il est également facile de transformer un groupe de 4 fichiers dans un fichier unique <b>.lxs</b>, en copiant le contenu des fichiers <b>.lxw, .lxm et .lxo</b> fichier et les coller à l'endroit où ces fichiers sont inséré dans le fichier maître <b>.lxs</b>.
+</p><p>Les fichiers LuxRender sont difficiles à produire manuellement, mais sont faciles à construire avec de nombreuses applications 3D tels que <a rel="nofollow" class="external text" href="http://www.blender.org">blender</a>. Sur le site <a rel="nofollow" class="external text" href="http://www.luxrender.net">luxrender website</a>, vous trouverez là plus d'informations et de plugins pour les principales applications 3D.
+</p><p>Si vous voulez travailler avec les fichiers <b>.lxw, .lxm et .lxo</b> séparément, prenez garde que le fichier <b>.lxs</b> final exporté par FreeCAD pourrait être à un autre emplacement que le fichier modèle, et donc ces fichiers pourraient être introuvable par Luxrender au temps de rendu. Dans ce cas vous devriez copier ces fichiers à l'emplacement de votre fichier final ou modifier leurs chemins dans le fichier exporté <b>.lxs</b>.
+</p><p>Si vous exportez un fichier scène de blender et désirez tout fusionner en un seul fichier, vous devez effectuer une étape avant de l'exporter&#160;: par défaut, l'exportateur de luxrender dans blender exporte toutes les géométries de maillage en tant que fichiers distincts <b>.ply</b>, au lieu de placer la géométrie de maille directement dans le fichier .lxo. Pour modifier ce comportement, vous devez sélectionner chacune de vos mailles dans blender, allez dans l'onglet "mesh" et définissez l'option "export as "luxrender mesh" pour chacun d'entre eux.
+</p><p>Quand votre fichier scène est prêt, pour le transformer en un modèle FreeCAD, vous devez effectuer les étapes suivantes:
+</p>
+<pre># Localiser la position de la caméra, une seule ligne qui commence par <tt> LookAt &lt;/ tt&gt;, et le supprimer (ou placer un "#" au début de la ligne d'en commentaire) 
+</pre>
+<ol><li> à cet endroit, insérez la ligne suivante: &lt;tt&gt; #RaytracingCamera &lt;/ tt&gt; </li>
+<li> à un point désiré, par exemple juste après la fin les définitions matériaux , avant les informations de géométrie, ou tout à la fin, juste avant la dernière ligne &lt;tt&gt; WorldEnd &lt;/ tt&gt; , insérer la ligne suivante: &lt;tt&gt; #RaytracingContent &lt;/ tt&gt;. C'est là que FreeCAD va insérer ses propres objets.</li></ol>
+<p>Notez que les objets luxrender, sont stockés dans un fichier de scène pouvant définir des matrices de transformation, qui affectent l'emplacement, la rotation ou la mise à l'échelle des opérations. Ces matrices peuvent empiler tout ce qui vient après, donc, en plaçant votre balise de <b>&lt;tt&gt;#RaytracingContent</tt></b> à la fin du fichier, vous pourriez voir vos objets FreeCAD affectés par une matrice de transformation placée plus haut dans le modèle. Pour vous assurer que cela n'arrive pas, placez votre balise de <b><tt>#RaytracingContent</tt></b> avant tout autre objet géométrique présent dans le modèle. FreeCAD ne définit aucune de ces matrices de transformation.
+</p>
+<h2><span class="mw-headline" id="Exportation_vers_Kerkythea">Exportation vers Kerkythea</span></h2>
+<p>Bien que l'exportation directe vers le format de fichier XML Kerkythea n'est pas encore prise en charge, vous pouvez exporter vos objets en tant que fichiers de maillage (.obj), puis les importer dans Kerkythea.
+</p>
+<ul><li> Si vous utilisez Kerkythea pour Linux, n'oubliez pas d'installer le WINE-Package (nécessaire à Kerkythea pour Linux)</li>
+<li> vous pouvez convertir vos modèles à l'aide de l'atelier de maillage en maillages, puis exporter ces maillages sous forme de fichiers .obj</li>
+<li> Si votre exportation de maille a entraîné des erreurs (flip de normales, trous ...) vous pouvez tenter votre chance avec <a rel="nofollow" class="external text" href="http://www.netfabb.com/downloadcenter.php?basic=1">netfabb studio basic</a></li></ul>
+<dl><dd> Gratuit pour un usage personnel, disponible pour Windows, Linux et Mac OSX.</dd>
+<dd> Il dispose d'outils de réparation standard qui vous réparera le modèle dans la plupart des cas.</dd></dl>
+<ul><li> Un autre bon programme pour l'analyse/réparation de maillage est <a rel="nofollow" class="external text" href="http://sourceforge.net/projects/meshlab/">Meshlab</a></li></ul>
+<dl><dd> Open Source, disponible pour Windows, Linux et Mac OSX.</dd>
+<dd> Il dispose d'outils de réparation standard qui vous permettront de réparer votre modèle dans la plupart des cas (combler les trous, réorienter les normales, etc.)</dd></dl>
+<ul><li> vous pouvez utiliser "make compound" puis "make single copy" ou vous pouvez fusionner des solides pour les regrouper avant de les convertir en maillages</li>
+<li> N'oubliez pas de définir dans Kerkythea un facteur d'import de 0.001 pour obj-modeler, puisque Kerkythea s'attend à ce que le fichier obj soit en m (mais le schéma d'unités standard dans FreeCAD est mm)</li></ul>
+<dl><dd> Dans WIndows 7 Kerkythea 64 bits ne semble pas pouvoir enregistrer ces paramètres.</dd>
+<dd> Alors rappelez-vous de le faire chaque fois que vous démarrez Kerkythea</dd></dl>
+<ul><li> Si vous importez plusieurs objets dans Kerkythea, vous pouvez utiliser la commande "Fichier → Fusionner" dans Kerkythea</li></ul>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Render_project/fr" title="Render project/fr">Render project</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_tutorial/fr" title="Raytracing tutorial/fr">Raytracing tutorial</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/fr&amp;oldid=290079">http://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/fr&amp;oldid=290079</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

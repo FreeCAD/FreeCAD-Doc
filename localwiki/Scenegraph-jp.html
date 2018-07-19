@@ -1,0 +1,65 @@
+<html><head><title>Scenegraph/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Scenegraph/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>FreeCADは基本的には様々なライブラリのコラージュです。なかでも最も重要なものはジオメトリーの管理と構築のための<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">OpenCascade</a>、ジオメトリーを表示するための<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Coin3D">Coin3d</a>、そしてそれら全てを優れたグラフィカルユーザーインターフェースにまとめあげる<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Qt_(toolkit)">Qt</a>です。
+</p><p>FreeCADの3Dビューに表示されるジオメトリーはCoin3Dライブラリによってレンダリングされています。Coin3Dは<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a>規格の実装の一つです。OpenCascade自体にも同じ機能がありますがFreeCAD開発が始まった最初の段階でOpenCascadeに組み込まれたビューアーを使わず、より高性能なCoin3Dを使う、という決断がされました。このライブラリについて学ぶ早道は<a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/Membres/Francois.Faure/doc/inventorMentor/sgi_html/">Open Inventor Mentor</a>を読むことです。
+</p><p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_Inventor">OpenInventor</a>は実質的には3Dシーン記述言語です。OpenInventorで記述されたシーンはOpenGLによって画面にレンダリングされます。Coin3Dはこの部分の処理を行います。つまりプログラマーは複雑なOpenGLの呼び出しを扱うこと無く、正しいOpenInventorコードを入力するだけでいいのです。OpenInventorの大きな利点はとても広く知られ、またよくドキュメント化された規格であるということです。
+</p><p>FreeCADが行う大きな仕事の一つはOpenCascadeのジオメトリー情報をOpenInventor言語に翻訳することです。
+</p><p>OpenInventorでは3Dシーンを下記に示すような<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Scene_graph">シーングラフ</a>形式で記述します：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scenegraph.gif" class="image"><img alt="Scenegraph.gif" src="Scenegraph.gif" width="422" height="496" /></a>
+<a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>からの画像
+</p><p>OpenInventorのシーングラフではジオメトリー、色、マテリアル、ライトなど3Dシーンに含まれるものが全て記述され、それらすべてのデータが扱いやすい明快な構造体に整理されます。全てのものをサブ構造体にグループ化することや、シーンの内容をかなり自由な形式で整理することも可能です。以下はOpenInventorファイルのサンプルです：
+</p>
+<pre>#Inventor V2.0 ascii
+
+Separator { 
+    RotationXYZ {
+       axis Z
+       angle 0
+    }
+    Transform {
+       translation 0 0 0.5
+    }
+    Separator {
+       Material {
+          diffuseColor 0.05 0.05 0.05
+       }
+       Transform {
+          rotation 1 0 0 1.5708
+          scaleFactor 0.2 0.5 0.2
+       }
+       Cylinder {
+       }
+    }
+}
+</pre>
+<p>見て分かる通り、構造体は非常にシンプルです。データをブロックにまとめるときにはセパレータを使います。ちょうどファイルをフォルダにまとめるのと似ています。各命令文は以降の命令文に影響を与えます。例えばサンプルのルートセパレータにある二つのアイテムは回転と移動ですが、この両方が次のアイテムであるセパレータに影響を与えます。そのセパレータ内ではマテリアルと別の変換が定義されています。従って円筒（Cylinder）は両方の命令文の影響を受けます。一つは直接適用され、もう一つは親セパレータに対して適用されます。
+</p><p>他にもグループ、スイッチ、注釈などシーンを作成するための多くの要素タイプが存在します。色、テクスチャ、シェーディングモード、透過度を使って非常に複雑なマテリアルをオブジェクトに定義することが可能です。またライト、カメラ、あるいは動きさえ定義することができます。さらに複雑な振る舞いを定義するためにOpenInventorファイル内に短いスクリプトを埋め込むことさえ可能なのです。
+</p><p>もしOpenInventorをもっと学びたいと思ったら最も有名なリファレンスである<a rel="nofollow" class="external text" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">Inventor mentor</a>を見てください。
+</p><p>FreeCADでは通常はOpenInventorのシーングラフを直接操作する必要はありません。メッシュやパート形状などFreeCADドキュメント内のオブジェクトは全て自動的にOpenInventorコードに変換され、3Dビューに表示されるメインシーングラフに挿入されます。またあなたが変更を行ったり、ドキュメントにオブジェクトが追加/削除された際などシーングラフは途切れることなく更新され続けます。実際の所、全ての（App空間内の）オブジェクトにはOpenInventorコード発行用の（Gui空間のオブジェクトに対応する）ビュープロバイダが備わっているのです。
+</p><p>しかしシーングラフに直接アクセスできると非常に便利です。例えば一時的にオブジェクトの表示を変えたり、構築ジオメトリー、補助線、グラフィカルなヒント、あるいはマニピュレーターといったツールや画面上情報など実際にはFreeCADドキュメント内に存在しないオブジェクトをシーンに追加することができます。
+</p><p>FreeCAD自体にもOpenInventorコードを確認したり変更するためのツールがいくつか備わっています。例えば以下のPythonコードを実行すると選択されているオブジェクトのOpenInventorでの表現を表示することができます。
+</p>
+<pre>obj = FreeCAD.ActiveDocument.ActiveObject
+viewprovider = obj.ViewObject
+print viewprovider.toString()
+</pre>
+<p>またFreeCADのシーングラフなどCoin3Dによって管理されている全てのものに完全にアクセスするためのPythonモジュールもあります。詳しくは<a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/jp" title="Pivy/jp">Pivy</a>を読んでください。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/jp&amp;oldid=211437">http://www.freecadweb.org/wiki/index.php?title=Scenegraph/jp&amp;oldid=211437</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

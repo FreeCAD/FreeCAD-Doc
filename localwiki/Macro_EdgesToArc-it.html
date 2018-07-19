@@ -1,0 +1,135 @@
+<html><head><title>Macro EdgesToArc/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro EdgesToArc/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Da_Segmento_a_Arco"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Da Segmento a Arco</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Sostituisce, se possibile, i segmenti selezionati con un arco di cerchio. Utile per il ripristino di archi discretizzati.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Jreinhardt&amp;action=edit&amp;redlink=1" class="new" title="User:Jreinhardt (page does not exist)">Jreinhardt</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-01-02
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Da_Segmento_a_Arco"><span class="tocnumber">1</span> <span class="toctext">Da Segmento a Arco</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>A volte si incontrano contorni che contengono archi composti da piccoli segmenti retti. Questo accade spesso quando si lavora con i file di altri programmi. Questa macro rende relativamente facile riconvertire questi archi discretizzati in archi di cerchio. L'operazione riduce la dimensione del file e lo rende più gestibile.
+</p><p>Per utilizzare questa macro, è necessario degradare il contorno e scomporlo in singoli segmenti con la funzione <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Downgrade.png" class="image"><img alt="Draft Downgrade.png" src="16px-Draft_Downgrade.png" width="16" height="16" srcset="/wiki/images/thumb/8/86/Draft_Downgrade.png/24px-Draft_Downgrade.png 1.5x, /wiki/images/thumb/8/86/Draft_Downgrade.png/32px-Draft_Downgrade.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/it" title="Draft Downgrade/it">Draft Downgrade</a></span>. Dopo basta selezionare i segmenti che si desidera sostituire con un arco di cerchio ed eseguire la macro. Servono almeno due segmenti.
+</p><p>La macro controlla se tutti i segmenti si trovano su un cerchio comune e in questo caso crea l'arco e rimuove i segmenti, altrimenti si interrompe.
+</p><p>A causa di piccole imprecisioni nei calcoli, la funzione <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Upgrade.png" class="image"><img alt="Draft Upgrade.png" src="16px-Draft_Upgrade.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Draft_Upgrade.png/24px-Draft_Upgrade.png 1.5x, /wiki/images/thumb/b/be/Draft_Upgrade.png/32px-Draft_Upgrade.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/it" title="Draft Upgrade/it">Draft Upgrade</a></span> può talvolta non riuscire a ricombinare gli altri bordi e gli archi in un unico contorno. In questo caso la <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_SuperWire/it" title="Macro SuperWire/it">Macro_SuperWire</a> fornisce un modo più efficace per fare questo.
+</p><p><br />
+</p>
+<pre>import Draft
+import FreeCADGui, FreeCAD
+from FreeCAD import Base, Console
+from math import atan2, pi, fabs
+
+#This macro replaces a number of edges approximating a circular arc by a proper circular arc.
+#It might be necessary to use the superwire macro to recombine the edges back to a wire, because of small errors in the calculations.
+
+sel = FreeCADGui.Selection.getSelection()
+if len(sel) &lt; 2:
+    Console.PrintError("Too few edges are selected\n")
+edges = [s.Shape for s in sel]
+
+start_vertices = []
+end_vertices = []
+for edge in edges:
+    start_vertices.append(edge.Vertexes[0].Point)
+    end_vertices.append(edge.Vertexes[1].Point)
+vertices = start_vertices + end_vertices
+
+start,end,middle = None,None,None
+
+#find start and end points
+for edge in edges:
+    is_start = True
+    is_end = True
+    for point in end_vertices:
+        if edge.Vertexes[0].Point.distanceToPoint(point) &lt; 1e-8:
+            is_start = False
+
+    for point in start_vertices:
+        if edge.Vertexes[1].Point.distanceToPoint(point) &lt; 1e-8:
+            is_end = False
+    if is_start:
+        start = edge.Vertexes[0].Point
+    if is_end:
+        end = edge.Vertexes[1].Point
+
+#find middle point, at least not too far away from the middle
+
+for v in vertices:
+    ratio = v.distanceToPoint(start)/v.distanceToPoint(end)
+    if ratio &gt; 0.5 and ratio &lt; 2.:
+        middle = v
+        break
+
+if middle is None:
+    Console.PrintError("Could not find suitable middle point\n")
+
+arc = Part.ArcOfCircle(start,middle,end)
+
+#Check circularity
+circular = True
+for v in vertices:
+    if fabs(v.distanceToPoint(arc.Center) - arc.Radius) &gt; 1e-6:
+        Console.PrintError("Edges do not approximate a circular arc\n")
+        circular = False
+        break
+
+if circular:
+        Part.show(arc.toShape())
+        for shape in sel:
+            FreeCAD.ActiveDocument.removeObject(shape.Name) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_EdgesToArc/it&amp;oldid=240414">http://www.freecadweb.org/wiki/index.php?title=Macro_EdgesToArc/it&amp;oldid=240414</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

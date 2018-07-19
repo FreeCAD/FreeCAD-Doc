@@ -1,0 +1,437 @@
+<html><head><title>CompileOnWindows/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnWindows/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>This article explains step by step <b>how to compile FreeCAD on Windows</b>.
+</p><p>See also 
+</p>
+<ul><li> <a href="Compile_on_Windows_with_VS2013.html" title="Compile on Windows with VS2013">Compile on Windows with Visual Studio 2013</a></li>
+<li> <a href="/wiki/Compiling_(Speeding_up)" title="Compiling (Speeding up)">Compiling - Speeding up</a></li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Required_programs"><span class="tocnumber">1.1</span> <span class="toctext">Required programs</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Source_Code"><span class="tocnumber">1.2</span> <span class="toctext">Source Code</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Using_Git_.28Preferred.29"><span class="tocnumber">1.2.1</span> <span class="toctext">Using Git (Preferred)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Compiler"><span class="tocnumber">1.3</span> <span class="toctext">Compiler</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Third_Party_Libraries.html"><span class="tocnumber">1.4</span> <span class="toctext">Third Party Libraries</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Optional_programs"><span class="tocnumber">1.5</span> <span class="toctext">Optional programs</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#System_Path_Configuration"><span class="tocnumber">1.6</span> <span class="toctext">System Path Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Configuration_with_CMake"><span class="tocnumber">2</span> <span class="toctext">Configuration with CMake</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#The_switch_to_CMake"><span class="tocnumber">2.1</span> <span class="toctext">The switch to CMake</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#CMake"><span class="tocnumber">2.2</span> <span class="toctext">CMake</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Configure_CMake_using_GUI"><span class="tocnumber">2.3</span> <span class="toctext">Configure CMake using GUI</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Options_for_the_Build_Process"><span class="tocnumber">2.4</span> <span class="toctext">Options for the Build Process</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Building_FreeCAD"><span class="tocnumber">3</span> <span class="toctext">Building FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Building_with_Visual_Studio_12_2013"><span class="tocnumber">3.1</span> <span class="toctext">Building with Visual Studio 12 2013</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Building_with_Visual_Studio_9_2008"><span class="tocnumber">3.2</span> <span class="toctext">Building with Visual Studio 9 2008</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Building_with_Qt_Creator"><span class="tocnumber">3.3</span> <span class="toctext">Building with Qt Creator</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Installation_and_configuration_of_Qt_Creator"><span class="tocnumber">3.3.1</span> <span class="toctext">Installation and configuration of Qt Creator</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Import_project_and_Build"><span class="tocnumber">3.3.2</span> <span class="toctext">Import project and Build</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#Command_line_build"><span class="tocnumber">3.4</span> <span class="toctext">Command line build</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Building_older_versions"><span class="tocnumber">4</span> <span class="toctext">Building older versions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="#Using_LibPack"><span class="tocnumber">4.1</span> <span class="toctext">Using LibPack</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#Directory_setup_in_Visual_Studio"><span class="tocnumber">4.1.1</span> <span class="toctext">Directory setup in Visual Studio</span></a>
+<ul>
+<li class="toclevel-4 tocsection-24"><a href="#Includes"><span class="tocnumber">4.1.1.1</span> <span class="toctext">Includes</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="#Libs"><span class="tocnumber">4.1.1.2</span> <span class="toctext">Libs</span></a></li>
+<li class="toclevel-4 tocsection-26"><a href="#Executables"><span class="tocnumber">4.1.1.3</span> <span class="toctext">Executables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-27"><a href="#Python_needed"><span class="tocnumber">4.1.2</span> <span class="toctext">Python needed</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Special_for_VC8"><span class="tocnumber">4.1.3</span> <span class="toctext">Special for VC8</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29"><a href="#Compile"><span class="tocnumber">4.2</span> <span class="toctext">Compile</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#After_Compiling"><span class="tocnumber">4.3</span> <span class="toctext">After Compiling</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Additional_stuff"><span class="tocnumber">4.4</span> <span class="toctext">Additional stuff</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<h3><span class="mw-headline" id="Required_programs">Required programs</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://git-scm.com/">Git</a> There are a number of alternatives such as GitCola, Tortoise Git, and others.</li>
+<li> <a rel="nofollow" class="external text" href="http://www.cmake.org/cmake/resources/software.html">CMake</a> version 2.x.x or Cmake 3.x.x</li>
+<li> Python &gt;2.5 (This is only required if NOT using the Libpack. The Libpack comes with a minimal Python(2.7.x) suitable for compiling and running FreeCAD)</li></ul>
+<h3><span class="mw-headline" id="Source_Code">Source Code</span></h3>
+<h4><span class="mw-headline" id="Using_Git_.28Preferred.29">Using Git (Preferred)</span></h4>
+<p>To create a local tracking branch and download the source code you need to open a terminal(command prompt) and cd to the directory you want the source, then type:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>git clone https://github.com/FreeCAD/FreeCAD.git free-cad-code</pre></div>
+<h3><span class="mw-headline" id="Compiler">Compiler</span></h3>
+<p>On Windows, the default compiler is MS Visual Studio.
+<a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD/blob/master/appveyor.yml">CI</a> uses 2013 version.
+</p><p>For those who want to avoid installing the huge Visual Studio for the mere purpose of having a compiler, see <a href="CompileOnWindows_-_Reducing_Disk_Footprint.html" title="CompileOnWindows - Reducing Disk Footprint">CompileOnWindows - Reducing Disk Footprint</a>.
+</p>
+<div class="note"><b>Note</b>
+<p>Though it may be possible to use Cygwin or MinGW gcc it's not tested or ported so far.
+</p>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Third_Party_Libraries">Third Party Libraries</span></h3>
+<p>You will need all of the <a href="Third_Party_Libraries.html" title="Third Party Libraries">Third Party Libraries</a> to successfully compile FreeCAD. If you use the MS compilers it is recommended to install a <a rel="nofollow" class="external text" href="http://sourceforge.net/projects/free-cad/files/FreeCAD%20LibPack/">FreeCAD LibPack</a>, which provides all of the required libraries to build FreeCAD in Windows.
+You will need the Libpack for your architecture and compiler. FreeCAD currently supplies Libpack Version11 for x32 and x64, for VS9 2008, VS11 2012, and VS12 2013.
+</p>
+<h3><span class="mw-headline" id="Optional_programs">Optional programs</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://sourceforge.net/projects/nsis/">NSIS</a> Windows installer (note: formerly, <a rel="nofollow" class="external text" href="http://wixtoolset.org/">WiX</a> installer was used - now under transition to NSIS) - if you want to make msi installer</li></ul>
+<h3><span class="mw-headline" id="System_Path_Configuration">System Path Configuration</span></h3>
+<p>Inside your system path be sure to set the correct paths to the following programs:
+</p>
+<ul><li> git (not tortoiseGit, but git.exe) This is necessary for Cmake to properly update the "About FreeCAD" information in the version.h file which allows FreeCAD to report the proper version in About FreeCAD from the help menu.</li>
+<li>Optionally you can include the Libpack in your system path. This is useful if you plan to build multiple configurations/versions of FreeCAD, you will need to copy less files as explained later in the build process.</li></ul>
+<p>To add to your system path:
+</p>
+<ul><li> Start menu -&gt; Right click on Computer -&gt; Properties -&gt; Advanced system settings</li>
+<li> Advanced tab -&gt; Environment Variables...</li>
+<li> Add the PATH/TO/GIT to the <b>PATH</b></li>
+<li> It should be separated from the others with a semicolon `;`</li></ul>
+<h2><span class="mw-headline" id="Configuration_with_CMake">Configuration with CMake</span></h2>
+<h3><span class="mw-headline" id="The_switch_to_CMake">The switch to CMake</span></h3>
+<div class="note"><b>Warning</b>
+<p>Since FreeCAD version 0.9 we have stopped providing .vcproj files.
+</p>
+</div>
+<p>Currently, FreeCAD uses the CMake build system to generate build and make files that can be used between different operating systems and compilers. 
+If you want build former versions of FreeCAD (0.8 and older) see
+<a href="#Building_older_versions">Building older versions</a> later in this article.
+</p><p>We switched because it became more and more painful to maintain project files for 30+
+build targets and x compilers. CMake gives us the possibility to support alternative 
+IDEs, like  Code::Blocks, Qt Creator and Eclipse CDT. 
+The main compiler is still MS VC9 Express, though. But we plan for the future a build process on 
+Windows without proprietary compiler software.
+</p>
+<h3><span class="mw-headline" id="CMake">CMake</span></h3>
+<p>The first step to build FreeCAD with CMake is to configure the environment. There
+are two ways to do it:
+</p>
+<ul><li> Using the LibPack</li>
+<li> Installing all the needed libraries and let CMake find them</li></ul>
+<p><br />
+The following process will assume you are using the LipPack. The second option may be discussed
+in <a href="#Options_for_the_Build_Process">Options for the Build Process</a>.
+</p>
+<h3><span class="mw-headline" id="Configure_CMake_using_GUI">Configure CMake using GUI</span></h3>
+<ul><li> Open the CMake GUI</li>
+<li> Specify the source folder</li>
+<li> Specify the build folder</li>
+<li> Click <b>Configure</b></li>
+<li> Specify the generator according to the IDE that you'll use. </li></ul>
+<p><br />
+This will begin configuration and should fail because the location of
+<b>FREECAD_LIBPACK_DIR</b> is unset.
+</p>
+<ul><li> Expand the <b>FREECAD</b> category and set <b>FREECAD_LIBPACK_DIR</b> to the correct location</li>
+<li> Check <b>FREECAD_USE_EXTERNAL_PIVY</b></li>
+<li> Optionally Check <b>FREECAD_USE_FREETYPE</b> this is required to use the Draft WB's Shape String functionality</li>
+<li> Click <b>Configure</b> again</li>
+<li> There should be no errors</li>
+<li> Click <b>Generate</b></li>
+<li> Close CMake</li>
+<li> Copy <b>libpack\bin</b> folder into the new build folder CMake created</li></ul>
+<h3><span class="mw-headline" id="Options_for_the_Build_Process">Options for the Build Process</span></h3>
+<p>The CMake build system gives us a lot more flexibility over the build process. That means
+we can switch on and off some features or modules. It's in a way like the Linux kernel build.
+You have a lot of switches to determine the build process.
+</p><p>Here is the description of some of these switches. They will most likely change a lot in the future
+because we want to increase the build flexibility a lot more.
+</p><p><br />
+</p>
+<table class="wikitable" style="text-align:left">
+<caption> Link table
+</caption>
+<tr>
+<th> Variable name       </th>
+<th> Description  </th>
+<th> Default
+</th></tr>
+<tr>
+<td> FREECAD_LIBPACK_USE </td>
+<td> Switch the usage of the FreeCAD LibPack on or off  </td>
+<td> On Win32 on, otherwise off
+</td></tr>
+<tr>
+<td> FREECAD_LIBPACK_DIR </td>
+<td> Directory where the LibPack is </td>
+<td> FreeCAD SOURCE dir
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_GUI   </td>
+<td> Build FreeCAD with all Gui related modules </td>
+<td> ON
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_CAM   </td>
+<td> Build the CAM module, experimental! </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_INSTALLER </td>
+<td> Create the project files for the Windows installer. </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_BUILD_DOXYGEN_DOCU </td>
+<td> Create the project files for source code documentation. </td>
+<td> OFF
+</td></tr>
+<tr>
+<td> FREECAD_MAINTAINERS_BUILD </td>
+<td> Switch on stuff needed only when you do a Release build. </td>
+<td> OFF
+</td></tr></table>
+<p>If you are building with Qt Creator, jump to
+<a href="#Building_with_Qt_Creator">Building with Qt Creator</a>,
+otherwise proceed to
+<a href="#Building_with_Visual_Studio_9_2008">Building with Visual Studio 9 2008</a>.
+</p>
+<h2><span class="mw-headline" id="Building_FreeCAD">Building FreeCAD</span></h2>
+<p>Depending on your current setup, the process for building FreeCAD will be slightly different. This is due to the differences in available software and software versions for each operating system.
+</p><p><br />
+The following procedure will work for compiling on Windows Vista/7/8, for XP an alternate VS tool set is required for VS 2012 and 2013, which has not been tested successfully with the current Libpacks. To target XP(both x32 and x64) it is recommended to use VS2008 and Libpack FreeCADLibs_11.0_x86_VC9.7z
+</p>
+<div class="mw-collapsible mw-collapsed toccolours">
+<h3><span class="mw-headline" id="Building_with_Visual_Studio_12_2013">Building with Visual Studio 12 2013</span></h3>
+<div class="mw-collapsible-content">
+<p>Make sure to specify <b>Visual Studio 12 x64</b>(or the alternate C-Compiler you are using) as the generator in CMake before you continue.
+</p>
+<ul><li>Start Visual Studio 12 2013 by clicking on the desktop icon created at installation.</li></ul>
+<ul><li>Open the project by:</li></ul>
+<p>File -&gt; Open -&gt; Project/Solution
+</p>
+<ul><li>Open FreeCAD_Trunk.sln from the build folder CMake created</li></ul>
+<ul><li>Switch the Solutions Configuration drop down at the top to <b>Release</b> <b>X64</b></li></ul>
+<p>This may take a while depending on your sytem
+</p>
+<ul><li>Build -&gt; Build Solution</li></ul>
+<ul><li>This will take a long time... </li></ul>
+<p>If you don't get any errors you are done. Exit Visual Studio and start FreeCAD by double clicking the FreeCAD icon in the bin folder of the build directory.
+</p>
+</div>
+</div>
+<div class="mw-collapsible mw-collapsed toccolours">
+<h3><span class="mw-headline" id="Building_with_Visual_Studio_9_2008">Building with Visual Studio 9 2008</span></h3>
+<div class="note"><b>Warning</b>
+<p>Since early 0.17 cycle Freecad uses c++11 features that are not supported by 2008 version
+</p>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Building_with_Qt_Creator">Building with Qt Creator</span></h3>
+<div class="mw-collapsible-content">
+<h4><span class="mw-headline" id="Installation_and_configuration_of_Qt_Creator">Installation and configuration of Qt Creator</span></h4>
+<ul><li> Download and install <a rel="nofollow" class="external text" href="https://qt-project.org/downloads">Qt Creator</a></li>
+<li> Tools -&gt; Options -&gt; Text Editor -&gt; Behavior tab:
+<ul><li> File Encodings -&gt; Default Encodings:</li>
+<li> Set to: <b>ISO-8859-1 /...csISOLatin1</b> (Certain characters create errors/warnings with Qt Creator if left set to UTF-8.  This seems to fix it.)</li></ul></li>
+<li> Tools -&gt; Options -&gt; Build &amp; Run:
+<ul><li> CMake tab
+<ul><li> Fill Executable box with path to cmake.exe</li></ul></li>
+<li> Kits tab
+<ul><li> Name: MSVC 2008</li>
+<li> Compiler: Microsoft Visual C++ Compiler 9.0 (x86)</li>
+<li> Debugger: Auto detected...</li>
+<li> Qt version: None</li></ul></li>
+<li> General tab
+<ul><li> Uncheck: Always build project before deploying it</li>
+<li> Uncheck: Always deploy project before running it</li></ul></li></ul></li></ul>
+<h4><span class="mw-headline" id="Import_project_and_Build">Import project and Build</span></h4>
+<ul><li> File -&gt; Open File or Project</li>
+<li> Open <b>CMakeLists.txt</b> which is in the top level of the source</li>
+<li> This will start CMake</li>
+<li> Choose build directory and click next</li>
+<li> Set generator to <b>NMake Generator (MSVC 2008)</b></li>
+<li> Click Run CMake. Follow the instructions depicted above to configure CMake to your liking.</li></ul>
+<p>Now FreeCAD can be built
+</p>
+<ul><li> Build -&gt; Build All</li>
+<li> This will take a long time...</li></ul>
+<p>Once complete, it can be run:
+There are 2 green triangles at the bottom left.  One is debug.
+The other is run.  Pick whichever you want.
+</p>
+</div>
+</div>
+<div class="mw-collapsible mw-collapsed toccolours">
+<h3><span class="mw-headline" id="Command_line_build">Command line build</span></h3>
+<div class="mw-collapsible-content">
+<p>Here an example how to build FreeCAD from the Command line:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> rem @echo off
+ rem   Build script, uses vcbuild to completetly build FreeCAD
+ 
+ rem update trunc
+ d:
+ cd "D:\_Projekte\FreeCAD\FreeCAD_0.9"
+ "C:\Program Files (x86)\Subversion\bin\svn.exe" update 
+ 
+ rem  set the aprobiated Variables here or outside in the system
+ 
+ set PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem
+ set INCLUDE=
+ set LIB=
+ 
+ rem Register VS Build programms
+ call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+ 
+ rem Set Standard include paths
+ set INCLUDE=%INCLUDE%;%FrameworkSDKDir%\include
+ set INCLUDE=%INCLUDE%;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Include
+ 
+ rem Set lib Pathes
+ set LIB=%LIB%;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib
+ set LIB=%LIB%;%PROGRAMFILES%\Microsoft Visual Studio\VC98\Lib
+ 
+ rem Start the Visuall Studio build process
+ "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcpackages\vcbuild.exe" "D:\_Projekte\FreeCAD FreeCAD_0.9_build\FreeCAD_trunk.sln" /useenv</pre></div>
+</div>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Building_older_versions">Building older versions</span></h2>
+<h3><span class="mw-headline" id="Using_LibPack">Using LibPack</span></h3>
+<p>To make it easier to get FreeCAD compiled, we provide a collection of all
+needed libraries. It's called the <a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a>. You can find it on the  <a rel="nofollow" class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=49159">download page</a> on
+sourceforge.
+</p><p>You need to set the following environment variables:
+</p>
+<dl><dd><b>FREECADLIB</b> = "D:\Wherever\LIBPACK"</dd></dl>
+<dl><dd><b>QTDIR</b> = "%FREECADLIB%"</dd></dl>
+<p>Add "%FREECADLIB%\bin" and "%FREECADLIB%\dll" to the system <i>PATH</i> variable. Keep in mind that you have to replace "%FREECADLIB%" with the path name, since Windows does not recursively replace environment variables.
+</p>
+<h4><span class="mw-headline" id="Directory_setup_in_Visual_Studio">Directory setup in Visual Studio</span></h4>
+<p>Some search path of Visual Studio need to be set. 
+To change them, use the menu <i>Tools→Options→Directory</i>
+</p>
+<h5><span class="mw-headline" id="Includes">Includes</span></h5>
+<p>Add the following search path to the include path search list:
+</p>
+<ul><li>&#160;%FREECADLIB%\include</li>
+<li>&#160;%FREECADLIB%\include\Python</li>
+<li>&#160;%FREECADLIB%\include\boost</li>
+<li>&#160;%FREECADLIB%\include\xercesc</li>
+<li>&#160;%FREECADLIB%\include\OpenCascade</li>
+<li>&#160;%FREECADLIB%\include\OpenCV</li>
+<li>&#160;%FREECADLIB%\include\Coin</li>
+<li>&#160;%FREECADLIB%\include\SoQt</li>
+<li>&#160;%FREECADLIB%\include\QT</li>
+<li>&#160;%FREECADLIB%\include\QT\Qt3Support</li>
+<li>&#160;%FREECADLIB%\include\QT\QtCore</li>
+<li>&#160;%FREECADLIB%\include\QT\QtGui</li>
+<li>&#160;%FREECADLIB%\include\QT\QtNetwork</li>
+<li>&#160;%FREECADLIB%\include\QT\QtOpenGL</li>
+<li>&#160;%FREECADLIB%\include\QT\QtSvg</li>
+<li>&#160;%FREECADLIB%\include\QT\QtUiTools</li>
+<li>&#160;%FREECADLIB%\include\QT\QtXml</li>
+<li>&#160;%FREECADLIB%\include\Gts</li>
+<li>&#160;%FREECADLIB%\include\zlib</li></ul>
+<h5><span class="mw-headline" id="Libs">Libs</span></h5>
+<p>Add the following search path to the lib path search list:
+</p>
+<ul><li>&#160;%FREECADLIB%\lib</li></ul>
+<h5><span class="mw-headline" id="Executables">Executables</span></h5>
+<p>Add the following search path to the executable path search list:
+</p>
+<ul><li>&#160;%FREECADLIB%\bin</li>
+<li> TortoiseSVN binary installation directory, usually "C:\Programm Files\TortoiseSVN\bin", this is needed for a distribution build when <i>SubWVRev.exe</i> is used to extract the version number from Subversion.</li></ul>
+<h4><span class="mw-headline" id="Python_needed">Python needed</span></h4>
+<p>During the compilation some Python scripts get executed. So the Python
+interpreter has to function on the OS. Use a command box to check it. If
+the Python library is not properly installed you will get an error message
+like <i>Cannot find python.exe</i>. If you use the LibPack you can also use the
+python.exe in the bin directory.
+</p>
+<h4><span class="mw-headline" id="Special_for_VC8">Special for VC8</span></h4>
+<p>When building the project with VC8, you have to change the link information for the WildMagic library, since you need a different version for VC6 and VC8. Both versions are supplied in <i>LIBPACK/dll</i>. In the project properties for <i>AppMesh</i> change the library name for the <i>wm.dll</i> to the VC8 version. Take care to change it in Debug <i>and</i> Release configuration.
+</p>
+<h3><span class="mw-headline" id="Compile">Compile</span></h3>
+<p>After you conform to all prerequisites the compilation is - hopefully - only a mouse click in VC 
+</p>
+<h3><span class="mw-headline" id="After_Compiling">After Compiling</span></h3>
+<p>To get FreeCAD up and running from the compiler environment you need to copy a few files from the <a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a> to the <i>bin</i> folder where FreeCAD.exe is installed after a successful build:
+</p>
+<ul><li> <i>python.exe</i> and <i>python_d.exe</i> from <i>LIBPACK/bin</i></li>
+<li> <i>python25.dll</i> and <i>python25_d.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>python25.zip</i> from <i>LIBPACK/bin</i></li>
+<li> make a copy of <i>Python25.zip</i> and rename it to <i>Python25_d.zip</i></li>
+<li> <i>QtCore4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtGui4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>boost_signals-vc80-mt-1_34_1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>boost_program_options-vc80-mt-1_34_1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>xerces-c_2_8.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>zlib1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>coin2.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>soqt1.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtOpenGL4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtNetwork4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtSvg4.dll</i> from <i>LIBPACK/bin</i></li>
+<li> <i>QtXml4.dll</i> from <i>LIBPACK/bin</i></li></ul>
+<p>When using a <a href="Third_Party_Libraries.html" title="Third Party Libraries">LibPack</a> with a Python version older than 2.5 you have to copy two further files:
+</p>
+<ul><li> <i>zlib.pyd</i> and <i>zlib_d.pyd</i> from <i>LIBPACK/bin/lib</i>. This is needed by python to open the zipped python library.</li>
+<li> <i>_sre.pyd</i> and <i>_sre_d.pyd</i> from <i>LIBPACK/bin/lib</i>. This is needed by python for the built in help system.</li></ul>
+<p>If you don't get it running due to a Python error it is very likely that one of the <i>zlib*.pyd</i> files is missing.
+</p><p>Alternatively, you can copy the whole bin folder of libpack into bin folder of the build. This is easier, but takes time and disk space. This can be substited by making links instead of copying files, see <a href="/wiki/CompileOnWindows_-_Reducing_Disk_Footprint#avoiding_copying_any_libpack_files_to_launch_FreeCAD" title="CompileOnWindows - Reducing Disk Footprint">CompileOnWindows - Reducing Disk Footprint</a>.
+</p>
+<h3><span class="mw-headline" id="Additional_stuff">Additional stuff</span></h3>
+<p>If you whant to build the source code documentation you need <a rel="nofollow" class="external text" href="http://www.stack.nl/~dimitri/doxygen/">DoxyGen</a>.
+</p><p>To create an intstaller package you need <a rel="nofollow" class="external text" href="http://wix.sourceforge.net/">WIX</a>.
+</p><p><br />
+During the compilation some Python scripts get executed. So the Python interpreter has to work properly.
+</p><p>For more details have also a look to <i>README.Linux</i> in your sources.
+</p><p>First of all you should build the Qt plugin that provides all custom widgets of FreeCAD we need for the Qt Designer. The sources are located under 
+</p>
+<pre>
+//src/Tools/plugins/widget//.
+</pre>
+<p>So far we don't provide a makefile -- but calling 
+</p>
+<pre>
+qmake plugin.pro
+</pre>
+<p>creates it. Once that's done, calling <i>make</i> will create the library 
+</p>
+<pre>
+//libFreeCAD_widgets.so//.
+</pre>
+<p>To make this library known to your <i>Qt Designer</i> you have to copy the file to
+</p>
+<pre>
+//$QTDIR/plugin/designer//.
+</pre>
+<h2><span class="mw-headline" id="References">References</span></h2>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/ru&amp;oldid=284074">http://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/ru&amp;oldid=284074</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

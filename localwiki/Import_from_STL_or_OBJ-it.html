@@ -1,0 +1,170 @@
+<html><head><title>Import from STL or OBJ/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Import from STL or OBJ/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Argomento
+</th></tr>
+<tr>
+<td class="ctEven">Importare da STL o OBJ
+</td></tr>
+<tr>
+<th class="ctOdd">Livello di difficoltà
+</th></tr>
+<tr>
+<td class="ctEven">Base
+</td></tr>
+<tr>
+<th class="ctOdd">Tempo di esecuzione
+</th></tr>
+<tr>
+<td class="ctEven">30 minuti
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven">r-frank
+</td></tr>
+<tr>
+<th class="ctOdd">Versione di FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">0.16.6703
+</td></tr>
+<tr>
+<th class="ctOdd">File di esempio
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduzione"><span class="tocnumber">2</span> <span class="toctext">Introduzione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Il_modello"><span class="tocnumber">3</span> <span class="toctext">Il modello</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Pulizia_e_riparazione_del_file_STL_.2F_OBJ_per_prepararlo_all.27importazione"><span class="tocnumber">4</span> <span class="toctext">Pulizia e riparazione del file STL / OBJ per prepararlo all'importazione</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Analisi_e_riparazione_automatica"><span class="tocnumber">4.1</span> <span class="toctext">Analisi e riparazione automatica</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Armonizzare_le_normali"><span class="tocnumber">4.2</span> <span class="toctext">Armonizzare le normali</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Chiudere_i_fori"><span class="tocnumber">4.3</span> <span class="toctext">Chiudere i fori</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Convertire_la_mesh_in_solido"><span class="tocnumber">5</span> <span class="toctext">Convertire la mesh in solido</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Link"><span class="tocnumber">6</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduzione">Introduzione</span></h2>
+<p>In questo tutorial ci occuperemo di come importare i file STL / OBJ in FreeCAD.
+Dato che il formato mesh STL / OBJ è adimensionale,  nell'importazione di questi file FreeCAD assume che l'unità utilizzata nel modello sia il mm.
+Se non è così, bisogna scalare il proprio modello nell'applicazione con cui è stato creato, prima di esportarlo, oppure scalare il modello in FreeCAD dopo l'importazione e la conversione in solido.
+</p>
+<h2><span class="mw-headline" id="Il_modello">Il modello</span></h2>
+<p>Per questo tutorial è possibile utilizzare un proprio file STL o creare un file demo in questo modo:
+</p>
+<ul><li>Avviare FreeCAD</li>
+<li>Creare un nuovo documento</li>
+<li>Passare nell'ambiente mesh</li>
+<li>Inserire un toro cliccando su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Meshes</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_RegularSolid.png" class="image"><img alt="Mesh RegularSolid.png" src="32px-Mesh_RegularSolid.png" width="32" height="33" srcset="/wiki/images/thumb/2/29/Mesh_RegularSolid.png/48px-Mesh_RegularSolid.png 1.5x, /wiki/images/thumb/2/29/Mesh_RegularSolid.png/64px-Mesh_RegularSolid.png 2x" /></a> Solido regolare...</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Toro</span> , e poi selezionare queste impostazioni:
+<ul><li>Raggio 1: 10 mm</li>
+<li>Raggio 2: 2 mm</li>
+<li>Campionatura: 50</li></ul></li>
+<li>Cliccare su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Crea</span> e poi su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Chiudi</span></li>
+<li>Salvare il file con <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> File</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Salva</span> per avere un file di FreeCAD contenente un oggetto mesh</li></ul>
+<p><br />
+Per importare un file  STL o OBJ in FreeCAD, creare un nuovo documento di FreeCAD e poi, dal menu principale, scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> File</span>  → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Importa</span>.
+</p>
+<h2><span class="mw-headline" id="Pulizia_e_riparazione_del_file_STL_.2F_OBJ_per_prepararlo_all.27importazione">Pulizia e riparazione del file STL / OBJ per prepararlo all'importazione</span></h2>
+<p>In genere, FreeCAD può importare qualsiasi file STL / OBJ.
+Ma il nostro obiettivo è quello di avere un solido che possa essere misurato e modificato (con l'aggiunta di estrusioni, scavi, ecc ..).
+Per la conversione da mesh a solido si deve fare in modo che la mesh sia "a tenuta stagna", cioè senza buchi o non abbia altri errori.
+<br />
+L'obiettivo di FreeCAD non è quello di essere un buon modellatore di mesh, esso è stato progettato per essere un modellatore di solidi.
+FreeCAD ha alcune funzionalità per le operazioni su mesh negli ambienti Mesh e OpenSCAD (Alcune operazioni richiedono che OpenSCAD sia stato installato e configurato nelle  preferenze di FreeCAD).
+<br />
+Ad alcuni utenti piace utilizzare software di terze parti per la pulizia e la riparazione delle mesh, ad esempio
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.netfabb.com/downloadcenter.php?basic=1">Netfabb Basic</a> (Windows/Linux/Mac) - free per uso personale (è disponibile la riparazione automatica delle mesh)</li>
+<li> <a rel="nofollow" class="external text" href="http://meshlab.sourceforge.net/">Meshlab</a> (Windows/Linux/Mac) - Open Source</li></ul>
+<p><br />
+In questo tutorial si usa l'ambiente Mesh incorporato in FreeCAD per pulire / riparare / verificare le mesh del file di esempio.
+</p>
+<h3><span class="mw-headline" id="Analisi_e_riparazione_automatica">Analisi e riparazione automatica</span></h3>
+<ul><li>Aprire FreeCAD e il file FreeCAD campione contenente l'oggetto mesh</li>
+<li>Passare nell'ambiente Mesh</li>
+<li>Accertarsi che nella vista ad albero sia selezionato l'oggetto mesh</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mesh</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analizza</span> → <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analizza &amp; Ripara mesh...</span> dal menu principale</li>
+<li>Assicurarsi che il menu a tendina visualizzi in alto a destra il nome dell'oggetto mesh</li>
+<li>Nell'ultimo punto della lista "Tutti i test insieme" cliccare su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Analizza</span></li>
+<li>I campi di testo accanto alle caselle riportano i risultati dei vari test</li>
+<li>Se vengono rilevati errori le corrispondenti caselle di controllo appaiono spuntate ed è quindi possibile selezionare l'azione  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Ripara</span></li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Chiudi</span> per chiudere il menu</li></ul>
+<h3><span class="mw-headline" id="Armonizzare_le_normali">Armonizzare le normali</span></h3>
+<p>Per armonizzazione le normali di un oggetto mesh si può
+</p>
+<ul><li>Selezionare la mesh nella vista ad albero</li>
+<li>Scegliere  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mesh</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_HarmonizeNormals.png" class="image"><img alt="Mesh HarmonizeNormals.png" src="32px-Mesh_HarmonizeNormals.png" width="32" height="32" srcset="/wiki/images/thumb/0/01/Mesh_HarmonizeNormals.png/48px-Mesh_HarmonizeNormals.png 1.5x, /wiki/images/0/01/Mesh_HarmonizeNormals.png 2x" /></a> Armonizza le normali</span>  nel menu principale.</li></ul>
+<p>Suggerimento:
+Scegliendo l'oggetto mesh nella vista ad albero, andando alla scheda visualizzazione della finestra delle proprietà e cambiando "Illuminazione" da
+"Two Side" a "One Side" è possibile identificare i triangoli con le normali capovolte.
+Se le normali puntano verso la mesh il triangolo viene visualizzato in nero.
+</p>
+<h3><span class="mw-headline" id="Chiudere_i_fori">Chiudere i fori</span></h3>
+<p>Inoltre è possibile chiudere manualmente i buchi nell'oggetto mesh:
+</p>
+<ul><li>Selezionare la mesh nella vista ad albero</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mesh</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Chiudi i fori...</span>  dal menu principale</li>
+<li>Specificare il numero massimo di spigoli da usare per riempire (3 è l'impostazione predefinita)</li>
+<li>Dato che STL e OBJ sono mesh con struttura costituita da triangoli il numero predefinito di bordi dovrebbe essere sufficiente</li></ul>
+<p><br />
+Un altro metodo di chiusura manuale dei fori in un oggetto mesh può essere:
+</p>
+<ul><li>Selezionare la mesh nella vista ad albero</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Mesh</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_FillInteractiveHole.png" class="image"><img alt="Mesh FillInteractiveHole.png" src="32px-Mesh_FillInteractiveHole.png" width="32" height="32" srcset="/wiki/images/thumb/8/81/Mesh_FillInteractiveHole.png/48px-Mesh_FillInteractiveHole.png 1.5x, /wiki/images/8/81/Mesh_FillInteractiveHole.png 2x" /></a> Chiudi fori</span>  dal menu principale</li>
+<li>Selezionare nella vista 3D uno dei bordi del foro dell'oggetto mesh</li>
+<li>Cliccare con il tasto destro nella vista 3D e scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Esci dalla modalità di riempimento del foro</span> per uscire dal comando</li></ul>
+<h2><span class="mw-headline" id="Convertire_la_mesh_in_solido">Convertire la mesh in solido</span></h2>
+<ul><li>Passare nell'ambiente Part</li>
+<li>Accertarsi che l'oggetto mesh sia selezionato nella vista ad albero, altrimenti selezionarlo</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_ShapeFromMesh.png" class="image"><img alt="Part ShapeFromMesh.png" src="32px-Part_ShapeFromMesh.png" width="32" height="32" srcset="/wiki/images/thumb/5/50/Part_ShapeFromMesh.png/48px-Part_ShapeFromMesh.png 1.5x, /wiki/images/5/50/Part_ShapeFromMesh.png 2x" /></a> Crea forma da mesh ...</span> nel menu principale</li>
+<li>Specificare la tolleranza (di default è 0,1)</li>
+<li>Nella vista ad albero viene creato un nuovo oggetto (con l'icona blu di forma, invece dell'icona verde di mesh)</li>
+<li>Selezionare l'oggetto appena creato nella struttura ad albero</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_RefineShape.png" class="image"><img alt="Part RefineShape.png" src="32px-Part_RefineShape.png" width="32" height="32" srcset="/wiki/images/thumb/6/68/Part_RefineShape.png/48px-Part_RefineShape.png 1.5x, /wiki/images/6/68/Part_RefineShape.png 2x" /></a> Affina forma</span> nel menu principale</li>
+<li>Nella struttura ad albero viene creato un nuovo oggetto  e quello precedente viene reso invisibile</li>
+<li>Selezionare l'oggetto appena creato nella struttura ad albero</li>
+<li>Scegliere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Part</span>  →  <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> Converti in solido</span> dal menu principale</li>
+<li>Nella struttura ad albero viene creato un nuovo oggetto, contenente "(Solid)" nel suo nome, per indicare che è un solido</li></ul>
+<p><br />
+Dato che il solido creato in questo modo non ha cronologia e non ha funzioni modificabili ( in FreeCAD è come una semplice copia) dalla vista ad albero
+si possono eliminare tutti gli oggetti precedenti.
+Questo riduce le dimensioni del file ...
+</p>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Export_to_STL_or_OBJ/it" title="Export to STL or OBJ/it">Esportare in STL o OBJ</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/it&amp;oldid=215667">http://www.freecadweb.org/wiki/index.php?title=Import_from_STL_or_OBJ/it&amp;oldid=215667</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

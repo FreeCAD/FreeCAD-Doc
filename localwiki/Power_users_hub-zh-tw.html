@@ -1,0 +1,127 @@
+<html><head><title>Power users hub/zh-tw</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Power users hub/zh-tw</h1></div>
+
+<div id="mw-content-text" lang="zh-TW" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crystal_Clear_app_terminal.png" class="image" title="150"><img alt="150" src="Crystal_Clear_app_terminal.png" width="128" height="128" /></a></div>
+<p>這是一個讓你更加深入了解FreeCAD的地方。在這裡你可以學習如何為你的需求客製化FreeCAD。 
+</p><p>這個頁面還在早期開發階段。如果你找不到你所需要的資訊，或是你在其他地方找到有用的資訊，請在<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">論壇</a>上留言，或者何不<a href="Help_FreeCAD.html" title="Help FreeCAD"> 直接由你來幫忙增加本頁面的內容!</a>
+</p><p>FreeCAD有一個最棒的特色就是你可以藉由腳本來擴充功能並且幾乎沒有限制，而且你並不需要接觸到FreeCAD本身的原始碼或是編譯任何東西。所有的腳本都是由<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>這個簡單但是強大的程式語言寫成的。藉由Python你幾乎可以使用FreeCAD的各種功能。舉例來說，你可以:
+</p>
+<ul><li> <b>創造和修改模型</b>:你有一些特殊的模型是FreeCAD的預設安裝中沒有的嗎?你可以容易地創造出一個物件型態，不論是從scratch 或是藉由adapting an existing type。</li></ul>
+<ul><li> <b>製作客製化工具以及命令</b>: 目前為止FreeCAD已經擁有許多功能，但還沒有足夠多方便的功能給終端使用者。不過他已經可以容易的製作出你自己的工具組。</li>
+<li> <b>修改介面</b>: FreeCAD的使用者介面現階段依然十分的基本。不過你可以擴展任何你需要的東西。例如，創建一個工具列並將你的工具放入，建立特別的控制面板來和你的工具互動等等。 </li>
+<li><b>修改場景表現</b>: FreeCAD有separate processes 來建立與計算幾何模型，並且將它顯示在你的螢幕。你可以全方位的控制展現在你螢幕上的東西，因此你可以改變他的展現方式，與場景互動或是增加各種客製化的動作和螢幕小工具，例如顯示目前資訊、拖拉圖案、anchors 、或者暫時的實體。</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.AE.A2.E8.A3.BD.E5.8C.96_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">客製化 FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E4.B8.80.E8.88.AC.E4.B8.BB.E9.A1.8C"><span class="tocnumber">1.1</span> <span class="toctext">一般主題</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E6.A8.A1.E7.B5.84"><span class="tocnumber">1.2</span> <span class="toctext">模組</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Working_with_Meshes"><span class="tocnumber">1.3</span> <span class="toctext">Working with Meshes</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Working_with_Parts"><span class="tocnumber">1.4</span> <span class="toctext">Working with Parts</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Accessing_the_Coin_scenegraph"><span class="tocnumber">1.5</span> <span class="toctext">Accessing the Coin scenegraph</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E6.8E.A7.E5.88.B6Qt.E4.BB.8B.E9.9D.A2"><span class="tocnumber">1.6</span> <span class="toctext">控制Qt介面</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Working_with_parametric_objects"><span class="tocnumber">1.7</span> <span class="toctext">Working with parametric objects</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Examples"><span class="tocnumber">1.8</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#API_Functions"><span class="tocnumber">2</span> <span class="toctext">API Functions</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Advanced_modification"><span class="tocnumber">3</span> <span class="toctext">Advanced modification</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Python_tutorials"><span class="tocnumber">4</span> <span class="toctext">Python tutorials</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Community_projects"><span class="tocnumber">5</span> <span class="toctext">Community projects</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.AE.A2.E8.A3.BD.E5.8C.96_FreeCAD">客製化 FreeCAD</span></h2>
+<ul><li> <a href="Interface_Customization.html" title="Interface Customization">客製化介面</a>: Starting with the beginning: Toolbars and shortcuts</li>
+<li> <a href="Macros.html" title="Macros">使用Marco</a>: Easily record often repeated tasks or Python code</li>
+<li> <a href="Macros_recipes.html" title="Macros recipes">Macros 範例</a></li>
+<li> <a href="Customize_Toolbars.html" title="Customize Toolbars">客製化工具列</a></li>
+<li> <a href="Installing_more_workbenches.html" title="Installing more workbenches">安裝更多的workbench</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?t=10556">外掛程式載入器</a></li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-addons">Addons installer.FCMacro</a></li></ul>
+<p>在FreeCAD撰寫腳本
+</p>
+<h3><span class="mw-headline" id=".E4.B8.80.E8.88.AC.E4.B8.BB.E9.A1.8C">一般主題</span></h3>
+<ul><li> <a href="Introduction_to_Python.html" title="Introduction to Python"> 介紹 Python</a> - See also other Python tutorials at the bottom of this page</li>
+<li> <a href="Python_scripting_tutorial.html" title="Python scripting tutorial">FreeCAD 腳本撰寫教學</a> - A general look at python scripting in FreeCAD</li>
+<li> <a href="FreeCAD_Scripting_Basics.html" title="FreeCAD Scripting Basics">FreeCAD腳本基礎篇</a>: Well, the basics...</li>
+<li> <a href="Gui_Command.html" title="Gui Command">人機介面命令</a>&#160;: Adding custom commands to the GUI</li>
+<li> Using mixed <a href="Units.html" title="Units">Units</a> in FreeCAD</li></ul>
+<h3><span class="mw-headline" id=".E6.A8.A1.E7.B5.84">模組</span></h3>
+<p>As the functionality of FreeCAD is separated in Modules which deal with special data types and applications. FreeCAD has built-in modules and Extension Modules (plug-ins). Once plugin modules are installed, they become availible to you as easily as the built-in modules. The modules described below are the default modules, includeed in every FreeCAD installation.
+</p>
+<ul><li> The <a href="Builtin_modules.html" title="Builtin modules">內建模組</a> are the principal FreeCAD modules. They contain tools for manipulating general FreeCAD configurations, documents and their contents.</li>
+<li> <a href="Workbench_creation.html" title="Workbench creation"> 創造Workbench</a> shows you how to create your own workbench</li></ul>
+<h3><span class="mw-headline" id="Working_with_Meshes">Working with Meshes</span></h3>
+<ul><li> <a href="Mesh_Scripting.html" title="Mesh Scripting">Mesh Scripting</a>: How to interact with the <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Mesh Module</a></li></ul>
+<h3><span class="mw-headline" id="Working_with_Parts">Working with Parts</span></h3>
+<ul><li> <a href="Part_Module.html" title="Part Module">零件模組</a>: How <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">Open CASCADE Technology</a> tools and structure is used in FreeCAD</li>
+<li> <a href="Topological_data_scripting.html" title="Topological data scripting">寫腳本來操作拓樸資料</a>: How to interact with the Part Module</li>
+<li> <a href="PythonOCC.html" title="PythonOCC">PythonOCC</a>: How to unleash the whole Open CASCADE power</li>
+<li> <a href="Mesh_to_Part.html" title="Mesh to Part">從mesh檔到零件檔</a>: Converting between object types</li></ul>
+<h3><span class="mw-headline" id="Accessing_the_Coin_scenegraph">Accessing the Coin scenegraph</span></h3>
+<ul><li> <a href="Scenegraph.html" title="Scenegraph">The Coin/Inventor scenegraph</a>: How the FreeCAD scene representation works</li>
+<li> <a href="Pivy.html" title="Pivy">Pivy</a>: How to access and modify the scenegraph</li></ul>
+<h3><span class="mw-headline" id=".E6.8E.A7.E5.88.B6Qt.E4.BB.8B.E9.9D.A2">控制Qt介面</span></h3>
+<ul><li> <a href="PySide.html" title="PySide">PySide</a>: How to access the interface, and modify its contents</li>
+<li> <a href="Embedding_FreeCADGui.html" title="Embedding FreeCADGui">Using the FreeCAD GUI</a> in another Qt application with PyQt</li></ul>
+<h3><span class="mw-headline" id="Working_with_parametric_objects">Working with parametric objects</span></h3>
+<ul><li> <a href="Scripted_objects.html" title="Scripted objects">Scripted objects</a>: How to make 100% Python-scripted objects in FreeCAD</li>
+<li> <a href="Drawing_Module.html" title="Drawing Module">工程圖模組</a>: Automating the 3D-to-2D process</li></ul>
+<h3><span class="mw-headline" id="Examples">Examples</span></h3>
+<ul><li> <a href="Code_snippets.html" title="Code snippets">範例小程式</a>&#160;: A collection of pieces of FreeCAD Python code, to serve as ingredients in your scripts...</li>
+<li> <a href="Line_drawing_function.html" title="Line drawing function">Line drawing function</a>: How to build a simple tool to draw lines</li>
+<li> <a href="Dialog_creation.html" title="Dialog creation">Dialog creation</a>: How to construct dialogs with Qt designer, and use them in FreeCAD</li>
+<li> <a href="Embedding_FreeCAD.html" title="Embedding FreeCAD">Embedding FreeCAD</a>: How to import FreeCAD as a Python module in other applications</li>
+<li> The <a href="Draft_Module.html" title="Draft Module">Draft Module</a> adds basic 2d drawing functions to freecad. It is written entirely in Python, so it can be a good example if you want to write your own modules.</li>
+<li> <a href="FreeCAD_vector_math_library.html" title="FreeCAD vector math library">FreeCAD vector math library</a>&#160;: A couple of handy functions to manipulate FreeCAD vectors. This library is also included in the Draft module.</li></ul>
+<h2><span class="mw-headline" id="API_Functions">API Functions</span></h2>
+<p>The complete API documentation of FreeCAD is located at <a rel="nofollow" class="external free" href="http://www.freecadweb.org/api/">http://www.freecadweb.org/api/</a> . It contains both C++ and Python APIs, and is not totally well formatted yet, which can be confusing when looking for python-only code. An easier to browse version can be found <a href="https://www.freecadweb.org/wiki/index.php?title=Category:API" title="Category:API">here</a>. Note that it can be incomplete, since it is updated manually. For more accurate information, browse the modules directly from FreeCAD's Python console.
+</p>
+<h2><span class="mw-headline" id="Advanced_modification">Advanced modification</span></h2>
+<ul><li> <a href="Start_up_and_Configuration.html" title="Start up and Configuration">Start up and Configuration</a>: Startup and command line options</li>
+<li> <a href="Install_on_Windows.html" title="Install on Windows">Install on Windows</a>: Using the windows installer</li>
+<li> <a href="CompileOnWindows.html" title="CompileOnWindows">Compiling FreeCAD on Windows</a> and <a href="CompileOnUnix.html" title="CompileOnUnix">Compiling FreeCAD on Unix</a></li>
+<li> <a href="Branding.html" title="Branding">Branding</a>: Simple modifications you can do to the source code to change some aspects of FreeCAD</li>
+<li> <a href="Extra_python_modules.html" title="Extra python modules">Extra python modules</a>&#160;: Extend the FreeCAD python interpreter with these powerful modules!</li></ul>
+<h2><span class="mw-headline" id="Python_tutorials">Python tutorials</span></h2>
+<p>These are good generic tutorials, not specific to FreeCAD, that might interest you if you are totally new to python.
+</p><p><b>Python</b>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="https://docs.python.org/2.7/tutorial/index.html">Official python tutorial</a> - A very complete tutorial for discovering python</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python">Non-programmer tutorial for python</a> - an excellent wikibook</li>
+<li> <a rel="nofollow" class="external text" href="http://npt.cc.rsu.ru/user/wanderer/ODP/Python_for_Newbies.htm">Python for newbies</a> - one big tutorial covering all the basics</li></ul>
+<p><b>PySide</b> - How to create and manage FreeCAD's Qt UI interface from python
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://zetcode.com/gui/pysidetutorial/">PySide tutorial</a>&#160;: A platform-agnostic tutorial showing the usage of PySide with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythoncentral.io/series/python-pyside-pyqt-tutorial/">PySide/PyQt tutorial</a>&#160;: A easy to read tutorial that covers PySide and PyQt with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySideDocumentation">PySide documentation</a>&#160;: from the Qt Project (the people who wrote it all)</li>
+<li> <a rel="nofollow" class="external text" href="PySide.html">Using QtCreator in PySide</a>&#160;: also from the Qt Project</li>
+<li> <a rel="nofollow" class="external text" href="http://srinikom.github.io/pyside-docs/index.html">PySide reference</a>&#160;: endless detail on the minutiae of PySide and Qt, a reliable reference source</li>
+<li> <a rel="nofollow" class="external text" href="PySide.html">PySide code snippets</a>&#160;: a searchable database of PySide code snippets</li></ul>
+<p>The following two references are PyQt specific (not PySide) but may offer some information of use:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.cs.usfca.edu/~afedosov/qttut/">Basic PyQt tutorial</a>&#160;: A simple and short linux-based tutorial that will explain how to work with PyQt and Qt Designer</li>
+<li> <a rel="nofollow" class="external text" href="http://vizzzion.org/?id=pyqt">Programming Qt applications in python</a>&#160;: A more in-depth tutorial covering all the process of working with qt and python.</li></ul>
+<p><b>Pivy</b> - How to interact with FreeCAD's 3D scenes
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/documentation/pycon">Basic Pivy tutorial</a>&#160;: A very simple tutorial form the official Pivy site</li>
+<li> <a rel="nofollow" class="external text" href="http://www.google.com.br/url?sa=U&amp;start=3&amp;q=http://studierstube.icg.tu-graz.ac.at/doc/pdf/PivyStudierstubeTutorial.pdf&amp;ei=XyC1Sc2wOeCKmQem_eHnBQ&amp;usg=AFQjCNEYhb-0DcUc6OxFVijAe1epBb-4aA">Introducing Pivy into studierstube</a>&#160;: A document that is not really a tutorial, but that illustrates well how Pivy works</li></ul>
+<h2><span class="mw-headline" id="Community_projects">Community projects</span></h2>
+<p>On the <a href="FreeCAD_Community_Portal.html" title="FreeCAD Community Portal">Community portal</a>, you can find other FreeCAD-based projects run by the FreeCAD users community. If you are starting a new FreeCAD project, be sure to list it there! We also have a page with things you can do if you would like to <a href="Help_FreeCAD.html" title="Help FreeCAD">Help FreeCAD</a>.
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/zh-tw&amp;oldid=224560">http://www.freecadweb.org/wiki/index.php?title=Power_users_hub/zh-tw&amp;oldid=224560</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,278 @@
+<html><head><title>Engine Block Tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Engine Block Tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Finished_Engine_Block.png" class="image"><img alt="Engine Block Tutorial - Finished Engine Block.png" src="300px-Engine_Block_Tutorial_-_Finished_Engine_Block.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/d/d5/Engine_Block_Tutorial_-_Finished_Engine_Block.png/450px-Engine_Block_Tutorial_-_Finished_Engine_Block.png 1.5x, /wiki/images/thumb/d/d5/Engine_Block_Tutorial_-_Finished_Engine_Block.png/600px-Engine_Block_Tutorial_-_Finished_Engine_Block.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Finished_Engine_Block.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>これはFreeCADでのモデリングの入門チュートリアルです。このチュートリアルの目的は形状オブジェクトのプリミティブデータ型、ブーリアン演算、2D製図、2D図面から3Dモデルへの変換処理を紹介することです。作業例として右に示す様な簡単なエンジンブロックとクランクケースのモデリングを行います。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.A7.8B.E3.82.81.E3.81.BE.E3.81.97.E3.82.87.E3.81.86"><span class="tocnumber">1</span> <span class="toctext">始めましょう</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.AE.E3.83.A9.E3.83.95.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81"><span class="tocnumber">2</span> <span class="toctext">ブロックのラフスケッチ</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E3.83.93.E3.83.AC.E3.83.83.E3.83.88"><span class="tocnumber">2.1</span> <span class="toctext">ビレット</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E4.B8.80.E3.81.A4.E7.9B.AE.E3.81.AE.E5.86.86.E7.AD.92"><span class="tocnumber">2.2</span> <span class="toctext">一つ目の円筒</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E4.BA.8C.E3.81.A4.E7.9B.AE.E3.81.AE.E5.86.86.E7.AD.92"><span class="tocnumber">2.3</span> <span class="toctext">二つ目の円筒</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E5.86.86.E7.AD.92.E9.83.A8.E3.81.AE.E7.A9.B4.E3.81.82.E3.81.91"><span class="tocnumber">2.4</span> <span class="toctext">円筒部の穴あけ</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF.E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0.E3.81.AE.E9.87.8D.E8.A6.81.E3.81.AA.E5.88.A9.E7.82.B9"><span class="tocnumber">2.5</span> <span class="toctext">パラメトリックモデリングの重要な利点</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#.E3.82.AF.E3.83.A9.E3.83.B3.E3.82.AF.E3.82.B1.E3.83.BC.E3.82.B9"><span class="tocnumber">3</span> <span class="toctext">クランクケース</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#.E3.83.93.E3.83.AC.E3.83.83.E3.83.88.E3.81.A8.E3.83.99.E3.82.A2.E3.83.AA.E3.83.B3.E3.82.B0.E3.82.AD.E3.83.A3.E3.83.83.E3.83.97"><span class="tocnumber">3.1</span> <span class="toctext">ビレットとベアリングキャップ</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E3.82.B8.E3.83.A3.E3.83.BC.E3.83.8A.E3.83.AB.E3.81.AE.E5.88.87.E3.82.8A.E5.87.BA.E3.81.97"><span class="tocnumber">3.2</span> <span class="toctext">ジャーナルの切り出し</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#.E3.82.AF.E3.83.A9.E3.83.B3.E3.82.AF.E3.82.B1.E3.83.BC.E3.82.B9.E3.81.AE.E4.BB.95.E4.B8.8A.E3.81.92"><span class="tocnumber">3.3</span> <span class="toctext">クランクケースの仕上げ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#2D.E8.A3.BD.E5.9B.B3_.E3.83.98.E3.83.83.E3.83.89.E3.82.AC.E3.82.B9.E3.82.B1.E3.83.83.E3.83.88.E3.81.AE.E3.83.87.E3.82.B6.E3.82.A4.E3.83.B3"><span class="tocnumber">4</span> <span class="toctext">2D製図 ヘッドガスケットのデザイン</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#2D.E8.A3.BD.E5.9B.B3.E3.83.A2.E3.83.BC.E3.83.89.E5.85.A5.E9.96.80"><span class="tocnumber">4.1</span> <span class="toctext">2D製図モード入門</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#.E3.83.98.E3.83.83.E3.83.89.E3.83.9C.E3.83.AB.E3.83.88.E3.81.AE.E3.83.AC.E3.82.A4.E3.82.A2.E3.82.A6.E3.83.88"><span class="tocnumber">4.2</span> <span class="toctext">ヘッドボルトのレイアウト</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#.E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.AE.E5.8F.8D.E5.AF.BE.E5.81.B4"><span class="tocnumber">4.3</span> <span class="toctext">ブロックの反対側</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#.E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.8B.E3.82.89.E4.BD.99.E5.88.86.E3.81.AA.E9.87.91.E5.B1.9E.E6.9D.90.E3.82.92.E5.88.87.E3.82.8A.E8.90.BD.E3.81.A8.E3.81.99"><span class="tocnumber">4.4</span> <span class="toctext">ブロックから余分な金属材を切り落とす</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#2D.E3.83.98.E3.83.83.E3.83.89.E5.9B.B3.E9.9D.A2.E3.82.92.E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97.E3.81.A63D.E3.83.A2.E3.83.87.E3.83.AB.E3.81.AB.E3.81.97.E3.81.A6.E8.A8.AD.E8.A8.88.E3.82.92.E7.B5.82.E3.81.88.E3.82.8B"><span class="tocnumber">4.5</span> <span class="toctext">2Dヘッド図面を押し出して3Dモデルにして設計を終える</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.A7.8B.E3.82.81.E3.81.BE.E3.81.97.E3.82.87.E3.81.86">始めましょう</span></h2>
+<p>まず始めにFreeCADを起動して<i>File-&gt;New</i>で新しいドキュメントを作成し、<i>File-&gt;Save</i>でそれをコンピューター上のどこかに保存します。私はこのプロジェクトに'Engine'という名前をつけました。プロジェクトを保存すると画面左側の<i>tree view</i>に作業中のプロジェクトの名前が表示されます。一度に複数のプロジェクトを開くことも可能でその場合、各プロジェクトはツリービューでツリーのルートとして表示されます。
+</p>
+<h2><span class="mw-headline" id=".E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.AE.E3.83.A9.E3.83.95.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81">ブロックのラフスケッチ</span></h2>
+<p>実際のモデルに取りかかりましょう。エンジンブロック全体の概形を作るためにまずボックスを追加します。これを行うためにはモデルに<i>パーツ</i>を追加する必要があります。View-&gt;Workbench-&gt;Partから<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>を選択してください。ワークベンチを選択すると上部に異なるツールバーボタンの組み合わせが表示されます。いくつか他のワークベンチに切り替えてワークベンチシステムに慣れてください。それが終わったら再度パートモジュールに切り替えてください。
+</p>
+<h3><span class="mw-headline" id=".E3.83.93.E3.83.AC.E3.83.83.E3.83.88">ビレット</span></h3>
+<p>パートモジュールにはボックス、球、円錐といったプリミティブオブジェクト用のボタンがたくさんあるのがわかると思います。ボックスボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="16px-Part_Box.png" width="16" height="16" srcset="/wiki/images/thumb/a/a5/Part_Box.png/24px-Part_Box.png 1.5x, /wiki/images/thumb/a/a5/Part_Box.png/32px-Part_Box.png 2x" /></a>）をクリックしてシーンに立方体を追加します。リストにある各プリミティブにはプリミティブ追加時に設定されるデフォルトのパラメーターがあります。もしそれぞれのプリミティブがどのような外見か確認したければそれぞれを追加してみてください。シーンから選択した後にdeleteキーを押すことでプリミティブを取り除くことができます。オブジェクトを選択する方法は二つあります。3Dビューでのオブジェクトの左クリックとツリービューでのオブジェクトを左クリックです。どちらの方法でもCTRLを押したまま行うと複数のアイテムを選択することができます。マウスのホイールを回転させると3D表示の拡大縮小ができます。表示を平行移動させるには中央ボタンを押してドラッグします。表示を回転させるにはまず中央マウスボタンを押し、<i>そのまま</i>同じ様に左マウスボタンを押してマウスをドラッグして回転させます。また表示されている3Dオブジェクトの一部を中央ボタンでシングルクリックすると3D空間内でその点を中心に表示を回転させることができます。さらにテンキーの1-6と0を使うとさまざまな方向（上面、左側面、不等角投影）からシーンの表示を行うことができます。しばらく時間を使って3D表示の操作に慣れてください。
+</p>
+<dl><dd> <i>参考文献: <a href="https://www.freecadweb.org/wiki/index.php?title=Mouse_Model/jp" title="Mouse Model/jp"> 3次元空間での操作</a></i></dd></dl>
+<p>立方体の作成が終わりマウス操作に慣れたらCADモデルの寸法設定を始めましょう。ツリービューで立方体をクリックして選択し、ツリービュー下部にある<i>Property View</i>の'Data'タブをクリックします(閉じられている場合は<i>View-&gt;Views-&gt;Property View</i>を選択してください)。データタブではツリービューでサン託したオブジェクトのプロパティを変更することが可能です。選択したオブジェクトの種類によって設定のためにデータタブに表示されるパラメーターは変わります。ボックスの場合は3つのベクトルが必要になります。一つは3D空間内での位置、一つは方向、一つはボックスの寸法を指定します。球の場合は中心点、半径を指定でき、円錐の場合は半径、高さ、位置を指定できるといった具合です。私たちは小さな2シリンダーのエンジンブロックを作っているところなので次のようにボックスのサイズと位置を設定します（'Position'の下のXYZを設定していることを確認してください。'Axis'の下のものは回転軸を設定するためのもので今回はデフォルト値である必要があります）：
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  0.0 mm </td>
+<td> Height: 110.0 mm
+</td></tr>
+<tr>
+<td> Y:  -40.0 mm </td>
+<td> Length: 140.0 mm
+</td></tr>
+<tr>
+<td> Z:  0.0 mm </td>
+<td> Width: 80.0 mm
+</td></tr>
+</table></dd></dl>
+<p><br />
+さて適切な寸法のエンジンブロックができました。これにもっとわかりやすい名前を付けることにしましょう。ツリービューでエンジンブロックを選択し、右クリックでリネームするかキーボードの<i>F2 key</i>を押します。この部品には'Billet'という名前を付けましょう。
+</p>
+<h3><span class="mw-headline" id=".E4.B8.80.E3.81.A4.E7.9B.AE.E3.81.AE.E5.86.86.E7.AD.92">一つ目の円筒</span></h3>
+<p>次にエンジンブロックを貫く一つ目の円筒を切り出しましょう。これを行うためにはモデルを貫く適切なサイズの円筒を追加し、その後でブーリアン演算でブロックからそのマテリアルを "減算"します。円筒追加ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cylinder.png" class="image"><img alt="Part Cylinder.png" src="16px-Part_Cylinder.png" width="16" height="16" srcset="/wiki/images/thumb/d/d4/Part_Cylinder.png/24px-Part_Cylinder.png 1.5x, /wiki/images/thumb/d/d4/Part_Cylinder.png/32px-Part_Cylinder.png 2x" /></a>）をクリックして新しい円筒を作成してからツリービューでそれを選択してそのプロパティを次のように設定します：
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  40.0 mm </td>
+<td> Height: 110.0 mm
+</td></tr>
+<tr>
+<td> Y:  0.0 mm </td>
+<td> Radius: 25.0 mm
+</td></tr>
+<tr>
+<td> Z:  0.0 mm </td>
+<td>
+</td></tr>
+</table></dd></dl>
+<p>正しくプロパティが設定されていればエンジンブロックの上面と下面に円筒の端の円が見えるはずです。ツリービューでこのオブジェクトを選択して<i>Cylilnder 1</i>と名前を付けてください。
+</p>
+<h3><span class="mw-headline" id=".E4.BA.8C.E3.81.A4.E7.9B.AE.E3.81.AE.E5.86.86.E7.AD.92">二つ目の円筒</span></h3>
+<p>二つ目の円筒を一つ目と同じ方法で作ることもできますが既に作成したものをコピーする方が簡単です。既に作成したオブジェクトとの違いはX座標のみです。これを行うにはツリービューで<i>Cylinder 1</i>を選択し、<i>Edit-&gt;Duplicate Selection</i>を実行します。ツリービューに新しい円筒が表示されますが（すぐに<i>Cylinder 2</i>と名前を付けましょう）、最初の円筒と同じ場所にあるため3Dビューでは確認できません。ツリービューで<i>Cylinder 2</i>を選択し、X座標を100mmに変更します。データフィールドの数値を変更すると円筒の位置が3Dビューで動くのがわかると思います。二つ目の円筒が正しい位置に置かれたらツリービューで<i>Billet</i>を選択してから<i>スペースキー</i>を押して非表示にし、円筒の表示を確認しましょう（非表示のオブジェクトはツリービューではグレーアウトします）。三つのオブジェクトを一つずつ非表示にしていき、最後に再度全て表示してください。
+</p>
+<h3><span class="mw-headline" id=".E5.86.86.E7.AD.92.E9.83.A8.E3.81.AE.E7.A9.B4.E3.81.82.E3.81.91">円筒部の穴あけ</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Bored_Block.png" class="image"><img alt="Engine Block Tutorial - Bored Block.png" src="300px-Engine_Block_Tutorial_-_Bored_Block.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/6/64/Engine_Block_Tutorial_-_Bored_Block.png/450px-Engine_Block_Tutorial_-_Bored_Block.png 1.5x, /wiki/images/thumb/6/64/Engine_Block_Tutorial_-_Bored_Block.png/600px-Engine_Block_Tutorial_-_Bored_Block.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Bored_Block.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>さてブロックに適切な寸法で穴あけを行うのにちょうどいい場所に両方の円筒を配置できました。穴あけを行うために3つのプリミティブを使った<i>ブーリアン演算</i>を行いましょう。まず二つのシリンダーの和集合を作成しグループとしてブロックから減算できるようにします。ツリービューで<i>Cylinder 1</i>を選択してから<i>CTRL+左クリック</i>で同じように<i>Cylinder 2</i>を選択します。さらに結合ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fuse.png" class="image"><img alt="Part Fuse.png" src="16px-Part_Fuse.png" width="16" height="16" srcset="/wiki/images/thumb/c/c6/Part_Fuse.png/24px-Part_Fuse.png 1.5x, /wiki/images/thumb/c/c6/Part_Fuse.png/32px-Part_Fuse.png 2x" /></a>）を押すとオブジェクトの結合が行われます。ツリービューに<i>Fusion</i>という名前の新しいオブジェクトができたことに気がついたでしょうか。Fusionの隣のドロップダウンの矢印をクリックするとグレーアウトされた二つの円筒が確認できます。後でわかりやすいようにFusionの代わりに<i>Cylinders</i>と名前を付けましょう。さあエンジンブロックの穴あけです。<i>Billet</i>を選択して<i>から</i>、<i>Cylinders</i>を選択し、切断ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="16px-Part_Cut.png" width="16" height="16" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/24px-Part_Cut.png 1.5x, /wiki/images/thumb/4/4a/Part_Cut.png/32px-Part_Cut.png 2x" /></a>）を押します。選択された二つのオブジェクトが和集合操作の時と同じように結合され、できた一つの結果オブジェクトには<i>Cut</i>という名前がつけられます（<i>Bored Block</i>という名前に変更しましょう）。テンキーの<i>2</i>キーを押すと円筒の穴を通してエンジンブロックの反対側が見えるようになっているはずです。さらに<i>中央ボタン+左ボタン+ドラッグ</i>でエンジンブロックを見てください。右は最終的な結果どういう風に見えるかを示しています。また左側にあるツリービューを展開してそれぞれのプリミティブを表示し、<i>Property View</i>の<i>Data</i>タブを確認するために<i>Cylinder 2</i>を選択しています。
+</p>
+<h3><span class="mw-headline" id=".E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF.E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0.E3.81.AE.E9.87.8D.E8.A6.81.E3.81.AA.E5.88.A9.E7.82.B9">パラメトリックモデリングの重要な利点</span></h3>
+<p>さて円筒を使って穴あけを行った所で少しこのシステムの利点を確認しましょう。作業を進めている最中に円筒による穴を少し大きくしたくなったとします。私たちが行った結合操作と交差操作はグループの形でツリービューに記録されていますから円筒のサイズを変更するとFreeCADはたんに結合処理と交差処理を再実行するだけで新しいエンジンのサイズを得られます。チュートリアルを続ける前に二つの円筒の半径と位置を少しいじって処理を確認してから、上に書いたパラメーターに戻してください。
+</p>
+<h2><span class="mw-headline" id=".E3.82.AF.E3.83.A9.E3.83.B3.E3.82.AF.E3.82.B1.E3.83.BC.E3.82.B9">クランクケース</span></h2>
+<h3><span class="mw-headline" id=".E3.83.93.E3.83.AC.E3.83.83.E3.83.88.E3.81.A8.E3.83.99.E3.82.A2.E3.83.AA.E3.83.B3.E3.82.B0.E3.82.AD.E3.83.A3.E3.83.83.E3.83.97">ビレットとベアリングキャップ</span></h3>
+<p>次にエンジンブロックの下のクランクケースを作成しましょう。新しいボックスを追加し、<i>Crankcase Billet</i>と名前を付けた後で次のプロパティを設定します：
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  0.0 mm </td>
+<td> Height: 85.0 mm
+</td></tr>
+<tr>
+<td> Y:  -50.0 mm </td>
+<td> Length: 140.0 mm
+</td></tr>
+<tr>
+<td> Z:  -85.0 mm </td>
+<td> Width: 100.0 mm
+</td></tr>
+</table></dd></dl>
+<p>クランクケースの見分けがつくように片方に異なる色を設定しておきましょう。ツリービュー上の変更するオブジェクトを右クリックすると色を変えることができます。自分で色を選ぶこともできますし、ランダムな色をオブジェクトに設定することもできます（色が好みでなければ再度ランダムに設定してください）。さらにボックスを追加し<i>Bearing carve</i>と名前を付けてから次のプロパティを設定します。その後で<i>Crankcase Billet</i>から（つまりビレットを先に選択してから）<i>Bearing carve</i>を切り取ってください。
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  0.0 mm </td>
+<td> Height: 30.0 mm
+</td></tr>
+<tr>
+<td> Y:  -40.0 mm </td>
+<td> Length: 140.0 mm
+</td></tr>
+<tr>
+<td> Z:  -85.0 mm </td>
+<td> Width: 80.0 mm
+</td></tr>
+</table></dd></dl>
+<p>結果の<i>Cut</i>オブジェクトを<i>Carved crankcase</i>にリネームします。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B8.E3.83.A3.E3.83.BC.E3.83.8A.E3.83.AB.E3.81.AE.E5.88.87.E3.82.8A.E5.87.BA.E3.81.97">ジャーナルの切り出し</span></h3>
+<p>次にクランクシャフトを設置するための半円部分とクランクケース内でクランクシャフトが回転するための空間を切り出します。まず円筒を作成します。ただしデフォルトの円筒の向きは垂直方向ですが私たちが必要としているのは水平方向を向いたものです。ですからどうにかして円筒をエンジンに対して適切な向きに回転させてる方法が必要です。3Dウィンドウの右下の隅のガイド座標軸を見るとクランクシャフトがX軸正方向に沿って配置されなければならいことが見て取れるでしょう。つまり円筒の最初の位置からシーンのY軸に平行な軸を回転軸として90度回転させなければなりません。これで円筒のパラメーターに何を入力しなければならないかがわかりました。<i>Cranshaft carve</i>という名前の円筒を作成して以下のプロパティを設定します（今までと同じように円筒の径を指定するのに　加えて今回は方向パラメーターを指定する必要があることに注意してください）：
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> Axis X:  0.0 mm </td>
+<td> Angle: 90.0 degrees
+</td></tr>
+<tr>
+<td> Axis Y:  1.0 mm </td>
+<td>
+</td></tr>
+<tr>
+<td> Axis Z:  0.0 mm </td>
+<td>
+</td></tr>
+<tr>
+<td> Position X:  0.0 mm </td>
+<td> Height: 140.0 mm
+</td></tr>
+<tr>
+<td> Position Y:  0.0 mm </td>
+<td> Radius: 20.0 mm
+</td></tr>
+<tr>
+<td> Position Z:  -55.0 mm </td>
+<td>
+</td></tr>
+</table></dd></dl>
+<p><i>Carved crankcase</i>から<i>Cranshaft carve</i>オブジェクトを切り取って、結果オブジェクトに<i>Crankcase with journals</i>と名前を付けてください。
+</p>
+<h3><span class="mw-headline" id=".E3.82.AF.E3.83.A9.E3.83.B3.E3.82.AF.E3.82.B1.E3.83.BC.E3.82.B9.E3.81.AE.E4.BB.95.E4.B8.8A.E3.81.92">クランクケースの仕上げ</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Crankcase.png" class="image"><img alt="Engine Block Tutorial - Crankcase.png" src="300px-Engine_Block_Tutorial_-_Crankcase.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/4/43/Engine_Block_Tutorial_-_Crankcase.png/450px-Engine_Block_Tutorial_-_Crankcase.png 1.5x, /wiki/images/thumb/4/43/Engine_Block_Tutorial_-_Crankcase.png/600px-Engine_Block_Tutorial_-_Crankcase.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Crankcase.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>最後にクランクケースからエンジンブロックまでピストンロッドが伸びることができるように二つのボックスを切り出します。以下のプロパティを持つ<i>Box carve 1</i>と<i>Box carve 2</i>という二つのオブジェクトを作成し、結合して<i>Box carvers</i>というオブジェクトにしてからそれを<i>Crankcase with journals</i>から切り出し、最終的な結果に<i>Crankcase</i>という名前を付けます。処理を見やすくするために選択してスペースキーを押すことで<i>Bored block</i>を非表示にできること、<i>Box carve 1</i>を複製してX座標を変更するだけで二つ目の形状を作成できることを思い出してください。
+</p>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  15.0 mm </td>
+<td> Height: 55.0 mm
+</td></tr>
+<tr>
+<td> Y:  -25.0 mm </td>
+<td> Length: 50.0 mm
+</td></tr>
+<tr>
+<td> Z:  -55.0 mm </td>
+<td> Width: 50.0 mm
+</td></tr>
+</table></dd></dl>
+<dl><dd><table class="wikitable" border="1">
+
+<tr>
+<td> X:  75.0 mm </td>
+<td> Height: 55.0 mm
+</td></tr>
+<tr>
+<td> Y:  -25.0 mm </td>
+<td> Length: 50.0 mm
+</td></tr>
+<tr>
+<td> Z:  -55.0 mm </td>
+<td> Width: 50.0 mm
+</td></tr>
+</table></dd></dl>
+<p>右は最終的な結果どういう風に見えるかを示しています。この装置を作成するのに使用したブーリアン操作の階層が見えるようにツリービューを展開してあります。この段階になってもこのツリーを展開していって円筒の直径を変更したり、クランクシャフトのサイズや位置などを変更することができるということを思い出してください。モデル全体をスクラッチから再作成する必要は無いのです。さらに詳細にクランクケースを作りこんでいくことも可能ですが今回はこれで十分です。次に2D製図モードを使ってヘッドボルトパターン設計し、シリンダーの外周に残っている不必要なスチール片を取り除いてエンジンブロックの重量を削減する方法を見てみましょう。
+</p>
+<h2><span class="mw-headline" id="2D.E8.A3.BD.E5.9B.B3_.E3.83.98.E3.83.83.E3.83.89.E3.82.AC.E3.82.B9.E3.82.B1.E3.83.83.E3.83.88.E3.81.AE.E3.83.87.E3.82.B6.E3.82.A4.E3.83.B3">2D製図 ヘッドガスケットのデザイン</span></h2>
+<p>ヘッドボルトとエンジンブロック形状を作成するため、さらにブーリアン演算を使って必要ないブロック部品を"切り取って"いきましょう。しかしここで立ち止まって考えてみるとヘッドボルトは全て同じ見かけでクランクケースまで切り抜けるはずです。違いがあるのはそれが配置される頂部のみです。つまりエンジンの頂部にヘッドガスケットの形を単に"描いて"、それをパターンとして使って必要な切り抜き作業を行えるのです。
+</p>
+<h3><span class="mw-headline" id="2D.E8.A3.BD.E5.9B.B3.E3.83.A2.E3.83.BC.E3.83.89.E5.85.A5.E9.96.80">2D製図モード入門</span></h3>
+<p>まず最初に2D製図ワークベンチに切り替える必要があります。パートモジュールからこれを行うには現在、<i>Part</i>となっている上部のドロップダウンボックスから<i>2D Drafting</i>を選択します。もしドロップダウンボックスが見つからない場合は（ワークベンチによってはドロップダウンが表示されません）<i>View-&gt;Workbench</i>メニューアイテムからワークベンチを選択することも可能です。FreeCADに対してどの平面に図面を投影するか指定することで2D製図中でも製図は3Dウィンドウで行います。2D製図ワークベンチを選択したら3Dビューの右上の隅のすぐ上にある{none、 top、 front、 size、 または d(..., ..., ...)}のいずれかが表示されている一番左のボタンをクリックしてください。クリックするとバーの左端に平面のオフセット量を入力するためのテキストボックスとXY、XZ、YZ、View、Noneの5つのボタンが表示されます。最初の三つは標準的な上面、前面、側面を、<i>View</i>はカメラが向いている方向に垂直な平面（カメラのビュー平面）を使うことを、最後の一つは平面への投影を行わずに製図する各点の全てでXYZ座標を定義することを意味します。まず平面のオフセット量を110と設定し（入力してエンターを押します）、図面をXY平面に投影するためにXYボタンをクリックします。Z軸上の110mmの位置はエンジンブロックの上面に対応します。さてこれでどの平面で製図を行うのかをFreeCADに指定でき、ヘッドガスケットの設計を始める準備が整いました。
+</p><p>最後に3Dビューの準備を行います。描いた図面は全て定義された2D平面に投影されますが製図を行う平面は任意の角度から見ることができます（平面の反対側から見ることも可能でその場合、"反転"した図面を描くことになります）。平面をエンジンブロックの上面と同じ面に指定したので3Dビューでその面が見えるようにするか少なくともその向きにした方がいいでしょう。テンキーの2を押して上面表示にします（テンキーで隣合うキーは対となる表示が割り当てられていて1と4は前後面、2と5は上下面、3と6は前後面の表示と対応しています）。エンジンを上から下に見下ろす向きに表示を変更したら中央マウスボタンでのドラッグで表示を平行移動してエンジンを中央に合わせてください。2D製図モジュールではエンジンブロックの角やシリンダーの中心など、製図している部品にスナップすることができます。この機能を使いやすくするため最後にクランクケースを非表示にしましょう。そうすれば図面のスナップ対象が作業している部品のみに限定されます（スペースキーを押すことで選択されているオブジェクトを表示/非表示できます）。
+</p>
+<h3><span class="mw-headline" id=".E3.83.98.E3.83.83.E3.83.89.E3.83.9C.E3.83.AB.E3.83.88.E3.81.AE.E3.83.AC.E3.82.A4.E3.82.A2.E3.82.A6.E3.83.88">ヘッドボルトのレイアウト</span></h3>
+<p>適切な平面投影と表示の設定が終わったのでプリミティブを追加したのと同じ方法で2D製図要素を追加しましょう。<i>円を追加</i>ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Circle.png" class="image"><img alt="Draft Circle.png" src="16px-Draft_Circle.png" width="16" height="16" srcset="/wiki/images/thumb/1/10/Draft_Circle.png/24px-Draft_Circle.png 1.5x, /wiki/images/thumb/1/10/Draft_Circle.png/32px-Draft_Circle.png 2x" /></a>）をクリックしてマウスを3Dビュー上で動かしてください。次にFreeCADに対して円の中心のXY座標、半径を指定する必要があります。どちらの値も（左下にあるステータスバーの指示に従った）マウスでの入力、またはツリービューの上に表示されているテキストボックスへの値の入力によって設定することが可能です。さあエンジンの上面に適当な円をいくつか描いてみてください。いくつかはエンジンの上以外、つまりエンジンが表示されている周りの何もない空間にも描いてみましょう。それが終わったらエンジンブロック上面の周りでカメラ位置を回転させて描いた円を見てください。それらが設定した投影面上で"平ら"になっていて、その面がエンジンブロックの上面に揃っていることがわかるでしょうか。これはこの図面を押し出してエンジン形状を作成する際に重要になります。さて2D要素の追加方法を確認したら追加したテスト用の円を削除して実際のヘッドの設計図の入力を始めましょう。もしあなたが描いた円がエンジンブロックの内部に埋もれて表示されない場合は製図用の投影面が正しくXYモード、オフセット110mmに設定されていません。
+</p><p>マウスを使った製図要素の入力は手軽で簡単ですがあまり正確ではありません。実際のボルトのパターンではマウスを動かすと3Dビューのすぐ上のテキストボックス内の数値が更新されるという事実を利用して配置したい位置のおおよその座標を確認します。おおよその座標がわかったら正確な配置を行うために適切な実際の値を入力します。再びエンジンの上面表示にし、<i>円を追加</i>ボタンをクリックしたらマウスをヘッドボルトに適した位置を避けてエンジンブロックの左上隅のあたりに移動させます。X=10, Y=30となるあたりが円を書くのに適した位置です（Z座標はグレーアウトされます。もしそうなっていなければ前のセクションに倣って平面を正しく設定する必要があります。エスケープキーを押して円の描画をキャンセルしてください）。
+</p><p>さあ製図要素の座標を簡単に決める方法がわかりました。これでボルトパターンや流路や回路基板の配線といったその他の部品用の2次元レイアウトを簡単に作図できます。エンジンの一方に付ける私たちの3つのヘッドボルトには次の座標を使いましょう。テキストボックスへの値の入力をしている際にはエンターキーを押すことで次のボックスへの移動が可能です。また座標の入力を開始する前にマウスを3Dビューの外に移動させておいた方がいいでしょう。さもないとマウスを動かすたびに既に入力したテキスト入力フィールドが上書きされてしまいます。さらに私の環境ではどうしたわけか円の入力時にZ座標が12.5になってしまいます。もし同じ問題があなたの環境でも起きる場合は製図の投影面を<i>None</i>に設定して手作業で円のZ座標を110と入力してください。最後に円の作成時には<i>Filled</i>というラベルがついたチェックボックスがチェックされているかどうかを確認してください。もしチェックされていないと後で押し出しを行った際にソリッドの円筒の代わりにトイレットペーパーの芯のような管が作成されてしまいます。
+</p>
+<table class="wikitable" border="1">
+
+<tr>
+<td> X1:  10 </td>
+<td> Y1:  25 </td>
+<td> Radius: 2.5 mm
+</td></tr>
+<tr>
+<td> X2:  70 </td>
+<td> Y2:  25 </td>
+<td> Radius: 2.5 mm
+</td></tr>
+<tr>
+<td> X3:  130 </td>
+<td> Y3:  25 </td>
+<td> Radius: 2.5 mm
+</td></tr></table>
+<p>この円にはそれぞれ<i>Bolt 1</i>から<i>Bolt 3</i>までの名前を付けてください。
+</p>
+<h3><span class="mw-headline" id=".E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.AE.E5.8F.8D.E5.AF.BE.E5.81.B4">ブロックの反対側</span></h3>
+<p>さて最初の三つのヘッドボルトがエンジンの片方に配置されました。反対側のちょうど鏡像の位置にも三つ必要です。
+これを行うには三つの方法があります：
+</p>
+<ul><li> 　Y座標だけ負の値にして最初の三つと同じように円の追加を続けてエンジンの反対側にもボルトを配置していく。</li></ul>
+<ul><li>  追加済みの三つを選択し、<i>Edit-&gt;Duplicate Selection</i>を行なった後、三つの新しい円のY座標を負の値にする。</li></ul>
+<ul><li>  パートモジュールのミラー機能を使う。</li></ul>
+<p>一つ目と二つ目についてはあなたも既にやり方がわかるはずですからこのサンプルモデルに対しては三つ目の方法を使ってみましょう。三つの方法にはそれぞれ異なった利点と欠点があります。しかし操作の原則としては（今回のような）簡単なモデルでは一つ目か二つ目の方法を、大量の複製や非常に複雑な形状/オブジェクトの複製が必要なモデルでは三つ目の方法を使うのがいいでしょう。
+</p><p>従って少し大げさということになりますが今回は説明のためにボルトをミラーすることにします。<i>View-&gt;Workbench</i>からパートモジュールに戻ります（もしいちいち切り替えるのが面倒であればいつでも全てのツールが揃った<i>コンプリート</i>ワークベンチに切り替えることができます）。ツリービューで三つのボルトの円を選択してからミラーボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Mirror.png" class="image"><img alt="Part Mirror.png" src="16px-Part_Mirror.png" width="16" height="16" srcset="/wiki/images/thumb/9/93/Part_Mirror.png/24px-Part_Mirror.png 1.5x, /wiki/images/thumb/9/93/Part_Mirror.png/32px-Part_Mirror.png 2x" /></a>）を押してください。ミラーボタンを押すと<i>Combo View</i>と呼ばれる新しい表示がツリービューの下のウィンドウ枠にポップアップされるのがわかると思います。ツールの多くでは実行の前に追加の入力が必要で、コンボビューを使ってそのパラメーターを入力することができます。プロパティビューとの境界線を上下にドラッグすることでコンボビューを大きくすることができます。コンボビューのリストから<i>Bolt 1</i>を選択し<i>mirror plane</i>をXZと設定してからOKを押してください（<i>Bolt 2</i>、<i>Bolt 3</i>に対しても同じ操作を行なってください）。
+</p><p>これでシリンダーの穴が空き、ヘッドボルト位置にマークが付けられた基本的なエンジンブロックができあがりました。
+</p>
+<h3><span class="mw-headline" id=".E3.83.96.E3.83.AD.E3.83.83.E3.82.AF.E3.81.8B.E3.82.89.E4.BD.99.E5.88.86.E3.81.AA.E9.87.91.E5.B1.9E.E6.9D.90.E3.82.92.E5.88.87.E3.82.8A.E8.90.BD.E3.81.A8.E3.81.99">ブロックから余分な金属材を切り落とす</span></h3>
+<p>さてヘッドボルト用のマークを付けたので（同じ事をオイルチャンネルやウォータージャケットなどに対しても行うことができるでしょう）ビレットブロックの外側を"トリム"してより適切な形状にしたいと思います。そうすればエンジンを軽量化でき、より冷却しやすく、ブロックの鋳造に使用されるスチールも少なくて済むようになります。ボルトパターンの場合と同じようにして最終的な完成品で必要な外形線の2次元図面を製図します。マウスを使ってスプライン曲線を直接製図することもできますし、先ほどの円の製図の様にマウスを使っておおよその座標を確認し正しい値を入力するというハイブリッドなアプローチをとることもできます。もっと面白いアプローチは2D製図の<i>構築モード</i>を使っていくつかの補助形状をプロットし、作成した補助形状にスナップすることできれいで対象なスプライン曲線を描き出すというものです。
+</p><p>補助形状として二つの正多角形をそれぞれのシリンダーに製図しましょう。多角形の中心をシリンダーに合わせるようにします。まずエンジンブロックの上面図に切り替え、クランクケースを非表示にしてから2D製図ワークベンチに戻ります。参照平面のオフセット量110mm、XY平面モード（あるいは好みに応じて<i>None</i>モードでも構いません）を選択し、コマンドバーにある<i>構築モード</i>ボタンをクリックします（構築モードボタンは「こて」の様なアイコンで3Dビューの右上の隅にあります）。構築モードでは構築モード中に作成された2D製図オブジェクトが異なる色で表示され、自動的にツリービューの別グループに配置されますがそれ以外は通常のモードと同じ動作が行われます。これによって補助線を非表示にしたり、構築グループを非表示にしてボルト穴マークのような実際に存在するオブジェクトのみ残したり、グループを削除することで補助オブジェクトを全て削除することが可能になります。
+</p>
+<dl><dd> <i>Further reading: <a href="Draft_ToggleConstructionMode.html" title="Draft ToggleConstructionMode"> Construction Mode</a></i></dd></dl>
+<p>さて製図平面を適切に設定して構築モードにしたら、<i>正多角形</i>ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Polygon.png" class="image"><img alt="Draft Polygon.png" src="16px-Draft_Polygon.png" width="16" height="16" srcset="/wiki/images/thumb/8/8e/Draft_Polygon.png/24px-Draft_Polygon.png 1.5x, /wiki/images/thumb/8/8e/Draft_Polygon.png/32px-Draft_Polygon.png 2x" /></a>）をクリックしてCTRLボタンを押したままマウスを動かして左側のシリンダーの縁に合わせてください。円周でのマウスの位置に応じてシリンダーの縁やシリンダーの中心の小さな黒い点にスナップされることがわかると思います。黒い点がシリンダーの中心にスナップするように動かして左マウスボタンをクリックします。そのシリンダーの中心が多角形の中心となります。次に多角形の辺の数と多角形が内接する円の半径を設定するための入力フィールドが表示されます。マウスを使って少し調べると半径は30が良さそうです。さらに辺の数は14と入力します。ただし今回は<i>Filled</i>ボックスのチェックは外したままにしておきます。もしシリンダーの中心にスナップできない場合（私の環境ではそうなります）でもて入力による座標の入力はできるはずです（(X=40、Y=0、Z=110）。さらに二つ目の多角形を追加しましょう。中心は先ほどと同じく左側のシリンダーですが今度は辺の数22、半径45mmとします。最後に同じ二つの多角形を右側のシリンダー上にも追加します（中心はX=100、Y=0、Z=110です）。最終的にはシリンダーとヘッドボルトを囲む二つの"8の字型"ができるはずです（現在、FreeCADは辺の数を表示しません。プロパティビューでは中心と半径を設定してから面の数を変更しなければならないでしょう）。
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Spline.png" class="image"><img alt="Engine Block Tutorial - Spline.png" src="300px-Engine_Block_Tutorial_-_Spline.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/a/a5/Engine_Block_Tutorial_-_Spline.png/450px-Engine_Block_Tutorial_-_Spline.png 1.5x, /wiki/images/thumb/a/a5/Engine_Block_Tutorial_-_Spline.png/600px-Engine_Block_Tutorial_-_Spline.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Spline.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>これでガイド用の多角形が配置されたのでエンジンブロックの外形を定義するスプライン曲線を描く準備が整いました。この曲線は最終的なオブジェクトの一部となるので構築モードを起動した時と同じボタンをクリックして構築モードを終了しましょう。さて<i>B-スプラインを追加</i>ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_BSpline.png" class="image"><img alt="Draft BSpline.png" src="16px-Draft_BSpline.png" width="16" height="16" srcset="/wiki/images/thumb/a/af/Draft_BSpline.png/24px-Draft_BSpline.png 1.5x, /wiki/images/thumb/a/af/Draft_BSpline.png/32px-Draft_BSpline.png 2x" /></a>）をクリックしてB-スプラインの製図を始めましょう。製図はスプライン曲線の制御点を追加したい各位置を<i>CTRL+左クリック</i>することで行います。まず左側のシリンダーの内側の補助多角形の左端の点を一つ目の制御点にすることにします。続けてスプライン曲線に沿った制御点をはじめから追加していきます。製図開始時の点の前にある最後の点までクリックしましよう。その後でヘッドボルト用に描いた2Dの円の入力時に位置と半径を入力した場所のあたりにある<i>Close</i>ボタンをクリックしてください。このクローズボタンをクリックするとスプライン曲線の制御点の製図が終わり、端点がつなぎ合わされて閉ループが形成されます。今回行うように曲線を押し出してソリッドオブジェクトを作ろうとする場合にはこの様にちゃんとループを閉じておくことは非常に重要です。閉じていないスプライン曲線を作成する場合には製図終了時にCloseボタンの代わりに<i>Finish</i>ボタンをクリックします。Closeボタンを押す直前の段階ではスプライン曲線は右図の様になっています（最後の線分を除いて全て製図済みでマウスポインターはスプライン曲線終了のための<i>Close</i>ボタンのすぐ近くにあります）。また<i>Filled</i>ボックスはチェックされ、結果のスプライン曲線は中が抜けた輪ではなくソリッドシートを形成するようになっています。これは最終的な仕上げ時に押し出してソリッド形状を作成するために必要となる設定です。
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Spline_Edit_Mode.png" class="image"><img alt="Engine Block Tutorial - Spline Edit Mode.png" src="300px-Engine_Block_Tutorial_-_Spline_Edit_Mode.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/4/44/Engine_Block_Tutorial_-_Spline_Edit_Mode.png/450px-Engine_Block_Tutorial_-_Spline_Edit_Mode.png 1.5x, /wiki/images/thumb/4/44/Engine_Block_Tutorial_-_Spline_Edit_Mode.png/600px-Engine_Block_Tutorial_-_Spline_Edit_Mode.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Spline_Edit_Mode.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>画像では制御点は表示されていないので編集モードでの最終的なスプラインが表示された二枚目のスクリーンショットを追加しておきます（選択されているオブジェクトの編集のオン・オフを切り替えるには<i>編集モード</i>ボタンをクリックします。編集終了時やエンジンブロックの形状に問題がなく、このステップを飛ばす場合にはこれをオフにしてください）。またスプライン曲線の左端のエッジが不連続であることに注意してください。例えそれが閉じている場合でもです。これはプログラム処理のバグで現在修正作業が行われています。従って新しいソフトウェアのバージョンで実行した場合には今回利用しているものとはスプライン曲線の結果が多少異なったものになるでしょう。
+</p>
+<h3><span class="mw-headline" id="2D.E3.83.98.E3.83.83.E3.83.89.E5.9B.B3.E9.9D.A2.E3.82.92.E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97.E3.81.A63D.E3.83.A2.E3.83.87.E3.83.AB.E3.81.AB.E3.81.97.E3.81.A6.E8.A8.AD.E8.A8.88.E3.82.92.E7.B5.82.E3.81.88.E3.82.8B">2Dヘッド図面を押し出して3Dモデルにして設計を終える</span></h3>
+<p>さあ最終的なエンジンのデザインまであと少しです。パートワークベンチに戻って<i>スケッチの押し出し</i>ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="16px-Part_Extrude.png" width="16" height="16" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/24px-Part_Extrude.png 1.5x, /wiki/images/thumb/d/df/Part_Extrude.png/32px-Part_Extrude.png 2x" /></a>）をクリックしてください。表示されたコンボボックスで<i>CTRL+左クリック</i>を使って押し出すために6つのヘッドボルトとスプライン曲線を選択します。デフォルトの押出方向はZ軸正方向です。私たちの場合はZ軸負の方向にヘッド図面をエンジンブロックの中へ"押し下げ"たいので方向をX=0、Y=0、Z=-1として、長さ（エンジンブロックの高さ）を110と入力します。全ての値を入力したらOKをクリックします。するとボルトの円が下のシリンダー方向に向かって押し出され、スプラインは下方向に押し出されて波型のエッジを持つ円筒の様な形状が生成されます。押し出されたスプラインが見えるように<i>Bored block</i>を選択して非表示にした後、さらに6つのヘッドボルトの円筒が見えるようにそのオブジェクトを非表示にします。2D製図を元にその部品の下方向への押し出しによって作成された非常に洗練された3D形状を確認できるでしょう。図面の異なる部分を異なる量だけ押し出して途中ブロックの中を通り、異なる部品であるウォータージャケットも貫くボルト穴のボアといったものを作成することも可能です。この時点では押し出したオブジェクト全てに"Extrude001..."といった名前が付けられているので全て取り払って次のセクションで区別が付くようにそれぞれに名前を付けましょう（私は<i>Head bolt bore 1</i>から<i>Head bolt bore 6</i>と、スプラインには<i>Extruded spline</i>という名前を付けました。あなたのモデルでも私のものと同じ名前を使うことをお勧めします）。さて押し出し形状ができたのでこれからいくつかブーリアン演算を行なって最終的なブロックのデザインを作成しましょう。主要形状（<i>Bored block</i>と<i>Crankcase</i>）と新しく作成した押し出し形状の全てを表示してください。
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Finished_Engine_Block.png" class="image"><img alt="Engine Block Tutorial - Finished Engine Block.png" src="300px-Engine_Block_Tutorial_-_Finished_Engine_Block.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/d/d5/Engine_Block_Tutorial_-_Finished_Engine_Block.png/450px-Engine_Block_Tutorial_-_Finished_Engine_Block.png 1.5x, /wiki/images/thumb/d/d5/Engine_Block_Tutorial_-_Finished_Engine_Block.png/600px-Engine_Block_Tutorial_-_Finished_Engine_Block.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Engine_Block_Tutorial_-_Finished_Engine_Block.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>今のところは開けた穴と外側の形状があります。いくつかのブーリアン演算を使ってこれら全てをひとまとめにしましょう。ツリービューで6つの押し出されたヘッドボルトを選択し一つの和集合に結合します（結果のオブジェクトには<i>Head bolt boreholes</i>という名前を付けます）。次に<i>Bored block</i>と<i>Head bolt boreholes</i>を順に選択し、（シリンダー部に穴を開けた時と同じように）切り取りを行います、結果の <i>Cut</i>オブジェクトには<i>Block with headbolts</i>という名前を付けてください。最後に<i>Block with headbolts</i>と<i>Extruded spline</i>を選択して<i>共通集合を作成</i>ボタン（<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Common.png" class="image"><img alt="Part Common.png" src="16px-Part_Common.png" width="16" height="16" srcset="/wiki/images/thumb/9/9a/Part_Common.png/24px-Part_Common.png 1.5x, /wiki/images/thumb/9/9a/Part_Common.png/32px-Part_Common.png 2x" /></a>）を押してその結果オブジェクトに<i>Engine block</i>という名前を付けます。最終的なオブジェクトは右の図の様になります。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Engine_Block_Tutorial/jp&amp;oldid=88332">http://www.freecadweb.org/wiki/index.php?title=Engine_Block_Tutorial/jp&amp;oldid=88332</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,213 @@
+<html><head><title>Macro Shake Sketch/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Shake Sketch/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Scrolla_lo_schizzo"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Scrolla lo schizzo</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Scuote uno schizzo per scoprire le sue parti non vincolate
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Ga%C3%ABl_Ecorchard&amp;action=edit&amp;redlink=1" class="new" title="User:Gaël Ecorchard (page does not exist)">Gaël Ecorchard</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.1
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2014-10-31
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Scrolla_lo_schizzo"><span class="tocnumber">1</span> <span class="toctext">Scrolla lo schizzo</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Script"><span class="tocnumber">2</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Agita uno schizzo per scoprire le sue parti non vincolate. Entrare in modalità di modifica dello schizzo e lanciare la macro. La macro aggiunge un disturbo casuale su tutti i punti dello schizzo. Dopo il disegno viene risolto, le parti vincolate manterranno la loro posizione, parti libere si muoveranno.
+</p><p><b>Attenzione, lavorare su una copia del file perché la macro "smonta tutto" e si rischia di dover ricominciare da capo.</b>
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Macro Shake_Sketch.py
+</p>
+<pre># -*- coding: utf-8 -*-
+
+# FreeCAD macro to shake a sketch in order to discover its unconstrained parts.
+#
+# A Gaussian noise is introduced in all sketch points and the sketch is then
+# solved.
+# Beware that the sketch can look different because some constraints have
+# several solutions. In this case, just undo.
+#
+# This file is released under the MIT License.
+# Author: Gaël Ecorchard
+# Version:
+# - 1.1, 2014-10-31
+#     * correct import for Part
+# - 1.0, 2014-08, first release.
+
+# Amplitude of the point displacements.
+# The standard deviation of the Gaussian noise is the largest sketch dimension
+# multiplied by this factor.
+displacement_amplitude = 0.1
+
+# End of configuration.
+
+from random import gauss
+
+import FreeCADGui as Gui
+from FreeCAD import Base
+import Part
+
+# For each sketch geometry type, map a list of points to move.
+g_geom_points = {
+    Base.Vector: [1],
+    Part.Line: [1, 2],  # first point, last point
+    Part.Circle: [0, 3],  # curve, center
+    Part.ArcOfCircle: [1, 2, 3],  # first point, last point, center
+}
+
+
+class BoundingBox(object):
+    xmin = None
+    xmax = None
+    ymin = None
+    ymax = None
+
+    def enlarge_x(self, x):
+        if self.xmin is None:
+            self.xmin = x
+            self.xmax = x
+            return
+        if self.xmin &gt; x:
+            self.xmin = x
+            return
+        if self.xmax &lt; x:
+            self.xmax = x
+            return
+
+    def enlarge_y(self, y):
+        if self.ymin is None:
+            self.ymin = y
+            self.ymax = y
+            return
+        if self.ymin &gt; y:
+            self.ymin = y
+            return
+        if self.ymax &lt; y:
+            self.ymax = y
+            return
+
+    def enlarge_point(self, point):
+        self.enlarge_x(point.x)
+        self.enlarge_y(point.y)
+
+    def enlarge_line(self, line):
+        self.enlarge_x(line.StartPoint.x)
+        self.enlarge_x(line.EndPoint.x)
+        self.enlarge_y(line.StartPoint.y)
+        self.enlarge_y(line.EndPoint.y)
+
+    def enlarge_circle(self, circle):
+        self.enlarge_x(circle.Center.x - circle.Radius)
+        self.enlarge_x(circle.Center.x + circle.Radius)
+        self.enlarge_y(circle.Center.y - circle.Radius)
+        self.enlarge_y(circle.Center.y + circle.Radius)
+
+    def enlarge_arc_of_circle(self, arc):
+        # TODO: correctly compute the arc extrema (cf. toShape().BoundBox)
+        self.enlarge_x(arc.Center.x)
+        self.enlarge_y(arc.Center.y)
+
+
+def get_sketch_dims(sketch):
+    bbox = BoundingBox()
+    for geom in sketch.Geometry:
+        if isinstance(geom, Base.Vector):
+            bbox.enlarge_point(geom)
+        elif isinstance(geom, Part.Line):
+            bbox.enlarge_line(geom)
+        elif isinstance(geom, Part.Circle):
+            bbox.enlarge_circle(geom)
+        elif isinstance(geom, Part.ArcOfCircle):
+            bbox.enlarge_arc_of_circle(geom)
+    if (bbox.xmin is not None) and (bbox.ymin is not None):
+        return bbox.xmax - bbox.xmin, bbox.ymax - bbox.ymin
+    else:
+        return 0, 0
+
+
+def add_noise(point, sigma):
+    """Add a Gaussian noise with standard deviation sigma"""
+    point.x = gauss(point.x, sigma)
+    point.y = gauss(point.y, sigma)
+
+
+def move_points(sketch, geom_index, sigma):
+    point_indexes = g_geom_points[type(sketch.Geometry[i])]
+    # Direct access to sketch.Geometry[index] does not work. This would,
+    # however prevent repeated recompute.
+    for point_index in point_indexes:
+        point = sketch.getPoint(geom_index, point_index)
+        add_noise(point, sigma)
+        sketch.movePoint(geom_index, point_index, point)
+
+view_provider = Gui.activeDocument().getInEdit()
+
+# Don't know how to exit from a macro.
+do_move = True
+if not view_provider:
+    do_move = False
+
+if do_move:
+    sketch = view_provider.Object
+
+    if sketch.TypeId&#160;!= 'Sketcher::SketchObject':
+        do_move = False
+
+if do_move:
+    sigma = max(get_sketch_dims(sketch)) * displacement_amplitude
+
+    for i in range(len((sketch.Geometry))):
+        move_points(sketch, i, sigma) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Shake_Sketch/it&amp;oldid=240989">http://www.freecadweb.org/wiki/index.php?title=Macro_Shake_Sketch/it&amp;oldid=240989</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

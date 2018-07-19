@@ -1,0 +1,54 @@
+<html><head><title>Document structure/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Document structure/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_treeview.jpg" class="image"><img alt="Screenshot treeview.jpg" src="Screenshot_treeview.jpg" width="217" height="254" /></a></div>
+<p>FreeCADドキュメントには作成したシーンの全てのオブジェクトが保持されます。そこには全てのワークベンチで作成したグループ、オブジェクトが含まれます。従ってワークベンチを切り替えた場合でも同じドキュメントで作業を続けることができます。作業物を保存するとドキュメントはディスクに保存されます。またFreeCADでは複数のドキュメントを同時に開いたり、同じドキュメントのビューを複数開くことが可能です。
+</p><p>ドキュメント内ではオブジェクトをグループに移動することが可能です。またオブジェクトには固有の名前が付けられます。グループ、オブジェクト、オブジェクト名の管理は主にツリービューから管理します。もちろんFreeCADの他の全てと同様にPythonインタープリターから処理することも可能です。ツリービューではツリービューまたは各オブジェクトを右クリックすることでグループの作成、オブジェクトのグループへの移動、オブジェクト・グループの削除行うことができます。また名前をダブルクリックすることでオブジェクトの名前を変更できます。それ以外にも現在のワークベンチに応じてさまざまな操作が可能になっています。
+</p><p>FreeCADドキュメント内部のオブジェクトには色々なタイプがあります。各ワークベンチではそのワークベンチ固有のタイプのオブジェクトを作成できます。例えば<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/jp" title="Mesh Workbench/jp">メッシュワークベンチ</a>ではメッシュオブジェクトを、<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/jp" class="mw-redirect" title="Part Workbench/jp">パートワークベンチ</a>ではパートオブジェクトを作成でき、また<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Workbench/jp" class="mw-redirect" title="Draft Workbench/jp">製図ワークベンチ</a>でもパートオブジェクトを作成できる、といった具合になっています。
+</p><p>もしFreeCADで一つでもドキュメントを開いている場合には常にただ一つのアクティブなドキュメントが存在することになります。3Dビューに表示され、現在作業を行なっているドキュメントがそれです。
+</p>
+<h2><span class="mw-headline" id=".E3.82.A2.E3.83.97.E3.83.AA.E3.82.B1.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.81.A8.E3.83.A6.E3.83.BC.E3.82.B6.E3.83.BC.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9">アプリケーションとユーザーインターフェイス</span></h2>
+<p>FreeCADの他のほとんどのものと同様、ユーザーインターフェイス部分（GUI）は基本アプリケーション部分（APP）から独立しています。これはドキュメントについても当てはまることです。ドキュメントも二つの部分から構成されています。オブジェクトを保持すApplicationドキュメントと画面上でのオブジェクトの表示を保持するViewドキュメントです。
+</p><p>オブジェクトが定義されている二つの空間を想像してください。オブジェクトの構造的なパラメーター（立方体なのか？円錐なのか？そのサイズは？）はApplicationドキュメントに保持され、グラフィック表現（黒い線で描画されているのか？青い面があるのか？）はViewドキュメントに保持されます。なぜそんな風になっているのか？それはFreeCADをグラフィックインターフェイス無しでも使えるようにするためです。例えば他のプログラムの内部では画面上に何も書かないでオブジェクトを操作できなくてはなりません。
+</p><p>Viewドキュメント内部にはそれ以外にも3Dビューが保持されています。一つのドキュメントは複数のビューとして開くことができるので、当然、ドキュメントは同時に複数の視点から表示できなくてはならないことがわかります。あなたは作業物の上面図と正面図を同時に見たいと思ったことがあるのではないでしょうか？その場合、同じドキュメントの二つのビューが作られ、それらは両方ともViewドキュメントに保存されます。新しいビューの作成と終了はViewメニューから、またはビューのタブを右クリックすることで可能です。
+</p>
+<h2><span class="mw-headline" id=".E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">スクリプト処理</span></h2>
+<p>Pythonインタープリターからドキュメントの作成、アクセス、変更を簡単に行うことができます。以下に例をあげます。
+</p>
+<pre>FreeCAD.ActiveDocument
+</pre>
+<p>現在の（アクティブな）ドキュメントを返します
+</p>
+<pre>FreeCAD.ActiveDocument.Blob
+</pre>
+<p>ドキュメント内部の"Blob"という名前のオブジェクトにアクセスします
+</p>
+<pre>FreeCADGui.ActiveDocument
+</pre>
+<p>現在のドキュメントに関連付けられたViewドキュメントを返します
+</p>
+<pre>FreeCADGui.ActiveDocument.Blob
+</pre>
+<p>Blobオブジェクトのグラフィック表現（ビュー）部分にアクセスします
+</p>
+<pre>FreeCADGui.ActiveDocument.ActiveView
+</pre>
+<p>現在のビューを返します
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Document_structure/jp&amp;oldid=211346">http://www.freecadweb.org/wiki/index.php?title=Document_structure/jp&amp;oldid=211346</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

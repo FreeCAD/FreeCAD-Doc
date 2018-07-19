@@ -1,0 +1,139 @@
+<html><head><title>FreeCAD-Ship s60 tutorial (II)/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD-Ship s60 tutorial (II)/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このチュートリアルを開始する前に<a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial/jp" title="FreeCAD-Ship s60 tutorial/jp">第一部</a>.を既におこなったどうか確認してください。
+</p><p>ここで<a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship</a>をより詳しく学ぶことができます。
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><center><b>Windowsユーザー</b></center>
+<center>FreeCAD-Shipは最近FreeCADパッケージに統合され、バグがある可能性があります。</center>
+<center>シップモジュールのアイコンが見つからない場合は</center>
+<center>C:\Program Files (x86)\FreeCAD0.13\Mod\Ship</center>
+<center>にある<b>ShipIcons</b> フォルダの名前を<b>Icons</b>に変更してFreeCADを再起動してください。</center></div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.B0.8E.E5.85.A5"><span class="tocnumber">1</span> <span class="toctext">導入</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E8.88.B9.E3.81.AE.E9.87.8D.E9.87.8F"><span class="tocnumber">2</span> <span class="toctext">船の重量</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.82.BF.E3.83.B3.E3.82.AF"><span class="tocnumber">3</span> <span class="toctext">タンク</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.E5.BD.A2.E7.8A.B6.E3.81.AE.E7.94.9F.E6.88.90"><span class="tocnumber">3.1</span> <span class="toctext">形状の生成</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.82.BF.E3.83.B3.E3.82.AF.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.BF.E3.83.B3.E3.82.B9.E3.81.AE.E7.94.9F.E6.88.90"><span class="tocnumber">3.2</span> <span class="toctext">タンクのインスタンスの生成</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#GZ.E6.9B.B2.E7.B7.9A.E3.81.AE.E8.A8.88.E7.AE.97"><span class="tocnumber">3.3</span> <span class="toctext">GZ曲線の計算</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E7.B5.90.E6.9E.9C"><span class="tocnumber">3.4</span> <span class="toctext">結果</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.B0.8E.E5.85.A5">導入</span></h2>
+<p>このチュートリアルでは最も重要な静水力学的安定パラメーターであるGZ曲線を計算するための重量とタンクを取り扱います。GZとは船舶がロールした際に発生する静的モーメントのことでGZによる力が正の場合には船舶は製のモーメントを取って垂直な位置に復帰しますが、GZが負に変わると船舶は安定性を失い、危険な状態に陥ります。
+</p><p>IMO（国際海事機関）は次のような基準を定めています：
+</p>
+<ul><li> <i>GM</i> &gt;= 0.15m。 <i>GM</i>（メタセンタ高）は<i>GZ</i>曲線の初期タンジェントです。</li>
+<li> 最大<i>GZ</i>値がロール角30度より大きいこと。</li>
+<li> ロール角30度で<i>GZ</i>値が少なくとも0.2mあること。</li>
+<li> ロール角40度までの<i>GZ</i>曲線に含まれる面積が少なくとも0.090m · rad.あること。</li>
+<li> ロール角30度までの<i>GZ</i>曲線に含まれる面積が少なくとも0.055m · rad.あること。</li>
+<li> ロール角30度から40度までの<i>GZ</i>曲線に含まれる面積が少なくとも0.030m · rad.あること。</li></ul>
+<p>このチュートリアルではシリーズ60船型に対して現実にはありえない仮想的な重量とタンクの設定を行います。
+</p>
+<h2><span class="mw-headline" id=".E8.88.B9.E3.81.AE.E9.87.8D.E9.87.8F">船の重量</span></h2>
+<p>GZ曲線を計算するためには船の重量と各ロール角でのその位置をしる必要があります。重量は二つのカテゴリーに分けられます：
+</p>
+<ul><li> 固定重量。船の動きに完全に追従します。</li>
+<li> タンク。流体の形状が角度によって変化するので各位置で重心を計算する必要があります。</li></ul>
+<p>FreeCAD-Shipでは各インスタンスを生成する二つの異なるツールが用意されています。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-WeightIco.png" class="image" title="重量定義ツールのアイコン"><img alt="重量定義ツールのアイコン" src="FreeCAD-Ship-WeightIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">重量定義ツールのアイコン</span></center>
+<p>重量定義ツールを使うと一つ目のカテゴリーの重量を設定することができます。最初に（船のインスタンスを選択して）ツールを立ち上げた際にFreeCAD-Shipはライト級船舶（船の排水量と等価）として船の重量を初期化します。この荷重は船体形状の重心のX座標と設計喫水高に配置されます。通常は少なくとも2つの関連する荷重が存在します：
+</p>
+<ul><li> 構造</li>
+<li> 主エンジン（複数の場合あり）</li></ul>
+<p>それでは変更を加えていきましょう。各セルをダブルクリックして編集可能な状態にしたら以下の重量を設定していきます：
+</p>
+<ul><li> Structure, 15000 kg, (-0.1, 0, 1.25) m</li>
+<li> Starboard engine, 5000 kg, (-6.5, -0.65, 0.5) m</li>
+<li> Port side engine, 5000 kg, (-6.5, 0.65, 0.5) m</li>
+<li> Emergency engine, 2500 kg, (0.2, 0, 2.5) m</li></ul>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60WeightsPreview.png" class="image" title="重量定義の3Dプレビュー"><img alt="重量定義の3Dプレビュー" src="FreeCAD-Ship-S60WeightsPreview.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">重量定義の3Dプレビュー</span></center>
+<p>重量位置は3Dビューで表示されます。この注釈はツールを閉じると消えるので気にしないでください。<b>Accept</b>を押すと重量が船のインスタンスに保存されます。
+</p>
+<h2><span class="mw-headline" id=".E3.82.BF.E3.83.B3.E3.82.AF">タンク</span></h2>
+<p>船舶のインスタンスと同じようにタンクはソリッド形状の最上段レベルに作成する必要があります。まず最初にやることは計算を行う二つの船首タンクのソリッド形状を（船の両側に一つずつ）作成することです（通常、船舶には燃料、真水、積荷などの複数のタンクが載せられています）。
+</p>
+<h3><span class="mw-headline" id=".E5.BD.A2.E7.8A.B6.E3.81.AE.E7.94.9F.E6.88.90">形状の生成</span></h3>
+<p>タンクを作成するために<a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">パートモジュール</a>を読み込み、ボックスソリッドを作成します。
+</p><p>ボックスを編集する必要があるので<b>Atributes and tags</b>ツリーで選択してデータタブの画面から変更を行います。PlacementのPositionを開き、<i>x</i>を1.5、<i>z</i>を-1と入力します。ボックスの長さも変更したいのでLengthを5.0に変更してください（単位がmmとなっていますが気にする必要はありません）。
+</p><p>タンクの形状は作成したボックスと船体形状の共通部分です。まず<b>Ship</b>インスタンスを非表示にしてから<b>s60_IowaUniversity</b>形状を表示しましょう。ボックスと<b>s60_IowaUniversity</b>を選択し、積演算を使って右舷側タンク形状を生成します。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60TankGeometry.png" class="image" title="タンク形状の生成"><img alt="タンク形状の生成" src="FreeCAD-Ship-S60TankGeometry.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">タンク形状の生成</span></center>
+<p>左舷側タンクは右舷側の形状を選択してミラーツールを使うことで作成できます。鏡像面にはXZを選択します。
+</p><p>タンクの形状を通常のソリッド形状に変換し、<b>s60_IowaUniversity</b>形状をもとに戻すために<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Workbench/jp" class="mw-redirect" title="Draft Workbench/jp">ドラフトモジュール</a>を読み込み、右舷側タンクの形状を選択してアップグレードを実行します。同様に左舷側タンク形状に対しても同じ操作を繰り返してください。それからジオメトリーの名前を次のように変更します。
+</p>
+<ul><li> StarboardTankGeom</li>
+<li> PortTankGeom</li></ul>
+<p>作成したボックスはもう必要ないので削除して構いません。
+</p>
+<h3><span class="mw-headline" id=".E3.82.BF.E3.83.B3.E3.82.AF.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.BF.E3.83.B3.E3.82.B9.E3.81.AE.E7.94.9F.E6.88.90">タンクのインスタンスの生成</span></h3>
+<p>再度<a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Shipモジュール</a>を読み込むとタンクインスタンス生成ツールがあることに気がつくでしょう。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-TankIco.png" class="image" title="タンクインスタンス生成ツールのアイコン"><img alt="タンクインスタンス生成ツールのアイコン" src="FreeCAD-Ship-TankIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Tタンクインスタンス生成ツールのアイコン</span></center>
+<p>まず<b>StarboardTankGeom</b>を選択してタンクインスタンス生成ツールを実行します。ここでいくつかのデータを設定する必要があります。充填レベル40%、流体密度925kg/m&lt;math&gt;\mathrm{m}^{3}&lt;/math&gt;（燃料の近似値）を設定しましょう。<b>Accept</b>をクリックすると <b>Tank</b>という名前の新しいタンクのインスタンスが生成されます。名前を<b>StarboardTank</b>に変更して<b>StarboardTankGeom</b>を非表示にしましょう。
+</p><p>同じ操作を行なって左舷側の<b>PortTank</b>を生成します。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-S60WeightsTanksPreview.png" class="image" title="生成された荷重の表示"><img alt="生成された荷重の表示" src="FreeCAD-Ship-S60WeightsTanksPreview.png" width="834" height="337" /></a></div></div>
+<center><span style="font-variant:small-caps">生成された荷重の表示</span></center>
+<p>図は私たちの船での計算結果を示しています。
+</p>
+<h3><span class="mw-headline" id="GZ.E6.9B.B2.E7.B7.9A.E3.81.AE.E8.A8.88.E7.AE.97">GZ曲線の計算</span></h3>
+<p>FreeCAD-Shiでは<i>GZ</i>曲線を簡単に計算するためのツールが用意されています。
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-HydrostaticsIco.png" class="image" title="GZ曲線計算ツールのアイコン"><img alt="GZ曲線計算ツールのアイコン" src="FreeCAD-Ship-HydrostaticsIco.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">GZ曲線計算ツールのアイコン</span></center>
+<p><b>Ship</b>インスタンスを選択してからこのツールを実行します。開かれたダイアログにまず表示されるのはアクティブなドキュメントで見つかった全てのタンクインスタンスのリストです。今回は両方とも使用したいのでタンクをクリックします。クリックすると目印として背景色が変わります。
+</p><p>船舶の排水量と喫水の結果を求めるために<b>Update displacement and draft</b>を押してください。しばらくの間、計算が実行され、以下の様なデータが出力されます。
+</p>
+<ul><li> Displacement = 37505.5 kg</li>
+<li> Draft = 0.818664 m</li></ul>
+<p>積載をおこなっていない状況なので喫水は設計喫水よりも少し低い位置になります。通常、低い喫水は船舶の安定性の低下を意味します。喫水は積載の状態に依存するのでもし本当に船をこの積載条件で運用しようと考えるのであればバラストタンクの実装を考えるべきでしょう。
+</p><p>船のトリムを自動で計算することもできます。この処理には約一分かかり、私たちの船には0.95度のトリム角があるという結果が返されます（船尾側が高い）。今回の例ではトリム角無し（0度）で作業を行いましょう。
+</p><p>ツールは考慮するロール角も必要とします。今回のケースでは船舶の全ての振る舞いを知りたいので以下のように設定します：
+</p>
+<ul><li> 開始ロール角 0度</li>
+<li> 終了ロール角 180度</li>
+<li> 46点。各点2度ずつ。GZ計算には時間がかかります。設定する計算点数には注意してください。</li></ul>
+<p><b>Accept</b>を押すとツールが計算を開始します。もしFreeCADをターミナルから実行している場合には処理の進捗を確認することができます。数秒でGZ曲線を得ることができます。
+</p><p>このツールでは<a rel="nofollow" class="external text" href="http://www.pyxplot.org.uk/">pyxplot</a>と<a rel="nofollow" class="external text" href="http://www.ghostscript.com/">ghostscript</a>を使用しています。レポートビュー（View/Views/Report view）で出力ファイル<b>gz.dat</b>がどこに保存されたかを確認することが可能です。このファイルはデータシートソフトウェア（例えば<a rel="nofollow" class="external text" href="http://www.libreoffice.org">libreOffice</a>）を使って読み込むことができます。他にもいくつかの補助的なファイルが作成されます。
+</p>
+<ul><li> <b>gz.dat</b>: 計算されたGZ曲線のデータ</li>
+<li> <b>gz.pyxplot</b>: 曲線をプロットするためのpyxplotレイアウト</li>
+<li> <b>gz.eps</b>: EPS画像</li>
+<li> <b>gz.png</b>: PNG画像</li></ul>
+<p>ツールを再度実行した場合にはこれらのファイルは上書きされます。
+</p>
+<h3><span class="mw-headline" id=".E7.B5.90.E6.9E.9C">結果</span></h3>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD-Ship-s60GZ.png" class="image" title="GZ曲線の結果"><img alt="GZ曲線の結果" src="800px-FreeCAD-Ship-s60GZ.png" width="800" height="516" srcset="/wiki/images/0/06/FreeCAD-Ship-s60GZ.png 1.5x" /></a></div></div>
+<center><span style="font-variant:small-caps">GZ曲線の結果</span></center>
+<p><i>GZ</i>最大値は30度より大きい位置にあり（45度）、30度で0.25mになっています（0.2 mが最小値）。30度までで<i>GZ</i>曲線の下になる面積は0.065m·rad、40度までだと0.092m·rad、30度から40度までの間の面積は0.027m·radです。従って私たちの船はIMOの基準に達していません。これを解決するにはバラストタンクを設置することです。
+</p><p>一方でこの船は非常に悪い状況にある場合であるロール角95度でも正の<i>GZ</i>値を持っています。とはいってもIMOの安定性基準から見れば十分なものとはいえません。これはIMOによって課せられた基準が厳格なものであることを示しています。
+</p><p>もちろんこのサンプルは現実のものではありません（何よりも燃料タンクが二重底構造でなく、しかも船体側を構造として使用していないというのがあり得ません）が<a href="Ship_Workbench.html" title="Ship Workbench">FreeCAD-Ship</a>の学習用途としては良いサンプルだと思います。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial_(II)/jp&amp;oldid=185399">http://www.freecadweb.org/wiki/index.php?title=FreeCAD-Ship_s60_tutorial_(II)/jp&amp;oldid=185399</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

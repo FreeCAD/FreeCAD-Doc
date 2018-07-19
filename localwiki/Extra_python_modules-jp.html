@@ -1,0 +1,362 @@
+<html><head><title>Extra python modules/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Extra python modules/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>あなたのシステムのPythonインストール設定に新しいモジュールを追加することでFreeCAD内部のPythonモジュールを簡単に拡張することができます。これらのモジュールはFreeCADによって自動的に検知され使用されます。
+</p><p>Pythonモジュールは全てFreeCADの内部から使用できますが中でも以下で紹介するいくつかのものは特に重要です。なぜならこれらを使うとPythonプログラムからFreeCADの中核機能に対して完全なアクセスを行うことが可能だからです。これらのモジュールの使用例は<a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/jp" title="Code snippets/jp">コードスニペット</a>ページにあります。
+</p><p><b>注意</b>:：
+</p>
+<ul><li> 以下のモジュールの内、Pivyは既にFreeCADインストールパッケージに完全に統合されています。またWindows用インストールパッケージではPyQt4も統合されています。</li>
+<li> PyQt4はバージョン0.13以降、次第にサポートされなくなっていく予定です。これは完全に同じ機能持つものの、よりFreeCADと互換性の高いライセンス（LGPL）を持つ<a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySide">PySide</a>に移行するためです。</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#PyQt4"><span class="tocnumber">1</span> <span class="toctext">PyQt4</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB"><span class="tocnumber">1.1</span> <span class="toctext">インストール</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95"><span class="tocnumber">1.2</span> <span class="toctext">使用方法</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88"><span class="tocnumber">1.3</span> <span class="toctext">ドキュメント</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Pivy"><span class="tocnumber">2</span> <span class="toctext">Pivy</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_2"><span class="tocnumber">2.1</span> <span class="toctext">インストール</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#.E5.BF.85.E8.A6.81.E6.9D.A1.E4.BB.B6"><span class="tocnumber">2.1.1</span> <span class="toctext">必要条件</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Debian_.26_Ubuntu"><span class="tocnumber">2.1.2</span> <span class="toctext">Debian &amp; Ubuntu</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#.E3.81.9D.E3.81.AE.E3.81.BB.E3.81.8B.E3.81.AELinux.E3.83.87.E3.82.A3.E3.82.B9.E3.83.88.E3.83.AA.E3.83.93.E3.83.A5.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">2.1.3</span> <span class="toctext">そのほかのLinuxディストリビューション</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Mac_OS"><span class="tocnumber">2.1.4</span> <span class="toctext">Mac OS</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Windows"><span class="tocnumber">2.1.5</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#.E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95_2"><span class="tocnumber">2.2</span> <span class="toctext">使用方法</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88_2"><span class="tocnumber">2.3</span> <span class="toctext">ドキュメント</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#pyCollada"><span class="tocnumber">3</span> <span class="toctext">pyCollada</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_3"><span class="tocnumber">3.1</span> <span class="toctext">インストール</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Linux"><span class="tocnumber">3.1.1</span> <span class="toctext">Linux</span></a>
+<ul>
+<li class="toclevel-4 tocsection-17"><a href="#Git.E3.83.AC.E3.83.9D.E3.82.B8.E3.83.88.E3.83.AA.E3.81.8B.E3.82.89.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB"><span class="tocnumber">3.1.1.1</span> <span class="toctext">Gitレポジトリからのインストール</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#easy_install.E3.82.92.E4.BD.BF.E3.81.A3.E3.81.9F.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB"><span class="tocnumber">3.1.1.2</span> <span class="toctext">easy_installを使ったインストール</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-19"><a href="#Windows_2"><span class="tocnumber">3.1.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#IfcOpenShell"><span class="tocnumber">4</span> <span class="toctext">IfcOpenShell</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_4"><span class="tocnumber">4.1</span> <span class="toctext">インストール</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#Linux_2"><span class="tocnumber">4.1.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Windows_3"><span class="tocnumber">4.1.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="PyQt4">PyQt4</span></h2>
+<p>ホームページ： <a rel="nofollow" class="external free" href="http://www.riverbankcomputing.co.uk/pyqt">http://www.riverbankcomputing.co.uk/pyqt</a>
+</p><p>PyQt（バージョン4）はプログラムが<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Qt_(toolkit)">Qt</a>インターフェイスに対してアクセスしたり、それらを作成、変更できるようにするためのPythonバインディングライブラリです。FreeCADのインターフェイスはQtで作られているので、あなたのシステムにPyQt4をインストールすることでFreeCAD内部のPythonプログラムからインターフェイス全てにアクセスしたり、パーツの変更や新しいウィジットの作成、インターフェイスのパーツから情報を集めるなどの処理を行えるようになります。
+</p><p>PyQtは<a rel="nofollow" class="external text" href="http://trolltech.com/products/qt">Qt</a>で使われているものと同じマルチライセンスシステムの下でリリースされています。つまり商用ライセンス版とフリーなGPL版がアルのです。もし商用の（クローズドなソースの）プログラムで使用したいと思ったら商用ライセンスを購入する必要があります。一方、GPL版では自由にインストールして使用することだけができます。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB">インストール</span></h3>
+<p>言うまでもないでしょうがPyQt4をインストールする前にインストール済みの正常動作するPython環境が必要です。
+</p><p><b>Linux</b>
+</p><p>最も簡単なPyQt4のインストール方法はあなたの使っているディストリビューションのパッケージマネージャーを使用する方法です。Debian/Ubuntuシステムではパッケージ名は一般的には<i>python-qt4</i>です。またRPMベースのシステムでは<i>pyqt4</i>となっています。必要な依存関係（QtとSIP）は自動的に解決されます。
+</p><p><b>Windows</b>
+</p><p>プログラムを<a rel="nofollow" class="external text" href="http://www.riverbankcomputing.co.uk/pyqt/download.php">ここ</a>からダウンロードできます。pyqt4をインストールする前にQtライブラリとSIPライブラリをインストールしておく必要があります（要ドキュメント化）。
+</p>
+<h3><span class="mw-headline" id=".E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95">使用方法</span></h3>
+<p>インストールが終わったらFreeCADにPythonコンソールで以下のコマンドを入力して全て動作しているかどうかチェックします：
+</p>
+<pre>import PyQt4
+</pre>
+<p>FreeCADインターフェイスにアクセスするには以下のように入力します：
+</p>
+<pre>from PyQt4 import QtCore,QtGui
+app = QtGui.qApp
+FreeCADWindow = app.activeWindow()
+</pre>
+<p>以上を行うとdir()コマンドを使ってインターフェイスを探索できるようになります。自作のウィジットなど新しい要素を追加するには以下の様なコマンドを使います：
+</p>
+<pre>FreeCADWindow.addDockWidget(QtCore.Qt.RghtDockWidgetArea,my_custom_widget)
+</pre>
+<h3><span class="mw-headline" id=".E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88">ドキュメント</span></h3>
+<p>以下に（QtDesigneやPythonを使ったインターフェイスの作成方法を含む）もっと詳しいpyQt4のチュートリアルがあります：
+</p><p><a rel="nofollow" class="external free" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html</a> - 公式PyQt4 APIリファレンス
+</p><p><a rel="nofollow" class="external free" href="http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/">http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/</a> - 簡単なイントロダクション
+</p><p><a rel="nofollow" class="external free" href="http://www.zetcode.com/tutorials/pyqt4/">http://www.zetcode.com/tutorials/pyqt4/</a> - 非常に詳細なチュートリアル
+</p>
+<h2><span class="mw-headline" id="Pivy">Pivy</span></h2>
+<p>ホームページ： <a rel="nofollow" class="external free" href="http://pivy.coin3d.org/">http://pivy.coin3d.org/</a>
+</p><p>PivyはPython用の<a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin</a>バインディングライブラリで、Coinプロジェクトによって公式にサポートされています。Coin自体はOpenGLで3Dアプリケーションを作成するためのツールキットです。FreeCADはこのツールキットを使って画面上に3Dシーンを描画しています。あなたのシステムにPivyをインストールするとPythonプログラムからFreeCADのシーングラフにアクセスして画面上に新しいオブジェクトを描画したり、描画操作用の幅広いCoinツールを利用できるようになります。Coinはシーン記述言語であるOpenInventorに基づいています。PivyはFreeCADの2D製図モジュール（また全てのモジュール）で使用されているのでそれらのモジュールのツールを使いたい場合には必ず必要になります。
+</p><p>FreeCADではオブジェクトを画面上に表現するためにしかCoinを使っておらず、それらはオブジェクトの定義とは分離しているということは知っておくべき重要な点でしょう。つまりPivyを使って既存のオブジェクトを変更したり、正常なFreeCADオブジェクトを作成することはできないのです。ただし一時的なものであれば、座標軸、グリッド、マニピュレータ、補助ジオメトリーなどあらゆるものを画面に描画することができます。
+</p><p>PivyはCoinと同様、GPLライセンスの下でリリースされています。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_2">インストール</span></h3>
+<h4><span class="mw-headline" id=".E5.BF.85.E8.A6.81.E6.9D.A1.E4.BB.B6">必要条件</span></h4>
+<p>Pivyをコンパイルする前にはCoinとSoQtをインストールしておいた方がいいと思います。
+</p><p>Mac上でのビルドでは<a rel="nofollow" class="external text" href="http://www.coin3d.org/lib/plonesoftwarecenter_view">Coin3バイナリパッケージ</a>をインストールするだけで十分でした。ただしMacPortsからCoinをインストールしようとすると問題となるかもしれません。大量のXWindowパッケージの追加を行わなければならず、スクリプトのエラーによる完全なクラッシュもありました。
+</p><p>FedoraではRPMにCoin3がありました。
+</p><p>SoQtの<a rel="nofollow" class="external text" href="http://www.coin3d.org/lib/soqt/releases/1.5.0">ソース</a>からのコンパイルはMacでもLinuxでも問題ありませんでした。
+</p>
+<h4><span class="mw-headline" id="Debian_.26_Ubuntu">Debian &amp; Ubuntu</span></h4>
+<p>DebianSqueezeとUbuntuLucidを使って始める場合は公式レポジトリからPivyを直接利用することができるのでたいして面倒ではないでしょう。他にも<a href="Download.html" title="Download">ダウンロード</a>ページから利用できる私たちが（DebianとUbuntuKarmic用に）作成したパッケージをダウンロードするか、あるいは自分自身でビルドするという方法をとることもできます。
+</p><p>最も簡単なPivyのコンパイル方法はPivyのDebianソースパッケージから取ってきてdebuildを使ってパッケージを作成するやり方です。これはPivyの公式サイトのものと同じソースコードですがDebianの人たちによっていくつかのバグ修正が追加されています。UbuntuKarmic上でも正常にコンパイルできます： <a rel="nofollow" class="external free" href="http://packages.debian.org/squeeze/python-pivy">http://packages.debian.org/squeeze/python-pivy</a> から.orig.gzファイルと.diff.gzファイルをダウンロードして両方を展開したら.diff をソースに適用します。展開したPivyのソースフォルダに移動し、以下のようにして.diffパッチを適用します：
+</p>
+<pre>patch -p1 &lt; ../pivy_0.5.0~svn765-2.diff
+</pre>
+<p>その後で次のコマンドをを実行するとPivyが公式なインストールパッケージに適切にビルドされます。
+</p>
+<pre>debuild
+</pre>
+<p>それが終わったらgdebiを使ってそのパッケージをインストールすれば終わりです。
+</p>
+<h4><span class="mw-headline" id=".E3.81.9D.E3.81.AE.E3.81.BB.E3.81.8B.E3.81.AELinux.E3.83.87.E3.82.A3.E3.82.B9.E3.83.88.E3.83.AA.E3.83.93.E3.83.A5.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3">そのほかのLinuxディストリビューション</span></h4>
+<p>まず以下のコマンドを使って最新のソースを<a rel="nofollow" class="external text" href="http://pivy.coin3d.org/mercurial/">プロジェクトのリポジトリ</a>:から入手します。
+</p>
+<pre>hg clone <a rel="nofollow" class="external free" href="http://hg.sim.no/Pivy/default">http://hg.sim.no/Pivy/default</a> Pivy
+</pre>
+<p>2012年3月現在、最新のバージョンはPivy-0.5です。
+</p><p>次にPythonバインディング用のC++コードを生成するためのSWIGというツールが必要になります。Pivy-0.5はSWIG 1.3.31、1.3.33、1.3.35、1.3.40でのみテスト済みであると説明されています。従ってそれら古いバージョンのどれかのソースのtarballを<a rel="nofollow" class="external free" href="http://www.swig.org">http://www.swig.org</a>からダウンロードします。ダウンロードしたら展開して（root権限で）次のコマンドを実行します：
+</p>
+<pre>./configure
+make
+make install （checkinstallを使っている場合はそれでも構いません）
+</pre>
+<p>ビルドは数秒で終わります。
+</p><p>あるいはもっと新しいSWIGを使ってビルドを試みてもいいでしょう。2012年3月現在、標準のリポジトリバージョンは2.0.4です。PivyはMac OSでのSWIG 2.0.4を使ったコンパイルでちょっとした問題がありますが（下記を参照）、Fedora Core 15では正常にビルドできるようです。
+</p><p>ビルドが終わったらPivyソースの位置に移動し、次のコマンドを実行します：
+</p>
+<pre>python setup.py build 
+</pre>
+<p>これによってソースファイルが作成されます。ビルドでは大量の警告が出る場合がありますが恐らくエラーはでないでしょう。
+</p><p>恐らく今は修正されていますが 'char*'を'const char*'に変換できない、というコンパイルエラーが起きる場合があります。これを修正するためには該当する行に'const'を書き込む必要があります。修正ヶ所は6行あります。
+</p><p>それが終わったら次のコマンドを（root権限で）実行してインストールを行います：
+</p>
+<pre>python setup.py install （またはcheckinstall python setup.py install）
+</pre>
+<p>これで終わりです。Pivyがインストールされました。
+</p>
+<h4><span class="mw-headline" id="Mac_OS">Mac OS</span></h4>
+<p>以下の手順説明は完全ではないかもしれません。2012年3月現在、OS10.7でほぼ動作しました。レポジトリはMacPortsのものを使用しましたが他のものでもうまくいくはずです。
+</p><p>Linuxと同様に最新のソースコードを以下のコマンドで入手します：
+</p>
+<pre>hg clone <a rel="nofollow" class="external free" href="http://hg.sim.no/Pivy/default">http://hg.sim.no/Pivy/default</a> Pivy 
+</pre>
+<p>もしあなたの環境にhgがなければ以下のコマンドを実行することでMacPortsから入手できます：
+</p>
+<pre>port install mercurial
+</pre>
+<p>その後は上記と同様、SWIGが必要になります。以下のコマンドで入手できるはずです：
+</p>
+<pre>port install swig
+</pre>
+<p>私の環境では以下のコマンドも必要でした：
+</p>
+<pre>port install swig-python
+</pre>
+<p>2012年3月現在、MacPortsのSWIGはバージョン2.0.4です。上記のLinuxの項目で書いたように可能であればもっと古いバージョンをダウンロードした方が良いでしょう。SWIG2.0.4にはPivyのビルドが止まるバグがあるようです。以下の要約の最初のメッセージを参照して下さい：
+<a rel="nofollow" class="external free" href="https://sourceforge.net/mailarchive/message.php?msg_id=28114815">https://sourceforge.net/mailarchive/message.php?msg_id=28114815</a>
+</p><p>これはソース内の二ヶ所を編集してarg4、arg5の代わりに修飾参照*arg4、*arg5を追加することで修正できます。これで以下のコマンドを使ってPivyをビルドできるはずです：
+</p>
+<pre>python setup.py build
+sudo python setup.py install
+</pre>
+<h4><span class="mw-headline" id="Windows">Windows</span></h4>
+<p>VisualStudio2005以降を使用するものとします。ツールメニューの'Visual Studio 2005 Command prompt'を使ってコマンドプロンプトを開きます。
+もしPythonインタプリタをまだシステムパスに登録していない場合は以下のようにしてください：
+</p>
+<pre>set PATH=path_to_python_2.5;%PATH%
+</pre>
+<p>Pivyを動作させるためにはプロジェクトのリポジトリから最新のソースを入手します：
+</p>
+<pre>svn co <a rel="nofollow" class="external free" href="https://svn.coin3d.org/repos/Pivy/trunk">https://svn.coin3d.org/repos/Pivy/trunk</a> Pivy 
+</pre>
+<p>次にPythonバインディング用のC++コードを生成するためのSWIGというツールが必要になります。最新バージョンではなくSWIGのバージョン1.3.25を使うことをお勧めします。今のところPivyは1.3.25を使った場合にしか正しく動作しないためです。<a rel="nofollow" class="external free" href="http://www.swig.org">http://www.swig.org</a>から1.3.25のバイナリをダウンロードしてください。ダウンロードしたら展開して以下のようにしてコマンドラインからシステムパスに追加します：
+</p>
+<pre>set PATH=path_to_swig_1.3.25;%PATH%
+</pre>
+<p>またCOINDIRを適切なパスに設定します：
+</p>
+<pre>set COINDIR=path_to_coin
+</pre>
+<p>Windows上ではPivyの設定ファイルはデフォルトのSoQtではなくSoWinとなっているはずです。SoQtを使ってビルドする適切な方法を見つけられなかったので私はsetup.pyを直接変更しました。
+200行目の 'sowin'の部分を取り除くだけです：（'gui._sowin', 'sowin-config', 'pivy.gui.'） （丸括弧閉じは削除しないように）
+</p><p>それが終わったらソースの位置に移動して以下のコマンドを実行します：
+</p>
+<pre>python setup.py build 
+</pre>
+<p>これによってソースファイルが作成されます。いくつかのヘッダファイルが見つからないというコンパイルエラーが起きるかもしれません。その場合にはINCLUDE変数を以下のように調整してください：
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_coin_include_dir
+</pre>
+<p>もしSoQtのヘッダがCoinのヘッダと同じ場所にない場合は以下も行います：
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_soqt_include_dir
+</pre>
+<p>最後にQtのヘッダを追加します：
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_qt4\include\Qt
+</pre>
+<p>あなたがVisualStudioのExpressエディションを使っている場合、Pythonのkeyerror例外が起きるかもしれます。
+その場合はPythonインストール位置にあるmsvccompiler.pyに若干の変更を加える必要があります。
+</p><p>122行目に移動し以下の行を
+</p>
+<pre>vsbase = r"Software\Microsoft\VisualStudio\%0.1f"&#160;% version
+</pre>
+<p>次の行で置き換えます。
+</p>
+<pre>vsbase = r"Software\Microsoft\VCExpress\%0.1f"&#160;% version
+</pre>
+<p>それが終わったらもう一度試してみてください。
+次に示すようなエラーが再度起きた場合は
+</p>
+<pre>error: Python was built with Visual Studio 2003;...
+</pre>
+<p>128行目の以下の行を
+</p>
+<pre>self.set_macro("FrameworkSDKDir", net, "sdkinstallrootv1.1")
+</pre>
+<p>次の行で置き換えます。
+</p>
+<pre>self.set_macro("FrameworkSDKDir", net, "sdkinstallrootv2.0")
+</pre>
+<p>再度、試します。また次に示す様なエラーが起きる場合は
+</p>
+<pre>error: Python was built with Visual Studio version 8.0, and extensions need to be built with the same version of the compiler, but it isn't installed.
+</pre>
+<p>以下のコマンドで環境変数のDISTUTILS_USE_SDKとMSSDKを調べてみてください。
+</p>
+<pre>echo&#160;%DISTUTILS_USE_SDK%
+echo&#160;%MSSDK%
+</pre>
+<p>もしまだ設定されていないようであれば以下のコマンドの様にして1などを設定してください。
+</p>
+<pre>set DISTUTILS_USE_SDK=1
+set MSSDK=1
+</pre>
+<p>また'char*'を'const char*'に変換できない、というコンパイルエラーが起きる場合があります。これを修正するためには該当する行に'const'を書き込む必要があります。修正ヶ所は6行あります。
+ビルドが終わったら生成されたPivyディレクトリをFreeCADのPythonインタプリタが見つけられる場所にコピーしてください。
+</p>
+<h3><span class="mw-headline" id=".E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95_2">使用方法</span></h3>
+<p>PivyでFreeCADのシーングラフにアクセスするには次のようにします：
+</p>
+<pre>from pivy import coin
+App.newDocument() # ドキュメントとビューを開きます
+view = Gui.ActiveDocument.ActiveView 
+FCSceneGraph = view.getSceneGraph() # Coinシーングラフのメイン"コンテナ"であるSoSeparatorを保持したPivyのPythonオブジェクトを返します
+FCSceneGraph.addChild(coin.SoCube()) # シーンにボックスを追加します
+</pre>
+<p>これでdir()コマンドを使ってFCSceneGraphを調べることができるようになります。
+</p>
+<h3><span class="mw-headline" id=".E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88_2">ドキュメント</span></h3>
+<p>残念なことにPivyについて書かれたものはネット上にはまだほとんどありません。ただしCoinドキュメントが利用できることにあなたは気がついたかもしれません。PivyはConiの関数、ノード、メソッドを純粋にPythonに移植したものだからです。名前とプロパティは全て同じままで、気をつける必要があるのはCとPythonの文法の違いだけです。
+</p><p><a rel="nofollow" class="external free" href="http://doc.coin3d.org/Coin/classes.html">http://doc.coin3d.org/Coin/classes.html</a> - Coin3DのAPIリファレンス
+</p><p><a rel="nofollow" class="external free" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html</a> - The Inventor Mentor - Inventorのシーン記述言語の"バイブル"です
+</p><p>またFreeCADのMod/DraftフォルダにあるDraft.pyファイルを参照してもいいでしょう。これはPivyを豊富に使っているからです。
+</p>
+<h2><span class="mw-headline" id="pyCollada">pyCollada</span></h2>
+<p><a rel="nofollow" class="external text" href="http://pycollada.github.com">pyCollada</a>はプログラムで<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/COLLADA">Collada (*.DAE)</a>ファイルの読み書きを行うことができるようにするためのPythonライブラリです。pyColladaがあなたのシステムにインストールされている場合にはFreeCAD（<span style="font-size:x-small;"><a href="Release_notes_0.13.html" class="mw-redirect" title="Release notes 0.13">available in version 0.13</a></span>
+）はそれを検出してColladaファイル形式のインポートとエクスポートを行うハンドルの追加を行います。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_3">インストール</span></h3>
+<p>pyColladaは今のところLinuxディストリビューションのレポジトリでは利用できないことが多いですが、Pythonファイルだけで作成されていてコンパイルを必要としないのでインストールは簡単です。やり方は二通りあります。pyColladaの公式Gitレポジトリから直接インストールするか、easy_installツールを使うかのどちらかです。
+</p>
+<h4><span class="mw-headline" id="Linux">Linux</span></h4>
+<p>どちらの場合でも以下のパッケージがあなたのシステムにインストールされている必要があります：
+</p>
+<pre>python-lxml 
+python-numpy
+python-dateutil
+</pre>
+<h5><span class="mw-headline" id="Git.E3.83.AC.E3.83.9D.E3.82.B8.E3.83.88.E3.83.AA.E3.81.8B.E3.82.89.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB">Gitレポジトリからのインストール</span></h5>
+<pre>git clone <a rel="nofollow" class="external free" href="git://github.com/pycollada/pycollada.git">git://github.com/pycollada/pycollada.git</a> pycollada
+cd pycollada
+sudo python setup.py install
+</pre>
+<h5><span class="mw-headline" id="easy_install.E3.82.92.E4.BD.BF.E3.81.A3.E3.81.9F.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB">easy_installを使ったインストール</span></h5>
+<p>Pythonは既に完全にインストールされているものとし、その場合、easy_installユーティリティが既に存在しているはずです。
+</p>
+<pre>easy_install pycollada
+</pre>
+<p>pyColladaが正しくインストールされたかどうか確認するためにはPythonコンソールで以下のコマンドを入力します：
+</p>
+<pre>import collada
+</pre>
+<p>何も返らなければ（エラーメッセージがでなければ）全てOKです。
+</p>
+<h4><span class="mw-headline" id="Windows_2">Windows</span></h4>
+<p>ドキュメント作成予定
+</p>
+<h2><span class="mw-headline" id="IfcOpenShell">IfcOpenShell</span></h2>
+<p>IFCOpenShellは現在開発中のライブラリで<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Industry_Foundation_Classes">Industry foundation Classes (*.IFC)</a>のインポート（いずれはエクスポートも）を行えるようにするもので。IFCはSTEP形式の拡張で<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Building_information_modeling">BIM</a>ワークフローでの標準形式になる予定です。あなたのシステムにIFCOpenShellが正しくインストールされている場合にはFreeCADの<a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/jp" title="Arch Module/jp">建築モジュール</a> がそれを検出してIFCファイルのインポートに使用します。IFCOpenShellはFreeCAD同様、OpenCasCadeを基盤にしていてインポートの精度が非常に高く、高品質なソリッドジオメトリを生成します。
+</p><p>ホームページ： <a rel="nofollow" class="external free" href="http://www.ifcopenshell.org">http://www.ifcopenshell.org</a>
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB_4">インストール</span></h3>
+<p>IFCOpenShellは非常に新しいものなので恐らく自分でコンパイルする必要があります。
+</p>
+<h4><span class="mw-headline" id="Linux_2">Linux</span></h4>
+<p>IFCOpenShellをコンパイルするためにはシステムにいくつかの開発用パッケージをインストールする必要があります：
+</p>
+<pre>liboce-*-dev
+python-dev
+swig
+</pre>
+<p>ただしこれらは全てFreeCADでも必要な物なので、もしあなたがFreeCADをコンパイルできる状態なら他にIfcOpenShellをコンパイルするのに必要な物はありません。
+</p><p>以下から最新のソースコードを入手してください：
+</p>
+<pre>svn co <a rel="nofollow" class="external free" href="https://ifcopenshell.svn.sourceforge.net/svnroot/ifcopenshell">https://ifcopenshell.svn.sourceforge.net/svnroot/ifcopenshell</a> ifcopenshell
+</pre>
+<p>ビルド処理は非常に簡単です：
+</p>
+<pre>mkdir ifcopenshell-build
+cd ifcopenshell-build
+cmake ../ifcopenshell/cmake
+</pre>
+<p>あるいは、あなたがOpenCasCadeの代わりにoceを使っている場合は以下の様になります：
+</p>
+<pre>cmake -DOCC_INCLUDE_DIR=/usr/include/oce ../ifcopenshell/cmake 
+</pre>
+<p>IfcOpenShellは元々はBlender用に作成されたのでデフォルトではpython3を使用します。FreeCAD内部で使用する場合にはFreeCADで使用されているものと同じバージョンのPythonに対してコンパイルを行う必要があります。従って以下のようにして追加のCMakeパラメータでPythonのバージョンを指定する必要があるでしょう（Pythonのバージョンを調整するのです）。
+</p>
+<pre>cmake -DOCC_INCLUDE_DIR=/usr/include/oce -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/python2.7.so ../ifcopenshell/cmake
+</pre>
+<p>その後で以下を実行します：
+</p>
+<pre>make
+sudo make install
+</pre>
+<p>IfcOpenShellが正しくインストールされたかどうか確認するためにはPythonコンソールで以下のコマンドを入力します：
+</p>
+<pre>import IfcImport
+</pre>
+<p>何も返らなければ（エラーメッセージがでなければ）全てOKです。
+</p>
+<h4><span class="mw-headline" id="Windows_3">Windows</span></h4>
+<p><i>IfcOpenShellのREADMEファイルからの転載です</i>
+</p><p>win/ folderにあるVisual Studioの.slnファイルを使用することをお勧めします。Windowsユーザー用ビルド済みバージョンのOpenCASCADEはウェブサイト <a rel="nofollow" class="external free" href="http://opencascade.org">http://opencascade.org</a> から利用可能です。このバージョンをダウンロードしてインストールした後でOpenCASCADEのヘッダとライブラリのパスをMS Visual Studio C++に設定してください。
+</p><p>IfcPythonラッパーをビルドするためにはSWIGが必要になります。 <a rel="nofollow" class="external free" href="http://www.swig.org/download.html">http://www.swig.org/download.html</a> から最新版のswigwinをダウンロードしてください。.zipファイルを展開したら、その展開したフォルダをPATH環境変数に追加してください。またPythonがインストールされている必要があります。そのインクルードとライブラリパスをVisualStudioに設定してください。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/jp&amp;oldid=211462">http://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/jp&amp;oldid=211462</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

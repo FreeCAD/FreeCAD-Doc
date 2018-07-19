@@ -1,0 +1,98 @@
+<html><head><title>Part Loft Technical Details/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Loft Technical Details/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Cette page explique en détail  la façon dont le <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Loft/fr" title="Part Loft/fr"> Loft</a> surface est créée. C'est également pertinent pour le <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sweep/fr" title="Part Sweep/fr"> Balayage</a> fait le long d'un chemin droit, même s'il existe des différences.
+</p><p>L'information fournie est mise en œuvre spécifiquement, et peut changer. L'état actuel est pertinent pour FreeCAD 0.15.4119, OCC: version 6.7.0.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.C3.89tapes_de_la_cr.C3.A9ation_du_Lissage"><span class="tocnumber">1</span> <span class="toctext">Étapes de la création du Lissage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.C3.89tape_1._Rendre_le_nombre_de_segments_des_profils_identiques"><span class="tocnumber">1.1</span> <span class="toctext">Étape 1. Rendre le nombre de segments des profils identiques</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.C3.89tape_2._.C3.89tablir_la_correspondance_entre_les_segments"><span class="tocnumber">1.2</span> <span class="toctext">Étape 2. Établir la correspondance entre les segments</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.C3.89tape_3._Faire_la_surface_du_loft."><span class="tocnumber">1.3</span> <span class="toctext">Étape 3. Faire la surface du loft.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#L.27essence"><span class="tocnumber">2</span> <span class="toctext">L'essence</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Remarques_suppl.C3.A9mentaires"><span class="tocnumber">3</span> <span class="toctext">Remarques supplémentaires</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".C3.89tapes_de_la_cr.C3.A9ation_du_Lissage">Étapes de la création du Lissage</span></h2>
+<p>Pour expliquer le processus de lissage, il est commode de diviser en étapes: 
+</p>
+<ol><li> rendre le nombre de segments dans les profils égaux (s'ils ne le sont pas déjà) </li>
+<li> établir la correspondance entre les segments # réaliser la surface de lissage</li>
+<li> finir la surface lissée</li></ol>
+<h3><span class="mw-headline" id=".C3.89tape_1._Rendre_le_nombre_de_segments_des_profils_identiques">Étape 1. Rendre le nombre de segments des profils identiques</span></h3>
+<p>Le Lissage a besoin d'un nombre de segments ideniques afin de créer autant de surfaces entre les segments correspondants. Si le nombre de segments est correcte dans tous les profils, cette étape est ignorée.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Si au moins l'un des profils a un nombre différent de segments, la procédure suivante est appliquée. Par simplicité, la procédure est expliquée ici dans le cas de deux profiles seulement . 
+</p>
+<ol><li> Les Profils sont alignés temporairement de sorte qu'ils sont coplanaires et leurs centres de gravité * correspondent. </li>
+<li> (Voir l'image) pour chaque sommet dans un même profil, le second profil est tranché dans le même angle polaire (le centre polaire est le centre de gravité). Si il y a plus d'une tranche possible ou pas du tout de tranche possible (cela peut arriver sur des profils très convexes), le Lissage échoue généralement. </li>
+<li> On fait de même dans le direction opposée.</li></ol>
+</div>
+<p>L'opération est étendue à tous les profils, pour obtenir le même nombre de segments. Le nombre total de segments dans chaque profil sera égale à la somme de tous les nombres de segments de tous les profils (à condition qu'aucun des sommets ne se trouvent être dans le même angle polaire).
+</p>
+<table style="margin: 0 auto;">
+<tr>
+<td><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft-vertex-insertion.png" class="image"><img alt="" src="300px-Loft-vertex-insertion.png" width="300" height="276" class="thumbimage" srcset="/wiki/images/thumb/7/7b/Loft-vertex-insertion.png/450px-Loft-vertex-insertion.png 1.5x, /wiki/images/thumb/7/7b/Loft-vertex-insertion.png/600px-Loft-vertex-insertion.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft-vertex-insertion.png" class="internal" title="Enlarge"></a></div>Le processus de tranchage profile2 (forme en forme de croissant blanc) pour créer des articulations correspondant aux sommets du profil1 (pentagone violet). Les articulations insérées sont marquées par des flèches jaunes.</div></div></div>
+</td>
+<td><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_crescent_pentagon.png" class="image"><img alt="" src="300px-Loft_crescent_pentagon.png" width="300" height="242" class="thumbimage" srcset="/wiki/images/thumb/3/33/Loft_crescent_pentagon.png/450px-Loft_crescent_pentagon.png 1.5x, /wiki/images/thumb/3/33/Loft_crescent_pentagon.png/600px-Loft_crescent_pentagon.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_crescent_pentagon.png" class="internal" title="Enlarge"></a></div>Le résultat du loft correspondant à l'image à gauche.</div></div></div>
+</td></tr></table>
+<h3><span class="mw-headline" id=".C3.89tape_2._.C3.89tablir_la_correspondance_entre_les_segments">Étape 2. Établir la correspondance entre les segments</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_Number_of_verts_match.png" class="image"><img alt="" src="300px-Loft_Number_of_verts_match.png" width="300" height="260" class="thumbimage" srcset="/wiki/images/thumb/8/89/Loft_Number_of_verts_match.png/450px-Loft_Number_of_verts_match.png 1.5x, /wiki/images/thumb/8/89/Loft_Number_of_verts_match.png/600px-Loft_Number_of_verts_match.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_Number_of_verts_match.png" class="internal" title="Enlarge"></a></div>Démonstration de Loft en gardant le nombre de segments dans les profils quand ils correspondent. Notez comment les 3 arêtes du carré supérieur "s'effondrent" en une petite pièce polygonale du profil inférieur.</div></div></div>
+<p>Dans le cas où les nombres de segments dans tous les profils ne sont pas égaux, le découpage a été fait à l'étape 1, et la correspondance est triviale.
+Dans le cas où les nombres de segments dans tous les profils sont égaux, les segments existants sont utilisés (voir l'image), et c'est à ce moment que la correspondance doit être établie. 
+</p><p>L'algorithme exact pour trouver les segments correspondants est complexe, mais généralement il tend à minimiser la torsion du Loft résultant. Cela signifie que si l'on fait un loft entre deux carrés, la torsion maximale possible est &lt;45 °. Une rotation supplémentaire de l'un des carrés fera sauter le Loft vers l'autre direction.
+</p><p>La correspondance entre les profils voisins est faite indépendamment. Cela signifie qu'une torsion supplémentaire peut être obtenue en ajoutant plus de profils intermédiaires.
+</p><p>Une autre chose à noter est que lorsque les nombres de segments dans les profils sont égaux, le Loft résultant est sensiblement plus robuste par rapport aux profils complexes, en particulier pour les profils non convexes.
+</p>
+<div style="clear:both"></div>
+<h3><span class="mw-headline" id=".C3.89tape_3._Faire_la_surface_du_loft.">Étape 3. Faire la surface du loft.</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_B-spline.png" class="image"><img alt="" src="400px-Loft_B-spline.png" width="400" height="342" class="thumbimage" srcset="/wiki/images/thumb/5/5a/Loft_B-spline.png/600px-Loft_B-spline.png 1.5x, /wiki/images/thumb/5/5a/Loft_B-spline.png/800px-Loft_B-spline.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_B-spline.png" class="internal" title="Enlarge"></a></div>Une courbe d'interpolation spline (rouge) qui suit la surface du lissage. Les points à interpoler sont représentés par des carrés rouges.</div></div></div>
+<p>S'il n'y a que deux profils, les surfaces créées sont des surfaces réglées entre les segments correspondants des profils. Les arêtes droites sont créées pour connecter les sommets correspondants des profils.
+</p><p>S'il y a plus de deux profils, les surfaces sont faites de cannelures de la même manière que les lignes droites forment des surfaces réglées. Les splines imaginaires dont la surface est "faite de" sont dessinées à travers les points correspondants des segments correspondants des profils.
+</p><p>Les splines sont une interpolation B-spline.
+</p>
+<ul><li> Si le nombre de profils est inférieur à 10, l'interpolation est effectuée par une B-spline avec un degré maximum possible (c'est-à-dire degré = nombre_de_profils - 1).</li>
+<li> Si le nombre de profils dépasse 10, l'interpolation est commutée sur les B-splines du 3ème degré.</li></ul>
+<p>La méthode de nouage utilisée est la "longueur de corde approximative". Approximatif signifie que le vecteur de noeud est exactement le même pour chaque spline dans un loft. Pour plus d'informations sur l'interpolation B-spline, le vecteur de nœud, la méthode de longueur de corde, voir, par exemple, <a rel="nofollow" class="external text" href="http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/INT-APP/CURVE">-INT-global.html cs.mtu.edu Interpolation globale de courbe</a>.
+</p><p>Notez que Loft a une propriété "Ruled". Si elle est définie sur true, les surfaces réglées sont créées entre des profils voisins même s'il existe plusieurs profils. C'est-à-dire que l'interpolation B-spline est remplacée par une interpolation linéaire par morceaux.
+</p>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="L.27essence">L'essence</span></h2>
+<ul><li> Le lissage effectue une interpolation B-spline entre les profils fournis. L'interpolation est commutée en linéaire par morceaux lorsque la propriété "Ruled" est définie sur true.</li>
+<li> Lorsque le nombre de profils dépasse 9, le degré d'interpolation est ramené à 3. Ce basculement peut réduire considérablement les oscillations.</li>
+<li> La correspondance du nombre de segments (alias nombre de sommets) dans les profils permet de donner une légère torsion au lissage et permet généralement d'utiliser des profils plus complexes.</li>
+<li> Lorsque les nombres de segments ne correspondent pas, il est préférable de garder les profils représentables par une fonction r (phi) appropriée en coordonnées polaires.</li></ul>
+<h2><span class="mw-headline" id="Remarques_suppl.C3.A9mentaires">Remarques supplémentaires</span></h2>
+<ul><li> Il n'est pas nécessaire que les profils soient parallèles (voir une image ci-dessous).</li>
+<li> Pour Loft, il n'est pas nécessaire que les profils soient séparés (voir une image ci-dessous). Ils peuvent être coplanaires, mais ils ne devraient pas se croiser.</li>
+<li> Lorsque la propriété "fermée" du Loft est "vraie", il y a un joint de cuspide dans toutes les cannelures formant le Loft (voir une image ci-dessous). Il n'y a aucun moyen fiable maintenant de fermer le loft en douceur .</li></ul>
+<table style="margin: 0 auto;">
+<tr>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_nonparallel.png" class="image"><img alt="" src="300px-Loft_nonparallel.png" width="300" height="271" class="thumbimage" srcset="/wiki/images/thumb/e/e5/Loft_nonparallel.png/450px-Loft_nonparallel.png 1.5x, /wiki/images/thumb/e/e5/Loft_nonparallel.png/600px-Loft_nonparallel.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_nonparallel.png" class="internal" title="Enlarge"></a></div>Il n'est pas obligatoire que les profils soient parallèles.</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_Coplanar.png" class="image"><img alt="" src="300px-Loft_Coplanar.png" width="300" height="167" class="thumbimage" srcset="/wiki/images/thumb/b/bb/Loft_Coplanar.png/450px-Loft_Coplanar.png 1.5x, /wiki/images/b/bb/Loft_Coplanar.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft_Coplanar.png" class="internal" title="Enlarge"></a></div>Dans Loft, les profils peuvent être coplanaires. Dans cet exemple, deux des trois profils sont coplanaires.</div></div></div>
+</td>
+<td> <div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft-closed.png" class="image"><img alt="" src="300px-Loft-closed.png" width="300" height="207" class="thumbimage" srcset="/wiki/images/thumb/b/ba/Loft-closed.png/450px-Loft-closed.png 1.5x, /wiki/images/thumb/b/ba/Loft-closed.png/600px-Loft-closed.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Loft-closed.png" class="internal" title="Enlarge"></a></div>Exemple de loft fermé entre trois profils pentagonaux (blanc). Notez le joint non lisse au profil le plus externe. C'est le premier profil dans le loft fermé.</div></div></div>
+</td></tr></table>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Loft_Technical_Details/fr&amp;oldid=285325">http://www.freecadweb.org/wiki/index.php?title=Part_Loft_Technical_Details/fr&amp;oldid=285325</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

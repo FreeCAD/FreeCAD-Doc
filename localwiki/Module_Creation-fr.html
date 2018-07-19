@@ -1,0 +1,204 @@
+<html><head><title>Module Creation/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Module Creation/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Ajouter de nouveaux <b>modules</b> et <b>boîtes à outils</b> dans FreeCAD est très facile. Nous appelons <b>module</b>, toute extension de FreeCAD, tandis qu'un <b>plan de travail</b> (workbench) est une configuration spéciale <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Interface_graphique">GUI</a></b>, habituellement, les groupes de <b>barres d'outils</b> et de <b>menus</b>. Vous créez un nouveau module qui contient son propre plan de travail (sa barre d'outils et ses commandes).
+</p><p>Les modules peuvent être programmés en <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/C%2B%2B">C++</a> ou en <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Python_(langage)">Python</a>, ou un mélange des deux, mais les fichiers de module d'initialisation, doivent être en Python. La mise en place d'un nouveau module, avec les fichiers d'initialisation est facile, et, peut être effectuée, soit manuellement, soit avec l'outil <b>build de FreeCAD</b>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Utilisation_des_outils_de_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">Utilisation des outils de FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Mise_en_place_d.27un_nouveau_module_manuellement"><span class="tocnumber">2</span> <span class="toctext">Mise en place d'un nouveau module manuellement</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Cr.C3.A9ation_de_nouveaux_outils"><span class="tocnumber">3</span> <span class="toctext">Création de nouveaux outils</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Creation_de_commandes_FreeCAD_en_Python"><span class="tocnumber">4</span> <span class="toctext">Creation de commandes FreeCAD en Python</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Cr.C3.A9ation_d.27une_commande_FreeCAD_en_C.2B.2B"><span class="tocnumber">5</span> <span class="toctext">Création d'une commande FreeCAD en C++</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Utilisation_des_outils_de_FreeCAD">Utilisation des outils de FreeCAD</span></h2>
+<p><b>La création d'un nouveau module</b> dans FreeCAD est assez simple. Dans l'arborescence de développement de FreeCAD, il existe l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Build_Tool/fr" title="FreeCAD Build Tool/fr">FreeCAD Build Tool</a> (<a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Build_Tool/fr" title="FreeCAD Build Tool/fr">fcbt</a>) qui, fait les choses les plus importantes pour vous.<br />
+Il s'agit d'un script <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Python_(langage)">Python</a> situé à&#160;:
+</p>
+<pre>
+ trunk/src/Tools/fcbt.py
+</pre>
+<p>Lorsque votre interpréteur <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Python_(langage)">Python</a></b> est correctement installé, vous pouvez exécuter le script en ligne de commande avec&#160;:
+</p>
+<pre>
+ python fcbt.py
+</pre>
+<p>Le menu suivant s'afficher&#160;:
+</p>
+<pre>
+ FreeCAD Build Tool
+ Usage:
+    fcbt &lt;command name&gt; [command parameter] 
+ possible commands are:
+  - DistSrc         (DS)   Build a source Distr. of the current source tree
+  - DistBin         (DB)   Build a binary Distr. of the current source tree
+  - DistSetup       (DI)   Build a Setup Distr. of the current source tree
+  - DistSetup       (DUI)  Build a User Setup Distr. of the current source tree
+  - DistAll         (DA)   Run all three above modules
+  - NextBuildNumber (NBN)  Increase the Build Number of this Version
+  - CreateModule    (CM)   Insert a new FreeCAD Module in the module directory
+  - CreatePyModule  (CP)   Insert a new FreeCAD Python Module in the module directory
+
+ For help on the modules type:
+   fcbt &lt;command name&gt;&#160;?
+</pre>
+<p>À l'invite de comande, entrez <b>CM</b> pour commencer la création d'un module&#160;: 
+</p>
+<pre>
+ Insert command: ''CM''
+</pre>
+<p>Vous êtes maintenant invité à spécifier un nom pour votre nouveau module.<br />
+Appelons le <b>TestMod</b> par exemple&#160;:
+</p>
+<pre>
+ Please enter a name for your application: ''TestMod''
+</pre>
+<p>Après avoir validé, <b>fcbt</b> commence à copier, tous les fichiers nécessaires pour votre module dans un nouveau dossier, à&#160;:
+</p>
+<pre>
+ trunk/src/Mod/TestMod/
+</pre>
+<p>Puis, tous les fichiers sont modifiés avec votre nouveau nom de module. La seule chose que vous devez faire maintenant, est d'ajouter les deux nouveaux projets, <b>"appTestMod"</b> et <b>"appTestModGui"</b>, à votre espace de travail (sous Windows) ou à vos objectifs Makefile (unix). C'est tout&#160;!
+</p>
+<h2><span class="mw-headline" id="Mise_en_place_d.27un_nouveau_module_manuellement">Mise en place d'un nouveau module manuellement</span></h2>
+<p>Vous avez besoin de deux choses, pour créer un nouveau module&#160;:
+</p>
+<ul><li> Un nouveau dossier dans le dossier <b>Mod</b> de FreeCAD (soit dans <b>Installationd_Path/FreeCAD/Mod</b> ou dans <b>UserPath/.FreeCAD/Mod</b>). Vous pouvez le nommer comme vous le souhaitez.</li>
+<li> Dans ce dossier, il y a un fichier <b>InitGui.py</b>. Ce fichier sera automatiquement exécuté au démarrage de FreeCAD (par ex, mettre un print("Bonjour tout le monde") à l'intérieur)</li></ul>
+<p>En outre, vous pouvez également ajouter un fichier <b>Init.py</b>. La différence est, que le fichier <b>InitGui.py</b> n'est chargé que lorsque FreeCAD fonctionne en mode graphique (Init<b>GUI</b>), et, le fichier <b>Init.py</b> est <b>toujours</b> chargé. Mais si nous faisons un plan de travail (workbench), nous allons le mettre en <b>InitGui.py</b>, parce les outils, sont utilisés uniquement en mode <b>GUI</b>, bien sûr.
+</p>
+<h2><span class="mw-headline" id="Cr.C3.A9ation_de_nouveaux_outils">Création de nouveaux outils</span></h2>
+<p>Une des premières choses que vous voudrez faire, est de définir un plan de travail dans le fichier <b>InitGui.py</b>.<br />
+Voici un petit code que vous pouvez utiliser&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> class MyWorkbench ( Workbench ):
+ "My workbench object"
+ Icon = """
+ /* XPM */
+ static const char *test_icon[]={
+ "16 16 2 1",
+ "a c #000000",
+ ". c None",
+ "................",
+ "................",
+ "..############..",
+ "..############..",
+ "..############..",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "................",
+ "................"};
+ """
+ MenuText = "My Workbench"
+ ToolTip = "This is my extraordinary workbench"
+ 
+         def GetClassName(self):
+                return "Gui::PythonWorkbench"
+ 
+ def Initialize(self):
+ import myModule1, myModule2
+ self.appendToolbar("My Tools", ["MyCommand1","MyCommand2"])
+ self.appendMenu("My Tools", ["MyCommand1","MyCommand2"])
+ Log ("Loading MyModule... done\n")
+ 
+ def Activated(self):
+                # do something here if needed...
+ Msg ("MyWorkbench.Activated()\n")
+ 
+ def Deactivated(self):
+                # do something here if needed...
+ Msg ("MyWorkbench.Deactivated()\n")
+ 
+ FreeCADGui.addWorkbench(MyWorkbench)</pre></div>
+<p>L'atelier (boîte à outils) doit disposer de toutes ces définissions (attributs)&#160;:
+</p>
+<ul><li> <b>Icon</b> L'attribut <b>Icon</b> est une image <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/X_PixMap">XPM</a></b> (La plupart des logiciels tel que <a rel="nofollow" class="external text" href="http://www.gimp.org/">GIMP</a> permet de convertir une image en format xpm, qui, est un simple fichier texte. Vous pouvez ensuite coller le contenu ici).</li>
+<li> <b>MenuText</b> est le nom établi tel qu'il apparaîtra dans la liste établis (boîte à outils).</li>
+<li> <b>Tooltip</b> (Info-bulle) s'affiche lorsque vous le survolez avec la souris.</li>
+<li> <b>Initialize()</b> est exécuté au chargement de FreeCAD, et doit créer tous les menus, et, barres d'outils que le plan de travail (workbench) va utiliser. Si vous faites votre module en C++, vous pouvez aussi définir vos menus et barres d'outils à l'intérieur du module C++, <b>et pas</b> dans le fichier InitGui.py. L'important est, qu'il soit créé maintenant, et pas lorsque le module est activé.</li>
+<li> <b>Activated()</b> est exécuté, lorsque l'utilisateur bascule sur votre plan de travail (module).</li>
+<li> <b>Deactivated()</b> est exécuté, lorsque l'utilisateur bascule de vôtre atelier (module), à un autre atelier (module) ou, quitte FreeCAD</li></ul>
+<h2><span class="mw-headline" id="Creation_de_commandes_FreeCAD_en_Python">Creation de commandes FreeCAD en Python</span></h2>
+<p>Habituellement, vous définissez tous vos outils (appelés commandes dans FreeCAD), dans un autre module, puis importez ce module, avant de créer les barres d'outils et de menus.<br />
+Il s'agit ici d'un code minimum, que vous pouvez utiliser pour définir une commande&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> import FreeCAD,FreeCADGui
+ 
+ class MyTool:
+ "My tool object"
+ 
+        def GetResources(self):
+                return {"MenuText": "My Command",
+                        "Accel": "Ctrl+M",
+                        "ToolTip": "My extraordinary command",
+                        "Pixmap"  : """
+ /* XPM */
+ static const char *test_icon[]={
+ "16 16 2 1",
+ "a c #000000",
+ ". c None",
+ "................",
+ "................",
+ "..############..",
+ "..############..",
+ "..############..",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "......####......",
+ "................",
+ "................"};
+ """}
+ 
+        def IsActive(self):
+                if FreeCAD.ActiveDocument == None:
+                        return False
+                else:
+                        return True
+ 
+ def Activated(self):
+                # do something here...
+ 
+ FreeCADGui.addCommand('MyCommand1',MyTool())</pre></div>
+<ul><li> La méthode <b>GetResources()</b> doit retourner un dictionnaire avec les attributs visuels de votre outil. <b>Accel</b>, définit une touche de raccourci, mais, n'est pas obligatoire.</li>
+<li> <b>IsActive()</b> définit si la commande est active, ou grisée dans les menus, et, barres d'outils.</li>
+<li> La méthode <b>Activated()</b> est exécutée lorsque la commande est appelée par un bouton de la barre d'outils, ou dans le menu, ou même par le script.</li></ul>
+<h2><span class="mw-headline" id="Cr.C3.A9ation_d.27une_commande_FreeCAD_en_C.2B.2B">Création d'une commande FreeCAD en C++</span></h2>
+<p>Bientôt documentée.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> Some examples how power users have extended FreeCAD with various custom external workbenches are collected in <a href="External_workbenches.html" title="External workbenches">External workbenches</a></li>
+<li>Other example in Power user hub <a href="Workbench_creation.html" title="Workbench creation">Workbench creation</a></li>
+<li>Creating Commands <a href="Command.html" title="Command">Command</a></li></ul>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Module_Creation/fr&amp;oldid=287467">http://www.freecadweb.org/wiki/index.php?title=Module_Creation/fr&amp;oldid=287467</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

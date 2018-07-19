@@ -1,0 +1,100 @@
+<html><head><title>Embedding FreeCAD/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Embedding FreeCAD/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>FreeCAD a la capacité incroyable de pouvoir être importé <b>en tant que module Python</b> dans d'autres programmes ou, dans une console Python autonome, avec tous ses modules et ses composants. Il est même possible d'importer l'interface graphique (GUI) de FreeCAD en tant que module python avec toutefois, <b>quelques restrictions</b>. Mais avec <a href="/wiki/Embedding_FreeCAD#Avertissement" title="Embedding FreeCAD">quelques restrictions</a>.
+</p>
+<h3><span class="mw-headline" id="Utilisation_de_FreeCAD_sans_interface_graphique_.28GUI.29">Utilisation de FreeCAD sans interface graphique (GUI)</span></h3>
+<p>Une première application, directe, facile et utile que vous pouvez faire est d'importer des documents FreeCAD dans votre programme.
+Dans l'exemple suivant, nous allons importer <b>Part geometry</b> d'un document FreeCAD dans <a rel="nofollow" class="external text" href="http://www.blender.org">blender</a>.
+Voici le script complet.
+</p>
+J'espère que vous serez impressionné par sa simplicité:<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>FREECADPATH = '/opt/FreeCAD/lib' # path to your FreeCAD.so or FreeCAD.dll file
+import Blender, sys
+sys.path.append(FREECADPATH)
+ 
+def import_fcstd(filename):
+   try:
+       import FreeCAD
+   except ValueError:
+       Blender.Draw.PupMenu('Error%t|FreeCAD library not found. Please check the FREECADPATH variable in the import script is correct')
+   else:
+       scene = Blender.Scene.GetCurrent()
+       import Part
+       doc = FreeCAD.open(filename)
+       objects = doc.Objects
+       for ob in objects:
+           if ob.Type[:4] == 'Part':
+               shape = ob.Shape
+               if shape.Faces:
+                   mesh = Blender.Mesh.New()
+                   rawdata = shape.tessellate(1)
+                   for v in rawdata[0]:
+                       mesh.verts.append((v.x,v.y,v.z))
+                   for f in rawdata[1]:
+                       mesh.faces.append.append(f)
+                   scene.objects.new(mesh,ob.Name)
+       Blender.Redraw()
+
+def main():
+   Blender.Window.FileSelector(import_fcstd, 'IMPORT FCSTD', 
+                        Blender.sys.makename(ext='.fcstd'))    
+ 
+# This lets you import the script without running it
+if __name__=='__main__':
+   main()</pre></div>Première chose, s'assurer que Python va trouver notre bibliothèque FreeCAD. Une fois qu'il l'a trouvée, tous les modules FreeCAD comme <b>Part</b>, que nous allons aussi utiliser, seront disponibles automatiquement.
+<p>Donc, nous utilisons tout simplement la variable <b>sys.path</b>, qui va donner à Python le chemin des modules à rechercher, et nous ajoutons le chemin <b>FreeCAD lib</b>.
+Cette modification n'est que temporaire, et sera perdue quand nous aurons terminé avec notre interpréteur Python.
+Une autre façon, est de créer un lien vers votre bibliothèque FreeCAD dans l'un des chemins (Path) de recherche Python.
+Nous placerons le chemin dans une constante (<b>FREECADPATH</b>), un autre utilisateur du script aura ainsi plus de facilité pour configurer son propre système.
+</p><p>Une fois certain que la bibliothèque a été chargée (the try/except sequence), nous pourrons travailler avec FreeCAD, de la même manière que si nous le ferions à l'intérieur de l’interpréteur Python de FreeCAD.
+Nous ouvrons le document FreeCAD que nous avons chargé avec la fonction <b>main()</b>, et nous listons ses objets. Puis, comme nous avons choisi de nous occuper que de la forme géométrique, nous vérifions si la propriété <b>Type</b> de chaque objet contient <b>Part</b>, puis nous faison une <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Tesselation">tesselation</a>.
+</p><p>La tesselation produit une liste de <b>sommets</b> (Vertex) et une liste de <b>faces</b> définis par les indices de sommets.
+C'est parfait, puisque c'est exactement de cette manière que Blender définit les mailles.
+Donc, notre tâche est ridiculement simple, nous ajoutons juste les deux listes des <b>sommets</b> et <b>faces</b> comme un maillage de Blender.
+Une fois fait, nous allons juste redessiner l'écran et, c'est fini&#160;!
+</p><p>Vous avez vu, ce script est très simple (en fait, j'en ai écris un <a rel="nofollow" class="external text" href="http://yorik.orgfree.com/scripts/import_freecad.py">plus évolué ici</a>), vous voudrez peut-être l'étendre, par exemple importer des objets "mesh", ou importer "Part geometry" qui n'a pas de face, ou importer d'autres formats que FreeCAD peut lire.
+Vous pouvez également exporter les formes géométriques dans un document FreeCAD, la procédure est la même.
+Vous pouvez également créer un dialogue, afin que l'utilisateur puisse choisir ce qu'il veut importer, etc . . .
+En réalité, la beauté dans tout cela, réside du fait que vous laissez faire la totalité du travail à FreeCAD, tout en présentant ses résultats dans le programme de votre choix.
+</p>
+<h3><span class="mw-headline" id="Utilisation_de_FreeCAD_avec_interface_graphique_.28GUI.29">Utilisation de FreeCAD avec interface graphique (GUI)</span></h3>
+<p>Depuis la version 4.2 de Qt, Qt a la capacité d'intégrer des plugins <b>Qt-GUI</b> dépendants d'applications hôtes non-Qt, et, de partager la boucle évènementielle de l'hôte.
+</p><p>Principalement pour FreeCAD, cela signifie qu'il peut être importé à partir d'une autre application avec son interface utilisateur entière (GUI) par conséquences, l'application hôte prend le contrôle total de FreeCAD.
+</p><p>L'ensemble du code Python nécessaire pour atteindre ce but, n'a que deux lignes:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> 
+import FreeCADGui 
+FreeCADGui.showMainWindow()</pre></div>
+<p>Si, l'application hôte est basée sur Qt, alors cette solution devrait fonctionner sur toutes les plates-formes supportées par Qt. <b>Toutefois</b>, l'hôte doit être de la même version Qt que la version utilisée pour FreeCAD, sinon, vous pouvez obtenir des erreurs d'exécution inattendues. 
+</p><p>Cependant, pour les applications non-Qt, il ya quelques restrictions, que vous devez connaitre:
+</p>
+<ul><li> Cette solution ne fonctionnera probablement pas avec tous les autres outils (toolkit):
+<ul><li> Pour Windows, il fonctionnera aussi longtemps que l'application hôte utilisée est compatible avec <b>Win32</b> ou, tout autres outils (toolkit) qui utilisent l'<b>API Win32</b>, comme <b>wxWidgets</b>, <b>MFC</b> ou <b>WinForms</b>.</li>
+<li> Pour le faire fonctionner sous <b><a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/X_Window_System">X11</a></b> (Linux), l'application hôte doit utiliser la bibliothèque <b>"<a rel="nofollow" class="external text" href="http://developer.gnome.org/glib/">glib</a>"</b>.</li></ul></li></ul>
+<p><b>PS:</b>pour toute application console, cette solution, bien sûr ne fonctionnera pas car, il n'y a pas de fonctionnement "boucle évènementielle" dans ce système.
+</p>
+<h3><span class="mw-headline" id="Avertissement">Avertissement</span></h3>
+<p>Bien qu'il soit possible d'importer FreeCAD vers un interpréteur Python externe, il ne s'agit pas d'un scénario d'utilisation courant et cela nécessite quelques précautions. En règle générale, il est préférable d'utiliser le Python fourni avec FreeCAD, d'exécuter FreeCAD via une ligne de commande, ou en tant que sous-processus. Voir <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/fr" title="Start up and Configuration/fr">Démarrage et configuration</a> pour plus d'informations sur les deux dernières options.
+</p><p>Puisque le module Python de FreeCAD est compilé à partir de C ++ (plutôt que d'être un pur module Python), il ne peut être importé qu'à partir d'un interpréteur Python compatible. Cela signifie généralement que l'interpréteur Python doit être compilé avec le même compilateur C que celui utilisé pour construire FreeCAD. Les informations sur le compilateur utilisé pour construire un interpréteur Python (y compris celui construit avec FreeCAD) peuvent être trouvés comme suit:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>>>> import sys
+>>> sys.version
+'2.7.13 (default, Dec 17 2016, 23:03:43) \n[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]'</pre></div>
+<p><br />
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/fr&amp;oldid=287202">http://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/fr&amp;oldid=287202</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

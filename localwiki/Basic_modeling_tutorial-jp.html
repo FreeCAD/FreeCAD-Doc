@@ -1,0 +1,78 @@
+<html><head><title>Basic modeling tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic modeling tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>基本モデリングチュートリアルでは鉄製のアングルの作成方法を説明します。FreeCADは他の多くのCADソフトウェア同様、設計によってモジュール化されていてほとんどの作業には複数のやり方が存在することに注意してください。ここでは二つの方法を説明します。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.81.AF.E3.81.98.E3.82.81.E3.82.8B.E5.89.8D.E3.81.AB"><span class="tocnumber">1</span> <span class="toctext">はじめる前に</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0.E3.83.86.E3.82.AF.E3.83.8B.E3.83.83.E3.82.AF.E5.B0.8E.E5.85.A5"><span class="tocnumber">2</span> <span class="toctext">モデリングテクニック導入</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#1.E3.81.A4.E7.9B.AE.E3.81.AE.E6.96.B9.E6.B3.95_-_.E3.82.B3.E3.83.B3.E3.82.B9.E3.83.88.E3.83.A9.E3.82.AF.E3.83.86.E3.82.A3.E3.83.96.E3.82.BD.E3.83.AA.E3.83.83.E3.83.89.E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA"><span class="tocnumber">3</span> <span class="toctext">1つ目の方法 - コンストラクティブソリッドジオメトリ</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#2.E3.81.A4.E7.9B.AE.E3.81.AE.E6.96.B9.E6.B3.95_-_.E6.96.AD.E9.9D.A2.E3.81.AE.E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97"><span class="tocnumber">4</span> <span class="toctext">2つ目の方法 - 断面の押し出し</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.81.AF.E3.81.98.E3.82.81.E3.82.8B.E5.89.8D.E3.81.AB">はじめる前に</span></h2>
+<p>憶えておいて欲しいのはFreeCADはまだ開発の初期段階にあるということです。ですから他のCADアプリケーションほどは便利ではないかもしれませんし、恐らくバグに遭遇したり、クラッシュを経験することもあるでしょう。現在、FreeCADではバックアップファイルを作成することができます。バックアップファイルの数はユーザー設定ダイアログで指定することができます。FreeCADの扱いに慣れるまでは2､3つのバックアップファイル作成することをためらわないでください。
+</p><p>作業結果はこまめに保存してください。ときどきは別名で保存したほうがいいでしょう。そうすればやり直すための"安全な"コピーが保持され、コマンドで思うような結果にならないような場合に備えることができます。
+</p>
+<h2><span class="mw-headline" id=".E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0.E3.83.86.E3.82.AF.E3.83.8B.E3.83.83.E3.82.AF.E5.B0.8E.E5.85.A5">モデリングテクニック導入</span></h2>
+<p>ソリッドモデリングの最初の（そして基本の）テクニックは<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Constructive_solid_geometry">コンストラクティブソリッドジオメトリ (CSG)</a>です。曲線や円筒、球や円錐といったプリミティブ形状を使ってそれらを結合したり、ある形状から他の形状を減算したり、交差させたりして目的の形状の作成を行うのです。そのためのツールは<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/jp" class="mw-redirect" title="Part Workbench/jp">パートワークベンチ</a>に含まれています。またエッジに対して丸め込みや面取りをおこなうなど形状に対して変形を加えることも可能です。そのためのツールも<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/jp" class="mw-redirect" title="Part Workbench/jp">パートワークベンチ</a>にあります。
+</p><p>さらにより高度なツールもあります。まず2D断面を描き、それを押し出すか回転させるのです。
+</p><p>それではこの2つの方法でテーブル用の鉄製の足を作ってみましょう。
+</p>
+<h2><span class="mw-headline" id="1.E3.81.A4.E7.9B.AE.E3.81.AE.E6.96.B9.E6.B3.95_-_.E3.82.B3.E3.83.B3.E3.82.B9.E3.83.88.E3.83.A9.E3.82.AF.E3.83.86.E3.82.A3.E3.83.96.E3.82.BD.E3.83.AA.E3.83.83.E3.83.89.E3.82.B8.E3.82.AA.E3.83.A1.E3.83.88.E3.83.AA">1つ目の方法 - コンストラクティブソリッドジオメトリ</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/jp" class="mw-redirect" title="Part Workbench/jp">パートワークベンチ</a>から開始します（メニューの<b>View &gt; Workbench &gt; Part</b>）</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Box/jp" title="Part Box/jp">ボックス</a>ボタンをクリックしてボックスを作成します</li>
+<li> 3D空間上で選択するか、左側のProjectタブでクリックしてボックスを選択しサイズ変更を開始します</li>
+<li> 下部のDataタブをクリックしてHeight、Length、Widthの値をそれぞれ750mm、50mm、50mmに変更します<i>(図1.1を参照)</i></li>
+<li> 同じようにして二つ目のボックスを作成し、今度はサイズを750mm、40mm、40mmとします。デフォルトではこのボックスは最初のボックスに重なった状態になります<i>(図1.2を参照)</i></li>
+<li> 次に一つ目のボックスから二つ目のボックスを減算します。まず一つ目のボックス（名前Box）を選択してから二つ目のボックス（名前Box001）を選択します。選択の順番が重要です！（両方の形状がProjectツリーで選択されていることを確認してください。注意して欲しいのはInventorナビゲーションモードではCtrl+クリックで複数選択することができないということです。CADモードまたBlenderモードに<a href="https://www.freecadweb.org/wiki/index.php?title=Mouse_Model/jp" title="Mouse Model/jp">切り替えてください</a>。）</li>
+<li> パートワークベンチツールバーで<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="32px-Part_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/48px-Part_Cut.png 1.5x, /wiki/images/4/4a/Part_Cut.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cut/jp" title="Part Cut/jp">カット</a>ツールをクリックします。</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:491px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand01.jpg" class="image"><img alt="" src="Tutorial-normand01.jpg" width="489" height="490" class="thumbimage" /></a>  <div class="thumbcaption">図1.1 一つ目のボックス</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:603px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand02.jpg" class="image"><img alt="" src="Tutorial-normand02.jpg" width="601" height="494" class="thumbimage" /></a>  <div class="thumbcaption">図1.2 一つ目のボックスの上に置かれた二つ目のボックス。減算の用意ができた状態。</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:577px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand03.jpg" class="image"><img alt="" src="Tutorial-normand03.jpg" width="575" height="484" class="thumbimage" /></a>  <div class="thumbcaption">図1.3 減算の後</div></div></div></div>
+<p>さて一つ目の鉄製のアングルができました<i>(図1.3)</i>。左側のProjectタブで二つのボックスが"Cut"オブジェクトに置き換えられたことに気がついたでしょうか。実際の所はボックスは消えたわけではなくCutオブジェクトの下にグループ化されたのです。Cutの前の+をクリックするとそこに両方のボックスがまだ存在し、グレーアウトされていることが確認できます（図1.3）。どちらかをクリックし、スペースキーを押すと表示されます。スペースキーによって選択されているオブジェクトの表示状態を切り替えることができるのです<i>(図1.5)</i>。
+</p><p>アングルの向きが気に入りませんか？Box001の位置を変更する必要があります。Box001を選択、表示し、DataタブでPlacementの前の+クリックした後、Positionを開いてX、Y座標を変更してください。エンターキーを押し、再びBox001を非表示にします。アングルの方向が変わっているはずです<i>(図1.5)</i>。同様に形状のサイズを変更し、Cutオブジェクトは更新することもできます。
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:573px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand04.jpg" class="image"><img alt="" src="Tutorial-normand04.jpg" width="571" height="492" class="thumbimage" /></a>  <div class="thumbcaption">図1.4 カット操作は元のオブジェクト（ボックス）を保持します</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:531px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand05.jpg" class="image"><img alt="" src="Tutorial-normand05.jpg" width="529" height="485" class="thumbimage" /></a>  <div class="thumbcaption">図1.5 操作後も元のボックスを表示することができます</div></div></div></div>
+<p>ところでアングルに丸みをつけるともっと現実的です。<a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/jp" title="Part Fillet/jp">フィレット</a>ツールを使いましょう。<i>(図1.6)</i>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand06.jpg" class="image"><img alt="" src="Tutorial-normand06.jpg" width="300" height="259" class="thumbimage" /></a>  <div class="thumbcaption">図1.6 エッジをフィレット処理</div></div></div></div>
+<h2><span class="mw-headline" id="2.E3.81.A4.E7.9B.AE.E3.81.AE.E6.96.B9.E6.B3.95_-_.E6.96.AD.E9.9D.A2.E3.81.AE.E6.8A.BC.E3.81.97.E5.87.BA.E3.81.97">2つ目の方法 - 断面の押し出し</span></h2>
+<p>この方法では2D断面の描画から始めなければなりません。<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Workbench/jp" class="mw-redirect" title="Draft Workbench/jp">2D製図用のワークベンチ</a>を選択してください(メニューの<b>View &gt; Workbench &gt; Draft</b>)。
+</p><p>次に作業平面を設定する必要があります。FreeCADのバージョンによって変わりますがツールバーのすぐ下か、右側に "None"ボタンがあります。クリックすると左側に"active command": Select Plane Offsetで始まり、テキスト入力欄、複数のボタンが続く表示が現れます。平面図上の断面を開始したい場合はXYを選択します。すると"None"がアクティブな平面を表す"Top"に変わります。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft_Wire.png" class="image"><img alt="Draft Wire.png" src="Draft_Wire.png" width="64" height="64" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Wire/jp" title="Draft Wire/jp">ワイヤー（複数点から構成される線）</a>ツールを選択し、X、Y座標用のテキスト入力欄を使って形状を描きます。"Relative"と"Filled"がチェックされている必要があります。
+</p>
+<ul><li> 1つ目の点： 0,0</li>
+<li> 2つ目の点： 50,0</li>
+<li> 3つ目の点： 0,10</li>
+<li> 4つ目の点： -40,0</li>
+<li> 5つ目の点： 0,40</li>
+<li> 6つ目の点： -10,0</li>
+<li> 7つ目の点ではなく"Close"ボタンをクリックして輪郭を閉じます。これでProjectタブに"Wire"という名前の断面ができます。</li></ul>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand07.jpg" class="image"><img alt="" src="Tutorial-normand07.jpg" width="300" height="299" class="thumbimage" /></a>  <div class="thumbcaption">図1.7 基本となるワイヤー</div></div></div></div> 
+<p>テンキーのゼロキーを押して表示を不等角投影に設定します。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/jp" class="mw-redirect" title="Part Workbench/jp">パートワークベンチ</a>.に切り替えます。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="32px-Part_Extrude.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/48px-Part_Extrude.png 1.5x, /wiki/images/d/df/Part_Extrude.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Extrude/jp" title="Part Extrude/jp">押し出し</a>ツールをクリックします。
+</p><p>左側のTasksタブで<b>Wire</b>オブジェクトを選択し、必要なLength値、つまり750mmを入力します。また方向をZに設定し、適用をクリックします。これでProjectタブに<b>Extrude</b>オブジェクトができます<i>(図1.8)</i>。
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:512px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-normand08.jpg" class="image"><img alt="" src="Tutorial-normand08.jpg" width="510" height="276" class="thumbimage" /></a>  <div class="thumbcaption">図1.8 押し出されたオブジェクト</div></div></div></div>
+<p>この方法は他の方法と比較すると少し注意が必要です：形状を編集するにはWireの編集が必要で、これは前の方法ほど簡単ではありません。
+</p><p>他の方法もあります！この二つの例があなたの助けとなることを願っています。作業の途中で障害に突き当たることもあると思いますが、ためらわずに<a rel="nofollow" class="external text" href="http://forum.freecadweb.org">FreeCADフォーラム</a>で質問してください（最初にFreeCADを学んだ時には私もそうして3D-CADの経験を積んでいったのです&#160;;) ）。
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial/jp&amp;oldid=43012">http://www.freecadweb.org/wiki/index.php?title=Basic_modeling_tutorial/jp&amp;oldid=43012</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

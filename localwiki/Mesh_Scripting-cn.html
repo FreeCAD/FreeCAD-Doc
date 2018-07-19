@@ -1,0 +1,115 @@
+<html><head><title>Mesh Scripting/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Scripting/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E4.BB.8B.E7.BB.8D"><span class="tocnumber">1</span> <span class="toctext">介绍</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.88.9B.E5.BB.BA.E5.92.8C.E8.BD.BD.E5.85.A5"><span class="tocnumber">2</span> <span class="toctext">创建和载入</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E5.BB.BA.E6.A8.A1"><span class="tocnumber">3</span> <span class="toctext">建模</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E6.A3.80.E6.9F.A5.E5.92.8C.E6.B5.8B.E8.AF.95"><span class="tocnumber">4</span> <span class="toctext">检查和测试</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E8.87.AA.E5.B7.B1.E5.86.99.E7.AE.97.E6.B3.95"><span class="tocnumber">5</span> <span class="toctext">自己写算法</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E5.AF.BC.E5.87.BA"><span class="tocnumber">6</span> <span class="toctext">导出</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#GUI_.E7.9B.B8.E5.85.B3"><span class="tocnumber">7</span> <span class="toctext">GUI 相关</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E9.9B.B6.E7.A2.8E"><span class="tocnumber">8</span> <span class="toctext">零碎</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E4.BB.8B.E7.BB.8D">介绍</span></h3>
+<p>First of all you have to import the Mesh module:
+</p>
+<pre>import Mesh
+</pre>
+<p>After that you have access to the Mesh module and the Mesh class which facilitate the functions
+of the FreeCAD C++ Mesh-Kernel.
+</p>
+<h3><span class="mw-headline" id=".E5.88.9B.E5.BB.BA.E5.92.8C.E8.BD.BD.E5.85.A5">创建和载入</span></h3>
+<p>To create an empty mesh object just use the standard constructor:
+</p>
+<pre>mesh = Mesh.Mesh()
+</pre>
+<p>You can also create an object from a file
+</p>
+<pre>mesh = Mesh.Mesh('D:/temp/Something.stl')
+</pre>
+<p>(A list of compatible filetypes can be found under 'Meshes' <a href="/wiki/Feature_list#IO" title="Feature list">here</a>.)
+</p><p>Or create it out of a set of triangles described by their corner points:
+</p>
+<pre>planarMesh = [
+# triangle 1
+[-0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],[-0.5000,0.5000,0.0000],
+#triangle 2
+[-0.5000,-0.5000,0.0000],[0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],
+]
+planarMeshObject = Mesh.Mesh(planarMesh)
+</pre>
+<p>The Mesh-Kernel takes care about creating a topological correct data structure by sorting
+coincident points and edges together. 
+</p><p>Later on you will see how you can test and examine mesh data.
+</p>
+<h3><span class="mw-headline" id=".E5.BB.BA.E6.A8.A1">建模</span></h3>
+<p>To create regular geometries you can use the Python script BuildRegularGeoms.py.
+</p>
+<pre>import BuildRegularGeoms
+</pre>
+<p>This script provides methods to define simple rotation bodies like spheres, ellipsoids, cylinders, toroids and cones. And it also has a method to create a simple cube.
+To create a toroid, for instance, can be done as follows:
+</p>
+<pre>t = BuildRegularGeoms.Toroid(8.0, 2.0, 50) # list with several thousands triangles
+m = Mesh.Mesh(t)
+</pre>
+<p>The first two parameters define the radiuses of the toroid and the third parameter is a sub-sampling factor for how many triangles are created. The higher this value the smoother and the lower the coarser the body is.
+The Mesh class provides a set of boolean functions that can be used for modeling purposes. It provides union, intersection and difference of two mesh objects.
+</p>
+<pre>m1, m2              # are the input mesh objects
+m3 = Mesh.Mesh(m1)  # create a copy of m1
+m3.unite(m2)        # union of m1 and m2, the result is stored in m3
+m4 = Mesh.Mesh(m1)
+m4.intersect(m2)    # intersection of m1 and m2
+m5 = Mesh.Mesh(m1)
+m5.difference(m2)   # the difference of m1 and m2
+m6 = Mesh.Mesh(m2)
+m6.difference(m1)   # the difference of m2 and m1, usually the result is different to m5
+</pre>
+<p>Finally, a full example that computes the intersection between a sphere and a cylinder that intersects the sphere.
+</p>
+<pre>import Mesh, BuildRegularGeoms
+sphere = Mesh.Mesh( BuildRegularGeoms.Sphere(5.0, 50) )
+cylinder = Mesh.Mesh( BuildRegularGeoms.Cylinder(2.0, 10.0, True, 1.0, 50) )
+diff = sphere
+diff.difference(cylinder)
+d = FreeCAD.newDocument()
+d.addObject("Mesh::Feature","Diff_Sphere_Cylinder").Mesh=diff
+d.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E6.A3.80.E6.9F.A5.E5.92.8C.E6.B5.8B.E8.AF.95">检查和测试</span></h3>
+<h3><span class="mw-headline" id=".E8.87.AA.E5.B7.B1.E5.86.99.E7.AE.97.E6.B3.95">自己写算法</span></h3>
+<h3><span class="mw-headline" id=".E5.AF.BC.E5.87.BA">导出</span></h3>
+<p>You can even write the mesh to a python module:
+</p>
+<pre>m.write("D:/Develop/Projekte/FreeCAD/FreeCAD_0.7/Mod/Mesh/SavedMesh.py")
+import SavedMesh
+m2 = Mesh.Mesh(SavedMesh.faces)
+</pre>
+<h3><span class="mw-headline" id="GUI_.E7.9B.B8.E5.85.B3">GUI 相关</span></h3>
+<h3><span class="mw-headline" id=".E9.9B.B6.E7.A2.8E">零碎</span></h3>
+<p>An extensive (though hard to use) source of Mesh related scripting are the unit test scripts of the Mesh-Module. 
+In this unit tests literally all methods are called and all properties/attributes are tweaked.
+So if you are bold enough, take a look at the <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Mesh/App/MeshTestsApp.py?view=markup">Unit Test module</a>.
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/cn&amp;oldid=211343">http://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/cn&amp;oldid=211343</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,149 @@
+<html><head><title>Macro Repro Wire/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Repro Wire/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Repro_Wire"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ReproWire.png" class="image"><img alt="Macro ReproWire.png" src="32px-Macro_ReproWire.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Macro_ReproWire.png/48px-Macro_ReproWire.png 1.5x, Macro_ReproWire.png 2x" /></a> Macro Repro Wire</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro fait une copie de l'objet ou subObjet sélectionné.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.01
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-10-24
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Repro_Wire"><span class="tocnumber">1</span> <span class="toctext">Macro Repro Wire</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Version"><span class="tocnumber">5</span> <span class="toctext">Version</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Liens"><span class="tocnumber">6</span> <span class="toctext">Liens</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro crée une copie de l'arête, face, objet ou sous objet sélectionné.
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ReproWire_00.png" class="image" title="Reproduction du fil objet ou face sélectionné"><img alt="Reproduction du fil objet ou face sélectionné" src="480px-Macro_ReproWire_00.png" width="480" height="360" srcset="/wiki/images/1/11/Macro_ReproWire_00.png 1.5x" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Sélectionnez votre objet wire face ou vos objets et démarrez la macro pour créer votre copie, les faces peuvent être extrudées.
+</p><p>Les copies sont colorées en rouge et renommées en Shapexxx + nom original
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b> Macro_ReproWire.FCMacro</b> l'icône pour votre barre d'outils  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_ReproWire.png" class="image" title="icône pour votre barre d&#39;outils"><img alt="icône pour votre barre d&#39;outils" src="Macro_ReproWire.png" width="64" height="64" /></a>
+</p>
+<pre># -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+import codecs   #https://docs.python.org/2/howto/unicode.html
+import Part,Draft
+#
+#__title__="Macro_ReproWire"
+#__author__ = "Mario52"
+#__url__     = "http://www.freecadweb.org/index-fr.html"
+#__version__ = "00.01"
+#__date__    = "24/10/2015"
+#
+
+sel = Gui.Selection.getSelection()
+s   = Gui.Selection.getSelectionEx()
+
+try:
+    if len(sel)&#160;!= 0:
+            print "Object(s)&#160;: ", len(sel), " , SubObject(s)&#160;: ", len(s)
+            i2 = ii2 = -1 
+            for i in s:
+                i2 += 1
+                ii2 = -1
+                try:
+                    FreeCADGui.Selection.getSelectionEx()[i2].SubObjects[ii2]
+                    for ii in i.SubElementNames:
+#                        print "SubObject"
+                        ii2 += 1
+                        Part.show(FreeCADGui.Selection.getSelectionEx()[i2].SubObjects[ii2].copy())   # create repro shape subObject
+                        print i2+1 ,"/", ii2+1 ,"/", len(s) ," ", i.ObjectName ," ", ii               # display the info SubObject
+                        a = App.ActiveDocument.ActiveObject
+                        #    object Name  / original object Name / SubObject Name
+                        a.Label = a.Name + " " + i.ObjectName + " " + ii                              # Label for the repro shape
+                        try:
+                            FreeCADGui.activeDocument().activeObject().LineColor  = (1.0,0.0,0.0)     # give LineColor
+                            FreeCADGui.activeDocument().activeObject().PointColor = (1.0,0.0,0.0)     # give PointColor
+                            FreeCADGui.activeDocument().activeObject().ShapeColor = (1.0,0.0,0.0)     # give ShapeColor
+                        except Exception:
+                            None
+                except Exception:
+#                    print "Not SubObject"
+                    Part.show(sel[i2].Shape)                                                          # create repro shape object
+                    print i2+1 ,"/", ii2+1 ,"/", len(s) ," ", sel[i2].Name                            # display the info SubObject
+                    a = App.ActiveDocument.ActiveObject
+                    #        object Name  /  original object Name
+                    a.Label =a.Name + " " +  sel[i2].Name                                             # Label for the repro shape
+                    try:
+                        FreeCADGui.activeDocument().activeObject().LineColor  = (1.0,0.0,0.0)         # give LineColor
+                        FreeCADGui.activeDocument().activeObject().PointColor = (1.0,0.0,0.0)         # give PointColor
+                        FreeCADGui.activeDocument().activeObject().ShapeColor = (1.0,0.0,0.0)         # give ShapeColor
+                    except Exception:
+                        None
+    else&#160;:
+        print "Select one object"
+except Exception:
+    print "Unexpected error" </pre>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>00.01 24/10/2015&#160;: extension à tous les objets
+</p><p>00.00 22/10/2015&#160;:
+</p>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<p>Le forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=12922">are there any tools to extrude only selected surface from a sketch?</a>
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Repro_Wire/fr&amp;oldid=240719">http://www.freecadweb.org/wiki/index.php?title=Macro_Repro_Wire/fr&amp;oldid=240719</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

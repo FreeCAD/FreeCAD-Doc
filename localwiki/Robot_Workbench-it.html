@@ -1,0 +1,196 @@
+<html><head><title>Robot Workbench/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Robot Workbench/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaKR16FreeCAD.jpg" class="image"><img alt="KukaKR16FreeCAD.jpg" src="400px-KukaKR16FreeCAD.jpg" width="400" height="276" srcset="/wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/600px-KukaKR16FreeCAD.jpg 1.5x, /wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/800px-KukaKR16FreeCAD.jpg 2x" /></a></div>
+<p>Il modulo robot è uno strumento per simulare un <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/it" title="Robot 6-Axis/it">Robot a 6 assi</a> di tipo industriale, come per esempio i robot <a rel="nofollow" class="external text" href="http://kuka.com/">Kuka</a>.
+È possibile eseguire le seguenti operazioni:
+</p>
+<ul><li> Impostare un ambiente di simulazione con un robot e dei pezzi in lavorazione</li>
+<li> Creare e compilare traiettorie</li>
+<li> Scomporre le componenti di una Parte CAD in una traiettoria</li>
+<li> Simulare il movimento del robot e il raggio d'azione</li>
+<li> Esportare la traiettoria in un file di programma robot</li></ul>
+<p>Alcuni esempi sono disponibili in 
+<a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py">Example files</a> oppure nel <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_tutorial/it" title="Robot tutorial/it">tutorial Robot</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Strumenti"><span class="tocnumber">1</span> <span class="toctext">Strumenti</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Robot"><span class="tocnumber">1.1</span> <span class="toctext">Robot</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Traiettorie"><span class="tocnumber">1.2</span> <span class="toctext">Traiettorie</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Traiettorie_non_parametriche"><span class="tocnumber">1.2.1</span> <span class="toctext">Traiettorie non parametriche</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Traiettorie_parametriche"><span class="tocnumber">1.2.2</span> <span class="toctext">Traiettorie parametriche</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Script"><span class="tocnumber">2</span> <span class="toctext">Script</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Elementi_base_di_Robot"><span class="tocnumber">2.1</span> <span class="toctext">Elementi base di Robot</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Lavorare_con_gli_oggetti_del_documento"><span class="tocnumber">2.2</span> <span class="toctext">Lavorare con gli oggetti del documento</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Simulazione"><span class="tocnumber">2.3</span> <span class="toctext">Simulazione</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Esportare_la_traiettoria"><span class="tocnumber">2.4</span> <span class="toctext">Esportare la traiettoria</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Tutorials"><span class="tocnumber">3</span> <span class="toctext">Tutorials</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Strumenti">Strumenti</span></h2>
+<p>Ecco i principali comandi utilizzabili per creare il set-up di un robot. 
+</p>
+<h3><span class="mw-headline" id="Robot">Robot</span></h3>
+<p>Gli strumenti per creare e gestire i robot a 6 assi
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateRobot.png" class="image"><img alt="Robot CreateRobot.png" src="30px-Robot_CreateRobot.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_CreateRobot.png/45px-Robot_CreateRobot.png 1.5x, /wiki/images/thumb/8/8e/Robot_CreateRobot.png/60px-Robot_CreateRobot.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateRobot/it" title="Robot CreateRobot/it">Inserisci un robot</a>: Inserisce un nuovo robot nella scena</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Simulate.png" class="image"><img alt="Robot Simulate.png" src="30px-Robot_Simulate.png" width="30" height="30" srcset="/wiki/images/thumb/4/42/Robot_Simulate.png/45px-Robot_Simulate.png 1.5x, /wiki/images/thumb/4/42/Robot_Simulate.png/60px-Robot_Simulate.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Simulate/it" title="Robot Simulate/it">Simula una traiettoria</a>: Apre la finestra di simulazione e permette di simulare un percorso</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Export.png" class="image"><img alt="Robot Export.png" src="30px-Robot_Export.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_Export.png/45px-Robot_Export.png 1.5x, /wiki/images/thumb/8/8e/Robot_Export.png/60px-Robot_Export.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Export/it" title="Robot Export/it">Esporta una traiettoria</a>: Esporta un file di programmazione robotica</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetHomePos.png" class="image"><img alt="Robot SetHomePos.png" src="30px-Robot_SetHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/3/3c/Robot_SetHomePos.png/45px-Robot_SetHomePos.png 1.5x, /wiki/images/thumb/3/3c/Robot_SetHomePos.png/60px-Robot_SetHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetHomePos/it" title="Robot SetHomePos/it">Imposta la posizione iniziale</a>: Imposta la posizione iniziale di un robot</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_RestoreHomePos.png" class="image"><img alt="Robot RestoreHomePos.png" src="30px-Robot_RestoreHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/9/95/Robot_RestoreHomePos.png/45px-Robot_RestoreHomePos.png 1.5x, /wiki/images/thumb/9/95/Robot_RestoreHomePos.png/60px-Robot_RestoreHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_RestoreHomePos/it" title="Robot RestoreHomePos/it">Ripristina la posizione iniziale</a>: Sposta il robot nella posizione di partenza</li></ul>
+<h3><span class="mw-headline" id="Traiettorie">Traiettorie</span></h3>
+<p>Strumenti per creare e modificare i percorsi. Ci sono due tipi di strumenti, quelli parametrici e quelli non parametrici.
+</p>
+<h4><span class="mw-headline" id="Traiettorie_non_parametriche">Traiettorie non parametriche</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateTrajectory.png" class="image"><img alt="Robot CreateTrajectory.png" src="30px-Robot_CreateTrajectory.png" width="30" height="30" srcset="/wiki/images/thumb/9/90/Robot_CreateTrajectory.png/45px-Robot_CreateTrajectory.png 1.5x, /wiki/images/thumb/9/90/Robot_CreateTrajectory.png/60px-Robot_CreateTrajectory.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateTrajectory/it" title="Robot CreateTrajectory/it">Crea traiettoria</a>: Inserisce un nuovo oggetto traiettoria vuoto nella scena</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultOrientation.png" class="image"><img alt="Robot SetDefaultOrientation.png" src="30px-Robot_SetDefaultOrientation.png" width="30" height="30" srcset="/wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/45px-Robot_SetDefaultOrientation.png 1.5x, /wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/60px-Robot_SetDefaultOrientation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultOrientation/it" title="Robot SetDefaultOrientation/it">Imposta l'orientamento predefinito</a>: Imposta il modo in cui vengono creati i punti di orientamento di default</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultValues.png" class="image"><img alt="Robot SetDefaultValues.png" src="30px-Robot_SetDefaultValues.png" width="30" height="30" srcset="/wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/45px-Robot_SetDefaultValues.png 1.5x, /wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/60px-Robot_SetDefaultValues.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultValues/it" title="Robot SetDefaultValues/it">Imposta i valori predefiniti</a>: Imposta i valori predefiniti per la velocità</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypoint.png" class="image"><img alt="Robot InsertWaypoint.png" src="30px-Robot_InsertWaypoint.png" width="30" height="30" srcset="/wiki/images/thumb/7/74/Robot_InsertWaypoint.png/45px-Robot_InsertWaypoint.png 1.5x, /wiki/images/thumb/7/74/Robot_InsertWaypoint.png/60px-Robot_InsertWaypoint.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypoint/it" title="Robot InsertWaypoint/it">Inserisci in traiettoria</a>: Inserisce il punto della posizione corrente del robot in una traiettoria  </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypointPre.png" class="image"><img alt="Robot InsertWaypointPre.png" src="30px-Robot_InsertWaypointPre.png" width="30" height="30" srcset="/wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/45px-Robot_InsertWaypointPre.png 1.5x, /wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/60px-Robot_InsertWaypointPre.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypointPre/it" title="Robot InsertWaypointPre/it">Inserisci in traiettoria</a>: Inserisce il punto della posizione corrente del mouse in una traiettoria</li></ul>
+<h4><span class="mw-headline" id="Traiettorie_parametriche">Traiettorie parametriche</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Edge2Trac.png" class="image"><img alt="Robot Edge2Trac.png" src="30px-Robot_Edge2Trac.png" width="30" height="30" srcset="/wiki/images/thumb/a/a7/Robot_Edge2Trac.png/45px-Robot_Edge2Trac.png 1.5x, /wiki/images/thumb/a/a7/Robot_Edge2Trac.png/60px-Robot_Edge2Trac.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Edge2Trac/it" title="Robot Edge2Trac/it">Da bordo a traiettoria</a>: Genera un percorso da un insieme di spigoli</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryDressUp.png" class="image"><img alt="Robot TrajectoryDressUp.png" src="30px-Robot_TrajectoryDressUp.png" width="30" height="30" srcset="/wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/45px-Robot_TrajectoryDressUp.png 1.5x, /wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/60px-Robot_TrajectoryDressUp.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryDressUp/it" title="Robot TrajectoryDressUp/it">Vesti una traiettoria</a>: Permette di modificare una o più proprietà di un percorso</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryCompound.png" class="image"><img alt="Robot TrajectoryCompound.png" src="30px-Robot_TrajectoryCompound.png" width="30" height="30" srcset="/wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/45px-Robot_TrajectoryCompound.png 1.5x, /wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/60px-Robot_TrajectoryCompound.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryCompound/it" title="Robot TrajectoryCompound/it">Raggruppa le traiettorie</a>: Raggruppa alcune traiettorie in un unico percorso</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Questa sezione è ricavata da: <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py">https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py</a>
+Volendo, è possibile utilizzare la fonte originale.
+</p><p>Esempio di come utilizzare la classe di robot di base Robot6Axis che rappresenta un robot industriale a 6-assi. Il modulo Robot dipende solo dal modulo Parte e non da altri moduli di FreeCAD.
+Funziona soprattutto con basi di dati di tipo Placement, Vector e Matrix. Quindi serve solo:
+</p>
+<pre>from Robot import *
+from Part import *
+from FreeCAD import * </pre>
+<h3><span class="mw-headline" id="Elementi_base_di_Robot">Elementi base di Robot</span></h3>
+<p>Creare il robot. Se non viene specificata una cinematica diversa, viene utilizzato un robot 560 Puma
+</p>
+<pre>rob = Robot6Axis()
+print rob </pre>
+<p>accedere all'asse e al TCP (Punto centro di lavorazione). Gli assi vanno da 1 a 6 e sono in grado di:
+</p>
+<pre>Start = rob.Tcp
+print Start
+print rob.Axis1 </pre>
+<p>spostare il primo asse del robot:
+</p>
+<pre>rob.Axis1 = 5.0 </pre>
+<p>il Tcp è cambiato (cinematica in avanzamento)
+</p>
+<pre>print rob.Tcp </pre>
+<p>muovere il robot nella posizione di partenza (cinematica in ritorno):
+</p>
+<pre>rob.Tcp = Start
+print rob.Axis1 </pre>
+<p>stessa cosa  per l'asse 2:
+</p>
+<pre>rob.Axis2 = 5.0
+print rob.Tcp
+rob.Tcp = Start
+print rob.Axis2 </pre>
+<p>Punti del percorso:
+</p>
+<pre>w = Waypoint(Placement(),name="Pt",type="LIN")
+print w.Name,w.Type,w.Pos,w.Cont,w.Velocity,w.Base,w.Tool </pre>
+<p>generarne altri. La traiettoria trova sempre automaticamente un nome univoco per i punti del percorso
+</p>
+<pre>l = [w]
+for i in range(5):
+  l.append(Waypoint(Placement(Vector(0,0,i*100),Vector(1,0,0),0),"LIN","Pt")) </pre>
+<p>creare un percorso  
+</p>
+<pre>t = Trajectory(l)
+print t
+for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,0,i*100+500),Vector(1,0,0),0),"LIN","Pt")) </pre>
+<p>visualizzare un elenco di tutti i punti del percorso:
+</p>
+<pre>print t.Waypoints
+ 
+del rob,Start,t,l,w </pre>
+<h3><span class="mw-headline" id="Lavorare_con_gli_oggetti_del_documento">Lavorare con gli oggetti del documento</span></h3>
+<p>Lavorare con oggetti documento del robot:
+innanzitutto creare un robot nel documento attivo
+</p>
+<pre>if(App.activeDocument() == None):App.newDocument()
+ 
+App.activeDocument().addObject("Robot::RobotObject","Robot") </pre>
+<p>Definire la rappresentazione visiva e definire la cinematica, per dettagli su questo aspetto vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/it" title="Robot 6-Axis/it">Robot a 6 assi</a> e <a href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/it" title="VRML Preparation for Robot Simulation/it">Preparazione del file VRML per la simulazione del robot</a>
+</p>
+<pre>App.activeDocument().Robot.RobotVrmlFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.wrl"
+App.activeDocument().Robot.RobotKinematicFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.csv" </pre>
+<p>posizione iniziale dell'asse (solo quelli che differiscono da 0)
+</p>
+<pre>App.activeDocument().Robot.Axis2 = -90
+App.activeDocument().Robot.Axis3 = 90 </pre>
+<p>richiamare la posizione Tcp 
+</p>
+<pre>pos = FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp </pre>
+<p>muovere il robot
+</p>
+<pre>pos.move(App.Vector(-10,0,0))
+FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp = pos </pre>
+<p>creare un oggetto Traiettoria vuota nel documento attivo
+</p>
+<pre>App.activeDocument().addObject("Robot::TrajectoryObject","Trajectory") </pre>
+<p>ottenere la traiettoria
+</p>
+<pre>t = App.activeDocument().Trajectory.Trajectory </pre>
+<p>aggiungere la posizione TCP attuale del robot alla traiettoria
+</p>
+<pre>StartTcp = App.activeDocument().Robot.Tcp
+t.insertWaypoints(StartTcp)
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory </pre>
+<p>inserire altri punti del percorso e, alla fine, nuovamente il punto iniziale:
+</p>
+<pre>for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,1000,i*100+500),Vector(1,0,0),i),"LIN","Pt"))
+
+t.insertWaypoints(StartTcp) # end point of the trajectory
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory </pre>
+<h3><span class="mw-headline" id="Simulazione">Simulazione</span></h3>
+<p>Da fare..... 
+</p>
+<h3><span class="mw-headline" id="Esportare_la_traiettoria">Esportare la traiettoria</span></h3>
+<p>La traiettoria viene esportata da Python. Ciò significa che per ogni sezione di controllo c'è un modulo post-processore Python.
+</p><p>Quì è descritto in dettaglio il post-processore Kuka
+</p>
+<pre>from KukaExporter import ExportCompactSub
+
+ExportCompactSub(App.activeDocument().Robot,App.activeDocument().Trajectory,'D:/Temp/TestOut.src') </pre>
+<p>e questo è il modo in cui si esegue:
+</p>
+<pre>for w in App.activeDocument().Trajectory.Trajectory.Waypoints:
+(A,B,C) = (w.Pos.Rotation.toEuler())
+print ("LIN {X&#160;%.3f,Y&#160;%.3f,Z&#160;%.3f,A&#160;%.3f,B&#160;%.3f,C&#160;%.3f}&#160;;&#160;%s"%(w.Pos.Base.x,w.Pos.Base.y,w.Pos.Base.z,A,B,C,w.Name)) </pre>
+<h2><span class="mw-headline" id="Tutorials">Tutorials</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/it" title="Robot 6-Axis/it">6-Axis_Robot</a> </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/it" title="VRML Preparation for Robot Simulation/it">VRML Preparation for Robot Simulation</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/it&amp;oldid=290106">http://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/it&amp;oldid=290106</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

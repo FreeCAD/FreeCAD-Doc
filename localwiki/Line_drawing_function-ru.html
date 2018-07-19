@@ -1,0 +1,171 @@
+<html><head><title>Line drawing function/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Line drawing function/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>На этой странице показано лего можно создать продвинутую фукнкциональность в Python. В данном примере , мы создадим новый инструмент, для рисования линии. Этот инструмент может быть свзае с командой FreeCAD, и эта команда может быть вызвана из любого элемента интерфейса, таком как как опция меню или кнопка на панели инструментов.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.D0.A1.D0.B0.D0.BC_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B9"><span class="tocnumber">1</span> <span class="toctext">Сам сценарий</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D0.BE.D0.B5_.D0.BE.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5"><span class="tocnumber">2</span> <span class="toctext">Подробное описание</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.D0.A2.D0.B5.D1.81.D1.82.D0.B8.D1.80.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.26_.D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D1.8F"><span class="tocnumber">3</span> <span class="toctext">Тестирвание &amp; Использование сценария</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.D0.A0.D0.B5.D0.B3.D0.B8.D1.81.D1.82.D1.80.D0.B0.D1.86.D0.B8.D1.8F_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D1.8F_.D0.B2_FreeCAD_.D0.B8.D0.BD.D1.82.D0.B5.D1.80.D1.84.D0.B5.D0.B9.D1.81.D0.B5"><span class="tocnumber">4</span> <span class="toctext">Регистрация сценария в FreeCAD интерфейсе</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.D0.92.D1.8B_.D1.85.D0.BE.D1.82.D0.B8.D1.82.D0.B5_.D0.B1.D0.BE.D0.BB.D1.8C.D1.88.D0.B5.D0.B3.D0.BE.3F"><span class="tocnumber">5</span> <span class="toctext">Вы хотите большего?</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".D0.A1.D0.B0.D0.BC_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B9">Сам сценарий</span></h2>
+<p>Сначало мы напишем сценарий содержащий всю о нашу функциональность. Затем, мы сохраним его в файле и импортируем в FreeCAD, так все классы и функции что мы описали будут доступны в FreeCAD. Так что, запускатите ваш любимы текстовый редактор, и введите следующие строки:
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+ 
+class line:
+    "this class will create a line after the user clicked 2 points on the screen"
+    def __init__(self):
+        self.view = FreeCADGui.ActiveDocument.ActiveView
+        self.stack = []
+        self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint)  
+
+    def getpoint(self,event_cb):
+        event = event_cb.getEvent()
+        if event.getState() == SoMouseButtonEvent.DOWN:
+            pos = event.getPosition()
+            point = self.view.getPoint(pos[0],pos[1])
+            self.stack.append(point)
+            if len(self.stack) == 2:
+                l = Part.Line(self.stack[0],self.stack[1])
+                shape = l.toShape()
+                Part.show(shape)
+                self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback) </pre>
+<h2><span class="mw-headline" id=".D0.9F.D0.BE.D0.B4.D1.80.D0.BE.D0.B1.D0.BD.D0.BE.D0.B5_.D0.BE.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5">Подробное описание</span></h2>
+<pre>import Part, FreeCADGui
+from pivy.coin import * </pre>
+<p>В Python, когда вам требуется использовать функции из другого модуля, вам нужно импортировать его. В нашем случае, нам нужны функции из <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модуля Деталей</a>, для создания линии, и из Gui модуля (FreeCADGui), для доступа к 3D виду. Нам также нужно полное содержание библиотеки coin, так мы сможем напрямую использовать все coin объекта такие как SoMouseButtonEvent, и.т.д...
+</p>
+<pre>class line: </pre>
+<p>Здесь мы задаем наш основной класс. Почему мы используем класс а не функцию? Причина в том чтобы нащ инструмент оставался "живым" когда мы ждем что пользователь нажмет на экран. Функция завершится когда её задача будет выполнена, но объект (класс заданый как объект) остается живым пока не будет уничтожен.
+</p>
+<pre>"this class will create a line after the user clicked 2 points on the screen" </pre>
+<p>В Python, каждый класс или функция могут обладать строкой описания. Это особенно полезно в FreeCAD, потому что когда вы будете вызывать этот класс через интепритатор, строка описания будет отображатся в виде всплывающей подсказки.
+</p>
+<pre>def __init__(self): </pre>
+<p>Python класс всегда может содержать __init__ функцию, которая выполняется когда класс вызывается для создания объекта. Таким образом, мы положим сюда всё что мы хотим чтобы случилось, когда запустится наш инструмент "линия".
+</p>
+<pre>self.view = FreeCADGui.ActiveDocument.ActiveView </pre>
+<p>В классе, вам обычно нужно добавить <i>self.</i> перед именем переменной, для того чтобы получить легкий доступ к функциям в и вне класса. Здесь мы используем self.view для доступа к управлению активным 3D видом.
+</p>
+<pre>self.stack = [] </pre>
+<p>Здесь мы создаем простой список содержащий 3D точки, переданные функцией getpoint.
+</p>
+<pre>self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint) </pre>
+<p>Это важная часть: Посколько это фактически <a rel="nofollow" class="external text" href="http://www.coin3d.org/">coin3D</a> сцена(в смысле окно отображения), FreeCAD использует механизм обратного вызова coin, что позваляет вызывать функцию каждый раз когда на сцене что-то происходит. В нашем случае, мы создаем обратный вызов для события <a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/group__events.html">SoMouseButtonEvent</a> , и мы привязываем его getpoint функции. Теперь, каждый раз когда клавиша мыши будет нажата или отпущена, будет выполнятся функция getpoint.
+</p><p>Замети также что существует альтернативна addEventCallbackPivy(), зовется addEventCallback() которая обходится без использование pivy. Но так как pivy это очень эффективный и естественный способ получить доступ к любой части coin сцены, он гораздо лучше для использования так как вы можете!
+</p>
+<pre>def getpoint(self,event_cb): </pre>
+<p>Теперь вы задали getpoint функцию, которая выполняется когда клавиша мыши щелкает по окну 3D вида. Эта функция будет получать аргумент, который мы назовем event_cb. В время обратного вызова мы можем получить доступ к объекту события, который содержит некоторую информацию (информационный режим <a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">описан здесь</a>).
+</p>
+<pre>if event.getState() == SoMouseButtonEvent.DOWN: </pre>
+<p>Getpoint функция будет вызыватся когда клавиши мыши будет нажата или отжата. Но мы хотим фиксировать 3D точку только когда нажимаем (в противном случае мы мы можем получить две 3D точки очень близко друг от друга). Так что мы проверяем это.
+</p>
+<pre>pos = event.getPosition() </pre>
+<p>Здесь мы получаем координаты курсора мыши
+</p>
+<pre>point = self.view.getPoint(pos[0],pos[1]) </pre>
+<p>Эта функция дает нам FreeCAD вектор (x,y,z) содержащий точку лежащую в фокальной плоскости, т.е. под вашим курсором. Если вы находитесь в режиме камеры, изображается луч идущий из камеры проходящий через курсор мыши, и достигающий фокальной плоскости. Это наша 3D точка. Если мы находимся в режиме ортогонального отображения, луч паралелен направлению вида.
+</p>
+<pre>self.stack.append(point) </pre>
+<p>Мы добавляем новую точку в stack
+</p>
+<pre>if len(self.stack) == 2: </pre>
+<p>Если у вас, уже достаточное количество точек? если да, тогда давайте рисовать линию!
+</p>
+<pre>l = Part.Line(self.stack[0],self.stack[1]) </pre>
+<p>Здесь мы используем Line() функцию из <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модуля Деталей</a> которая создает линию по двум FreeCAD векторам. Все что мы создаем и модифицируем внутри модуля Деталей, остается в модуле(Part module). Так что, до сих пор, когда мы создавали Line Part. Она не была привязана к какому либо объекту в нашем документе, поэтому ничего и не отображалось на экране.
+</p>
+<pre>shape = l.toShape() </pre>
+<p>FreeCAD документ может принимать только формы(shapes) из модуля Деталей. Формы являются наиболее универсальным типом из модуля Деталей. Таким образом, мы должны преобразовать нашу линию в форму и добавить её в документ.
+</p>
+<pre>Part.show(shape) </pre>
+<p>Модуль деталей обладает очень удобной функцией show() ,которая создает новый объект в документе и привязывает форму к нему. Мы таже могли создать новый объект и привязать к нему форму вручную.
+</p>
+<pre>self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback) </pre>
+<p>Теперь, когда мы закончили нашу линию, давайте уберем механизм обратного вызова, который потребляет драгоценные циклы ЦПУ.
+</p>
+<h2><span class="mw-headline" id=".D0.A2.D0.B5.D1.81.D1.82.D0.B8.D1.80.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.26_.D0.98.D1.81.D0.BF.D0.BE.D0.BB.D1.8C.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D1.8F">Тестирвание &amp; Использование сценария</span></h2>
+<p>Теперь, давайте сохраним наш сценарий где нибудь где FreeCAD python интепритатор сможет его найти. Когда импортируются модули, интепритатор просматривает следующие места: директорию куда установлен python,FreeCAD bin директорию, и все папки FreeCAD модулей. Так что, лучшим решением будет создать новую папку в одной из FreeCAD <a href="Installing_more_workbenches.html" title="Installing more workbenches">Mod папках</a>, и сохранит наш сценарий в ней. Например, давайте создадим папку "MyScripts" , и сохраним наш сценарий как "exercise.py".
+</p><p>Теперь, когда все готово, давайте запустим FreeCAD, создадим новый документ, и введем в python интерпритатор:
+</p>
+<pre>import exercise </pre>
+<p>Если сообщений об ошибке не появится, это означает, что наш учебный сценарий был загружен. Теперь мы можем проверить его содержимое:
+</p>
+<pre>dir(exercise) </pre>
+<p>Команда dir() встроенная python которая выдает список содержащегося в модуле. Мы можем видеть здесь нас ждет, наш класс line(). Теперь давайте протестируем его:
+</p>
+<pre>exercise.line() </pre>
+<p>Затем, щелкнем два раза на 3D виде, и бинго, вот наша линия! Чтобы сделать это снова , просто опять введите exercise.line(), и ещё раз, и ещё раз... Чувствуете себе прекрасно, не так ли?
+</p>
+<h2><span class="mw-headline" id=".D0.A0.D0.B5.D0.B3.D0.B8.D1.81.D1.82.D1.80.D0.B0.D1.86.D0.B8.D1.8F_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D1.8F_.D0.B2_FreeCAD_.D0.B8.D0.BD.D1.82.D0.B5.D1.80.D1.84.D0.B5.D0.B9.D1.81.D0.B5">Регистрация сценария в FreeCAD интерфейсе</span></h2>
+<p>Теперь, для нашего нового инструмента "линия" будет здорово, если он будет обладать кнопкой в интерфейсе, так чтобы нам не нужно было его каждый раз вводить. Простейший путь это преобразовать наш новый каталог MyScripts в полноценнный FreeCAD инструментарий(workbench). Это просто, все что нужно это поместить в файл зовущийся <b>InitGui.py</b> внутрь вашей MyScripts папки. InitGui.py будет содержать инструкции создания нового инструментария, м добавлять наш новый инструмент в него. Кроме того мы должны трансформировать код нашего примера, так чтобы инструмент line() был признан как официальная FreeCAD команда. Начнем с создания InitGui.py файла, и запишем в него следующий код:
+</p>
+<pre>class MyWorkbench (Workbench): 
+   MenuText = "MyScripts"
+   def Initialize(self):
+       import exercise
+       commandslist = ["line"]
+       self.appendToolbar("My Scripts",commandslist)
+Gui.addWorkbench(MyWorkbench()) </pre>
+<p>К  этому моменту , я думаю, вы должны понимать сценарий выше: Мы создали новый класс назвали его MyWorkbench, мы задаем заглавие(MenuText), и задаем Initialize() функцию, которая будет выполняться когда инструментарий будт загружен в FreeCAD. В этой функции, мы загружаем вск что содержится в нашем exercise файле, и добавляем в FreeCAD команды найденные внутри списка команд(commandlist). Затем, мы создаем панель инструментов названую "My Scripts" и сопоставляем наш список команд с ней. Конечно, сейчас у нас есть только один инструмент, так как наш список команд содержит один элемент. Затем, когда наш инструментарий готов, мы добавляем его в основной(главный) интерфейс.
+</p><p>Но это пока не будет работать, потому что FreeCAD команда для работы должна быть отформатирована определенным образом. Так что нам нужно преобразовать(доработать) наш line() инструмент.  Наш новый exercise.py сценарий будет выглядеть следующим образом:
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+class line:
+ "this class will create a line after the user clicked 2 points on the screen"
+ def Activated(self):
+   self.view = FreeCADGui.ActiveDocument.ActiveView
+   self.stack = []
+   self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint) 
+ def getpoint(self,event_cb):
+   event = event_cb.getEvent()
+   if event.getState() == SoMouseButtonEvent.DOWN:
+     pos = event.getPosition()
+     point = self.view.getPoint(pos[0],pos[1])
+     self.stack.append(point)
+     if len(self.stack) == 2:
+       l = Part.Line(self.stack[0],self.stack[1])
+       shape = l.toShape()
+       Part.show(shape)
+       self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+ def GetResources(self): 
+     return {'Pixmap'&#160;: 'path_to_an_icon/line_icon.png', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
+FreeCADGui.addCommand('line', line()) </pre>
+<p>То, что мы сделали здесь является преобразованием нашей __init__() функции в Activated() функцию, потому что, когда FreeCAD команды выполняются, они автоматически выполняют Activated() функцию. Мы также добавили функцию GetResources(), которая сообщает FreeCAD, где он может найти значок инструмента, и каким будет название и подсказка нашего инструмента. Любой JPG, PNG или SVG изображения будут работать, как иконка, они могут быть любого размера, но лучше использовать размер, близкий к последним аспектам, как 16x16, 24x24 или 32x32.
+Затем, мы добавили line() класс в качестве официального команды FreeCAD с AddCommand() методом.
+</p><p>Это всё, теперь вам нужно перезапустить FreeCAD и вы получите новый хороший инструментарий с нашим новым инструментом линии!
+</p>
+<h2><span class="mw-headline" id=".D0.92.D1.8B_.D1.85.D0.BE.D1.82.D0.B8.D1.82.D0.B5_.D0.B1.D0.BE.D0.BB.D1.8C.D1.88.D0.B5.D0.B3.D0.BE.3F">Вы хотите большего?</span></h2>
+<p>Если вам понравился этот пример, почему не попытаться улучшить этот маленький инструмент? Существует множесво вещей которые нужно сделать, как например:
+</p>
+<ul><li> Добавить обратную связь с пользователем: до сих пор мы делали очень голый инструмент, пользователь может потерятся при его использовании. Таким образом мы могли бы  добавить обратную связь, сообщающую ему что делать дальше. Например, мы можем выводит сообщения в FreeCAD консоль. Загляните в FreeCAD.Console модуль</li>
+<li> Добавить возможность вводить координаты 3D точек вручную. Посмотрите, на пример, python input() функцию</li>
+<li> Добавить способность добавлять более двух точек</li>
+<li> Добавить события для других вещей: сейчас мы только проверяем события кнопок мыши, что если мы хотели бы также сделать что-то когда мышь перемещается, например отображать текущие координаты?</li>
+<li> Давать имя созданному объекту</li></ul>
+<p>Не стесняйтесь писать ваши вопросы или идеи на <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>!
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/ru&amp;oldid=173492">http://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/ru&amp;oldid=173492</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

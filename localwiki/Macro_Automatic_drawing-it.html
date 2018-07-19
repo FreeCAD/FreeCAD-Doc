@@ -1,0 +1,150 @@
+<html><head><title>Macro Automatic drawing/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Automatic drawing/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Proiezioni_Automatiche"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Proiezioni Automatiche</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Questo codice consente di ottenere in un disegno 4 viste diverse dell'oggetto (anteriore, superiore, iso, destra). Ha bisogno di qualche modifica per essere completamente efficace.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Normandc" title="User:Normandc">Normandc</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-09-26
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Proiezioni_Automatiche"><span class="tocnumber">1</span> <span class="toctext">Proiezioni Automatiche</span></a>
+<ul>
+<li class="toclevel-2 tocsection-1"><a href="#Utilizzo"><span class="tocnumber">1.1</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Limitazioni"><span class="tocnumber">1.2</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#La_macro"><span class="tocnumber">1.3</span> <span class="toctext">La macro</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Questo codice genera una pagina di <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/it" title="Drawing Module/it">Drawing</a> ( Disegno) con tre viste ortogonali (frontale, dall'alto e laterale destra) allineate, più una vista isometrica posto in alto a destra della pagina. Calcola la scala basandosi sulle dimensioni del modello e sullo spazio disponibile nel foglio. La vista iso viene ridimensionata a 2/3 delle altre.
+</p><p>Utilizza il <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Multiview_orthographic_projection#First-angle_projection">first-angle projection</a> ovvero il <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Multiview_orthographic_projection#First-angle_projection">Sistema di rappresentazione europeo</a>.
+</p>
+<h4><span class="mw-headline" id="Utilizzo">Utilizzo</span></h4>
+<p>Prima di lanciare la macro è necessario selezionare un oggetto.
+</p>
+<h4><span class="mw-headline" id="Limitazioni">Limitazioni</span></h4>
+<ul><li> La scala non è standard. Può essere necessario modificare manualmente la vista per adattarla ad una scala standard.</li>
+<li> Funziona solo con un singolo oggetto (questa è una limitazione del Modulo Drawing)</li>
+<li> Richiede delle modifiche per farla funzionare secondo il <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Multiview_orthographic_projection#Third-angle_projection">third-angle projection</a> ovvero il <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Multiview_orthographic_projection#Third-angle_projection">Sistema di rappresentazione americano</a> utilizzato negli Stati Uniti e in Canada.</li></ul>
+<h4><span class="mw-headline" id="La_macro">La macro</span></h4>
+<pre>import FreeCAD, Part, Drawing
+if len(Gui.Selection.getSelectionEx())&gt;1:
+   App.Console.PrintError("Warning: Only the first item is generate")
+if len(Gui.Selection.getSelectionEx())==0:
+   App.Console.PrintError("Warning: Need to select one item")
+Piece=Gui.Selection.getSelectionEx()[0]
+App.activeDocument().addObject('Drawing::FeaturePage','AutoDrawing')
+App.activeDocument().AutoDrawing.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg'
+DH=20
+DL=30
+L=Piece.Object.Shape.BoundBox.XMax
+H=Piece.Object.Shape.BoundBox.ZMax
+P=Piece.Object.Shape.BoundBox.YMax
+Sc=(400-3*DL)/(L+H)
+Sc2=(250-3*DH)/(P+H)
+if Sc&gt;Sc2&#160;: 
+   Sc=Sc2
+TopX=DL+Sc*L
+FrontX=DL+Sc*L
+RightX=2*DL+Sc*L
+IsoX=2*DL+Sc*(L)
+TopY=DH+Sc*P
+RightY=DH+P*Sc
+FrontY=2*DH+Sc*(P+H)
+IsoY=2*DH+Sc*P
+
+print TopX,RightX,TopY,FrontY
+
+#Create topView
+App.activeDocument().addObject('Drawing::FeatureViewPart','topView')
+App.activeDocument().topView.Source =Piece.Object
+App.activeDocument().topView.Direction = (0,0,1)
+App.activeDocument().topView.Rotation=180
+App.activeDocument().topView.X = TopX
+App.activeDocument().topView.Y = TopY
+App.activeDocument().topView.ShowHiddenLines=True
+App.activeDocument().AutoDrawing.addObject(App.activeDocument().topView)
+App.activeDocument().topView.Scale = Sc
+#Create FrontView
+App.activeDocument().addObject('Drawing::FeatureViewPart','FrontView')
+App.activeDocument().FrontView.Source =Piece.Object
+App.activeDocument().FrontView.Direction = (0,-1,0)
+App.activeDocument().FrontView.Rotation=90
+App.activeDocument().FrontView.Scale = Sc
+App.activeDocument().FrontView.X = FrontX
+App.activeDocument().FrontView.Y = FrontY
+App.activeDocument().FrontView.ShowHiddenLines=True
+App.activeDocument().AutoDrawing.addObject(App.activeDocument().FrontView)
+#Create RightView
+App.activeDocument().addObject('Drawing::FeatureViewPart','RightView')
+App.activeDocument().RightView.Source =Piece.Object
+App.activeDocument().RightView.Direction = (1,0,0)
+App.activeDocument().RightView.Scale = Sc
+App.activeDocument().RightView.X = RightX
+App.activeDocument().RightView.Y = RightY
+App.activeDocument().RightView.ShowHiddenLines=True
+App.activeDocument().AutoDrawing.addObject(App.activeDocument().RightView)
+#Create IsotView
+App.activeDocument().addObject('Drawing::FeatureViewPart','IsoView')
+App.activeDocument().IsoView.Source =Piece.Object
+App.activeDocument().IsoView.Direction = (1,1,1)
+App.activeDocument().IsoView.Rotation=60
+App.activeDocument().IsoView.Scale = Sc*.6
+App.activeDocument().IsoView.X = IsoX
+App.activeDocument().IsoView.Y = IsoY
+App.activeDocument().IsoView.ShowHiddenLines=True
+App.activeDocument().AutoDrawing.addObject(App.activeDocument().IsoView) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Automatic_drawing/it&amp;oldid=240120">http://www.freecadweb.org/wiki/index.php?title=Macro_Automatic_drawing/it&amp;oldid=240120</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

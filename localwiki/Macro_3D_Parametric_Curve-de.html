@@ -1,0 +1,255 @@
+<html><head><title>Macro 3D Parametric Curve/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro 3D Parametric Curve/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_3D_Parametric_Curve"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro 3D Parametric Curve</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Beschreibung
+</th></tr>
+<tr>
+<td class="ctEven left">Draw a function described by parametric equations x(t), y(t) and z(t) With the possibility to choose between b-spline and polyline for the type of line between points.
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven"><a href="/wiki/index.php?title=User:Lucio_Gomez_(psicofil)&amp;action=edit&amp;redlink=1" class="new" title="User:Lucio Gomez (psicofil) (page does not exist)">Lucio Gomez (psicofil)</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/de" title="Macros recipes/de">Liste von Macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/de" title="How to install macros/de">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/de" title="Customize Toolbars/de">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2.0
+</td></tr>
+<tr>
+<th class="ctOdd">Datum zuletzt geändert
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-03-06
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_3D_Parametric_Curve"><span class="tocnumber">1</span> <span class="toctext">Macro 3D Parametric Curve</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Original_Script"><span class="tocnumber">3</span> <span class="toctext">Original Script</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Modified_Script"><span class="tocnumber">4</span> <span class="toctext">Modified Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>This macro creates a curve described by parametric equations x(t), y(t) and z(t). With the possibility to choose between b-spline and polyline for the type of line between points.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ParametricCurve.png" class="image" title="Example Epicycloid curve‎"><img alt="Example Epicycloid curve‎" src="600px-ParametricCurve.png" width="600" height="325" srcset="/wiki/images/thumb/4/42/ParametricCurve.png/900px-ParametricCurve.png 1.5x, /wiki/images/thumb/4/42/ParametricCurve.png/1200px-ParametricCurve.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Original_Script">Original Script</span></h2>
+<p>You can find the updated code (13/05/2015) on the following Github repository:
+<a rel="nofollow" class="external text" href="https://github.com/psicofil/Macros_FreeCAD/blob/master/Macros/ParametricCurve.FCMacro">Get the code here!</a>
+</p>
+<h2><span class="mw-headline" id="Modified_Script">Modified Script</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_3D_Parametric_Curve.png" class="image" title="Example Epicycloid curve‎"><img alt="Example Epicycloid curve‎" src="600px-Macro_3D_Parametric_Curve.png" width="600" height="364" srcset="/wiki/images/thumb/f/f5/Macro_3D_Parametric_Curve.png/900px-Macro_3D_Parametric_Curve.png 1.5x, /wiki/images/f/f5/Macro_3D_Parametric_Curve.png 2x" /></a>
+</p><p><b>Macro 3D Parametric Curve.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+# Create a 3D parametric Curve.
+# Author: Gomez Lucio
+# Modified by Laurent Despeyroux on 9th feb 2015
+#   - 3 helping variables added a, b and c
+#   - enlarged GUI
+#   - more flexible GUI
+#   - basic error mangement
+ 
+import FreeCAD
+from PySide import QtGui,QtCore
+import Part
+import Draft
+from math import *
+ 
+class ParamCurv(QtGui.QWidget):
+    def __init__(self):
+        super(ParamCurv, self).__init__()
+        self.initUI()
+    def initUI(self):
+        self.t0 = QtGui.QLabel("Equation&#160;:",self)
+        self.ta = QtGui.QLabel("    a(t) ",self)
+        self.la = QtGui.QLineEdit(self)
+        self.la.setText("37")
+        self.tb = QtGui.QLabel("    b(a,t) ",self)
+        self.lb = QtGui.QLineEdit(self)
+        self.lb.setText("1")
+        self.tc = QtGui.QLabel("    c(a,b,t) ",self)
+        self.lc = QtGui.QLineEdit(self)
+        self.lc.setText("(a+cos(a*t)*2)*b")
+        self.t1 = QtGui.QLabel("    X(a,b,c,t) ",self)
+        self.l1 = QtGui.QLineEdit(self)
+        self.l1.setText("cos(t)*c")
+        self.t2 = QtGui.QLabel("    Y(a,b,c,t) ",self)
+        self.l2 = QtGui.QLineEdit(self)
+        self.l2.setText("sin(t)*c")
+        self.t3 = QtGui.QLabel("    Z(a,b,c,t) ",self)
+        self.l3 = QtGui.QLineEdit(self)
+        self.l3.setText("0")
+        self.t31 = QtGui.QLabel("Parameters&#160;:",self)
+        self.t4 = QtGui.QLabel("    Min t ",self)
+        self.l4 = QtGui.QLineEdit(self)
+        self.l4.setText("0")
+        self.t5 = QtGui.QLabel("    Max t ",self)
+        self.l5 = QtGui.QLineEdit(self)
+        self.l5.setText("6.283185")
+        self.t6 = QtGui.QLabel("    Interval ",self)
+        self.l6 = QtGui.QLineEdit(self)
+        self.l6.setText("0.01")
+        self.t7 = QtGui.QLabel("Type of Line&#160;:",self)
+        self.op1 = QtGui.QCheckBox("    Polyline",self)
+        self.poly = False
+        self.op1.stateChanged.connect(self.polyState)
+        self.op1.setCheckState(QtCore.Qt.Checked)
+        self.op2 = QtGui.QCheckBox("    Bspline",self)
+        self.bsline = False
+        self.op2.stateChanged.connect(self.bsplineState)
+        self.t8 = QtGui.QLabel("    Closed Curve",self)
+        self.op3 = QtGui.QCheckBox("",self)
+        self.cclose = False
+        self.op3.stateChanged.connect(self.ccloseState)
+        self.createbutt = QtGui.QPushButton("Create Curve",self)
+        self.exitbutt = QtGui.QPushButton("Close",self)
+        layout = QtGui.QGridLayout()
+        self.resize(420, 380)
+        self.setWindowTitle("Parametric Curve ")
+        i = 0
+        layout.addWidget(self.t0, i, 0)
+        i = i+1
+        layout.addWidget(self.ta, i, 0)
+        layout.addWidget(self.la, i, 1)
+        i = i+1
+        layout.addWidget(self.tb, i, 0)
+        layout.addWidget(self.lb, i, 1)
+        i = i+1
+        layout.addWidget(self.tc, i, 0)
+        layout.addWidget(self.lc, i, 1)
+        i = i+1
+        layout.addWidget(self.t1, i, 0)
+        layout.addWidget(self.l1, i, 1)
+        i = i+1
+        layout.addWidget(self.t2, i, 0)
+        layout.addWidget(self.l2, i, 1)
+        i = i+1
+        layout.addWidget(self.t3, i, 0)
+        layout.addWidget(self.l3, i, 1)
+        i = i+1
+        layout.addWidget(self.t31, i, 0)
+        i = i+1
+        layout.addWidget(self.t4, i, 0)
+        layout.addWidget(self.l4, i, 1)
+        i = i+1
+        layout.addWidget(self.t5, i, 0)
+        layout.addWidget(self.l5, i, 1)
+        i = i+1
+        layout.addWidget(self.t6, i, 0)
+        layout.addWidget(self.l6, i, 1)
+        i = i+1
+        layout.addWidget(self.t8, i, 0)
+        layout.addWidget(self.op3, i, 1)
+        i = i+1
+        layout.addWidget(self.t7, i, 0)
+        i = i+1
+        layout.addWidget(self.op1, i, 0)
+        layout.addWidget(self.op2, i, 1)
+        i = i+1
+        layout.addWidget(self.createbutt, i, 0)
+        layout.addWidget(self.exitbutt, i, 1)
+        self.setLayout(layout)
+        self.show()
+        QtCore.QObject.connect(self.createbutt, QtCore.SIGNAL("pressed()"),self.draw)
+        QtCore.QObject.connect(self.exitbutt, QtCore.SIGNAL("pressed()"),self.close)
+    def ccloseState(self, state):
+        if state == QtCore.Qt.Checked:
+            self.cclose = True
+        else:
+            self.cclose = False
+    def bsplineState(self, state):
+        if state == QtCore.Qt.Checked:
+            self.bsline = True
+            self.op1.setCheckState(QtCore.Qt.Unchecked)
+        else:
+            self.bsline = False
+    def polyState(self, state):
+        if state == QtCore.Qt.Checked:
+            self.poly = True
+            self.op2.setCheckState(QtCore.Qt.Unchecked)
+        else:
+            self.poly = False
+    def draw(self):
+        msgBox = QtGui.QMessageBox()
+        fa = str(self.la.text())
+        fb = str(self.lb.text())
+        fc = str(self.lc.text())
+        fx = str(self.l1.text())
+        fy = str(self.l2.text())
+        fz = str(self.l3.text())
+        t = float(str(self.l4.text()))
+        tf = float(self.l5.text())
+        intv = float(str(self.l6.text()))
+        d=(tf-t)/intv
+        matriz = []
+        for i in range(int(d)):
+            try:
+              value="a"
+              a=eval(fa)
+              value="b"
+              b=eval(fb)
+              value="c"
+              c=eval(fc)
+              value="X"
+              fxx=eval(fx)
+              value="Y"
+              fyy=eval(fy)
+              value="Z"
+              fzz=eval(fz)
+            except ZeroDivisionError:
+              msgBox.setText("Error division by zero in calculus of "+value+"() for t="+str(t)+"&#160;!")
+              msgBox.exec_()
+            except:
+              msgBox.setText("Error in the formula of "+value+"()&#160;!")
+              msgBox.exec_()
+            matriz.append(FreeCAD.Vector(fxx,fyy,fzz))
+            t+=intv
+        curva = Part.makePolygon(matriz)
+        if self.bsline == True:
+            Draft.makeBSpline(curva,closed=self.cclose,face=False)
+        if self.poly == True:
+            Draft.makeWire(curva,closed=self.cclose,face=False)
+    def close(self):
+        self.hide()
+ 
+ParamCurv() </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_3D_Parametric_Curve/de&amp;oldid=240565">http://www.freecadweb.org/wiki/index.php?title=Macro_3D_Parametric_Curve/de&amp;oldid=240565</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

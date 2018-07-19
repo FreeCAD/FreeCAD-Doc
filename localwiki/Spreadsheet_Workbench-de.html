@@ -1,0 +1,158 @@
+<html><head><title>Spreadsheet Workbench/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Spreadsheet Workbench/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.15.html" class="mw-redirect" title="Release notes 0.15">verfügbar in Version 0.15</a></span>
+Der Arbeitsbereich Tabellenkalkulation ermöglicht die Erstellung und Bearbeitung von Tabellen, die Durchführen von Berechnungen und die Daten eines 3D-Models einzufügen. Die Daten der Tabelle können im CSV-Format exportiert werden zur Verwendung in Anwendungen wie LibreOffice oder Microsoft Excel.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_screenshot.jpg" class="image"><img alt="Spreadsheet screenshot.jpg" src="Spreadsheet_screenshot.jpg" width="979" height="577" /></a>
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Unterst.C3.BCtzte_Funktionen"><span class="tocnumber">1</span> <span class="toctext">Unterstützte Funktionen</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Referenzen_auf_CAD-Daten"><span class="tocnumber">2</span> <span class="toctext">Referenzen auf CAD-Daten</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Eigenschaften_der_Zellen"><span class="tocnumber">3</span> <span class="toctext">Eigenschaften der Zellen</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Daten_aus_Tabellenbl.C3.A4ttern_in_FreeCAD-Ausdr.C3.BCcken"><span class="tocnumber">4</span> <span class="toctext">Daten aus Tabellenblättern in FreeCAD-Ausdrücken</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Einheiten"><span class="tocnumber">5</span> <span class="toctext">Einheiten</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Importieren_und_Exportieren"><span class="tocnumber">6</span> <span class="toctext">Importieren und Exportieren</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Bestehende_Limitierungen"><span class="tocnumber">7</span> <span class="toctext">Bestehende Limitierungen</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Grundlagen_der_Skripterstellung"><span class="tocnumber">8</span> <span class="toctext">Grundlagen der Skripterstellung</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unterst.C3.BCtzte_Funktionen">Unterstützte Funktionen</span></h2>
+<p>Die folgenden Funktionen mit einem oder zwei Argumenten stehen zur Verfügung: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh
+</p><p>Trigonometrische Funktionen verwenden Grad als Standardeinheit. Durch Hinzufügen von <b>rad</b> kann auch die Einheit Radiant verwendet werden. 
+</p><p>Die zusätzlichen Funktionen: <i>ceil</i>, <i>floor</i>, <i>trunc</i>, und <i>round</i> stehen in FreeCAD seit <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">verfügbar in Version 0.16</a></span>
+</p>
+<pre>zur Verfügung.
+</pre>
+<p>Die folgenden statistischen Funktionen sind verfügbar: <i>average</i>, <i>count</i>, <i>max</i>, <i>min</i>, <i>stddev</i>, <i>sum</i>.
+</p><p>Die statistischen Funktionen können mit einem oder mehreren Argumenten getrennt durch ein Komma oder ein Semikolon aufgerufen werden. Als Argumente können auch Bereiche (zwei Zellverweise getrennt durch einen Doppelpunkt) angegeben werden, z. B.: <i>=average(B1:B8)</i>
+</p><p>Die Konstanten <i>pi</i> und <i>e</i> sind vordefiniert.
+</p><p>Die bedingte Anweisung wird wie folgt benutzt: <i>= Bedingung&#160;? Wahr-Ergebnis&#160;: Falsch-Ergebnis</i>
+</p><p>Die Bedingung muss ein Ausdruck sein, der entweder  0 (für falsch) oder ungleich 0 für wahr ergibt. Die folgenden Vergleichsoperatoren stehen zur Verfügung: ==,&#160;!=, &gt;, &lt;, &gt;=, und &lt;=.
+</p><p>Die bedingte Anweisung (conditional statement) hat zur Zeit einen Fehler. Nur der true-Teil darf eine weitere bedingte Anweisung entahlten. Klammern werden entfernt nachdem der Ausdruck gespeichert wurde. Wenn man versucht, eine geschachtelte bedingte Anweisung im false-Teil zu verwenden, führt die intern verwendete Klammerung zu einem falschen Ergebnis, nach dem Speichern und Neuladen. 
+</p><p>Formeln werden wie folgt eingegeben: <i>=A2+A3</i>
+</p><p>Noteː Zell-Referenzen müssen mit Großbuchstaben angegeben werden.
+</p>
+<h2><span class="mw-headline" id="Referenzen_auf_CAD-Daten">Referenzen auf CAD-Daten</span></h2>
+<p>Daten der CAD-Konstruktion können in dem Tabellenblatt verwendet werden. 
+Die folgende Tabelle zeigt einige Beispiele. Es wird dabei vorausgesetzt, dass das FreeCAD-Dokument ein Objekt Namens "Würfel" zum Beispiel aus der Arbeitsbereich Part enthält.(Anmerkung, dies ist der interne Name des Objekts, nicht das vom Benutzer zugewiesene Label):
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>CAD-Data
+</th>
+<th>Formel im Tabellenblatt
+</th>
+<th>Ergebnis
+</th></tr>
+<tr>
+<td>Parametrische Länge eines Würfels des Arbeitsbereiches Part
+</td>
+<td>=Würfel.Length
+</td>
+<td>Länge mit den Einheiten mm
+</td></tr>
+<tr>
+<td>Volumen des Würfels
+</td>
+<td>=Würfel.Shape.Volume
+</td>
+<td>Volumen  in mm&#179; ohne Einheiten
+</td></tr>
+<tr>
+<td>Typ des Würfel-"Shapes"
+</td>
+<td>=Würfel.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>Label des Würfels
+</td>
+<td>=Cube.Label
+</td>
+<td>String: Würfel
+</td></tr>
+<tr>
+<td>x-Koordinate des Massenschwerpunktes des Würfels
+</td>
+<td>=Würfel.Shape.CenterOfMass.x
+</td>
+<td>x-Koordinate in mm ohne Einheiten
+</td></tr></table>
+<h2><span class="mw-headline" id="Eigenschaften_der_Zellen">Eigenschaften der Zellen</span></h2>
+<p>Die Eigenschaften der Zellen der Tabelle können mit einem Rechtsklick geändert werden. Es öffnet sich der folgende Dialog:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpreadsheetCellPropDialog.png" class="image"><img alt="SpreadsheetCellPropDialog.png" src="SpreadsheetCellPropDialog.png" width="428" height="275" /></a>
+</p><p>Er hat mehrere Reiter. Die folgenden Eigenschaften können geändert werden:
+</p>
+<ul><li> Textfarbe sowie Hintergrundfarbe</li>
+<li> horizontale und vertikale Textausrichtung </li>
+<li> Textstile: fett, kursiv, unterstrichen</li>
+<li> Die angezeigten Einheiten für diese Zelle. (Unbedingt den Abschnitt unten beachten.)</li>
+<li> Einen Alias-Namen für diese Zelle festlegen. Der Alias-Name kann in den Zellformeln und auch in den FreeCAD-Ausdrücken verwendet werden <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">verfügbar in Version 0.16</a></span></li></ul>
+<p>. 
+</p><p>Die Ausdrücke werden hier erläutert: <a href="Expressions.html" title="Expressions">Expressions</a>
+</p>
+<h2><span class="mw-headline" id="Daten_aus_Tabellenbl.C3.A4ttern_in_FreeCAD-Ausdr.C3.BCcken">Daten aus Tabellenblättern in FreeCAD-Ausdrücken</span></h2>
+<p>Um die die Tabellendaten in anderen Teilen von FreeCAD benutzen zu können, wird ein vollständig definierter Name benötigt. Weil es möglich ist, mehrere Tabellenblätter in einem FreeCAD-Dokument zu haben, wird der Tabellenname zusammen mit der Zellreferenz  oder dem Zell-Alias benötigt. 
+Die folgende Abbildung zeigt die Verwendung eines Aliasses "number" aus einem Tabellenblatt "MySheet" in einem Ausdruck in dem Arbeitsbereich PartDesign.
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage1.png" class="image"><img alt="Expression usage1.png" src="Expression_usage1.png" width="414" height="95" /></a>
+</p><p>Durch eine Eintippen von "M" erreicht man die Anzeige von verfügbaren Namen, die mit "M" beginnen. Mit den Pfeiltasten kann "MySheet" ausgewählt werden.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage2.png" class="image"><img alt="Expression usage2.png" src="Expression_usage2.png" width="414" height="95" /></a>
+</p><p>Anschließendes Eintippen von "n" zeigt nun die Liste der verfügbaren Namen in MySheet, die mit "n" anfangen.
+Der Name "number" kann mit der Pfeilrunter-Taste ausgewählt werden.
+Wenn eine gültiger Formel angegeben ist, zeigt das Ergebnisfeld die berechnete Länge.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage3.png" class="image"><img alt="Expression usage3.png" src="Expression_usage3.png" width="414" height="95" /></a>
+</p>
+<h2><span class="mw-headline" id="Einheiten">Einheiten</span></h2>
+<p>Die Tabellen verwenden Einheiten. Wenn eine Zahl eine Einheit hat, wird diese Einheit auch in den Berechnungen verwendet.
+Die Multiplikation von zwei Längen mit der Einheit mm ergibt eine Fläche mit der Einheit mm&#178;.
+</p><p>Man kann die dargestellte Längeneinheit von Millimeter auf Inch in dem Eigenschaftsdialog ändern.
+Die Zelle zeigt danach die Länge in Inch. Der eigentliche Wert, der in den Berechnungen verwendet wird, hat sich dadurch nicht geändert.
+Die Ergebnisse einer Formel, die diesen Wert benutzen, werden durch die angezeigte Einheit nicht geändert. Das Resultat der besagten Formel benutzt immer noch den Wert der Länge in Millimeter. 
+</p><p>Eine Zahl ohne Einheit kann durch den Eigenschaftsdialog nicht in eine Zahl mit Einheit umgewandelt werden.
+Man kann eine Zeichenkette mit einer Einheitsbezeichnung eingeben, die dann auch angezeigt wird. Aber die Zelle enthält immer noch nur eine Zahl ohne Einheit.
+</p><p>Manchmal ist es notwendig, die Einheit von einer Zahl zu entfernen. Dies kann nur durch die Multiplikation einer 1 mit der reziproken Einheit erreicht werden.
+</p>
+<h2><span class="mw-headline" id="Importieren_und_Exportieren">Importieren und Exportieren</span></h2>
+<p>Tabellen können im CSV-Format<a rel="nofollow" class="external autonumber" href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)">[1]</a> importiert und exportiert werden. Dieses Format enthält keine Formeln, kann aber von den meisten anderen Tabellenkalkulationsprogrammen wie Microsoft Excel oder LibreOffice Calc gelesen und geschrieben werden. Wenn Dateien importiert werden, muss das Trennzeichen (Das Zeichen, welches die Spalten trennt.) das TAB-Zeichen sein. Dies kann überlicherweise in Tabellenkalkulationsprogrammen eingestellt werden.
+</p><p>Tabellen im Excel-format "xlsx" können in ein FreeCAD-Document importiert werden. Excel-Tabellen können auch durch FreeCAD geöffnet werden. In diesem Fall wird ein neues Dokument mit einer Tabelle erzeugt. Es werden die folgenden Eigenschaften unterstützt:
+</p>
+<ul><li> Alle Funktionen, die auch im FreeCAD-Spreadsheet zur Verfügung stehen. Andere Funktionen ergeben einen Fehler in der korrespondierenden Zelle nach dem Import.</li>
+<li> Aliasnamen für Zellen</li>
+<li> Mehr als eine Tabelle in der Excel-Datei. In diesem Fall werden mehre Tabellenblätter in dem FreeCAD-Dokument erzeugt.</li></ul>
+<p>Andere Inhalte werden nicht in das FreeCAD-Tabellenblatt übernommen. Der Excel-Import ist <span style="font-size:x-small;"><a href="Release_notes_0.17.html" title="Release notes 0.17">verfügbar in Version 0.17</a></span>
+</p>
+<pre>von FreeCAD zur Verfügung.
+</pre>
+<h2><span class="mw-headline" id="Bestehende_Limitierungen">Bestehende Limitierungen</span></h2>
+<p>Innerhalb eines Tabellenblattes ist es nicht möglich die Daten für einen geometrischen Körper zu definieren, zum Beispiel die Länge, und zugleich eine resultierende Größe wie das Volumen dieses Körpers auszuwerten. Dies würde eine zirkulare Referenz erzeugen. Dies ist eine Design-Entscheidung. Es ist jedoch möglich zwei verschieden Tabellenblätter zur benutzen: Eins als Datenquelle für die Geometrie und ein anderes für die Darstellung der resultierenden Größen.
+</p><p>Es ist nicht möglich mehrere Zellen auszuwählen und die Inhalte zu kopieren. Es kann jeweils nur der Inhalt einer Zelle aus dem Eingabefeld kopiert und in das Eingabefeld einer anderen Zelle eingefügt werden.
+</p><p>Für FreeCAD-Versionen 0.14 siehe hier <a href="Spreadsheet_legacy.html" title="Spreadsheet legacy">Spreadsheet legacy</a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Grundlagen_der_Skripterstellung">Grundlagen der Skripterstellung</span></h2>
+<pre>import Spreadsheet
+sheet = App.ActiveDocument.addObject("Spreadsheet::Sheet")
+sheet.Label = "Dimensions" </pre>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/de&amp;oldid=282321">http://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/de&amp;oldid=282321</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

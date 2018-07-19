@@ -1,0 +1,220 @@
+<html><head><title>Macro Image Scaling/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Image Scaling/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Scala_immagine"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Scala immagine</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Scala i disegni
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:JAndersM&amp;action=edit&amp;redlink=1" class="new" title="User:JAndersM (page does not exist)">JAndersM</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-01-19
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Scala_immagine"><span class="tocnumber">1</span> <span class="toctext">Scala immagine</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Uso"><span class="tocnumber">3</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Link"><span class="tocnumber">5</span> <span class="toctext">Link</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Macro per scalare disegni, grafici, schemi, modelli e immagini 2D simili nell'ambiente Immagine. Funziona per figure importate come immagini planari nello spazio 3D.
+</p><p>Notare: Per le foto di oggetti o immagini coinvolgenti oggetti giacenti a distanze diverse dal punto di vista,, si deve tenere presente l'effetto di <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Parallax">Parallasse</a> (distorsione dovuta a "differenza nella posizione apparente di un oggetto osservato lungo due diverse linee di vista"). Nello schema seguente i 2 oggetti blu sono complanari con il piano perpendicolare al punto di vista dell'utente e possono essere scalati:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Perspective.png" class="image"><img alt="Perspective.png" src="Perspective.png" width="355" height="265" /></a>
+</p><p>Nella seconda figura, gli oggetti rossi e verdi non sono complanari con i 2 oggetti blu e quindi non possono essere scalati. Inoltre, con un solo punto di vista dell'utente non si può stabilire con certezza che l'oggetto rosso è complanare con 1 oggetto blu:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Parallax.jpg" class="image"><img alt="Parallax.jpg" src="Parallax.jpg" width="361" height="272" /></a>   
+</p>
+<h2><span class="mw-headline" id="Uso">Uso</span></h2>
+<ul><li> avviare la Macro - appare un dialogo</li>
+<li> cliccare nell'immagine sui due punti di cui si conosce la vera distanza</li>
+<li> Selezionare il piano dell'immagine nella vista ad albero</li>
+<li> Inserire in mm la vera distanza tra i punti nel campo di testo del dialogo e fare clic su OK</li>
+<li> L'immagine viene ridimensionata e il dialogo si chiude.</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<pre>import FreeCADGui, FreeCAD, Part
+import math
+import pivy.coin as pvy
+from PySide import QtCore, QtGui
+import DraftTrackers, Draft
+
+__title__   = "Macro Image Scaling"
+__author__  = "JAndersM"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.01"
+__date__    = "19/01/2016"
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+def distance(p1,p2):
+    dx=p2[0]-p1[0]
+    dy=p2[1]-p1[1]
+    dz=p2[2]-p1[2]
+    return math.sqrt(dx*dx+dy*dy+dz*dz)
+    
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        self.view = FreeCADGui.ActiveDocument.ActiveView
+        self.stack = []
+        self.callback = self.view.addEventCallbackPivy(pvy.SoMouseButtonEvent.getClassTypeId(),self.getpoint)
+        self.callmouse=self.view.addEventCallbackPivy(pvy.SoLocation2Event.getClassTypeId(),self.getmousepoint)
+        self.distance=0
+        self.dialog=Dialog
+        Dialog.setObjectName(_fromUtf8("Dialog"))
+        Dialog.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        Dialog.resize(300, 102)
+        self.buttonBox = QtGui.QDialogButtonBox(Dialog)
+        self.buttonBox.setGeometry(QtCore.QRect(50, 70, 191, 32))
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel.__or__(QtGui.QDialogButtonBox.Ok))
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setEnabled(False)
+        self.label = QtGui.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(30, 10, 66, 17))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.lineEdit = QtGui.QLineEdit(Dialog)
+        self.lineEdit.setGeometry(QtCore.QRect(100, 10, 113, 29))
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.label1 = QtGui.QLabel(Dialog)
+        self.label1.setGeometry(QtCore.QRect(20, 45, 260, 17))
+        self.label1.setObjectName(_fromUtf8("label1"))
+        self.retranslateUi(Dialog)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), self.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), self.reject)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.tracker = DraftTrackers.lineTracker(scolor=(1,0,0))
+        self.tracker.raiseTracker()
+        self.tracker.on()
+        self.dialog.show()
+
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
+        self.label.setText(_translate("Dialog", "Distance", None))
+        self.label1.setText(_translate("Dialog", "Select first point", None))
+        
+    def accept(self):
+        sel = FreeCADGui.Selection.getSelection()
+        try:
+            locale=QtCore.QLocale.system()
+            d, ok = locale.toFloat(self.lineEdit.text())
+            if not ok:
+                raise ValueError
+            s=d/self.distance
+            sel[0].XSize.Value=sel[0].XSize.Value*s
+            sel[0].YSize.Value=sel[0].YSize.Value*s
+            FreeCAD.Console.PrintMessage("Scale="+str(s))
+            self.tracker.off()
+            self.tracker.finalize()
+            self.dialog.hide()
+        except ValueError, ZeroDivisionError:
+            self.label1.setText(_translate("Dialog", "&lt;font color='red'&gt;Enter distance&lt;/font&gt;", None))
+            return
+        except IndexError, AttributeError:
+            self.label1.setText(_translate("Dialog", "&lt;font color='red'&gt;Select ImagePlane&lt;/font&gt;", None))
+            return
+        
+    def reject(self):
+        self.stack=[]
+        self.view.removeEventCallbackPivy(pvy.SoMouseButtonEvent.getClassTypeId(),self.callback)
+        self.view.removeEventCallbackPivy(pvy.SoLocation2Event.getClassTypeId(),self.callmouse)
+        self.tracker.off()
+        self.tracker.finalize()
+        self.dialog.hide()
+    
+    def getmousepoint(self, event_cb):
+        event = event_cb.getEvent()
+        if len(self.stack)==1:
+            pos = event.getPosition()
+            point = self.view.getPoint(pos[0],pos[1])
+            self.tracker.p2(point)
+               
+    def getpoint(self,event_cb):
+        event = event_cb.getEvent()           
+        if event.getState() == pvy.SoMouseButtonEvent.DOWN:
+            pos = event.getPosition()
+            point = self.view.getPoint(pos[0],pos[1])
+            self.stack.append(point)
+            self.label1.setText(_translate("Dialog", "Select second point", None))
+            if len(self.stack)==1:
+                self.tracker.p1(point)
+            elif len(self.stack) == 2:
+                self.distance=distance(self.stack[0], self.stack[1])
+                self.tracker.p2(point)
+                self.view.removeEventCallbackPivy(pvy.SoMouseButtonEvent.getClassTypeId(),self.callback)
+                self.view.removeEventCallbackPivy(pvy.SoLocation2Event.getClassTypeId(),self.callmouse)
+                self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setEnabled(True)
+                self.label1.setText(_translate("Dialog", "Select Image Plane and type distance", None))
+                
+#Init               
+d = QtGui.QWidget()
+ui = Ui_Dialog()
+ui.setupUi(d) </pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<ul><li> [<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=22&amp;t=13877">La discussione nel forum</a>]</li>
+<li> [<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=19542">Download zip diretto</a>]</li>
+<li> [<a rel="nofollow" class="external text" href="https://youtu.be/2iFE40uHrA8">Movie created by microelly2</a>]</li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Image_Scaling/it&amp;oldid=282114">http://www.freecadweb.org/wiki/index.php?title=Macro_Image_Scaling/it&amp;oldid=282114</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

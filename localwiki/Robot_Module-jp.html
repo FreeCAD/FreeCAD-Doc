@@ -1,0 +1,214 @@
+<html><head><title>Robot Module/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Robot Module/jp</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Module/jp&amp;redirect=no" class="mw-redirect" title="Robot Module/jp">Robot Module/jp</a>)</span></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaKR16FreeCAD.jpg" class="image"><img alt="KukaKR16FreeCAD.jpg" src="400px-KukaKR16FreeCAD.jpg" width="400" height="276" srcset="/wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/600px-KukaKR16FreeCAD.jpg 1.5x, /wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/800px-KukaKR16FreeCAD.jpg 2x" /></a></div>
+<p>ロボットワークベンチは<a rel="nofollow" class="external text" href="http://kuka.com/">Kuka</a>のような産業用<a href="https://www.freecadweb.org/wiki/index.php?title=6-Axis_Robot/jp&amp;action=edit&amp;redlink=1" class="new" title="6-Axis Robot/jp (page does not exist)">6軸ロボット</a>のシミュレートのためのツールです。
+以下の作業を行うことができます：
+</p>
+<ul><li> ロボット、加工物とシミュレーション環境のセットアップ</li>
+<li> 軌道の作成と書き込み</li>
+<li> CAD部品形状を軌道に分解</li>
+<li> ロボットの動作と到達可能範囲のシミュレート</li>
+<li> ロボットプログラムファイルへの軌道のエクスポート</li></ul>
+<p>以下で例を見ることができます：
+<a rel="nofollow" class="external text" href="http://www.freecad-project.de/svn/ExampleData/Examples/RobotSimulation/">サンプルファイル</a> または <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_tutorial/jp&amp;action=edit&amp;redlink=1" class="new" title="Robot tutorial/jp (page does not exist)">ロボットのチュートリアル</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.83.84.E3.83.BC.E3.83.AB"><span class="tocnumber">1</span> <span class="toctext">ツール</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E3.83.AD.E3.83.9C.E3.83.83.E3.83.88"><span class="tocnumber">1.1</span> <span class="toctext">ロボット</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E8.BB.8C.E9.81.93"><span class="tocnumber">1.2</span> <span class="toctext">軌道</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#.E9.9D.9E.E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF"><span class="tocnumber">1.2.1</span> <span class="toctext">非パラメトリック</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#.E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF"><span class="tocnumber">1.2.2</span> <span class="toctext">パラメトリック</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">2</span> <span class="toctext">スクリプト処理</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#.E5.9F.BA.E6.9C.AC.E7.9A.84.E3.81.AA.E3.83.AD.E3.83.9C.E3.83.83.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">2.1</span> <span class="toctext">基本的なロボット処理</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.82.92.E4.BD.BF.E3.81.A3.E3.81.9F.E5.87.A6.E7.90.86"><span class="tocnumber">2.2</span> <span class="toctext">ドキュメントを使った処理</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E3.82.B7.E3.83.9F.E3.83.A5.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3"><span class="tocnumber">2.3</span> <span class="toctext">シミュレーション</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E8.BB.8C.E9.81.93.E3.81.AE.E3.82.A8.E3.82.AF.E3.82.B9.E3.83.9D.E3.83.BC.E3.83.88"><span class="tocnumber">2.4</span> <span class="toctext">軌道のエクスポート</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.83.84.E3.83.BC.E3.83.AB">ツール</span></h2>
+<p>ロボット設定を作成するのに使う主要なコマンドです。
+</p>
+<h3><span class="mw-headline" id=".E3.83.AD.E3.83.9C.E3.83.83.E3.83.88">ロボット</span></h3>
+<p>6軸ロボットを作成、管理するためのツール
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateRobot.png" class="image"><img alt="Robot CreateRobot.png" src="30px-Robot_CreateRobot.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_CreateRobot.png/45px-Robot_CreateRobot.png 1.5x, /wiki/images/thumb/8/8e/Robot_CreateRobot.png/60px-Robot_CreateRobot.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateRobot/jp" title="Robot CreateRobot/jp">ロボットを作成</a>: シーンに新しいロボットを挿入します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Simulate.png" class="image"><img alt="Robot Simulate.png" src="30px-Robot_Simulate.png" width="30" height="30" srcset="/wiki/images/thumb/4/42/Robot_Simulate.png/45px-Robot_Simulate.png 1.5x, /wiki/images/thumb/4/42/Robot_Simulate.png/60px-Robot_Simulate.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Simulate/jp" title="Robot Simulate/jp">軌道をシミュレート</a>: シミュレーションダイアログを開き、シミュレートを行います</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Export.png" class="image"><img alt="Robot Export.png" src="30px-Robot_Export.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_Export.png/45px-Robot_Export.png 1.5x, /wiki/images/thumb/8/8e/Robot_Export.png/60px-Robot_Export.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Export/jp" title="Robot Export/jp">軌道をエクスポート</a>: ロボットプログラムファイルをエクスポートします</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetHomePos.png" class="image"><img alt="Robot SetHomePos.png" src="30px-Robot_SetHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/3/3c/Robot_SetHomePos.png/45px-Robot_SetHomePos.png 1.5x, /wiki/images/thumb/3/3c/Robot_SetHomePos.png/60px-Robot_SetHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetHomePos/jp" title="Robot SetHomePos/jp">定位置を設定</a>: ロボットの定位置を設定します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_RestoreHomePos.png" class="image"><img alt="Robot RestoreHomePos.png" src="30px-Robot_RestoreHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/9/95/Robot_RestoreHomePos.png/45px-Robot_RestoreHomePos.png 1.5x, /wiki/images/thumb/9/95/Robot_RestoreHomePos.png/60px-Robot_RestoreHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_RestoreHomePos/jp" title="Robot RestoreHomePos/jp">定位置に戻す</a>: ロボットを定位置に動かします</li></ul>
+<h3><span class="mw-headline" id=".E8.BB.8C.E9.81.93">軌道</span></h3>
+<p>軌道を作成し、操作するためのツールです。パラメトリックなものと非パラメトリックなものの二種類があります。
+</p>
+<h4><span class="mw-headline" id=".E9.9D.9E.E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF">非パラメトリック</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateTrajectory.png" class="image"><img alt="Robot CreateTrajectory.png" src="30px-Robot_CreateTrajectory.png" width="30" height="30" srcset="/wiki/images/thumb/9/90/Robot_CreateTrajectory.png/45px-Robot_CreateTrajectory.png 1.5x, /wiki/images/thumb/9/90/Robot_CreateTrajectory.png/60px-Robot_CreateTrajectory.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateTrajectory/jp" title="Robot CreateTrajectory/jp">軌道を作成</a>: シーンに新しいロボットを挿入します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultOrientation.png" class="image"><img alt="Robot SetDefaultOrientation.png" src="30px-Robot_SetDefaultOrientation.png" width="30" height="30" srcset="/wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/45px-Robot_SetDefaultOrientation.png 1.5x, /wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/60px-Robot_SetDefaultOrientation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultOrientation/jp" title="Robot SetDefaultOrientation/jp">デフォルトの方向を設定</a>: デフォルトで作成される方位通過点を設定します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultValues.png" class="image"><img alt="Robot SetDefaultValues.png" src="30px-Robot_SetDefaultValues.png" width="30" height="30" srcset="/wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/45px-Robot_SetDefaultValues.png 1.5x, /wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/60px-Robot_SetDefaultValues.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultValues/jp" title="Robot SetDefaultValues/jp">デフォルトの速度パラメーターを設定</a>: 通過点作成時に使用されるデフォルト値を設定します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypoint.png" class="image"><img alt="Robot InsertWaypoint.png" src="30px-Robot_InsertWaypoint.png" width="30" height="30" srcset="/wiki/images/thumb/7/74/Robot_InsertWaypoint.png/45px-Robot_InsertWaypoint.png 1.5x, /wiki/images/thumb/7/74/Robot_InsertWaypoint.png/60px-Robot_InsertWaypoint.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypoint/jp" title="Robot InsertWaypoint/jp">通過点を挿入</a>: 現在のロボット位置から軌道に通過点を挿入します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypointPre.png" class="image"><img alt="Robot InsertWaypointPre.png" src="30px-Robot_InsertWaypointPre.png" width="30" height="30" srcset="/wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/45px-Robot_InsertWaypointPre.png 1.5x, /wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/60px-Robot_InsertWaypointPre.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypointPre/jp" title="Robot InsertWaypointPre/jp">通過点を挿入</a>: 現在のマウス位置から軌道に通過点を挿入します</li></ul>
+<h4><span class="mw-headline" id=".E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF">パラメトリック</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Edge2Trac.png" class="image"><img alt="Robot Edge2Trac.png" src="30px-Robot_Edge2Trac.png" width="30" height="30" srcset="/wiki/images/thumb/a/a7/Robot_Edge2Trac.png/45px-Robot_Edge2Trac.png 1.5x, /wiki/images/thumb/a/a7/Robot_Edge2Trac.png/60px-Robot_Edge2Trac.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Edge2Trac/jp" title="Robot Edge2Trac/jp">エッジから軌道を作成</a>: エッジを軌道に分解した新しいオブジェクトを挿入します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryDressUp.png" class="image"><img alt="Robot TrajectoryDressUp.png" src="30px-Robot_TrajectoryDressUp.png" width="30" height="30" srcset="/wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/45px-Robot_TrajectoryDressUp.png 1.5x, /wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/60px-Robot_TrajectoryDressUp.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryDressUp/jp" title="Robot TrajectoryDressUp/jp">軌道をドレスアップ</a>: 軌道の一つ以上のプロパティを上書きします</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryCompound.png" class="image"><img alt="Robot TrajectoryCompound.png" src="30px-Robot_TrajectoryCompound.png" width="30" height="30" srcset="/wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/45px-Robot_TrajectoryCompound.png 1.5x, /wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/60px-Robot_TrajectoryCompound.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryCompound/jp" title="Robot TrajectoryCompound/jp">軌道を合成</a>: 複数の単一軌道を合成したものを作成します</li></ul>
+<h2><span class="mw-headline" id=".E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">スクリプト処理</span></h2>
+<p>このセクションは以下のスクリプトから生成されています： <a rel="nofollow" class="external free" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Robot/RobotExample.py?view=markup">http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Robot/RobotExample.py?view=markup</a> 
+必要であればこのファイルを直接使用することもできます。
+</p><p>6軸産業用ロボットを表す基本ロボットクラスRobot6Axisの使用例です。
+ロボットモジュールはパートモジュールにのみ依存します。
+その動作にはほとんどの場合は基本的な型であるPlacement、Vector、Matrixで事足ります。
+従って必要なのは以下のモジュールだけです：
+</p>
+<pre>from Robot import *
+from Part import *
+from FreeCAD import *
+</pre>
+<h3><span class="mw-headline" id=".E5.9F.BA.E6.9C.AC.E7.9A.84.E3.81.AA.E3.83.AD.E3.83.9C.E3.83.83.E3.83.88.E5.87.A6.E7.90.86">基本的なロボット処理</span></h3>
+<p>ロボットを作成。異なるキネマティックを指定しない限りはPuma560になります。
+</p>
+<pre>rob = Robot6Axis()
+print rob
+</pre>
+<p>軸とTCPにアクセスします。軸は1から6まであり、単位は度（°）です。
+</p>
+<pre>Start = rob.Tcp
+print Start
+print rob.Axis1
+
+</pre>
+<p>ロボットの一番目の軸を動かします。
+</p>
+<pre>rob.Axis1 = 5.0
+</pre>
+<p>TCPが変化します（フォワードキネマティック）
+</p>
+<pre>print rob.Tcp
+</pre>
+<p>ロボットを開始位置に戻します（リバースキネマティック）
+</p>
+<pre>rob.Tcp = Start
+print rob.Axis1
+</pre>
+<p>軸2で同じことを行います：
+</p>
+<pre>rob.Axis2 = 5.0
+print rob.Tcp
+rob.Tcp = Start
+print rob.Axis2
+</pre>
+<p>通過点：
+</p>
+<pre>w = Waypoint(Placement(),name="Pt",type="LIN")
+print w.Name,w.Type,w.Pos,w.Cont,w.Velocity,w.Base,w.Tool
+</pre>
+<p>さらに生成。軌道は通過点に固有の名前を自動で付けます
+</p>
+<pre>l = [w]
+for i in range(5):
+  l.append(Waypoint(Placement(Vector(0,0,i*100),Vector(1,0,0),0),"LIN","Pt"))
+</pre>
+<p>軌道を作成
+</p>
+<pre>t = Trajectory(l)
+print t
+for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,0,i*100+500),Vector(1,0,0),0),"LIN","Pt"))
+</pre>
+<p>全通過点のリストを確認
+</p>
+<pre>print t.Waypoints
+</pre>
+<pre>del rob,Start,t,l,w
+</pre>
+<h3><span class="mw-headline" id=".E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.82.92.E4.BD.BF.E3.81.A3.E3.81.9F.E5.87.A6.E7.90.86">ドキュメントを使った処理</span></h3>
+<p>ロボットドキュメントオブジェクトを使った処理
+まずアクティブなドキュメントにロボットを作成します
+</p>
+<pre>if(App.activeDocument() == None):App.newDocument()
+</pre>
+<pre>App.activeDocument().addObject("Robot::RobotObject","Robot")
+</pre>
+<p>視覚的な表示と運動の記述を定義します（詳細については<a href="https://www.freecadweb.org/wiki/index.php?title=6-Axis_Robot/jp&amp;action=edit&amp;redlink=1" class="new" title="6-Axis Robot/jp (page does not exist)">六軸ロボット</a>と<a href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/jp" title="VRML Preparation for Robot Simulation/jp">ロボットシミュレーション用のVRMLの準備</a>を見てください）
+</p>
+<pre>App.activeDocument().Robot.RobotVrmlFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.wrl"
+App.activeDocument().Robot.RobotKinematicFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.csv"
+</pre>
+<p>軸の開始位置（0からの移動量）
+</p>
+<pre>App.activeDocument().Robot.Axis2 = -90
+App.activeDocument().Robot.Axis3 = 90
+</pre>
+<p>TCP位置を取得
+</p>
+<pre>pos = FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp
+</pre>
+<p>ロボットを動かします
+</p>
+<pre>pos.move(App.Vector(-10,0,0))
+FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp = pos
+</pre>
+<p>アクティブなドキュメントに空の軌道オブジェクトを作成
+</p>
+<pre>App.activeDocument().addObject("Robot::TrajectoryObject","Trajectory")
+</pre>
+<p>軌道を取得
+</p>
+<pre>t = App.activeDocument().Trajectory.Trajectory
+</pre>
+<p>軌道にロボットの実際のTCP位置を追加
+</p>
+<pre>StartTcp = App.activeDocument().Robot.Tcp
+t.insertWaypoints(StartTcp)
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory
+</pre>
+<p>さらにいくつかの通過点と開始点、終了点を挿入
+</p>
+<pre>for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,1000,i*100+500),Vector(1,0,0),i),"LIN","Pt"))
+
+t.insertWaypoints(StartTcp) # end point of the trajectory
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory
+</pre>
+<h3><span class="mw-headline" id=".E3.82.B7.E3.83.9F.E3.83.A5.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3">シミュレーション</span></h3>
+<p>作っておきます.....&#160;;-)
+</p>
+<h3><span class="mw-headline" id=".E8.BB.8C.E9.81.93.E3.81.AE.E3.82.A8.E3.82.AF.E3.82.B9.E3.83.9D.E3.83.BC.E3.83.88">軌道のエクスポート</span></h3>
+<p>Pythonを使って軌道をエクスポートすることができます。つまり全ての制御キャビネット型にポストプロセッサー用のPythonモジュールがあるということです。以下はKukaポストプロセッサーの書き方の詳細です。
+</p>
+<pre>from KukaExporter import ExportCompactSub
+
+ExportCompactSub(App.activeDocument().Robot,App.activeDocument().Trajectory,'D:/Temp/TestOut.src')
+</pre>
+<p>こちらはどのように処理を行うかについてです。
+</p>
+<pre>for w in App.activeDocument().Trajectory.Trajectory.Waypoints:
+(A,B,C) = (w.Pos.Rotation.toEuler())
+print ("LIN {X&#160;%.3f,Y&#160;%.3f,Z&#160;%.3f,A&#160;%.3f,B&#160;%.3f,C&#160;%.3f}&#160;;&#160;%s"%(w.Pos.Base.x,w.Pos.Base.y,w.Pos.Base.z,A,B,C,w.Name))
+</pre>
+
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/jp&amp;oldid=174427">http://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/jp&amp;oldid=174427</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

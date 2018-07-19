@@ -1,0 +1,158 @@
+<html><head><title>Draft tutorial/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft tutorial/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>このチュートリアルの執筆時から製図モジュールは大きく変更されています。いくつかのコンセプトは今では異なるものになっていて下記の説明にある方法では動作しなくなっています。</b></div>
+<p><br />
+このチュートリアルではFreeCADの<a href="Draft_Module.html" title="Draft Module">2D製図モジュール</a>の使って簡単な建築図面を作成する方法を説明します。説明のために簡単なレンガ作りの小屋を製図していきます。さて小屋の位置を示すCAD図面を受け取ったと考えてください。それを使って私たちのプロジェクトをその上に書き込むことにしましょう。平面図、断面図、そして二つの立面図を描くことにします。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.81.AF.E3.81.98.E3.82.81.E3.82.8B.E5.89.8D.E3.81.AB"><span class="tocnumber">1</span> <span class="toctext">はじめる前に</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#FreeCAD.E3.83.AF.E3.83.BC.E3.82.AF.E3.82.B9.E3.83.9A.E3.83.BC.E3.82.B9.E3.81.AE.E8.AA.BF.E6.95.B4"><span class="tocnumber">2</span> <span class="toctext">FreeCADワークスペースの調整</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#CAD.E8.A3.BD.E5.9B.B3.E5.B0.8E.E5.85.A5"><span class="tocnumber">3</span> <span class="toctext">CAD製図導入</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.B9.B3.E9.9D.A2.E5.9B.B3.E3.81.AE.E8.A3.BD.E5.9B.B3"><span class="tocnumber">4</span> <span class="toctext">平面図の製図</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#.E8.A3.BD.E5.9B.B3.E3.83.84.E3.83.BC.E3.83.AB.E3.81.AE.E4.BD.BF.E7.94.A8"><span class="tocnumber">4.1</span> <span class="toctext">製図ツールの使用</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E3.82.A2.E3.83.83.E3.83.97.E3.82.B0.E3.83.AC.E3.83.BC.E3.83.89.26.E3.83.80.E3.82.A6.E3.83.B3.E3.82.B0.E3.83.AC.E3.83.BC.E3.83.89.E3.81.AB.E3.81.A4.E3.81.84.E3.81.A6.E3.81.AE.E3.83.A1.E3.83.A2"><span class="tocnumber">4.2</span> <span class="toctext">アップグレード&amp;ダウングレードについてのメモ</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.E3.82.B9.E3.83.8A.E3.83.83.E3.83.94.E3.83.B3.E3.82.B0.E3.81.AB.E3.81.A4.E3.81.84.E3.81.A6.E3.81.AE.E3.83.A1.E3.83.A2"><span class="tocnumber">4.3</span> <span class="toctext">スナッピングについてのメモ</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.E8.A4.87.E5.90.88.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88.E3.81.A8.E4.BD.9C.E6.88.90"><span class="tocnumber">4.4</span> <span class="toctext">複合オブジェクトのインポートと作成</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E5.AF.B8.E6.B3.95.E3.81.A8.E6.B3.A8.E9.87.88"><span class="tocnumber">4.5</span> <span class="toctext">寸法と注釈</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E7.B7.A8.E6.88.90"><span class="tocnumber">4.6</span> <span class="toctext">編成</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#.E7.AB.8B.E9.9D.A2.E5.9B.B3.E3.81.AE.E8.A3.BD.E5.9B.B3"><span class="tocnumber">5</span> <span class="toctext">立面図の製図</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#.E8.A1.A8.E7.A4.BA.E3.81.AE.E5.9B.9E.E8.BB.A2.E3.81.A8.E3.83.9E.E3.82.AF.E3.83.AD.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">5.1</span> <span class="toctext">表示の回転とマクロの作成</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.E5.9B.9E.E8.BB.A2.E3.81.95.E3.81.9B.E3.81.9F.E8.A1.A8.E7.A4.BA.E3.81.AB.E8.A3.BD.E5.9B.B3"><span class="tocnumber">5.2</span> <span class="toctext">回転させた表示に製図</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.81.AF.E3.81.98.E3.82.81.E3.82.8B.E5.89.8D.E3.81.AB">はじめる前に</span></h2>
+<p>憶えておいて欲しいのはFreeCADはまだ開発の初期段階にあるということです。ですから他のCADアプリケーションほどは便利ではないかもしれませんし、恐らくバグに遭遇したり、クラッシュを経験することもあるでしょう。現在、FreeCADではバックアップファイルを作成することができます。バックアップファイルの数はユーザー設定ダイアログで指定することができます。FreeCADの扱いに慣れるまでは2､3つのバックアップファイル作成することをためらわないでください。
+</p><p>作業結果はこまめに保存してください。ときどきは別名で保存したほうがいいでしょう。そうすればやり直すための"安全な"コピーが保持され、コマンドで思うような結果にならないような場合に備えることができます。
+</p>
+<h2><span class="mw-headline" id="FreeCAD.E3.83.AF.E3.83.BC.E3.82.AF.E3.82.B9.E3.83.9A.E3.83.BC.E3.82.B9.E3.81.AE.E8.AA.BF.E6.95.B4">FreeCADワークスペースの調整</span></h2>
+<p>FreeCADは3Dモデラーですがこのチュートリアルでは2D作業用の機能しか使用しません。製図は基面上で行い、私たちが描く全ての物体はZ座標ゼロになります。ですからまず<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">2</span>キーを押して上面図表示に切り替え、表示が正投影になっていることを確認しましょう（<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">O</span>キー）。さもないと透視図法の影響で正しい描画ができなくなる可能性があります。
+</p><p>やっておくべき非常に重要なことがもう一つあります。製図コマンドに対するカスタム<a href="https://www.freecadweb.org/wiki/index.php?title=Interface_Customization/jp" title="Interface Customization/jp">ホットキー</a>の設定です。これを行うと全てのコマンド操作をキーボードから行えるようになり、作業スピードが劇的に改善されます。基本的には全てをキーボードから行うことが可能で、マウスが必要となるのは点の描画とオブジェクトの選択のみになります。メニューのCustomize -&gt; Keyboard -&gt; Category Pythonを選択し、好きなショートカットを設定してください。憶えやすいものにしておいた方がいいと思います。例えば私はライン（Line）にL、ポリライン（FreeCADではワイヤー（Wire）とも呼ばれます）にW、円弧（Arc）にA、円（Circle）にC、移動（Move）にM、回転（Rotate）にR、オフセット（Offset）にF（Oは既に正投影（Orthographic）に使われています）、寸法（Dimension）にD、テキスト（Text）にT、といった具合に設定しています。
+</p><p>さて準備が終わりました。製図を始めることにしましょう。
+</p>
+<h2><span class="mw-headline" id="CAD.E8.A3.BD.E5.9B.B3.E5.B0.8E.E5.85.A5">CAD製図導入</span></h2>
+<p>あなたが2D-CAD図面をインポートするつもりであれば、それは.dwg（AutoCAD製）や.mcd（VectorWorks製）といったプロプライエタリな形式である可能性が高いでしょう。そういったファイル形式の仕様はベンダーによって機密扱いされているのでそれらをFreeCADでサポートするのは非常に困難か、または完全に不可能です。しかしある一つのファイル形式はかなり詳細にドキュメント化されています。それがDXFです。そして製図モジュールはこのファイル形式を部分的にサポートしています。
+</p><p>ほとんど全てのCADアプリケーションはDXF形式でのエクスポートが可能です。またopenDWGの<a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a>ユーティリティのようにフリーなコンバーターもいくつか存在し、それを使えばあなたのファイルをDXFに変換することも可能です。例えば<a rel="nofollow" class="external text" href="http://www.doublecad.com/">Doublecad</a>はフリーで十分な機能がそろったCADプログラムでDXFファイルをエクスポートすることが可能です。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Doublecad.jpg" class="image"><img alt="Doublecad.jpg" src="Doublecad.jpg" width="800" height="500" /></a>
+</p><p>あなたのDXFファイルをFile -&gt; Openダイアログを使って開いてください。いくつかのインポート設定を<a href="Draft_Preferences.html" title="Draft Preferences">製図ユーザー設定</a>画面で設定することができます。例えばDXFファイルを元の色、線の幅でインポートしたい場合や製図コマンドバーの右側に見える現在の製図色に変換したい場合、そのように設定することができます。ただしFreeCADではオブジェクトの線の幅を決定するための汚い色の属性は必要ありません。DXFでの色は忘れ、好きに選択した色に変換することができます。
+</p><p>FreeCADで図面をインポートすると同じ次のようになります：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Situation.jpg" class="image"><img alt="Situation.jpg" src="Situation.jpg" width="800" height="595" /></a>
+</p><p>さあ手始めにクリーニングから始めましょう。
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial-treeview.jpg" class="image"><img alt="Tutorial-treeview.jpg" src="100px-Tutorial-treeview.jpg" width="100" height="101" srcset="/wiki/images/thumb/c/c5/Tutorial-treeview.jpg/150px-Tutorial-treeview.jpg 1.5x, /wiki/images/thumb/c/c5/Tutorial-treeview.jpg/200px-Tutorial-treeview.jpg 2x" /></a></div> FreeCADにはAutoCADのようなレイヤーはありません。代わりにグループを使って作業を行います。グループは製図を編成するより柔軟な方法の一つです。ツリービュー上で右クリックを行うと新しいグループを作成できます。またツリービュー内でのドラッグ・アンド・ドロップによって並べ替えや他のグループ内への移動、グループ間でのオブジェクトの移動を簡単に行うことができます。またグループ内のオブジェクト全てに現在の線の幅や色を割り当てたり、<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SPACE</span>キーを押すことでその表示/非表示を切り替えることが可能です。
+<p>さて全てのオブジェクトを新しく作ったグループの一つの中に置いて植物や寸法といった使用しないオブジェクトを全て非表示にしましょう。そうすれば作業がすばやく行えます。
+</p>
+<h2><span class="mw-headline" id=".E5.B9.B3.E9.9D.A2.E5.9B.B3.E3.81.AE.E8.A3.BD.E5.9B.B3">平面図の製図</span></h2>
+<h3><span class="mw-headline" id=".E8.A3.BD.E5.9B.B3.E3.83.84.E3.83.BC.E3.83.AB.E3.81.AE.E4.BD.BF.E7.94.A8">製図ツールの使用</span></h3>
+<p>とりあえず必要となるのは小屋を書くための領域だけです。 "projection".という名前の別のグループに配置することにしましょう。さあ<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SPACE</span>キーを使って他の物を全て消し、その上で製図を始めましょう。私たちが製図するのは守衛室とトイレのある小さな小屋で、非常にシンプルな構造のレンガ作りです。従って図面には特別なコンクリート工事について書き込む必要はありません。ただし内壁には漆喰を張り、外壁にはセラミックを張ることにします。
+</p><p>それでは壁の全体形状から始めることにしましょう：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-01.jpg" class="image"><img alt="Draft-tutorial-01.jpg" src="Draft-tutorial-01.jpg" width="800" height="269" /></a>
+</p><p>私たちのDXF図面はメーター単位で製図されています。特に変更する理由は無いので同じ単位で製図を続けましょう。今のところFreeCADには現実世界の単位で作業するための親切なシステムはありません。ですから私たちはたんに"1"が"1メートル"を意味するという事にして作業を行います。
+</p><p>もう一つ憶えておくといいのが必要であればなんであれ一時的な形状を作図しておくということです。水平に2メートル離れた所に点が一つ必要ですか？垂直線を描いてください。その線上を水平線との交点から2メートル進んだ位置が必要な点の位置です。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Rectangle/jp" title="Draft Rectangle/jp">長方形</a>を作成：<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span>キーを使って端点を割り当てられた領域の角にスナップしましょう</li>
+<li> 長方形を<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Offset/jp" title="Draft Offset/jp">オフセット</a>：長方形を選択してから<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Offset/jp" title="Draft Offset/jp">オフセット</a>を押し、<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span>キーを押してコピーモードに切り替えます。マウスを一つ目の長方形の内部で動かすとオフセット方向が検出されます。0.20と入力してEnterを押します。</li>
+<li> 作成した長方形を面に変更：一つ目の長方形を<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Upgrade/jp" title="Draft Upgrade/jp">アップグレード</a>し、続いて二つ目の長方形をアップグレードします。その後、外側の長方形を選択し、CTRLを押しながら内側の長方形を選択し、<a href="Draft_Downgrade.html" title="Draft Downgrade">ダウングレード</a>を押します。</li>
+<li> 戸口を作成：1.00 x 0.50の長方形を作成し、それをメインの壁の上辺の角に<a href="Draft_Move.html" title="Draft Move">移動</a>します（<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">C</span>キーを押してコピーモードをオフにしてください）。</li>
+<li> 戸口を正確な位置に<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Move/jp" title="Draft Move/jp">移動</a>：戸口を0.10左に移動します。入り口が直接、角に接すると扉を開けるのが難しくなります。</li>
+<li> 戸口を減算： 壁を選択後,</li></ul>
+<p>CTRLキーを押しながら戸口を選択します。その後、<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/jp" title="Draft Downgrade/jp">ダウングレード</a>.を押します。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A2.E3.83.83.E3.83.97.E3.82.B0.E3.83.AC.E3.83.BC.E3.83.89.26.E3.83.80.E3.82.A6.E3.83.B3.E3.82.B0.E3.83.AC.E3.83.BC.E3.83.89.E3.81.AB.E3.81.A4.E3.81.84.E3.81.A6.E3.81.AE.E3.83.A1.E3.83.A2">アップグレード&amp;ダウングレードについてのメモ</span></h3>
+<p>さてあなたはFreeCADがその基盤とするopenCasCadeカーネルが3Dカーネルであることに気がついたと思います。このカーネルはそもそもは3D操作のために作成されているのです。そのために先ほど私たちがアップグレード操作/ダウングレード操作を使って行ったような平面の切断や結合でときどきおかしなことが起きますし、減算（や他のアップグレード/ダウングレード）が期待した結果にならないこともあります。もちろん時が経てば最終的にはこれらの動作はFreeCADの開発者によって修正されるでしょうが、さしあたりの問題を解決する代替方法を知っておいた方が賢明でしょう。
+</p><p>正しくアップグレード/ダウングレード/オフセットできない面を解決する最も良い方法は完全に分解されて一本のエッジになるまでとにかくダウングレードを行い、その後でエッジがつなぎ合わされて再度、新しい面になるまでアップグレードを行うことです。それがうまくいかない場合は問題がある面の上でとにかく新しいワイヤー（ポリライン）を再作成し、その端点にスナップしてから古い面を削除して新しいワイヤーをアップグレードします。通常、自分で描いた面はアップグレード/ダウングレードで作成した面よりも適切な形状をしています。
+</p><p>もう一つ憶えておいて欲しいのは形状を他の形状から減算した場合、複数の面が含まれる一つのオブジェクトが作成される場合があるということです。この様なオブジェクトは後の作業で問題（正しくオフセットできないなど）になることがあるので、その様な場合は常にダウングレードツールを使ってそれを分解しておいた方がいいでしょう。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B9.E3.83.8A.E3.83.83.E3.83.94.E3.83.B3.E3.82.B0.E3.81.AB.E3.81.A4.E3.81.84.E3.81.A6.E3.81.AE.E3.83.A1.E3.83.A2">スナッピングについてのメモ</span></h3>
+<p>製図モジュールには二つのスナッピング方法があります：一つはパッシブスナップでたんにマウスカーソルをオブジェクトの上に置いた時に行われます（白い円のマークが表示されます）。もう一つはアクティブスナップで<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">CTRL</span>キーを押した時に行われます。アクティブスナップを使うと端点、中点、中心、他のオブジェクトとの交点といったオブジェクト上の特定の点にスナップすることが可能です。<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SHIFT</span>キーを押すと水平方向、垂直方向の拘束が行われ、さらに多くのスナッピング点を使用できます。ただしこれにはコストがかかります。FreeCADがリアルタイムで多くの計算を行わなければならないからです。たくさんのオブジェクトがある場合には違いを実感することができるでしょう。そういうわけで作業を高速化するためにはできるだけ<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SHIFT</span> キーを使う習慣をつけずにパッシブスナップだけで作業を行った方がいいでしょう。そうすれば計算結果をすばやく得られ、作業をより高速に行うことができます。
+</p><p>さあ、作業に戻りましょう：
+</p>
+<ul><li> 厚さ10cmの壁をメインルームとトイレの間に作成します。それをアップグレードした後、メインの壁と一緒にアップグレードして結合します。</li>
+<li> 他の開口部を作成するために長方形を作成します。ここではトイレに60cmの幅に窓を、メインルームとトイレの間に80cmのドアを、さらに左右に40cmを残してメインルームに大きな窓を作成しました。</li>
+<li> 全ての壁を1cmオフセットしてセメント/漆喰の層を作成します。その後、オフセットしたコピーをダウングレードしてそれをたんなるワイヤーにします。</li>
+<li> セラミックの層を外壁に作成します。漆喰のラインを2cmオフセットしてください。その後、2cmの厚みの形状を二本のラインの間に描画します。</li>
+<li> 2cmのオフセットを削除します。他の全ての製図用補助形状と同様、これももう必要ありません。もし後で必要になると感じる場合は別のグループに移動して<span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SPACE</span>キーで非表示にしてください。</li></ul>
+<p>私たちは今、こうなっているはずです（製図用補助形状はそのままにしてあります。青い線が製図用補助形状です）：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-walls.jpg" class="image"><img alt="Draft-tutorial-walls.jpg" src="Draft-tutorial-walls.jpg" width="800" height="474" /></a>
+</p>
+<h3><span class="mw-headline" id=".E8.A4.87.E5.90.88.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88.E3.81.A8.E4.BD.9C.E6.88.90">複合オブジェクトのインポートと作成</span></h3>
+<p>FreeCADでは複数の他のオブジェクトの形状から作成されているオブジェクトを複合オブジェクトと呼びます。他のソフトウェアではブロック、シンボル、コンポーネントなどと呼ばれるものです。一つのオブジェクトの下に形状をまとめておくというのはとても便利なやり方です。製図モジュールで作成したオブジェクトはどんなものでも複合オブジェクトの中にまとめることができます。複合オブジェクトを作るためのコマンドは<a href="Draft_Upgrade.html" title="Draft Upgrade">アップグレード</a>コマンドです。使い方は簡単で、複合オブジェクトにしたいものを全て選択してアップグレードを押すだけです。もしそれ以上他の形状にアップグレードできない場合は複合オブジェクトに変わります。
+</p><p>複合オブジェクトは後で再利用できるようディスク上にシンボルライブラリーを作成する際に特に便利です。すばらしいことにこれを使うとDXFインポート機能と組み合わせてDXF形式のシンボルライブラリーを非常に簡単に利用できるのです（もしあなたの持っているシンボルがdwg形式の場合はフリーの<a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a>アプリケーションを使うとバッチ処理で全てtのライブラリーを一度に変換できます）。
+</p><p>DXFのシンボルライブラリーさえあれば、たんにその一つを開いているFreeCADのウィンドウにドラッグ・アンド・ドロップするだけでそれが現在のドキュメントにインポートされます。複合オブジェクトとしてインポートされるわけではなく全てのシンボル形状が別々のオブジェクトとして読み込まれますが、簡単に全選択して"アップグレード"できます。注意して欲しいのはAutoCADユーザーは悪い習慣で原点(0,0,0)から非常に離れた所で製図をおこなうことがあり、その場合、挿入したシンボルは製図している領域から離れた場所に置かれてしまうということです。
+</p><p>さあ、製図に戻りましょう：
+</p>
+<ul><li> 便器のシンボルをインポートします。持っていない場合は<a rel="nofollow" class="external text" href="http://cben.net/">Cad Exchange</a>からダウンロードして<a rel="nofollow" class="external text" href="http://www.opendesign.com/guestfiles/tx_sdk">"Teigha file Converter"</a>を使ってDXFに変換してください。</li>
+<li> ドアの形状を作成し、<a href="Draft_Upgrade.html" title="Draft Upgrade">アップグレード</a> して複合オブジェクトにした後で他のドアの位置に<a href="Draft_Move.html" title="Draft Move">コピー</a>しましょう。<a href="Draft_Downgrade.html" title="Draft Downgrade">ダウングレード</a>して新しいサイズに調整してから再びアップグレードするといいでしょう。</li>
+<li> 窓にも同じことをします。</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-blocks.jpg" class="image"><img alt="Draft-tutorial-blocks.jpg" src="Draft-tutorial-blocks.jpg" width="800" height="474" /></a>
+</p>
+<h3><span class="mw-headline" id=".E5.AF.B8.E6.B3.95.E3.81.A8.E6.B3.A8.E9.87.88">寸法と注釈</span></h3>
+<p>さて私たちの図面もだいぶ整ってきました。これで<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/jp" title="Draft Dimension/jp">寸法</a> と<a href="Draft_Text.html" title="Draft Text">テキスト</a>を追加することができます。これはかなりわかりやすい作業ですから多くを説明する必要は無いでしょう。全てのものに寸法を書き入れてみましょう。慣例として仕上げのレイヤーではなく常にメインの壁のラインから寸法線を開始します。塗りつぶされている領域の上にテキストや寸法を書き込むと、ときどき文字が覆われてしますことがあるので注意してください。これを修正する簡単な方法は塗りつぶされている領域をダウングレードしてから再度アップグレードすることです。そうすると他の要素の下にあるものが表示されます。
+</p><p>寸法とテキストはデフォルトでは同じテキストの高さになっていて、これは <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Preferences/jp" title="Draft Preferences/jp">製図ユーザー設定</a> ページで変更することができます。それぞれのテキストの高さを個別に編集することができます。
+</p><p>あいにくテキストや寸法といった特定の非形状オブジェクトはまだFreeCADの3Dビューで選択することができないのでツリーから選択しなければなりません。またこれらのオブジェクトにスナップすることもできませんがおそらく近い将来この問題も解決されるでしょう。さらに今のところはフォントを選択することもできません。今のところ寸法を平行に並べるにはまずラインを引いてその後で寸法をラインにスナップさせる必要があります。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-dims.jpg" class="image"><img alt="Draft-tutorial-dims.jpg" src="Draft-tutorial-dims.jpg" width="800" height="602" /></a>
+</p>
+<h3><span class="mw-headline" id=".E7.B7.A8.E6.88.90">編成</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-typical-tree.jpg" class="image"><img alt="Draft-tutorial-typical-tree.jpg" src="Draft-tutorial-typical-tree.jpg" width="156" height="250" /></a></div>
+<p>最後に小屋の周りの植物といったいくつかの物を追加して図面を終わらせましょう。インポートしたDXF図形から樹木をコピーし、(0.5,0.5)といったように<a href="Draft_Scale.html" title="Draft Scale">スケール</a>ツールで縮小します。また例えば壁をもっと厚くするなどいくつかのオブジェクトの線の幅を変更したり、オブジェクトの色を変更したりしてもいいでしょう。その後でグループにある全ての要素を整理します。
+</p><p>作業物を入れ子になったグループに整理することができるということは間違いなくグループが従来のレイヤーより優れている点です。このチュートリアルで私はオブジェクトをタイプごとにPlanグループ内でグループ化していました。例えば一つのレイヤーに図面の全ての寸法を書き入れるのではなく、図面の各パーツにそれぞれの寸法用グループを作成すると図面を整理するのが非常に簡単になるのです。
+</p><p>もしあなたがAutoCADなどの従来の製図プログラムを使っていたのであれば最初のうちは落ちつかない気持ちになるかもしれませんがすぐにこの方法のもたらす力を理解するようになるでしょう。
+</p><p>例えば作成した形状全てを別々のグループにして非表示にすることもできます。後になって変更を行う必要がでてきたら簡単にその形状を見つけることができます。
+</p><p>さあ他のパーツを製図する準備も整いました・・・
+</p>
+<h2><span class="mw-headline" id=".E7.AB.8B.E9.9D.A2.E5.9B.B3.E3.81.AE.E8.A3.BD.E5.9B.B3">立面図の製図</span></h2>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial-elevation.jpg" class="image"><img alt="Draft-tutorial-elevation.jpg" src="Draft-tutorial-elevation.jpg" width="232" height="300" /></a></div>
+<p>このエクササイズでは私たちは完全な2Dで作業をおこなうのでこれから私たちは立面図と断面図を直接製図します。より進んだ建築用製図環境（いつかFreeCADがそうなればいいのですが）では立面図を製図する必要はなくなるでしょう。建物を3Dでモデリングすれば自動的にそれぞれの図が生成されるようになるはずです。しかし練習のために（そして必要なツールがまだFreeCADに実装されていないので）私たちは昔のようにそれを手動で行いましょう。
+</p><p>まず背後の壁の立面図から始めましょう。図面が向いている方向だからです。表示を回転させる必要はなく、直接、図面の下に製図ができます。図面から製図用補助線を引き、適切な高さに水平線を設定します（私は0.00の位置、+0.15のスラブの位置、窓の高さの位置、+2.50のルーフスラブの位置に設定しました。こうしておけばその上にすばやく形状を製図することができます。
+</p><p>それからいくつか注釈や寸法を配置したり、オブジェクトをアップグレードして塗りつぶし表示したりしておきます。最後にオブジェクトの整理をおこなっておきましょう。"South Elevation"グループと製図用補助形状や注釈用のサブグループをを作成し、新しいオブジェクトを全てその中に配置します。
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".E8.A1.A8.E7.A4.BA.E3.81.AE.E5.9B.9E.E8.BB.A2.E3.81.A8.E3.83.9E.E3.82.AF.E3.83.AD.E3.81.AE.E4.BD.9C.E6.88.90">表示の回転とマクロの作成</span></h3>
+<p>今度は小屋の別の立面図が必要です。最も単純な方法は南側の立面図でやってのと同じ様に直接、図面の下に製図をおこなう方法です。そのためには表示を90°回転させることができると便利です。そうすれば立面図を"足元"に製図していくことができます。残念ながら今の所、FreeCADには"表示を回転"ツールはありません。しかし幸いなことにこれは自分で簡単に作成できるツールです。こういったツールはマクロと呼ばれます。作業を簡単にするよい機会なのでやってみましょう。
+</p><p>マクロはFreeCADではスクリプト処理とも呼ばれ、<a rel="nofollow" class="external text" href="http://www.python.org">Python</a>という非常に簡単なプログラミング言語で行われます。Pythonを使ってFreeCAD用の非常に複雑なプログラムを書くこともできますが、表示の回転ツールの様なまだ正式にFreeCADツールバーアイコンにはない非常に簡単な操作を行うこともできます。最初に行うことはReportビューを開き（閉じている場合）Pythonタブを選択することです。そこに以下のコードを入力（またはコピー/ペースト）します：
+</p>
+<pre>import math
+from pivy import coin
+cam = Gui.ActiveDocument.ActiveView.getCameraNode()
+rot = coin.SbRotation()
+rot.setValue(coin.SbVec3f(0,0,1),math.pi/2)
+cam.orientation = rot
+</pre>
+<p>この小さなスクリプトはたんに表示を90°（左に）回転させるものです。-90°（右に）回転させる場合はたんにmath.pi/2 を-math.pi/2とします。もしFreeCADでのPythonによるスクリプト処理についてもっと学びたい場合、このWikiには詳細な<a href="Scripting.html" class="mw-redirect" title="Scripting">スクリプト処理</a>についてのセクションがあります。
+</p><p>さてやらなければならないことがもう一つあります。マクロのコード片を保存して後で再利用できるようにするのです。そうしたらPythonインタープリター用にコードをペーストする代わりに、マクロマネージャー(Tools -&gt; Macros)を開き、新しいマクロを作成して"Edit" ボタンを押してから私たちのコードをそこにペーストします。マクロ編集タブを閉じるとマクロが保存されます。
+</p><p>マクロは他のFreeCADツールと同じ様に振る舞うことができます。Tools -&gt; Customizeメニューを使えばマクロにアイコンやキーボードショートカットを設定したり、ツールバーにマクロを追加したりすることができます。
+</p>
+<h3><span class="mw-headline" id=".E5.9B.9E.E8.BB.A2.E3.81.95.E3.81.9B.E3.81.9F.E8.A1.A8.E7.A4.BA.E3.81.AB.E8.A3.BD.E5.9B.B3">回転させた表示に製図</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Draft-tutorial05.jpg" class="image"><img alt="Draft-tutorial05.jpg" src="340px-Draft-tutorial05.jpg" width="340" height="250" srcset="/wiki/images/thumb/6/66/Draft-tutorial05.jpg/510px-Draft-tutorial05.jpg 1.5x, /wiki/images/6/66/Draft-tutorial05.jpg 2x" /></a></div>
+<p>これで思いのままに表示を回転できるようになりました。他の立面図も製図することができます。図面表示の下の正しい位置に立面図を製図する最も簡単な方法は"ミラー"（45°の対称面）を使って他の立面図から高さを表す線をとってくる方法です。こうすれば製図がだいぶはかどります。
+</p>
+<div style="clear:both"></div>
+<p><br />
+最後に2つの他の立面図を製図します。四つ目の立面図は二つ目と同じ（鏡像なだけ）ですからここでは取り上げません。これで断面図を製図すれば図面の完成です：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Fctutorial-complete.jpg" class="image"><img alt="Fctutorial-complete.jpg" src="Fctutorial-complete.jpg" width="800" height="725" /></a>
+</p><p>続く・・・
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_tutorial/jp&amp;oldid=159684">http://www.freecadweb.org/wiki/index.php?title=Draft_tutorial/jp&amp;oldid=159684</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

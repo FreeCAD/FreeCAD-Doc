@@ -1,0 +1,238 @@
+<html><head><title>Workbench creation/zh-tw</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Workbench creation/zh-tw</h1></div>
+
+<div id="mw-content-text" lang="zh-TW" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>本頁將告訴你如何增加一個新的workbench到FreeCAD介面。<a href="https://www.freecadweb.org/wiki/index.php?title=Workbenches/zh-tw" title="Workbenches/zh-tw">Workbenches</a>是一個FreeCAD指令的容器。我們可以用Python、C++或者是混合使用前兩種語言來撰寫。而混合使用的好處是可以擁有C++的速度和Python的 flexibility 。然而在所有的workbench都會藉由兩個檔案來開啟他們
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#workbench_.E6.9E.B6.E6.A7.8B"><span class="tocnumber">1</span> <span class="toctext">workbench 架構</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#C.2B.2B_workbench_.E6.9E.B6.E6.A7.8B"><span class="tocnumber">1.1</span> <span class="toctext">C++ workbench 架構</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Init.py_.E6.AA.94"><span class="tocnumber">1.2</span> <span class="toctext">Init.py 檔</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Python_workbenches"><span class="tocnumber">1.3</span> <span class="toctext">Python workbenches</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#C.2B.2B_workbenches"><span class="tocnumber">1.4</span> <span class="toctext">C++ workbenches</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#FreeCAD_commands"><span class="tocnumber">2</span> <span class="toctext">FreeCAD commands</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Python_command_definition"><span class="tocnumber">2.1</span> <span class="toctext">Python command definition</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#C.2B.2B_command_definition"><span class="tocnumber">2.2</span> <span class="toctext">C++ command definition</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="workbench_.E6.9E.B6.E6.A7.8B">workbench 架構</span></h2>
+<p>基本上這很簡單：需要再Mod資料夾裏面建立一個新的資料夾，並給資料夾一個任意的名字，並在資料夾中放入 <b>Init.py</b> 檔, 以及, 依照需求選擇放或不放一個 <b>InitGui.py</b> 檔. Init 會在FreeCAD開始的時候被執行然後通常會緊接著執行InitGui.py 檔，不過InitGui.py 檔只有在FreeCAD是在圖形化介面(GUI)模式下才會被執行 ，在 console 模式下不會被執行. 這些就是讓FreeCAD在啟動時找到你的workbench並且將他加到介面上所需要做的事情。
+</p><p>在這些檔案裏面，你可以做任何你想做的事。通常使用的方式如下
+</p>
+<ul><li> In the Init.py file you just add a couple of things used even when FreeCAD works in console mode, for example the file importers and exporters</li></ul>
+<ul><li> In the InitGui.py file you usually define a workbench, which contains a name, an icon, and a series of FreeCAD commands (see below). That workbench also defines functions that are executed when FreeCAD loads (you try to do as little as possible there, so you don't slow down the startup), another that gets executed when the workbench is activated (that's where you'll do most of the work), and a third one when the workbench is deactivated (so you can remove things if needed).</li></ul>
+<h3><span class="mw-headline" id="C.2B.2B_workbench_.E6.9E.B6.E6.A7.8B">C++ workbench 架構</span></h3>
+<p>如果你打算要用Python來寫你的workbench程式碼，你只需要將其他Python檔案跟Init.py 和InitGui.py放在一起就好了，而不用再去煩惱其他事情。不過當你是使用C++來撰寫workbench的時候，你必須特別留意並且遵守FreeCAD的一個基本規則：你必須將你的workbench分成App(可以在命令列介面下執行而不需要任何圖形使用者介面)和Gui(只有在FreeCAD在圖形使用者介面下執行時才會被載入)兩個部份。 所以用C++撰寫workbench你幾乎就像是在開發兩個modules，也就是App和Gui這兩個。這兩個模組當然必須能被Python呼叫。任何 FreeCAD module(App或Gui)至少都包含一個module的init 檔。這是典型AppMyModuleGui.cpp檔 ：
+</p>
+<pre>extern "C" {
+    void MyModuleGuiExport initMyModuleGui()  
+    {
+         if (!Gui::Application::Instance) {
+            PyErr_SetString(PyExc_ImportError, "Cannot load Gui module in console application.");
+            return;
+        }
+        try {
+            // import other modules this one depends on
+            Base::Interpreter().runString("import PartGui");
+            // run some python code in the console
+            Base::Interpreter().runString("print('welcome to my module!')");
+        }
+        catch(const Base::Exception&amp; e) {
+            PyErr_SetString(PyExc_ImportError, e.what());
+            return;
+        }
+        (void) Py_InitModule("MyModuleGui", MyModuleGui_Import_methods);   /* mod name, table ptr */
+        Base::Console().Log("Loading GUI of MyModule... done\n");
+    
+        // initializes the FreeCAD commands (in another cpp file)
+        CreateMyModuleCommands();
+    
+        // initializes workbench and object definitions
+        MyModuleGui::Workbench::init();
+        MyModuleGui::ViewProviderSomeCustomObject::init();
+    
+         // add resources and reloads the translators
+        loadMyModuleResource();
+    }
+} </pre>
+<h3><span class="mw-headline" id="Init.py_.E6.AA.94">Init.py 檔</span></h3>
+<pre># FreeCAD init script of XXX module  
+
+#***************************************************************************
+#*   (c) John Doe john@doe.com 2015                                        *   
+#*                                                                         *
+#*   This file is part of the FreeCAD CAx development system.              *
+#*                                                                         *
+#*   This program is free software; you can redistribute it and/or modify  *
+#*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+#*   as published by the Free Software Foundation; either version 2 of     *
+#*   the License, or (at your option) any later version.                   *
+#*   for detail see the LICENCE text file.                                 *
+#*                                                                         *
+#*   FreeCAD is distributed in the hope that it will be useful,            *
+#*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+#*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+#*   GNU Lesser General Public License for more details.                   *
+#*                                                                         *
+#*   You should have received a copy of the GNU Library General Public     *
+#*   License along with FreeCAD; if not, write to the Free Software        *
+#*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+#*   USA                                                                   *
+#*                                                                         *
+#***************************************************************************/
+
+FreeCAD.addImportType("My own format (*.own)","importOwn")
+FreeCAD.addExportType("My own format (*.own)","importOwn")
+print "I am executing some stuff here when FreeCAD starts!" </pre>
+<p>你可以為你的workbench選擇任何你喜歡的license，不過要注意的是，如果你希望見到你的workbench被FreeCAD原始碼整合並且發佈，他必須是LGPL2+就如同上面的範例。 FreeCAD.addImportType() 和addEXportType() 函式
+allow you to give the name and extension of a file type, and a python module responsible for its import.
+在上面的例子中，一個"importOwn.py" module 將會處理.own檔。請看 <a href="Code_snippets.html" title="Code snippets">Code snippets</a> 來獲得更多的例子
+</p>
+<h3><span class="mw-headline" id="Python_workbenches">Python workbenches</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>class MyWorkbench (Workbench):
+
+    MenuText = "My Workbench"
+    ToolTip = "A description of my workbench"
+    Icon = """paste here the contents of a 16x16 xpm icon"""
+
+    def Initialize(self):
+        "This function is executed when FreeCAD starts"
+        import MyModuleA, MyModuleB # import here all the needed files that create your FreeCAD commands
+        self.list = ["MyCommand1, MyCommand2"] # A list of command names created in the line above
+        self.appendToolbar("My Commands",self.list) # creates a new toolbar with your commands
+        self.appendMenu("My New Menu",self.list) # creates a new menu
+        self.appendMenu(["An existing Menu","My submenu"],self.list) # appends a submenu to an existing menu
+
+    def Activated(self):
+        "This function is executed when the workbench is activated"
+        return
+
+    def Deactivated(self):
+        "This function is executed when the workbench is deactivated"
+        return
+
+    def ContextMenu(self, recipient):
+        "This is executed whenever the user right-clicks on screen"
+        # "recipient" will be either "view" or "tree"
+        self.appendContextMenu("My commands",self.list) # add commands to the context menu
+
+    def GetClassName(self): 
+        # this function is mandatory if this is a full python workbench
+        return "Gui::PythonWorkbench"
+       
+Gui.addWorkbench(MyWorkbench())</pre></div>
+<p>Other than that, you can do anything you want: You could put your whole workbench code 
+inside the InitGui.py if you want, but it is usually more convenient to place the different 
+functions of your workbench in separate files. So those files are smaller and easier to 
+read. Then you import those files into your InitGui.py file. You can organize those files 
+the way you want, a good example is one for each FreeCAD command you add.
+</p>
+<h3><span class="mw-headline" id="C.2B.2B_workbenches">C++ workbenches</span></h3>
+<p>如果你要用C++來撰寫你的workbench，你可能也會想要用C++來撰寫workbench本身的定義(雖然不一定要這樣做：你也可以只用C++來寫你的工具，然後用Python來寫workbench的定義)
+在這種狀況下，InitGui.py檔會變得十分簡單：他可能只有一行：
+</p>
+<pre>import MyModuleGui </pre>
+<p>而MyModule是你整個C++ workbench，包含commands和workbench定義
+</p><p>用C++撰寫 workbenches的方法和用Python來撰寫的方式是十分類似的。這是一個典型的Workbench.cpp to include in the Gui part of your module:
+</p>
+<pre>namespace MyModuleGui {
+    class MyModuleGuiExport Workbench&#160;: public Gui::StdWorkbench
+    {
+        TYPESYSTEM_HEADER();
+
+    public:
+        Workbench();
+        virtual ~Workbench();
+
+        virtual void activated();
+        virtual void deactivated();
+
+    protected:
+        Gui::ToolBarItem* setupToolBars() const;
+        Gui::MenuItem*    setupMenuBar() const;
+    };
+} </pre>
+<h2><span class="mw-headline" id="FreeCAD_commands">FreeCAD commands</span></h2>
+<p>FreeCAD commands 是FreeCAD interface的基本元素。他可以是一個工具列上的一個按鈕，或是一個選單上的條目。不過他們都是一樣的。一個command是一個簡單的python類別，他必須包含幾個的預先定義的屬性和函式來定義這個command的名字，他的圖像以及當他被觸發時會做什麼。
+</p>
+<h3><span class="mw-headline" id="Python_command_definition">Python command definition</span></h3>
+<pre>class My_Command_Class():
+    """My new command"""
+
+    def GetResources(self):
+        return {'Pixmap' &#160;: 'My_Command_Icon', # the name of a svg file available in the resources
+                'Accel'&#160;: "Shift+S", # a default shortcut (optional)
+                'MenuText': "My New Command"
+                'ToolTip'&#160;: "What my new command does"}
+
+    def Activated(self):
+        "Do something here"
+        return
+
+    def IsActive(self):
+        """Here you can define if the command must be active or not (greyed) if certain conditions
+        are met or not. This function is optional."""
+        return True
+
+FreeCADGui.addCommand('My_Command',My_Command_Class()) </pre>
+<h3><span class="mw-headline" id="C.2B.2B_command_definition">C++ command definition</span></h3>
+<p>同樣地，你可以用C++編寫你的commands，通常會有一個Commands.cpp檔在你的Gui module。這是一個典型的Commands.cpp檔
+</p>
+<pre>DEF_STD_CMD_A(CmdMyCommand);
+
+CmdMyCommand::CmdMyCommand()
+ &#160;:Command("My_Command")
+{
+  sAppModule    = "MyModule";
+  sGroup        = QT_TR_NOOP("MyModule");
+  sMenuText     = QT_TR_NOOP("Runs my command...");
+  sToolTipText  = QT_TR_NOOP("Describes what my command does");
+  sWhatsThis    = QT_TR_NOOP("Describes what my command does");
+  sStatusTip    = QT_TR_NOOP("Describes what my command does");
+  sPixmap       = "some_svg_icon_from_my_resource";
+}
+
+void CmdMyCommand::activated(int iMsg)
+{
+    openCommand("My Command");
+    doCommand(Doc,"print('Hello, world!')");
+    commitCommand();
+    updateActive();
+}
+
+bool CmdMyCommand::isActive(void)
+{
+  if( getActiveGuiDocument() )
+    return true;
+  else
+    return false;
+}
+
+void CreateMyModuleCommands(void)
+{
+    Gui::CommandManager &amp;rcCmdMgr = Gui::Application::Instance-&gt;commandManager();
+    rcCmdMgr.addCommand(new CmdMyCommand());
+} </pre>
+<p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Workbench_creation/zh-tw&amp;oldid=189370">http://www.freecadweb.org/wiki/index.php?title=Workbench_creation/zh-tw&amp;oldid=189370</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

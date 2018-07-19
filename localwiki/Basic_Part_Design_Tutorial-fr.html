@@ -1,0 +1,208 @@
+<html><head><title>Basic Part Design Tutorial/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Basic Part Design Tutorial/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="mw-translate-fuzzy">
+<table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Modélisation
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Débutant
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">Moins d'une heure
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">Mark Stephen (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a>)
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">0.14.3700 ou plus
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Avant_de_commencer"><span class="tocnumber">2</span> <span class="toctext">Avant de commencer</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#La_t.C3.A2che"><span class="tocnumber">3</span> <span class="toctext">La tâche</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#La_pi.C3.A8ce"><span class="tocnumber">4</span> <span class="toctext">La pièce</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Construction_de_la_pi.C3.A8ce"><span class="tocnumber">5</span> <span class="toctext">Construction de la pièce</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Pi.C3.A8ce_principale_avec_protrusion"><span class="tocnumber">5.1</span> <span class="toctext">Pièce principale avec protrusion</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Fonctions_avec_cavit.C3.A9_et_g.C3.A9om.C3.A9trie_externe"><span class="tocnumber">5.2</span> <span class="toctext">Fonctions avec cavité et géométrie externe</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Fonctions_de_protrusion_avec_g.C3.A9om.C3.A9trie_externe"><span class="tocnumber">5.3</span> <span class="toctext">Fonctions de protrusion avec géométrie externe</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Fonction_cavit.C3.A9_avec_g.C3.A9om.C3.A9trie_externe"><span class="tocnumber">5.4</span> <span class="toctext">Fonction cavité avec géométrie externe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Ressources_Additionnelles"><span class="tocnumber">6</span> <span class="toctext">Ressources Additionnelles</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+</div>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><b>This tutorial is obsolete. It is valid for FC v0.16 and below. For 0.17+, see <a href="Basic_Part_Design_Tutorial_017.html" title="Basic Part Design Tutorial 017">Basic Part Design Tutorial 017</a>.</b></div>
+<p><br />
+Ce tutoriel apprend au nouvel utilisateur quelques uns des outils et techniques de l'<a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">atelier Part Design</a>. Ce tutoriel n'est pas un guide exhaustif de l'atelier Part Design, et plusieurs outils et possibilités ne sont pas abordés. Ce tutoriel guidera l'utilisateur à travers les étapes requises pour modéliser la pièce montrée dans l'image ci-dessous à l'aide d'esquisses.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial018.png" class="image"><img alt="PD WB Tutorial018.png" src="PD_WB_Tutorial018.png" width="450" height="450" /></a></div></div>
+<h2><span class="mw-headline" id="Avant_de_commencer">Avant de commencer</span></h2>
+<p>Les images montrées dans ce tutoriel ont été produites par FreeCAD avec les réglages d'affinage de forme automatique activées. Ces réglages permettent d'enlever les arêtes superflues sur les faces. Ces réglages sont potentiellement dangereux, car ils peuvent corrompre vos modèles et ne devrait donc pas être utilisés par les débutants. Le meilleur conseil est de ne pas changer ces réglages et les laisser désactivés par défaut.
+</p>
+<h2><span class="mw-headline" id="La_t.C3.A2che">La tâche</span></h2>
+<p>Dans ce tutoriel, vous utiliserez l'atelier Part Design (Conception de pièce) pour créer un modèle solide 3D de la pièce représentée dans le <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">dessin</a> ci-dessous. Toutes les dimensions nécessaires pour compléter cette tâche sont données. Vous commencerez par la création d'une forme de base depuis une esquisse, puis construire sur cette base en ajoutant ce qu'on appelle des fonctions. Ces fonctions ajouteront ou enlèveront de la matière du solide par l'utilisation d'esquisses supplémentaires et de fonctions complémentaires. Ce tutoriel n'utilisera pas toutes les fonctionnalités et les outils disponibles au sein de l'atelier Part Design, mais devrait en montrer suffisamment pour donner à l'utilisateur de ce tutoriel une base sur laquelle il pourra faire évoluer ses connaissances et compétences. 
+</p>
+<h2><span class="mw-headline" id="La_pi.C3.A8ce">La pièce</span></h2>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tutorial_Drawing_Sheet.png" class="image"><img alt="Tutorial Drawing Sheet.png" src="Tutorial_Drawing_Sheet.png" width="1488" height="1052" /></a>
+</p>
+<h2><span class="mw-headline" id="Construction_de_la_pi.C3.A8ce">Construction de la pièce</span></h2>
+<h3><span class="mw-headline" id="Pi.C3.A8ce_principale_avec_protrusion">Pièce principale avec protrusion</span></h3>
+<p>D'abord assurez-vous d'être dans l'atelier Part Design (Conception de pièce). Une fois dans cet atelier, créez un nouveau document si vous ne l'avez pas déjà fait. C'est une bonne habitude d'enregistrer régulièrement votre travail, donc avant tout sauvegardez le nouveau document, en lui donnant le nom que vous souhaitez. Maintenant que c'est enregistré, nous allons commencer avec l'esquisse de base. Pour commencer cette esquisse, cliquez sur l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> Nouvelle esquisse à gauche sur la barre d'outils ou dans le menu Part Design. Une fois lancé, une boîte de dialogue apparaît et vous invite à choisir l'orientation de l'esquisse et régler un décalage. Nous n'utiliserons pas le décalage, mais pour notre esquisse de base nous voulons choisir le plan YZ comme indiqué dans l'image ci-dessous. Une fois que le plan YZ est sélectionné, cliquez sur OK et nous pouvons commencer à construire la première esquisse.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial001.png" class="image"><img alt="PD WB Tutorial001.png" src="PD_WB_Tutorial001.png" width="270" height="316" /></a></div></div>
+<p>Ensuite, lancez <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> l'outil Polyligne et dessinez une forme à peu près comme dans l'image suivante. Elle n'a pas besoin d'être parfaite, ce qui sera fait ensuite par l'application de contraintes. Une fois que vous avez la forme de base, nous commencerons à appliquer les contraintes. Si vous aviez les contraintes automatiques activées, certaines de ces contraintes auront été appliquées automatiquement, sinon, procédez comme suit. 
+</p>
+<ol><li> Sélectionnez les deux lignes horizontales avec votre souris en cliquant dessus, et une fois sélectionnées, cliquez sur la <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> contrainte horizontale.</li>
+<li> Sélectionnez la ligne verticale sur la droite et ensuite cliquez sur la <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a> contrainte verticale.</li>
+<li> Sélectionnez le point de départ et le point final de votre Polyligne et cliquez sur la <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> contrainte de coïncidence pour fermer le polygone.</li>
+<li> Sélectionnez la ligne horizontale inférieure et la ligne verticale de droite et appliquez une <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> contrainte d'égalité.</li>
+<li> Sélectionner soit la ligne horizontale soit la verticale et appliquer une contrainte de distance <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> horizontale ou <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> verticale et donnez-lui une valeur 26 mm.</li>
+<li> Sélectionnez la ligne horizontale supérieure et appliquez-lui une contrainte de distance horizontale avec une valeur de 5 mm.</li>
+<li> Sélectionnez le point inférieur gauche de la ligne horizontale et le point supérieur droit de la ligne verticale, puis sélectionnez le point central de la grille et appliquez une <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a>  contrainte de symétrie.</li></ol>
+<p>À ce stade, vous devriez avoir une esquisse totalement contrainte, comme indiqué par le changement de couleur et le message affiché dans la vue combinée. Elle devrait maintenant ressembler à l'image ci-dessous. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial002.png" class="image"><img alt="PD WB Tutorial002.png" src="PD_WB_Tutorial002.png" width="450" height="450" /></a></div></div>
+<p>Maintenant dans la vue combinée à gauche, cliquez sur "Fermer" pour sortir du mode d'édition d'esquisse, puis cliquez sur l'icône <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> Protrusion de la barre d'outils ou le menu Part Design. Sous la vue combinée, l'onglet Tâches s'affiche à l'avant-plan et offre un dialogue <i>Paramètres de protrusion</i>. Sous ce dialogue et le menu déroulant Type, sélectionnez l'option Deux dimensions. Le dessin présenté au début du tutoriel indique que la pièce fait 53 mm de long. Nous allons extruder notre esquisse dans les deux sens à partir du plan central pour combler cette distance et ainsi rendre la protrusion symétrique au plan d'esquisse. La raison sera démontrée plus tard  lors de la création de fonctions ultérieures. Pour l'instant, puisque la longueur totale désirée est de 53 mm nous saisirons des valeurs identiques de 26,5 mm pour la première et la seconde longueur. L'alternative est de régler le type sur <i>Dimension</i> avec une longueur de 53 mm et cocher <i>Symétrique au plan</i>. Une fois cette étape complétée, nous avons notre solide de base sur lequel ajouter des fonctions additionnelles.
+</p><p>Une vidéo des étapes utilisées dans cette portion du tutoriel est disponible ici&#160;:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=UacO5Pa4gIM">https://www.youtube.com/watch?v=UacO5Pa4gIM</a>
+</p>
+<h3><span class="mw-headline" id="Fonctions_avec_cavit.C3.A9_et_g.C3.A9om.C3.A9trie_externe">Fonctions avec cavité et géométrie externe</span></h3>
+<p>À l'aide de la souris ou des icônes de vue, faites pivoter le modèle afin d'afficher l'arrière. Une fois que la face arrière de la pièce est visible, sélectionnez-la en cliquant dessus comme affiché dans l'image suivante. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial003.png" class="image"><img alt="PD WB Tutorial003.png" src="PD_WB_Tutorial003.png" width="450" height="450" /></a></div></div>
+<p>Après que la face ait été sélectionnée, cliquez sur l'icône Nouvelle esquisse dans la barre d'outils ou depuis le menu Part Design, ce qui appliquera la nouvelle esquisse sur la face arrière de la pièce. Maintenant, sélectionnez l'outil rectangle <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="32px-Sketcher_CreateRectangle.png" width="32" height="32" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/48px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/a/ad/Sketcher_CreateRectangle.png 2x" /></a> et tracez un rectangle sur la face arrière de la pièce comme indiqué ci-dessous. En suivant les étapes énumérées, contraindre l'esquisse.
+</p>
+<ol><li> Sélectionnez l'une des lignes horizontales et appliquez une contrainte de distance horizontale d'une valeur de 5 mm.</li>
+<li> Sélectionnez l'une des lignes verticales et donnez-lui une contrainte de distance verticale d'une valeur de 11 mm. </li>
+<li> Utilisez l'outil de géométrie externe <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.png" class="image"><img alt="Sketcher External.png" src="32px-Sketcher_External.png" width="32" height="32" srcset="/wiki/images/thumb/b/b5/Sketcher_External.png/48px-Sketcher_External.png 1.5x, /wiki/images/b/b5/Sketcher_External.png 2x" /></a> et sélectionnez le sommet supérieur droit de la face et cliquez dessus pour vous fournir un point de la géométrie externe à relier à notre esquisse. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial004.png" class="image"><img alt="PD WB Tutorial004.png" src="PD_WB_Tutorial004.png" width="450" height="450" /></a></div></div>
+<p>Sélectionnez le point que vous venez de rendre disponible avec l'outil de géométrie externe, puis sélectionnez le sommet supérieur droit du rectangle et cliquez sur la contrainte de coïncidence. À ce stade, l'esquisse devrait être entièrement contrainte et ressembler à l'image suivante. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial005.png" class="image"><img alt="PD WB Tutorial005.png" src="PD_WB_Tutorial005.png" width="450" height="450" /></a></div></div>
+<p>Une fois cela fait, cliquez sur "Fermer" sous l'onglet Tâches de la vue combinée, puis sélectionnez l'outil Cavité <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> de la barre d'outils ou dans le menu Part Design. Cet outil est l'opposé de l'outil Protrusion. Alors que l'outil Protrusion ajoute de la matière à la pièce, l'outil Cavité enlève de la matière. Les deux opérations sont appelées des fonctions. Dans cette opération Cavité, sélectionnez dans le menu déroulant Type: À travers tout , puis cliquez sur OK. 
+</p><p>Pour l'opération suivante, assurez-vous que <i>Cavité</i> est sélectionné dans l'arborescence du modèle, puis cliquez sur la fonction Symétrie <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="32px-PartDesign_Mirrored.png" width="32" height="32" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 1.5x, /wiki/images/5/55/PartDesign_Mirrored.png 2x" /></a> sur la barre d'outils ou dans le menu Part Design. Dans les paramètres de symétrie sous la vue combinée, dans le sous-menu déroulant Plan, sélectionnez <i>Axe d'esquisse horizontal</i> puis cliquez sur OK. La fonction symétrie fonctionne de cette manière parce que la fonction de base de notre modèle a été extrudée de part et d'autre du plan horizontal de la première opération de l'esquisse de base. Si tout s'est bien passé, vous devriez maintenant avoir une pièce qui ressemble à l'image ci-dessous après l'avoir pivotée vers la face avant. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial006.png" class="image"><img alt="PD WB Tutorial006.png" src="PD_WB_Tutorial006.png" width="450" height="450" /></a></div></div>
+<p>Une vidéo des étapes suivies dans cette portion de ce tutoriel est disponible ici&#160;:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=nnVQDjUpS3o">https://www.youtube.com/watch?v=nnVQDjUpS3o</a>
+</p>
+<h3><span class="mw-headline" id="Fonctions_de_protrusion_avec_g.C3.A9om.C3.A9trie_externe">Fonctions de protrusion avec géométrie externe</span></h3>
+<p>Après avoir jeté un coup d'œil, revenez sur la face arrière de la pièce puis sélectionnez-la pour y appliquer la prochaine esquisse. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial007.png" class="image"><img alt="PD WB Tutorial007.png" src="PD_WB_Tutorial007.png" width="450" height="450" /></a></div></div>
+<p>Sélectionnez Nouvelle esquisse et tracez un nouveau rectangle d'une manière similaire à ce qui est affiché dans l'image suivante. Ensuite,  ajoutez des contraintes dimensionnelles au rectangle.
+</p>
+<ol><li> Sélectionnez une ligne horizontale et appliquer une contrainte de distance horizontale d'une valeur de 16,7.</li>
+<li> Sélectionnez une ligne verticale et appliquer une contrainte de distance verticale de 7 mm</li>
+<li> À l'aide de l'outil de géométrie externe, sélectionnez le sommet supérieur gauche de la face de la pièce.</li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial008.png" class="image"><img alt="PD WB Tutorial008.png" src="PD_WB_Tutorial008.png" width="450" height="450" /></a></div></div>
+<p>Maintenant en sélectionnant le sommet supérieur gauche du rectangle et le point de géométrie externe, cliquez sur la contrainte de coïncidence pour contraindre totalement l'esquisse. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial009.png" class="image"><img alt="PD WB Tutorial009.png" src="PD_WB_Tutorial009.png" width="450" height="450" /></a></div></div>
+<p>Ensuite, nous allons cliquer sur la fonction Protrusion et dans les paramètres de Protrusion nous saisissons une longueur de 26 mm, en laissant le type Dimension et en cochant la case <i>Inversé</i>. L'utilisation de la case Inversé forcera la Protrusion à rentrer dans la pièce au lieu de sortir de la pièce. Cette opération donne le résultat suivant. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial010.png" class="image"><img alt="PD WB Tutorial010.png" src="PD_WB_Tutorial010.png" width="450" height="450" /></a></div></div>
+<p>Utilisez à nouveau la fonction Symétrie. Vérifiez d'abord que Pad001 est sélectionné dans l'arborescence, puis cliquez sur Symétrie dans la barre d'outils ou depuis le menu Part Design. Nous allons répéter l'opération que nous avons faite pour Cavité plus tôt et sélectionner l'axe d'esquisse horizontal dans le menu déroulant Plan.
+</p><p>Une vidéo des étapes suivies dans cette portion de ce tutoriel est disponible ici&#160;:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=DZOF21fNVDs">https://www.youtube.com/watch?v=DZOF21fNVDs</a>
+</p>
+<h3><span class="mw-headline" id="Fonction_cavit.C3.A9_avec_g.C3.A9om.C3.A9trie_externe">Fonction cavité avec géométrie externe</span></h3>
+<p>À ce stade en faisant pivoter la pièce vers l'avant, nous pouvons voir que celle-ci commence maintenant à ressembler à la pièce dans le dessin coté au début de ce tutoriel. Une fois que vous avez la vue avant, cliquez sur la face en pente avec votre souris pour sélectionner la face que nous allons utiliser pour la prochaine esquisse.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial011.png" class="image"><img alt="PD WB Tutorial011.png" src="PD_WB_Tutorial011.png" width="450" height="450" /></a></div></div>
+<p>Ici, nous allons utiliser l'outil rectangle et en tracer un dans notre esquisse et une fois cela fait, appliquer les contraintes suivantes. 
+</p>
+<ol><li> Sélectionnez une ligne horizontale et une ligne verticale, et après que les deux sont sélectionnés, cliquez sur la contrainte d'égalité. </li>
+<li> Sélectionnez une ligne horizontale ou verticale et appliquer une contrainte correspondante de distance horizontale ou verticale avec une valeur de 17 mm.</li>
+<li> À l'aide de l'outil de géométrie externe, sélectionnez le sommet supérieur droit comme affiché dans l'image ci-dessous. </li></ol>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial012.png" class="image"><img alt="PD WB Tutorial012.png" src="PD_WB_Tutorial012.png" width="450" height="450" /></a></div></div>
+<p>Maintenant, en utilisant les dimensions du dessin, appliquer les contraintes suivantes.
+</p>
+<ol><li> Sélectionnez le point de la géométrie externe et le sommet supérieur droit de l'esquisse désormais carrée et appliquer une contrainte de distance horizontale de 7 mm </li>
+<li> Sélectionnez le point de la géométrie externe et le sommet en haut à droite de l'esquisse désormais carrée et appliquer une contrainte de distance verticale de 11 mm</li></ol>
+<p>Le résultat devrait être comme suit. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial013.png" class="image"><img alt="PD WB Tutorial013.png" src="PD_WB_Tutorial013.png" width="450" height="450" /></a></div></div>
+<p>À ce stade, si nous devions tout simplement créer une cavité à partir de cette esquisse, le trou résultant serait perpendiculaire à la face en pente sur lequel il est appliqué, et ce n'est pas ce que nous voulons. Nous voulons que le trou soit perpendiculaire à la face arrière, mais les dimensions projetées ne sont pas les dimensions de 17 mm x 17 mm qui sont données dans le dessin. Bien sûr, nous pourrions calculer les dimensions nécessaires, ou nous pouvons utiliser les outils fournis dans FreeCAD pour faire cette projection à notre place. Pour ce faire, nous allons créer une petite fonction Protrusion d'assistance à partir de l'esquisse que nous venons de faire. Nous allons utiliser l'outil de géométrie externe pour projeter les points de la base de cette protrusion d'assistance sur la face arrière où nous allons placer notre esquisse finale qui percera le trou de passage pour terminer le modèle.
+</p><p>Tout d'abord, après avoir cliqué sur "Fermer" pour quitter le mode d'édition d'esquisse, sélectionnez Protrusion et saisissez une distance de 1 mm. Cliquez sur OK et vous devriez voir le résultat suivant. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial014.png" class="image"><img alt="PD WB Tutorial014.png" src="PD_WB_Tutorial014.png" width="450" height="450" /></a></div></div>
+<p>Une vidéo des étapes suivies dans cette portion de ce tutoriel est disponible ici&#160;:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=a0hsJtbFW4Y">https://www.youtube.com/watch?v=a0hsJtbFW4Y</a>
+</p><p>Ensuite, nous allons pivoter pour voir la face arrière de la pièce une fois de plus et sélectionner cette dernière pour y appliquer l'esquisse finale. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial015.png" class="image"><img alt="PD WB Tutorial015.png" src="PD_WB_Tutorial015.png" width="450" height="450" /></a></div></div>
+<p>Sélectionnez Nouvelle esquisse de la barre d'outils ou du menu Part Design. Maintenant en mode d'édition d'esquisse, nous allons tourner la vue vers l'avant de sorte de voir deux arêtes perpendiculaires de la Protrusion que nous avons faite dans la dernière opération. En utilisant l'outil de géométrie externe, sélectionnez les arêtes horizontale et verticale connectées à la base de la protrusion. L'image ci-dessous montre les arêtes de la base à sélectionner avec l'outil de géométrie externe. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial016.png" class="image"><img alt="PD WB Tutorial016.png" src="PD_WB_Tutorial016.png" width="450" height="450" /></a></div></div>
+<p>Maintenant tournez vers la face arrière, ou bien en double-cliquant sur l'esquisse active dans l'arborescence du modèle, vous verrez les deux lignes de géométrie externe que nous avons créées depuis l'avant du modèle. Tracez un rectangle et en utilisant la contrainte de coïncidence, procédez comme suit.
+</p>
+<ol><li> Sélectionnez le sommet supérieur gauche du rectangle et le point supérieur gauche de la géométrie externe et cliquez sur la contrainte de coïncidence. </li>
+<li> Cliquez sur le sommet inférieur droit du rectangle et le point inférieur droit de la géométrie externe et cliquez sur la contrainte de coïncidence.</li></ol>
+<p>Et nous devrions finir avec ceci. 
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial017.png" class="image"><img alt="PD WB Tutorial017.png" src="PD_WB_Tutorial017.png" width="450" height="450" /></a></div></div>
+<p>Pour la dernière étape de ce tutoriel, nous allons sélectionner la fonction Cavité de la barre d'outils ou depuis le menu Part Design, ensuite dans le menu déroulant <i>Type</i> sélectionnez <i>À travers tout</i>. Cliquez sur OK.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PD_WB_Tutorial019.png" class="image"><img alt="PD WB Tutorial019.png" src="PD_WB_Tutorial019.png" width="671" height="493" /></a></div></div>
+<p>Une vidéo des étapes suivies dans cette portion de ce tutoriel est disponible ici&#160;:
+<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=dlQV9OkXWOI">https://www.youtube.com/watch?v=dlQV9OkXWOI</a>
+</p><p>Votre modèle aura des arêtes supplémentaires à comparer avec les images de ce tutoriel. Pour enlever ces arêtes, basculez vers l'atelier OpenSCAD, sélectionnez Pocket001 dans l'arborescence de l'onglet Modèle, et cliquez sur l'outil Fonction affiner la forme&#160;: <a href="https://www.freecadweb.org/wiki/index.php?title=File:OpenSCAD_RefineShapeFeature.png" class="image"><img alt="OpenSCAD RefineShapeFeature.png" src="32px-OpenSCAD_RefineShapeFeature.png" width="32" height="32" srcset="/wiki/images/thumb/9/93/OpenSCAD_RefineShapeFeature.png/48px-OpenSCAD_RefineShapeFeature.png 1.5x, /wiki/images/9/93/OpenSCAD_RefineShapeFeature.png 2x" /></a>. Ceci créé une version affinée du modèle qui est liée paramétriquement à Pocket001 et est ainsi liée à l'historique entier du modèle. Si par exemple, nous changeons la valeur numérique d'une contrainte de distance, la forme affinée se mettra à jour. À l'opposé, l'atelier Part contient également un outil <i>Affiner la forme</i> accessible par son menu Pièce, et il créé une forme affinée qui est comme un instantané du modèle tel qu'il existait lors de l'utilisation de l'outil. Mais si nous changeons par exemple la valeur numérique d'une contrainte de distance, la forme affinée créée par l'atelier Part restera la même et ne se mettra pas à jour.
+</p><p>Ce tutoriel ainsi que votre modèle sont complétés.
+</p>
+<h2><span class="mw-headline" id="Ressources_Additionnelles">Ressources Additionnelles</span></h2>
+<ul><li> Des liens vers des vidéos d'accompagnement ont été ajoutés.</li>
+<li> Un fichier FreeCAD pour comparaison (fait sous la v0.16.6706) <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/Examples/blob/master/Basic_Part_Design_Tutorial_Example_Files/Basic_Part_Design_Tutorial.FCStd">Télécharger</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/fr&amp;oldid=275614">http://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/fr&amp;oldid=275614</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

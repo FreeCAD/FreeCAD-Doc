@@ -1,0 +1,35 @@
+<html><head><title>Arch IFC/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch IFC/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>L'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/it" title="Arch Module/it">Arch</a> fornisce un importatore  <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Industry_Foundation_Classes">Industry Foundation Classes (IFC)</a>. Il formato IFC è un formato sempre più diffuso per scambiare dati tra le applicazioni  <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Building_Information_Modeling">BIM</a>, utilizzato in architettura e in ingegneria.
+</p><p>L'importatore è ancora in fase di sviluppo e dipende da una parte esterna di software open-source, chiamato <a rel="nofollow" class="external text" href="http://ifcopenshell.org">IfcOpenShell</a>, che non è incorporato in FreeCAD e che deve essere <a href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/it" title="Extra python modules/it">installato nel proprio sistema</a>. Se IfcOpenShell è installato correttamente, esso viene rilevato da FreeCAD e utilizzato per importare i file IFC. È ancora possibile forzare l'uso del vecchio importatore IFC Python, che non dipende da IfcOpenShell, attivando la relativa opzione nelle impostazioni delle preferenze di Arch. Ma questo importatore è stato abbandonato e importa solo un piccolo sottoinsieme di oggetti IFC.
+</p><p>Si consiglia vivamente di usare IfcOpenShell che è molto più veloce e più potente del parser interno. IfcOpenShell supporta tutte le entità IFC2x3 e IFC4 che riportano informazioni geometriche, anche se non tutte possono essere convertite in oggetti <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/it" title="Arch Module/it">Arch</a>, quelle che non possono convertite vengono importate come semplice forme  <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">Parte</a>.
+</p>
+<h2><span class="mw-headline" id="Importazione">Importazione</span></h2>
+<p>Nel documento di FreeCAD sono importate dai file IFC2x3 o IFC4 tutte le entità basate su <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifckernel/lexical/ifcproduct.htm">IfcProduct</a> . Le impostazioni delle preferenze IFC consentono di impostare il modo di importazione degli oggetti IFC: come oggetti Arch completamente parametrici, come oggetti Arch non parametrici, come forme di Part non parametriche, o come una forme di Part per piano. Ognuno di questi tipi perde alcune informazioni rispetto a quello precedente, ma richiede meno risorse, e questo permette di aprire file più grandi. Un ultimo tipo permette di scartare in blocco l'importazione di oggetti Arch, ed è utile per i modelli analitici strutturali.
+</p><p>Se si utilizzano oggetti Arch parametrici, per tutti i tipi IFC che hanno un equivalente nel Modulo Arch, viene utilizzato il tipo corrispondente. Per gli altri, viene creata una forma Part generica. Tutti gli oggetti Arch, parametrici e non parametrici, portano la serie completa di <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcpropertyresource/lexical/ifcproperty.htm">IfcProperties</a> abbinata a ciascun oggetto.
+</p><p>Sono anche importati gli oggetti <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcproductextension/lexical/ifcannotation.htm">IfcAnnotation</a>, così come le entità lineari e curve basate su <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcstructuralanalysisdomain/lexical/ifcstructuralitem.htm">IfcStructuralItem</a>.
+</p><p>Attivando <b>mostra i messaggi di debug</b> nelle impostazioni delle preferenze IFC viene stampato un rapporto che indica se l'importazione di un oggetto dal file IFC non è riuscita.
+</p>
+<h2><span class="mw-headline" id="Exportazione">Exportazione</span></h2>
+<p>Esportando in un file IFC si esportano tutti gli oggetti selezionati e i loro discendenti. Per esportare un edificio completo o un piano intero, basta selezionare l'oggetto edificio o piano. Gli oggetti Arch vengono esportati nel tipo impostato nella loro proprietà "Role". Vengono anche esportate le loro <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcpropertyresource/lexical/ifcproperty.htm">IfcProperties</a>, e se questi oggetti hanno una UID IFC da un'importazione precedente, viene mantenuta la stessa UID nell'esportazione. Gli oggetti che non sono oggetti Arch vengono esportati come <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcsharedbldgelements/lexical/ifcbuildingelementproxy.htm">IfcBuildingElementPRoxy</a>.
+</p><p>I file IFC vengono esportati come IFC2x3 o IFC4, a seconda della versione di IfcOpenShell, che può essere compilato con qualsiasi degli schemi IFC.
+</p><p>Se la forma degli oggetti esportati si basa su una estrusione o una operazione booleana, le operazioni ed i componenti sono esportati correttamente nel IFC. In caso contrario, la forma dell'oggetto viene esportata come <a rel="nofollow" class="external text" href="http://www.buildingsmart-tech.org/ifc/IFC4x1/html/schema/ifcgeometricmodelresource/lexical/ifcfacetedbrep.htm">IfcFacetedBrep</a>. Se la forma contiene delle curve, esse vengono sfaccettate.
+</p>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p>Tutorial <a href="https://www.freecadweb.org/wiki/index.php?title=Import/Export_IFC_-_compiling_IfcOpenShell" title="Import/Export IFC - compiling IfcOpenShell">Import/Export/it| Importare/Esportare IFC - compilare IfcOpenShell</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_IFC/it&amp;oldid=273115">http://www.freecadweb.org/wiki/index.php?title=Arch_IFC/it&amp;oldid=273115</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

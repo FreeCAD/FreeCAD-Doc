@@ -1,0 +1,83 @@
+<html><head><title>Macro Texture Objects/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Texture Objects/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Texture_Objects"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Texture Objects</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left macro-description">Toto makro umožňuje dočasně vložit obrázek s texturou na vybraný objekt. Pro odstranění textury stačí jednoduše zavřít a znovu otevřít dokument.
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven macro-author"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Yorik" title="User:Yorik">yorik</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Links
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/cs" title="Macros recipes/cs">Makro návody</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/cs" title="How to install macros/cs">How to install macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/cs" title="Customize Toolbars/cs">How to customize toolbars</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">1.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date last modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2011-10-13
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Texture_Objects"><span class="tocnumber">1</span> <span class="toctext">Texture Objects</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p><p>Toto makro umožňuje dočasně vložit obrázek s texturou na vybraný objekt. Pro odstranění textury stačí jednoduše zavřít a znovu otevřít dokument.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Textured_objects.jpg" class="image"><img alt="Textured objects.jpg" src="680px-Textured_objects.jpg" width="680" height="257" srcset="/wiki/images/c/cd/Textured_objects.jpg 1.5x" /></a>
+</p>
+<div style="clear:both"></div>
+<pre>import FreeCADGui
+from PySide import QtGui
+from pivy import coin
+
+# get a jpg filename
+jpgfilename = QtGui.QFileDialog.getOpenFileName(QtGui.qApp.activeWindow(),'Open image file','*.jpg')
+
+# apply textures
+for obj in FreeCADGui.Selection.getSelection():
+    rootnode = obj.ViewObject.RootNode
+    tex =  coin.SoTexture2()
+    tex.filename = str(jpgfilename[0])
+    rootnode.insertChild(tex,1) </pre>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Texture_Objects/cs&amp;oldid=239831">http://www.freecadweb.org/wiki/index.php?title=Macro_Texture_Objects/cs&amp;oldid=239831</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,212 @@
+<html><head><title>Drawing Module/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Module/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>ドローイングモジュールを使うと3D作業物を紙の上に移すことができます。つまりモデルのビューを2Dウィンドウに表示し、図面にそのウィンドウを挿入するということです。例えば枠線、タイトル、ロゴマークが入ったシートに挿入し、最終的にそのシートを印刷することができます。ドローイングモジュールは現在も製作中で多かれ少なかれ技術面でのテスト段階にあります！
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GUI.E3.83.84.E3.83.BC.E3.83.AB"><span class="tocnumber">1</span> <span class="toctext">GUIツール</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">2</span> <span class="toctext">スクリプト処理</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E7.B0.A1.E5.8D.98.E3.81.AA.E4.BE.8B"><span class="tocnumber">2.1</span> <span class="toctext">簡単な例</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF.E3.81.AA.E6.96.B9.E6.B3.95"><span class="tocnumber">2.2</span> <span class="toctext">パラメトリックな方法</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E3.81.93.E3.81.BE.E3.81.94.E3.81.BE.E3.81.A8.E3.81.97.E3.81.9F.E7.89.A9.E3.81.B8.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.BB.E3.82.B9"><span class="tocnumber">2.3</span> <span class="toctext">こまごまとした物へのアクセス</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#.E3.83.86.E3.83.B3.E3.83.97.E3.83.AC.E3.83.BC.E3.83.88"><span class="tocnumber">3</span> <span class="toctext">テンプレート</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="GUI.E3.83.84.E3.83.BC.E3.83.AB">GUIツール</span></h3>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;"><br />This template is now obsolete and is directly include in the original page<br /><br /></div>
+<p><strike>
+2D図面を作成、設定、エキスポートするためのツールです。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Open_SVG/jp" title="Drawing Open SVG/jp">スケーラブルベクターグラフィックを開く</a>: SVGファイルとして保存されている図面を開きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Landscape_A3/jp" title="Drawing Landscape A3/jp">A3図面の新規作成</a>: FreeCADのデフォルトのA3テンプレートから新しい図面を作成します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_View/jp" title="Drawing View/jp">ビューの挿入</a>: アクティブな図面上に選択されたオブジェクトのビューを挿入します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Save/jp" title="Drawing Save/jp">図面の保存</a>: 現在の図面をSVGファイルとして保存します</li></ul>
+<p></strike>
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>この画像を見るとドローイングモジュールの主要なコンセプトが見て取れます。ドキュメントには図面に引用したい形状オブジェクト（Schenkel）が入っています。さらに"Page"が作成されています。ページはテンプレートに基づいてインスタンス化されます。今回のケースでは"A3_Landscape"テンプレートです。テンプレートにはSVGドキュメントであなたが普段使っているページ枠、ロゴ、標準のプレゼンテーション資料規格を使うことができます。
+</p><p>このページには複数のビューを挿入することができます。各ビューはページ上での位置（X、Yプロパティ）、拡大率（スケールプロパティ）などをはじめとした属性情報を持っています。ページ、ビュー、参照しているオブジェクトが変化するとそのたびにページが再生成され、ページの表示が更新されます。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">スクリプト処理</span></h3>
+<p>今のところエンドユーザー用の（GUI）ワークフローは非常に限定されたものしか用意されていません。APIはもっと充実しています。以下ではドローイングモジュールのスクリプト処理用APIをどう使うかの例を挙げていきます。
+</p>
+<h4><span class="mw-headline" id=".E7.B0.A1.E5.8D.98.E3.81.AA.E4.BE.8B">簡単な例</span></h4>
+<p>まずはパートモジュールとドローイングモジュールが必要です。
+</p>
+<pre>import FreeCAD, Part, Drawing
+</pre>
+<p>小さなサンプルパーツを作成します。
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100)))
+</pre>
+<p>投影させます。G0はシャープな輪郭線、G1は連続線を意味します。
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges)
+</pre>
+<p>全てZ平面に投影されます。
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength
+</pre>
+<p>異なる投影ベクトル。
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1))
+
+</pre>
+<p>SVGに投影。
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG
+</pre>
+<h4><span class="mw-headline" id=".E3.83.91.E3.83.A9.E3.83.A1.E3.83.88.E3.83.AA.E3.83.83.E3.82.AF.E3.81.AA.E6.96.B9.E6.B3.95">パラメトリックな方法</span></h4>
+<p>物体を作成します。
+</p>
+<pre># 直方体を三つ、円筒を一つ作成
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# 二つの直方体と円筒を結合
+App.activeDocument().addObject("Part::Fuse","Fusion")
+App.activeDocument().Fusion.Base = App.activeDocument().Cylinder
+App.activeDocument().Fusion.Tool = App.activeDocument().Box1
+
+App.activeDocument().addObject("Part::Fuse","Fusion1")
+App.activeDocument().Fusion1.Base = App.activeDocument().Box2
+App.activeDocument().Fusion1.Tool = App.activeDocument().Fusion
+# 一つ目の直方体で結合した形状を切断
+App.activeDocument().addObject("Part::Cut","Shape")
+App.activeDocument().Shape.Base = App.activeDocument().Box
+App.activeDocument().Shape.Tool = App.activeDocument().Fusion1
+# 作業した形状を全て非表示にする
+Gui.activeDocument().Box.Visibility=False
+Gui.activeDocument().Box1.Visibility=False
+Gui.activeDocument().Box2.Visibility=False
+Gui.activeDocument().Cylinder.Visibility=False
+Gui.activeDocument().Fusion.Visibility=False
+Gui.activeDocument().Fusion1.Visibility=False
+</pre>
+<p>Pageオブジェクトを挿入し、テンプレートを代入
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeaturePage','Page')
+App.activeDocument().Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg'
+</pre>
+<p>"Shape"オブジェクトのビューを作成。位置とサイズを定義してPageに代入
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','View')
+App.activeDocument().View.Source = App.activeDocument().Shape
+App.activeDocument().View.Direction = (0.0,0.0,1.0)
+App.activeDocument().View.X = 10.0
+App.activeDocument().View.Y = 10.0
+App.activeDocument().Page.addObject(App.activeDocument().View)
+</pre>
+<p>同じオブジェクトに対して二つ目のビューを作成。ただし今回のビューは90度回転させます。
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','ViewRot')
+App.activeDocument().ViewRot.Source = App.activeDocument().Shape
+App.activeDocument().ViewRot.Direction = (0.0,0.0,1.0)
+App.activeDocument().ViewRot.X = 290.0
+App.activeDocument().ViewRot.Y = 30.0
+App.activeDocument().ViewRot.Scale = 1.0
+App.activeDocument().ViewRot.Rotation = 90.0
+App.activeDocument().Page.addObject(App.activeDocument().ViewRot) 
+</pre>
+<p>同じオブジェクトに対して三つ目のビューを作成。ただし等角図の方向を使用します。また隠れている線も表示させます。
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','ViewIso')
+App.activeDocument().ViewIso.Source = App.activeDocument().Shape
+App.activeDocument().ViewIso.Direction = (1.0,1.0,1.0)
+App.activeDocument().ViewIso.X = 335.0
+App.activeDocument().ViewIso.Y = 140.0
+App.activeDocument().ViewIso.ShowHiddenLines = True
+App.activeDocument().Page.addObject(App.activeDocument().ViewIso) 
+</pre>
+<p>適当に何か変更して更新。更新処理によってビューとページが変化します。
+</p>
+<pre>App.activeDocument().View.X = 30.0
+App.activeDocument().View.Y = 30.0
+App.activeDocument().View.Scale = 1.5
+App.activeDocument().recompute()
+</pre>
+<h4><span class="mw-headline" id=".E3.81.93.E3.81.BE.E3.81.94.E3.81.BE.E3.81.A8.E3.81.97.E3.81.9F.E7.89.A9.E3.81.B8.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.BB.E3.82.B9">こまごまとした物へのアクセス</span></h4>
+<p>一つのビューからSVGの図を取得。
+</p>
+<pre>ViewSVG = App.activeDocument().View.ViewResult
+print ViewSVG
+</pre>
+<p>結果ページ全体を取得（ドキュメントのテンポラリフォルダ内の読み取り専用ファイル）。
+</p>
+<pre>print "Resulting SVG document: ",App.activeDocument().Page.PageResult
+file = open(App.activeDocument().Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long"
+</pre>
+<p>重要：ファイルを解放！
+</p>
+<pre>del file
+</pre>
+<p>独自のコンテンツを使用してビューを挿入。
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureView','ViewSelf')
+App.activeDocument().ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;
+"""
+App.activeDocument().Page.addObject(App.activeDocument().ViewSelf)
+App.activeDocument().recompute()
+
+del Shape,ViewSVG, resultSVG
+</pre>
+<p>以下のような結果になります：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id=".E3.83.86.E3.83.B3.E3.83.97.E3.83.AC.E3.83.BC.E3.83.88">テンプレート</span></h3>
+<p>FreeCADには一通りのデフォルトテンプレートが付属していますが<a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/jp&amp;action=edit&amp;redlink=1" class="new" title="Drawing templates/jp (page does not exist)">ドローイングテンプレート</a>にはもっと多くのテンプレートがあります。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/jp&amp;oldid=211350">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/jp&amp;oldid=211350</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

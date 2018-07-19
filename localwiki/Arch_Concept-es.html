@@ -1,0 +1,172 @@
+<html><head><title>Arch Concept/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Concept/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><p>Esta página es un intento de recoger ideas sobre el diseño paramétrico en el campo de arquitectura para construir el <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/es" title="Arch Module/es">Módulo de Arquitectura</a>. Ya que es un poco diferente que el campo de la mecánica, quiero definir conceptos un poco mejor antes de pensar en como comenzar a ponerlo en práctica... ¡ Siéntete libre de añadir sus ideas!
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#software_similar"><span class="tocnumber">1</span> <span class="toctext">software similar</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#formatos_de_archivo"><span class="tocnumber">2</span> <span class="toctext">formatos de archivo</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#conceptos_generales"><span class="tocnumber">3</span> <span class="toctext">conceptos generales</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#sobre_los_arquetipos"><span class="tocnumber">4</span> <span class="toctext">sobre los arquetipos</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#arquetipos_.28tipos_de_objetos.29"><span class="tocnumber">5</span> <span class="toctext">arquetipos (tipos de objetos)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Muros"><span class="tocnumber">5.1</span> <span class="toctext">Muros</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Puerta.2FVentana_.28Insertar_elementos.29"><span class="tocnumber">5.2</span> <span class="toctext">Puerta/Ventana (Insertar elementos)</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Techos"><span class="tocnumber">5.3</span> <span class="toctext">Techos</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Losas"><span class="tocnumber">5.4</span> <span class="toctext">Losas</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Viga.2FPilares_.28Elementos_estructurales.29"><span class="tocnumber">5.5</span> <span class="toctext">Viga/Pilares (Elementos estructurales)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Ensamblaje"><span class="tocnumber">5.6</span> <span class="toctext">Ensamblaje</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#mecanismos_gen.C3.A9ricos"><span class="tocnumber">6</span> <span class="toctext">mecanismos genéricos</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Analisis_energ.C3.A9tico"><span class="tocnumber">6.1</span> <span class="toctext">Analisis energético</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Simulaci.C3.B3n_de_la_luz_solar"><span class="tocnumber">6.2</span> <span class="toctext">Simulación de la luz solar</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#HVAC.28Heating.2C_Ventilation.2C_and_Air_Conditioning.29_.26_Ventilaci.C3.B3n_Natural"><span class="tocnumber">6.3</span> <span class="toctext">HVAC(Heating, Ventilation, and Air Conditioning) &amp; Ventilación Natural</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Capturando_el_conocimiento_en_Construcci.C3.B3n"><span class="tocnumber">7</span> <span class="toctext">Capturando el conocimiento en Construcción</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Descripciones_de_Procedimientos_para_Identificar_Objetos"><span class="tocnumber">7.1</span> <span class="toctext">Descripciones de Procedimientos para Identificar Objetos</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Objeto_1:_Situaci.C3.B3n_de_la_construcci.C3.B3n"><span class="tocnumber">7.1.1</span> <span class="toctext">Objeto 1: Situación de la construcción</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Objeto_2:_Direcci.C3.B3n_Norte"><span class="tocnumber">7.1.2</span> <span class="toctext">Objeto 2: Dirección Norte</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Objeto_3:_Retranqueo"><span class="tocnumber">7.1.3</span> <span class="toctext">Objeto 3: Retranqueo</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Objeto_4:_Nivel_de_construcci.C3.B3n"><span class="tocnumber">7.1.4</span> <span class="toctext">Objeto 4: Nivel de construcción</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Objeto_5:_Espacio_de_construcci.C3.B3n"><span class="tocnumber">7.1.5</span> <span class="toctext">Objeto 5: Espacio de construcción</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Objeto_6:_Objeto_espacio"><span class="tocnumber">7.1.6</span> <span class="toctext">Objeto 6: Objeto espacio</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Objeto_7:_Contenedor_de_construcci.C3.B3n"><span class="tocnumber">7.1.7</span> <span class="toctext">Objeto 7: Contenedor de construcción</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="#Diagrama_de_objetos"><span class="tocnumber">7.2</span> <span class="toctext">Diagrama de objetos</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="software_similar">software similar</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Revit">Revit</a></li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Archicad">Archicad</a></li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Generative_Components">Generative Components</a></li></ul>
+<h2><span class="mw-headline" id="formatos_de_archivo">formatos de archivo</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/ISO_10303">STEP</a> - ya funcionando completamente en FreeCAD</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Industry_Foundation_Classes">IFC</a>
+<ul><li> <a rel="nofollow" class="external free" href="http://forge.osor.eu/plugins/wiki/index.php?id=175&amp;type=g">http://forge.osor.eu/plugins/wiki/index.php?id=175&amp;type=g</a> un SDK de IFC</li>
+<li> <a rel="nofollow" class="external free" href="http://www.bimserver.org/">http://www.bimserver.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://konstruct.nl/parsing-ifc-stepexpress-files-in-python-and-s">http://konstruct.nl/parsing-ifc-stepexpress-files-in-python-and-s</a></li></ul></li></ul>
+<h2><span class="mw-headline" id="conceptos_generales">conceptos generales</span></h2>
+<ul><li> FreeCAD es perfecto para la tarea. El diseño con objetos paramétricos reducirá enormemente el único verdadero problema que yo veo en FreeCAD, que es el de trabajar con miles de objetos. Todo lo necesario está ahí ya, como tipos de objeto personalizados, propiedades personlizadas, etc. La dificultad principal, diseñar un modelo general para tratar con la interacción entre objetos, está ahora potencialmente superado, desde que FreeCAD introdujo un gráfico de dependencia sobre todo con ese objetivo.</li></ul>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Building_Information_Modeling">BIM</a> (building information modeling) es un concepto inventado por diversos comercializadores de software de diseño paramétrico para construcción, principalmente Autodesk. Significa que ya no proyectas una construcción dibujando sin más, sino insertando información (parametros). El software debería entonces producir un dibujo automáticamente. Esto es <strike>una auténtica estupidez</strike> altamente cuestionable en mi opinión y solo un concepto propagandístico. Incluso en los más avanzados programas de BIM (Revit, Archicad y Microstation GC), no puedes abstraer el acto de dibujar a menos que quiera eliminar cualquier tipo de creatividad. El objetivo aquí no es ser el más automátizado, sino mantene la flexibilidad.</li></ul>
+<p><br />
+</p>
+<ul><li> El diseño paramétrico en ingeniería mecánica está por lo general basado en el historial de cambios y la resolución de restricciones. Estos dos conceptos tienen mucha menos importancia en el diseño para construcción, ya que raras veces quieres avanzar lentamente atrás en los pasos que diste (son por lo general muy simples), y manteniendo restricciones como horizontabilidad, ángulo, o distancia, incluso si son útiles, no son tan importantes como en el diseño mecánico.</li></ul>
+<ul><li> El diseño paramétrico en arquitectura está basada en arquetipos: Muro, puerta/ventana, techo, losa, viga, son algunos de los básicos. A parte de ellos, lo que principalmente tendrás son derivaciones de ellos</li></ul>
+<ul><li> Hace un uso extensivo de los ensamblajes: por ejemplo varias ventanas se agrupan juntas para formar un muro cortina</li></ul>
+<ul><li> Las relaciones son la llave. Los elementos son raras veces muy complejos o requieren mucho trabajo de modelado, pero a menudo deben ser transformados por la yuxtaposición o la inclusión de otros elementos. Por ejemplo, una pared no es nada más que una extrusión simple, pero debe unirse a otras paredes, o tomar un agujero cuando una ventana es insertada en ella. Cómo construir ese modelo de relaciones y cómo/dónde almacenarlo es el principal problema.</li></ul>
+<ul><li> Un problema de prácticamente todos los programas de construcción paramétricos es que confían demasiado en esos objetos arquetipo. La creación de otros nuevos, no en librerías de piezas, es extremadamente difícil (Archicad) o muy sencilla (Revit) pero siempre con un problema, y es que siempre existe una gran problema de comunicación entre las piezas "paramétricas" y las "no paramétricas". Básicamentesolo sacas el verdadero potencial del software si solo usas partes que estén pensadas para este tipo de trabajo. Por ejemplo, transformar un simple sólido en un muro es extremadamente problemático.</li></ul>
+<ul><li> Un documento de Autodesk sobre Revit: <a rel="nofollow" class="external free" href="http://images.autodesk.com/adsk/files/bim_parametric_building_modeling_jan07_1_.pdf">http://images.autodesk.com/adsk/files/bim_parametric_building_modeling_jan07_1_.pdf</a> este artículo es principalmente propaganda para Revit, y varios conceptos  en mi opinión carecen de importancia, como dibujos 2D "generados" vs la habilidad de modificar tu modelo en 2D, aunque es interesante de todos modos.</li></ul>
+<ul><li> La velocidad de cálculo de los objetos en mi opinión no es de gran importancia. La modificación de un objeto no debería afectar a muchos otros objetos, y se realiza normalmente en una fase de ajuste, así que no es tan importante tener actualizaciones tan rápidas. Una cosa importante, es siempre guardar la forma final de los objetos, de modo que al volver a abrir los modelos guardados no debería requerir cálculos. Antes de guardar, todo debería ser recomputado.</li></ul>
+<ul><li> Una avanzada herramienta de sección es muy importante. Planos del piso, Elevaciones, Secciones, Planos del techo - todos son herramientas BIM similares, pues tienen planos de corte axonométricos/ortográficos a través del modelo BIM. </li></ul>
+<ul><li> Luego está el problema de las anotaciones. Dónde dibujar las cotas? en el modelo? Directamente en la hoja svg? No es muy práctico... Este punto debería investigarse. Las cotas perte4necerán a una capa que pueda activarse y desactivarse en las impresiones. También, ya que las impresiones se realizan a una escala específica, las cotas estarán escaladas para coincidir con la escala seleccionada o una personalizada, seleccionada por el usuario. </li></ul>
+<ul><li> Una "construcción paramétrica" debería entenderse como una mezcla de objetos con capacidad de relacionarse (basados en arquetipos) y otros, no basados en arquetipos. La transformación de un objeto de una categoría a la otra debería ser factible, y todo debería comportarse del mismo modo para las secciones (y la acotación).</li></ul>
+<ul><li> Un sistema para la creación de nuevos componentes y ensamblajes, gráficamente si es podible. Los ensamblajes deberían trabajar como sub-modelos que pueden ser insertados/importados/vinculados a cualquier modelo BIM. De este modo, un sub-modelo puede ser actualizado/modificado y eso se reflejará automáticamente en el modelo BIM (si el sub-modelo está vinculado, si es "importado", entonces los usuarios pueden seleccionar so actualizar el modelo para reflejar la última versión del sub-modelo, de otro modo permanecerá como importado últimamente).</li></ul>
+<ul><li> Un modo de edición, de modo que se pueda modificar la forma original que general la pieza.</li></ul>
+<h2><span class="mw-headline" id="sobre_los_arquetipos">sobre los arquetipos</span></h2>
+<ul><li> Todos los arquetipos siempre deberían comportarse como objetos de programación orientada a objetos: Puede hacer una nueva clase basada en otra clase.</li></ul>
+<ul><li> Todos los arquetipos deberían ser capaces de interactuar recíprocamente con objetos comunes. Para ello, los objetos comunes probablemente necesitarían propiedades personalizadas.</li></ul>
+<ul><li> Las paredes deberían definirse por un contorno simple (que sería extruido horizontalmente, y verticalmente), una forma plana (que simplemente sería añadiéndole un grosor) o un sólido (al que no se le haría nada). El resultado siempre sería un sólido. Sus parámetros por lo tanto variarían, dependiendo de sus datos en el momento de su creación.</li></ul>
+<ul><li> Los muros deberían conectarse al cruzan/tocar muros</li></ul>
+<ul><li> Los muros podrían estar en diferentes capas (materiales). Los de los mismos materiales se unirían juntos.</li></ul>
+<ul><li> Las puertas/Ventanas son objetos bastante simples, sus parámetros casi sólo conciernen a su aspecto interno. Pero deben tener "una caja" que cree agujeros en otros objetos. </li></ul>
+<ul><li> Las vigas y losas son simples también, pero dependiendo de sus materiales deben ser capaces de unirse a otras losas, vigas y paredes. Las vigas y las losas también podrían unirse en un elemento solo "estructural". Hay pilares también. Todos ellos podrían ser definidos del mismo modo que las paredes, por un contorno, una forma o un sólido. Todos ellos podrían estar definidos del mismo modo que los muros. Podrían incluso estar basados en los mismo términos que las paredes...</li></ul>
+<ul><li> Los techos son un tipo especial de objetos, no muy interesantes por si mismos, pero útiles porque es un fastidio calcular un techo manualmente. Basicamente necesitas crear una forma basada en un contorno y su inclinación. Debería ser sencillo extenderlos posteriormente a otros tipos de techos.</li></ul>
+<ul><li> Los ensamblajes tienen que ser definidos más adelante. ¿Están básicamente creados de otras partes, que podrían ser formas, ventanas, etc. ... y propiedades personalizadas, como la repetición de matrices, la deformación (seguir una forma?), etc.</li></ul>
+<ul><li> El Constructor de Sitio - un juego especial de instrumentos debe manejar la creación de sitio y la actualización. Esta caja de herramientas tiene que ser compatible con otro comandante Abren el terreno/sitio De la fuente modelers y usos GIS (como la HIERBA). SiteBuilder tendrá la creación en cuenta de un sitio basado en curvas de topo, y la manipulación/actualización fácil del sitio. Esto permitirá a la creación fácil de&#160;: las aceras, contienen y cortes de freno, caminos, diseño, aparcamientos con todos los sistemas de alcantarilla/final requeridos, etc. La base de datos generada tendrá la estimación en cuenta del corte y se llenará así como otra información requirió para hacer el trabajo de sitio. SiteBuilder será útil también para generar la excavación requerida para un proyecto.</li></ul>
+<ul><li> Constructor de situaciones - Un conjunto especial de herramientas debe manejar la creación y actualización de las situaciones. Esta caja de herramientas necesita ser compatible con otros modeladores de situaciones/terreno de código libre y aplicaciones GIS (como GRASS). El Constructor de situaciones permitirá la creación de situaciones basadas en curvas topográficas, y una sencilla manipulación/actualización de la situación. Esto permitirá de forma sencilla la creación de: aceras, bordillos y cortes de bordillos, caminos, paisajismo, aparcamientos con todos los sistemas de  alcantarillado/desagüe requeridos, etc. La base de datos generada permitirá para estimación cortar y rellenar así como otro tipo de información requerida para hacer la situación funcionar. El constructor de situaciones será útil también para generar la excavación requerida para un proyecto. </li></ul>
+<h2><span class="mw-headline" id="arquetipos_.28tipos_de_objetos.29">arquetipos (tipos de objetos)</span></h2>
+<h3><span class="mw-headline" id="Muros">Muros</span></h3>
+<p>Los muros son un componente vertical de la construcción que sigue un camino en una planta determinada (i.e. primera planta, tercera planta, etc.) o está extruido horizontalmente a partir de una superficie vertical. Los muros están compuestos de varias capas (materiales, cada uno con espesor y propiedades térmicas específicas), y permiten la apertura (resultado de sustracciones) o apéndices (uniones). Cuando dos muros diferentes intersecan, el usuario puede seleccionar la opción de conectar los dos muros (con similar estructura). Todos los parámetros de un muro están disponibles para los cálculos estructurales y térmicos, así como para generar informes (listas de materiales). De este modo un muro, área de las caras, volúmenes, cantidades de material, etc. están directamente insertados en la lista de materiales y la estimación de costes.
+</p><p>Como ya se ha mencionado, los muros en BIM están definidos por una línea/polilínea/etc. Esto representa la línea central del muro. Esta línea puede alinearse con la cara exterior del muro, la cara interior del muro, o el centro del muro, or si el usuario lo especifica, puede estar definido de forma personalizada. Los muros tienen varios parámetros que los definen: 
+</p>
+<dl><dd>- Planta en el que están situados( i.e. primera planta, sótano, quinta planta, etc.)</dd>
+<dd>- Ancho</dd>
+<dd>- Alto</dd>
+<dd>- Composición</dd></dl>
+<p>The level in which walls are placed, require a previous insertion of that "level" by user. Once a level is inserted in the BIM model, that creates automatically a horizontal section, that in turn will generate a "sheet", i.e. once I insert level called "First Floor" at height 0.00 that will automatically section all the visible elements at that height (plus and minus up and down so doors/windows/openings will be visible in that floor plan). Levels and elevations are similar in concept, as basically both are "section planes" located to a certain position/rotation in the 3D space.
+</p><p>Los muros permiten la inserción de librerías como: puertas, ventanas, muros cortina, y otro tipo de objetos personalizados creados que requieren una apertura en dicho muro. Si solo se necesita una apertura, puede insertarse también. 
+</p>
+<h3><span class="mw-headline" id="Puerta.2FVentana_.28Insertar_elementos.29">Puerta/Ventana (Insertar elementos)</span></h3>
+<p>Las puertas y ventanas son en realidad la misma cosa, un objeto completo el cual puede tener un montón de parámetros para definir su forma, y un volumen visibley un volumen invisible que se utiliza para cortar aperturas a través de los muros que recibe. Están típicamente insertados en un muro, pero no siempre. Aunque pueden diferir mucho, deberían ser sencillos de diseñar.
+</p>
+<h3><span class="mw-headline" id="Techos">Techos</span></h3>
+<p>Los techos son simplemente un modo  is simply a hábil de calcular las intersecciones de las pendientes del techo
+</p>
+<h3><span class="mw-headline" id="Losas">Losas</span></h3>
+<p>Las losas son horizontales, creadas a partir de la extrusión vertical de un contorno cerrado o una cara, debería conectar por material con otros elementos estructurales, y puede tener un número de apéndices(uniones) o agujeros(sustracción de agujeros), y capas (materiales). Las áreas horizontales y el volumen debe ser calculado
+</p>
+<h3><span class="mw-headline" id="Viga.2FPilares_.28Elementos_estructurales.29">Viga/Pilares (Elementos estructurales)</span></h3>
+<p>Un contorno cerrado o cara extruída en cualquier dirección, puede tener un número de apéndices (uniones) o agujeros (sustracción).
+</p>
+<h3><span class="mw-headline" id="Ensamblaje">Ensamblaje</span></h3>
+<p>Un grupo de ventanas que puede estar formada como un todo
+</p>
+<h2><span class="mw-headline" id="mecanismos_gen.C3.A9ricos">mecanismos genéricos</span></h2>
+<ul><li> Dependencia: Las ventanas deben saber en que muro están insertadas, los muros deben saber que ventanas contienen, etc... Ver piezas booleanas</li>
+<li> Juntas: Los muros deben saber con que otros muros están conectados y correctamente conectados sus materiales juntos. El movimiento de un muro por tsnto debe recalcular sus vecinos. Establecer un gráfico de posibles tipos de junta</li>
+<li> Categorías de bordes: Algunos bordes no deben dibujarse cuando están entre 2 objetos del mismo material. Marcar los bordes para seleccionar después como renderizarlos.</li>
+<li> Auto-agrupación: Los objetos de un cierto tipo van automáticamente dentro de grupos específicos</li>
+<li> "Diseñador de ventanas": Una sencilla forma de diseñar ventanas paramétricas, basada en perfiles</li></ul>
+<h3><span class="mw-headline" id="Analisis_energ.C3.A9tico">Analisis energético</span></h3>
+<ul><li> La construcción necesita optimizarse de forma apropiada al programa que sirve así como a las particularidades geográficas de la localización. Por ejemplo un único proyecto se puede construir en Miami, Florida (Us) o Frankfurt (Alemania) o Sydney (Australia). Sin embargo, debe optimizarse con importantes diferencias. Lo que es apropiado para una localización, puede ser inapropiado para otra localización. Los diseños que generamos con FCBIM deberían ser "comprobados" y ver como es su rendimiento en términos de consumo de energía. En este momento existen algunas utilidades que permiten la optimización energética de las construcciones. Los principales aplicaciones de software libre/gratis son: EnergyPlus, OpenStudio (una interfaz de usuario para EnergyPlus) yESP-r.</li></ul>
+<h3><span class="mw-headline" id="Simulaci.C3.B3n_de_la_luz_solar">Simulación de la luz solar</span></h3>
+<ul><li> La recolección de la luz del día es uno de los acercamientos básicos en el diseño sostenible. Muchos diseños modernos dan la espalda a la luz natural y dan como resultado soluciones indeseables para los seres humanos. En EE.UU un gran porcentaje de edificios crea el llamado Síndrome de Edificio Enfermo, que conduce a problemas de salud para la gente que vive y trabaja en ellos. La utilización de la luz del día alivia en parte este problema. FCBIM debería incorporar los instrumentos que permitan realizar simulaciones de la luz del día, tal vez Radiance o LuxRender o Yaf(a)ray.</li></ul>
+<h3><span class="mw-headline" id="HVAC.28Heating.2C_Ventilation.2C_and_Air_Conditioning.29_.26_Ventilaci.C3.B3n_Natural">HVAC(Heating, Ventilation, and Air Conditioning) &amp; Ventilación Natural</span></h3>
+<ul><li> Herramientas para insertar dibujos y calcular HVAC (Calefacción, Ventilación, y aire acondicionado) y permitan calcular para el uso de la ventilación natural. Puede que OpenFOAM debiera ser un candidato en este área, que complementará a FCBIM.</li></ul>
+<h2><span class="mw-headline" id="Capturando_el_conocimiento_en_Construcci.C3.B3n">Capturando el conocimiento en Construcción</span></h2>
+<p>El esfuerzo en crear un módulo que haga posible para FreeCAD proporcionar un entorno de Modelado de información de construcción (BIM) contemporáneo está en proceso. El esfuerzo está orientado a llevar sus capacidades a compararse a aquellos sistemas de modelado arquitectónico más maduros como Revit. Reconocemos las limitaciones en las implementaciones de BIM disponibles siendo una de ellas el ignorar el conocimiento de construcción. Por ese motivo también perseguimos un objetivo paralelo de desarrollar capacidades que permitan a FreeCAD capturar dicho conocimiento típicamente creado principalmente en las primeras fases del diseño pero también en la parte final de detalle. En las siguientes secciones, documentaremos las capacidades que no son tan habituales en las herramientas disponibles pero que creemos son más apropiados y eficientes en capturar la información y el conocimiento en construcción desde el concepto a la demolición. Las secciones siguientes proporcionan especificaciones y directrices  acerca de la parte de "El qué" de este esfuerzo. Rellenaremos "el cómo" de los progresos de nuestro esfuerzo. Está de más decir, que las cosas se cambiarán o serán enmendadas así como nuestra comprensión y la puesta en práctica vayan juntas.
+</p>
+<h3><span class="mw-headline" id="Descripciones_de_Procedimientos_para_Identificar_Objetos">Descripciones de Procedimientos para Identificar Objetos</span></h3>
+<p>La sesión de diseño de construcción comienza con la situación donde el diseñador establece la dirección Norte e introduce los retranqueos apropiados según la reglamentación de construcción aplicable en el lugar de diseño. Haciendo esto está establecida la máxima huella para la nueva construcción.
+</p>
+<h4><span class="mw-headline" id="Objeto_1:_Situaci.C3.B3n_de_la_construcci.C3.B3n">Objeto 1: Situación de la construcción</span></h4>
+<p>Solo existe una situación de la construcción en un proyecto. Este objeto debería crearse tan pronto como la decisión de diseñar una casa esté tomada por el diseñador. Debería existir como una forma de contenedor (porque separa un espacio. Veremos algo más sobre esto luego) con sus lados, parte superior e inferior. Los lados pueden ser definidos de manera interactiva en términos de longitud y ángulo. También debería ser posible añadir o eliminar lados según se necesiten. Aunque la parte inferior es creada plana, también se puede redefinir con contornos para proporcionar la pendiente apropiada. La parte inferior es la única parte de la situacion que debería ser visible.
+</p>
+<h4><span class="mw-headline" id="Objeto_2:_Direcci.C3.B3n_Norte">Objeto 2: Dirección Norte</span></h4>
+<p>La dirección Norte es un objeto que establece el ángulo en la dirección del Norte. Es una parte de la situación y hacer posible para la situación determinar los vientos predominantes, el movimiento del sol, etc.
+</p>
+<h4><span class="mw-headline" id="Objeto_3:_Retranqueo">Objeto 3: Retranqueo</span></h4>
+<p>Hay distancias desde los límites que se deben respetan según la normativa. Son parte de la situación pero requieren de ciertos parámetros para ser proporcionados en función de determinar que límites y que distancias. Por ejemplo el retranqueo desde los límites cerca de la carretera pueden ser diferentes del retranqueo desde los límites cercanos a otra situación de un vecino. Esta información puede proporcionarse interactivamente pero con la dirección Norte establecida, es posible para los diseñadores introducir esta información durante la recolección de los requerimientos del diseño. El retranqueo, como la situación, es un tipo de objeto contenedor.
+</p>
+<h4><span class="mw-headline" id="Objeto_4:_Nivel_de_construcci.C3.B3n">Objeto 4: Nivel de construcción</span></h4>
+<p>En este punto la máxima huella de la construcción se ha establecido. Esta huella representa el primer nivel de la construcción. El nivel de la construcción es un objeto que hace posible integrarlos diferentes sistemas de construcción. Ejemplos de sistemas de construcción son el arquitectónico, estructural, eléctrico, etc. El nivel de construcción, como la situación de la construcción, es una forma de contenedor. Pueden existir uno o más niveles que son habitualmente apilados encima de los otros comenzando por la parte inferior. El primer nivel se establece después de la designación del retranqueo para todos los límites de la situación. Se pueden crear niveles adicionales pero sólo la elevación de la inferior es modificada siendo los límites del nivel invisibles.
+</p>
+<h4><span class="mw-headline" id="Objeto_5:_Espacio_de_construcci.C3.B3n">Objeto 5: Espacio de construcción</span></h4>
+<p>El espacio se define para satisfacer la principal función de la construcción como un espacio para dormir, comer, relajarse, trabajar, etc. Los espacios se crean y agrupan en plantas. Hay diferentes tipos de espacios que proporcionan las funciones apropiadas en diferentes tipos de construcción. Por ejemplo en una construcción de tipo residencial existen 4 tipos principales que incluyen las funciones de dormir, estar, servicios y tráfico.
+</p>
+<h4><span class="mw-headline" id="Objeto_6:_Objeto_espacio">Objeto 6: Objeto espacio</span></h4>
+<p>Esto representa todo lo necesario que pueda localizarse en un espacio. Cada objeto tendrá cierto conocimiento fundamental de sus requerimientos. Por ejemplo para describir un área de estar, un objeto con al menos un área de asientos, serán necesarios unos requerimientos de espacio y altura máxima.
+</p>
+<h4><span class="mw-headline" id="Objeto_7:_Contenedor_de_construcci.C3.B3n">Objeto 7: Contenedor de construcción</span></h4>
+<p>La mayoría de los objetos descritos hasta ahora son tipos de contenedores. Los contenedores tienen un área interior que e aislada por límites. Los límites son <b>Inferior'<i>, </i></b><i>Superior<b> y </b>Lados<b>. Dos contenedores pueden compartir un límite. Cuando esto ocurre un objeto especial "lado- compartido" reemplaza los lados individuales de los contenedores. Se establece un vínculo entre los dos contenedores y hace posible comunicarse entre ellos. Por ejemplo cuando existe un lado compartido entre un área de descanso y un área de servicios como un dormitorio y un baño, ese lado espera alguna forma de tratamiento para atenuar el ruido para evitar inundar el área de descanso con demasiado ruido. Cada límite en un contenedor tiene una </b></i><b>Forma</b>. Una forma es un tipo de objeto contenedor que puede tener las descripciones necesarias o <b>Propiedades</b> de los típicos materiales de recubrimiento de la construcción.
+</p>
+<h3><span class="mw-headline" id="Diagrama_de_objetos">Diagrama de objetos</span></h3>
+<p>El siguiente diagrama ilustra las relaciones entre todos los objetos descritos hasta ahora.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:BldgComponents.png" class="image"><img alt="" src="800px-BldgComponents.png" width="800" height="456" class="thumbimage" srcset="/wiki/images/thumb/a/a0/BldgComponents.png/1200px-BldgComponents.png 1.5x, /wiki/images/a/a0/BldgComponents.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:BldgComponents.png" class="internal" title="Enlarge"></a></div>Objetos para capturar el conocimiento de la construcción</div></div></div>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Concept/es&amp;oldid=122796">http://www.freecadweb.org/wiki/index.php?title=Arch_Concept/es&amp;oldid=122796</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,164 @@
+<html><head><title>Plot MultiAxes tutorial/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Plot MultiAxes tutorial/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Topic
+</th></tr>
+<tr>
+<td class="ctEven">Plot workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Level
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Time to complete
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Author
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Example File(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Plotting_data"><span class="tocnumber">2</span> <span class="toctext">Plotting data</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Creating_plot_data"><span class="tocnumber">2.1</span> <span class="toctext">Creating plot data</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Drawing_functions.2C_adding_new_axes"><span class="tocnumber">2.2</span> <span class="toctext">Drawing functions, adding new axes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_plot"><span class="tocnumber">3</span> <span class="toctext">Configuring plot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Configuring_axes"><span class="tocnumber">3.1</span> <span class="toctext">Configuring axes</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Configuring_series"><span class="tocnumber">3.2</span> <span class="toctext">Configuring series</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Showing_grid_and_legend"><span class="tocnumber">3.3</span> <span class="toctext">Showing grid and legend</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Setting_axes_labels"><span class="tocnumber">3.4</span> <span class="toctext">Setting axes labels</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Setting_elements_position"><span class="tocnumber">3.5</span> <span class="toctext">Setting elements position</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Saving_plot"><span class="tocnumber">4</span> <span class="toctext">Saving plot</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p>Ensure to visit <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">basic tutorial</a> before starting with this tutorial. In this tutorial we will learn how to create and edit a multiaxes plot. You can learn more about <a href="Plot_Module.html" title="Plot Module">Plot module here</a>.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_MultiAxes_Example.png" class="image" title="Multiaxes plot example"><img alt="Multiaxes plot example" src="600px-Plot_MultiAxes_Example.png" width="600" height="275" srcset="/wiki/images/thumb/2/2f/Plot_MultiAxes_Example.png/900px-Plot_MultiAxes_Example.png 1.5x, /wiki/images/2/2f/Plot_MultiAxes_Example.png 2x" /></a></div></div>
+<center><span style="font-variant:small-caps">Multiaxes plot example.</span></center>
+<p>In previous image you can see the result that we aproximately will obtain. Following this tutorial you will learn:
+</p>
+<ul><li> How to create a multiaxes Plot from Python Console.</li>
+<li> How to edit axes properties.</li>
+<li> How to control grid/legend when several axes is present.</li>
+<li> How to edit labels, titles and legend positions.</li></ul>
+<h2><span class="mw-headline" id="Plotting_data">Plotting data</span></h2>
+<p>As we did in <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a> we will use the Python console or <a href="Macros.html" title="Macros">macros</a> in order to plot the data, with the difference that in this case we will plot the data in two different axes.
+</p>
+<h3><span class="mw-headline" id="Creating_plot_data">Creating plot data</span></h3>
+<p>In this example we will plot 3 functions, the two ones used in <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a>, and another polynomial one. The fact is that the polynomial one will need new axes due to the variation range is different from all others. Next commands will create data arrays for us:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import math
+p = range(0,1001)
+x = [2.0*xx/1000.0 for xx in p]
+y = [xx**2.0 for xx in x]
+t = [tt/1000.0 for tt in p]
+s = [math.sin(math.pi*2.0*tt) for tt in t]
+c = [math.cos(math.pi*2.0*tt) for tt in t]</pre></div>
+<p>As <i>x</i> moves from 0 to 2, <i>y</i> function has a maximum value of 4, so if we try to plot this function with trigonometrical ones, at least one function will be truncated or bad scaled, then we need a multiaxes plot. Multiaxes plot in FreeCAD is oriented to get a plot with multiple axes, not to get multiple plots in same document.
+</p>
+<h3><span class="mw-headline" id="Drawing_functions.2C_adding_new_axes">Drawing functions, adding new axes</span></h3>
+<p>We will draw polynomial function at main axes. If all your axes will have same size then is not relevant what function is ploted in what axes, but if your plot has axes with other size (as in this example), main axes must be the biggest one (because this axes have the white background). In order to do it we only need to launch a command
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Plot
+Plot.plot(x,y,r"$x^2$")</pre></div>
+<p>In this example we pass directly the series label for the legend. Note that the label string has the <i>r</i> prefix in order to avoid Python try to interpret special characters (<i>\</i> symbol is used frecuently in <a rel="nofollow" class="external text" href="http://www.latex-project.org">LaTeX</a> syntax).
+</p><p>Now we can plot trigonometrical functions, creating new axes before. In <a href="Plot_Module.html" title="Plot Module">FreeCAD Plot module</a> when you create new axes this axes are selected as active ones, so new plots will be associated to this axes.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Plot.addNewAxes()
+Plot.plot(t,s,r"$\sin\left( 2 \pi t \right)$")
+Plot.plot(t,c,r"$\cos\left( 2 \pi t \right)$")</pre></div>
+<p>As you can see you plot has gone crazy, with axes ticks overlaped, curves of same color, etc. Now we needs to use <a href="Plot_Module.html" title="Plot Module">FreeCAD Plot module</a> to fix this graph.
+</p>
+<h2><span class="mw-headline" id="Configuring_plot">Configuring plot</span></h2>
+<h3><span class="mw-headline" id="Configuring_axes">Configuring axes</span></h3>
+<p><a href="Plot_Module.html" title="Plot Module">FreeCAD Plot module</a> provides a tool in order to modify the properties of each axes.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Axes.png" class="image" title="Axes configuration tool icon"><img alt="Axes configuration tool icon" src="Plot_Axes.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Axes configuration tool icon.</span></center>
+<p>The first thing that you can find in axes tool is the active axes selector. Since the active axes are the last one, active axes is placed at one. The axes tool, as labels tool, allows to set the active axes, allowing you to plot more data in the axes that you want (including add/remove axes). For the moment we will work over the selected axes, that are the associated to trigonometrical functions.
+</p><p>In the dimensions sliders, we will move left horizontal and bottom vertical sliders (try to emulate example) in order to reduce axes size. Then we can set the axes alignement, changing it to top and right, and setting and small offset of two units.
+</p>
+<h3><span class="mw-headline" id="Configuring_series">Configuring series</span></h3>
+<p>Set series properties as we did in <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a>.
+</p>
+<h3><span class="mw-headline" id="Showing_grid_and_legend">Showing grid and legend</span></h3>
+<p>Grid and legend is shown and hide with the same tools that used in <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a>, but in this case the behaviour is a little bit different due to the presence of two different axes.
+</p><p>Regarding grid lines, you can show lines for each axes set, for example, if you try to show grid now you will show only the grid of the trigonometrical functions, so in order to show the grid of polynomial function plot you needs to change active axes to 0 (using axes configuration tool) before using grid tool another time (Is possible that you need to press two times the tool).
+</p><p>Regarding legend, the legend will be the same for both axes, so you can choose the axes that you want in order to show the legend, but is strongly recommended to use the biggest ones (0 in this example) because position will be refered to this axes coordinates. If you show the legend you can see that is really bad placed, we will fix this problem later.
+</p>
+<h3><span class="mw-headline" id="Setting_axes_labels">Setting axes labels</span></h3>
+<p>You can set axes labels with same tool used in <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a>, with the difference that now you have more axes. Since axes labels is ussually set as one per axis, is not a significant difference, but <a href="Plot_Module.html" title="Plot Module">FreeCAD Plot module</a> allow you to set a title by axes too. In this case we only wants to set title to main axes, so set:
+</p><p><b>Axes 0:</b>
+</p>
+<ul><li> Title = Multiaxes example</li>
+<li> X Label = $x$</li>
+<li> Y Label = $\mathrm{f} \left( x \right)$</li></ul>
+<p><b>Axes 1:</b>
+</p>
+<ul><li> X Label = $t$</li>
+<li> Y Label = $\mathrm{f} \left( t \right)$</li></ul>
+<p>Set also 20 to fontsize for all but title, that uses a fontsize of 24. As happens with legend, title is bad placed, interseting with second axes set, so we need to solve both problems.
+</p>
+<h3><span class="mw-headline" id="Setting_elements_position">Setting elements position</span></h3>
+<p><a href="Plot_Module.html" title="Plot Module">FreeCAD Plot module</a> provides a tool in order to set the position of several plot elements, as titles, labels or legend.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Plot_Positions.png" class="image" title="Position editor icon"><img alt="Position editor icon" src="Plot_Positions.png" width="64" height="64" /></a></div></div>
+<center><span style="font-variant:small-caps">Position editor icon.</span></center>
+<p>When you run the tool you see a list with all the editable elements. Title elements, as well as legend, can be moved in both directions, since axes labels can be moved only on the axes direction. Select title of axes 0 and move it to (0.24,1.01), then select legend and move it to a better position. You can increase legend labels fontsize too.
+</p>
+<h2><span class="mw-headline" id="Saving_plot">Saving plot</span></h2>
+<p>Now you can save your work. See <a href="Plot_Basic_tutorial.html" title="Plot Basic tutorial">previous tutorial</a> if you don't remeber how to do it.
+</p><p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/ru&amp;oldid=196834">http://www.freecadweb.org/wiki/index.php?title=Plot_MultiAxes_tutorial/ru&amp;oldid=196834</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,161 @@
+<html><head><title>Wikihouse porting tutorial/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Wikihouse porting tutorial/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Tutoriel de portage Wikihouse
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Intermediaire/Avancé
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">60 minutes
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">2</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Pr.C3.A9paration_du_fichier_Sketchup"><span class="tocnumber">3</span> <span class="toctext">Préparation du fichier Sketchup</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Solving_the_double_faces_bug"><span class="tocnumber">4</span> <span class="toctext">Solving the double faces bug</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Importing_and_converting_to_wires"><span class="tocnumber">5</span> <span class="toctext">Importing and converting to wires</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Converting_to_Sketches"><span class="tocnumber">6</span> <span class="toctext">Converting to Sketches</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Rebuilding_the_wikihouse_and_exporting_cut_sheets"><span class="tocnumber">7</span> <span class="toctext">Rebuilding the wikihouse and exporting cut sheets</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Ce tutoriel va vous montrer comment convertir les fichiers <a rel="nofollow" class="external text" href="http://www.sketchup.com/">SketchUp</a> utilisés par le projet <a rel="nofollow" class="external text" href="http://wikihouse.cc/">WikiHouse</a> en FreeCAD, en utilisant l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Panel/fr" title="Arch Panel/fr">panneau</a> dans FreeCAD. Le résultat est une copie complète du fichier SketchUp d'origine, la différence est qu'il est devenu entièrement paramétrique. Le niveau de paramétrage du fichier final dépend du travail que vous y consacrez, comme expliqué ci-dessous. Mais il est tout à fait possible de faire le travail pas à pas, et de reconstruire le fichier Wikihouse rapidement, et de laisser la plus longue conversion des profils de base aux esquisses pour plus tard.
+</p><p>Ce tutoriel nécessite une connaissance moyenne de FreeCAD, c'est-à-dire que vous êtes capable de trouver votre chemin entre les différents outils et ateliers, vous êtes déjà capable de modéliser des objets simples et surtout, vous êtes à l'aise avec les outils <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Move/fr" title="Draft Move/fr">déplacer</a> et <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Rotate/fr" title="Draft Rotate/fr">rotation</a>. Il utilisera principalement les ateliers Draft et Arch, mais la connaissance du Sketcher deviendra nécessaire lors de la conversion des profils de base en croquis.
+</p><p>Puisque le projet Wikihouse est ouvert naturellement, les fichiers sont faciles à trouver sur le site Web du projet, mais aussi sur le <a rel="nofollow" class="external text" href="https://3dwarehouse.sketchup.com/search.html?q=wikihouse&amp;backendClass=both">SketchUp 3D Warehouse</a> ou dans le projet <a rel="nofollow" class="external text" href="https://github.com/wikihouseproject">github repositories</a>. Le format préféré utilisé par le projet est Sketchup, donc la plupart des fichiers que vous trouverez sont dans ce format.
+</p><p>Dans ce didacticiel, nous avons utilisé le fichier <a rel="nofollow" class="external text" href="https://github.com/wikihouseproject/Microhouse/blob/master/microhouse_0.5_chassis.skp">Chassis</a> du sous-projet Microhouse de Wikihouse.
+</p>
+<h2><span class="mw-headline" id="Pr.C3.A9paration_du_fichier_Sketchup">Préparation du fichier Sketchup</span></h2>
+<p>The first thing you will need to do is to open the file in SketchUp and delete everything you don't want to export. We will only export one section of the Microhouse, so everything else must be deleted.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_05.jpg" class="image"><img alt="Arch Wikihouse 05.jpg" src="Arch_Wikihouse_05.jpg" width="1380" height="920" /></a>
+</p><p>The Wikihouse elements, in SketchUp, are made in a specific way: By adding small "pieces" together in order to create the different components:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_06.jpg" class="image"><img alt="Arch Wikihouse 06.jpg" src="Arch_Wikihouse_06.jpg" width="1418" height="907" /></a>
+</p><p>This is not how we will proceed in FreeCAD. Since one of the most powerful features of FreeCAD is <a href="Sketcher_Module.html" class="mw-redirect" title="Sketcher Module">Constrained Sketches</a>, we'd better take advantage of this, and base all our Wikihouse elements on Sketches. That way, modifying any part can be done in the Sketcher, which is much more comfortable.
+</p><p>In order to turn our SketchUp objects into FreeCAD sketches, which can then be used to create <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> objects, we need to extract one, flat face from each wikihouse piece. The thickness will be re-added later, in FreeCAD, directly in the Arch Panel properties. This way, we will keep it parametric as well. To turn each wikihouse component into a single, flat face, enter each component by double-clicking it, then select each sub-component, and right-click → Explode, until all sub-components are exploded, and your component is composed only of faces and edges:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_08.jpg" class="image"><img alt="Arch Wikihouse 08.jpg" src="Arch_Wikihouse_08.jpg" width="1398" height="927" /></a>
+</p><p>Once this is done, select everything in your component, and unselect, by Shift + double-clicking them, each frontal face of your component. Be sure to double-click instead of single-click, because otherwise you will only unselect the face and not its border edges (which we will need to keep as well). After that, we will have unselected everything we want to keep, so we only need to press the delete key. Now our component is only one big flat face.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_07.jpg" class="image"><img alt="Arch Wikihouse 07.jpg" src="Arch_Wikihouse_07.jpg" width="1410" height="899" /></a>
+</p><p>Repeat this for each component. Since many are duplicated, this is not as huge a task as it looks. Besides, if you are not familiar with the Wikihouse system, this step will give you a pretty good understanding of how it works.
+</p><p>When our piece of house is fully made of flat elements, we can select everything and export it to a .dae file, and then import this file into FreeCAD. Be sure to mark the "triangulate all
+</p>
+<h2><span class="mw-headline" id="Solving_the_double_faces_bug">Solving the double faces bug</span></h2>
+<p>There is a nasty problem for which I haven't found a better solution: Meshes exported from SketchUp to the .dae format have their faces duplicated. Each face becomes actually two faces. The easiest way I have found so far is to open the exported file in <a rel="nofollow" class="external text" href="http://www.blender.org">Blender</a> for repair:
+</p>
+<ol><li> Open the dae file in Blender (File → Import → Collada)</li>
+<li> Select a component, and hit TAB to enter edit mode</li>
+<li> Press A to deselect everything, then A again to select everything</li>
+<li> Press W → Remove doubles</li>
+<li> Press TAB to exit edit mode</li>
+<li> Repeat for all the components</li>
+<li> Save a new dae file (File → Export → Collada)</li></ol>
+<p>Normally the above operation shouldn't change the scale, but it is always wise to verify, using the measuring tools, that the imported geometry is at correct scale before going further. You might need to tweak Blender's Collada export settings if needed.
+</p>
+<h2><span class="mw-headline" id="Importing_and_converting_to_wires">Importing and converting to wires</span></h2>
+<p>Note that it might be easier to go by parts and treat + export objects group by group, as we did below, we exported only the first layer, made of yellow elements in SketchUp. These elements will come into FreeCAD as <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">Mesh</a> objects:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_09.jpg" class="image"><img alt="Arch Wikihouse 09.jpg" src="Arch_Wikihouse_09.jpg" width="1569" height="893" /></a>
+</p><p>The next step is to create wires from each of our meshes. There is a convenient Macro named <a href="Macro_Extract_Wires_from_Mesh.html" title="Macro Extract Wires from Mesh">Macro Extract Wires from Mesh</a> that does just that. Install it (Refer to the <a href="Macros.html" title="Macros">Macros</a> page for instructions), then one by one (you can do them all at once, but this macro takes some time), convert all our meshes to wire objects:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_10.jpg" class="image"><img alt="Arch Wikihouse 10.jpg" src="Arch_Wikihouse_10.jpg" width="1348" height="875" /></a>
+</p><p>We could now already make <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> objects from each of these wire-like objects, simply by selecting them and pressing the <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> button. However, their base shape wouldn't be parametric. We now have several options: We could turn each component into a sketch, using the <a href="Draft_Draft2Sketch.html" title="Draft Draft2Sketch">Draft Draft2Sketch</a> tool, but these will be rather heavy sketches, and might not be very manageable on a slow machine, or we could turn each individual wire (the outline and each hole) of the sketch into a separate sketch. This would allow us, for example, to reuse a typical hole, make it only once, then duplicate it with <a href="Draft_Clone.html" title="Draft Clone">Draft Clone</a> to make the other holes. This way, you would only need to edit one to edit them all.
+</p><p>The Extract Wires from Mesh macro also sometimes fails in finding closed wires inside a mesh, which will not produce correct Panels. An easy procedure to recompose the wires of a component is this:
+</p>
+<ol><li> Select the component, optionally hide everything else to see better</li>
+<li> <a href="Draft_Downgrade.html" title="Draft Downgrade">Draft Downgrade</a> it. It will be exploded into a series of individual edges</li>
+<li> Start selecting the holes with Ctrl or by using Shift + B to box-select</li>
+<li> Press <a href="Draft_Upgrade.html" title="Draft Upgrade">Draft Upgrade</a> to turn back each hole into an individual wire</li>
+<li> Finally select all the remaining individual edges in the tree, which form the outline, and <a href="Draft_Upgrade.html" title="Draft Upgrade">Draft Upgrade</a> them</li>
+<li> Select <b>Part → make Compound</b> to join back all these wires into one object</li>
+<li> Select the compound and press the <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> button</li></ol>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_11.jpg" class="image"><img alt="Arch Wikihouse 11.jpg" src="Arch_Wikihouse_11.jpg" width="1882" height="983" /></a>
+</p><p>There are many possible strategies here, depending on how editable and precise you need the result. The <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> object needs a base object made of wires. It doesn't matter how this object is made, if it is a single sketch, or, like in the example above, a compound of different sketches or draft object.
+</p>
+<h2><span class="mw-headline" id="Converting_to_Sketches">Converting to Sketches</span></h2>
+<p>It is also possible to do that part later, you could already create Panels from each of the component, but let's see already how to to convert a wire-like object to a sketch:
+</p>
+<ol><li> Create a copy of your wire-like object with Ctrl+C, Ctrl+V. This si so we can modify it but still keep one in its correct location</li>
+<li> Move and rotate it so it lies in the XY plane, using <a href="Draft_Move.html" title="Draft Move">Draft Move</a> and <a href="Draft_Rotate.html" title="Draft Rotate">Draft Rotate</a>. This is not indispensable, but the next point sometimes fails otherwise</li>
+<li> Use <a href="Draft_Draft2Sketch.html" title="Draft Draft2Sketch">Draft Draft2Sketch</a> to turn the wire into a sketch. Be warned, this can fail or take a very long time for huge wires. It is best to decompose your object into individual wires as shown above.</li>
+<li> If the command above fails, using <a href="Draft_Upgrade.html" title="Draft Upgrade">Draft Upgrade</a> twice on a wire-like object, to convert it to a Face then to a <a href="Draft_Wire.html" title="Draft Wire">Draft Wire</a>, before using <a href="Draft_Draft2Sketch.html" title="Draft Draft2Sketch">Draft Draft2Sketch</a>, usually works better, because the Draft Wire keeps a better track of the order of vertices inside a wire.</li>
+<li> Curves are made of several small segments. They can be left as is, but they introduce a lot of endpoint constraints. It is better to replace them by arcs. It is fairly easy to do, just delete the small segments and replace them by an arc. The arc can then be made tangential to the neighbouring segments, but make sure the position of those segments is locked before doing this, as this operation will make them move.</li>
+<li> If you worked with several sketches, make a <a href="Part_MakeCompound.html" title="Part MakeCompound">Part Compound</a> of them</li>
+<li> Create an <a href="Arch_Panel.html" title="Arch Panel">Arch Panel</a> from it</li>
+<li> Rotate/move it back into position with <a href="Draft_Move.html" title="Draft Move">Draft Move</a> and <a href="Draft_Rotate.html" title="Draft Rotate">Draft Rotate</a></li></ol>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_12.jpg" class="image"><img alt="Arch Wikihouse 12.jpg" src="Arch_Wikihouse_12.jpg" width="1183" height="705" /></a>
+</p>
+<h2><span class="mw-headline" id="Rebuilding_the_wikihouse_and_exporting_cut_sheets">Rebuilding the wikihouse and exporting cut sheets</span></h2>
+<p>Also, make sure you don't redo any duplicated part. Instead, select the <a href="Draft_Clone.html" title="Draft Clone">Draft Clone</a> tool to duplicate parts based on the same profile, so they will all share one same profile object. Then, since we have the outline at the correct place to use as a guide, it is fairly easy to rotate and move the clone into its correct position with <a href="Draft_Rotate.html" title="Draft Rotate">Draft Rotate</a> and <a href="Draft_Move.html" title="Draft Move">Draft Move</a>.
+</p><p>After a while, all our Microhouse section is done.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_01.jpg" class="image"><img alt="Arch Wikihouse 01.jpg" src="Arch_Wikihouse_01.jpg" width="932" height="801" /></a>
+</p><p>We can now easily create the cut sheets, which are DXF files that will be sent to the shop that will cut the actual panels. The easiest way to do this is to select everything in your document with Ctrl+A, and then use the <a href="Arch_Panel_Cut.html" title="Arch Panel Cut">Arch Panel Cut</a> tool. This will produce one Panel Cut object for each Panel object found in the selection. By moving them apart, we get a clear view of all our pieces:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_02.jpg" class="image"><img alt="Arch Wikihouse 02.jpg" src="Arch_Wikihouse_02.jpg" width="1565" height="873" /></a>
+</p><p>We must then "nest" our pieces, that is, move and rotate them so they occupy as much as possible to space of a given panel, to generate as little material loss as possible. This operation unfortunately needs to be done by hand, but if you are using a Wikihouse project that already has produced cut sheets, copying them goes pretty fast:
+</p>
+<ol><li> To make sure everything will stay in the XY plane, it is advised to set the <a href="Draft_SelectPlane.html" title="Draft SelectPlane">Workign Plane</a> to XY (top)</li>
+<li> Create an <a href="Arch_Panel_Sheet.html" title="Arch Panel Sheet">Arch Panel Sheet</a></li>
+<li> Give it the desired width and height values (Wikihouses are typically printed on 122x244cm plywood sheets)</li>
+<li> Move it to a convenient place with <a href="Draft_Move.html" title="Draft Move">Draft Move</a></li>
+<li> Optionally, set its margin values to help you position the cut pieces</li>
+<li> Move and rotate the individual <a href="Arch_Panel_Cut.html" title="Arch Panel Cut">Arch Panel Cut</a> objects so they fit inside the Panel Sheet</li>
+<li> When you are more or less ready, select the Panel Sheet, and double click it in the tree view to enter Edit mode</li>
+<li> Select all the Panel Cuts you wish to insert in it (you may want to switch the tree view to the "project" tab to select in the tree)</li>
+<li> Select the "group" section in the Panel Sheet's Task view</li>
+<li> Press the "Add" button</li>
+<li> Press the "OK" button</li></ol>
+<p>In the Panel Sheet's Task view, there is also a button that allows you to move the individual Panel Cuts after they've been inserted inside the sheet. After a while, we have our sheets ready:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_03.jpg" class="image"><img alt="Arch Wikihouse 03.jpg" src="Arch_Wikihouse_03.jpg" width="1496" height="719" /></a>
+</p><p>The last step is simply to select all the sheets, then export them to DXF from menu File → Export. The sheets contents will be exported separated in different layers, with the same color coding commonly used by the Wikihouse project:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Wikihouse_04.jpg" class="image"><img alt="Arch Wikihouse 04.jpg" src="Arch_Wikihouse_04.jpg" width="1437" height="872" /></a>
+</p><p>These files are ready to send to the shops that will do the actual cut. It would be possible to generate the G-Code to be sent to the CNC machine directly from FreeCAD too, but that is matter for another tutorial.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Wikihouse_porting_tutorial/fr&amp;oldid=287093">http://www.freecadweb.org/wiki/index.php?title=Wikihouse_porting_tutorial/fr&amp;oldid=287093</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

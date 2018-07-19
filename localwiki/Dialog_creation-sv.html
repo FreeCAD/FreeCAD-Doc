@@ -1,0 +1,1044 @@
+<html><head><title>Dialog creation/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Dialog creation/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>På denna sida kommer vi att visa hur man bygger en simpel Qt Dialog med <a rel="nofollow" class="external text" href="http://qt-project.org/doc/qt-4.8/designer-manual.html">Qt Designer</a>, Qt's officiella verktyg för att designa gränssnitt, och sedan konvertera den till pythonkod, och sedan använda den inuti FreeCAD. Jag antar i exemplet att du redan vet hur du ska redigera och köra python skript, och att du kan göra enkla saker i ett terminalfönster som att navigera, etc. Du måste förstås också ha pyqt installerat.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Designa_dialogen"><span class="tocnumber">1</span> <span class="toctext">Designa dialogen</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Konvertera_v.C3.A5r_dialog_till_python"><span class="tocnumber">2</span> <span class="toctext">Konvertera vår dialog till python</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ordna_s.C3.A5_att_v.C3.A5r_dialog_g.C3.B6r_n.C3.A5got"><span class="tocnumber">3</span> <span class="toctext">Ordna så att vår dialog gör något</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Det_kompletta_skriptet"><span class="tocnumber">4</span> <span class="toctext">Det kompletta skriptet</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Creation_of_a_dialog_with_buttons"><span class="tocnumber">5</span> <span class="toctext">Creation of a dialog with buttons</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Method_1"><span class="tocnumber">5.1</span> <span class="toctext">Method 1</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Method_2"><span class="tocnumber">5.2</span> <span class="toctext">Method 2</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Icon_personalized_in_ComboView"><span class="tocnumber">6</span> <span class="toctext">Icon personalized in ComboView</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Use_QFileDialog_for_write_the_file"><span class="tocnumber">7</span> <span class="toctext">Use QFileDialog for write the file</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Use_QFileDialog_for_read_the_file"><span class="tocnumber">8</span> <span class="toctext">Use QFileDialog for read the file</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Use_QColorDialog_for_get_the_color"><span class="tocnumber">9</span> <span class="toctext">Use QColorDialog for get the color</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Some_useful_commands"><span class="tocnumber">10</span> <span class="toctext">Some useful commands</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Designa_dialogen">Designa dialogen</span></h2>
+<p>Att i CAD applikationer designa ett bra användargränssnitt är mycket viktigt. Nästan allt som användaren kommer att göra kommer att vara genom någon typ av gränssnitt: läsa dialogrutor, klicka på knappar, välja mellan ikoner, etc. Så det är mycket viktigt att noga tänka igenom vad du vill göra, hur du vill att användaren ska bete sig, och hur arbetsflödet i din aktion kommer att se ut.
+</p><p>Det finns några koncept man bör känna till när man designar ett gränssnitt:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Modal_window">Modal/non-modal dialogs</a>: En modal dialog kommer fram längst fram på skärmen, stoppar aktionen i huvudfönstret, och tvingar användare att svara på dialogen, emedan en icke-modal dialog inte stoppar dig från att arbeta med huvudfönstret. I en del fall så är det första bättre, i andra fall inte.</li></ul>
+<ul><li> Identifiera vad som krävs och vad som är valbart: Försäkra dig om att användaren vet vad den måste göra. Etikettera allting med en riktig beskrivning, använd verktygstips, etc.</li></ul>
+<ul><li> Separera kommandon från parametrar: Detta görs vanligtvis med knappar och textinmatningsfält. Användaren vet att om en knapp klickas så produceras en aktion emedan ändring av ett värde inuti ett textfält kommer att ändra en parameter någonstans. Nuförtidan så vet de flesta användarna vad en kanpp är, vad ett inmatningsfält är, etc. Det gränssnitts verktygskit vi använder, Qt, är en av de bästa verktygskiten, och vi behöver inte bry oss om så mycket om hur man klargör saker, eftersom de redan är mycket tydliga.</li></ul>
+<p>Så, nu när vi har definierat vad vi ska göra, så är det dags att öppna qt designer. Låt oss designa en mycket enkel dialog, som den här:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qttestdialog.jpg" class="image"><img alt="Qttestdialog.jpg" src="Qttestdialog.jpg" width="210" height="216" /></a>
+</p><p>Vi kommer sedan använda denna dialog i FreeCAD till att producera ett fint rektangulärt plan. Du kanske tycker att det inte är så användbart att producera fina rektangulära plan, men det kommer vara lätt att senare ändra den till att göra mer komplexa saker. När du öppnar det, så ser Qt Designer ut så här:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtdesigner-screenshot.jpg" class="image"><img alt="Qtdesigner-screenshot.jpg" src="Qtdesigner-screenshot.jpg" width="800" height="486" /></a>
+</p><p>Det är mycket enkelt att använda. I den vänstra lådan har du element som kan dras till din widget. på den högra sidan har du egenskapspanelerna som visar alla möjliga redigerbara egenskaper på de valda elementen. Så, börja med att skapa en ny widget. Välj "Dialog without buttons", eftersom vi inte vill ha standard Ok/Cancel knappar. Dra sedan<b>3 labels</b>, på din widget, en för titeln, en för att skriva "Höjd" och en för att skriva "Bredd". Labels är enkla texter som syns på din widget, bara för att informera användaren. Om du väljer en label, så kommer det fram flera egenskaper på den högra sidan som du kan ändra om du vill, som teckensnitt, höjd, etc.
+</p><p>Lägg sedan till <b>2 LineEdits</b>, vilket är textfält som användaren kan fylla i, en för höjden och en för bredden. Här kan vi också redigera egenskaper. Till exempel, varför inte ställa in ett standardvärde? Till exempel 1.00 för varje. På detta sätt, när användaren ser dialogen, så kommer båda värdena redan vara ifyllda och om användaren är nöjd så kan den klicka på knappen direkt, och spara dyrbar tid. Lägg sedan till en <b>PushButton</b>, vilken är den knapp som användaren kommer att behöva klicka på efter att de 2 fälten är ifyllda.
+</p><p>Notera att jag här valde mycket enkla kontroller, men Qt har många fler alternativ, du kan till exempel använda Spinboxes istället för LineEdits, etc... Ta en titt på vad som finns tillgängligt, du kommer säkert att få andra ideer.
+</p><p>Det är ungefär allt vi behöver göra i Qt Designer. En sista sak bara, låt oss döpa om alla våra element till lättare namn, så blir det lättare att identifiera dem i våra skript:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qtpropeditor.jpg" class="image"><img alt="Qtpropeditor.jpg" src="Qtpropeditor.jpg" width="348" height="321" /></a>
+</p>
+<h2><span class="mw-headline" id="Konvertera_v.C3.A5r_dialog_till_python">Konvertera vår dialog till python</span></h2>
+<p>Låt oss nu spara vår widget någonstans. Den kommar att sparas som en .ui fil, som vi smidigt kan omvandla till python skript med pyuic. på windows, så är pyuic programmet hoppackat med pyqt (ska verifieras), på linux behöver du troligen installera den separat från din pakethanterare (på debian-baserade system, så är det en del av pyqt4-dev-tools paketet). För att göra konverteringen, så behöver du öppna ett terminalfönster (eller ett kommandoprompt fönster på windows), navigera till där du sparade din .ui file, och skriva:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>pyuic mywidget.ui > mywidget.py</pre></div>
+<p>Into Windows pyuic.py are located in "C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py"
+For create batch file "compQt4.bat:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>@"C:\Python27\python" "C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py" -x %1.ui > %1.py</pre></div>
+<p>In the console Dos type without extension
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>compQt4 myUiFile</pre></div>
+<p>Into Linux&#160;: to do
+</p><p>Since FreeCAD progressively moved away from PyQt after version 0.13, in favour of <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySide">PySide</a> (Choice your PySide install <a rel="nofollow" class="external text" href="http://pyside.readthedocs.org/en/latest/building/">building PySide</a>), to make the file based on PySide now you have to use:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>pyside-uic mywidget.ui -o mywidget.py</pre></div>
+<p>Into Windows uic.py are located in "C:\Python27\Lib\site-packages\PySide\scripts\uic.py"
+For create batch file "compSide.bat":
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>@"C:\Python27\python" "C:\Python27\Lib\site-packages\PySide\scripts\uic.py" %1.ui > %1.py</pre></div>
+<p>In the console Dos type without extension
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>compSide myUiFile</pre></div>
+<p>Into Linux&#160;: to do
+</p><p><br />
+På en del system så kallas programmet pyuic4 istället för pyuic. Detta kommer att konvertera .ui filen till ett python skript. Om vi öppnar mywidget.py filen, så är dess innehåll mycket lätt att förstå:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>from PySide import QtCore, QtGui
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(187, 178)
+        self.title = QtGui.QLabel(Dialog)
+        self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+        self.title.setObjectName("title")
+        self.label_width = QtGui.QLabel(Dialog)
+        ...
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+        ...</pre></div>
+<p>Som du ser så har det en mycket enkel struktur: En klass benämnd  Ui_Dialog skapas, som sparar din widgets gränssnittselement. Den klassen har två metoder, en fär att ställa in widgeten, och en för att översätta dess innehåll, som är en del av de allmäna Qt mekanismerna för översättning av gränssnittselement. Inställningsmetoden skapar, en och en, widgetarna som vi har definierat dem i Qt Designer, och sätter deras alternativ som vi bestämt tidigare. Sedan blir hela gränssnittet översatt, och slutligen, blir sloten anslutna (vi pratar om det senare).
+</p><p>Vi kan nu skapa en ny widget, och använda denna klass till att skapa dess gränssnitt. Vi kan redan se vår widget i aktion, genom att sätta vår mywidget.py fil på en plats där FreeCAD kommer att hitta den (i FreeCAD's bin katalog, eller i någon av underkatalogerna till Mod ), och i FreeCAD pythontolken skriva:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>from PySide import QtGui
+import mywidget
+d = QtGui.QWidget()
+d.ui = mywidget.Ui_Dialog()
+d.ui.setupUi(d)
+d.show()</pre></div>
+<p>Och vår dialog kommer fram! Notera att din pythontolk fortfarande fungerar, vi har en icke-modal dialog. Så, för att stänga den, så kan vi (förutom att klicka på dess stängningsikon, förstås) skriva:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>d.hide()</pre></div>
+<h2><span class="mw-headline" id="Ordna_s.C3.A5_att_v.C3.A5r_dialog_g.C3.B6r_n.C3.A5got">Ordna så att vår dialog gör något</span></h2>
+<p>Nu när vi kan visa och gömma vår dialog, så behöver vi bara lägga till en sista bit: Att låta den göra något! Om du leker lite med Qt designer, så kommer du snabbt upptäcka ett helt avsnitt som kallas "signals and slots". I grunden så fungerar det så här: element på dina widgetar (i Qt terminologi, så är dessa element widgetar själva) kan sända signaler. Dessa signaler skiljer sig beroende på widget typ. Till exempel, en knapp kan sända en signal när den är nedtryckt och när den släpps. Dessa signaler kan anslutas till slots, vilka kan vara en speciell funktionalitet i andra widgetar (till exempel en dialog har en "stäng" slot till vilken du kan ansluta signalen från en stäng knapp), eller kan vara anpassade funktioner. <a rel="nofollow" class="external text" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">PyQt Referensdokumentation</a> listar alla qt widgetar, vad de kan göra, vilka signaler de kan sända , etc...
+</p><p>Vad vi kommer att göra här, är att skapa en ny funktion som kommer att skapa ett plan, baserat på höjd och bredd, och ansluta denna funktion till nedtryckt signalen som sänds av vår "Skapa!" button. Så, låt os börja med att importera våra FreeCAD moduler, genom att sätta följande rader i toppen på skriptet, där vi redan har importerat QtCore och QtGui:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import FreeCAD, Part</pre></div>
+<p>Låt oss sedan lägga till en ny funktion till vår Ui_Dialog klass:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>def createPlane(self):
+    try:
+        # first we check if valid numbers have been entered
+        w = float(self.width.text())
+        h = float(self.height.text())
+    except ValueError:
+        print "Error! Width and Height values must be valid numbers!"
+    else:
+        # create a face from 4 points
+        p1 = FreeCAD.Vector(0,0,0)
+        p2 = FreeCAD.Vector(w,0,0)
+        p3 = FreeCAD.Vector(w,h,0)
+        p4 = FreeCAD.Vector(0,h,0)
+        pointslist = [p1,p2,p3,p4,p1]
+        mywire = Part.makePolygon(pointslist)
+        myface = Part.Face(mywire)
+        Part.show(myface)
+        self.hide()</pre></div>
+<p>Sedan behöver vi informera Qt att ansluta knappen till funktionen, genom att placera följande rad precis innan QtCore.QMetaObject.connectSlotsByName(Dialog):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)</pre></div>
+<p>Detta ansluter, som du ser, pressed() signalen från vårt skapade objekt ("Skapa!" knappen), till en slot benämnd createPlane, som vi just definierade. Klart! Nu, som en slutlig justering, så kan vi lägga till lite funktion för att skapa dialogen, så kommer den bli lättare att anropa. Utanför Ui_Dialog klassan, så lägger vi till denna kod:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>class plane():
+   def __init__(self):
+       self.d = QtGui.QWidget()
+       self.ui = Ui_Dialog()
+       self.ui.setupUi(self.d)
+       self.d.show()</pre></div>
+<p>(Python reminder: the __init__ method of a class is automatically executed whenever a new object is created!)
+</p><p>Det enda vi sedan behöver göra från FreeCAD är:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import mywidget
+myDialog = mywidget.plane()</pre></div>
+<p>Det var allt. Nu kan du försöka andra saker, som till exempel sätta in din widget i FreeCAD's gränssnitt (se <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/sv" title="Code snippets/sv">kodbitar</a> sidan), eller göra mycket mer avancerade verktyg, genom att använda andra element på din widget.
+</p>
+<h2><span class="mw-headline" id="Det_kompletta_skriptet">Det kompletta skriptet</span></h2>
+<p>För referens, så är det kompletta skriptet här:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'mywidget.ui'
+#
+# Created: Mon Jun  1 19:09:10 2009
+#      by: PyQt4 UI code generator 4.4.4
+# Modified for PySide 16:02:2015 
+# WARNING! All changes made in this file will be lost!
+
+from PySide import QtCore, QtGui
+import FreeCAD, Part 
+
+class Ui_Dialog(object):
+   def setupUi(self, Dialog):
+       Dialog.setObjectName("Dialog")
+       Dialog.resize(187, 178)
+       self.title = QtGui.QLabel(Dialog)
+       self.title.setGeometry(QtCore.QRect(10, 10, 271, 16))
+       self.title.setObjectName("title")
+       self.label_width = QtGui.QLabel(Dialog)
+       self.label_width.setGeometry(QtCore.QRect(10, 50, 57, 16))
+       self.label_width.setObjectName("label_width")
+       self.label_height = QtGui.QLabel(Dialog)
+       self.label_height.setGeometry(QtCore.QRect(10, 90, 57, 16))
+       self.label_height.setObjectName("label_height")
+       self.width = QtGui.QLineEdit(Dialog)
+       self.width.setGeometry(QtCore.QRect(60, 40, 111, 26))
+       self.width.setObjectName("width")
+       self.height = QtGui.QLineEdit(Dialog)
+       self.height.setGeometry(QtCore.QRect(60, 80, 111, 26))
+       self.height.setObjectName("height")
+       self.create = QtGui.QPushButton(Dialog)
+       self.create.setGeometry(QtCore.QRect(50, 140, 83, 26))
+       self.create.setObjectName("create")
+
+       self.retranslateUi(Dialog)
+       QtCore.QObject.connect(self.create,QtCore.SIGNAL("pressed()"),self.createPlane)
+       QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+   def retranslateUi(self, Dialog):
+       Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+       self.title.setText(QtGui.QApplication.translate("Dialog", "Plane-O-Matic", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_width.setText(QtGui.QApplication.translate("Dialog", "Width", None, QtGui.QApplication.UnicodeUTF8))
+       self.label_height.setText(QtGui.QApplication.translate("Dialog", "Height", None, QtGui.QApplication.UnicodeUTF8))
+       self.create.setText(QtGui.QApplication.translate("Dialog", "Create!", None, QtGui.QApplication.UnicodeUTF8))
+
+   def createPlane(self):
+       try:
+           # first we check if valid numbers have been entered
+           w = float(self.width.text())
+           h = float(self.height.text())
+       except ValueError:
+           print "Error! Width and Height values must be valid numbers!"
+       else:
+           # create a face from 4 points
+           p1 = FreeCAD.Vector(0,0,0)
+           p2 = FreeCAD.Vector(w,0,0)
+           p3 = FreeCAD.Vector(w,h,0)
+           p4 = FreeCAD.Vector(0,h,0)
+           pointslist = [p1,p2,p3,p4,p1]
+           mywire = Part.makePolygon(pointslist)
+           myface = Part.Face(mywire)
+           Part.show(myface)
+
+class plane():
+   def __init__(self):
+       self.d = QtGui.QWidget()
+       self.ui = Ui_Dialog()
+       self.ui.setupUi(self.d)
+       self.d.show()</pre></div>
+<h2><span class="mw-headline" id="Creation_of_a_dialog_with_buttons">Creation of a dialog with buttons</span></h2>
+<h3><span class="mw-headline" id="Method_1">Method 1</span></h3>
+<p>An example of a dialog box complete with its connections.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# Create by flachyjoe
+
+from PySide import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+
+class Ui_MainWindow(object):
+
+     def __init__(self, MainWindow):
+        self.window = MainWindow
+
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(400, 300)
+        self.centralWidget = QtGui.QWidget(MainWindow)
+        self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
+
+        self.pushButton = QtGui.QPushButton(self.centralWidget)
+        self.pushButton.setGeometry(QtCore.QRect(30, 170, 93, 28))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton.clicked.connect(self.on_pushButton_clicked) #connection pushButton
+
+        self.lineEdit = QtGui.QLineEdit(self.centralWidget)
+        self.lineEdit.setGeometry(QtCore.QRect(30, 40, 211, 22))
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.lineEdit.returnPressed.connect(self.on_lineEdit_clicked) #connection lineEdit
+
+        self.checkBox = QtGui.QCheckBox(self.centralWidget)
+        self.checkBox.setGeometry(QtCore.QRect(30, 90, 81, 20))
+        self.checkBox.setChecked(True)
+        self.checkBox.setObjectName(_fromUtf8("checkBoxON"))
+        self.checkBox.clicked.connect(self.on_checkBox_clicked) #connection checkBox
+
+        self.radioButton = QtGui.QRadioButton(self.centralWidget)
+        self.radioButton.setGeometry(QtCore.QRect(30, 130, 95, 20))
+        self.radioButton.setObjectName(_fromUtf8("radioButton"))
+        self.radioButton.clicked.connect(self.on_radioButton_clicked) #connection radioButton
+
+        MainWindow.setCentralWidget(self.centralWidget)
+
+        self.menuBar = QtGui.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 400, 26))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        MainWindow.setMenuBar(self.menuBar)
+
+        self.mainToolBar = QtGui.QToolBar(MainWindow)
+        self.mainToolBar.setObjectName(_fromUtf8("mainToolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+
+        self.statusBar = QtGui.QStatusBar(MainWindow)
+        self.statusBar.setObjectName(_fromUtf8("statusBar"))
+        MainWindow.setStatusBar(self.statusBar)
+
+        self.retranslateUi(MainWindow)
+
+     def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        self.pushButton.setText(_translate("MainWindow", "OK", None))
+        self.lineEdit.setText(_translate("MainWindow", "tyty", None))
+        self.checkBox.setText(_translate("MainWindow", "CheckBox", None))
+        self.radioButton.setText(_translate("MainWindow", "RadioButton", None))
+
+     def on_checkBox_clicked(self):
+        if self.checkBox.checkState()==0:
+            App.Console.PrintMessage(str(self.checkBox.checkState())+"  CheckBox KO\r\n")
+        else:     
+            App.Console.PrintMessage(str(self.checkBox.checkState())+" CheckBox OK\r\n")
+#        App.Console.PrintMessage(str(self.lineEdit.setText("tititi"))+" LineEdit\r\n") #write text to the lineEdit window !
+#        str(self.lineEdit.setText("tititi")) #écrit le texte dans la fenêtre lineEdit
+        App.Console.PrintMessage(str(self.lineEdit.displayText())+" LineEdit\r\n")
+
+     def on_radioButton_clicked(self):
+        if self.radioButton.isChecked():
+             App.Console.PrintMessage(str(self.radioButton.isChecked())+" Radio OK\r\n")
+        else:
+             App.Console.PrintMessage(str(self.radioButton.isChecked())+"  Radio KO\r\n")
+
+     def on_lineEdit_clicked(self):
+#        if self.lineEdit.textChanged():
+             App.Console.PrintMessage(str(self.lineEdit.displayText())+" LineEdit Display\r\n")
+
+     def on_pushButton_clicked(self):
+        App.Console.PrintMessage("Terminé\r\n")
+        self.window.hide()
+
+MainWindow = QtGui.QMainWindow()
+ui = Ui_MainWindow(MainWindow)
+MainWindow.show()</pre></div>
+<p>Here the same window but with an icon on each button.
+</p><p>Download associated icons (Click rigth "Copy the image below ...)"
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Icone01.png" class="image"><img alt="Icone01.png" src="Icone01.png" width="64" height="64" /></a>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Icone02.png" class="image"><img alt="Icone02.png" src="Icone02.png" width="64" height="64" /></a>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Icone03.png" class="image"><img alt="Icone03.png" src="Icone03.png" width="64" height="64" /></a>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+
+from PySide import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+
+class Ui_MainWindow(object):
+
+     def __init__(self, MainWindow):
+        self.window = MainWindow
+        path = FreeCAD.ConfigGet("UserAppData")
+#        path = FreeCAD.ConfigGet("AppHomePath")
+
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(400, 300)
+        self.centralWidget = QtGui.QWidget(MainWindow)
+        self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
+
+        self.pushButton = QtGui.QPushButton(self.centralWidget)
+        self.pushButton.setGeometry(QtCore.QRect(30, 170, 93, 28))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton.clicked.connect(self.on_pushButton_clicked) #connection pushButton
+
+        self.lineEdit = QtGui.QLineEdit(self.centralWidget)
+        self.lineEdit.setGeometry(QtCore.QRect(30, 40, 211, 22))
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.lineEdit.returnPressed.connect(self.on_lineEdit_clicked) #connection lineEdit
+
+        self.checkBox = QtGui.QCheckBox(self.centralWidget)
+        self.checkBox.setGeometry(QtCore.QRect(30, 90, 100, 20))
+        self.checkBox.setChecked(True)
+        self.checkBox.setObjectName(_fromUtf8("checkBoxON"))
+        self.checkBox.clicked.connect(self.on_checkBox_clicked) #connection checkBox
+
+        self.radioButton = QtGui.QRadioButton(self.centralWidget)
+        self.radioButton.setGeometry(QtCore.QRect(30, 130, 95, 20))
+        self.radioButton.setObjectName(_fromUtf8("radioButton"))
+        self.radioButton.clicked.connect(self.on_radioButton_clicked) #connection radioButton
+
+        MainWindow.setCentralWidget(self.centralWidget)
+
+        self.menuBar = QtGui.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 400, 26))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        MainWindow.setMenuBar(self.menuBar)
+
+        self.mainToolBar = QtGui.QToolBar(MainWindow)
+        self.mainToolBar.setObjectName(_fromUtf8("mainToolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+
+        self.statusBar = QtGui.QStatusBar(MainWindow)
+        self.statusBar.setObjectName(_fromUtf8("statusBar"))
+        MainWindow.setStatusBar(self.statusBar)
+
+        self.retranslateUi(MainWindow)
+
+        # Affiche un icone sur le bouton PushButton
+        # self.image_01 = "C:\Program Files\FreeCAD0.13\Icone01.png" # adapt the icon name
+        self.image_01 = path+"Icone01.png" # adapt the name of the icon
+        icon01 = QtGui.QIcon() 
+        icon01.addPixmap(QtGui.QPixmap(self.image_01),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon01) 
+        self.pushButton.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the direction of the button
+
+        # Affiche un icone sur le bouton RadioButton 
+        # self.image_02 = "C:\Program Files\FreeCAD0.13\Icone02.png" # adapt the name of the icon
+        self.image_02 = path+"Icone02.png" # adapter le nom de l'icone
+        icon02 = QtGui.QIcon() 
+        icon02.addPixmap(QtGui.QPixmap(self.image_02),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.radioButton.setIcon(icon02) 
+        # self.radioButton.setLayoutDirection(QtCore.Qt.RightToLeft) #  This command reverses the direction of the button
+
+        # Affiche un icone sur le bouton CheckBox 
+        # self.image_03 = "C:\Program Files\FreeCAD0.13\Icone03.png" # the name of the icon
+        self.image_03 = path+"Icone03.png" # adapter le nom de l'icone
+        icon03 = QtGui.QIcon() 
+        icon03.addPixmap(QtGui.QPixmap(self.image_03),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.checkBox.setIcon(icon03) 
+        # self.checkBox.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the direction of the button
+
+
+     def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "FreeCAD", None))
+        self.pushButton.setText(_translate("MainWindow", "OK", None))
+        self.lineEdit.setText(_translate("MainWindow", "tyty", None))
+        self.checkBox.setText(_translate("MainWindow", "CheckBox", None))
+        self.radioButton.setText(_translate("MainWindow", "RadioButton", None))
+
+     def on_checkBox_clicked(self):
+        if self.checkBox.checkState()==0:
+            App.Console.PrintMessage(str(self.checkBox.checkState())+"  CheckBox KO\r\n")
+        else:     
+            App.Console.PrintMessage(str(self.checkBox.checkState())+" CheckBox OK\r\n")
+           # App.Console.PrintMessage(str(self.lineEdit.setText("tititi"))+" LineEdit\r\n") # write text to the lineEdit window !
+           # str(self.lineEdit.setText("tititi")) #écrit le texte dans la fenêtre lineEdit
+        App.Console.PrintMessage(str(self.lineEdit.displayText())+" LineEdit\r\n")
+
+     def on_radioButton_clicked(self):
+        if self.radioButton.isChecked():
+             App.Console.PrintMessage(str(self.radioButton.isChecked())+" Radio OK\r\n")
+        else:
+             App.Console.PrintMessage(str(self.radioButton.isChecked())+"  Radio KO\r\n")
+
+     def on_lineEdit_clicked(self):
+          # if self.lineEdit.textChanged():
+          App.Console.PrintMessage(str(self.lineEdit.displayText())+" LineEdit Display\r\n")
+
+     def on_pushButton_clicked(self):
+        App.Console.PrintMessage("Terminé\r\n")
+        self.window.hide()
+
+MainWindow = QtGui.QMainWindow()
+ui = Ui_MainWindow(MainWindow)
+MainWindow.show()</pre></div>
+<p>Here the code to display the icon on the <b>pushButton</b>, change the name for another button, (<b>radioButton, checkBox</b>) and the path to the icon.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>        # Affiche un icône sur le bouton PushButton
+        # self.image_01 = "C:\Program Files\FreeCAD0.13\icone01.png" # the name of the icon
+        self.image_01 = path+"icone01.png" # the name of the icon
+        icon01 = QtGui.QIcon() 
+        icon01.addPixmap(QtGui.QPixmap(self.image_01),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon01) 
+        self.pushButton.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the direction of the button</pre></div>
+<p>The command
+<b>UserAppData</b> gives the user path
+<b>AppHomePath</b> gives the installation path of FreeCAD
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>#        path = FreeCAD.ConfigGet("UserAppData")
+        path = FreeCAD.ConfigGet("AppHomePath")</pre></div>
+<p>This command reverses the horizontal button, right to left.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>self.pushButton.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the direction of the button</pre></div>
+<h3><span class="mw-headline" id="Method_2">Method 2</span></h3>
+<p>Another method to display a window, here by creating a file <b>QtForm.py</b> which contains the header program (module called with <b>import QtForm</b>), and a second module that contains the code window all these accessories, and your code (the calling module).
+</p><p>This method requires two separate files, but allows to shorten your program using the file ' ' QtForm.py ' ' import. Then distribute the two files together, they are inseparable.
+</p><p>The file <b>QtForm.py</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# Create by flachyjoe
+from PySide import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+   def _fromUtf8(s):
+      return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+      return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+   def _translate(context, text, disambig):
+      return QtGui.QApplication.translate(context, text, disambig)
+
+class Form(object):
+   def __init__(self, title, width, height):
+      self.window = QtGui.QMainWindow()
+      self.title=title
+      self.window.setObjectName(_fromUtf8(title))
+      self.window.setWindowTitle(_translate(self.title, self.title, None))
+      self.window.resize(width, height)
+
+   def show(self):
+      self.createUI()
+      self.retranslateUI()
+      self.window.show()
+   
+   def setText(self, control, text):
+      control.setText(_translate(self.title, text, None))</pre></div>
+<p>The appellant, file that contains the window and your code.
+</p><p>The file my_file.py
+</p><p>The connections are to do, a good exercise.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# Create by flachyjoe
+from PySide import QtCore, QtGui
+import QtForm
+
+class myForm(QtForm.Form):
+   def createUI(self):
+      self.centralWidget = QtGui.QWidget(self.window)
+      self.window.setCentralWidget(self.centralWidget)
+      
+      self.pushButton = QtGui.QPushButton(self.centralWidget)
+      self.pushButton.setGeometry(QtCore.QRect(30, 170, 93, 28))
+      self.pushButton.clicked.connect(self.on_pushButton_clicked)
+      
+      self.lineEdit = QtGui.QLineEdit(self.centralWidget)
+      self.lineEdit.setGeometry(QtCore.QRect(30, 40, 211, 22))
+      
+      self.checkBox = QtGui.QCheckBox(self.centralWidget)
+      self.checkBox.setGeometry(QtCore.QRect(30, 90, 81, 20))
+      self.checkBox.setChecked(True)
+      
+      self.radioButton = QtGui.QRadioButton(self.centralWidget)
+      self.radioButton.setGeometry(QtCore.QRect(30, 130, 95, 20))
+   
+   def retranslateUI(self):
+      self.setText(self.pushButton, "Fermer")
+      self.setText(self.lineEdit, "essai de texte")
+      self.setText(self.checkBox, "CheckBox")
+      self.setText(self.radioButton, "RadioButton")
+   
+   def on_pushButton_clicked(self):
+      self.window.hide()
+
+myWindow=myForm("Fenetre de test",400,300)
+myWindow.show()</pre></div>
+<p><b>Other example</b>
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 435px"><div style="width: 435px">
+<div class="thumb" style="width: 430px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qt_Example_00.png" class="image"><img alt="" src="167px-Qt_Example_00.png" width="167" height="200" srcset="/wiki/images/thumb/f/fe/Qt_Example_00.png/250px-Qt_Example_00.png 1.5x, /wiki/images/thumb/f/fe/Qt_Example_00.png/333px-Qt_Example_00.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Qt example 1
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 435px"><div style="width: 435px">
+<div class="thumb" style="width: 430px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qt_Example_01.png" class="image"><img alt="" src="167px-Qt_Example_01.png" width="167" height="200" srcset="/wiki/images/thumb/d/d4/Qt_Example_01.png/250px-Qt_Example_01.png 1.5x, /wiki/images/thumb/d/d4/Qt_Example_01.png/333px-Qt_Example_01.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Qt example details
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<div style="clear:both"></div>
+<p><br />
+Are treated&#160;:
+</p>
+<ol><li> icon for window</li>
+<li> horizontalSlider</li>
+<li> progressBar horizontal</li>
+<li> verticalSlider</li>
+<li> progressBar vertical</li>
+<li> lineEdit</li>
+<li> lineEdit</li>
+<li> doubleSpinBox</li>
+<li> doubleSpinBox</li>
+<li> doubleSpinBox</li>
+<li> buttom</li>
+<li> buttom</li>
+<li> radioButtom with icons</li>
+<li> checkBox with icon checked and unchecked</li>
+<li> textEdit</li>
+<li> graphicsView with 2 graphes</li></ol>
+<p>The code page and the icons <a href="Qt_Example.html" title="Qt Example">Qt_Example</a>
+</p>
+<h2><span class="mw-headline" id="Icon_personalized_in_ComboView">Icon personalized in ComboView</span></h2>
+<p>Here example create object with property and icon personalized in ComboView 
+</p><p>Download the example icon to place in same directory of the macro <a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCADIco.png" class="image" title="icon Example for the macro"><img alt="icon Example for the macro" src="24px-FreeCADIco.png" width="24" height="22" srcset="/wiki/images/thumb/8/86/FreeCADIco.png/36px-FreeCADIco.png 1.5x, /wiki/images/thumb/8/86/FreeCADIco.png/48px-FreeCADIco.png 2x" /></a>
+</p><p>The icon used is one icon to file disk, one icon to resource FreeCAD and one icon include in the macro (format .XPM)
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Qt_Example_02.png" class="image" title="icon personalized"><img alt="icon personalized" src="Qt_Example_02.png" width="338" height="490" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import PySide
+import FreeCAD, FreeCADGui, Part
+from pivy import coin
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+import Draft
+
+global path
+param = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Macro")# macro path in FreeCAD preferences
+path = param.GetString("MacroPath","") + "/"                        # macro path
+path = path.replace("\\","/")                                       # convert the "\" to "/"
+
+
+class IconViewProviderToFile:                                       # Class ViewProvider create Property view of object
+    def __init__( self, obj, icon):
+        self.icone = icon
+        
+    def getIcon(self):                                              # GetIcon
+        return self.icone
+        
+    def attach(self, obj):                                          # Property view of object
+        self.modes = []
+        self.modes.append("Flat Lines")
+        self.modes.append("Shaded")
+        self.modes.append("Wireframe")
+        self.modes.append("Points")
+        obj.addDisplayMode( coin.SoGroup(),"Flat Lines" )           # Display Mode
+        obj.addDisplayMode( coin.SoGroup(),"Shaded" )
+        obj.addDisplayMode( coin.SoGroup(),"Wireframe" )
+        obj.addDisplayMode( coin.SoGroup(),"Points" )
+        return self.modes
+
+    def getDisplayModes(self,obj):
+        return self.modes
+
+#####################################################
+########## Example with icon to file # begin ########
+#####################################################
+
+object1 = FreeCAD.ActiveDocument.addObject("App::FeaturePython", "Icon_In_File_Disk")                                     # create your object
+object1.addProperty("App::PropertyString","Identity", "ExampleTitle0", "Identity of object").Identity = "FCSpring"        # Identity of object
+object1.addProperty("App::PropertyFloat" ,"Pitch",    "ExampleTitle0", "Pitch betwen 2 heads").Pitch  = 2.0               # other Property Data
+object1.addProperty("App::PropertyBool"  ,"View",     "ExampleTitle1", "Hello world").View            = True              # ...
+object1.addProperty("App::PropertyColor" ,"LineColor","ExampleTitle2", "Color to choice").LineColor   = (0.13,0.15,0.37)  # ...
+#...other Property Data
+#...other Property Data
+#
+object1.ViewObject.Proxy = IconViewProviderToFile( object1, path + "FreeCADIco.png")                                      # icon download to file
+App.ActiveDocument.recompute()
+#
+#__Detail__:
+# FreeCAD.ActiveDocument.addObject( = create now object personalized
+# "App::FeaturePython",             = object as FeaturePython
+# "Icon_In_File_Disk")              = internal name of your object
+#
+#
+# "App::PropertyString",    = type of Property , availlable : PropertyString, PropertyFloat, PropertyBool, PropertyColor
+# "Identity",               = name of the feature
+# "ExampleTitle0",          = title of the "section"
+# "Identity of object")     = tooltip displayed on mouse
+# .Identity                 = variable (same of name of the feature)
+# object1.ViewObject.Proxy  = create the view object and gives the icon
+#
+########## example with icon to file end
+
+
+
+#####################################################
+########## Example with icon in macro # begin #######
+#####################################################
+
+def setIconInMacro(self):        # def contener the icon in format .xpm
+    # File format XPM created by Gimp "https://www.gimp.org/"
+    # Choice palette Tango
+    # Create your masterwork ...
+    # For export the image in XPM format
+    #     Menu File > Export as > .xpm
+    # (For convert image true color in Tango color palette : 
+    #     Menu Image > Mode > Indexed ... > Use custom palette > Tango Icon Theme > Convert)
+    return """
+            /* XPM */
+            static char * XPM[] = {
+            "22 24 5 1",
+            " c None",
+            ".c #CE5C00",
+            "+c #EDD400",
+            "@c #F57900",
+            "#c #8F5902",
+            "                      ",
+            "                      ",
+            "  ....                ",
+            "  ..@@@@..            ",
+            "  . ...@......        ",
+            "  .+++++++++...       ",
+            "  .      ....++...    ",
+            "  .@..@@@@@@.+++++..  ",
+            "  .@@@@@..#  ++++ ..  ",
+            "  .       ++++  .@..  ",
+            "  .++++++++  .@@@.+.  ",
+            " .      ..@@@@@. ++.  ",
+            " ..@@@@@@@@@.  +++ .  ",
+            " ....@...# +++++ @..  ",
+            " .    ++++++++ .@. .  ",
+            " .++++++++  .@@@@ .   ",
+            " .   #....@@@@. ++.   ",
+            " .@@@@@@@@@.. +++ .   ",
+            " ........  +++++...   ",
+            " ...  ..+++++ ..@..   ",
+            "    ......  .@@@ +.   ",
+            "          ......++.   ",
+            "                ...   ",
+            "                      "};
+        """
+
+object2 = FreeCAD.ActiveDocument.addObject("App::FeaturePython", "Icon_XPM_In_Macro")                                    #
+object2.addProperty("App::PropertyString","Identity","ExampleTitle","Identity of object").Identity = "FCSpring"
+#...other Property Data
+#...other Property Data
+#
+object2.ViewObject.Proxy = IconViewProviderToFile( object2, setIconInMacro(""))              # icon in macro (.XPM)
+App.ActiveDocument.recompute()
+########## example with icon in macro end
+
+
+
+####################################################################
+########## Example with icon to FreeCAD ressource # begin ##########
+####################################################################
+
+object3 = FreeCAD.ActiveDocument.addObject("App::FeaturePython", "Icon_Ressource_FreeCAD")                               #
+object3.addProperty("App::PropertyString","Identity","ExampleTitle","Identity of object").Identity = "FCSpring"
+#...other Property Data
+#...other Property Data
+#
+object3.ViewObject.Proxy = IconViewProviderToFile( object3, ":/icons/Draft_Draft.svg")       # icon to FreeCAD ressource
+App.ActiveDocument.recompute()
+########## example with icon to FreeCAD ressource end</pre></div>
+<p>Other complete example creation cube with icon in macro
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>#https://forum.freecadweb.org/viewtopic.php?t=10255#p83319
+import FreeCAD, Part, math
+from FreeCAD import Base
+from PySide import QtGui
+
+global path
+param = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Macro")# macro path in FreeCAD preferences
+path = param.GetString("MacroPath","") + "/"                        # macro path
+path = path.replace("\\","/")                                       # convert the "\" to "/"
+
+def setIconInMacro(self):
+    return """
+        /* XPM */
+        static char * xpm[] = {
+        "22 22 12 1",
+        " c None",
+        ".c #A40000",
+        "+c #2E3436",
+        "@c #CE5C00",
+        "#c #F57900",
+        "$c #FCAF3E",
+        "%c #5C3566",
+        "&amp;c #204A87",
+        "*c #555753",
+        "=c #3465A4",
+        "-c #4E9A06",
+        ";c #729FCF",
+        "                      ",
+        "                      ",
+        "                      ",
+        "        ..   ..       ",
+        "       +@#+++.$$      ",
+        "       +.#+%..$$      ",
+        "       &amp;*$  &amp;*#*      ",
+        "      &amp;   =&amp;=  =      ",
+        "   ++&amp;  +.==   %=     ",
+        "  ++$@ ..$ %=   &amp;     ",
+        "  ..-&amp;%.#$$ &amp;## +=$   ",
+        "   .#  ..$ ..#%%.#$$  ",
+        "     ;    =+=## %-$#  ",
+        "     &amp;=   ;&amp;   %=     ",
+        "      ;+ &amp;=;  %=      ",
+        "      ++$- +*$-       ",
+        "      .#&amp;&amp;+.@$$       ",
+        "      ..$# ..$#       ",
+        "       ..   ..        ",
+        "                      ",
+        "                      ",
+        "                      "};
+        """
+
+class PartFeature:
+    def __init__(self, obj):
+        obj.Proxy = self
+
+class Box(PartFeature):
+    def __init__(self, obj):
+        PartFeature.__init__(self, obj)
+        obj.addProperty("App::PropertyLength", "Length", "Box", "Length of the box").Length = 1.0
+        obj.addProperty("App::PropertyLength", "Width",  "Box", "Width of the box" ).Width  = 1.0
+        obj.addProperty("App::PropertyLength", "Height", "Box", "Height of the box").Height = 1.0
+
+    def onChanged(self, fp, prop):
+        try:
+            if prop == "Length" or prop == "Width" or prop == "Height":
+                fp.Shape = Part.makeBox(fp.Length,fp.Width,fp.Height)
+        except:
+            pass
+
+    def execute(self, fp):
+        fp.Shape = Part.makeBox(fp.Length,fp.Width,fp.Height)
+
+class ViewProviderBox:
+    def __init__(self, obj, icon):
+        obj.Proxy  = self
+        self.icone = icon
+        
+    def getIcon(self):
+        return self.icone
+
+    def attach(self, obj):
+        return
+
+    def setupContextMenu(self, obj, menu):
+        action = menu.addAction("Set default height")
+        action.triggered.connect(lambda f=self.setDefaultHeight, arg=obj:f(arg))
+
+        action = menu.addAction("Hello World")
+        action.triggered.connect(self.showHelloWorld)
+
+    def setDefaultHeight(self, view):
+        view.Object.Height = 15.0
+
+    def showHelloWorld(self):
+        QtGui.QMessageBox.information(None, "Hi there", "Hello World")
+
+def makeBox():
+    FreeCAD.newDocument()
+    a=FreeCAD.ActiveDocument.addObject("Part::FeaturePython","Box")
+    Box(a)
+#    ViewProviderBox(a.ViewObject, path + "FreeCADIco.png")    # icon download to file
+#    ViewProviderBox(a.ViewObject,  ":/icons/Draft_Draft.svg") # icon to FreeCAD ressource
+    ViewProviderBox(a.ViewObject,  setIconInMacro(""))        # icon in macro (.XPM)
+    App.ActiveDocument.recompute()
+
+makeBox()</pre></div>
+<h2><span class="mw-headline" id="Use_QFileDialog_for_write_the_file">Use QFileDialog for write the file</span></h2>
+<p>Complete code:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+import PySide
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+path = FreeCAD.ConfigGet("UserAppData")
+
+try:
+    SaveName = QFileDialog.getSaveFileName(None,QString.fromLocal8Bit("Save a file txt"),path,             "*.txt") # PyQt4
+#                                                                     "here the text displayed on windows" "here the filter (extension)"   
+except Exception:
+    SaveName, Filter = PySide.QtGui.QFileDialog.getSaveFileName(None, "Save a file txt", path,             "*.txt") # PySide
+#                                                                     "here the text displayed on windows" "here the filter (extension)"   
+if SaveName == "":                                                            # if the name file are not selected then Abord process
+    App.Console.PrintMessage("Process aborted"+"\n")
+else:                                                                         # if the name file are selected or created then 
+    App.Console.PrintMessage("Registration of "+SaveName+"\n")                # text displayed to Report view (Menu > View > Report view checked)
+    try:                                                                      # detect error ...
+        file = open(SaveName, 'w')                                            # open the file selected to write (w)
+        try:                                                                  # if error detected to write ...
+            # here your code
+            print "here your code"
+            file.write(str(1)+"\n")                                           # write the number convert in text with (str())
+            file.write("FreeCAD the best")                                    # write the the text with ("  ")
+        except Exception:                                                     # if error detected to write
+            App.Console.PrintError("Error write file "+"\n")                  # detect error ... display the text in red (PrintError)
+        finally:                                                              # if error detected to write ... or not the file is closed
+            file.close()                                                      # if error detected to write ... or not the file is closed
+    except Exception:
+        App.Console.PrintError("Error Open file "+SaveName+"\n")      # detect error ... display the text in red (PrintError)</pre></div>
+<h2><span class="mw-headline" id="Use_QFileDialog_for_read_the_file">Use QFileDialog for read the file</span></h2>
+<p>Complete code:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+import PySide
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+path = FreeCAD.ConfigGet("UserAppData")
+
+OpenName = ""
+try:
+    OpenName = QFileDialog.getOpenFileName(None,QString.fromLocal8Bit("Read a file txt"),path,             "*.txt") # PyQt4
+#                                                                     "here the text displayed on windows" "here the filter (extension)"   
+except Exception:
+    OpenName, Filter = PySide.QtGui.QFileDialog.getOpenFileName(None, "Read a file txt", path,             "*.txt") #PySide
+#                                                                     "here the text displayed on windows" "here the filter (extension)"   
+if OpenName == "":                                                            # if the name file are not selected then Abord process
+    App.Console.PrintMessage("Process aborted"+"\n")
+else:
+    App.Console.PrintMessage("Read "+OpenName+"\n")                           # text displayed to Report view (Menu > View > Report view checked)
+    try:                                                                      # detect error to read file
+        file = open(OpenName, "r")                                            # open the file selected to read (r)  # (rb is binary)
+        try:                                                                  # detect error ...
+            # here your code
+            print "here your code"
+            op = OpenName.split("/")                                          # decode the path
+            op2 = op[-1].split(".")                                           # decode the file name 
+            nomF = op2[0]                                                     # the file name are isolated
+
+            App.Console.PrintMessage(str(nomF)+"\n")                          # the file name are displayed
+
+            for ligne in file:                                                # read the file
+                X  = ligne.rstrip('\n\r') #.split()                           # decode the line
+                print X                                                       # print the line in report view other method 
+                                                                              # (Menu > Edit > preferences... > Output window > Redirect internal Python output (and errors) to report view checked) 
+        except Exception:                                                     # if error detected to read
+            App.Console.PrintError("Error read file "+"\n")                   # detect error ... display the text in red (PrintError)
+        finally:                                                              # if error detected to read ... or not error the file is closed
+            file.close()                                                      # if error detected to read ... or not error the file is closed
+    except Exception:                                                         # if one error detected to read file
+        App.Console.PrintError("Error in Open the file "+OpenName+"\n")       # if one error detected ... display the text in red (PrintError)</pre></div>
+<h2><span class="mw-headline" id="Use_QColorDialog_for_get_the_color">Use QColorDialog for get the color</span></h2>
+<p>Complete code:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# https://deptinfo-ensip.univ-poitiers.fr/ENS/pyside-docs/PySide/QtGui/QColor.html
+import PySide
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+path = FreeCAD.ConfigGet("UserAppData")
+
+couleur = QtGui.QColorDialog.getColor()
+if couleur.isValid():
+    red   = int(str(couleur.name()[1:3]),16)    # decode hexadecimal to int()
+    green = int(str(couleur.name()[3:5]),16)    # decode hexadecimal to int()
+    blue  = int(str(couleur.name()[5:7]),16)    # decode hexadecimal to int()
+
+    print couleur                               # 
+    print "hexadecimal ",couleur.name()         # color format hexadecimal mode 16
+    print "Red   color ",red                    # color format decimal
+    print "Green color ",green                  # color format decimal
+    print "Blue  color ",blue                   # color format decimal</pre></div>
+<h2><span class="mw-headline" id="Some_useful_commands">Some useful commands</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Here the code to display the icon on the '''pushButton''', 
+# change the name to another button, ('''radioButton, checkBox''') as well as the path to the icon,
+
+       # Displays an icon on the button PushButton
+       # self.image_01 = "C:\Program Files\FreeCAD0.13\icone01.png" # he name of the icon
+       self.image_01 = path+"icone01.png" # the name of the icon
+       icon01 = QtGui.QIcon() 
+       icon01.addPixmap(QtGui.QPixmap(self.image_01),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+       self.pushButton.setIcon(icon01) 
+       self.pushButton.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the direction of the button
+
+
+# path = FreeCAD.ConfigGet("UserAppData") # gives the user path
+  path = FreeCAD.ConfigGet("AppHomePath") # gives the installation path of FreeCAD
+
+# This command reverses the horizontal button, right to left
+self.pushButton.setLayoutDirection(QtCore.Qt.RightToLeft) # This command reverses the horizontal button
+
+# Displays an info button
+self.pushButton.setToolTip(_translate("MainWindow", "Quitter la fonction", None)) # Displays an info button
+
+# This function gives a color button
+self.pushButton.setStyleSheet("background-color: red") # This function gives a color button
+
+# This function gives a color to the text of the button
+self.pushButton.setStyleSheet("color : #ff0000") # This function gives a color to the text of the button
+
+# combinaison des deux, bouton et texte
+self.pushButton.setStyleSheet("color : #ff0000; background-color : #0000ff;" ) #  combination of the two, button, and text
+
+# replace the icon in the main window
+MainWindow.setWindowIcon(QtGui.QIcon('C:\Program Files\FreeCAD0.13\View-C3P.png'))
+
+# connects a lineEdit on execute
+self.lineEdit.returnPressed.connect(self.execute) # connects a lineEdit on "def execute" after validation on enter
+# self.lineEdit.textChanged.connect(self.execute) # connects a lineEdit on "def execute" with each keystroke on the keyboard
+
+# display text in a lineEdit
+self.lineEdit.setText(str(val_X)) # Displays the value in the lineEdit (convert to string)
+
+# extract the string contained in a lineEdit
+ val_X = self.lineEdit.text() # extract the (string) string contained in lineEdit
+ val_X = float(val_X0)        # converted the string to an floating
+ val_X = int(val_X0)          # convert the string to an integer
+
+# This code allows you to change the font and its attributes
+       font = QtGui.QFont()
+       font.setFamily("Times New Roman")
+       font.setPointSize(10)
+       font.setWeight(10)
+       font.setBold(True) # same result with tags "&lt;b>your text&lt;/b>" (in quotes)
+       self.label_6.setFont(font)
+       self.label_6.setObjectName("label_6")
+       self.label_6.setStyleSheet("color : #ff0000") # This function gives a color to the text
+       self.label_6.setText(_translate("MainWindow", "Select a view", None))</pre></div>
+<p>By using the characters with accents, where you get the error&#160;:
+</p><p>Several solutions are possible.
+</p><p><font color="#FF0000"><b>UnicodeDecodeError: 'utf8' codec can't decode bytes in position 0-2: invalid data</b></font>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># conversion from a lineEdit
+App.activeDocument().CopyRight.Text = str(unicode(self.lineEdit_20.text() , 'ISO-8859-1').encode('UTF-8'))
+DESIGNED_BY = unicode(self.lineEdit_01.text(), 'ISO-8859-1').encode('UTF-8')</pre></div>
+<p>or with the procedure
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>def utf8(unio):
+    return unicode(unio).encode('UTF8')</pre></div>
+<p><font color="#FF0000"><b>UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 9: ordinal not in range(128)</b></font>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># conversion
+a = u"Nom de l'élément : "
+f.write('''a.encode('iso-8859-1')'''+str(element_)+"\n")</pre></div>
+<p>or with the procedure
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>def iso8859(encoder):
+    return unicode(encoder).encode('iso-8859-1')</pre></div>
+<p>or
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>iso8859(unichr(176))</pre></div>
+<p>or
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>unichr(ord(176))</pre></div>
+<p>or
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>uniteSs = "mm"+iso8859(unichr(178))
+print unicode(uniteSs, 'iso8859')</pre></div>
+<p><br />
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/sv&amp;oldid=245347">http://www.freecadweb.org/wiki/index.php?title=Dialog_creation/sv&amp;oldid=245347</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

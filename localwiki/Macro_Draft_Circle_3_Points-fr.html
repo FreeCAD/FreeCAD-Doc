@@ -1,0 +1,353 @@
+<html><head><title>Macro Draft Circle 3 Points/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Draft Circle 3 Points/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Make_Circle_3_Points"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points.png" class="image"><img alt="Macro Draft Circle 3 Points.png" src="32px-Macro_Draft_Circle_3_Points.png" width="32" height="32" srcset="/wiki/images/thumb/1/10/Macro_Draft_Circle_3_Points.png/48px-Macro_Draft_Circle_3_Points.png 1.5x, /wiki/images/1/10/Macro_Draft_Circle_3_Points.png 2x" /></a> Macro Make Circle 3 Points</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Crée un cercle à partir de 3 points ou trois objets sélectionnés.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">01.00
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2013-03-11
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Make_Circle_3_Points"><span class="tocnumber">1</span> <span class="toctext">Macro Make Circle 3 Points</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Script"><span class="tocnumber">5</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Version_am.C3.A9lior.C3.A9e"><span class="tocnumber">6</span> <span class="toctext">Version améliorée</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Anaglyphe"><span class="tocnumber">7</span> <span class="toctext">Anaglyphe</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Credits"><span class="tocnumber">8</span> <span class="toctext">Credits</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro crée un cercle sur 3 points. Si trois objets sont sélectionnés le centre de ces formes seront les points du cercle.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points01.png" class="image" title="Circle built on 3 selected points"><img alt="Circle built on 3 selected points" src="480px-Macro_Draft_Circle_3_Points01.png" width="480" height="324" srcset="/wiki/images/6/6d/Macro_Draft_Circle_3_Points01.png 1.5x" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Sélectionnez 3 points, ou formes dans la vue 3D et lancez la macro.<br /> Si le shape est une ligne, le point sera le centre de la ligne.
+</p>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<p>Si l'objet sélectionné a différents plans, (xy <b>Z10</b>, xy <b>Z2</b>, xy <b>Z5</b>) le cercle est construit aux coordonnées x,y <b>Z=0</b>.<br />
+Si tous le objets sélectionnés ont la même hauteur Z ex: (xy <b>Z5</b>, xy <b>Z5</b>, xy <b>Z5</b>), le ercle est construit sur le pla x,y <b>Z=5</b>.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Draft_Circle_3_Points.FCMacro
+</p>
+<div class="macro-code mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# créer un cercle à partir de 3 points sélectionnés sur le plan X,Y
+# 04/03/2013
+# la formule provient de
+# http://www-obs.univ-lyon1.fr/labo/fc/Ateliers_archives/ateliers_2005-06/cercle_3pts.pdf
+# lire la note dans le pdf, sur l'ordre de sélection des points,
+# si la formule renvoie une erreur (exemple les 3 points dans le même alignement)
+#
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui
+from math import sqrt, pi, sin, cos
+from FreeCAD import Base
+
+# prendre les objets sélectionnés
+sel = FreeCADGui.Selection.getSelection()
+i=0
+centreX=0
+centreY=0
+rayon=0
+# S'il y a 3 points sélectionnés alors..
+if len(sel)==3 :
+i=0
+ta=[0,0,0,0,0,0,0,0,0]
+for obj in sel:
+x=(obj.Shape.BoundBox.Center)
+ta[i+0]=(x.x)
+ta[i+1]=(x.y)
+ta[i+2]=(x.z)
+i=i+3
+# Affectation des variables
+x_point_1=ta[0]
+y_point_1=ta[1]
+z_point_1=ta[2]
+
+x_point_2=ta[3]
+y_point_2=ta[4]
+z_point_2=ta[5]
+
+x_point_3=ta[6]
+y_point_3=ta[7]
+z_point_3=ta[8]
+# Calcul des coordonnées du centre du cercle
+centreX =((x_point_3**2-x_point_2**2+y_point_3**2-y_point_2**2)/(2*(y_point_3-y_point_2))-(x_point_2**2-x_point_1**2+y_point_2**2-y_point_1**2)/(2*(y_point_2-y_point_1)))/((x_point_3-x_point_2)/(y_point_3-y_point_2)-(x_point_2-x_point_1)/(y_point_2-y_point_1))
+centreY =-(x_point_2-x_point_1)/(y_point_2-y_point_1)*centreX+(x_point_2**2-x_point_1**2+y_point_2**2-y_point_1**2)/(2*(y_point_2-y_point_1))
+rayon =sqrt((x_point_1-centreX)**2+(y_point_1-centreY)**2)
+# Définition de la coordonnée Z
+# Si toutes les coordonnées Z sont égales le centreZ s'aligne à la coordonnée Z
+if z_point_1==z_point_2 and z_point_2==z_point_3:
+centreZ=z_point_1
+else:
+# Si une coordonnée est différente alors Z=0
+centreZ=0
+# Création du cercle
+pl=FreeCAD.Placement()
+pl.Rotation.Q=(0.0,-0.0,-0.0,1.0)
+pl.Base=FreeCAD.Vector(centreX,centreY,centreZ)
+Draft.makeCircle((rayon),placement=pl,face=False,support=None)
+# Affiche le résultat dans la Vue rapport de FreeCAD
+FreeCAD.Console.PrintMessage("Coordonnée X : "+str(centreX)+"\r\n")
+FreeCAD.Console.PrintMessage("Coordonnée Y : "+str(centreY)+"\r\n")
+FreeCAD.Console.PrintMessage("Coordonnée Z : "+str(centreZ)+"\r\n")
+FreeCAD.Console.PrintMessage("Rayon        : "+str(rayon  )+"\r\n")
+else:
+# Si la condition n'est pas remplie, recommencer
+FreeCAD.Console.PrintError("Sélectionnez 3 points et recommencez\r\n")</pre></div>
+<h2><span class="mw-headline" id="Version_am.C3.A9lior.C3.A9e">Version améliorée</span></h2>
+<p>En plus des fonctionnalités précédentes, cet exemple est utilisé pour aligner un cercle orthogonal sur chaque forme dans la sélection, et le plan «XY, YZ, XZ» choisi. <br />
+Le cercle prend la couleur de l'axe dédié indépendamment de la couleur actuelle, et le point central du cercle est dessiné (option O/N).
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 235px"><div style="width: 235px">
+<div class="thumb" style="width: 230px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points02.png" class="image"><img alt="" src="133px-Macro_Draft_Circle_3_Points02.png" width="133" height="100" srcset="/wiki/images/thumb/e/e8/Macro_Draft_Circle_3_Points02.png/200px-Macro_Draft_Circle_3_Points02.png 1.5x, /wiki/images/thumb/e/e8/Macro_Draft_Circle_3_Points02.png/267px-Macro_Draft_Circle_3_Points02.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Cercle circonscrit sur 3 formes,
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 235px"><div style="width: 235px">
+<div class="thumb" style="width: 230px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points03.png" class="image"><img alt="" src="133px-Macro_Draft_Circle_3_Points03.png" width="133" height="100" srcset="/wiki/images/thumb/4/49/Macro_Draft_Circle_3_Points03.png/200px-Macro_Draft_Circle_3_Points03.png 1.5x, /wiki/images/thumb/4/49/Macro_Draft_Circle_3_Points03.png/267px-Macro_Draft_Circle_3_Points03.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>de manière orthogonale sur la forme choisie
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 235px"><div style="width: 235px">
+<div class="thumb" style="width: 230px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points04.png" class="image"><img alt="Macro Draft Circle 3 Points04.png" src="133px-Macro_Draft_Circle_3_Points04.png" width="133" height="100" srcset="/wiki/images/thumb/e/eb/Macro_Draft_Circle_3_Points04.png/200px-Macro_Draft_Circle_3_Points04.png 1.5x, /wiki/images/thumb/e/eb/Macro_Draft_Circle_3_Points04.png/267px-Macro_Draft_Circle_3_Points04.png 2x" /></a></div></div>
+<div class="gallerytext">
+</div>
+</div></li>
+<li class="gallerybox" style="width: 235px"><div style="width: 235px">
+<div class="thumb" style="width: 230px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_Draft_Circle_3_Points05.png" class="image"><img alt="Macro Draft Circle 3 Points05.png" src="133px-Macro_Draft_Circle_3_Points05.png" width="133" height="100" srcset="/wiki/images/thumb/7/7e/Macro_Draft_Circle_3_Points05.png/200px-Macro_Draft_Circle_3_Points05.png 1.5x, /wiki/images/thumb/7/7e/Macro_Draft_Circle_3_Points05.png/267px-Macro_Draft_Circle_3_Points05.png 2x" /></a></div></div>
+<div class="gallerytext">
+</div>
+</div></li>
+</ul>
+</center>
+<div style="clear:both"></div>
+<p>The settings to change.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Change the values here below
+# mode by default vueChoix = 0 and alignerSur = 0
+vueChoix=0# choice of the top view = 1 XY, view Front = 2 ZX, Right view = 3 ZY
+alignerSur=0# Aligns the circle shaped the choice (1,2 or 3) or Z = 0
+afficherPoint=1# Displays the center point of the circle</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># -*- coding: utf-8 -*-
+# créer un cercle à partir de 3 points séléctionnés
+# avec comme options le cercle peut être construit sur un plans au choix
+# à la coordonnée d'une des trois formes sélectionnées au choix
+# et création du point central O/N
+# 04/03/2013
+# la formule provient de
+# http://www-obs.univ-lyon1.fr/labo/fc/Ateliers_archives/ateliers_2005-06/cercle_3pts.pdf
+# lire la note dans le pdf, sur l'ordre de sélection des points,
+# si la formule renvoie une erreur (exemple les 3 points dans le même alignement)
+#
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui
+from math import sqrt, pi, sin, cos
+from FreeCAD import Base
+from PyQt4 import QtCore, QtGui
+
+def errorDialog(msg):
+    # Create a simple dialog QMessageBox
+    # The first argument indicates the icon used: one of QtGui.QMessageBox.{NoIcon, Information, Warning, Critical, Question} 
+diag = QtGui.QMessageBox(QtGui.QMessageBox.Critical,u"Error Message",msg)
+diag.setWindowModality(QtCore.Qt.ApplicationModal)
+diag.exec_()
+
+def affiche(x,y,z,rayon,r,v,b,afficherPoint):
+pl.Base=FreeCAD.Vector(x,y,z)
+Draft.makeCircle((rayon),placement=pl,face=False,support=None)
+FreeCADGui.activeDocument().activeObject().LineColor = (r,v,b)
+if afficherPoint==1:
+Draft.makePoint(x,y,z)
+diag = QtGui.QMessageBox(QtGui.QMessageBox.Information,u"Coordinates",u"Coordinates X : "+str(x)+"\r\n"+u"Coordinates Y : "+str(y)+"\n"+u"Coordinates Z : "+str(z)+"\nRayon\t     : "+str(rayon))
+diag.setWindowModality(QtCore.Qt.ApplicationModal)
+diag.exec_()
+
+# prendre les objets selectionnes
+sel = FreeCADGui.Selection.getSelection()
+i=0
+centreX=0;centreY=0;rayon=0
+
+# S'il y a 3 points sélectionnés alors..
+if len(sel)==3 :
+i=0
+ta=[0,0,0,0,0,0,0,0,0]
+for obj in sel:
+x=(obj.Shape.BoundBox.Center)
+ta[i+0]=(x.x)
+ta[i+1]=(x.y)
+ta[i+2]=(x.z)
+i=i+3
+# Change the values here below
+# mode by default vueChoix = 0 and alignerSur = 0
+vueChoix=0# choice of the top view = 1 XY, view Front = 2 ZX, Right view = 3 ZY
+alignerSur=0# Aligns the circle shaped the choice (1,2 or 3) or Z = 0
+afficherPoint=1# Displays the center point of the circle
+
+    # Affectation des variables
+if vueChoix==3:# View of right ZY (Red)
+   z_point_1=ta[0]
+x_point_1=ta[1]
+y_point_1=ta[2]
+
+z_point_2=ta[3]
+x_point_2=ta[4]
+y_point_2=ta[5]
+
+z_point_3=ta[6]
+x_point_3=ta[7]
+y_point_3=ta[8]
+
+elif vueChoix==2:# Front view ZX (Green)
+   y_point_1=ta[0]
+z_point_1=ta[1]
+x_point_1=ta[2]
+
+y_point_2=ta[3]
+z_point_2=ta[4]
+x_point_2=ta[5]
+
+y_point_3=ta[6]
+z_point_3=ta[7]
+x_point_3=ta[8]
+
+else:# Top view XY (blue)
+   x_point_1=ta[0]
+y_point_1=ta[1]
+z_point_1=ta[2]
+
+x_point_2=ta[3]
+y_point_2=ta[4]
+z_point_2=ta[5]
+
+x_point_3=ta[6]
+y_point_3=ta[7]
+z_point_3=ta[8]
+
+    # Calculation of coordinates of the center of the circle
+try:
+centreX =((x_point_3**2-x_point_2**2+y_point_3**2-y_point_2**2)/(2*(y_point_3-y_point_2))-(x_point_2**2-x_point_1**2+y_point_2**2-y_point_1**2)/(2*(y_point_2-y_point_1)))/((x_point_3-x_point_2)/(y_point_3-y_point_2)-(x_point_2-x_point_1)/(y_point_2-y_point_1))
+centreY =-(x_point_2-x_point_1)/(y_point_2-y_point_1)*centreX+(x_point_2**2-x_point_1**2+y_point_2**2-y_point_1**2)/(2*(y_point_2-y_point_1))
+rayon =sqrt((x_point_1-centreX)**2+(y_point_1-centreY)**2)
+except:
+errorDialog(u"Impossible calculation too aligned elements")
+else:
+#finally: sera TOUJOURS exécuté
+   # Definition of the coordinate Z
+centreZ=0
+    # Création du cercle
+pl=FreeCAD.Placement()
+if vueChoix==1:# Plan XY Dessus
+pl.Rotation.Q=(0,0,0,1.0)
+if alignerSur==1:
+affiche(centreX,centreY,z_point_1,rayon,0.0,0.0,1.0,afficherPoint)
+elif alignerSur==2:
+affiche(centreX,centreY,z_point_2,rayon,0.0,0.0,1.0,afficherPoint)
+elif alignerSur==3:
+affiche(centreX,centreY,z_point_3,rayon,0.0,0.0,1.0,afficherPoint)
+elif vueChoix==2: # Plan XZ Face
+pl.Rotation.Q=(1,0,0,1.0)
+if alignerSur==1:
+affiche(centreY,z_point_1,centreX,rayon,0.0,1.0,0.0,afficherPoint)
+elif alignerSur==2:
+affiche(centreY,z_point_2,centreX,rayon,0.0,1.0,0.0,afficherPoint)
+elif alignerSur==3:
+affiche(centreY,z_point_3,centreX,rayon,0.0,1.0,0.0,afficherPoint)
+elif vueChoix==3: # Plan YZ Droite
+pl.Rotation.Q=(0,1,0,1.0)
+if alignerSur==1:
+affiche(z_point_1,centreX,centreY,rayon,1.0,0.0,0.0,afficherPoint)
+elif alignerSur==2:
+affiche(z_point_2,centreX,centreY,rayon,1.0,0.0,0.0,afficherPoint)
+elif alignerSur==3:
+affiche(z_point_3,centreX,centreY,rayon,1.0,0.0,0.0,afficherPoint)
+else:# modifier pour avoir XYZ
+# si les coordonnées Z sont égales alors le cercle s'aligne à Z
+if z_point_1==z_point_2 and z_point_2==z_point_3:
+centreZ=z_point_1
+affiche(centreX,centreY,z_point_1,rayon,0.0,0.0,0.0,afficherPoint)
+else:
+        # Si une coordonnée est différente alors Z=0
+affiche(centreX,centreY,0,rayon,0.0,0.0,0.0,afficherPoint)
+
+else:
+    # Si la condition n'est pas remplie, recommencer
+errorDialog(u"Select 3 points and repeat")
+#FreeCAD.Console.PrintError("Select 3 points and repeatr\n")</pre></div>
+<h2><span class="mw-headline" id="Anaglyphe">Anaglyphe</span></h2>
+<p>Voici une vue Anaglyphe qui vous permet de voir deux positions différentes de la vue en utilisant des lunettes avec des filtres rouges et Cyan <a href="https://www.freecadweb.org/wiki/index.php?title=File:Anaglyph_Tango.png" class="image"><img alt="Anaglyph Tango.png" src="24px-Anaglyph_Tango.png" width="24" height="24" srcset="/wiki/images/thumb/d/dd/Anaglyph_Tango.png/36px-Anaglyph_Tango.png 1.5x, /wiki/images/d/dd/Anaglyph_Tango.png 2x" /></a>.<br />
+Regardez en alternance avec l'oeil gauche et l'oeil droit pour voir les vues séparément.
+</p>
+<center>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Cercle3Points2D_anaglyphe.png" class="image" title="Anaglyphe"><img alt="Anaglyphe" src="480px-Cercle3Points2D_anaglyphe.png" width="480" height="360" srcset="/wiki/images/d/d1/Cercle3Points2D_anaglyphe.png 1.5x" /></a>
+</p>
+</center>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Credits">Credits</span></h2>
+<p>La genèse de la macro <b>Draft Circle 3 Points</b> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=12&amp;t=3696&amp;sid=17886f953113e162dc9a4a843e1fce94">on the forum (PYTHON) coordonnées d'un point</a> avec l'aide flachyjoe merci.<br />
+La formule vient de <a rel="nofollow" class="external text" href="http://www-obs.univ-lyon1.fr/labo/fc/Ateliers_archives/ateliers_2005-06/cercle_3pts.pdf">cercle_3pts.pdf</a> et utilisée avec l'aimable permission de son auteur.
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Draft_Circle_3_Points/fr&amp;oldid=240370">http://www.freecadweb.org/wiki/index.php?title=Macro_Draft_Circle_3_Points/fr&amp;oldid=240370</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

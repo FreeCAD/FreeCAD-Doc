@@ -1,0 +1,179 @@
+<html><head><title>Svg Namespace/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Svg Namespace/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Dans les documents <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG</a> exportés par le <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/fr" title="Drawing Module/fr">Module de dessin</a> de FreeCAD et utilisés comme <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/fr" title="Drawing templates/fr">template (feuille de dessin)</a>, plusieurs <a rel="nofollow" class="external text" href="http://www.w3schools.com/xml/xml_attributes.asp">attributs</a> personnalisés peuvent être utilisés, à l'origine pour un usage interne destiné à FreeCAD, mais pourraient aussi être utilisés par d'autres applications FreeCAD à l'avenir. Tous ces attributs utilisent le préfixe <b>freecad:<a rel="nofollow" class="external text" href="http://www.w3schools.com/xml/xml_namespaces.asp">namespaces</a></b>.
+</p><p>L'URL <b>Namespaces</b>, défini dans le document <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG</a> fait référence à cette page. 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Utilisation"><span class="tocnumber">1</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Attributs"><span class="tocnumber">2</span> <span class="toctext">Attributs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#freecad:EditableText"><span class="tocnumber">2.1</span> <span class="toctext">freecad:EditableText</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#freecad:basepoint1"><span class="tocnumber">2.2</span> <span class="toctext">freecad:basepoint1</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#freecad:basepoint2"><span class="tocnumber">2.3</span> <span class="toctext">freecad:basepoint2</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#freecad:dimpoint"><span class="tocnumber">2.4</span> <span class="toctext">freecad:dimpoint</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Exemple_de_code_freecad:EditableText"><span class="tocnumber">2.5</span> <span class="toctext">Exemple de code freecad:EditableText</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#1_:_Titre_sans_textedit"><span class="tocnumber">2.5.1</span> <span class="toctext">1&#160;: Titre sans textedit</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#2_:_Titre_avec_textedit"><span class="tocnumber">2.5.2</span> <span class="toctext">2&#160;: Titre avec textedit</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Explications"><span class="tocnumber">2.5.3</span> <span class="toctext">Explications</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Autres_attributs_disponibles"><span class="tocnumber">3</span> <span class="toctext">Autres attributs disponibles</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>un pixel = un millimètre
+</p><p>Vous devez insérer, quelque part dans votre code svg, où vous souhaitez que le contenu du dessin apparaisse (par exemple à la fin du fichier, juste avant la derniere balise <b>&lt;/svg&gt; </b>), la ligne suivante&#160;:
+</p><p><br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;!-- DrawingContent --></pre></div>
+<p><br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+&lt;svg
+   xmlns:freecad="http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace"</pre></div>
+<p>Pour obtenir une impression à l'échelle, la taille réelle doit être inscrite dans les attributs width et height du SVG-Tag. L'unité du document utilisateur doit être le pixel(px), et doit être renseigné dans l'attribut viewBox.
+</p><p>Ce qui suit doit être formaté comme dans l'exemple ci-dessous&#160;:
+</p>
+<ul><li> xxx = pixel width (largeur)</li>
+<li> yyy = pixel height (hauteur)</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>width="xxxmm"
+height="yyymm"
+viewBox="0 0 xxx yyy"</pre></div>
+<p>Informations complémentaires pour l'espace de travail et titre bloc peut être ajouté, et est définie sur la page <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/fr" title="Drawing templates/fr">Drawing templates</a>.
+</p>
+<h2><span class="mw-headline" id="Attributs">Attributs</span></h2>
+<h3><span class="mw-headline" id="freecad:EditableText"><a href="#Exemple_de_code_freecad:EditableText">freecad:EditableText</a></span></h3>
+<p>Vous devez utiliser de l'attribut <b>freecad:</b> dans vos documents SVG, vous devez d'abord définir l'espace de noms freecad comme un attribut à l'ouverture de la balise &lt;svg&gt;&#160;:
+</p><p>Définir un texte dans un <b>template</b>, qui peut être édité par FreeCAD.
+</p><p>Exemple:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> &lt;text freecad:EditableText="MyTitleText">
+     &lt;tspan>This is a title&lt;/tspan>
+ &lt;/text></pre></div>
+<h3><span class="mw-headline" id="freecad:basepoint1">freecad:basepoint1</span></h3>
+<p>Définit le premier point d'un objet <b><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a></b>, (représenté par un groupe dans un document <b>SVG</b>). Cet attribut est utilisé, lorsque vous importez le fragment <b>SVG</b> dans FreeCAD, afin de recréer l'objet <b><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a></b>. Le groupe, contient les chemins d'accès, et, d'autres éléments graphiques, pour restituer correctement l'objet <b><a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a></b> dans d'autres applications SVG.
+</p><p>Exemple:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> &lt;g freecad:basepoint1="0.5 4.34" freecad:basepoint2="2.4 5.8" dimpoint="3.2 7.76">
+     &lt;path d="...">
+ &lt;/g></pre></div>
+<h3><span class="mw-headline" id="freecad:basepoint2">freecad:basepoint2</span></h3>
+<p>Définit le deuxième point d'un objet <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a> (représenté par un groupe dans un document <b>SVG</b>). Cet attribut est utilisé lorsque vous importez le fragment <b>SVG</b> dans FreeCAD, afin de recréer l'objet <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a>. Le groupe contient, les chemins d'accès, et, d'autres éléments graphiques pour restituer correctement l'objet <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a>, dans d'autres applications <b>SVG</b>.
+</p><p>Exemple: voir <a href="#freecad:basepoint1">freecad:basepoint1</a>
+</p>
+<h3><span class="mw-headline" id="freecad:dimpoint">freecad:dimpoint</span></h3>
+<p>Définit le point d'un objet <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a>, qui traverse la ligne de dimension. Cet attribut est utilisé lorsque vous importez le fragment <b>SVG</b> dans FreeCAD, afin de recréer l'objet <b>dimension</b>. Le groupe contient les chemins d'accès, et, d'autres éléments graphiques pour restituer correctement l'objet <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/fr" title="Draft Dimension/fr">dimension</a> dans d'autres applications SVG.
+</p><p>Exemple: voir <a href="#freecad:basepoint1">freecad:basepoint1</a>
+</p>
+<h3><span class="mw-headline" id="Exemple_de_code_freecad:EditableText">Exemple de code freecad:EditableText</span></h3>
+<p>Cet exemple provient du cartouche de la feuille <a href="/wiki/Misc_templates#A3_Landscape_US_Text_Complet_With_Convention_US" title="Misc templates">A3_Landscape</a>
+</p>
+<h4><span class="mw-headline" id="1_:_Titre_sans_textedit">1&#160;: Titre sans textedit</span></h4>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Svg_Namespace_01.png" class="image"><img alt="Svg Namespace 01.png" src="300px-Svg_Namespace_01.png" width="300" height="75" srcset="/wiki/images/thumb/9/9c/Svg_Namespace_01.png/450px-Svg_Namespace_01.png 1.5x, /wiki/images/thumb/9/9c/Svg_Namespace_01.png/600px-Svg_Namespace_01.png 2x" /></a>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  &lt;g
+     id="g3587">
+    &lt;text
+       sodipodi:linespacing="119.00001%"
+       id="text3482"
+       y="229.10912"
+       x="220.8476"
+       style="font-size:1.97555566px;font-style:normal;font-weight:normal;line-height:119.00000572%;letter-spacing:0.01975556px;word-spacing:0.00846667px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       xml:space="preserve">&lt;tspan
+         y="229.10912"
+         x="220.8476"
+         id="tspan3484"
+         sodipodi:role="line">AUTHOR NAME :&lt;/tspan>&lt;/text></pre></div>
+<h4><span class="mw-headline" id="2_:_Titre_avec_textedit">2&#160;: Titre avec textedit</span></h4>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Svg_Namespace_02.png" class="image"><img alt="Svg Namespace 02.png" src="300px-Svg_Namespace_02.png" width="300" height="75" srcset="/wiki/images/thumb/4/40/Svg_Namespace_02.png/450px-Svg_Namespace_02.png 1.5x, /wiki/images/thumb/4/40/Svg_Namespace_02.png/600px-Svg_Namespace_02.png 2x" /></a>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  &lt;g
+     style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g578-7"
+     transform="translate(0,4)">
+    &lt;text
+       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:sans;-inkscape-font-specification:sans"
+       x="220.9935"
+       y="228.95425"
+       id="text3331"
+       sodipodi:linespacing="125%"
+       freecad:editable="AuthorName">&lt;tspan
+         sodipodi:role="line"
+         id="tspan3333"
+         x="220.9935"
+         y="228.95425">AUTHOR NAME&lt;/tspan>&lt;/text>
+    &lt;text
+    ...
+    ...
+    ...
+    ... &lt;/text>
+  
+  &lt;/g></pre></div>
+<h4><span class="mw-headline" id="Explications">Explications</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  &lt;g</pre></div>
+<p>Début du cadre
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>     style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g578-7"
+     transform="translate(0,4)"></pre></div>
+<p>Données dans le cadre
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    &lt;text</pre></div>
+<p>Début du bloc de textes
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:sans;-inkscape-font-specification:sans"</pre></div>
+<p>Toutes les informations sur le texte qui va être affiché
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>       x="220.9935"
+       y="228.95425"
+       id="text3331"
+       sodipodi:linespacing="125%"</pre></div>
+<p>Coordonnées et renseignements du texte qui va être affiché.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>       freecad:editable="AuthorName">&lt;tspan</pre></div>
+<p>Ici <b>AuthorName</b> est la variable qui va mémoriser la chaîne <b>freecad:editable</b> qui sera modifiée et affichée dans la feuille.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>         sodipodi:role="line"
+         id="tspan3333"
+         x="220.9935"
+         y="228.95425">AUTHOR NAME&lt;/tspan>&lt;/text></pre></div>
+<p>Coordonnées et renseignements sur le texte qui est affiché par défaut, la balise <b>&lt;/text&gt;</b> délimite la fin du bloc texte.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>    &lt;text
+    ...
+    ...
+    ...
+    ... &lt;/text>
+  &lt;/g></pre></div>
+<p>Autres blocs textes et la balise <b>&lt;/g&gt;</b> détermine la fin du groupe de textes.
+</p><p>Il est possible qu'après avoir travaillé dans le fichier SVG avec Inkscape le fichier ne fonctionne plus, il est possible que des informations aient disparu.
+</p><p>Ensuite, vérifiez que <b>freecad:editable:</b> n'est pas modifié. 
+</p><p>Exemple:
+</p>
+<ul><li> <b>editable</b> = "AuthorName"</li>
+<li> replacer par <b>freecad:editable</b> = "AuthorName"</li></ul>
+<h2><span class="mw-headline" id="Autres_attributs_disponibles">Autres attributs disponibles</span></h2>
+<p>Voir <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/fr" title="Drawing templates/fr">Drawing templates</a>
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Svg_Namespace/fr&amp;oldid=86855">http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace/fr&amp;oldid=86855</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

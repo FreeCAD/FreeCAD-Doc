@@ -1,0 +1,99 @@
+<html><head><title>Mesh to Part/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh to Part/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id=".D0.9F.D1.80.D0.B5.D0.BE.D0.B1.D1.80.D0.B0.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_Part_.D0.BE.D0.B1.D1.8A.D0.B5.D0.BA.D1.82.D0.BE.D0.B2_.D0.B2_.D0.9F.D0.BE.D0.BB.D0.B8.D0.B3.D0.B8.D0.BE.D0.BD.D0.B0.D0.BB.D1.8C.D0.BD.D1.83.D1.8E_.D1.81.D0.B5.D1.82.D0.BA.D1.83">Преобразование Part объектов в Полигиональную сетку</span></h2>
+<p>Конвертация высоко-уровневых объектов, таких как <a href="Part_Module.html" title="Part Module">формы Part(Деталей)</a> в простые объекты такие как  <a href="Mesh_Module.html" class="mw-redirect" title="Mesh Module">полигиональные сетки</a> это довольно простая операция, когда все грани Детали разбиваются на треугольники . Результат этой триангуляции  затем используется для построения сетки:
+</p>
+<pre>#let's assume our document contains one part object
+import Mesh
+faces = []
+shape = FreeCAD.ActiveDocument.ActiveObject.Shape
+triangles = shape.tessellate(1) # the number represents the precision of the tessellation)
+for tri in triangles[1]:
+    face = []
+    for i in range(3):
+        vindex = tri[i]
+        face.append(triangles[0][vindex])
+    faces.append(face)
+m = Mesh.Mesh(faces)
+Mesh.show(m) </pre>
+<p>Иногда, триангуляция определенной грани, предлагаемая OpenCascade очень уродлива. Если грань Если грань принадлежит к множеству многоугольников и не содержит любых отверстий или других обрезанных кривых, вы также можете создать сетку по вашему усмотрению:
+</p>
+<pre>import Mesh
+def makeMeshFromFace(u,v,face):
+(a,b,c,d)=face.ParameterRange
+pts=[]
+for j in range(v):
+for i in range(u):
+s=1.0/(u-1)*(i*b+(u-1-i)*a)
+t=1.0/(v-1)*(j*d+(v-1-j)*c)
+pts.append(face.valueAt(s,t))
+
+mesh=Mesh.Mesh()
+for j in range(v-1):
+for i in range(u-1):
+mesh.addFacet(pts[u*j+i],pts[u*j+i+1],pts[u*(j+1)+i])
+mesh.addFacet(pts[u*(j+1)+i],pts[u*j+i+1],pts[u*(j+1)+i+1])
+
+return mesh </pre>
+<h2><span class="mw-headline" id=".D0.9F.D1.80.D0.B5.D0.BE.D0.B1.D1.80.D0.B0.D0.B7.D0.BE.D0.B2.D0.B0.D0.BD.D0.B8.D0.B5_.D0.A1.D0.B5.D1.82.D0.BA.D0.B8_.D0.B2_Part_.D0.BE.D0.B1.D1.8A.D0.B5.D0.BA.D1.82">Преобразование Сетки в Part объект</span></h2>
+<p>Преобразование полигиональной сетки в Деталь черезвычайно важная операция в работе CAD, потому что очень часто вы получаете, от других людей или на выходе из других приложений, 3D данные в полигиональном виде. Сетки это очень практичны для представления геометрии свободной формы и больших визуальных сцен, так как они очень легковесны, но в CAD мы в основном предпочитаем высокоуровневые объекты, которые несут гораздо больше информации, таких как  идеии твердых тел, или грани созданой из кривых а не труегольников.
+</p><p>Преобразование сетки в высокоуровневый объект (занимается в FreeCAD  <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ru" title="Part Module/ru">Модуль Деталей</a>) это не простая операция. Сетки могут состоять из тысяч треугольников (например когда, сгенерированы 3D сканером), и телом состоящим из того же числа граней, будет черезвычайно сложно управлять. Поэтому вы хотите оптимизировать объект при преобразовании.
+</p><p>В настоящее время FreeCAD предлагает два метода для преобразования Полигиональной Сетки в Деталь. Первый метод прост, это прямое преобразование, без какой либо оптимизации:
+</p>
+<pre>import Mesh,Part
+mesh = Mesh.createTorus()
+shape = Part.Shape()
+shape.makeShapeFromMesh(mesh.Topology,0.05) # the second arg is the tolerance for sewing
+solid = Part.makeSolid(shape)
+Part.show(solid) </pre>
+<p>Второй метод позволяет учитывать какие грани сетки компланарны, когда угол между ними принимает определенное значение. Это позволяет строить формы попроще:
+</p>
+<pre># let's assume our document contains one Mesh object
+import Mesh,Part,MeshPart
+faces = []
+mesh = App.ActiveDocument.ActiveObject.Mesh
+segments = mesh.getPlanes(0.00001) # use rather strict tolerance here
+ 
+for i in segments:
+  if len(i) &gt; 0:
+     # a segment can have inner holes
+     wires = MeshPart.wireFromSegment(mesh, i)
+     # we assume that the exterior boundary is that one with the biggest bounding box
+     if len(wires) &gt; 0:
+        ext=None
+        max_length=0
+        for i in wires:
+           if i.BoundBox.DiagonalLength &gt; max_length:
+              max_length = i.BoundBox.DiagonalLength
+              ext = i
+
+        wires.remove(ext)
+        # all interior wires mark a hole and must reverse their orientation, otherwise Part.Face fails
+        for i in wires:
+           i.reverse()
+
+        # make sure that the exterior wires comes as first in the lsit
+        wires.insert(0, ext)
+        faces.append(Part.Face(wires))
+
+shell=Part.Compound(faces)
+Part.show(shell)
+#solid = Part.Solid(Part.Shell(faces))
+#Part.show(solid) </pre>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/ru&amp;oldid=138219">http://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/ru&amp;oldid=138219</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

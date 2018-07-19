@@ -1,0 +1,88 @@
+<html><head><title>Arch Remove/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Remove/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id=".7B.7B.7BName.2Fsv.7D.7D.7D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="32px-Arch_Remove.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/48px-Arch_Remove.png 1.5x, /wiki/images/d/dc/Arch_Remove.png 2x" /></a> {{{Name/sv}}}</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menyplacering
+</th></tr>
+<tr>
+<td class="ctEven">Arch → Remove
+</td></tr>
+<tr>
+<th class="ctOdd">Arbetsbänk(ar)
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Arch_Module.html" title="Arch Module">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Standard genväg
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">Se även
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/sv" title="Arch Add/sv">Arch Add/sv</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.7B.7B.7BName.2Fsv.7D.7D.7D"><span class="tocnumber">1</span> <span class="toctext">{{{Name/sv}}}</span></a>
+<ul>
+<li class="toclevel-2 tocsection-1"><a href="#Beskrivning"><span class="tocnumber">1.1</span> <span class="toctext">Beskrivning</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Bruk"><span class="tocnumber">1.2</span> <span class="toctext">Bruk</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripting"><span class="tocnumber">2</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Beskrivning">Beskrivning</span></h4>
+<p>Remove verktyget låter dig göra 2 sorters operationer:
+</p>
+<ul><li> Ta bort en delkomponent från ett Arch objekt, till exempel ta bort en låda som har adderats till en vägg, som i <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/sv" title="Arch Add/sv">Arch Add</a> exemplet</li>
+<li> Subtrahera en <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/sv" title="Part Module/sv">formbaserat</a> objekt från en Arch komponent som en <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Wall/sv" title="Arch Wall/sv">vägg</a> eller <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/sv" title="Arch Structure/sv">struktur</a></li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove_example.jpg" class="image"><img alt="Arch Remove example.jpg" src="600px-Arch_Remove_example.jpg" width="600" height="200" srcset="/wiki/images/a/a3/Arch_Remove_example.jpg 1.5x" /></a>
+</p><p>I bilden ovan, så subtraheras en låda från en vägg
+</p>
+<h4><span class="mw-headline" id="Bruk">Bruk</span></h4>
+<ol><li> Välj en delkomponent inuti ett Arch objekt, <b>eller</b>:</li>
+<li> välj de objekt som ska subtraheras, och sedan den Arch komponent från vilken de ska subtraheras (arch komponenten måste vara den sista saken du väljer)</li>
+<li> Klicka på <a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="16px-Arch_Remove.png" width="16" height="16" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/24px-Arch_Remove.png 1.5x, 32px-Arch_Remove.png 2x" /></a> <b>ta bort</b> knappen</li></ol>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>The Remove tool can by used in <a href="Macros.html" title="Macros">macros</a> and from the python console by using the following function:
+</p>
+<pre><b>removeComponents (objectsList,[hostObject])</b>
+</pre>
+<ul><li> removes the given component or the components from the given list from their parents. If a host object is specified, this function will try adding the components as holes to the host object instead.</li></ul>
+<p>Example:
+</p>
+<pre>import FreeCAD, Arch, Draft, Part
+line = Draft.makeWire([FreeCAD.Vector(0,0,0),FreeCAD.Vector(2,2,0)])
+wall = Arch.makeWall(line)
+box = Part.makeBox(1,1,1)
+Arch.addComponents(box,wall)
+Arch.removeComponents(box) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Remove/sv&amp;oldid=263284">http://www.freecadweb.org/wiki/index.php?title=Arch_Remove/sv&amp;oldid=263284</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

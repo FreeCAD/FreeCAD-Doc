@@ -1,0 +1,255 @@
+<html><head><title>Macro FCSpreadSheet Extract/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro FCSpreadSheet Extract/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_FCSpreadsheet_Extract"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_FCSpreadsheet_Extract.png" class="image"><img alt="Macro FCSpreadsheet Extract.png" src="32px-Macro_FCSpreadsheet_Extract.png" width="32" height="32" srcset="/wiki/images/thumb/d/d5/Macro_FCSpreadsheet_Extract.png/48px-Macro_FCSpreadsheet_Extract.png 1.5x, Macro_FCSpreadsheet_Extract.png 2x" /></a> Macro_FCSpreadsheet_Extract</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Descrizione
+</th></tr>
+<tr>
+<td class="ctEven left">Questa macro salva i dati di una tabella con le formule.
+</td></tr>
+<tr>
+<th class="ctOdd">Autore
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Link
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/it" title="Macros recipes/it">Esempi di macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/it" title="How to install macros/it">Come installare le Macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/it" title="Customize Toolbars/it">Personalizzare la barra degli strumenti</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Versione
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.1
+</td></tr>
+<tr>
+<th class="ctOdd">Data ultima modifica
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2018-05-05
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_FCSpreadsheet_Extract"><span class="tocnumber">1</span> <span class="toctext">Macro_FCSpreadsheet_Extract</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilizzo"><span class="tocnumber">3</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Questa macro salva i dati di una tabella con le formule in file csv o in un file xml.
+</p>
+<h2><span class="mw-headline" id="Utilizzo">Utilizzo</span></h2>
+<p>Lanciare la macro
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>L'icona per la ToolBar da salvare nella stessa cartella della macro <a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_FCSpreadsheet_Extract.png" class="image"><img alt="Macro FCSpreadsheet Extract.png" src="Macro_FCSpreadsheet_Extract.png" width="64" height="64" /></a>
+</p><p><b>Macro_FCSpreadSheet_Extract.FCMacro</b>
+</p>
+<pre># -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+"""
+***************************************************************************
+*   Copyright (c) 2018 &lt;mario52&gt;                                          *
+*                                                                         *
+*   This file is a supplement to the FreeCAD CAx development system.      *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 2 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+*           WARNING! All changes in this file will be lost and            *  
+*                  may cause malfunction of the program                   *
+***************************************************************************
+"""
+#
+__title__   = "FCSpreadSheet_Extract"
+__author__  = "Mario52"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__Wiki__    = "https://www.freecadweb.org/wiki/index.php?title=Macro_FCSpreadSheet_Extract"
+__version__ = "00.01"
+__date__    = "05/05/2018"
+
+import PySide
+import re
+from PySide import QtGui ,QtCore
+from PySide.QtGui import *
+from PySide.QtCore import *
+import copy
+
+path = FreeCAD.ConfigGet("UserAppData")
+#path = Your path
+
+global ESCAPE
+global tableau
+global data
+
+########## separator 
+ESCAPE = "\t"           #tabulation    #compatible FC
+#ESCAPE = ","            #virgule       #compatible FCInfo
+#ESCAPE = ";"            #point virgule #option
+#ESCAPE = " "            #espace        #option
+#ESCAPE = ""             #vide          #option
+##########
+
+def decodeColonne(colonne = "A"):                                  # converti la chaine A ... ZZ en numero de colonne ex: A = 1; AA = 27
+    colonne  = re.split('[0-9]+', colonne, flags=re.IGNORECASE)[0] # supp the alphanumeric number ex: A2 = A; A12 = A (1A return 0)
+    try:
+        if len(colonne) &gt; 1:
+            return ((ord(colonne[0].upper()) - 64) * 26 ) + (ord(colonne[1].upper()) - 64) # max 2 car (AAAA return 27)
+        else:
+            return (ord(colonne.upper()) - 64 )
+    except Exception:
+        return 0
+
+def decodeOccupation(dataTableau = ""):  # decode the max occupation Colonnes, Lines and give the cell occupation
+    #
+    #lineMax, colonneMax, cellsOccupation = decodeOccupation(FreeCAD.ActiveDocument.getObject(str(Sheet.Name)))
+    #
+    try:
+        tyty = unicode(dataTableau.cells.Content, "utf-8")
+        tyty = tyty.split("&gt;")
+
+        ####
+        cellsOccupation = [] 
+        cellsSorted     = []                                                 # search the "A1" definition
+        for i in tyty[1:-2]:                                                 # split les cases dans la chaine XML
+            i = i[i.find('"')+1:]
+            i = i[:i.find('"')]
+#            cellsOccupation.append(i)
+            cellsOccupation.append(i)
+        cellsSorted = copy.deepcopy(cellsOccupation)
+        cellsSorted.sort()
+
+        ####
+        linesMax = 0
+        for i in cellsSorted:                                                # recherche le max (ligne et colonne)
+            colonnesMax = re.split('[0-9]+', i, flags=re.IGNORECASE)         # colonne max (AA)
+            dummy   = int(re.split('[A-Z]+', i, flags=re.IGNORECASE)[1])     # line
+            if dummy &gt; linesMax:
+                linesMax = dummy                                             # lines max
+        del cellsSorted[:]
+
+        ####
+        return linesMax, decodeColonne(colonnesMax[0]), cellsOccupation      # return linesMax , colonnesMax, cellsOccupation
+
+    except Exception:
+        FreeCAD.Console.PrintError("Error data, Enter object &lt;Sheet object&gt; ex:" + "\n")
+        FreeCAD.Console.PrintError("lineMax, colonneMax, cellsOccupation = decodeOccupation(FreeCAD.ActiveDocument.getObject(str(Sheet.Name)))" + "\n")
+        return 0, 0, []
+
+def caseTableau(ligne = 1, colonne = 1):                                     # calcule et code la case du tableur ex: 1,1 = A1; 7,7 = G7
+    #
+    # print caseTableau( 1, 1)
+    #
+    if ligne &lt; 1: ligne = 1
+    if ligne &gt; 16384: ligne = 16384
+    if colonne &lt; 1: colonne = 1
+    if colonne &gt; 702: colonne = 702
+    if (colonne &gt; 26):
+        if abs(colonne&#160;% 26) == 0:
+            return chr(64 + (abs(colonne / 26) -1)) + chr(90) + str(ligne)
+        else:
+            return chr(64 + (abs(colonne / 26))) + chr(64 + (abs(colonne&#160;% 26))) + str(ligne)
+    else:
+        return chr(colonne + 64) + str(ligne)
+
+def saveDataInFile(data = ""):
+    global tableau
+
+    SaveName, Filter = PySide.QtGui.QFileDialog.getSaveFileName(None, "Save a file txt", path, "CSV (*.csv);;XML (*.xml)") # PySide
+
+    if (SaveName == ""):
+        App.Console.PrintMessage("Process aborted"+"\n")
+    else:
+        App.Console.PrintMessage("Registration of "+SaveName+"\n")
+        try:
+            file = open(SaveName, 'w')
+            try:
+                if Filter == "XML (*.xml)":
+                    ext = "(*.xml)"
+                    file.write(tableau.cells.Content)          # save XML
+                else:
+                    ext = "(*.csv)"
+                    for i in data:
+                        file.write(unicode(i).encode("utf-8")) # save CSV
+            except Exception:
+                App.Console.PrintError("Error write file "+ext+"\n")
+            finally:
+                file.close()
+        except Exception:
+            App.Console.PrintError("Error Open file "+SaveName+"\n")
+
+##tableau.getContents("A2")                             #lire une celulle
+##print App.ActiveDocument.Spreadsheet.cells.Content    #lire toutes les celulles # XML
+
+try:
+    for i in FreeCAD.ActiveDocument.Objects:               # search SpreadSheet in all object
+        obj = FreeCAD.ActiveDocument.getObject(i.Name).TypeId.split("::")[0]
+        if obj == "Spreadsheet":
+            tableau = FreeCAD.ActiveDocument.getObject(str(i.Name))
+            print "Name&#160;: ",i.Name,"&#160;; Label&#160;: ",i.Label
+            break                                          # quit to the first SpreadSheet
+    
+    linesMax    = decodeOccupation(tableau)[0]             # linesMax
+    colonnesMax = decodeOccupation(tableau)[1]             # colonnesMax
+    #print decodeOccupation(tableau)[2]                    # display the cells occupied
+    
+    print "Number cell&#160;: ", linesMax * colonnesMax," (", linesMax," L x ", colonnesMax," C)"
+    FreeCADGui.updateGui()                                          # rafraichi l'ecran
+    
+    dataToSave = []
+    for i in range(1, linesMax+1):
+        for ii in range(1, colonnesMax+1):
+            dataToSave.append(unicode(tableau.getContents(caseTableau(i,ii)), 'utf-8') + ESCAPE)
+        dataToSave.append("\n")
+    
+    saveDataInFile(dataToSave)
+    del dataToSave[:]
+    
+    print "__Fin FCSpreadSheet_Extract__________\n"
+except Exception:
+    print "Not SpreadSheet in the document or Error" </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_FCSpreadSheet_Extract/it&amp;oldid=284179">http://www.freecadweb.org/wiki/index.php?title=Macro_FCSpreadSheet_Extract/it&amp;oldid=284179</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

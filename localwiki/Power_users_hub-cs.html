@@ -1,0 +1,128 @@
+<html><head><title>Power users hub/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Power users hub/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Crystal_Clear_app_terminal.png" class="image" title="150"><img alt="150" src="Crystal_Clear_app_terminal.png" width="128" height="128" /></a></div>
+<p>Toto je místo kam jdete, pokud máte zájem o hlubší nahlédnutí do FreeCADu. Zde se můžete dozvědět více o přizpůsobení FreeCADu pro Vaše potřeby. 
+</p><p>These pages are in early stage of development.  If you can't find the information you are looking for, or have found useful information somewhere we have not linked to, then please leave a comment on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>, or, why not? <a href="Help_FreeCAD.html" title="Help FreeCAD"> Add some more content here yourself!</a>
+</p><p>One of the nicest features of FreeCAD is that you can script and extend it extremely far without the need to compile anything or touch the source code. All the scripting part is done in <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>, a very powerful but simple programming language. With simple Python scripts, you have total access to about any part of FreeCAD. For example, you can:
+</p>
+<ul><li> <b>Create and modify geometry</b>: Is there a special object you need that's not present in the default FreeCAD installation? You can easily create a new object type, either from scratch or by adapting an existing type.</li>
+<li> <b>Create custom tools and commands</b>: At the moment, FreeCAD already has extensive functionality, but there aren't many convenient tools and commands for the final user yet. But it is already easy to create your own sets of tools.</li>
+<li> <b>Modify the interface</b>: The FreeCAD user interface is still very basic at this stage. But everything is there for you to extend it to your needs. You can, for example, create toolbars to put your own tools, create special panels for interacting with your tools, etc.</li>
+<li><b>Modify the scene representation</b>: FreeCAD has separate processes for building up and computing the geometry and displaying that geometry on your screen. You have full access to the way the scene contents are displayed on screen, therefore you can modify that representation, interact with it, or add all kinds of custom behaviours and screen widgets, like information, draggers, anchors or temporary entities.</li></ul>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#P.C5.99izp.C5.AFsobov.C3.A1n.C3.AD_FreeCADu"><span class="tocnumber">1</span> <span class="toctext">Přizpůsobování FreeCADu</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Skriptov.C3.A1n.C3.AD_ve_FreeCADu"><span class="tocnumber">2</span> <span class="toctext">Skriptování ve FreeCADu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Obecn.C4.9B"><span class="tocnumber">2.1</span> <span class="toctext">Obecně</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Modules"><span class="tocnumber">2.2</span> <span class="toctext">Modules</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Pr.C3.A1ce_se_S.C3.ADt.C4.9Bmi"><span class="tocnumber">2.3</span> <span class="toctext">Práce se Sítěmi</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Pr.C3.A1ce_s_D.C3.ADly"><span class="tocnumber">2.4</span> <span class="toctext">Práce s Díly</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#P.C5.99.C3.ADstup_k_zobrazova.C4.8Di_Coin"><span class="tocnumber">2.5</span> <span class="toctext">Přístup k zobrazovači Coin</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Controlling_the_Qt_interface"><span class="tocnumber">2.6</span> <span class="toctext">Controlling the Qt interface</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Pr.C3.A1ce_s_parametrick.C3.BDmi_objekty"><span class="tocnumber">2.7</span> <span class="toctext">Práce s parametrickými objekty</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#P.C5.99.C3.ADklady"><span class="tocnumber">2.8</span> <span class="toctext">Příklady</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Funkce_API"><span class="tocnumber">3</span> <span class="toctext">Funkce API</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Pokro.C4.8Dil.C3.A9_.C3.BApravy"><span class="tocnumber">4</span> <span class="toctext">Pokročilé úpravy</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#V.C3.BDukov.C3.BD_program_Pythonu"><span class="tocnumber">5</span> <span class="toctext">Výukový program Pythonu</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Komunitn.C3.AD_projekty"><span class="tocnumber">6</span> <span class="toctext">Komunitní projekty</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="P.C5.99izp.C5.AFsobov.C3.A1n.C3.AD_FreeCADu">Přizpůsobování FreeCADu</span></h2>
+<ul><li> <a href="Interface_Customization.html" title="Interface Customization">Interface Customization</a>: Starting with the beginning: Toolbars and shortcuts</li>
+<li> <a href="Macros.html" title="Macros">Working with Macros</a>: Easily record often repeated tasks or Python code</li>
+<li> <a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a></li>
+<li> <a href="Customize_Toolbars.html" title="Customize Toolbars">Customize Toolbars</a></li>
+<li> <a href="Installing_more_workbenches.html" title="Installing more workbenches">Installing more workbenches</a></li>
+<li> <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?t=10556">Plugin Loader</a></li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD-addons">Addons installer.FCMacro</a></li></ul>
+<h2><span class="mw-headline" id="Skriptov.C3.A1n.C3.AD_ve_FreeCADu">Skriptování ve FreeCADu</span></h2>
+<h3><span class="mw-headline" id="Obecn.C4.9B">Obecně</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/cs" title="Introduction to Python/cs">Úvod do Pythonu</a> - Podívejte se na další výukové programy Pythonu na konci této stránky</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Python_scripting_tutorial/cs" title="Python scripting tutorial/cs">Výukový program skriptování FreeCADu</a> - Obecný pohled na skriptování ve FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/cs" title="FreeCAD Scripting Basics/cs">Základy skriptování ve FreeCADu</a>: Ano, základy ...</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Gui_Command/cs" title="Gui Command/cs">Příkazy GUI</a>&#160;: Přidávání uživatelských příkazů do GUI (Grafický uživatelský interface)</li>
+<li> Použití různých <a href="https://www.freecadweb.org/wiki/index.php?title=Units/cs" title="Units/cs">jednotek</a> ve FreeCADu</li></ul>
+<h3><span class="mw-headline" id="Modules">Modules</span></h3>
+<p>As the functionality of FreeCAD is separated in Modules which deal with special data types and applications. FreeCAD has built-in modules and Extension Modules (plug-ins). Once plugin modules are installed, they become availible to you as easily as the built-in modules. The modules described below are the default modules, includeed in every FreeCAD installation.
+</p>
+<ul><li> The <a href="Builtin_modules.html" title="Builtin modules">Builtin modules</a> are the principal FreeCAD modules. They contain tools for manipulating general FreeCAD configurations, documents and their contents.</li>
+<li> <a href="Workbench_creation.html" title="Workbench creation">Workbench creation</a> shows you how to create your own workbench</li></ul>
+<h3><span class="mw-headline" id="Pr.C3.A1ce_se_S.C3.ADt.C4.9Bmi">Práce se Sítěmi</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/cs" title="Mesh Scripting/cs">Skriptování sítí</a>: Jak spolupracovat s <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/cs" class="mw-redirect" title="Mesh Module/cs">Modulem Sítě</a></li></ul>
+<h3><span class="mw-headline" id="Pr.C3.A1ce_s_D.C3.ADly">Práce s Díly</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/cs" title="Part Module/cs">Modul díl</a>: Jak jsou použity nástroje a struktura <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">technologie Open CASCADE</a> ve FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/cs" title="Topological data scripting/cs">Skriptování topologických dat</a>: Jak spolupracovat s modulem Díl</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=PythonOCC/cs" title="PythonOCC/cs">PythonOCC</a>: Jak využít celou sílu Open CASCADE</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_to_Part/cs" title="Mesh to Part/cs">Síť do Dílu</a>: Konverze mezi typy objektů</li></ul>
+<h3><span class="mw-headline" id="P.C5.99.C3.ADstup_k_zobrazova.C4.8Di_Coin">Přístup k zobrazovači Coin</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/cs" title="Scenegraph/cs">The Coin/Inventor scenegraph</a>: Jak funguje zobrazování úlohy ve FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Pivy/cs" title="Pivy/cs">Pivy/cs</a>: Jak zpřístupnit a upravovat zobrazení úlohy</li></ul>
+<h3><span class="mw-headline" id="Controlling_the_Qt_interface">Controlling the Qt interface</span></h3>
+<ul><li> <a href="PySide.html" title="PySide">PySide</a>: How to access the interface, and modify its contents</li>
+<li> <a href="Embedding_FreeCADGui.html" title="Embedding FreeCADGui">Using the FreeCAD GUI</a> in another Qt application with PyQt</li></ul>
+<h3><span class="mw-headline" id="Pr.C3.A1ce_s_parametrick.C3.BDmi_objekty">Práce s parametrickými objekty</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/cs" title="Scripted objects/cs">Skriptované objekty</a>: Jak vytvořit 100% Pythonovsky skriptovaný objekt ve FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/cs" title="Drawing Module/cs">Modul Kreslení</a>: Automatizace procesů 3D-do-2D</li></ul>
+<h3><span class="mw-headline" id="P.C5.99.C3.ADklady">Příklady</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/cs" title="Code snippets/cs">Ukázky kódu</a>&#160;: Sbírka kousků Pythonovských skriptů ve FreeCADu, které mohou sloužít jako části Vašich skriptů...</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/cs" title="Line drawing function/cs">Funkce kreslení přímky</a>: Jak vytvořit jednoduchý nástroj pro kreslení přímek</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Dialog_creation/cs" title="Dialog creation/cs">Vytváření dialogového okna</a>: Jak vytvořit dialogové okno pomocí designeru Qt a použít je ve FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Embedding_FreeCAD/cs" title="Embedding FreeCAD/cs">Vkládání FreeCADu</a>: Jak importovat FreeCAD jako Pythonovský modul do jiných aplikací</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/cs" title="Draft Module/cs">Modul Kreslení</a> přidává základní 2D kreslicí funkce do FreeCADu. Je plně napsán v Pythonu, takže to může být dobrý příklad, když chcete napsat Vaše vlastní moduly</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_vector_math_library/cs" title="FreeCAD vector math library/cs">Knihovna vektorové matematiky FreeCADu</a>&#160;: Pár šikovných funkcí pro práci s vektory ve FreeCADu. Tato knihovna je také včleněna do modulu Kreslení.</li></ul>
+<h2><span class="mw-headline" id="Funkce_API">Funkce API</span></h2>
+<p>Kompletní popis API lze nalézt <a href="https://www.freecadweb.org/wiki/index.php?title=Category:API" title="Category:API">zde</a>. Připomínám, že může být nekompletní, protože jsme zatím nenašli způsob jak je automaticky začlenit do této wiki. Pro přesnější informace se podívejte na moduly přímo z FreeCADu.
+</p>
+<h2><span class="mw-headline" id="Pokro.C4.8Dil.C3.A9_.C3.BApravy">Pokročilé úpravy</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Start_up_and_Configuration/cs" title="Start up and Configuration/cs">Spuštění a konfigurace</a>: Spuštění a volby příkazové řádky</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Install_on_Windows/cs" title="Install on Windows/cs">Instalace na Windows</a>: Použití instalátoru Windows</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnWindows/cs" title="CompileOnWindows/cs">Kompilování FreeCADu na Windowsech</a> a <a href="https://www.freecadweb.org/wiki/index.php?title=CompileOnUnix/cs" title="CompileOnUnix/cs">Kompilování FreeCAD na Unixu</a></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Branding/cs" title="Branding/cs">Práva na značku</a>: Můžet dělat jednoduché úpravy zdrojového kódu a měnit některé aspekty FreeCADu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/cs" title="Extra python modules/cs">Extra moduly Pythonu</a>&#160;: Rozšiřuje Pythonovský interpreter FreeCADu těmito výkonnými moduly!</li></ul>
+<h2><span class="mw-headline" id="V.C3.BDukov.C3.BD_program_Pythonu">Výukový program Pythonu</span></h2>
+<p>Jsou to dobré obecné výukové programy, které nejsou specifické pro FreeCAD, mohou Vás zajímat jste-li v Pythonu úplný nováček.
+</p><p><b>Python</b>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="https://docs.python.org/2.7/tutorial/index.html">Official python tutorial</a> - A very complete tutorial for discovering python</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python">Non-programmer tutorial for python</a> - an excellent wikibook</li>
+<li> <a rel="nofollow" class="external text" href="http://npt.cc.rsu.ru/user/wanderer/ODP/Python_for_Newbies.htm">Python for newbies</a> - one big tutorial covering all the basics</li></ul>
+<p><b>PySide</b> - How to create and manage FreeCAD's Qt UI interface from python
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://zetcode.com/gui/pysidetutorial/">PySide tutorial</a>&#160;: A platform-agnostic tutorial showing the usage of PySide with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://www.pythoncentral.io/series/python-pyside-pyqt-tutorial/">PySide/PyQt tutorial</a>&#160;: A easy to read tutorial that covers PySide and PyQt with examples</li>
+<li> <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySideDocumentation">PySide documentation</a>&#160;: from the Qt Project (the people who wrote it all)</li>
+<li> <a rel="nofollow" class="external text" href="PySide.html">Using QtCreator in PySide</a>&#160;: also from the Qt Project</li>
+<li> <a rel="nofollow" class="external text" href="http://srinikom.github.io/pyside-docs/index.html">PySide reference</a>&#160;: endless detail on the minutiae of PySide and Qt, a reliable reference source</li>
+<li> <a rel="nofollow" class="external text" href="PySide.html">PySide code snippets</a>&#160;: a searchable database of PySide code snippets</li></ul>
+<p>The following two references are PyQt specific (not PySide) but may offer some information of use:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.cs.usfca.edu/~afedosov/qttut/">Basic PyQt tutorial</a>&#160;: A simple and short linux-based tutorial that will explain how to work with PyQt and Qt Designer</li>
+<li> <a rel="nofollow" class="external text" href="http://vizzzion.org/?id=pyqt">Programming Qt applications in python</a>&#160;: A more in-depth tutorial covering all the process of working with qt and python.</li></ul>
+<p><b>Pivy</b> - Jak nakládat se 3D zobrazením ve FreeCADu
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/documentation/pycon">Základní výukový program Pivy</a>&#160;: Velmi jednoduchý výukový program z oficiálních stránek Pivy</li>
+<li> <a rel="nofollow" class="external text" href="http://www.google.com.br/url?sa=U&amp;start=3&amp;q=http://studierstube.icg.tu-graz.ac.at/doc/pdf/PivyStudierstubeTutorial.pdf&amp;ei=XyC1Sc2wOeCKmQem_eHnBQ&amp;usg=AFQjCNEYhb-0DcUc6OxFVijAe1epBb-4aA">Introducing Pivy into studierstube</a>&#160;: Dokument, který není ve skutečnosti výukovým programem, ale velmi dobře ilustruje jak Pivy funguje</li></ul>
+<h2><span class="mw-headline" id="Komunitn.C3.AD_projekty">Komunitní projekty</span></h2>
+<p>Na <a href="FreeCAD_Community_Portal.html" title="FreeCAD Community Portal">komunitním portalu</a> najdete další projekty založené na FreeCADu vytvořené členy komunity. Když začnete nový projekt ve FreeCADu, určitě ho přidejte sem! Máme také stránku kde najdete věci, které můžete dělat pokud byste měli zájem <a href="https://www.freecadweb.org/wiki/index.php?title=Help_FreeCAD/cs" title="Help FreeCAD/cs">pomoci FreeCADu</a>.
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Power_users_hub/cs&amp;oldid=212899">http://www.freecadweb.org/wiki/index.php?title=Power_users_hub/cs&amp;oldid=212899</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

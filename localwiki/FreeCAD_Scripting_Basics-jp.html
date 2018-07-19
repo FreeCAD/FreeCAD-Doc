@@ -1,0 +1,158 @@
+<html><head><title>FreeCAD Scripting Basics/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>FreeCAD Scripting Basics/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#FreeCAD.E3.81.A7.E3.81.AEPython.E3.81.AB.E3.82.88.E3.82.8B.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86"><span class="tocnumber">1</span> <span class="toctext">FreeCADでのPythonによるスクリプト処理</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.97.E3.83.AA.E3.82.BF"><span class="tocnumber">1.1</span> <span class="toctext">インタプリタ</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#python.E3.81.AE.E3.83.98.E3.83.AB.E3.83.97"><span class="tocnumber">1.2</span> <span class="toctext">pythonのヘルプ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.86.85.E8.94.B5.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB"><span class="tocnumber">2</span> <span class="toctext">内蔵モジュール</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#App.E3.81.A8Gui.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88"><span class="tocnumber">2.1</span> <span class="toctext">AppとGuiオブジェクト</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88"><span class="tocnumber">2.2</span> <span class="toctext">ドキュメントオブジェクト</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#.E8.BF.BD.E5.8A.A0.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.81.AE.E4.BD.BF.E7.94.A8"><span class="tocnumber">3</span> <span class="toctext">追加モジュールの使用</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E4.BD.9C.E6.88.90"><span class="tocnumber">3.1</span> <span class="toctext">オブジェクトの作成</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.A4.89.E6.9B.B4"><span class="tocnumber">3.2</span> <span class="toctext">オブジェクトの変更</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.95.8F.E3.81.84.E5.90.88.E3.82.8F.E3.81.9B.E5.87.A6.E7.90.86"><span class="tocnumber">3.3</span> <span class="toctext">オブジェクトの問い合わせ処理</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="FreeCAD.E3.81.A7.E3.81.AEPython.E3.81.AB.E3.82.88.E3.82.8B.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E5.87.A6.E7.90.86">FreeCADでのPythonによるスクリプト処理</span></h2>
+<p>FreeCADはPythonスクリプトで完全に操作できるように一から作られています。FreeCADのほとんどの部分、インターフェースやシーンの内容、そして３Dビューで表示される内容でさえも、内蔵のPythonインタプリタや自作のスクリプトからアクセスすることができます。このためFreeCADは現在利用できるエンジニアリング用アプリケーションの中でも、とことんカスタマイズ可能なアプリの一つでしょう。
+</p><p>しかしいまのところ、３Dオブジェクトを操作するための'ネィティブ'コマンドはほんの僅かしかありません。これは開発がいまだ初期段階であるということだけではなく、アプリケーションとしての特定の利用よりもCAD開発のためのプラットフォームを提供すること背景にある設計思想として優先しているからです。しかしFreeCADのpythonスクリプトは簡単なので、パワーユーザーやpythonプログラムを少しかじったことのあるユーザーが開発中の新しい機能を素早く調べる上で、大きな手助けとなるでしょう。Pythonは最も人気のあるインタプリタ言語の一つで、それは学ぶのが簡単であると言われているためでもあります。あなたもすぐに独自のFreeCAD'パワーユーザー'スクリプトを作成できる様になるでしょう。
+</p><p>もしPythonに慣れていなければ、インターネット上でチュートリアルを検索することをお勧めします。まずはPythonの構造をざっと見ることです。Pythonはとても簡単に学ぶことのできる言語で、これは特にインタプリタで実行できることが大きいでしょう。単純なコマンドから完全なプログラムまで、一切コンパイルする必要がなく、その場で実行することができるのです。FreeCADは内蔵のpythonインタプリタを持っています。もし以下に示すような"Python console"という名前のウインドウが見つからなければ、View -&gt; Views -&gt; Python consoleからインタプリタを起動してください。
+</p>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.BF.E3.83.97.E3.83.AA.E3.82.BF">インタプリタ</span></h3>
+<p>インタプリタから、システムにインストールされている全てのPythonモジュールにアクセスすることができます。また内蔵のFreeCADモジュールや、後から追加インストールしたFreeCADモジュールへもアクセスが可能です。次のスクリーンショットはPythonインタプリタです。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_pythoninterpreter.jpg" class="image" title="FreeCADのPythonインタプリタ"><img alt="FreeCADのPythonインタプリタ" src="Screenshot_pythoninterpreter.jpg" width="614" height="228" /></a>
+</p><p>インタプリタではPythonコードの実行と利用可能なクラスや関数の閲覧が可能です。またFreeCADはFreeCADの新世界を探索するためのとても便利なクラスブラウザを提供しています。既知のクラス名に続いてピリオドをタイプすると（これはそのクラスから何かを追加するという意味です）、クラスブラウザウインドウが開き、利用可能なサブクラスとメソッドをナビゲートすることができます。ここで何かを選択すると関連するヘルプテキストが（ある場合ですが）表示されます。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_classbrowser.jpg" class="image" title="FreeCADクラスブラウザ"><img alt="FreeCADクラスブラウザ" src="Screenshot_classbrowser.jpg" width="614" height="228" /></a>
+</p><p>では<b>Gui.</b> や<b>App.</b> をタイプして何が起こるのか見てください。モジュールやクラスの内容を調べるもう一つのより一般的な方法は、print dir()コマンドを使うことです。たとえば、<b>print dir()</b> とタイプすると、現在FreeCADで読み込まれている全てのモジュールをリストします。<b>print dir(App)</b> はAppモジュールに含まれている全ての内容を表示します。
+</p><p>インタプリタのもう一つの便利な機能は、コマンドの履歴を遡ることができ、前に入力したコードの行を取り出せることです。コマンドの履歴の移動は、Ctrl+上、またはCtrl+下です。
+</p><p>インタプリタウインドウ内での右クリックで、全てのコマンド履歴のコピー（完全なスクリプトを作成する前に処理を試したい場合に便利です）や、ファイルの絶対パスの挿入などの複数のオプションが利用できます。
+</p>
+<h3><span class="mw-headline" id="python.E3.81.AE.E3.83.98.E3.83.AB.E3.83.97">pythonのヘルプ</span></h3>
+<p>FreeCADのヘルプメニューには”Python help”という名前のついた項目があり、FreeCADで利用可能な全てのPythonモジュールについての、リアルタイムで生成された完全なドキュメントを持ったブラウザが開きます。これには、Python、FreeCAD内蔵モジュール、システムにインストール済みのモジュール、そしてFreeCADの追加モジュールのドキュメントが含まれます。利用できるドキュメントは、各モジュールの開発者が自分のコードにどれだけドキュメントを入れる努力をしているかによりますが、ほとんどの場合、pythonモジュールはかなりよくドキュメント化されていると定評があります。このドキュメントのシステムを利用するためには、FreeCADウインドウを開いたままにする必要があります。
+</p>
+<h2><span class="mw-headline" id=".E5.86.85.E8.94.B5.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB">内蔵モジュール</span></h2>
+<p>FreeCADは、グラフィカルユーザーインターフェース抜きでも実行できるように設計されているため、ほとんど全ての機能が2つのグループに分けられています。Appと名づけられたコアとなる機能と、Guiと名づけられたGUIの機能です。このため、２つの主要な内蔵モジュールはAppとGuiと呼ばれています。この2つのモジュールは内蔵インタプリタ外部のスクリプトからも、FreeCADとFreeCADGuiという名前でそれぞれアクセスできます。
+</p>
+<ul><li><b>Appモジュール</b> では、アプリケーション自身に関連する全ての内容が見つかります。ファイルやドキュメントのオープンとクローズのメソッドや、アクティブなドキュメントの設定、その内容のリスト化などです。</li></ul>
+<ul><li><b>GUIモジュール</b> では、Guiの構成要素の管理とアクセスのためのツールが見つかります。ワークベンチとそのツールバーや、より興味深い、FreeCADの全内容のグラフィカル表現です。</li></ul>
+<p>モジュールの内容を全てリストにするのはFreeCADの開発に伴いその内容も急増していくので少々非生産的な仕事です。しかし提供されている２つの閲覧ツール（クラスブラウザとpythonヘルプ）でいつでもモジュールの最新の完全なドキュメントを得られるはずです。
+</p>
+<h3><span class="mw-headline" id="App.E3.81.A8Gui.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88">AppとGuiオブジェクト</span></h3>
+<p>先ほど述べたように、FreeCADの全ての機能はコアと表現に別れています。これには3Dオブジェクトも含まれています。Appモジュールを介してオブジェクトのプロパティ定義（FreeCADで機能と呼ばれるもの）にアクセスすることができ、そしてGuiモジュールを介してそれらのスクリーン上での表現方法を変えることができます。たとえば立方体はそれを定義するプロパティである長さや幅、高さなどを持ち、これらはAppオブジェクトに格納されています。また表現のプロパティである、面の色や描画方法などは対応するGuiオブジェクトに格納されています。
+</p><p>このようなやり方は、視覚的な部分をまったく気にすることなくアルゴリズムをその機能の定義部分でのみ動作するようにさせたり、ドキュメントの内容をリストやスプレッドシートや要素解析などのノングラフィカルなアプリケーションへ出力するなどの、幅広い利用を可能にしています。
+</p><p><br />
+ドキュメント内のどのAppオブジェクトも対応するGuiオブジェクトが存在します。ドキュメントそれ自体も実際にはAppとGuiオブジェクトを持っています。これはもちろんFreeCADを完全なインターフェイスで実行したときに有効になります。コマンドラインバージョンではGUIが存在しないのでAppオブジェクトのみが利用できます。オブジェクトのGui部分はAppオブジェクトが"再計算する"とマークされたときに再び生成されます（例えばパラメータがひとつ変更された時）、そのためGuiオブジェトに対して直接行った操作が消えてしまう可能性があることに注意してください。
+</p><p>App部分にアクセスするためには、次のように入力します。
+</p>
+<pre>myObject = App.ActiveDocument.getObject（"ObjectName"）
+</pre>
+<p>ここで"ObjectName"はオブジェクトの名前です。また次のように入力することもできます。
+</p>
+<pre>myObject = App.ActiveDocument.ObjectName
+</pre>
+<p>同じオブジェクトのGUI部分へアクセスするには、次のように入力します。
+</p>
+<pre>myViewObject=Gui.ActiveDocument.getObject（"ObjectName"）
+</pre>
+<p>ここで"ObjectName"はオブジェクトの名前です。また次のように入力することもできます。
+</p>
+<pre>myViewObject = App.ActiveDocument.ObjectName.ViewObject
+</pre>
+<p>GUIを持っていない場合には（例えばコマンドラインモード）、最後の行はNoneが帰ってきます。
+</p>
+<h3><span class="mw-headline" id=".E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88">ドキュメントオブジェクト</span></h3>
+<p>FreeCAD上であなたが行った全ての内容はドキュメントの中に存在しています。ドキュメントはジオメトリを持ち、ファイルに保存することができます。また複数のドキュメントを同時に開くこともできます。ドキュメントはジオメトリと同じくAppやGUIオブジェクトを内部に持っています。Appオブジェクトには実際のジオメトリ定義が含まれていますが、一方でGUIオブジェクトはドキュメントのさまざまなビューを含んでいます。あなたは複数のウインドウを開き、そのそれぞれで異なる倍率や視点でビューを表示することができます。これらのビューは全てドキュメントのGUIオブジェクトの一部です。
+</p><p>現在開いている（アクティブな）ドキュメントのApp部分にアクセスするには次のように入力します。
+</p>
+<pre>myDocument = App.ActiveDocument
+</pre>
+<p>新しいドキュメントを作成するには次のように入力します。
+</p>
+<pre>myDocument = App.newDocument（"Document Name"）
+</pre>
+<p>現在開いている（アクティブな）ドキュメントのGui部分にアクセスするには次のように入力します。
+</p>
+<pre>myGuiDocument = Gui.ActiveDocument
+</pre>
+<p>現在のビューにアクセスするには次のように入力します。
+</p>
+<pre>myView = Gui.ActiveDocument.ActiveView
+</pre>
+<h2><span class="mw-headline" id=".E8.BF.BD.E5.8A.A0.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.81.AE.E4.BD.BF.E7.94.A8">追加モジュールの使用</span></h2>
+<p>FreeCADモジュールとFreeCADGuiモジュールが果たす役割はFreeCADドキュメントでのオブジェクトの作成と管理だけです。これらのモジュールはジオメトリーの作成や変更といった処理は全く行いません。ジオメトリーの種類は複数にわたり、それらはそれぞれの特定のジオメトリー型の管理に特化した追加モジュールによって管理されるためです。例えば<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a> はOpenCascadeカーネルを使用してOpenCascadeが作成された目的であるところの<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Boundary_representation">B-rep</a>型ジオメトリーの作成と操作を行うことができます。<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">メッシュモジュール</a>はメッシュオブジェクトの作成と変更を行うことができます。この様にFreeCADは幅広い種類のオブジェクト型を扱うことができ、それらを同じドキュメント内で同時に保持することができます。また今後も新しい型を簡単に追加していくことができるのです。
+</p>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E4.BD.9C.E6.88.90">オブジェクトの作成</span></h3>
+<p>各モジュールはそれぞれの方法でジオメトリーを取り扱いますが一つだけ全てのモジュールで行うことのできる処理があります。ドキュメント内でのオブジェクトの作成です。一方でFreeCADドキュメントの方でもモジュールによって提供される利用可能なオブジェクト型を認識することができます：
+</p>
+<pre>FreeCAD.ActiveDocument.supportedTypes()
+
+上記を行うと作成することのできる全てのオブジェクトがリストアップされます。例としてメッシュ（メッシュモジュールによって扱われます）とパート（パートモジュールによって扱われます）を作ってみましょう：
+
+myMesh = FreeCAD.ActiveDocument.addObject("Mesh::Feature","myMeshName")
+myPart = FreeCAD.ActiveDocument.addObject("Part::Feature","myPartName")
+</pre>
+<p>一つ目の引数はオブジェクトの型で、二つ目の引数はオブジェクトの名前です。作成した二つのオブジェクトはほとんど同じように見えます。ジオメトリーはまだ設定されておらず、dir(myMesh)やdir(myPart)で調べるとそのプロパティはほとんど同じです。一つだけ異なるのはmyMeshには"Mesh"プロパティがあり、"Part"には"Shape"プロパティがあることです。これがメッシュやパートのデータが保存される場所です。例として立方体パートを作成してmyPartオブジェクトに設定してみましょう：
+</p>
+<pre>import Part
+cube = Part.makeBox(2,2,2)
+myPart.Shape = cube
+</pre>
+<p>試しにcubeをmyMeshのMeshプロパティに設定してみてください。は間違った型である、というエラーメッセージでエラーが返されるはずです。これらのプロパティは特定の型のみ設定できるように作られているからです。myMeshのMeshプロパティにはMeshモジュールで作成したインスタンスしか保存できないのです。またほとんどのモジュールにはドキュメントにそのジオメトリーを追加するためのシュートカットがあることを憶えておいてください。
+</p>
+<pre>import Part
+cube = Part.makeBox(2,2,2)
+Part.show(cube)
+</pre>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.A4.89.E6.9B.B4">オブジェクトの変更</span></h3>
+<p>オブジェクトの変更も同じように行います：
+</p>
+<pre>import Part
+cube = Part.makeBox(2,2,2)
+myPart.Shape = cube
+</pre>
+<p>それではもう少し形状を大きく変更しましょう：
+</p>
+<pre>biggercube = Part.makeBox(5,5,5)
+myPart.Shape = biggercube
+</pre>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E5.95.8F.E3.81.84.E5.90.88.E3.82.8F.E3.81.9B.E5.87.A6.E7.90.86">オブジェクトの問い合わせ処理</span></h3>
+<p>以下のようにするといつでもオブジェクトの型を見ることができます：
+</p>
+<pre>myObj = FreeCAD.ActiveDocument.getObject("myObjectName")
+print myObj.Type
+</pre>
+<p>またオブジェクトが基本オブジェクト（Part FeatureやMesh Featureなど）から継承されたものかどうか調べるには以下のようにします：
+</p>
+<pre> print myObj.isDerivedFrom("Part::Feature")
+</pre>
+<p>さあ、これで本当にFreeCADで遊び始めることができます！<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">パートモジュール</a>を使って何ができるかについては<a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/jp" title="Topological data scripting/jp">パートのスクリプト処理</a>ページを、 <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/jp" class="mw-redirect" title="Mesh Module/jp">メッシュモジュール</a>を使った作業については<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp" title="Mesh Scripting/jp">メッシュのスクリプト処理</a>ページを読んでください。パートモジュールやメッシュモジュールはほぼ完成して幅広く使用されていますが、<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">製図モジュール</a>などの他のモジュールにも便利な<a href="Draft_API.html" title="Draft API">スクリプト処理用</a>APIがあることを憶えておいてください。各モジュールの完全なリストとそこで利用可能なツールについては<a href="https://www.freecadweb.org/wiki/index.php?title=Category:API/jp" title="Category:API/jp">Category:API/jp</a>セクションを見てください。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp&amp;oldid=211332">http://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/jp&amp;oldid=211332</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

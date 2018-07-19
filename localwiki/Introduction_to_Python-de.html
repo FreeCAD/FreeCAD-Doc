@@ -1,0 +1,331 @@
+<html><head><title>Introduction to Python/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Introduction to Python/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Dies ist eine kurze Anleitung für alle, die jetzt zum ersten Mal von Python hören. <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/Python_%28Programmiersprache%29">Python</a> ist eine Open-Source-, Multiplattform-Programmiersprache. Python hat einige Merkmale, durch die es sich sehr von anderen gängigen Programmiersprachen unterscheidet, und sehr zugänglich für neue Benutzer, wie Sie selbst: 
+</p>
+<ul><li>Es wurde speziell so erstellt, dass Menschen es einfach lesen können, und so ist es sehr einfach zu erlernen und zu verstehen.</li>
+<li>Es wird interpretiert, das heißt, im Gegensatz zu kompilierten Sprachen wie C, muss Ihr Programm nicht kompiliert werden, bevor es ausgeführt werden kann. Der Code, den Sie schreiben, kann sofort ausgeführt werden, Zeile für Zeile, wenn Sie wollen. Das macht es äußerst leicht, zu lernen und Fehler in Ihrem Code zu finden, weil Sie langsam fortschreiten, praktisch Schritt-für-Schritt.</li>
+<li>Es kann in anderen Programmen eingebettet werden, um es darin als Skript-Sprache zu verwenden. FreeCAD verfügt über einen integrierten Python-Interpreter, so können Sie Python-Code in FreeCAD schreiben, der Teile von FreeCad manipulieren kann, so lassen sich zum Beispiel Geometrien erzeugen. Dies ist äußerst leistungsfähig, weil anstatt nur auf einen Knopf mit der Aufschrift "erstellen Sphäre" zu klicken, den der Programmierer dort für Sie hingezaubert hat, haben Sie die Freiheit, leicht Ihr eigenes Werkzeug zu schaffen, um genau die Geometrie zu schaffen, die Sie wollen.</li>
+<li>Es ist erweiterbar, Sie können ganz einfach neue Module in Ihrer Python-Installation einfügen und seine Funktionalität erweitern. Zum Beispiel haben Sie Module, die Python das Lesen und Schreiben von jpg-Bildern ermöglicht, mit Twitter zu kommunizieren, Aufgaben zu planen, die durch Ihr Betriebssystem ausgeführt werden, usw.</li></ul>
+<p>Wir möchten Sie ermutigen, die nachfolgenden Code-Schnipsel in einen Python-Interpreter einzugeben. Wie bei vielen anderen unserer Darstellungen ist der wichtige Punkt die Zeile nach dem Ausführen des Schnipsels. Den Code nicht auszuführen wäre ein Aufbau ohne Pointe.
+Also, angefasst! Seien Sie sich bewusst, dass als nächstes eine sehr einfache Einführung auf Sie zukommt, keineswegs ein komplettes Tutorial. Aber unsere Hoffnung ist, dass Sie genügend Grundlagen erhalten, um anschließend die FreeCAD-Mechanismen tiefer zu erforschen.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Der_Interpreter"><span class="tocnumber">1</span> <span class="toctext">Der Interpreter</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Variablen"><span class="tocnumber">2</span> <span class="toctext">Variablen</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Zahlen"><span class="tocnumber">3</span> <span class="toctext">Zahlen</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Listen"><span class="tocnumber">4</span> <span class="toctext">Listen</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Einr.C3.BCckung"><span class="tocnumber">5</span> <span class="toctext">Einrückung</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Funktionen"><span class="tocnumber">6</span> <span class="toctext">Funktionen</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Module"><span class="tocnumber">7</span> <span class="toctext">Module</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Loslegen_mit_FreeCAD"><span class="tocnumber">8</span> <span class="toctext">Loslegen mit FreeCAD</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Der_Interpreter">Der Interpreter</span></h2>
+<p>In der Regel öffnen Sie beim Schreiben von Computerprogrammen einfach einen Texteditor oder Ihre bevorzugte Programmierumgebung (was in den meisten Fällen ein Texteditor mit mehreren Werkzeugen darin ist), Sie schreiben Ihr Programm, dann kompilieren Sie und führen es aus. Meistens werden Sie Fehler beim Schreiben des Programms machen, so dass Ihr Programm nicht funktioniert, und Sie erhalten eine Fehlermeldung, was schief gelaufen ist. Dann kehren Sie zu Ihrem Text-Editor zurück, korrigieren die Fehler, starten erneut und so weiter, bis Ihr Programm fehlerfrei arbeitet.
+</p><p>In Python kann dieser ganze Prozess transparent im Python-Interpreter ausgeführt werden. Der Interpreter ist ein Python-Fenster mit einer Eingabeaufforderung, wo Sie einfach Python-Code eintippen können. Wenn Sie Python auf Ihrem Computer installieren (Download von der <a rel="nofollow" class="external text" href="http://www.python.org">Python-Website</a> herunterladen, wenn Sie es auf Windows-oder Mac benutzen, installieren Sie es von Ihrem Paket-Repository, wenn Sie auf GNU / Linux installieren), werden Sie einen Python-Interpreter in Ihrem Startmenü haben.
+Aber FreeCAD bietet auch einen Python-Interpreter in seinem unteren Teil:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_pythoninterpreter.jpg" class="image"><img alt="Screenshot pythoninterpreter.jpg" src="Screenshot_pythoninterpreter.jpg" width="614" height="228" /></a>
+</p><p>(Falls bei Ihnen nicht angezeigt, klicken Sie auf:  Ansicht → Ansichten → Python-Konsole.)
+</p><p>Der Interpreter zeigt die Python-Version, dann ein &gt;&gt;&gt; Symbol, das ist die Eingabeaufforderung, das heißt, hier geben Sie Python-Code ein. Schreiben von Code im Interpreter ist einfach: eine Zeile ist ein Befehl. Wenn Sie die Eingabetaste drücken, wird Ihre Code-Zeile ausgeführt (nachdem sie sofort und unsichtbar kompiliert wurde). Zum Beispiel, versuchen Sie dies zu schreiben:
+</p>
+<pre>print "hello" </pre>
+<p><code> print </code> ist ein spezielles Python-Schlüsselwort, das bedeutet natürlich, etwas auf dem Bildschirm auszugeben. Wenn Sie die Eingabetaste drücken, wird die Operation ausgeführt, und die Nachricht "Hallo" wird gedruckt. Wenn Sie einen Fehler machen, schreiben wir zum Beispiel:
+</p>
+<pre>print hello </pre>
+<p>Python meldet nun, dass es nicht weiß, was Hallo ist. Die " Zeichen geben an, dass der Inhalt ein String ist, einfacher gesagt, im Programmier-Jargon, ein Stück Text. Ohne die " glaubt der Druckbefehl Hallo sei nicht einfach Text, sondern ein spezielles Python-Schlüsselwort. Das Wichtigste ist, Sie werden sofort benachrichtigt, dass Sie einen Fehler gemacht haben. Durch Drücken des Pfeil nach oben (oder im FreeCAD-Interpreter, STRG + Pfeil nach oben), können Sie zurück zum letzten Befehl, den Sie geschrieben haben und diesen korrigieren.
+</p><p>Der Python-Interpreter hat auch ein eingebautes Hilfesystem. Schreiben Sie mal:
+</p>
+<pre>help </pre>
+<p>oder beispielsweise, sagen wir, wir verstehen nicht, was oben mit unserem Print-hallo-Befehl schief ging, wir wollen also spezifische Informationen über den Befehl "print"&#160;:
+</p>
+<pre>help("print") </pre>
+<p>Jetzt erhalten Sie eine lange und vollständige Beschreibung dessen, was der Befehl print alles tun kann.
+</p><p>Und da wir jetzt völlig unseren Interpreter beherrschen, können wir mit dem ernsten Zeug beginnen.
+</p>
+<h2><span class="mw-headline" id="Variablen">Variablen</span></h2>
+<p>Natürlich ist die Ausgabe von "Hallo" nicht sehr interessant. Interessanter ist die Ausgabe von Dingen, die Sie vorher nicht wissen, oder die Python für Sie herausfindet. Das ist, wo das Konzept der Variablen ins Spiel kommt. Eine Variable ist einfach ein Wert, den Sie unter einem Namen speichern. Tippen Sie zum Beispiel das:
+</p>
+<pre>a = "hello"
+print a </pre>
+<p>Ich vermute, Sie verstehen, was passiert ist, wir speichern die Zeichenfolge "Hallo" unter dem Namen "a". Jetzt ist "a" kein unbekannter Name mehr! Wir können es überall einsetzen, z. B. in den print-Befehl. Wir können jeden beliebigen Namen verwenden, den wir wollen, es gibt nur einige einfache Regeln zu respektieren, wie keine mit Leerzeichen oder Satzzeichen zu verwenden. Zum Beispiel könnten wir sehr wohl schreiben:
+</p>
+<pre>hello = "my own version of hello"
+print hello </pre>
+<p>Gesehen? Jetzt ist Hallo kein undefiniertes Wort mehr. Was ist, wenn wir unglücklicherweise einen Namen wählen, der bereits in Python existiert? Sagen wir, wir wollen unseren String unter dem Namen "print" zu speichern:
+</p>
+<pre>print = "hello" </pre>
+<p>Python ist sehr intelligent und wird uns sagen, dass dies nicht möglich ist. Es gibt einige "reservierte" Schlüsselwörter, die nicht modifiziert werden können. Aber unsere eigenen Variablen können jederzeit geändert werden, das ist genau, warum sie Variablen genannt werden, weil sich die Inhalt ändern können. Zum Beispiel:
+</p>
+<pre>myVariable = "hello"
+print myVariable
+myVariable = "good bye"
+print myVariable </pre>
+<p>Wir änderten den Wert von myVariable. Wir können auch Variablen kopieren:
+</p>
+<pre>var1 = "hello"
+var2 = var1
+print var2 </pre>
+<p>Beachten Sie, dass es wichtig ist, Variablen sinnvolle Namen zu geben, da, wenn Sie lange Programme schreiben, Sie sich nach einer Weile nicht daran erinnern werden, wofür Ihre Variable mit dem Namen "a" steht. Aber wenn Sie es, zum Beispiel, myWelcomeMessage nannten, werden Sie sich leicht erinnern, wofür sie verwendet wird, wenn Sie es sehen werden. Außerdem ist Ihr Code einen Schritt näher an der Selbstdokumentation.
+</p><p>Groß-/Kleinschreibung ist sehr wichtig. myVariable ist nicht das Gleiche wie myvariable, der Unterschied ist das große/kleine "v". Wenn Sie schreiben "print myvariable" wird als Fehler "nicht definiert" angezeigt.
+</p>
+<h2><span class="mw-headline" id="Zahlen">Zahlen</span></h2>
+<p>Natürlich müssen Sie wissen, dass die Programmierung nützlich ist, jede Art von Daten zu behandeln, besonders Zahlen, nicht nur Text-Strings. Eines ist wichtig, Python muss wissen, mit welchen Daten es sich befasst. Wir sahen in unserem print hallo Beispiel, dass der Druckbefehl unseren "hallo" String erkannte. Durch die " sagten wir dem Druckbefehl, was als Nächstes kommen würde, ist ein Text-String.
+</p><p>Wir können immer den Datentyp einer Variablen überprüfen, mit dem speziellen Python-Schlüsselwort: type
+</p>
+<pre>myVar = "hello"
+type(myVar) </pre>
+<p>Es wird uns sagen,  der Inhalt von myVar ist 'str', die Kurzform für String in Python-Jargon. Wir haben auch andere Arten von Daten, wie Integer und Fließkomma-Zahlen:
+</p>
+<pre>firstNumber = 10
+secondNumber = 20
+print firstNumber + secondNumber
+type(firstNumber) </pre>
+<p>Dies ist bereits viel interessanter, nicht wahr? Jetzt haben wir bereits einen leistungsfähigen Rechner! Schauen Sie genau hin, wie es funktioniert, Python weiß, die 10 und 20 sind ganze Zahlen. So werden sie als "int" gespeichert, und Python kann mit ihnen alles tun, was es mit ganzen Zahlen machen kann. Schauen Sie sich dieses Ergebnis an:
+</p>
+<pre>firstNumber = "10"
+secondNumber = "20"
+print firstNumber + secondNumber </pre>
+<p>Gesehen? Wir zwangen Python zu denken, dass unsere zwei Variablen nicht Zahlen, sondern bloße Stücke Text sind. Python kann zwei Stücke Text zusammenfügen, aber es wird nicht versuchen, daraus ein Summe zu bilden. Aber wir sprachen über Ganz-Zahlen. Es gibt auch Fließkomma-Zahlen. Der Unterschied ist, dass Ganz-Zahlen keine Nachkommastellen haben, während Fließkomma-Zahlen auch Dezimalstellen haben können:
+</p>
+<pre>var1 = 13
+var2 = 15.65
+print "var1 is of type ", type(var1)
+print "var2 is of type ", type(var2) </pre>
+<p>Ganz- und Fließkomma-Zahlen können problemlos gemischt werden:
+</p>
+<pre>total = var1 + var2
+print total
+print type(total) </pre>
+<p>Natürlich hat die Summe Dezimalstellen, richtig? Dann hat Python automatisch entschieden, dass das Ergebnis ein float(Fließkomma-Zahl) ist. In einigen Fällen wie diesem, entscheidet Python automatisch, welcher Typ anzuwenden ist. In anderen Fällen tut es das nicht. Zum Beispiel:
+</p>
+<pre>varA = "hello 123"
+varB = 456
+print varA + varB </pre>
+<p>Dies gibt uns einen Fehler, weil varA einen String und varB ein int ist, und Python nicht weiß, was zu tun ist. Aber wir können Python zwingen, zwischen Typen zu konvertieren:
+</p>
+<pre>varA = "hello"
+varB = 123
+print varA + str(varB) </pre>
+<p>Nun sind beides Strings und der Ablauf funktioniert! Bemerken Sie, dass wir varB zur Zeit des Druckes "stringified" haben, aber wir varB selbst nicht änderten. Wenn wir varB dauerhaft in einen String ändern wollten, würden wir folgendes tun müssen:
+</p>
+<pre>varB = str(varB) </pre>
+<p>Wir können auch int() und float() einsetzen, um Werte zu konvertieren in int und float, wenn wir wollen:
+</p>
+<pre>varA = "123"
+print int(varA)
+print float(varA) </pre>
+<p><b>Hinweis zu Python-Kommandos</b>
+</p><p>Sie werden bemerkt haben, dass wir in diesem Abschnitt den Befehl 'print' in mehrfacher Weise verwendet haben. Wir druckten Variablen, Summen, mehrere Dinge durch Kommas getrennt, und auch das Ergebnis anderer Python-Befehle wie type(). Vielleicht haben Sie auch gesehen, dass die Anwendung dieser beiden Befehle,
+</p>
+<pre>type(varA)
+print type(varA) </pre>
+<p>absolut das selbe Resultat ergeben. Das passiert, weil wir im Interpreter sind, und alles automatisch auf dem Bildschirm ausgegeben wird. Wenn wir kompliziertere Programme schreiben werden, die außerhalb des Interpreters laufen sollen, wird nicht automatisch alles auf dem Schirm ausgegeben, also werden wir den Druckbefehl verwenden müssen. Aber im Moment wollen wir aufhören, es hier zu verwenden, weil es schneller geht. So können wir einfach schreiben:
+</p>
+<pre>myVar = "hello friends"
+myVar </pre>
+<p>Sie werden auch gesehen haben, dass die meisten Python-Befehle (oder Schlüsselwörter), die wir bereits kennen, den Inhalt, den der Befehl bearbeiten muss, durch Klammern eingrenzen: type(), int(), str(), etc. Die einzige Ausnahme ist der print-Befehl, der tatsächlich keine Ausnahme ist, er funktioniert auch ganz normal so: print("hello"), aber, da er oft verwendet wird, haben die Python-Programmierer eine vereinfachte Version geschaffen.
+</p>
+<h2><span class="mw-headline" id="Listen">Listen</span></h2>
+<p>Ein weiterer interessanter Datentyp sind Listen. Eine Liste ist schlicht eine Liste zusammengestellter Daten. Genau wie wir einen Text-String durch das Benutzen von " " definieren, definieren wir Listen durch [ ]:
+</p>
+<pre>myList = [1,2,3]
+type(myList)
+myOtherList = ["Bart", "Frank", "Bob"]
+myMixedList = ["hello", 345, 34.567] </pre>
+<p>Sie sehen, es können beliebige Arten von Daten darin enthalten sein. Listen sind sehr hilfreich, weil Sie Variable gruppieren können. Man kann dann alle möglichen Dinge innerhalb der Gruppe, wie z.B. diese zählen:
+</p>
+<pre>len(myOtherList) </pre>
+<p>oder ein einzelnes Element aus der Liste abrufen:
+</p>
+<pre>myName = myOtherList[0]
+myFriendsName = myOtherList[1] </pre>
+<p>Wie Sie sehen, wird durch den Befehl len() die gesamte Anzahl von Elementen in einer Liste ausgegeben, deren "Position" in der Liste mit 0 beginnt. Das erste Element einer Liste ist immer an Position 0, somit ist in unserer myOtherList, "Bob" an Position 2 zu finden. Darüber hinaus lässt sich noch jede Menge mehr mit Listen anstellen, wie man z.B. <a rel="nofollow" class="external text" href="http://www.wspiegel.de/pykurs/python11.htm">hier</a> nachlesen kann, beispielsweise Inhalte sortieren, oder Elemente hinzufügen oder entfernen.
+</p><p>Ein lustiger und interessanter Hinweis für Sie: Ein Text-String hat sehr viel gemeinsam mit einer Liste von Buchstaben! Versuchen Sie das mal:
+</p>
+<pre>myvar = "hello"
+len(myvar)
+myvar[2] </pre>
+<p>Üblicherweise kann man alles, was man mit Listen tun kann, auch auf Strings anwenden. Denn tatsächlich sind Listen und Strings eigentlich Sequenzen.
+</p><p>Außer Strings, Ints, Floats und Listen, gibt es noch weitere eingebaute Datentypen, wie z.B. <a rel="nofollow" class="external text" href="http://www.python-kurs.eu/dictionaries.php">Wörterbücher</a>, oder Sie können auch Ihre eigenen Datentypen erstellen durch verwenden von <a rel="nofollow" class="external text" href="http://de.wikibooks.org/wiki/Python-Programmierung:_Klassen_und_Methoden">Klassen</a>.
+</p>
+<h2><span class="mw-headline" id="Einr.C3.BCckung">Einrückung</span></h2>
+<p>Cool ist beim Gebrauch von Listen auch, dass man sie durchsuchen und mit jedem Fund etwas tun kann. Schauen Sie zum Beispiel hier:
+</p>
+<pre>alldaltons = ["Joe", "William", "Jack", "Averell"]
+for dalton in alldaltons:
+   print dalton + " Dalton" </pre>
+<p>Wir iterierten (schon wieder Programmier-Jargon!) durch unsere Liste mittels des "for ... in ..." -Befehls und haben mit jedem der gefundenen Elemente etwas gemacht. Beachten Sie die spezielle Syntax: der <b>for</b>-Befehl endet mit <b>:</b>  Dies deutet an, dass alles was danach kommt, ein Befehlsblock mit einem oder mehreren Befehlen sein wird. Unmittelbar nachdem die Befehlszeile mit&#160;: endet, wird die Eingabeaufforderung sich so verändern ... was bedeutet, Python weiß, dass eine&#160;:-beendete Eingabe aufgetreten ist und dass das, was als nächstes kommen wird, Teil davon ist. 
+</p><p>Wie wird Python wissen, wie viele der folgenden Zeilen innerhalb der for...in Operation durchgeführt werden sollen? Dafür verwendet Python die Einrückung.
+Das heißt, dass Ihre nächsten Zeilen nicht sofort beginnen. Sie werden sie durch ein Leerzeichen oder mehrere Leerzeichen oder einen Tab oder mehrere Tab´s beginnen. Andere Programmiersprachen verwenden andere Methoden, wie z.B. alles in Klammern zu setzen, etc. Solange Sie Ihre folgenden Zeilen mit derselben Einrückung schreiben, werden sie als ein Teil des for...in Blocks betrachtet.
+Wenn Sie eine Zeile mit zwei Leerzeichen und die nächste mit vier beginnen, gibt es einen Fehler. Wenn Sie fertig sind, schreiben Sie einfach eine Zeile ohne Einrückung, oder drücken Sie einfach ENTER, um den for...in Block zu verlassen.
+</p><p>Einrückung ist cool, denn sie erhöht die Lesbarkeit. Falls Sie große Einrückungen nutzen (z.B. Tabulatoren statt Leerzeichen, weil größer), wenn Sie ein großes Programm schreiben, werden Sie eine klare Übersicht haben, was im Inneren von Blöcken ausgeführt wird.
+Wir werden sehen, dass Befehle außer for...in ebenfalls eingerückten Code nutzen.
+</p><p>For-in-Befehle können für viele Dinge, die mehr als einmal getan werden müssen, verwendet werden. Er kann, zum Beispiel, mit dem range()-Befehl verbunden werden:
+</p>
+<pre>serie = range(1,11)
+total = 0
+print "sum"
+for number in serie:
+   print number
+   total = total + number
+print "----"
+print total </pre>
+<p>(Wenn Sie die Code-Beispiele durch Copy-und-Paste in einem Interpreter ausgeführt haben, werden Sie feststellen, dass der vorige Text-Block einen Fehler produziert. Kopieren Sie statt dessen bis zum Ende des eingerückten Blocks, das heißt zum Ende der Zeile "total = total + number" und fügen das in den Interpreter ein. Drücken Sie im Interpreter die Eingabetaste, bis die drei Punkte verschwinden und der Code läuft. Kopieren Sie dann die beiden letzten Zeilen in dem Interpreter und drücken ein oder mehrmals die Eingabetaste. Die abschließende Ausgabe sollte erscheinen).
+</p><p>Wenn Sie in den Interpreter <b>help(range)</b> eintippen, würden Sie sehen: 
+</p>
+<pre>range(...)
+    range(stop) -&gt; list of integers
+    range(start, stop[, step]) -&gt; list of integers </pre>
+<p>Hier geben die eckigen Klammern einen optionalen Parameter an. Trotzdem werden jeweils Ganz-Zahlen erwartet. Wir werden mit der Hilfe von int() dafür sorgen, dass die range-Parameter Ganz-Zahlen sind
+</p>
+<pre>decimales = 1000                     # for 3 decimales 
+#decimales = 10000                   # for 4 decimales ...
+for i in range(int(0 * decimales),int(180 * decimales),int(0.5 * decimales)):
+    print float(i) / decimales </pre>
+<p>Oder komplexere Dinge wie diese:
+</p>
+<pre>alldaltons = ["Joe", "William", "Jack", "Averell"]
+for n in range(4):
+   print alldaltons[n], " is Dalton number ", n </pre>
+<p>Sie sehen, dass der range()-Befehl auch eine seltsame Eigenart hat, dass er bei 0 beginnt (wenn Sie die Startzahl nicht vorgeben) und dass seine letzte Zahl eins weniger sein wird als die Endzahl, die Sie angeben. Das heisst natürlich, so arbeitet es gut mit anderen Python-Befehlen zusammen. Zum Beispiel:
+</p>
+<pre>alldaltons = ["Joe", "William", "Jack", "Averell"]
+total = len(alldaltons)
+for n in range(total):
+   print alldaltons[n] </pre>
+<p>Eine weitere interessante Anwendung von eingerückten Blöcken ist der if-Befehl. If führt einen Code-Block nur aus, wenn eine bestimmte Bedingung erfüllt ist, zum Beispiel:
+</p>
+<pre>alldaltons = ["Joe", "William", "Jack", "Averell"]
+if "Joe" in alldaltons:
+   print "We found that Dalton!!!" </pre>
+<p>Natürlich wird das immer den ersten Satz ausgeben, aber versuchen Sie, die zweite Zeile wie folgt zu ersetzen:
+</p>
+<pre>if "Lucky" in alldaltons: </pre>
+<p>Dann wird nichts ausgegeben. Wir können auch eine else: Anweisung nutzen:
+</p>
+<pre>alldaltons = ["Joe", "William", "Jack", "Averell"]
+if "Lucky" in alldaltons:
+   print "We found that Dalton!!!"
+else:
+   print "Such Dalton doesn't exist!" </pre>
+<h2><span class="mw-headline" id="Funktionen">Funktionen</span></h2>
+<p>Es gibt nur wenige <a rel="nofollow" class="external text" href="http://docs.python.org/reference/lexical_analysis.html#identifiers">Standard Python-Befehle</a>. In der aktuellen Version von Python gibt es etwa 30, und wir kennen bereits mehrere von ihnen. Aber stellen Sie sich vor, wir könnten unsere eigenen Befehle erfinden? Nun, wir können, und es ist extrem einfach. In der Tat, tun die meisten der zusätzlichen Module, die Sie in Ihrer Python-Installation zufügen, genau das, sie fügen Befehle hinzu, die Sie verwenden können. Ein benutzerdefinierter Befehl in Python wird eine Funktion genannt und wird so gemacht:
+</p>
+<pre>def printsqm(myValue):
+   print str(myValue)+" square meters"
+ 
+printsqm(45) </pre>
+<p>(Ein weiterer Copy-und-Paste Fehler, kopieren Sie nur bis zum Ende des eingerückten Abschnitts, d.h. """square meters""", fügen Sie das in den Interpreter ein, drücken die Eingabetaste, bis die drei Punkte verschwinden und kopieren und fügen dann die letzte Zeile ein).
+</p><p>Extrem einfach: der def()-Befehl definiert eine neue Funktion. Sie geben ihr einen Namen und innerhalb der Klammern Sie Argumente, die wir in unserer Funktionen benutzen werden. Argumente sind Daten, die an die Funktion übergeben werden. Schauen Sie sich zum Beispiel das len()-Kommando an. Wenn Sie lediglich len() schreiben, dann wird Python melden, dass es ein Argument benötigt. Das heißt, Sie möchten len() von irgendwas, stimmt's? Dann schreiben Sie z.B. len(myList) und Sie bekommen die Länge von myList. Nun, myList ist ein Argument, dass Sie die len()-Funktion übergeben. Die len()-Funktion ist so definiert, dass sie weiß, was mit dem übergebenen Wert tun soll. Das Gleiche, was wir hier getan haben.
+</p><p>Die "myValue"-Bezeichnung kann alles sein, und sie wird nur innerhalb der Funktion benutzt. Es ist nur ein Name, den Sie dem Argument gegeben haben, damit Sie etwas damit tun können, aber es dient auch dazu, der Funktion mitzuteilen, wie viele Argumente zu erwarten sind. Wenn Sie z.B. dies tun:
+</p>
+<pre>printsqm(45,34) </pre>
+<p>gibt es einen Fehler. Unsere Funktion wurde programmiert, nur ein Argument zu erwarten, aber es erhielt zwei, 45 und 34. Wir könnten stattdessen folgendes tun:
+</p>
+<pre>def sum(val1,val2):
+   total = val1 + val2
+   return total
+
+sum(45,34)
+myTotal = sum(45,34) </pre>
+<p>Wir haben eine Funktion erstellt, die zwei Argumente bekommt und diesen Wert zurückgibt. Etwas zurückliefern ist sehr sinnvoll, denn wir können etwas mit dem Wert tun, wie etwa in der myTotal-Variable speichern. Da wir im Interpreter sind und alles ausgeben wird, erzeugt die Zeile
+</p>
+<pre>sum(45,34) </pre>
+<p>ein Ergebnis auf dem Bildschirm, aber außerhalb des Interpreters würde nichts auf dem Bildschirm erscheinen, denn es gibt keinen print-Befehl innerhalb der Funktion. Sie müssten folgendes tun
+</p>
+<pre>print sum(45,34) </pre>
+<p>um eine Ausgabe zu erhalten. Lesen Sie <a rel="nofollow" class="external text" href="http://www.diveintopython.net/getting_to_know_python/declaring_functions.html">hier</a> mehr über Funktionen.
+</p>
+<h2><span class="mw-headline" id="Module">Module</span></h2>
+<p>Da wir jetzt einen guten Überblick haben, wie Python arbeitet, müssen wir abschließend noch eins wissen: Wie arbeitet man mit Dateien und Modulen.
+</p><p>Bis jetzt haben wir Python-Anweisungen Zeile für Zeile in den Interpreter eingegeben, stimmt's? Was, wenn wir mehrere Zeilen zusammenschreiben und sie alle gemeinsam ausführen könnten? Es wäre einfacher, um komplexere Dinge zu tun. Und wir könnten unsere Arbeit außerdem speichern. Nun, auch das ist sehr einfach. Öffnen Sie einen Text-Editor (wie das Windows-Notepad, Linux gedit, emacs oder vi) und schreiben Sie alle Ihre Python-Zeile, wie Sie das im Interpreter getan haben, mit Einrückungen, usw. Speichern Sie dann die Datei irgendwo, am besten mit einer .py-Endung. Dadurch haben Sie ein komplettes Python-Programm. Natürlich gibt es viel bessere Editoren als Notepad, aber es geht nur darum Ihnen zu zeigen, dass ein Python-Programm nichts anderes ist als eine Textdatei.
+</p><p>Um dieses Programm mit Python auszuführen, gibt es hunderte von Wegen. In Windows rechtsklicken Sie die Datei, öffnen sie mit Python und führen sie aus. Aber Sie können Sie auch vom Python-Interpreter ausführen. Dafür muss der Interpreter wissen, wo Ihr .py-Programm ist. In FreeCAD ist der einfachste Weg, Ihr Programm an einer Stelle abzulegen, die dem FreeCAD-Python-Interpreter bekannt ist, wie z.B. das FreeCAD-bin-Verzeichnis, oder eins der Mod-Verzeichnisse. (Unter Linux haben Sie vermutlich ein Verzeichnis /home/&lt;Benutzername&gt;/.FreeCAD/Mod, lassen Sie uns darunter ein Unterverzeichnis namens scripts erstellen, in dem wir die Textdatei ablegen). Nehmen wir an, wir schreiben eine Datei mit dem folgenden Inhalt:
+</p>
+<pre>def sum(a,b):
+    return a + b
+
+print "myTest.py succesfully loaded" </pre>
+<p>und speichern sie als myTest.py in unserem FreeCAD/bin-Verzeichnis (oder auf Linux in /home/&lt;Benutzername&gt;/.FreeCAD/mod/scripts). Lassen Sie uns nun FreeCAD starten und im Interpreter-Fenster eingeben:
+</p>
+<pre>import myTest </pre>
+<p>ohne die py-Endung. Dies wird einfach den Inhalt der Datei ausführen, Zeile für Zeile, so als hätten wir es im Interpreter eingegeben. Die sum-Funktion wird angelegt und die Meldung ausgegeben. Es gibt einen großen Unterschied: Das import-Kommando ist nicht nur gemacht, um Programme in Dateien auszuführen, sondern auch die darin enthaltenen Funktionen zu laden, so dass sie im Interpreter verfügbar sind. Dateien, die Funktionen enthalten, so wie unsere, werden Module genannt.
+</p><p>Normalerweise, wenn wir eine sum()-Funktion im Interpreter eingeben, führen wir sie ganz einfach wie folgt aus
+</p>
+<pre>sum(14,45) </pre>
+<p>wie vorher aus. Wenn wir ein Modul mit unserer sum()-Funktion importieren, ist die Syntax ein wenig anders. Wir schreiben:
+</p>
+<pre>myTest.sum(14,45) </pre>
+<p>Das bedeutet, das Modul wird als ein "Container" importiert und alle seine Funktionen sind intern. Das ist sehr nützlich, denn wir können eine Menge von Modulen importieren und alles bleibt gut organisiert. Allgemein, überall dort, wo Sie <b>etwas.etwasAnderes</b> sehen, mit einem Punkt dazwischen, bedeutet es, <b>etwasAnderes</b> ist innerhalb von <b>etwas</b>.
+</p><p>Wir können unsere sum()-Funktion auch wie folgt direkt in den Interpreter-Hauptbereich importieren:
+</p>
+<pre>from myTest import *
+sum(12,54) </pre>
+<p>Generell verhalten sich alle Module auf diese Weise. Sie importieren ein Modul und Sie können die Funktionen benutzen: modul.funktion(argument). Fast alle Module tun das: sie definieren Funktionen, neue Datentypen und Klassen, die Sie im Interpreter oder Ihren eigenen Python-Modulen benutzen können, denn nichts hindert Sie daran, andere Module in Ihre Module zu importieren!
+</p><p>Ein letzter extrem nützlicher Punkt. Woher wissen wir, welche Funktionen verfügbar und wie sie zu benutzen sind (d.h., welche Art von Argumenten erwarten sie)? Wir haben bereits gesehen, dass Python eine help()-Funktion hat. Ausführen von:
+</p>
+<pre>help()
+modules </pre>
+<p>liefert uns eine Liste aller verfügbarer Module. Durch können durch Eintippen von <b>q</b> die interaktive Hilfe verlassen und irgendeins importieren. Wir können mit dem dir()-Kommando sogar den Inhalt ansehen.
+</p>
+<pre>import math
+dir(math) </pre>
+<p>Wir sehen all die im math-Modul enthaltenen Funktionen, genau wie merkwürdiges Zeug namens __doc__, __file__, __name__. __doc__ ist sehr nützlich, denn es ist Dokumentation. Jede Funktion von (gut gemachten) Modulen hat einen __doc__-Abschnitt, der die Nutzung beschreibt. Wir sehen zum Beispiel, dass es eine sin-Funktion im math-Modul gibt. Wollen Sie wissen, wie man sie benutzt?
+</p>
+<pre>print math.sin.__doc__ </pre>
+<p>(Es mag nicht klar ersichtlich sein, aber auf jeder Seite von doc gibt es zwei Unterstriche).
+</p><p>Und abschließend ein letztes kleines Goodie: Wenn wir an einem neuen oder existierenden Modul arbeiten, ist es am besten, die Dateiendung durch .py zu ersetzen, also myModule.FCMacro =&gt; myModule.py. Wir werden es oft testen, also werden wir es wie oben gezeigt laden.
+</p>
+<pre>import myModule
+myModule.myTestFunction() </pre>
+<p>Wenn wir aber sehen, dass myTestFunction() nicht korrekt funktioniert? Wir gehen zurück in den Editor und machen Änderungen. Dann, anstatt den Interpreter zu schließen und erneut zu öffnen, können wir das Modul einfach wie folgt aktualisieren:
+</p>
+<pre>reload(myModule) </pre>
+<p>Die Umbenennung der Datei ist notwendig, weil Python nicht weiß, was es mit der Endung FCMacro anfangen soll.
+</p><p>Es gibt jedoch zwei Alternativen: im Makro nutzen Sie Pythons exec- oder execfile-Funktionen.
+</p>
+<pre>f = open("myModule","r")
+d = f.read()
+exec d </pre>
+<p>oder 
+</p>
+<pre>execfile "myModule" </pre>
+<p>Um Code in verschiedenen Makros gemeinsam zu nutzen, kann das FreeCAD- oder FreeCADGui-Modul (oder ein beliebiges anderes Modul) genutzt werden, indem man ein beliebiges Attribut darin setzt. Dieses sollte die Ausführung des Makros überleben.
+</p>
+<pre>import FreeCAD
+if hasattr(FreeCAD,"macro2_executed"):
+    ...
+else:
+    FreeCAD.macro2_executed = True # you can assign any value because we only check for the existence of the attribute
+    ... execute macro2 </pre>
+<h2><span class="mw-headline" id="Loslegen_mit_FreeCAD">Loslegen mit FreeCAD</span></h2>
+<p>Nun, ich glaube, Sie haben jetzt eine gute Vorstellung davon, wie Python funktioniert, und Sie können anfangen zu erforschen, was FreeCAD anzubieten hat. Die Python-Funktionen von FreeCAD werden alle gut in verschiedenen Modulen organisiert. Einige von ihnen werden bereits (importiert) geladen, wenn Sie FreeCAD starten. Also, nur eingeben
+</p>
+<pre>dir() </pre>
+<p>und lesen Sie auf <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/de" title="FreeCAD Scripting Basics/de">FreeCAD Scripting Grundkenntnisse</a> ...
+</p><p>Natürlich sahen wir hier nur einen sehr kleinen Teil der Python-Welt. Es gibt viele wichtige Konzepte, die wir hier nicht erwähnten. Es gibt drei sehr wichtige Python-Bezugsdokumente im Netz:
+</p>
+<ul><li> die <a rel="nofollow" class="external text" href="http://docs.python.org/reference/">official Python reference</a></li>
+<li> die <a rel="nofollow" class="external text" href="http://wiki.python.org/moin/GermanLanguage">Deutsche Seite mit Links zu Python</a></li>
+<li> das <a rel="nofollow" class="external text" href="http://wwwdiveintopython.net">Dive into Python</a> wikibook/ book</li></ul>
+<p>Vieleicht wollen Sie ja Lesezeichen dazu anlegen...?
+</p><p><br />
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/de&amp;oldid=284396">http://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/de&amp;oldid=284396</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

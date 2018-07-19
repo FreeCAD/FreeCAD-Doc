@@ -1,0 +1,194 @@
+<html><head><title>Robot Module/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Robot Module/ru</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Module/ru&amp;redirect=no" class="mw-redirect" title="Robot Module/ru">Robot Module/ru</a>)</span></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:KukaKR16FreeCAD.jpg" class="image"><img alt="KukaKR16FreeCAD.jpg" src="400px-KukaKR16FreeCAD.jpg" width="400" height="276" srcset="/wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/600px-KukaKR16FreeCAD.jpg 1.5x, /wiki/images/thumb/c/c5/KukaKR16FreeCAD.jpg/800px-KukaKR16FreeCAD.jpg 2x" /></a></div>
+<p>Инструментарий автоматики имитирует <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/ru" title="Robot 6-Axis/ru">6-ти осевого робота</a> промышленного класса, такого как <a rel="nofollow" class="external text" href="http://kuka.com/">Kuka</a>.
+Вы можете выполнять следующие работы:
+</p>
+<ul><li> создать среду моделирования с роботом и заготовкой</li>
+<li> создать и загрузить траекторию</li>
+<li> разложить часть CAD детали в траекторию</li>
+<li> имитировать движение робота и его пространственные ограничения</li>
+<li> экспортировать траекторию в программный файл робота</li></ul>
+<p>Примеры можно найти здесь:
+<a rel="nofollow" class="external text" href="https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py">Файлы с примерами</a> или см. <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_tutorial/ru" title="Robot tutorial/ru">Руководство по инструментарию Автоматики</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.D0.98.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D1.8B"><span class="tocnumber">1</span> <span class="toctext">Инструменты</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.D0.A0.D0.BE.D0.B1.D0.BE.D1.82.D1.8B"><span class="tocnumber">1.1</span> <span class="toctext">Роботы</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.D0.A2.D1.80.D0.B0.D0.B5.D0.BA.D1.82.D0.BE.D1.80.D0.B8.D0.B8"><span class="tocnumber">1.2</span> <span class="toctext">Траектории</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#.D0.BD.D0.B5_.D0.BF.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5"><span class="tocnumber">1.2.1</span> <span class="toctext">не параметрические</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#.D0.BF.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5"><span class="tocnumber">1.2.2</span> <span class="toctext">параметрические</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#.D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2"><span class="tocnumber">2</span> <span class="toctext">Написание сценариев</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#.D0.9E.D1.81.D0.BD.D0.BE.D0.B2.D0.BD.D1.8B.D0.B5_.D0.B2.D0.B7.D0.B0.D0.B8.D0.BC.D0.BE.D0.B4.D0.B5.D0.B9.D1.81.D1.82.D0.B2.D0.B8.D1.8F_.D1.81_.D1.80.D0.BE.D0.B1.D0.BE.D1.82.D0.BE.D0.BC"><span class="tocnumber">2.1</span> <span class="toctext">Основные взаимодействия с роботом</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.D0.A0.D0.B0.D0.B1.D0.BE.D1.82.D0.B0_.D1.81_.D0.BE.D0.B1.D1.8A.D0.B5.D0.BA.D1.82.D0.B0.D0.BC.D0.B8_.D0.B4.D0.BE.D0.BA.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D0.B0"><span class="tocnumber">2.2</span> <span class="toctext">Работа с объектами документа</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.D0.98.D0.BC.D0.B8.D1.82.D0.B0.D1.86.D0.B8.D1.8F"><span class="tocnumber">2.3</span> <span class="toctext">Имитация</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.D0.AD.D0.BA.D1.81.D0.BF.D0.BE.D1.80.D1.82_.D1.82.D1.80.D0.B0.D0.B5.D0.BA.D1.82.D0.BE.D1.80.D0.B8.D0.B8"><span class="tocnumber">2.4</span> <span class="toctext">Экспорт траектории</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#.D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8"><span class="tocnumber">3</span> <span class="toctext">Учебники</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".D0.98.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D1.8B">Инструменты</span></h2>
+<p>Основные команды которые можно использовать для настройки робота. 
+</p>
+<h3><span class="mw-headline" id=".D0.A0.D0.BE.D0.B1.D0.BE.D1.82.D1.8B">Роботы</span></h3>
+<p>Инструменты создания и управления 6-осевыми роботами.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateRobot.png" class="image"><img alt="Robot CreateRobot.png" src="30px-Robot_CreateRobot.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_CreateRobot.png/45px-Robot_CreateRobot.png 1.5x, /wiki/images/thumb/8/8e/Robot_CreateRobot.png/60px-Robot_CreateRobot.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateRobot/ru" title="Robot CreateRobot/ru">Создать робота</a>: Поместить нового робота на сцену</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Simulate.png" class="image"><img alt="Robot Simulate.png" src="30px-Robot_Simulate.png" width="30" height="30" srcset="/wiki/images/thumb/4/42/Robot_Simulate.png/45px-Robot_Simulate.png 1.5x, /wiki/images/thumb/4/42/Robot_Simulate.png/60px-Robot_Simulate.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Simulate/ru" title="Robot Simulate/ru">Имитировать траекторию</a>: Открыть диалог имитации позволяющий выполнить имитацию</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Export.png" class="image"><img alt="Robot Export.png" src="30px-Robot_Export.png" width="30" height="30" srcset="/wiki/images/thumb/8/8e/Robot_Export.png/45px-Robot_Export.png 1.5x, /wiki/images/thumb/8/8e/Robot_Export.png/60px-Robot_Export.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Export/ru" title="Robot Export/ru">Экспортировать траекторию</a>: Экспортировать в программный файл робота</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetHomePos.png" class="image"><img alt="Robot SetHomePos.png" src="30px-Robot_SetHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/3/3c/Robot_SetHomePos.png/45px-Robot_SetHomePos.png 1.5x, /wiki/images/thumb/3/3c/Robot_SetHomePos.png/60px-Robot_SetHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetHomePos/ru" title="Robot SetHomePos/ru">Установить стартовую позицию</a>: Установить стартовое положение робота</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_RestoreHomePos.png" class="image"><img alt="Robot RestoreHomePos.png" src="30px-Robot_RestoreHomePos.png" width="30" height="30" srcset="/wiki/images/thumb/9/95/Robot_RestoreHomePos.png/45px-Robot_RestoreHomePos.png 1.5x, /wiki/images/thumb/9/95/Robot_RestoreHomePos.png/60px-Robot_RestoreHomePos.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_RestoreHomePos/ru" title="Robot RestoreHomePos/ru">Восстановить на исходную</a>: Переместить робота в стартовое положение</li></ul>
+<h3><span class="mw-headline" id=".D0.A2.D1.80.D0.B0.D0.B5.D0.BA.D1.82.D0.BE.D1.80.D0.B8.D0.B8">Траектории</span></h3>
+<p>Инструменты для создания и управления траекториями. Траектории могут быть параметрические и непараметрические.
+</p>
+<h4><span class="mw-headline" id=".D0.BD.D0.B5_.D0.BF.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5">не параметрические</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_CreateTrajectory.png" class="image"><img alt="Robot CreateTrajectory.png" src="30px-Robot_CreateTrajectory.png" width="30" height="30" srcset="/wiki/images/thumb/9/90/Robot_CreateTrajectory.png/45px-Robot_CreateTrajectory.png 1.5x, /wiki/images/thumb/9/90/Robot_CreateTrajectory.png/60px-Robot_CreateTrajectory.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_CreateTrajectory/ru" title="Robot CreateTrajectory/ru">Создать траекторию</a>: Поместить на сцену новый объект-траекторию</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultOrientation.png" class="image"><img alt="Robot SetDefaultOrientation.png" src="30px-Robot_SetDefaultOrientation.png" width="30" height="30" srcset="/wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/45px-Robot_SetDefaultOrientation.png 1.5x, /wiki/images/thumb/e/e0/Robot_SetDefaultOrientation.png/60px-Robot_SetDefaultOrientation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultOrientation/ru" title="Robot SetDefaultOrientation/ru">Установить ориентацию по умолчанию</a>: Создать промежуточные точки-ориентации по умолчанию</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_SetDefaultValues.png" class="image"><img alt="Robot SetDefaultValues.png" src="30px-Robot_SetDefaultValues.png" width="30" height="30" srcset="/wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/45px-Robot_SetDefaultValues.png 1.5x, /wiki/images/thumb/f/fc/Robot_SetDefaultValues.png/60px-Robot_SetDefaultValues.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_SetDefaultValues/ru" title="Robot SetDefaultValues/ru">Установить значения по умолчанию</a>: Установить настройки по умолчанию для создания промежуточных точек</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypoint.png" class="image"><img alt="Robot InsertWaypoint.png" src="30px-Robot_InsertWaypoint.png" width="30" height="30" srcset="/wiki/images/thumb/7/74/Robot_InsertWaypoint.png/45px-Robot_InsertWaypoint.png 1.5x, /wiki/images/thumb/7/74/Robot_InsertWaypoint.png/60px-Robot_InsertWaypoint.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypoint/ru" title="Robot InsertWaypoint/ru">Вставить в траекторию</a>: Вставить в траекторию текущее положение робота</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_InsertWaypointPre.png" class="image"><img alt="Robot InsertWaypointPre.png" src="30px-Robot_InsertWaypointPre.png" width="30" height="30" srcset="/wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/45px-Robot_InsertWaypointPre.png 1.5x, /wiki/images/thumb/8/8f/Robot_InsertWaypointPre.png/60px-Robot_InsertWaypointPre.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_InsertWaypointPre/ru" title="Robot InsertWaypointPre/ru">Вставить в траекторию</a>: Вставить в траекторию точку текущего положения курсора мыши</li></ul>
+<h4><span class="mw-headline" id=".D0.BF.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B5">параметрические</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_Edge2Trac.png" class="image"><img alt="Robot Edge2Trac.png" src="30px-Robot_Edge2Trac.png" width="30" height="30" srcset="/wiki/images/thumb/a/a7/Robot_Edge2Trac.png/45px-Robot_Edge2Trac.png 1.5x, /wiki/images/thumb/a/a7/Robot_Edge2Trac.png/60px-Robot_Edge2Trac.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_Edge2Trac/ru" title="Robot Edge2Trac/ru">Край траектории</a>: Поместить новый объект, который раскладывается на ребра для траектории</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryDressUp.png" class="image"><img alt="Robot TrajectoryDressUp.png" src="30px-Robot_TrajectoryDressUp.png" width="30" height="30" srcset="/wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/45px-Robot_TrajectoryDressUp.png 1.5x, /wiki/images/thumb/2/28/Robot_TrajectoryDressUp.png/60px-Robot_TrajectoryDressUp.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryDressUp/ru" title="Robot TrajectoryDressUp/ru">Настройка траектории</a>: Изменить одно и более свойств траектории</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Robot_TrajectoryCompound.png" class="image"><img alt="Robot TrajectoryCompound.png" src="30px-Robot_TrajectoryCompound.png" width="30" height="30" srcset="/wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/45px-Robot_TrajectoryCompound.png 1.5x, /wiki/images/thumb/f/fb/Robot_TrajectoryCompound.png/60px-Robot_TrajectoryCompound.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_TrajectoryCompound/ru" title="Robot TrajectoryCompound/ru">Объединение траекторий</a>: Создать объединение из нескольких одиночных траекторий</li></ul>
+<h2><span class="mw-headline" id=".D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2">Написание сценариев</span></h2>
+<p>Этот раздел сформирован из: <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py">https://github.com/FreeCAD/FreeCAD_sf_master/blob/master/src/Mod/Robot/RobotExample.py</a> 
+Вы можете, если хотите, использовать этот файл напрямую
+</p><p>Пример того как использовать основной класс Robot6Axis который представлен 6-осевым промышленным роботом. Модуль Автоматики зависит от модуля Деталей(Part) но не от остальных модулей. Он работает с основными типами Положений, Векторов и Матрицами. Так что вам нудно только ввести:
+</p>
+<pre>from Robot import *
+from Part import *
+from FreeCAD import * </pre>
+<h3><span class="mw-headline" id=".D0.9E.D1.81.D0.BD.D0.BE.D0.B2.D0.BD.D1.8B.D0.B5_.D0.B2.D0.B7.D0.B0.D0.B8.D0.BC.D0.BE.D0.B4.D0.B5.D0.B9.D1.81.D1.82.D0.B2.D0.B8.D1.8F_.D1.81_.D1.80.D0.BE.D0.B1.D0.BE.D1.82.D0.BE.D0.BC">Основные взаимодействия с роботом</span></h3>
+<p>создаем робота. Если вы не укажете другого автоматически установиться Puma 560
+</p>
+<pre>rob = Robot6Axis()
+print rob </pre>
+<p>получение доступа к осям и Tcp (текущая точка траектории?). Оси бывают от 1 до 6 и значения в них указаны в градусах:
+</p>
+<pre>Start = rob.Tcp
+print Start
+print rob.Axis1 </pre>
+<p>повернуть первую ось робота:
+</p>
+<pre>rob.Axis1 = 5.0 </pre>
+<p>Текущее положение(Tcp) изменилось  следующая кинематика(forward kinematic)
+</p>
+<pre>print rob.Tcp </pre>
+<p>вернуть робота на стартовую позицию обратная кинематика(reverse kinematic):
+</p>
+<pre>rob.Tcp = Start
+print rob.Axis1 </pre>
+<p>сделаем тоже самое со второй остю:
+</p>
+<pre>rob.Axis2 = 5.0
+print rob.Tcp
+rob.Tcp = Start
+print rob.Axis2 </pre>
+<p>Точки траектории:
+</p>
+<pre>w = Waypoint(Placement(),name="Pt",type="LIN")
+print w.Name,w.Type,w.Pos,w.Cont,w.Velocity,w.Base,w.Tool </pre>
+<p>создадим ещё. траектория всегда автоматически находит уникальное имя для каждой своей точки
+</p>
+<pre>l = [w]
+for i in range(5):
+  l.append(Waypoint(Placement(Vector(0,0,i*100),Vector(1,0,0),0),"LIN","Pt")) </pre>
+<p>создадим траекторию  
+</p>
+<pre>t = Trajectory(l)
+print t
+for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,0,i*100+500),Vector(1,0,0),0),"LIN","Pt")) </pre>
+<p>посмотрим список всех точек траектории:
+</p>
+<pre>print t.Waypoints
+ 
+del rob,Start,t,l,w </pre>
+<h3><span class="mw-headline" id=".D0.A0.D0.B0.D0.B1.D0.BE.D1.82.D0.B0_.D1.81_.D0.BE.D0.B1.D1.8A.D0.B5.D0.BA.D1.82.D0.B0.D0.BC.D0.B8_.D0.B4.D0.BE.D0.BA.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D0.B0">Работа с объектами документа</span></h3>
+<p>Работа с объектами в документах роботов:
+сначала создадим робота в активном документе
+</p>
+<pre>if(App.activeDocument() == None):App.newDocument()
+ 
+App.activeDocument().addObject("Robot::RobotObject","Robot") </pre>
+<p>Зададим визуальное представление и кинематическую точность (подробнее см. <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/ru" title="Robot 6-Axis/ru">6-ти осевые роботы</a> и <a href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/ru" title="VRML Preparation for Robot Simulation/ru">Подготовка VRML для имитации робота</a>)
+</p>
+<pre>App.activeDocument().Robot.RobotVrmlFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.wrl"
+App.activeDocument().Robot.RobotKinematicFile = App.getResourceDir()+"Mod/Robot/Lib/Kuka/kr500_1.csv" </pre>
+<p>начальная позиция осей (только если отличается от 0)
+</p>
+<pre>App.activeDocument().Robot.Axis2 = -90
+App.activeDocument().Robot.Axis3 = 90 </pre>
+<p>получаем позицию Tcp 
+</p>
+<pre>pos = FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp </pre>
+<p>перемещаем робота
+</p>
+<pre>pos.move(App.Vector(-10,0,0))
+FreeCAD.getDocument("Unnamed").getObject("Robot").Tcp = pos </pre>
+<p>создаем "пустую" Траекторию в активном документе
+</p>
+<pre>App.activeDocument().addObject("Robot::TrajectoryObject","Trajectory") </pre>
+<p>просматриваем Траекторию
+</p>
+<pre>t = App.activeDocument().Trajectory.Trajectory </pre>
+<p>добавляем фактическое положение робота (TCP)  к траектории
+</p>
+<pre>StartTcp = App.activeDocument().Robot.Tcp
+t.insertWaypoints(StartTcp)
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory </pre>
+<p>добавляем больше точек к траектории и стартовую точку в конце траектории ещё раз:
+</p>
+<pre>for i in range(7):
+  t.insertWaypoints(Waypoint(Placement(Vector(0,1000,i*100+500),Vector(1,0,0),i),"LIN","Pt"))
+
+t.insertWaypoints(StartTcp) # end point of the trajectory
+App.activeDocument().Trajectory.Trajectory = t
+print App.activeDocument().Trajectory.Trajectory </pre>
+<h3><span class="mw-headline" id=".D0.98.D0.BC.D0.B8.D1.82.D0.B0.D1.86.D0.B8.D1.8F">Имитация</span></h3>
+<p>Будет сделано..... 
+</p>
+<h3><span class="mw-headline" id=".D0.AD.D0.BA.D1.81.D0.BF.D0.BE.D1.80.D1.82_.D1.82.D1.80.D0.B0.D0.B5.D0.BA.D1.82.D0.BE.D1.80.D0.B8.D0.B8">Экспорт траектории</span></h3>
+<p>Траектория экспортируется с помощью Python. Это означает что для каждого типа управляющей стойки (control cabinet) существует пост-процессорный Python модуль. Здесь подробно описан постпроцессор для Kuka
+</p>
+<pre>from KukaExporter import ExportCompactSub
+
+ExportCompactSub(App.activeDocument().Robot,App.activeDocument().Trajectory,'D:/Temp/TestOut.src') </pre>
+<p>это делается примерно так:
+</p>
+<pre>for w in App.activeDocument().Trajectory.Trajectory.Waypoints:
+(A,B,C) = (w.Pos.Rotation.toEuler())
+print ("LIN {X&#160;%.3f,Y&#160;%.3f,Z&#160;%.3f,A&#160;%.3f,B&#160;%.3f,C&#160;%.3f}&#160;;&#160;%s"%(w.Pos.Base.x,w.Pos.Base.y,w.Pos.Base.z,A,B,C,w.Name)) </pre>
+<h2><span class="mw-headline" id=".D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8">Учебники</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/ru" title="Robot 6-Axis/ru">6-ти осевой робот</a> </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/ru" title="VRML Preparation for Robot Simulation/ru">Подготовка VRML для имитации робота</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/ru&amp;oldid=290084">http://www.freecadweb.org/wiki/index.php?title=Robot_Workbench/ru&amp;oldid=290084</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

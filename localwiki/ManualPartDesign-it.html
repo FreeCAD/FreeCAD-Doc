@@ -1,0 +1,1448 @@
+<html><head><title>ManualPartDesign/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>ManualPartDesign/it</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><h1 align="center"><span class="mw-headline" id="Guida_ai_comandi_di_FreeCAD">Guida ai comandi di FreeCAD</span></h1>
+<p>Questo è la guida ai comandi di FreeCAD. Comprende le pagine del <a href="https://www.freecadweb.org/wiki/index.php?title=Main_Page/it" title="Main Page/it">Wiki della documentazione di FreeCAD</a> che si riferiscono ai comandi.
+Questa versione è stata creata  principalmente per essere stampata come un unico grande documento o per consentire una panoramica veloce sulle pagine dei comandi.
+Se si sta leggendo questo online, si consiglia di andare direttamente alla <a href="https://www.freecadweb.org/wiki/index.php?title=Online_Help_Toc/it" title="Online Help Toc/it">Guida in linea</a>, che è più facile da esplorare.
+</p>
+<ul><li> Parte prima: <a href="/wiki/ManualDrawing/it#PartDesign_Workbench.2F.2Fit" title="ManualDrawing/it">Ambiente Part Design</a></li>
+<li> Parte seconda: <a href="/wiki/ManualPartDesign/it#Ambiente_PartDesign:_Strumenti_di_costruzione" title="ManualPartDesign/it">Ambiente PartDesign: Strumenti di costruzione</a></li>
+<li> Parte terza: <a href="/wiki/ManualPartDesign/it#Ambiente_PartDesign:_Strumenti_di_modifica" title="ManualPartDesign/it">Ambiente PartDesign: Strumenti di modifica</a></li>
+<li> Parte quarta: <a href="/wiki/ManualPartDesign/it#Ambiente_PartDesign:_Strumenti_di_trasformazione" title="ManualPartDesign/it">Ambiente PartDesign: Strumenti di trasformazione</a></li>
+<li> Parte quinta: <a href="/wiki/ManualPartDesign/it#Ambiente_PartDesign:_Altri_strumenti_e_strumenti_non_documentati" title="ManualPartDesign/it">Altri strumenti e strumenti non documentati</a></li></ul>
+<p><br />
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Con il <a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.17/it" title="Release notes 0.17/it">rilascio</a> della <b> versione 0.17 di FreeCAD</b>, l'ambiente PartDesign beneficia di importanti cambiamenti. Questa documentazione riflette questa nuova versione. Gli utenti di <b>FreeCAD 0.16</b>, possono fare riferimento alla pagina <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Legacy/it" title="PartDesign Legacy/it">PartDesign Vecchia versione</a>.</div>
+<p><br />
+Part Design è l'ambiente per la costruzione di oggetti Parte basati su disegni 2D che mette a disposizione gli strumenti per modellare parti solide complesse e si basa sulla <a href="#Metodologia_delle_funzioni_editabili">metodologia delle funzioni editabili</a>. Questo ambiente è strettamente connesso con l'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/it" title="Sketcher Workbench/it">Sketcher</a> che è l'ambiente per gli schizzi di base.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Example.png" class="image"><img alt="PartDesign Example.png" src="400px-PartDesign_Example.png" width="400" height="331" srcset="/wiki/images/thumb/c/c5/PartDesign_Example.png/600px-PartDesign_Example.png 1.5x, /wiki/images/c/c5/PartDesign_Example.png 2x" /></a></div>
+<h3><span class="mw-headline" id="Concetti_di_base">Concetti di base</span></h3>
+<h3><span class="mw-headline" id="Metodologia_delle_funzioni_editabili">Metodologia delle funzioni editabili</span></h3>
+<p>Mentre l'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Workbench/it" class="mw-redirect" title="Part Workbench/it">Part</a> e altri ambienti di FreeCAD costruiscono i modelli combinando insieme delle forme, l'ambiente PartDesign usa le funzioni  (<b>features</b>). Una <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Feature_recognition">feature</a> è un'operazione che modifica la forma di un modello.
+</p><p>La prima funzione è chiamata comunemente <b>funzione di base</b>. Quando si aggiungono ulteriori funzioni al modello, ogni funzione prende la forma precedente e vi aggiunge o rimuove del materiale, creando delle dipendenze lineari tra una funzione e quella successiva. In effetti, questa metodologia simula un comune processo di produzione: un blocco viene tagliato su un lato, quindi su un altro lato, vengono aggiunti dei fori, poi dei raccordi, ecc.
+</p><p>Tutte le funzioni sono elencate in sequenza nell'albero del modello e possono essere modificate in qualsiasi momento. L'ultima funzione che è situata nella parte inferiore rappresenta la parte finale.
+</p><p>Le funzioni possono essere ordinate in diverse categorie:
+</p>
+<ul><li> <b>Basata su profili</b>: queste funzioni partono da un profilo per definire la forma dell materiale da aggiungere o rimuovere. Il profilo può essere costituito da uno schizzo, una faccia planare sulla geometria esistente (il profilo viene estratto dai suoi bordi), un oggetto ShapeBinder o un oggetto Draft che è stato incluso nel corpo attivo.</li></ul>
+<ul><li> <b>Additiva</b>: aggiunge del materiale al modello esistente. Le funzioni additive mostrano delle icone gialle.</li></ul>
+<ul><li> <b>Sottrattiva</b>: rimuove la materia dal modello esistente. Le funzioni sottrattive mostrano delle icone rosse e blu.</li></ul>
+<ul><li> <b>Basata su primitive</b>: basata su primitive geometriche (cubo, cilindro, cono, toro ...). Possono essere additive o sottrattive.</li></ul>
+<ul><li> <b>Funzioni di trasformazione</b>: applicano una trasformazione a delle funzioni esistenti (riflessione, schiera lineare, schiera polare, multitrasformazione).</li></ul>
+<ul><li> <b>Vestizione</b>: (Dress-up) funzioni che applicano un trattamento ai bordi o alle facce, come raccordo, arrotondamento, smusso e sformo.</li></ul>
+<ul><li> <b>Procedurale</b>: si può dire delle caratteristiche che non sono basate su schizzi, come le funzioni di trasformazione e di vestizione.</li></ul>
+<h3><span class="mw-headline" id="Corpo">Corpo</span></h3>
+<p>Un Corpo di PartDesign contiene una serie di schizzi, riferimenti (datum) e caratteristiche (feature) di PartDesign che formano un singolo solido contiguo.
+</p><p>Un unico solido contiguo è un elemento simile a una fusione od a qualcosa di ricavato da un unico blocco di metallo. Se l'elemento coinvolge chiodi, viti, colla o saldature, non è un unico solido contiguo. Come esempio pratico, PartDesign non dovrebbe essere utilizzato per modellare una sedia di legno, ma può essere utilizzato per modellare i suoi sotto-componenti (gambe, doghe, sedile, ecc).
+</p><p>In un documento di FreeCAD possono essere creati più corpi che possono poi anche essere combinati per formare un singolo solido contiguo.
+</p><p>Quando un modello richiede più corpi, come il precedente esempio della sedia di legno, si può usare il <a href="https://www.freecadweb.org/wiki/index.php?title=Std_Part/it" title="Std Part/it">Contenitore Part</a> per raggrupparli e spostare il tutto in una unica unità.
+</p>
+<h4><span class="mw-headline" id="Gestione_della_visibilit.C3.A0_del_corpo">Gestione della visibilità del corpo</span></h4>
+<p>Per impostazione predefinita, un corpo mostra solo la sua funzione più recente, cioè l'ultima operazione eseguita. Di defualt, questa funzione è definita tip (cima o punta). Una buona analogia è l'espressione "la punta dell'iceberg": sopra l'acqua è visibile  solo la punta, la maggior parte della massa dell'iceberg (le altre funzioni) è nascosta. Quando viene aggiunta una nuova funzione al corpo, la visibilità della funzione precedente viene disattivata e la nuova funzione diventa la punta del corpo.
+</p><p>Può essere visibile una sola funzione alla volta. È possibile attivare la visibilità di qualsiasi funzione nel corpo, selezionandola nell'albero del modello e premendo la barra spaziatrice, tornando praticamente indietro nella cronologia del corpo.
+</p>
+<h4><span class="mw-headline" id="Origine_del_Corpo">Origine del Corpo</span></h4>
+<p>Il corpo ha un'origine composta dai piani di riferimento (XY, XZ, YZ) e dagli assi (X, Y, Z) che possono essere utilizzati dagli schizzi e dalle funzioni. Gli schizzi possono essere collegati ai piani Origine e non è più necessario associarli a facce planari per le funzioni basate su di essi che si vuole aggiungere o sottrarre dal modello.
+</p>
+<h4><span class="mw-headline" id="Spostare_e_riordinare_gli_oggetti">Spostare e riordinare gli oggetti</span></h4>
+<p>È possibile ridefinire temporaneamente la punta su una funzione intermedia dell'albero del corpo per inserire nuovi oggetti (funzioni, schizzi o geometrie di riferimento). È anche possibile riordinare le funzioni all'interno di un corpo o spostarle in un corpo diverso. Selezionare l'oggetto e fare clic con il tasto destro del mouse per ottenere un menu contestuale che offre entrambe le opzioni. L'operazione può essere impedita se l'oggetto ha dipendenze nel corpo di origine, come essere collegato a una faccia. Per spostare uno schizzo su un altro corpo, esso non dovrebbe contenere dei collegamenti a geometrie esterne.
+</p>
+<h3><span class="mw-headline" id="Geometrie_di_riferimento">Geometrie di riferimento</span></h3>
+<p>Le geometrie di riferimento consistono in piani, linee, punti o forme esterne collegate. Possono essere create per essere utilizzati come riferimento da schizzi e funzioni. C'è una moltitudine di possibilità di associare i riferimenti.
+</p>
+<h3><span class="mw-headline" id="Riferimenti_incrociati">Riferimenti incrociati</span></h3>
+<p>È possibile fare riferimento a elementi da un corpo all'altro attraverso le geometrie di riferimento. Ad esempio, il riferimento lega-forme può copiare come riferimento le facce di un corpo in un altro corpo. Questo dovrebbe rendere più facile modellare una scatola e il suo coperchio in due corpi separati. FreeCAD offre un aiuto per evitare collegamenti accidentali ad altri corpi e chiede informazioni sulle proprie intenzioni.
+</p>
+<h3><span class="mw-headline" id="Associazione">Associazione</span></h3>
+<p>L'oggetto Associazione non è uno strumento specifico di PartDesign, ma piuttosto un'utilità di Part introdotta in v0.17 che si può trovare nel menu Part. È molto utilizzato nell'ambiente PartDesign per allegare schizzi e geometrie di riferimento ai piani e agli assi standard del corpo. Sono disponibili dei modi molto completi per creare punti di riferimento, linee e piani. I parametri opzionali di offset delle associazioni rendono questo strumento molto versatile.
+</p><p>Per maggiori informazioni si può consultare la pagina <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Attachment/it" title="Part Attachment/it">Associazioni</a>.
+</p>
+<h3><span class="mw-headline" id="Consigli_per_creare_dei_modelli_stabili">Consigli per creare dei modelli stabili</span></h3>
+<p>L'idea della modellazione parametrica implica che è possibile modificare i valori di alcuni parametri e che i passaggi successivi vengono modificati in base ai nuovi valori. Tuttavia, quando vengono apportate modifiche importanti, il modello può rovinarsi. Rispetto alle precedenti versioni di FreeCAD, il danno può essere ridotto al minimo rispettando i seguenti criteri di progettazione:
+</p>
+<ul><li> Fondamentalmente, è necessario interrompere la mappatura degli schizzi sulle facce: assolutamente! Posizionare gli schizzi su piani standard o su piani di riferimento personalizzati.</li>
+<li> Quando si crea della geometria di riferimento, non basarla sulla topologia della parte, ma basarla su piani e assi standard o su schizzi.</li>
+<li> Utilizzare uno "schizzo principale". Questo deve essere preferibilmente uno schizzo non troppo complicato che contiene gli elementi geometrici di base del modello. Questi elementi possono essere referenziati durante la modellazione di funzioni successive. Lo schizzo principale sovente è il primo schizzo presente nel corpo ma non è indispensabile che sia il primo; infatti non deve essere usato per nient'altro che per essere referenziato.</li>
+<li> Se inevitabilmente si deve fare riferimento a una funzione intermedia, ad es. al risultato di un'operazione di spessore, utilizzare il primo riferimento possibile nell'elenco delle funzioni successive in cui si verifica l'elemento geometrico di riferimento. Da FreeCAD 0.17 non è più necessario utilizzare la funzione più recente. Se si utilizza una funzione iniziale come riferimento, tutte le modifiche ai passaggi intermedi non interrompono il modello. E ancora una volta è meglio fare riferimento a uno schizzo piuttosto che ai bordi e ai vertici di un solido</li></ul>
+<h2><span class="mw-headline" id="Gli_strumenti">Gli strumenti</span></h2>
+<p>Gli strumenti di Part Design si trovano tutti nel menu <b>Part Design</b> e nella barra degli strumenti di PartDesign che appare quando si carica l'ambiente Part Design.
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Strumenti_struttura">Strumenti struttura</span></h4>
+<p>Questi sono strumenti per organizzare l'albero del modello.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_Part.png" class="image"><img alt="Std Part.png" src="32px-Std_Part.png" width="32" height="32" srcset="/wiki/images/thumb/1/19/Std_Part.png/48px-Std_Part.png 1.5x, /wiki/images/1/19/Std_Part.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Std_Part/it" title="Std Part/it">Parte</a>: aggiunge un nuovo contenitore di Parti nel documento attivo e lo rende attivo.</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Group.svg" class="image"><img alt="Group.svg" src="Group.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Std_Group/it" title="Std Group/it">Gruppo</a>: aggiunge un Gruppo nell'albero del modello del documento attivo.</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Strumenti_di_supporto_di_Part_Design">Strumenti di supporto di Part Design</span></h3>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Body.png" class="image"><img alt="PartDesign Body.png" src="32px-PartDesign_Body.png" width="32" height="32" srcset="/wiki/images/thumb/5/5e/PartDesign_Body.png/48px-PartDesign_Body.png 1.5x, /wiki/images/5/5e/PartDesign_Body.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Body/it" title="PartDesign Body/it">Crea corpo</a>: Crea un corpo nel documento attivo e lo rende attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_NewSketch.png" class="image"><img alt="PartDesign NewSketch.png" src="PartDesign_NewSketch.png" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_NewSketch/it&amp;action=edit&amp;redlink=1" class="new" title="PartDesign NewSketch/it (page does not exist)">Crea schizzo</a>: Crea un nuovo schizzo su una faccia o un piano selezionati. Se non viene selezionata alcuna faccia mentre viene eseguito questo strumento, all'utente viene richiesto di selezionare un piano dal pannello Azioni. L'interfaccia passa quindi all'ambiente <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/it" title="Sketcher Workbench/it">Sketcher</a> nella modalità di modifica dello schizzo.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_EditSketch.png" class="image"><img alt="Sketcher EditSketch.png" src="32px-Sketcher_EditSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/4c/Sketcher_EditSketch.png/48px-Sketcher_EditSketch.png 1.5x, /wiki/images/4/4c/Sketcher_EditSketch.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_EditSketch/it" title="Sketcher EditSketch/it">Modifica schizzo</a>: Modifica lo schizzo selezionato.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_MapSketch.png" class="image"><img alt="Sketcher MapSketch.png" src="32px-Sketcher_MapSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/45/Sketcher_MapSketch.png/48px-Sketcher_MapSketch.png 1.5x, /wiki/images/4/45/Sketcher_MapSketch.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_MapSketch/it" title="Sketcher MapSketch/it">Mappa schizzo su faccia</a>: Mappa uno schizzo su un piano precedentemente selezionato o su una faccia del corpo attivo.</li></ul>
+<h3><span class="mw-headline" id="Strumenti_di_modellazione_di_Part_Design">Strumenti di modellazione di Part Design</span></h3>
+<h4><span class="mw-headline" id="Strumenti_di_riferimento">Strumenti di riferimento</span></h4>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Point.png" class="image"><img alt="PartDesign Point.png" src="32px-PartDesign_Point.png" width="32" height="32" srcset="/wiki/images/thumb/8/80/PartDesign_Point.png/48px-PartDesign_Point.png 1.5x, /wiki/images/8/80/PartDesign_Point.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Point/it" title="PartDesign Point/it">Crea un punto di riferimento</a>: crea un punto di riferimento nel corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Line.png" class="image"><img alt="PartDesign Line.png" src="32px-PartDesign_Line.png" width="32" height="32" srcset="/wiki/images/thumb/c/c8/PartDesign_Line.png/48px-PartDesign_Line.png 1.5x, /wiki/images/c/c8/PartDesign_Line.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Line/it" title="PartDesign Line/it">Crea una linea di riferimento</a>: crea una linea di riferimento nel corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Plane.png" class="image"><img alt="PartDesign Plane.png" src="32px-PartDesign_Plane.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/PartDesign_Plane.png/48px-PartDesign_Plane.png 1.5x, /wiki/images/4/4a/PartDesign_Plane.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Plane/it" title="PartDesign Plane/it">Crea un piano di riferimento</a>: crea un piano di riferimento nel corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_ShapeBinder.png" class="image"><img alt="PartDesign ShapeBinder.png" src="32px-PartDesign_ShapeBinder.png" width="32" height="32" srcset="/wiki/images/thumb/f/f2/PartDesign_ShapeBinder.png/48px-PartDesign_ShapeBinder.png 1.5x, /wiki/images/f/f2/PartDesign_ShapeBinder.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_ShapeBinder/it" title="PartDesign ShapeBinder/it">Lega-forme</a>: crea un raccoglitore di forme nel corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Clone.png" class="image"><img alt="PartDesign Clone.png" src="32px-PartDesign_Clone.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/PartDesign_Clone.png/48px-PartDesign_Clone.png 1.5x, /wiki/images/a/ab/PartDesign_Clone.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Clone/it" title="PartDesign Clone/it">Crea un clone</a>: crea un clone del corpo selezionato.</li></ul>
+<h4><span class="mw-headline" id="Strumenti_Additivi">Strumenti Additivi</span></h4>
+<p>Questi sono gli strumenti per creare funzioni di base o per aggiungere del materiale a un corpo solido esistente.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Pad/it" title="PartDesign Pad/it">Pad</a>: estrude un solido da uno schizzo selezionato.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution.png" class="image"><img alt="PartDesign Revolution.png" src="32px-PartDesign_Revolution.png" width="32" height="32" srcset="/wiki/images/thumb/6/6a/PartDesign_Revolution.png/48px-PartDesign_Revolution.png 1.5x, /wiki/images/6/6a/PartDesign_Revolution.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Revolution/it" title="PartDesign Revolution/it">Rivoluzione</a>: crea un solido ruotando uno schizzo attorno ad un asse. Lo schizzo deve avere un profilo chiuso.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveLoft.png" class="image"><img alt="PartDesign AdditiveLoft.png" src="32px-PartDesign_AdditiveLoft.png" width="32" height="33" srcset="/wiki/images/thumb/5/55/PartDesign_AdditiveLoft.png/48px-PartDesign_AdditiveLoft.png 1.5x, /wiki/images/5/55/PartDesign_AdditiveLoft.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveLoft/it" title="PartDesign AdditiveLoft/it">Loft additivo</a>: crea un solido eseguendo una transizione tra due o più schizzi.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditivePipe.png" class="image"><img alt="PartDesign AdditivePipe.png" src="32px-PartDesign_AdditivePipe.png" width="32" height="31" srcset="/wiki/images/thumb/5/52/PartDesign_AdditivePipe.png/48px-PartDesign_AdditivePipe.png 1.5x, /wiki/images/5/52/PartDesign_AdditivePipe.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditivePipe/it" title="PartDesign AdditivePipe/it">Sweep additivo</a>: crea un solido spostando uno o più schizzi lungo un percorso aperto o chiuso.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_CompPrimitiveAdditive/it" title="PartDesign CompPrimitiveAdditive/it">Crea una primitiva additiva</a>: aggiunge un primitiva additiva al corpo attivo.</li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveBox.png" class="image"><img alt="PartDesign AdditiveBox.png" src="32px-PartDesign_AdditiveBox.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/PartDesign_AdditiveBox.png/48px-PartDesign_AdditiveBox.png 1.5x, /wiki/images/d/dc/PartDesign_AdditiveBox.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveBox/it" title="PartDesign AdditiveBox/it">Cubo additivo</a>: crea un cubo additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveCone.png" class="image"><img alt="PartDesign AdditiveCone.png" src="32px-PartDesign_AdditiveCone.png" width="32" height="29" srcset="/wiki/images/thumb/c/cd/PartDesign_AdditiveCone.png/48px-PartDesign_AdditiveCone.png 1.5x, /wiki/images/c/cd/PartDesign_AdditiveCone.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveCone/it" title="PartDesign AdditiveCone/it">Cono additivo</a>: crea un cono additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveCylinder.png" class="image"><img alt="PartDesign AdditiveCylinder.png" src="32px-PartDesign_AdditiveCylinder.png" width="32" height="30" srcset="/wiki/images/thumb/8/80/PartDesign_AdditiveCylinder.png/48px-PartDesign_AdditiveCylinder.png 1.5x, /wiki/images/8/80/PartDesign_AdditiveCylinder.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveCylinder/it" title="PartDesign AdditiveCylinder/it">Cilindro additivo</a>: crea un cilindro additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveEllipsoid.png" class="image"><img alt="PartDesign AdditiveEllipsoid.png" src="32px-PartDesign_AdditiveEllipsoid.png" width="32" height="22" srcset="/wiki/images/thumb/e/eb/PartDesign_AdditiveEllipsoid.png/48px-PartDesign_AdditiveEllipsoid.png 1.5x, /wiki/images/e/eb/PartDesign_AdditiveEllipsoid.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveEllipsoid/it" title="PartDesign AdditiveEllipsoid/it">Ellissoide additivo</a>: crea un ellissoide additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditivePrism.png" class="image"><img alt="PartDesign AdditivePrism.png" src="32px-PartDesign_AdditivePrism.png" width="32" height="43" srcset="/wiki/images/7/74/PartDesign_AdditivePrism.png 1.5x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditivePrism/it" title="PartDesign AdditivePrism/it">Prisma additivo</a>: crea un prisma additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveSphere.png" class="image"><img alt="PartDesign AdditiveSphere.png" src="32px-PartDesign_AdditiveSphere.png" width="32" height="27" srcset="/wiki/images/thumb/8/86/PartDesign_AdditiveSphere.png/48px-PartDesign_AdditiveSphere.png 1.5x, /wiki/images/8/86/PartDesign_AdditiveSphere.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveSphere/it" title="PartDesign AdditiveSphere/it">Sfera additiva</a>: crea una sfera additiva.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveTorus.png" class="image"><img alt="PartDesign AdditiveTorus.png" src="32px-PartDesign_AdditiveTorus.png" width="32" height="28" srcset="/wiki/images/thumb/c/c1/PartDesign_AdditiveTorus.png/48px-PartDesign_AdditiveTorus.png 1.5x, /wiki/images/c/c1/PartDesign_AdditiveTorus.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveTorus/it" title="PartDesign AdditiveTorus/it">Toro additivo</a>: crea un toro additivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_AdditiveWedge.png" class="image"><img alt="PartDesign AdditiveWedge.png" src="32px-PartDesign_AdditiveWedge.png" width="32" height="31" srcset="/wiki/images/thumb/3/3c/PartDesign_AdditiveWedge.png/48px-PartDesign_AdditiveWedge.png 1.5x, /wiki/images/3/3c/PartDesign_AdditiveWedge.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_AdditiveWedge/it" title="PartDesign AdditiveWedge/it">Cuneo additivo</a>: crea un cuneo additivo.</li></ul></li></ul>
+<h4><span class="mw-headline" id="Strumenti_sottrattivi">Strumenti sottrattivi</span></h4>
+<p>Questi sono gli strumenti per sottrarre del materiale da un corpo esistente.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Pocket/it" title="PartDesign Pocket/it">Tasca</a>: crea una tasca da uno schizzo selezionato.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Hole.png" class="image"><img alt="PartDesign Hole.png" src="32px-PartDesign_Hole.png" width="32" height="32" srcset="/wiki/images/thumb/f/f8/PartDesign_Hole.png/48px-PartDesign_Hole.png 1.5x, /wiki/images/f/f8/PartDesign_Hole.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Hole/it" title="PartDesign Hole/it">Foro</a>: crea una funzione foro da uno schizzo selezionato. Lo schizzo deve contenere uno o più cerchi.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Groove.png" class="image"><img alt="PartDesign Groove.png" src="32px-PartDesign_Groove.png" width="32" height="32" srcset="/wiki/images/thumb/8/8d/PartDesign_Groove.png/48px-PartDesign_Groove.png 1.5x, /wiki/images/8/8d/PartDesign_Groove.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Groove/it" title="PartDesign Groove/it">Gola</a>: crea un solco ruotando uno schizzo attorno ad un asse.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveLoft.png" class="image"><img alt="PartDesign SubtractiveLoft.png" src="PartDesign_SubtractiveLoft.png" width="32" height="31" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveLoft/it" title="PartDesign SubtractiveLoft/it">Loft sottattivo</a>: crea una forma solida effettuando una transizione tra due o più schizzi e la sottrae dal corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractivePipe.png" class="image"><img alt="PartDesign SubtractivePipe.png" src="PartDesign_SubtractivePipe.png" width="32" height="30" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractivePipe/it" title="PartDesign SubtractivePipe/it">Sweep sottrattivo</a>:  crea una forma solida spostando uno o più schizzi lungo un percorso aperto o chiuso e la sottrae dal corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_CompPrimitiveSubtractive/it" title="PartDesign CompPrimitiveSubtractive/it">Crea una primitiva sottrattiva</a>: aggiunge una primitiva sottrattiva al corpo attivo.</li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveBox.png" class="image"><img alt="PartDesign SubtractiveBox.png" src="PartDesign_SubtractiveBox.png" width="32" height="28" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveBox/it" title="PartDesign SubtractiveBox/it">Cubo sottrattivo</a>: aggiunge un cubo sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveCone.png" class="image"><img alt="PartDesign SubtractiveCone.png" src="PartDesign_SubtractiveCone.png" width="32" height="29" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveCone/it" title="PartDesign SubtractiveCone/it">Cono sottrattivo</a>: aggiunge un cono sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveCylinder.png" class="image"><img alt="PartDesign SubtractiveCylinder.png" src="PartDesign_SubtractiveCylinder.png" width="32" height="30" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveCylinder/it" title="PartDesign SubtractiveCylinder/it">Cilindro sottattivo</a>: aggiunge un cilindro sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveEllipsoid.png" class="image"><img alt="PartDesign SubtractiveEllipsoid.png" src="PartDesign_SubtractiveEllipsoid.png" width="32" height="22" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveEllipsoid/it" title="PartDesign SubtractiveEllipsoid/it">Ellissoide sottrattivo</a>: aggiunge un ellissoide sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractivePrism.png" class="image"><img alt="PartDesign SubtractivePrism.png" src="PartDesign_SubtractivePrism.png" width="32" height="42" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractivePrism/it" title="PartDesign SubtractivePrism/it">Prisma sottattivo</a>: aggiunge un prisma sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveSphere.png" class="image"><img alt="PartDesign SubtractiveSphere.png" src="PartDesign_SubtractiveSphere.png" width="32" height="27" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveSphere/it" title="PartDesign SubtractiveSphere/it">Sfera sottattiva</a>: aggiunge una sfera sottrattiva al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveTorus.png" class="image"><img alt="PartDesign SubtractiveTorus.png" src="PartDesign_SubtractiveTorus.png" width="32" height="28" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveTorus/it" title="PartDesign SubtractiveTorus/it">Toro sottrattivo</a>: aggiunge un toro sottrattivo al corpo attivo.</li></ul></li></ul>
+<ul><li><ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_SubtractiveWedge.png" class="image"><img alt="PartDesign SubtractiveWedge.png" src="PartDesign_SubtractiveWedge.png" width="32" height="32" /></a> ‎<a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_SubtractiveWedge/it" title="PartDesign SubtractiveWedge/it">Cuneo sottrattivo</a>: aggiunge un cuneo sottrattivo al corpo attivo.</li></ul></li></ul>
+<h4><span class="mw-headline" id="Strumenti_di_trasformazione">Strumenti di trasformazione</span></h4>
+<p>Questi sono gli strumenti per trasformare le funzioni esistenti. Permetteranno di scegliere quali funzioni trasformare.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="32px-PartDesign_Mirrored.png" width="32" height="32" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 1.5x, /wiki/images/5/55/PartDesign_Mirrored.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Mirrored/it" title="PartDesign Mirrored/it">Specchiato</a>: rispecchia una o più funzioni su un piano o una faccia.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_LinearPattern.png" class="image"><img alt="PartDesign LinearPattern.png" src="32px-PartDesign_LinearPattern.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/PartDesign_LinearPattern.png/48px-PartDesign_LinearPattern.png 1.5x, /wiki/images/9/98/PartDesign_LinearPattern.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it">Serie lineare</a>: crea una schiera lineare basata su una o più funzioni.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_PolarPattern.png" class="image"><img alt="PartDesign PolarPattern.png" src="32px-PartDesign_PolarPattern.png" width="32" height="32" srcset="/wiki/images/thumb/8/8f/PartDesign_PolarPattern.png/48px-PartDesign_PolarPattern.png 1.5x, /wiki/images/8/8f/PartDesign_PolarPattern.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_PolarPattern/it" title="PartDesign PolarPattern/it">Serie polare</a>: crea una schiera polare di una o più funzioni.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_MultiTransform.png" class="image"><img alt="PartDesign MultiTransform.png" src="32px-PartDesign_MultiTransform.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/PartDesign_MultiTransform.png/48px-PartDesign_MultiTransform.png 1.5x, /wiki/images/4/46/PartDesign_MultiTransform.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MultiTransform/it" title="PartDesign MultiTransform/it">Multitrasformazione</a>: crea una schiera con qualsiasi combinazione delle altre trasformazioni.</li></ul>
+<h4><span class="mw-headline" id="Strumenti_di_vestizione">Strumenti di vestizione</span></h4>
+<p>Questi strumenti applicano un trattamento ai bordi o alle facce selezionate.
+</p>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet.png" class="image"><img alt="PartDesign Fillet.png" src="32px-PartDesign_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/PartDesign_Fillet.png/48px-PartDesign_Fillet.png 1.5x, /wiki/images/c/c7/PartDesign_Fillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Fillet/it" title="PartDesign Fillet/it">Raccordo</a>: raccorda (arrotonda) i bordi del corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer.png" class="image"><img alt="PartDesign Chamfer.png" src="32px-PartDesign_Chamfer.png" width="32" height="32" srcset="/wiki/images/thumb/a/a7/PartDesign_Chamfer.png/48px-PartDesign_Chamfer.png 1.5x, /wiki/images/a/a7/PartDesign_Chamfer.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Chamfer/it" title="PartDesign Chamfer/it">Smusso</a>: smussa i bordi del corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft.png" class="image"><img alt="PartDesign Draft.png" src="32px-PartDesign_Draft.png" width="32" height="32" srcset="/wiki/images/thumb/8/87/PartDesign_Draft.png/48px-PartDesign_Draft.png 1.5x, /wiki/images/8/87/PartDesign_Draft.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Draft/it" title="PartDesign Draft/it">Sformo</a>: applica uno sformo angolare alle facce del corpo attivo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Thickness.png" class="image"><img alt="PartDesign Thickness.png" src="32px-PartDesign_Thickness.png" width="32" height="32" srcset="/wiki/images/thumb/b/bd/PartDesign_Thickness.png/48px-PartDesign_Thickness.png 1.5x, /wiki/images/b/bd/PartDesign_Thickness.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Thickness/it" title="PartDesign Thickness/it">Spessore</a>: crea un guscio di dato spessore dal corpo attivo e apre le facce selezionate.</li></ul>
+<h4><span class="mw-headline" id="Booleane">Booleane</span></h4>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Boolean.png" class="image"><img alt="PartDesign Boolean.png" src="32px-PartDesign_Boolean.png" width="32" height="32" srcset="/wiki/images/thumb/d/d2/PartDesign_Boolean.png/48px-PartDesign_Boolean.png 1.5x, /wiki/images/d/d2/PartDesign_Boolean.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Boolean/it" title="PartDesign Boolean/it">Operazione booleana</a>: importa uno o più Corpi o Cloni PartDesign nel corpo attivo e applica un'operazione booleana.</li></ul>
+<h4><span class="mw-headline" id="Extra">Extra</span></h4>
+<p>Alcune funzionalità aggiuntive che si trovano nel menu di Part Design:
+</p>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Migrate/it" title="PartDesign Migrate/it">Migra</a>: migra nella versione 0.17 i file creati con versioni precedenti di FreeCAD. Se il file è basato su funzioni PartDesign, la migrazione dovrebbe riuscire. Se il file contiene oggetti Part, PartDesign e Draft misti, molto probabilmente la conversione fallisce.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_WizardShaft.png" class="image"><img alt="PartDesign WizardShaft.png" src="32px-PartDesign_WizardShaft.png" width="32" height="32" srcset="/wiki/images/thumb/2/2b/PartDesign_WizardShaft.png/48px-PartDesign_WizardShaft.png 1.5x, /wiki/images/2/2b/PartDesign_WizardShaft.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_WizardShaft/it" title="PartDesign WizardShaft/it">Shaft design wizard</a>: Genera un albero da una tabella di valori e consente di analizzare forze e momenti. L'albero è realizzato con uno schizzo ruotato che può essere modificato.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_InternalExternalGear.png" class="image"><img alt="PartDesign InternalExternalGear.png" src="32px-PartDesign_InternalExternalGear.png" width="32" height="32" srcset="/wiki/images/thumb/b/b0/PartDesign_InternalExternalGear.png/48px-PartDesign_InternalExternalGear.png 1.5x, /wiki/images/b/b0/PartDesign_InternalExternalGear.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_InvoluteGear/it" title="PartDesign InvoluteGear/it">Involute gear</a>: crea un profilo di ingranaggio evolvente che può essere utilizzato da un pad.</li></ul>
+<h3><span class="mw-headline" id="Strumenti_del_menu_contestuale">Strumenti del menu contestuale</span></h3>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_MoveTip.png" class="image"><img alt="PartDesign MoveTip.png" src="32px-PartDesign_MoveTip.png" width="32" height="32" srcset="/wiki/images/thumb/4/4c/PartDesign_MoveTip.png/48px-PartDesign_MoveTip.png 1.5x, /wiki/images/4/4c/PartDesign_MoveTip.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MoveTip/it" title="PartDesign MoveTip/it">Usa come ultima funzione</a>: (metti in cima) ridefinisce la punta, che è la caratteristica del corpo esposta all'esterno.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MoveFeature/it" title="PartDesign MoveFeature/it">Sposta in altro corpo</a>: sposta lo schizzo selezionato, la geometria di riferimento o la funzione in un altro corpo.</li></ul>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MoveFeatureInTree/it" title="PartDesign MoveFeatureInTree/it">Sposta l'oggetto dopo altro oggetto</a>: consente il riordino dell'albero del corpo spostando lo schizzo selezionato, la geometria di riferimento o la funzione in un'altra posizione nell'elenco delle funzioni.</li></ul>
+<h3><span class="mw-headline" id="Preferenze">Preferenze</span></h3>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Std_DlgParameter.png" class="image"><img alt="Std DlgParameter.png" src="32px-Std_DlgParameter.png" width="32" height="32" srcset="/wiki/images/thumb/6/6d/Std_DlgParameter.png/48px-Std_DlgParameter.png 1.5x, /wiki/images/6/6d/Std_DlgParameter.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Preferences/it" title="PartDesign Preferences/it">Preferenze...</a>: Preferenze disponibili negli strumenti PartDesign.</li></ul>
+<h2><span class="mw-headline" id="Tutorial">Tutorial</span></h2>
+<div class="mw-translate-fuzzy">
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Bearingholder_Tutorial_I/it" title="PartDesign Bearingholder Tutorial I/it">PartDesign Bearingholder Tutorial I</a> (da aggiornare) </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Bearingholder_Tutorial_II/it" title="PartDesign Bearingholder Tutorial II/it">PartDesign Bearingholder Tutorial II</a> (da aggiornare)</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_tutorial/it" title="PartDesign tutorial/it">Tutorial di PartDesign</a> (da aggiornare)</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Basic_Part_Design_Tutorial/it" title="Basic Part Design Tutorial/it">Basi di Part Design</a> (da aggiornare)</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Creating_a_simple_part_with_PartDesign/it" title="Creating a simple part with PartDesign/it">Creare una parte semplice con PartDesign v0.17</a></li></ul>
+</div>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=20&amp;t=12373">What's new in PartDesign Next</a></li>
+<li> <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=9&amp;t=15269">Updated PartDesign workflow</a></li>
+<li> <a rel="nofollow" class="external text" href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=15432">FC v0.17dev: Part Design Next Usecases and Best practices</a></li>
+<li> <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Sandbox:Part_Design_Next">Sandbox:Part Design Next</a></li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2 align="center"><span class="mw-headline" id="Ambiente_PartDesign:_Strumenti_di_costruzione">Ambiente PartDesign: Strumenti di costruzione</span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Pad"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="32px-PartDesign_Pad.png" width="32" height="32" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 1.5x, /wiki/images/7/7e/PartDesign_Pad.png 2x" /></a> Pad</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Estrusione Pad
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Guida_ai_comandi_di_FreeCAD"><span class="tocnumber">1</span> <span class="toctext">Guida ai comandi di FreeCAD</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Concetti_di_base"><span class="tocnumber">1.1</span> <span class="toctext">Concetti di base</span></a></li>
+<li class="toclevel-2"><a href="#Metodologia_delle_funzioni_editabili"><span class="tocnumber">1.2</span> <span class="toctext">Metodologia delle funzioni editabili</span></a></li>
+<li class="toclevel-2"><a href="#Corpo"><span class="tocnumber">1.3</span> <span class="toctext">Corpo</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Gestione_della_visibilit.C3.A0_del_corpo"><span class="tocnumber">1.3.1</span> <span class="toctext">Gestione della visibilità del corpo</span></a></li>
+<li class="toclevel-3"><a href="#Origine_del_Corpo"><span class="tocnumber">1.3.2</span> <span class="toctext">Origine del Corpo</span></a></li>
+<li class="toclevel-3"><a href="#Spostare_e_riordinare_gli_oggetti"><span class="tocnumber">1.3.3</span> <span class="toctext">Spostare e riordinare gli oggetti</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Geometrie_di_riferimento"><span class="tocnumber">1.4</span> <span class="toctext">Geometrie di riferimento</span></a></li>
+<li class="toclevel-2"><a href="#Riferimenti_incrociati"><span class="tocnumber">1.5</span> <span class="toctext">Riferimenti incrociati</span></a></li>
+<li class="toclevel-2"><a href="#Associazione"><span class="tocnumber">1.6</span> <span class="toctext">Associazione</span></a></li>
+<li class="toclevel-2"><a href="#Consigli_per_creare_dei_modelli_stabili"><span class="tocnumber">1.7</span> <span class="toctext">Consigli per creare dei modelli stabili</span></a></li>
+<li class="toclevel-2"><a href="#Gli_strumenti"><span class="tocnumber">1.8</span> <span class="toctext">Gli strumenti</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Strumenti_struttura"><span class="tocnumber">1.8.1</span> <span class="toctext">Strumenti struttura</span></a></li>
+<li class="toclevel-3"><a href="#Strumenti_di_supporto_di_Part_Design"><span class="tocnumber">1.8.2</span> <span class="toctext">Strumenti di supporto di Part Design</span></a></li>
+<li class="toclevel-3"><a href="#Strumenti_di_modellazione_di_Part_Design"><span class="tocnumber">1.8.3</span> <span class="toctext">Strumenti di modellazione di Part Design</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Strumenti_di_riferimento"><span class="tocnumber">1.8.3.1</span> <span class="toctext">Strumenti di riferimento</span></a></li>
+<li class="toclevel-4"><a href="#Strumenti_Additivi"><span class="tocnumber">1.8.3.2</span> <span class="toctext">Strumenti Additivi</span></a></li>
+<li class="toclevel-4"><a href="#Strumenti_sottrattivi"><span class="tocnumber">1.8.3.3</span> <span class="toctext">Strumenti sottrattivi</span></a></li>
+<li class="toclevel-4"><a href="#Strumenti_di_trasformazione"><span class="tocnumber">1.8.3.4</span> <span class="toctext">Strumenti di trasformazione</span></a></li>
+<li class="toclevel-4"><a href="#Strumenti_di_vestizione"><span class="tocnumber">1.8.3.5</span> <span class="toctext">Strumenti di vestizione</span></a></li>
+<li class="toclevel-4"><a href="#Booleane"><span class="tocnumber">1.8.3.6</span> <span class="toctext">Booleane</span></a></li>
+<li class="toclevel-4"><a href="#Extra"><span class="tocnumber">1.8.3.7</span> <span class="toctext">Extra</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Strumenti_del_menu_contestuale"><span class="tocnumber">1.8.4</span> <span class="toctext">Strumenti del menu contestuale</span></a></li>
+<li class="toclevel-3"><a href="#Preferenze"><span class="tocnumber">1.8.5</span> <span class="toctext">Preferenze</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Tutorial"><span class="tocnumber">1.9</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-2"><a href="#Link"><span class="tocnumber">1.10</span> <span class="toctext">Link</span></a></li>
+<li class="toclevel-2"><a href="#Ambiente_PartDesign:_Strumenti_di_costruzione"><span class="tocnumber">1.11</span> <span class="toctext">Ambiente PartDesign: Strumenti di costruzione</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Pad"><span class="tocnumber">1.11.1</span> <span class="toctext">Pad</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Descrizione"><span class="tocnumber">1.12</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-2"><a href="#Utilizzo"><span class="tocnumber">1.13</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-2"><a href="#Opzioni"><span class="tocnumber">1.14</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Tipo"><span class="tocnumber">1.14.1</span> <span class="toctext">Tipo</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Quota"><span class="tocnumber">1.14.1.1</span> <span class="toctext">Quota</span></a></li>
+<li class="toclevel-4"><a href="#Due_dimensioni"><span class="tocnumber">1.14.1.2</span> <span class="toctext">Due dimensioni</span></a></li>
+<li class="toclevel-4"><a href="#Fino_all.27ultimo"><span class="tocnumber">1.14.1.3</span> <span class="toctext">Fino all'ultimo</span></a></li>
+<li class="toclevel-4"><a href="#Fino_al_primo"><span class="tocnumber">1.14.1.4</span> <span class="toctext">Fino al primo</span></a></li>
+<li class="toclevel-4"><a href="#Fino_alla_faccia"><span class="tocnumber">1.14.1.5</span> <span class="toctext">Fino alla faccia</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Lunghezza"><span class="tocnumber">1.14.2</span> <span class="toctext">Lunghezza</span></a></li>
+<li class="toclevel-3"><a href="#Simmetrico_al_piano"><span class="tocnumber">1.14.3</span> <span class="toctext">Simmetrico al piano</span></a></li>
+<li class="toclevel-3"><a href="#Invertito"><span class="tocnumber">1.14.4</span> <span class="toctext">Invertito</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Propriet.C3.A0"><span class="tocnumber">1.15</span> <span class="toctext">Proprietà</span></a></li>
+<li class="toclevel-2"><a href="#Limitazioni"><span class="tocnumber">1.16</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-2"><a href="#"><span class="tocnumber">1.17</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Tasca"><span class="tocnumber">1.17.1</span> <span class="toctext">Tasca</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Descrizione_2"><span class="tocnumber">1.18</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-2"><a href="#Utilizzo_2"><span class="tocnumber">1.19</span> <span class="toctext">Utilizzo</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Opzioni_2"><span class="tocnumber">1.19.1</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Quota_2"><span class="tocnumber">1.19.1.1</span> <span class="toctext">Quota</span></a></li>
+<li class="toclevel-4"><a href="#Fino_al_primo_2"><span class="tocnumber">1.19.1.2</span> <span class="toctext">Fino al primo</span></a></li>
+<li class="toclevel-4"><a href="#Attraverso_tutto"><span class="tocnumber">1.19.1.3</span> <span class="toctext">Attraverso tutto</span></a></li>
+<li class="toclevel-4"><a href="#Fino_alla_faccia_2"><span class="tocnumber">1.19.1.4</span> <span class="toctext">Fino alla faccia</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Due_dimensioni_2"><span class="tocnumber">1.19.2</span> <span class="toctext">Due dimensioni</span></a></li>
+<li class="toclevel-3"><a href="#Limitazioni_2"><span class="tocnumber">1.19.3</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-3"><a href="#Link_utili"><span class="tocnumber">1.19.4</span> <span class="toctext">Link utili</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#_2"><span class="tocnumber">1.20</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Rivoluzione"><span class="tocnumber">1.20.1</span> <span class="toctext">Rivoluzione</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Introduzione"><span class="tocnumber">1.21</span> <span class="toctext">Introduzione</span></a></li>
+<li class="toclevel-2"><a href="#Utilizzo_3"><span class="tocnumber">1.22</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-2"><a href="#Opzioni_in_Parametri_rivoluzione"><span class="tocnumber">1.23</span> <span class="toctext">Opzioni in Parametri rivoluzione</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Assi"><span class="tocnumber">1.23.1</span> <span class="toctext">Assi</span></a></li>
+<li class="toclevel-3"><a href="#Angolo"><span class="tocnumber">1.23.2</span> <span class="toctext">Angolo</span></a></li>
+<li class="toclevel-3"><a href="#Simmetrica_al_piano"><span class="tocnumber">1.23.3</span> <span class="toctext">Simmetrica al piano</span></a></li>
+<li class="toclevel-3"><a href="#Invertita"><span class="tocnumber">1.23.4</span> <span class="toctext">Invertita</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Propriet.C3.A0_2"><span class="tocnumber">1.24</span> <span class="toctext">Proprietà</span></a></li>
+<li class="toclevel-2"><a href="#Esempi"><span class="tocnumber">1.25</span> <span class="toctext">Esempi</span></a></li>
+<li class="toclevel-2"><a href="#Link_utili_2"><span class="tocnumber">1.26</span> <span class="toctext">Link utili</span></a></li>
+<li class="toclevel-2"><a href="#_3"><span class="tocnumber">1.27</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Scanalatura"><span class="tocnumber">1.27.1</span> <span class="toctext">Scanalatura</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Descrizione_3"><span class="tocnumber">1.28</span> <span class="toctext">Descrizione</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Utilizzo_4"><span class="tocnumber">1.28.1</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-3"><a href="#Opzioni_3"><span class="tocnumber">1.28.2</span> <span class="toctext">Opzioni</span></a></li>
+<li class="toclevel-3"><a href="#Assi_2"><span class="tocnumber">1.28.3</span> <span class="toctext">Assi</span></a></li>
+<li class="toclevel-3"><a href="#Angolo_2"><span class="tocnumber">1.28.4</span> <span class="toctext">Angolo</span></a></li>
+<li class="toclevel-3"><a href="#Simmetrico_al_piano_2"><span class="tocnumber">1.28.5</span> <span class="toctext">Simmetrico al piano</span></a></li>
+<li class="toclevel-3"><a href="#Invertito_2"><span class="tocnumber">1.28.6</span> <span class="toctext">Invertito</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Propriet.C3.A0_3"><span class="tocnumber">1.29</span> <span class="toctext">Proprietà</span></a></li>
+<li class="toclevel-2"><a href="#Ambiente_PartDesign:_Strumenti_di_modifica"><span class="tocnumber">1.30</span> <span class="toctext">Ambiente PartDesign: Strumenti di modifica</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Raccordo"><span class="tocnumber">1.30.1</span> <span class="toctext">Raccordo</span></a></li>
+<li class="toclevel-3"><a href="#Utilizzo_5"><span class="tocnumber">1.30.2</span> <span class="toctext">Utilizzo</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Raccordo_di_PartDesign_e_Raccordo_di_Part"><span class="tocnumber">1.30.2.1</span> <span class="toctext">Raccordo di PartDesign e Raccordo di Part</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Script"><span class="tocnumber">1.31</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-2"><a href="#_4"><span class="tocnumber">1.32</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Smusso"><span class="tocnumber">1.32.1</span> <span class="toctext">Smusso</span></a></li>
+<li class="toclevel-3"><a href="#Utilizzo_6"><span class="tocnumber">1.32.2</span> <span class="toctext">Utilizzo</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Lo_smusso_di_PartDesign_e_smusso_di_Parte"><span class="tocnumber">1.32.2.1</span> <span class="toctext">Lo smusso di PartDesign e smusso di Parte</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#_5"><span class="tocnumber">1.33</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Sformo"><span class="tocnumber">1.33.1</span> <span class="toctext">Sformo</span></a></li>
+<li class="toclevel-3"><a href="#Utilizzo_7"><span class="tocnumber">1.33.2</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-3"><a href="#Parametri_e_Opzioni"><span class="tocnumber">1.33.3</span> <span class="toctext">Parametri e Opzioni</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Aggiungi_faccia_.2F_Rimuovi_faccia"><span class="tocnumber">1.33.3.1</span> <span class="toctext">Aggiungi faccia / Rimuovi faccia</span></a></li>
+<li class="toclevel-4"><a href="#Angolo_di_sformo"><span class="tocnumber">1.33.3.2</span> <span class="toctext">Angolo di sformo</span></a></li>
+<li class="toclevel-4"><a href="#Piano_neutro"><span class="tocnumber">1.33.3.3</span> <span class="toctext">Piano neutro</span></a></li>
+<li class="toclevel-4"><a href="#Pull_Direction"><span class="tocnumber">1.33.3.4</span> <span class="toctext">Pull Direction</span></a></li>
+<li class="toclevel-4"><a href="#Reverse_Pull_Direction"><span class="tocnumber">1.33.3.5</span> <span class="toctext">Reverse Pull Direction</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Casi_particolari"><span class="tocnumber">1.33.4</span> <span class="toctext">Casi particolari</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Ambiente_PartDesign:_Strumenti_di_trasformazione"><span class="tocnumber">1.34</span> <span class="toctext">Ambiente PartDesign: Strumenti di trasformazione</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Simmetria"><span class="tocnumber">1.34.1</span> <span class="toctext">Simmetria</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Descrizione_4"><span class="tocnumber">1.35</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-2"><a href="#Utilizzo_8"><span class="tocnumber">1.36</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-2"><a href="#Opzioni_4"><span class="tocnumber">1.37</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Selezione_del_piano_di_riflessione"><span class="tocnumber">1.37.1</span> <span class="toctext">Selezione del piano di riflessione</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Asse_orizzontale_dello_sketch"><span class="tocnumber">1.37.1.1</span> <span class="toctext">Asse orizzontale dello sketch</span></a></li>
+<li class="toclevel-4"><a href="#Asse_verticale_dello_sketch"><span class="tocnumber">1.37.1.2</span> <span class="toctext">Asse verticale dello sketch</span></a></li>
+<li class="toclevel-4"><a href="#Seleziona_riferimento..."><span class="tocnumber">1.37.1.3</span> <span class="toctext">Seleziona riferimento...</span></a></li>
+<li class="toclevel-4"><a href="#Asse_creato_nello_Schizzo"><span class="tocnumber">1.37.1.4</span> <span class="toctext">Asse creato nello Schizzo</span></a></li>
+<li class="toclevel-4"><a href="#Piano_di_base_XY.2FXZ.2FYZ"><span class="tocnumber">1.37.1.5</span> <span class="toctext">Piano di base XY/XZ/YZ</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Anteprima"><span class="tocnumber">1.37.2</span> <span class="toctext">Anteprima</span></a></li>
+<li class="toclevel-3"><a href="#Limitazioni_3"><span class="tocnumber">1.37.3</span> <span class="toctext">Limitazioni</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#_6"><span class="tocnumber">1.38</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Schiera_lineare"><span class="tocnumber">1.38.1</span> <span class="toctext">Schiera lineare</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Descrizione_5"><span class="tocnumber">1.39</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-2"><a href="#Uso"><span class="tocnumber">1.40</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-2"><a href="#Opzioni_5"><span class="tocnumber">1.41</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Direzione"><span class="tocnumber">1.41.1</span> <span class="toctext">Direzione</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Asse_orizzontale_dello_schizzo"><span class="tocnumber">1.41.1.1</span> <span class="toctext">Asse orizzontale dello schizzo</span></a></li>
+<li class="toclevel-4"><a href="#Asse_verticale_dello_schizzo"><span class="tocnumber">1.41.1.2</span> <span class="toctext">Asse verticale dello schizzo</span></a></li>
+<li class="toclevel-4"><a href="#Asse_normale_allo_schizzo"><span class="tocnumber">1.41.1.3</span> <span class="toctext">Asse normale allo schizzo</span></a></li>
+<li class="toclevel-4"><a href="#Seleziona_riferimento..._2"><span class="tocnumber">1.41.1.4</span> <span class="toctext">Seleziona riferimento...</span></a></li>
+<li class="toclevel-4"><a href="#Asse_di_schizzo_personalizzato"><span class="tocnumber">1.41.1.5</span> <span class="toctext">Asse di schizzo personalizzato</span></a></li>
+<li class="toclevel-4"><a href="#Asse_Base_.28X.2FY.2FZ.29"><span class="tocnumber">1.41.1.6</span> <span class="toctext">Asse Base (X/Y/Z)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Limitazioni_4"><span class="tocnumber">1.41.2</span> <span class="toctext">Limitazioni</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#_7"><span class="tocnumber">1.42</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Schiera_polare"><span class="tocnumber">1.42.1</span> <span class="toctext">Schiera polare</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Introduzione_2"><span class="tocnumber">1.43</span> <span class="toctext">Introduzione</span></a></li>
+<li class="toclevel-2"><a href="#Opzioni_6"><span class="tocnumber">1.44</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Asse_normale_dello_schizzo"><span class="tocnumber">1.44.1</span> <span class="toctext">Asse normale dello schizzo</span></a></li>
+<li class="toclevel-3"><a href="#Selezionare_un_asse_di_riferimento"><span class="tocnumber">1.44.2</span> <span class="toctext">Selezionare un asse di riferimento</span></a></li>
+<li class="toclevel-3"><a href="#Angolo_e_numero_di_duplicati"><span class="tocnumber">1.44.3</span> <span class="toctext">Angolo e numero di duplicati</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Limitazioni_5"><span class="tocnumber">1.45</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-2"><a href="#Esempio"><span class="tocnumber">1.46</span> <span class="toctext">Esempio</span></a></li>
+<li class="toclevel-2"><a href="#_8"><span class="tocnumber">1.47</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#Scala"><span class="tocnumber">1.47.1</span> <span class="toctext">Scala</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Nota"><span class="tocnumber">1.48</span> <span class="toctext">Nota</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Opzioni_7"><span class="tocnumber">1.48.1</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Selezionare_gli_originali"><span class="tocnumber">1.48.1.1</span> <span class="toctext">Selezionare gli originali</span></a></li>
+<li class="toclevel-4"><a href="#Fattore_di_scala_e_numero_di_copie"><span class="tocnumber">1.48.1.2</span> <span class="toctext">Fattore di scala e numero di copie</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Limitazioni_6"><span class="tocnumber">1.49</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-2"><a href="#Esempi_2"><span class="tocnumber">1.50</span> <span class="toctext">Esempi</span></a></li>
+<li class="toclevel-2"><a href="#_9"><span class="tocnumber">1.51</span> <span class="toctext"></span></a>
+<ul>
+<li class="toclevel-3"><a href="#MultiTrasformazione"><span class="tocnumber">1.51.1</span> <span class="toctext">MultiTrasformazione</span></a></li>
+<li class="toclevel-3"><a href="#Opzioni_8"><span class="tocnumber">1.51.2</span> <span class="toctext">Opzioni</span></a>
+<ul>
+<li class="toclevel-4"><a href="#Selezionare_gli_originali_2"><span class="tocnumber">1.51.2.1</span> <span class="toctext">Selezionare gli originali</span></a></li>
+<li class="toclevel-4"><a href="#Selezionare_le_trasformazioni"><span class="tocnumber">1.51.2.2</span> <span class="toctext">Selezionare le trasformazioni</span></a></li>
+<li class="toclevel-4"><a href="#Modifica"><span class="tocnumber">1.51.2.3</span> <span class="toctext">Modifica</span></a></li>
+<li class="toclevel-4"><a href="#Elimina"><span class="tocnumber">1.51.2.4</span> <span class="toctext">Elimina</span></a></li>
+<li class="toclevel-4"><a href="#Aggiungi_trasformazione"><span class="tocnumber">1.51.2.5</span> <span class="toctext">Aggiungi trasformazione</span></a></li>
+<li class="toclevel-4"><a href="#Sposta_su_o_gi.C3.B9"><span class="tocnumber">1.51.2.6</span> <span class="toctext">Sposta su o giù</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3"><a href="#Limitazioni_7"><span class="tocnumber">1.51.3</span> <span class="toctext">Limitazioni</span></a></li>
+<li class="toclevel-3"><a href="#Esempi_3"><span class="tocnumber">1.51.4</span> <span class="toctext">Esempi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Ambiente_PartDesign:_Altri_strumenti_e_strumenti_non_documentati"><span class="tocnumber">1.52</span> <span class="toctext">Ambiente PartDesign: Altri strumenti e strumenti non documentati</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Questo strumento usa uno schizzo come input per produrre un Pad. Un Pad è sostanzialmente una protuberanza realizzata estrudendo uno schizzo di base. Questa denominazione viene utilizzata per distinguere le operazioni realizzate con questo strumento da quelle realizzate con lo strumento "Estrusione" di Part.
+</p><p>A partire dalla v0.17, è possibile utilizzare anche le facce di un solido.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad_example.svg" class="image"><img alt="PartDesign Pad example.svg" src="PartDesign_Pad_example.svg" width="600" height="300" /></a></div>
+<p><i>A sinistra è mostrato lo Schizzo (A); a destra il risultato finale dopo l'operazione pad (B).</i>
+</p><p><span style="font-size:x-small;color:blue;">v0.16 and below</span>Se lo schizzo selezionato viene mappato sulla faccia di un solido o di un oggetto di PartDesign esistente, il pad sarà fuso con esso.
+</p>
+<h2><span class="mw-headline" id="Utilizzo">Utilizzo</span></h2>
+<ol><li> Selezionare lo schizzo da estrudere, a cui applicare l'operazione Pad. In v0.17 e superiore, come alternativa, può essere usata una faccia di un solido esistente.</li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pad.png" class="image"><img alt="PartDesign Pad.png" src="24px-PartDesign_Pad.png" width="24" height="24" srcset="/wiki/images/thumb/7/7e/PartDesign_Pad.png/36px-PartDesign_Pad.png 1.5x, /wiki/images/thumb/7/7e/PartDesign_Pad.png/48px-PartDesign_Pad.png 2x" /></a> <b>Pad</b></span>.</li>
+<li> Impostare i parametri Pad (Prisma) (vedere sotto). </li>
+<li> Cliccare su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span>.</li></ol>
+<h2><span class="mw-headline" id="Opzioni">Opzioni</span></h2>
+<p>Quando si crea una estrusione, la finestra di dialogo "Parametri Prisma" offre cinque diversi modi per specificare la lunghezza della estrusione:
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Pad_parameters_cropped_it.png" class="image"><img alt="Pad parameters cropped it.png" src="Pad_parameters_cropped_it.png" width="286" height="403" /></a></div>
+<h3><span class="mw-headline" id="Tipo">Tipo</span></h3>
+<p>Tipo offre cinque diversi modi per specificare la lunghezza a cui il pad viene estruso.
+</p>
+<h4><span class="mw-headline" id="Quota">Quota</span></h4>
+<p>Inserire un valore numerico per la lunghezza del pad. La direzione predefinita per l'estrusione è "all'esterno del supporto", ma può essere invertita contrassegnando l'opzione <b>Invertito</b>. Le estrusioni sono realizzate <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">normali</a> al piano dello schizzo. Con l'opzione <b>Simmetrico al piano</b> il pad viene esteso per metà della lunghezza data su entrambi i lati del piano di schizzo. Le dimensioni negative non sono possibili. In sostituzione utilizzare l'opzione <b>Invertito</b>.
+</p>
+<h4><span class="mw-headline" id="Due_dimensioni">Due dimensioni</span></h4>
+<p>Questo consente di inserire una seconda lunghezza per estendere il pad in direzioni opposte (nel supporto). Anche in questo caso la direzione può essere modificata barrando l'opzione <b>Invertito</b>. (ndt nel caso Invertito non funzioni, come succede a me, è possibile scambiare i valori inseriti nei campi della lunghezza).
+</p>
+<h4><span class="mw-headline" id="Fino_all.27ultimo">Fino all'ultimo</span></h4>
+<p>Il pad viene estruso fino all'ultima faccia del supporto nella direzione di estrusione. Se non vi è alcun supporto, viene visualizzato un messaggio di errore.
+</p>
+<h4><span class="mw-headline" id="Fino_al_primo">Fino al primo</span></h4>
+<p>Il pad viene estruso fino alla prima faccia del supporto nella direzione di estrusione. Se non vi è alcun supporto, viene visualizzato un messaggio di errore.
+</p>
+<h4><span class="mw-headline" id="Fino_alla_faccia">Fino alla faccia</span></h4>
+<p>Il pad viene estruso nel supporto fino a una faccia che può essere scelta facendo clic su di essa. Se non vi è alcun supporto, non viene accettata nessuna.
+</p>
+<h3><span class="mw-headline" id="Lunghezza">Lunghezza</span></h3>
+<p>Definisce la lunghezza del pad. Si possono utilizzare diverse unità di misura, indipendentemente dalle unità definite nelle preferenze dell'utente (m, cm, mm, nm, ft oppure ', in oppure ").
+</p>
+<h3><span class="mw-headline" id="Simmetrico_al_piano">Simmetrico al piano</span></h3>
+<p>Estende la lunghezza data su entrambi i lati del piano di schizzo, simmetricamente al piano dello schizzo, metà per parte.
+</p>
+<h3><span class="mw-headline" id="Invertito">Invertito</span></h3>
+<p>Inverte la direzione dell'estrusione (Pad).
+</p>
+<h2><span class="mw-headline" id="Propriet.C3.A0">Proprietà</span></h2>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Refine</b>: <span style="font-size:x-small;color:green;">v0.17 e superiore</span> vero o falso. Pulisce i bordi residui rimasti dopo l'operazione. Questa proprietà viene inizialmente impostata in base alle impostazioni dell'utente (disponibile in "Preferenze → Part Design → Generale → Impostazioni del modello"). In seguito può essere modificata manualmente. Questa proprietà viene salvata con il documento di FreeCAD.</li></ul>
+<h2><span class="mw-headline" id="Limitazioni">Limitazioni</span></h2>
+<ul><li> Come tutte le funzioni di Part Design, Pad crea un solido, quindi lo schizzo deve includere un profilo chiuso o l'operazione fallisce con un errore <i>Impossibile convalidare la faccia guasta</i>. Possono esserci più profili racchiusi all'interno di uno più grande, a condizione che nessuno si intersechi l'un l'altro (ad esempio, un rettangolo con due cerchi al suo interno).</li>
+<li> L'algoritmo utilizzato per <b>Fino al primo</b> e <b>Fino all'ultimo</b> è:
+<ul><li> Creare una linea attraverso il centro di gravità del disegno</li>
+<li> Trovare tutte le facce del supporto attraversate da questa linea</li>
+<li> Scegliere la faccia in cui il punto di intersezione è più vicino o più lontano dal disegno</li></ul></li></ul>
+<dl><dd> Questo significa che la faccia trovata potrebbe anche non essere quella attesa. Se succede questo, utilizzare il tipo <b>Fino alla faccia</b> e scegliere la faccia desiderata.</dd>
+<dd> Nel caso speciale di estrusione di una superficie concava, in cui il disegno è più grande di questa superficie, l'estrusione fallisce. Questo è un bug irrisolto</dd></dl>
+<ul><li> <span style="font-size:x-small;color:blue;">v0.16 e precedente</span> Non c'è la pulizia automatica, ad esempio di superfici planari adiacenti in una singola superficie. È possibile risolvere questo manualmente nell'ambiente Parte con <a href="https://www.freecadweb.org/wiki/index.php?title=Part_RefineShape/it" title="Part RefineShape/it">Affina la forma</a> (che crea un solido non collegato, e non parametrico) o con <a href="https://www.freecadweb.org/wiki/index.php?title=OpenSCAD_RefineShapeFeature/it" title="OpenSCAD RefineShapeFeature/it">Affina forma</a> di <a href="https://www.freecadweb.org/wiki/index.php?title=OpenSCAD_Workbench/it" class="mw-redirect" title="OpenSCAD Workbench/it">OpenSCAD</a> che crea una funzione parametrica.</li></ul>
+<div style="clear:both"></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id=""></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tasca"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="32px-PartDesign_Pocket.png" width="32" height="32" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/48px-PartDesign_Pocket.png 1.5x, /wiki/images/6/67/PartDesign_Pocket.png 2x" /></a> Tasca</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Tasca
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione_2">Descrizione</span></h2>
+<p>Lo strumento <b>Tasca</b> scava un solido estrudendo uno schizzo in un percorso rettilineo e sottraendolo dal solido.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket_example.svg" class="image"><img alt="PartDesign Pocket example.svg" src="PartDesign_Pocket_example.svg" width="600" height="300" /></a></div>
+<p><i>A sinistra lo schizzo del profilo (A) è mappato sulla faccia superiore del solido di base (B); a destra il risultato della tasca. </i>
+</p>
+<h2><span class="mw-headline" id="Utilizzo_2">Utilizzo</span></h2>
+<ol><li> Selezionare lo schizzo da usare per lo scavo.
+<dl><dd> <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span> Lo schizzo selezionato deve essere mappato su una faccia planare di un solido esistente o su un oggetto Part Design, altrimenti si riceve un messaggio di errore. </dd></dl></li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Pocket.png" class="image"><img alt="PartDesign Pocket.png" src="16px-PartDesign_Pocket.png" width="16" height="16" srcset="/wiki/images/thumb/6/67/PartDesign_Pocket.png/24px-PartDesign_Pocket.png 1.5x, 32px-PartDesign_Pocket.png 2x" /></a> <b>Pocket</b></span>. </li>
+<li> Impostare i parametri Pocket (vedere successiva sezione). </li>
+<li> Cliccare OK.</li></ol>
+<h3><span class="mw-headline" id="Opzioni_2">Opzioni</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Pocket_options_it.png" class="image"><img alt="Pocket options it.png" src="Pocket_options_it.png" width="283" height="307" /></a></div>
+<p>Quando si crea una cavità, la finestra di dialogo <b>Parametri Tasca</b> offre quattro diversi modi per specificare la lunghezza (profondità) di estrusione dello scavo:
+</p>
+<h4><span class="mw-headline" id="Quota_2">Quota</span></h4>
+<p>Inserire un valore numerico per la profondità della tasca. La direzione di default per l'estrusione è verso l'interno del supporto. Le estrusioni si realizzano <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Surface_normal">normali</a> al piano di definizione dello schizzo.
+</p><p>Le quote negative non sono possibili. Al suo posto usare invece l'opzione <b>Invertita</b>.
+</p>
+<h4><span class="mw-headline" id="Fino_al_primo_2">Fino al primo</span></h4>
+<p>La tasca viene prodotta fino alla prima faccia del supporto nella direzione di estrusione. In altre parole, viene asportato tutto il materiale fino a raggiungere uno spazio vuoto.
+</p>
+<h4><span class="mw-headline" id="Attraverso_tutto">Attraverso tutto</span></h4>
+<p>La tasca scava attraverso tutto il materiale nella direzione di estrusione. Quando si attiva l'opzione <b>Simmetrico al piano</b> lo scavo viene prodotto attraverso tutto il materiale in entrambe le direzioni.
+</p>
+<h4><span class="mw-headline" id="Fino_alla_faccia_2">Fino alla faccia</span></h4>
+<p>La tasca si estrude fino a una faccia del supporto che può essere scelta facendo clic su di essa.
+</p>
+<h3><span class="mw-headline" id="Due_dimensioni_2">Due dimensioni</span></h3>
+<p><span style="font-size:x-small;color:green;">v0.17 e superiori</span> Questo permette di inserire una seconda lunghezza per estendere il pad nella direzione opposta (nel supporto). Anche questa può essere cambiata spuntando l'opzione <b>Invertita</b>.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Limitazioni_2">Limitazioni</span></h3>
+<ul><li> Quando è possibile utilizzare il tipo <b>Quota</b> oppure <b>Attraverso tutto</b> perché gli altri tipi a volte danno problemi quando essi vengono utilizzati per essere replicati in schiere.</li>
+<li> Inoltre, la funzione tasca ha le stesse <a href="/wiki/PartDesign_Pad#Limitations" title="PartDesign Pad">limitazioni</a> della funzione Pad.</li></ul>
+<h3><span class="mw-headline" id="Link_utili">Link utili</span></h3>
+<p>Un <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=3733&amp;start=10">esempio</a> di applicazione pratica nel forum.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_2"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Rivoluzione"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution.png" class="image"><img alt="PartDesign Revolution.png" src="32px-PartDesign_Revolution.png" width="32" height="32" srcset="/wiki/images/thumb/6/6a/PartDesign_Revolution.png/48px-PartDesign_Revolution.png 1.5x, /wiki/images/6/6a/PartDesign_Revolution.png 2x" /></a> Rivoluzione</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Rivoluzione
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Complete
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Introduzione">Introduzione</span></h2>
+<p>Lo strumento <b>Rivoluzione</b> crea un solido ruotando uno schizzo selezionato o un oggetto 2D attorno ad un dato asse.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution_example.svg" class="image"><img alt="PartDesign Revolution example.svg" src="PartDesign_Revolution_example.svg" width="600" height="300" /></a></div>
+<p><i>Sopra: lo schizzo (A) è ruotato di 270 gradi in senso antiorario attorno all'asse (B); a destra è mostrato il solido risultante (C).</i>
+</p>
+<h2><span class="mw-headline" id="Utilizzo_3">Utilizzo</span></h2>
+<ol><li> Seleziona lo schizzo da rivoluzionare. <span style="font-size:x-small;color:green;">v0.17 e superiore</span> In alternativa, è possibile utilizzare una faccia di un solido esistente.</li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution.png" class="image"><img alt="PartDesign Revolution.png" src="24px-PartDesign_Revolution.png" width="24" height="24" srcset="/wiki/images/thumb/6/6a/PartDesign_Revolution.png/36px-PartDesign_Revolution.png 1.5x, /wiki/images/thumb/6/6a/PartDesign_Revolution.png/48px-PartDesign_Revolution.png 2x" /></a> <b>Rivoluzione</b></span>.</li>
+<li> Impostare i parametri Rivoluzione (vedere la sezione successiva).</li>
+<li> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span>.</li></ol>
+<h2><span class="mw-headline" id="Opzioni_in_Parametri_rivoluzione">Opzioni in Parametri rivoluzione</span></h2>
+<p>Durante la creazione di una rivoluzione, il dialogo <b>Parametri rivoluzione</b> permette di specificare diversi parametri per stabilire come deve essere ruotato il disegno.
+</p>
+<table>
+<tr>
+<td> <div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Partdesign_revolution_parameters_it.png" class="image"><img alt="Partdesign revolution parameters it.png" src="Partdesign_revolution_parameters_it.png" width="277" height="328" /></a></div>
+</td>
+<td>
+<h3><span class="mw-headline" id="Assi">Assi</span></h3>
+<p>Questa opzione specifica l'asse attorno al quale deve essere ruotato lo schizzo. 
+</p>
+<ul><li> <b>Asse verticale dello schizzo</b>: seleziona l'asse verticale dello schizzo.</li>
+<li> <b>Asse orizzontale dello schizzo</b>: seleziona l'asse orizzontale dello schizzo.</li>
+<li> <b>Sketch axis</b>: <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span> seleziona una linea di costruzione contenuta nello schizzo utilizzato da Rivoluzione. La prima linea di costruzione creata nello schizzo viene etichettata <i>Schizzo asse 0</i>. L'elenco a discesa contiene un asse dello schizzo personalizzato per ogni linea di costruzione.</li>
+<li> <b>Linea di costruzione</b>: <span style="font-size:x-small;color:green;">v0.17 e successive</span> seleziona una linea di costruzione contenuta nello schizzo utilizzato da Rivoluzione. L'elenco a discesa contiene una voce per ogni linea di costruzione. La prima linea di costruzione creata nello schizzo verrà etichettata <i>Linea di costruzione 1</i>.</li>
+<li> <b>Asse (X/Y/Z) di base</b>: <span style="font-size:x-small;color:green;">v0.17 e successive</span> seleziona l'asse X, Y o Z dell'origine del corpo;</li>
+<li> <b>Seleziona riferimento...</b>: <span style="font-size:x-small;color:green;">v0.17 e successive</span> consente di selezionre un bordo del corpo o una <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Line/it" title="PartDesign Line/it">linea di riferimento</a> nella vista 3D.</li></ul>
+<h3><span class="mw-headline" id="Angolo">Angolo</span></h3>
+<p>Questa opzione specifica l'angolo di rivoluzione dello schizzo. Per ottenere una rivoluzione completa occorre impostare un angolo di 360°. Le immagini della sezione <a href="#Examples.2Fit">esempi</a> documentano alcune delle possibilità utilizzando diversi angoli di rotazione. Non è possibile specificare angoli negativi (se è necessario usare l'opzione <b>Invertita</b>) o angoli maggiori di 360°. 
+</p>
+<h3><span class="mw-headline" id="Simmetrica_al_piano">Simmetrica al piano</span></h3>
+<p>Se selezionato, la rivoluzione si estende per metà dell'angolo specificato in entrambe le direzioni rispetto al piano di schizzo. 
+</p>
+<h3><span class="mw-headline" id="Invertita">Invertita</span></h3>
+<p>Se selezionato, la direzione di rotazione viene invertita passando da quella predefinita in senso orario a quella antioraria. 
+</p>
+</td></tr></table>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Propriet.C3.A0_2">Proprietà</span></h2>
+<p>Sotto sono riportate le proprietà che possono essere definite dopo la creazione della funzione. Le proprietà <i>Base</i> e <i>Axis</i> non sono editabili.
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Angle</b>: angolo di rotazione. vedere <a href="#Angolo">Angolo</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Label</b>: etichetta data all'operazione, può essere cambiata a piacere.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Midplane</b>: true o false. Vedere <a href="#Simmetrica_al_piano">Simmetrica al piano</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Reversed</b>: true o false. Vedere <a href="#Invertita">Invertita</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Refine</b>: <span style="font-size:x-small;color:green;">v0.17 e successive</span> true o false. Se impostato su true, pulisce il solido dai bordi residui lasciati dalle funzioni. Per maggiori dettagli vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Part_RefineShape/it" title="Part RefineShape/it">Affina forma</a>.</li></ul>
+<h2><span class="mw-headline" id="Esempi">Esempi</span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:591px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution_axis_fromconstructionlines1.jpg" class="image"><img alt="" src="PartDesign_Revolution_axis_fromconstructionlines1.jpg" width="589" height="423" class="thumbimage" /></a>  <div class="thumbcaption">Esempio di Rivoluzione creata utilizzando una linea di costruzione come asse di rivoluzione: In questa immagine l'angolo è di 75° e la rivoluzione è attorno alla linea di costruzione (Sketch axis 0)</div></div></div> 
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Link_utili_2">Link utili</span></h2>
+<p>Un <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=3674">esempio</a> dettagliato di utlizzo disponibile nel forum.
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_3"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Scanalatura"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Groove.png" class="image"><img alt="PartDesign Groove.png" src="32px-PartDesign_Groove.png" width="32" height="32" srcset="/wiki/images/thumb/8/8d/PartDesign_Groove.png/48px-PartDesign_Groove.png 1.5x, /wiki/images/8/8d/PartDesign_Groove.png 2x" /></a> Scanalatura</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Scanalatura
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Revolution/it" title="PartDesign Revolution/it">Rivoluzione</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione_3">Descrizione</span></h2>
+<p>Questo strumento rivoluziona uno schizzo selezionato o un oggetto 2D attorno ad un dato asse, asportando del materiale dall'oggetto di supporto.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Groove_example.svg" class="image"><img alt="PartDesign Groove example.svg" src="PartDesign_Groove_example.svg" width="600" height="300" /></a></div>
+<p><i>A sinistra lo schizzo (A) è ruotato attorno all'asse (B); a destra la scanalatura risultante sul solido (C). </i>
+</p>
+<h3><span class="mw-headline" id="Utilizzo_4">Utilizzo</span></h3>
+<ol><li> Selezionare uno schizzo mappato su una faccia o un oggetto 2D</li>
+<li> Fare clic su <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Groove.png" class="image"><img alt="PartDesign Groove.png" src="16px-PartDesign_Groove.png" width="16" height="16" srcset="/wiki/images/thumb/8/8d/PartDesign_Groove.png/24px-PartDesign_Groove.png 1.5x, 32px-PartDesign_Groove.png 2x" /></a> Groove</span>.</li></ol>
+<h3><span class="mw-headline" id="Opzioni_3">Opzioni</span></h3>
+<p>Quando si crea una scanalatura, la finestra di dialogo <b>Parametri Groove</b> offre diversi parametri per specificare come deve essere ruotato il disegno. I parametri di <b>Scanalatura</b> hanno esattamente lo stesso significato che hanno per la funzione di <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Revolution/it" title="PartDesign Revolution/it">rivoluzione</a>.
+</p>
+<table>
+<tr>
+<td> <div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Partdesign_groove_parameters_it.png" class="image"><img alt="Partdesign groove parameters it.png" src="Partdesign_groove_parameters_it.png" width="277" height="333" /></a></div>
+</td>
+<td>
+<h3><span class="mw-headline" id="Assi_2">Assi</span></h3>
+<p>Questa opzione specifica l'asse intorno al quale il disegno deve essere ruotato. Attualmente, in questa finestra, si può selezionare solo l'asse schizzo orizzontale o verticale.
+</p>
+<h3><span class="mw-headline" id="Angolo_2">Angolo</span></h3>
+<p>Questa opzione specifica l'angolo di rotazione dello schizzo. Per ottenere una scanalatura completa occorre impostare un angolo di 360°. Non è possibile specificare angoli negativi (se è necessario usare l'opzione <b>Invertito</b>) o angoli maggiori di 360°.
+</p>
+<h3><span class="mw-headline" id="Simmetrico_al_piano_2">Simmetrico al piano</span></h3>
+<p>La rivoluzione si estende per metà dell'angolo specificato in entrambe le direzioni rispetto al piano di schizzo.
+</p>
+<h3><span class="mw-headline" id="Invertito_2">Invertito</span></h3>
+<p>La direzione di rivoluzione viene invertita.
+</p>
+</td></tr></table>
+<h2><span class="mw-headline" id="Propriet.C3.A0_3">Proprietà</span></h2>
+<p>Sotto sono riportate le proprietà che possono essere definite dopo la creazione della funzione. Le proprietà Dati <i>Base</i> e <i>Axis</i> non sono editabili.
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Angle</b>: angolo di rotazione. Vedere <a href="#Angolo">Angolo</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Label</b>: etichetta data all'operazione, può essere cambiata a piacere.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Midplane</b>: true o false. Vedere <a href="#Simmetrica_al_piano">Simmetrica al piano</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Reversed</b>: true o false. Vedere <a href="#Invertita">Invertita</a>.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATI</span><b>Refine</b>: <span style="font-size:x-small;color:green;">v0.17 e successive</span> true o false. Se impostato su true, pulisce il solido dai bordi residui lasciati dalle funzioni. Per maggiori dettagli vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Part_RefineShape/it" title="Part RefineShape/it">Affina forma</a>.</li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2 align="center"><span class="mw-headline" id="Ambiente_PartDesign:_Strumenti_di_modifica">Ambiente PartDesign: Strumenti di modifica</span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Raccordo"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet.png" class="image"><img alt="PartDesign Fillet.png" src="32px-PartDesign_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/PartDesign_Fillet.png/48px-PartDesign_Fillet.png 1.5x, /wiki/images/c/c7/PartDesign_Fillet.png 2x" /></a> Raccordo</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Raccordo
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/it" title="Part Fillet/it">Raccordo</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p><p>Questo strumento crea dei raccordi (arrotondamenti) sui bordi selezionati di un oggetto.
+</p><p>Nella struttura del progetto viene creata una nuova voce <b>Fillet</b> (Raccordo), seguita da un numero sequenziale se nel documento esistono già altri raccordi.
+</p>
+<table>
+<tr>
+<td>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-01.png" class="image"><img alt="" src="300px-PartDesign_Fillet-01.png" width="300" height="199" class="thumbimage" srcset="/wiki/images/thumb/a/a3/PartDesign_Fillet-01.png/450px-PartDesign_Fillet-01.png 1.5x, /wiki/images/thumb/a/a3/PartDesign_Fillet-01.png/600px-PartDesign_Fillet-01.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-01.png" class="internal" title="Enlarge"></a></div>Selezionare i bordi sull'oggetto prima di avviare lo strumento.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-02.png" class="image"><img alt="" src="300px-PartDesign_Fillet-02.png" width="300" height="195" class="thumbimage" srcset="/wiki/images/thumb/6/6d/PartDesign_Fillet-02.png/450px-PartDesign_Fillet-02.png 1.5x, /wiki/images/thumb/6/6d/PartDesign_Fillet-02.png/600px-PartDesign_Fillet-02.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-02.png" class="internal" title="Enlarge"></a></div>Impostare il raggio di raccordo nei parametri di Raccordo.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-03.png" class="image"><img alt="" src="300px-PartDesign_Fillet-03.png" width="300" height="188" class="thumbimage" srcset="/wiki/images/thumb/8/86/PartDesign_Fillet-03.png/450px-PartDesign_Fillet-03.png 1.5x, /wiki/images/thumb/8/86/PartDesign_Fillet-03.png/600px-PartDesign_Fillet-03.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Fillet-03.png" class="internal" title="Enlarge"></a></div>Nella struttura del progetto viene aggiunto un oggetto Raccordo.</div></div></div>
+</td>
+<td>
+<h3><span class="mw-headline" id="Utilizzo_5">Utilizzo</span></h3>
+<ul><li> Selezionare uno o più bordi di un oggetto, quindi avviare lo strumento facendo clic sulla sua icona o tramite il menu.</li>
+<li> Nei <b>Parametri Raccordo</b> della finestra delle opzioni, impostare il raggio di raccordo  inserendo il valore, o facendo clic sulle frecce su / giù. Il raccordo applicato viene mostrato in tempo reale.</li>
+<li> Premere OK per convalidare.</li>
+<li> Per una catena di spigoli tangenti l'uno all'altro, può essere selezionato un bordo singolo, il raccordo si propaga lungo la catena. </li>
+<li> Per modificare il raccordo dopo che la funzione è stata convalidata, fare doppio clic sull'etichetta del Raccordo nella struttura del progetto, oppure fare clic destro su di esso e selezionare <b>Modifica Raccordo</b>.</li></ul>
+<h4><span class="mw-headline" id="Raccordo_di_PartDesign_e_Raccordo_di_Part">Raccordo di PartDesign e Raccordo di Part</span></h4>
+<p><b>Il Raccordo di PartDesign non deve essere confuso con il <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/it" title="Part Fillet/it">Raccordo dell'ambiente Parte</a></b>.
+</p><p>Anche se condividono la stessa icona, essi non sono uguali, e non sono utilizzati nello stesso modo.
+</p><p>Ecco come si differenziano l'uno dall'altro:
+</p>
+<ul><li> Il Raccordo di PartDesign è <i>parametrico</i>. Il suo raggio può essere modificato anche dopo che il raccordo è stato applicato, ciò non è possibile con il Raccordo di Part.</li>
+<li> Con il Raccordo di PartDesign si deve prima selezionare i bordi e poi attivare lo strumento. Con il Raccordo di Parte si può avviare lo strumento poi selezionare un oggetto e, infine, i bordi.</li>
+<li> Il Raccordo PartDesign crea una voce <i>Raccordo</i> separata (seguita da un numero sequenziale se ci sono già raccordi esistenti) nella struttura del progetto. Il Raccordo Parte diventa il genitore dell'oggetto a cui è stato applicato.</li>
+<li> Il Raccordo PartDesign offre un'anteprima in tempo reale del raccordo applicato all'oggetto prima di convalidare la funzione.</li>
+<li> Il Raccordo Parte supporta la funzione raggio variabile (con un raggio di inizio e un raggio finale). Il Raccordo di PartDesign non ha questa possibilità.</li></ul>
+</td></tr></table>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Lo strumento Fillet può essere utilizzato nelle <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/it" title="Macros/it">macro</a> e dalla <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/it" title="FreeCAD Scripting Basics/it">console di Python</a> tramite la seguente funzione:
+</p>
+<pre>Box = Box.makeFillet(3,[Box.Edges[0]]) # 1 Fillet
+Box = Box.makeFillet(3,[Box.Edges[1],Box.Edges[2],Box.Edges[3],Box.Edges[4]]) # for several Fillets </pre>
+<ul><li>3 = valore del raggio</li>
+<li>Box.Edges[2] = lo spigolo con il suo numero identificativo</li></ul>
+<p><br />
+Esempio:
+</p>
+<pre>import PartDesign
+from FreeCAD import Base
+
+Box = Part.makeBox(10,10,10)
+Box = Box.makeFillet(3,[Box.Edges[0]]) # pour 1 Fillet
+Box = Box.makeFillet(3,[Box.Edges[1],Box.Edges[2],Box.Edges[3],Box.Edges[4]]) # for several Fillets
+Part.show(Box) </pre>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_4"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Smusso"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer.png" class="image"><img alt="PartDesign Chamfer.png" src="32px-PartDesign_Chamfer.png" width="32" height="32" srcset="/wiki/images/thumb/a/a7/PartDesign_Chamfer.png/48px-PartDesign_Chamfer.png 1.5x, /wiki/images/a/a7/PartDesign_Chamfer.png 2x" /></a> Smusso</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Smusso
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Fillet/it" title="PartDesign Fillet/it">Raccordo</a>,<br /> Part → <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Chamfer/it" title="Part Chamfer/it">Smusso di Part</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p><p>Questo strumento applica degli <b>smussi</b> ai bordi di un oggetto selezionato. All'albero del Progetto viene aggiunto un nuovo elemento <b>Chamfer</b> (Smusso) (seguito da un numero sequenziale se non è il primo smusso creato nel documento).
+</p>
+<table>
+<tr>
+<td>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-01.png" class="image"><img alt="" src="300px-PartDesign_Chamfer-01.png" width="300" height="181" class="thumbimage" srcset="/wiki/images/thumb/1/17/PartDesign_Chamfer-01.png/450px-PartDesign_Chamfer-01.png 1.5x, /wiki/images/thumb/1/17/PartDesign_Chamfer-01.png/600px-PartDesign_Chamfer-01.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-01.png" class="internal" title="Enlarge"></a></div>Selezionare i bordi prima di avviare il comando.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-02.png" class="image"><img alt="" src="300px-PartDesign_Chamfer-02.png" width="300" height="180" class="thumbimage" srcset="/wiki/images/thumb/3/37/PartDesign_Chamfer-02.png/450px-PartDesign_Chamfer-02.png 1.5x, /wiki/images/thumb/3/37/PartDesign_Chamfer-02.png/600px-PartDesign_Chamfer-02.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-02.png" class="internal" title="Enlarge"></a></div>Regolare la dimensione dello smusso nei parametri di smussatura.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-03.png" class="image"><img alt="" src="300px-PartDesign_Chamfer-03.png" width="300" height="180" class="thumbimage" srcset="/wiki/images/thumb/3/34/PartDesign_Chamfer-03.png/450px-PartDesign_Chamfer-03.png 1.5x, /wiki/images/thumb/3/34/PartDesign_Chamfer-03.png/600px-PartDesign_Chamfer-03.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Chamfer-03.png" class="internal" title="Enlarge"></a></div>Un elemento Smusso viene aggiunto all'albero del progetto.</div></div></div>
+</td>
+<td>
+<h3><span class="mw-headline" id="Utilizzo_6">Utilizzo</span></h3>
+<ol><li> Selezionare uno o più bordi di un oggetto oppure una faccia, quindi avviare lo strumento facendo clic sul <b>Smusso</b> nella barra degli strumenti o nel menu di PartDesign.</li>
+<li> In <b>Parametri Smusso</b> nel pannello <b>Azioni</b>, regolare le dimensioni dello smusso inserendo un valore o facendo clic sulle frecce su e giù. Viene visualizzata una anteprima in tempo reale nella finestra 3D.</li>
+<li> Fare clic su OK per confermare.</li></ol>
+<ul><li> Per una catena di bordi reciprocamente tangenziali, è richiesta la selezione di uno solo dei bordi; lo smusso viene automaticamente propagato lungo la catena.</li>
+<li> Per modificare lo smusso dopo la sua creazione, fare doppio clic sulla relativa voce nell'albero del Progetto, o fare clic con il tasto destro del mouse, e selezionare <b>Modifica smusso</b>.</li></ul>
+<h4><span class="mw-headline" id="Lo_smusso_di_PartDesign_e_smusso_di_Parte">Lo smusso di PartDesign e smusso di Parte</span></h4>
+<p><b>Lo smusso di PartDesign non deve essere confuso con lo <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Chamfer/it" title="Part Chamfer/it">smusso di Part</a></b>.<br />
+Anche se condividono la stessa icona, questi strumenti sono diversi e si utilizzano in modo diverso.<br />
+Ecco alcune differenze:
+</p>
+<ul><li> Lo smusso dell'ambiente PartDesign è <i>parametrico</i>. Dopo l'applicazione di uno smusso, la sua dimensione può essere modificata, questo non è possibile con lo smusso dell'ambiente Parte.</li>
+<li> Con lo smusso PartDesign i bordi devono essere selezionati prima di avviare lo strumento. Con lo smusso Parte, invece, si lancia prima lo strumento, poi si seleziona i solidi e infine i bordi.</li>
+<li> Lo smusso dell'ambiente PartDesign aggiunge una voce distinta nell'albero del Progetto. Lo smusso dell'ambiente Parte diventa genitore dell'oggetto a cui è stato applicato.</li>
+<li> Lo smusso dell'ambiente PartDesign visualizza una anteprima in tempo reale del risultato prima che la funzione sia convalidata.</li>
+<li> Lo smusso Parte supporta le dimensioni variabili (con una dimensione iniziale e una dimensione finale). Lo smusso dell'ambiente PartDesign non lo consente.</li></ul>
+</td></tr></table>
+<p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_5"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Sformo"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft.png" class="image"><img alt="PartDesign Draft.png" src="32px-PartDesign_Draft.png" width="32" height="32" srcset="/wiki/images/thumb/8/87/PartDesign_Draft.png/48px-PartDesign_Draft.png 1.5x, /wiki/images/8/87/PartDesign_Draft.png 2x" /></a> Sformo</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Sformo
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">...
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">...
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p><p>Questo strumento crea uno sformo angolare (inclinazione delle facce) sulle facce selezionate di un oggetto. Nella struttura del progetto viene creata una nuova voce '<i>Draft</i> indipendente, seguita da un numero sequenziale il documento contiene già altri elementi Draft.
+</p>
+<table>
+<tr>
+<td>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-03.png" class="image"><img alt="" src="300px-PartDesign_Draft-03.png" width="300" height="188" class="thumbimage" srcset="/wiki/images/thumb/b/b6/PartDesign_Draft-03.png/450px-PartDesign_Draft-03.png 1.5x, /wiki/images/thumb/b/b6/PartDesign_Draft-03.png/600px-PartDesign_Draft-03.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-03.png" class="internal" title="Enlarge"></a></div>Sono state inserite 2 facce ed è stato impostato uno sformo di 10 gradi. La parte inferiore è rimasta dimensionalmente stabile e lo sformo ha ridotto la parte superiore.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-04.png" class="image"><img alt="" src="300px-PartDesign_Draft-04.png" width="300" height="188" class="thumbimage" srcset="/wiki/images/thumb/b/bf/PartDesign_Draft-04.png/450px-PartDesign_Draft-04.png 1.5x, /wiki/images/thumb/b/bf/PartDesign_Draft-04.png/600px-PartDesign_Draft-04.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-04.png" class="internal" title="Enlarge"></a></div>Il Piano Neutro (Neutral Plane) è stato spostato sulla faccia superiore. Ora il piano superiore è rimasto stabile mentre il piano inferiore è diventato più grande.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-05.png" class="image"><img alt="" src="300px-PartDesign_Draft-05.png" width="300" height="188" class="thumbimage" srcset="/wiki/images/thumb/b/b7/PartDesign_Draft-05.png/450px-PartDesign_Draft-05.png 1.5x, /wiki/images/thumb/b/b7/PartDesign_Draft-05.png/600px-PartDesign_Draft-05.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-05.png" class="internal" title="Enlarge"></a></div>La Direzione di trascinamento (Pull direction) è impostata secondo lo spigolo inferiore destro e questo produce uno sformo verso sinistra.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-06.png" class="image"><img alt="" src="300px-PartDesign_Draft-06.png" width="300" height="188" class="thumbimage" srcset="/wiki/images/thumb/b/b5/PartDesign_Draft-06.png/450px-PartDesign_Draft-06.png 1.5x, /wiki/images/thumb/b/b5/PartDesign_Draft-06.png/600px-PartDesign_Draft-06.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Draft-06.png" class="internal" title="Enlarge"></a></div>Selezionando la casella Reverse pull Direction si è applicato uno sformo verso l'interno invece che verso l'esterno.</div></div></div>
+</td>
+<td>
+<h3><span class="mw-headline" id="Utilizzo_7">Utilizzo</span></h3>
+<ol><li> Selezionare una o più facce di un oggetto, quindi avviare lo strumento facendo clic sulla sua icona o nel menu.</li>
+<li> In <b>Parametri di sformo</b> della scheda Azioni, impostare i parametri richiesti e/o le opzioni come descritto di seguito.</li>
+<li> Fare clic su <b>OK</b> per confermare.</li></ol>
+<ul><li> Per modificare lo sformo dopo la sua creazione, fare doppio clic sulla relativa voce nell'albero del Progetto, oppure fare clic con il tasto destro del mouse e selezionare <b>Modifica sformo</b>.</li></ul>
+<p><br />
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Parametri_e_Opzioni">Parametri e Opzioni</span></h3>
+<h4><span class="mw-headline" id="Aggiungi_faccia_.2F_Rimuovi_faccia">Aggiungi faccia / Rimuovi faccia</span></h4>
+<p>Cliccare su <b>Aggiungi faccia</b> o su <b>Rimuovi faccia</b>, poi selezionare una faccia per aggiornare la lista delle facce attive. Se è necessario ripetere l'operazione.
+</p>
+<h4><span class="mw-headline" id="Angolo_di_sformo">Angolo di sformo</span></h4>
+<p>Impostare l'<b>angolo di sformo</b> inserendo il valore, o facendo clic sulle frecce su / giù. L'angolo di sformo applicato viene mostrato in tempo reale.
+</p>
+<h4><span class="mw-headline" id="Piano_neutro">Piano neutro</span></h4>
+<p>Cliccare su <b>Piano neutro</b> poi selezionare il piano che non deve essere dimensionalmente modificato. La modifica viene mostrata in tempo reale.
+</p>
+<h4><span class="mw-headline" id="Pull_Direction">Pull Direction</span></h4>
+<p>Fare clic su <b>Pull direction</b> (direzione di trascinamento), quindi selezionare un bordo. Pull Direction è efficace solo se è stato impostato il Piano neutro. I risultati possono essere imprevedibili.
+</p>
+<h4><span class="mw-headline" id="Reverse_Pull_Direction">Reverse Pull Direction</span></h4>
+<p>Selezionare <b>Reverse pull direction</b> per commutare tra positivo e negativo l'angolo dello sformo.
+</p><p><br />
+</p><p><br />
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Casi_particolari">Casi particolari</span></h3>
+<p>Lo strumento <b>Sformo</b> funziona solo su facce che sono normali tra loro. Se ci sono delle facce tangenziali collegate alla faccia a cui si desidera applicare uno sformo, lo strumento non funziona. Spesso l'operazione di sformo fallisce perché si tenta di applicarla a una faccia a cui è già applicato un raccordo o uno smusso.  In questo caso, rimuovere la superficie tangenziale, applicare lo sformo desiderato, poi riapplicare il raccordo o lo smusso.
+</p>
+</td></tr></table>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2 align="center"><span class="mw-headline" id="Ambiente_PartDesign:_Strumenti_di_trasformazione">Ambiente PartDesign: Strumenti di trasformazione</span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Simmetria"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="32px-PartDesign_Mirrored.png" width="32" height="32" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 1.5x, /wiki/images/5/55/PartDesign_Mirrored.png 2x" /></a> Simmetria</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Simmetria
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione_4">Descrizione</span></h2>
+<p>Lo strumento <b>Simmetria</b> riflette una funzione su un piano. A partire da v0.17, è in grado di eseguire la riflessione di più funzioni.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored_example.svg" class="image"><img alt="PartDesign Mirrored example.svg" src="PartDesign_Mirrored_example.svg" width="600" height="300" /></a>
+</p><p><i>Sopra, a sinistra è stata creata una funzione Tasca da uno schizzo contenente un cerchio (A), poi la Tasca è stata utilizzata per creare una funzione Simmetria. Come asse di simmetria è stato utilizzato l'asse verticale dello schizzo (B). A destra è mostrato il risultato (C).</i> 
+</p>
+<h2><span class="mw-headline" id="Utilizzo_8">Utilizzo</span></h2>
+<ol><li> Selezionare le funzioni da rispecchiare. In alternativa, è possibile selezionare la funzione dal dialogo dopo il passaggio 2.
+<dl><dd> <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span> È possibile selezionare solo una singola funzione e deve essere l'ultima nella parte inferiore dell'albero delle funzioni.</dd></dl></li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored.png" class="image"><img alt="PartDesign Mirrored.png" src="24px-PartDesign_Mirrored.png" width="24" height="24" srcset="/wiki/images/thumb/5/55/PartDesign_Mirrored.png/36px-PartDesign_Mirrored.png 1.5x, /wiki/images/thumb/5/55/PartDesign_Mirrored.png/48px-PartDesign_Mirrored.png 2x" /></a> <b>Simmetria</b></span>.</li>
+<li> <span style="font-size:x-small;color:green;">v0.17 e superiori</span> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Aggiungi funzione</span> per aggiungere una funzione da riflettere. La funzione deve essere visibile nella vista 3D:
+<ol><li> Passare all'albero del modello;</li>
+<li> Selezionare nell'albero la funzione da aggiungere e premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">spazio</span> per renderla visibile nella vista 3D;</li>
+<li> Tornare al pannello Azioni;</li>
+<li> Selezionare la funzione nella vista 3D; essa viene aggiunta alla lista.</li>
+<li> Ripetere per aggiungere altre funzioni.</li></ol></li>
+<li> <span style="font-size:x-small;color:green;">v0.17 e superiori</span> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Removi funzione</span> per rimuovere una funzione dall'elenco o fare clic con il tasto destro del mouse sulla funzione nell'elenco e selezionare <i>Rimuovi</i>.</li>
+<li> Definire il piano di riflessione. Vedere le <a href="#Opzioni">Opzioni</a>.</li>
+<li> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span>.</li></ol>
+<h2><span class="mw-headline" id="Opzioni_4">Opzioni</span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:270px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mirrored_parameters.png" class="image"><img alt="" src="Mirrored_parameters.png" width="268" height="353" class="thumbimage" /></a>  <div class="thumbcaption">Parametri della simmetria in v0.16 e precedenti.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:298px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mirrored_parameters_v017_it.png" class="image"><img alt="" src="Mirrored_parameters_v017_it.png" width="296" height="577" class="thumbimage" /></a>  <div class="thumbcaption">Parametri della simmetria in v0.17 e successive.</div></div></div>
+<h3><span class="mw-headline" id="Selezione_del_piano_di_riflessione">Selezione del piano di riflessione</span></h3>
+<p>Quando si crea una operazione Simmetria, la finestra di dialogo <b>Mirrored parameters</b> (Parametri della simmetria) offre diversi modi per specificare la linea o il piano di riflessione.
+</p>
+<h4><span class="mw-headline" id="Asse_orizzontale_dello_sketch">Asse orizzontale dello sketch</span></h4>
+<p>Utilizza l'asse orizzontale dello schizzo come asse di simmetria. 
+</p>
+<h4><span class="mw-headline" id="Asse_verticale_dello_sketch">Asse verticale dello sketch</span></h4>
+<p>Utilizza l'asse verticale dello schizzo come asse di simmetria.
+</p>
+<h4><span class="mw-headline" id="Seleziona_riferimento...">Seleziona riferimento...</span></h4>
+<p>Consente di selezionare un piano (ad esempio una faccia di un oggetto) da utilizzare come piano di riflessione.
+</p>
+<h4><span class="mw-headline" id="Asse_creato_nello_Schizzo">Asse creato nello Schizzo</span></h4>
+<p>Se lo schizzo che definisce la caratteristica da rispecchiare contiene anche una linea di costruzione (o più linee) l'elenco a discesa contiene un asse personalizzato per ognuna delle linee di costruzione presenti nello schizzo. La prima linea di costruzione è etichettata 'Sketch axis 0'.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Mirrored_axis_fromconstructionlines.jpg" class="image"><img alt="PartDesign Mirrored axis fromconstructionlines.jpg" src="PartDesign_Mirrored_axis_fromconstructionlines.jpg" width="379" height="302" /></a></div>
+<h4><span class="mw-headline" id="Piano_di_base_XY.2FXZ.2FYZ">Piano di base XY/XZ/YZ</span></h4>
+<p><span style="font-size:x-small;color:green;">v0.17 e successive</span> Seleziona uno dei piani standard dell'origine del corpo (XY, XZ o YZ).
+</p>
+<h3><span class="mw-headline" id="Anteprima">Anteprima</span></h3>
+<p>Il risultato della funzione di simmetria può essere visualizzato in tempo reale, prima dell'esecuzione, attivando <b>Aggiorna vista</b>.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Limitazioni_3">Limitazioni</span></h3>
+<ul><li> <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span> Attualmente, solo l'ultima funzione nell'albero delle operazioni può essere scelta come 'originale' pertanto
+<ul><li> non è possibile scegliere più di una operazione su cui applicare la simmetria</li>
+<li> non è possibile scegliere più di una operazione da inserire nella lista degli 'originali'</li></ul></li></ul>
+<ul><li> <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span>  Quando la funzione di simmetria è avviata o completata, non è più possibile sostituire la funzione originale con una diversa.</li></ul>
+<ul><li> La funzione simmetria non può riflettere un intero corpo solido. Per questo, vedere <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Mirror/it" title="Part Mirror/it">Specchia</a> di Part .</li></ul>
+<ul><li> La funzione di simmetria deve intersecare il solido su cui si basa (chiamato anche "supporto"), altrimenti il comando fallisce.</li></ul>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_6"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Schiera_lineare"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_LinearPattern.png" class="image"><img alt="PartDesign LinearPattern.png" src="32px-PartDesign_LinearPattern.png" width="32" height="32" srcset="/wiki/images/thumb/9/98/PartDesign_LinearPattern.png/48px-PartDesign_LinearPattern.png 1.5x, /wiki/images/9/98/PartDesign_LinearPattern.png 2x" /></a> Schiera lineare</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Schiera lineare
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_PolarPattern/it" title="PartDesign PolarPattern/it">Schiera polare</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione_5">Descrizione</span></h2>
+<p>Lo strumento <b>Schiera lineare</b> crea copie equidistanti di una funzione in una direzione lineare. A partire da v0.17, è in grado di replicare più funzioni.
+</p>
+<div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_LinearPattern_example.svg" class="image"><img alt="PartDesign LinearPattern example.svg" src="PartDesign_LinearPattern_example.svg" width="600" height="230" /></a></div>
+<p><i>Sopra: un Pad a forma di L (B) creato su un pad di base (A, indicato anche come "supporto") è usato per produrre una schiera lineare. A destra viene mostrato il risultato (C).</i>
+</p>
+<h2><span class="mw-headline" id="Uso">Uso</span></h2>
+<ol><li> Selezionare le funzioni da modellare. In alternativa, è possibile selezionare la funzione da un dialogo dopo il passaggio 2.
+<dl><dd> <span style="font-size:x-small;color:blue;">v0.16 e precedenti</span> È possibile selezionare solo una singola funzione e deve essere l'ultima nella parte inferiore dell'albero delle funzioni.</dd></dl></li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_LinearPattern.png" class="image"><img alt="PartDesign LinearPattern.png" src="24px-PartDesign_LinearPattern.png" width="24" height="24" srcset="/wiki/images/thumb/9/98/PartDesign_LinearPattern.png/36px-PartDesign_LinearPattern.png 1.5x, /wiki/images/thumb/9/98/PartDesign_LinearPattern.png/48px-PartDesign_LinearPattern.png 2x" /></a> <b>Schiera lineare</b></span>.</li>
+<li> <span style="font-size:x-small;color:green;">v0.17 e superiore</span> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Aggiungi funzione</span> per aggiungere una funzione da modellare. La funzione deve essere visibile nella vista 3D:
+<ol><li> Passare all'albero del modello;</li>
+<li> Selezionare nell'albero la funzione da aggiungere e premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">spazio</span> per renderla visibile nella vista 3D;</li>
+<li> Tornare al pannello Azioni;</li>
+<li> Selezionare la funzione nella vista 3D; essa viene aggiunta alla lista.</li>
+<li> Ripetere per aggiungere altre funzioni.</li></ol></li>
+<li> <span style="font-size:x-small;color:green;">v0.17  e superiore</span> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">Rimuovi funzione</span> per rimuovere una funzione dall'elenco o fare clic con il tasto destro del mouse sulla funzione nell'elenco e selezionare "Rimuovi".</li>
+<li> Definire la Direzione. Vedere le <a href="#Options.2Fit">Opzioni</a>.</li>
+<li> Definire la lunghezza (distanza) tra l'ultima occorrenza copiata e la funzione originale.</li>
+<li> Impostare il numero di occorrenze.</li>
+<li> Premere <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">OK</span> .</li></ol>
+<h2><span class="mw-headline" id="Opzioni_5">Opzioni</span></h2>
+<div class="thumb tleft"><div class="thumbinner" style="width:312px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Linearpattern_parameters.png" class="image"><img alt="" src="Linearpattern_parameters.png" width="310" height="535" class="thumbimage" /></a>  <div class="thumbcaption">Parametri LinearPattern in v0.16 e precedenti.</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:311px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Linearpattern_parameters_v017.png" class="image"><img alt="" src="Linearpattern_parameters_v017.png" width="309" height="709" class="thumbimage" /></a>  <div class="thumbcaption">Parametri LinearPattern in v0.17 e successive.</div></div></div>
+<h3><span class="mw-headline" id="Direzione">Direzione</span></h3>
+<p>Quando si crea una funzione di schiera lineare, il dialogo <b>Parametri LinearPattern</b> offre diversi modi per specificare la direzione del pattern.
+</p>
+<h4><span class="mw-headline" id="Asse_orizzontale_dello_schizzo">Asse orizzontale dello schizzo</span></h4>
+<p>Usa l'asse orizzontale dello schizzo per la direzione. 
+</p>
+<h4><span class="mw-headline" id="Asse_verticale_dello_schizzo">Asse verticale dello schizzo</span></h4>
+<p>Usa l'asse verticale dello schizzo per la direzione.
+</p>
+<h4><span class="mw-headline" id="Asse_normale_allo_schizzo">Asse normale allo schizzo</span></h4>
+<p><span style="font-size:x-small;color:green;">v0.17 e superiori</span> Usa l'asse normale dello schizzo per la direzione.
+</p>
+<h4><span class="mw-headline" id="Seleziona_riferimento..._2">Seleziona riferimento...</span></h4>
+<p>Consente di selezionare un bordo (come un bordo dell'oggetto) da utilizzare per la direzione.
+</p>
+<h4><span class="mw-headline" id="Asse_di_schizzo_personalizzato">Asse di schizzo personalizzato</span></h4>
+<p>Se lo schizzo che definisce la funzione da modellare contiene anche una linea di costruzione (o linee), l'elenco a discesa contiene un asse dello schizzo personalizzato per ogni linea di costruzione. La prima linea di costruzione è etichettata come "Schizzo asse 0".
+</p>
+<h4><span class="mw-headline" id="Asse_Base_.28X.2FY.2FZ.29">Asse Base (X/Y/Z)</span></h4>
+<p><span style="font-size:x-small;color:green;">v0.17 e superiore</span> Seleziona uno degli assi standard di Origine del Corpo (X, Y o Z) come direzione.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Limitazioni_4">Limitazioni</span></h3>
+<ul><li> Le forme della schiera non possono sovrapporsi l'un l'altra ad eccezione del caso particolare di due sole forme (l'originale più una copia)</li>
+<li> Qualsiasi forma della schiera che non si sovrapponga con il supporto dell'originale viene esclusa. Questo assicura che qualsiasi oggetto di Progettazione Parte (PartDesign) è sempre costituito da un unico solido collegato</li>
+<li> Per altre limitazioni, vedere la funzione <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Mirrored/it" title="PartDesign Mirrored/it">Simmetria</a></li></ul>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_7"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Schiera_polare"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_PolarPattern.png" class="image"><img alt="PartDesign PolarPattern.png" src="32px-PartDesign_PolarPattern.png" width="32" height="32" srcset="/wiki/images/thumb/8/8f/PartDesign_PolarPattern.png/48px-PartDesign_PolarPattern.png 1.5x, /wiki/images/8/8f/PartDesign_PolarPattern.png 2x" /></a> Schiera polare</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Schiera polare
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it">Schiera lineare</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Introduzione_2">Introduzione</span></h2>
+<p>Questo strumento prende una funzione selezionata e ne crea una serie di copie ruotate attorno a un asse prescelto.<br />
+L'oggetto risultante viene creato come un nuovo oggetto indipendente nella struttura.<br />
+Per esempio:
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Polarpattern_example.png" class="image"><img alt="Polarpattern example.png" src="600px-Polarpattern_example.png" width="600" height="408" srcset="/wiki/images/6/6c/Polarpattern_example.png 1.5x" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Opzioni_6">Opzioni</span></h2>
+<p>Durante la creazione di una funzione di schiera polare, il dialogo 'Parametri schiera polare' offre due modi diversi per specificare l'asse di rotazione del modello.
+</p>
+<h3><span class="mw-headline" id="Asse_normale_dello_schizzo">Asse normale dello schizzo</span></h3>
+<p>Come asse della schiera viene preso un asse essendo perpendicolare al disegno e posto nell'origine del disegno.<br />
+La direzione della schiera può essere invertita barrando 'direzione inversa'.
+</p>
+<h3><span class="mw-headline" id="Selezionare_un_asse_di_riferimento">Selezionare un asse di riferimento</span></h3>
+<p>In questo modo è possibile selezionare uno spigolo come asse di rotazione.<br />
+Con tale opzione è usabile solo il bordo di una funzione utilizzata appena prima dell'operazione polare in atto.
+</p><p>Per utilizzare questa opzione:
+</p>
+<ul><li>creare una funzione di supporto, per esempio un pad, in cui uno dei bordi possa essere usato come asse della schiera polare</li>
+<li>creare la funzione (pad o tasca) da replicare</li>
+<li>selezionare la funzione schiera polare e selezionare il bordo di riferimento</li>
+<li>utilizzare una nuova funzione di supporto, ad esempio una tasca, per rimuovere la precedente funzione di supporto.</li></ul>
+<p>La direzione della schiera può essere invertita barrando 'direzione inversa'.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_PolarPattern_EdgeReference.gif" class="image"><img alt="PartDesign PolarPattern EdgeReference.gif" src="PartDesign_PolarPattern_EdgeReference.gif" width="768" height="432" /></a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Angolo_e_numero_di_duplicati">Angolo e numero di duplicati</span></h3>
+<p>Specifica l'angolo da coprire con la schiera e il numero totale di forme della schiera (inclusa la forma originale). Per esempio, la combinazione quattro copie in un angolo di 180 gradi produce una spaziatura di 60 gradi tra ogni copia. C'è una eccezione: quando l'angolo è di 360 gradi e la prima e l'ultima copia sono identiche, vengono prodotte quattro copie distanziate 90 gradi.
+</p>
+<h2><span class="mw-headline" id="Limitazioni_5">Limitazioni</span></h2>
+<ul><li> Per le limitazioni vedere la funzione <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it"> Schiera lineare</a>.</li></ul>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Esempio">Esempio</span></h2>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Polarpattern_example2.jpg" class="image"><img alt="Polarpattern example2.jpg" src="Polarpattern_example2.jpg" width="1000" height="688" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_8"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Scala"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Scaled.png" class="image"><img alt="PartDesign Scaled.png" src="32px-PartDesign_Scaled.png" width="32" height="32" srcset="/wiki/images/thumb/7/72/PartDesign_Scaled.png/48px-PartDesign_Scaled.png 1.5x, /wiki/images/7/72/PartDesign_Scaled.png 2x" /></a> Scala</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → Multitrasformazione
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Nota">Nota</span></h2>
+<p>A partire da FreeCAD 0.15, questa funzione non è disponibile direttamente, ma è inclusa come componente di <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MultiTransform/it" title="PartDesign MultiTransform/it">Multitrasformazione</a>.
+</p><p>Lo strumento <b>Scala</b> prende come input un insieme di una o più operazioni selezionate ('gli originali') e li scala per un determinato fattore. Poiché la scalatura avviene attorno al centro di gravità delle operazioni selezionate, di solito gli originali scompaiono all'interno delle versioni in scala. Pertanto, in genere è utile solo per effettuare il ridimensionamento come parte di una operazione di Multi-trasformazione.
+</p>
+<h3><span class="mw-headline" id="Opzioni_7">Opzioni</span></h3>
+<table>
+<tr>
+<td> <div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scaled_parameters.png" class="image"><img alt="Scaled parameters.png" src="Scaled_parameters.png" width="306" height="455" /></a></div>
+</td>
+<td>
+<p>Quando si crea una operazione Scala, la finestra di dialogo <b>Parametri della scalatura</b> offre le seguenti opzioni:
+</p>
+<h4><span class="mw-headline" id="Selezionare_gli_originali">Selezionare gli originali</span></h4>
+<p>La finestra <i>Vista combinata</i>  mostra lista delle operazioni (oggetti) "originali" che devono essere scalati. Fare clic su una operazione per aggiungerla alla lista.
+</p>
+<h4><span class="mw-headline" id="Fattore_di_scala_e_numero_di_copie">Fattore di scala e numero di copie</span></h4>
+<p><b>Factor</b> e <b>Occurrences</b>  specificano rispettivamente il fattore di scala massimo  e il numero totale di forme scalate (inclusa l'originale) che si vuole ottenere.
+</p>
+</td></tr></table>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Limitazioni_6">Limitazioni</span></h2>
+<ul><li> La scalatura avviene sempre utilizzando il centro di gravità delle operazioni come punto base.</li>
+<li> La trasformazione di scalatura non deve essere la prima della lista</li>
+<li> La trasformazione di scalatura deve avere lo stesso numero di occorrenze della trasformazione immediatamente precedente nella lista</li>
+<li> Vedere la funzione <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it">Schiera lineare</a> per altre limitazioni</li>
+<li> Vedere le <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_MultiTransform/it" title="PartDesign MultiTransform/it">MultiTrasformazioni</a> per maggiori dettagli</li></ul>
+<h2><span class="mw-headline" id="Esempi_2">Esempi</span></h2>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mt_example2.png" class="image" title="c"><img alt="c" src="800px-Mt_example2.png" width="800" height="550" srcset="/wiki/images/thumb/9/93/Mt_example2.png/1200px-Mt_example2.png 1.5x, /wiki/images/9/93/Mt_example2.png 2x" /></a></div></div>
+<p>Il pad più piccolo è stato riprodotto tre volte in direzione X e poi scalato con un fattore due (così le tre occorrenze hanno il fattore di scala 1.0, 1.5 e 2.0). Poi è stata applicata una schiera polare con 8 occorrenze.
+</p><p>Poiché la scalatura viene eseguita rispetto al centro di gravità, nel caso di un Pad, è necessario che il pad penetri anche nel corpo principale, altrimenti gli oggetti scalati sono flottanti, staccati dal corpo. Per avere un pad che interseca il corpo principale possono essere utilizzate le opzioni "due dimensioni" o "simmetrica al piano".
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<h2 align="center"><span class="mw-headline" id="_9"></span></h2>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="MultiTrasformazione"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_MultiTransform.png" class="image"><img alt="PartDesign MultiTransform.png" src="32px-PartDesign_MultiTransform.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/PartDesign_MultiTransform.png/48px-PartDesign_MultiTransform.png 1.5x, /wiki/images/4/46/PartDesign_MultiTransform.png 2x" /></a> MultiTrasformazione</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">PartDesign → MultiTrasformazione
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/it" title="PartDesign Workbench/it">PartDesign</a>, Completo
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<td class="ctToc"><br />
+</td></tr></table>
+<p><br />
+</p><p>Modella applicando una combinazione di trasformazioni. Questo strumento prende come input un insieme di una o più operazioni selezionate  e permette di applicare loro diverse trasformazioni in sequenza.
+</p><p>Ad esempio, per produrre una flangia con una doppia fila di fori, il foro originale viene prima duplicato con una operazione di schiera lineare nella direzione X, poi il risultato viene utilizzato per creare otto occorrenze distribuite in una schiera polare intorno all'asse Y.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Multitransform_example.png" class="image"><img alt="Multitransform example.png" src="600px-Multitransform_example.png" width="600" height="436" srcset="/wiki/images/a/aa/Multitransform_example.png 1.5x" /></a>
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Opzioni_8">Opzioni</span></h3>
+<table>
+<tr>
+<td> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Partdesign_Multitransfrom_parameters_it.png" class="image"><img alt="Partdesign Multitransfrom parameters it.png" src="Partdesign_Multitransfrom_parameters_it.png" width="277" height="644" /></a>
+</td>
+<td>
+<p>Quando si crea una operazione di MultiTrasformazione, la finestra di dialogo <b>Parametri MultiTrasformazione</b> mostra due elenchi in campi diversi (Originali e Trasformazioni).
+</p>
+<h4><span class="mw-headline" id="Selezionare_gli_originali_2">Selezionare gli originali</span></h4>
+<p>La finestra Vista combinata  mostra la lista delle operazioni (oggetti) originali che devono essere trasformati. Fare clic su una operazione per aggiungerla alla lista.
+</p>
+<h4><span class="mw-headline" id="Selezionare_le_trasformazioni">Selezionare le trasformazioni</span></h4>
+<p>In questo elenco si possono inserire delle combinazioni di trasformazioni semplici quali <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Mirrored/it" title="PartDesign Mirrored/it">simmetria</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it">schiera lineare</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_PolarPattern/it" title="PartDesign PolarPattern/it">schiera polare</a> e <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Scaled/it" title="PartDesign Scaled/it">scalatura</a>. Le trasformazioni saranno applicate nell'ordine una dopo l'altra.
+Il menu di scelta rapida offre le seguenti voci:
+</p>
+<h4><span class="mw-headline" id="Modifica">Modifica</span></h4>
+<p>Permette di modificare i parametri di una trasformazione nella lista (un doppio clic produce lo stesso effetto)
+</p>
+<h4><span class="mw-headline" id="Elimina">Elimina</span></h4>
+<p>Rimuove una trasformazione dalla lista
+</p>
+<h4><span class="mw-headline" id="Aggiungi_trasformazione">Aggiungi trasformazione</span></h4>
+<p>Aggiunge una trasformazione alla lista
+</p>
+<h4><span class="mw-headline" id="Sposta_su_o_gi.C3.B9">Sposta su o giù</span></h4>
+<p>Permette di cambiare l'ordine delle trasformazioni nella lista
+</p>
+</td></tr></table>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Limitazioni_7">Limitazioni</span></h3>
+<ul><li> Una trasformazione di scala non dovrebbe essere la prima della lista</li>
+<li> La trasformazione di scala deve avere lo stesso numero di occorrenze della trasformazione immediatamente precedente nella lista</li>
+<li> Vedere la funzione <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_LinearPattern/it" title="PartDesign LinearPattern/it">Schiera lineare</a> per altre limitazioni</li></ul>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Esempi_3">Esempi</span></h3>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mt_example2.png" class="image" title="c"><img alt="c" src="800px-Mt_example2.png" width="800" height="550" srcset="/wiki/images/thumb/9/93/Mt_example2.png/1200px-Mt_example2.png 1.5x, /wiki/images/9/93/Mt_example2.png 2x" /></a></div></div>
+<p>Il blocco più piccolo viene prima modellato tre volte in direzione X e poi scalato per un fattore due (in modo che alle tre occorrenze venga applicato il fattore di scala 1.0, 1.5 e 2.0). In seguito viene eseguita una schiera polare con 8 occorrenze.
+</p>
+<div class="center"><div class="floatnone"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mt_example3.png" class="image" title="c"><img alt="c" src="800px-Mt_example3.png" width="800" height="550" srcset="/wiki/images/thumb/0/0f/Mt_example3.png/1200px-Mt_example3.png 1.5x, /wiki/images/0/0f/Mt_example3.png 2x" /></a></div></div>
+<p>Lo scavo viene prima riflesso sul piano YZ e poi si applicano due trasformazioni di schiera lineare per produrre una schiera rettangolare.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h2 align="center"><span class="mw-headline" id="Ambiente_PartDesign:_Altri_strumenti_e_strumenti_non_documentati">Ambiente PartDesign: Altri strumenti e strumenti non documentati</span></h2>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Sezione in costruzione</div>
+<p><br />
+Questa sezione elenca una serie di comandi che non sono ancora inclusi in questo documento. Alcuni di questi strumenti sono recenti o sono in fase di sviluppo. Per avere maggiori informazioni consultare la <a href="https://www.freecadweb.org/wiki/index.php?title=Online_Help_Toc/it" title="Online Help Toc/it">Guida in linea</a> o visitare il <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=ManualSketcher/it" title="ManualSketcher/it">Gli strumenti di Sketcher</a> per creare e gestire gli schizzi di base.
+</p><p><br />
+</p>
+
+<p><br />
+</p>
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=ManualPartDesign/it&amp;oldid=101773">http://www.freecadweb.org/wiki/index.php?title=ManualPartDesign/it&amp;oldid=101773</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

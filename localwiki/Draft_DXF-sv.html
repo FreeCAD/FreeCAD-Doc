@@ -1,0 +1,83 @@
+<html><head><title>Draft DXF/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft DXF/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_qcad.jpg" class="image"><img alt="Screenshot qcad.jpg" src="Screenshot_qcad.jpg" width="800" height="443" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.C3.96ppna"><span class="tocnumber">1</span> <span class="toctext">Öppna</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing"><span class="tocnumber">2</span> <span class="toctext">Installing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Automatically"><span class="tocnumber">2.1</span> <span class="toctext">Automatically</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Manually"><span class="tocnumber">2.2</span> <span class="toctext">Manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Importera"><span class="tocnumber">3</span> <span class="toctext">Importera</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exportera"><span class="tocnumber">4</span> <span class="toctext">Exportera</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Alternativ"><span class="tocnumber">5</span> <span class="toctext">Alternativ</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".C3.96ppna">Öppna</span></h3>
+<p>Denna funktion öppnar en DXF fil (alla versioner från 12 till 2007) i en ny ritning.
+Följande DXF objekttyper stöds för närvarande:
+</p>
+<ul><li> lines</li>
+<li> polylines och lwpolylines</li>
+<li> circles</li>
+<li> arcs</li>
+<li> layers (layers som innehåller objekt konverteras till FreeCAD Grupper)</li>
+<li> texts och mtexts</li>
+<li> dimensions</li>
+<li> blocks (endast geometri. texter, dimensioner och attribut inuti block behandlas inte)</li></ul>
+<p>Andra DXF föremål importeras för närvarande inte eftersom det inte finns något motsvarande FreeCAD objekt. Allteftersom ny funktionalitet utvecklas, så kommer det att vara möjligt att importera fler föremålstyper.
+</p>
+<h3><span class="mw-headline" id="Installing">Installing</span></h3>
+<p><b>Warning</b>:  For license reasons, the dxf import/export libraries are not part of the FreeCAD source code anymore. For that reason, they must be installed by you, the user, after you install FreeCAD. There is a way to allow FreeCAD to do that automatically, or you can do it manually.
+</p>
+<h4><span class="mw-headline" id="Automatically">Automatically</span></h4>
+<p>Starting from version 0.15, you only need to mark the Edit-&gt; Preferences -&gt; Import/Export -&gt; DXF/DWG -&gt; "Allow FreeCAD to automatically download the DXF libraries" option to have FreeCAD take automatically care of doenloading and installing these libraries. For older versions, you will need to do it manually.
+</p>
+<h4><span class="mw-headline" id="Manually">Manually</span></h4>
+<p>Libraries must be downloaded from <a rel="nofollow" class="external free" href="https://github.com/yorikvanhavre/Draft-dxf-importer">https://github.com/yorikvanhavre/Draft-dxf-importer</a>
+There is a very complete step-by-step <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">tutorial</a> that will explain you the necessary steps.
+</p>
+<h3><span class="mw-headline" id="Importera">Importera</span></h3>
+<p>Detta fungerar på samma sät som öppna, men kommer att addera dxf filens innehåll till det aktiva dokumentet istället för at skapa ett nytt.
+</p><p>Tutorial: <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">Dxf Importer Install</a>
+</p>
+<h3><span class="mw-headline" id="Exportera">Exportera</span></h3>
+<p>Den exporterade DXF filen är kompatibel med Autocad version 12 och upp, så den ska kunna öppnas i så gott som alla applikationer som stöder dxf formatet.
+För närvarande så exporteras följande FreeCAD objekt:
+</p>
+<ul><li> linje och trådar (polylines)</li>
+<li> cirkelbågar och cirklar</li>
+<li> texter</li>
+<li> Färger konverteras från objektens RGB färger till autocad color index (ACI). Svart komme alltid att vara "by layer"</li>
+<li> lager konverteras från gruppnamn. När grupper är nästlade, så kommer lagret att får namnet på den djupaste gruppen.</li>
+<li> dimensioner, vilka exporteras med "Standard" dimensioneringsstil</li></ul>
+<h3><span class="mw-headline" id="Alternativ">Alternativ</span></h3>
+<p>Följande parametrar kan specificeras i  <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Preferences/sv" title="Draft Preferences/sv">Skissalternativ</a> tabben (meny Redigera -&gt; Alternativ -&gt; Draft):
+</p>
+<ul><li> Import stil: Detta låter dig välja på vilket sätt som objekt från dxf filen kommer att ritas i FreeCAD. Du kan välja mellan:
+<ul><li> None: detta är den snabbare sättet, ingen konvertering sker, alla objekt kommer att vara svarta med 2 pixels bredd (FreeCAD standard)</li>
+<li> Use default color and linewidth: Alla importerade dxf objekt kommer at anta nuvarande linjebredd/färg från Skisskommandolådan</li>
+<li> Original color and linewidth: Objekten kommer att behålla den färg och linjebredd (om det är specificerat) de har i  dxf filen</li>
+<li> Colors mapped to linewidth: Om detta alternativ väljs så används kartfilen nedan.</li></ul></li>
+<li> Color mapping file: Denna tillåter dig att specificera en kartfil som ska användas för översättning av dxf färger till färg och linjebredd, på samma sätt som en plottningsstil fungerar i Autocad. Kartfilen måste vara en tabb-separerad textfil. Det finns ett bra fritt program som heter <a rel="nofollow" class="external text" href="http://www.noliturbare.com/TablePrintGUI.php">Plot style viewer</a> som kan konvertera Autocad CTB eller STB (plottstilar) filer till tabb-separerade kartfiler, klara att användas i FreeCAD. Alternativt, så har vi några <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_mapping_files/sv" title="Draft mapping files/sv">hemgjorda kartfiler</a> tillgängliga här.</li>
+<li> Import texts: Detta tillåter dig att specificera om du vill importera dxf text och dimensioner eller inte. Många texter kan göra ditt arbete i FreeCAD mycket tungrott, så du kanske vill använda detta alternativ ibland.</li>
+<li> Import layout objects: Sätt på detta om du vill importera paper space objekt. De kommer att infogas i samma dokument som model space objekt.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_DXF/sv&amp;oldid=141318">http://www.freecadweb.org/wiki/index.php?title=Draft_DXF/sv&amp;oldid=141318</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

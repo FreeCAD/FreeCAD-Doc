@@ -1,0 +1,347 @@
+<html><head><title>Flamingo Workbench/hr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Flamingo Workbench/hr</h1></div>
+
+<div id="mw-content-text" lang="hr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#References"><span class="tocnumber">2</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#FRAME_TOOLS"><span class="tocnumber">3</span> <span class="toctext">FRAME TOOLS</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#PYPE_TOOLS"><span class="tocnumber">4</span> <span class="toctext">PYPE TOOLS</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#UTILITIES"><span class="tocnumber">5</span> <span class="toctext">UTILITIES</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Instalacija"><span class="tocnumber">6</span> <span class="toctext">Instalacija</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Automatic_installation"><span class="tocnumber">6.1</span> <span class="toctext">Automatic installation</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#From_GitHub"><span class="tocnumber">6.2</span> <span class="toctext">From GitHub</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Links_to_Flamingo_WB"><span class="tocnumber">7</span> <span class="toctext">Links to Flamingo WB</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Other_useful_links"><span class="tocnumber">8</span> <span class="toctext">Other useful links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>"Flamingo tools" is a set of customized FreeCAD commands and objects that help to speed-up the drawing of frames and pipelines, mainly.
+</p><p>For convenience Flamingo tools are grouped in three toolbars/menus + one utility set.
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FlamingoBlob.png" class="image"><img alt="FlamingoBlob.png" src="FlamingoBlob.png" width="600" height="339" /></a></div>
+<dl><dd><ul><li> <b>Frame tools</b>: that is aimed to arrange frames, trusses and similar in FreeCAD using the Structure objects of Arch module. .../flamingo/tutorials/tutorialFrame.pdf</li>
+<li> <b>Pype tools</b>: that's the logical continuation of frame tool since it deals with creating pipelines and tubular structures. It also features its own Python classes to create the piping objects, such as tubes, elbows, flanges etc. .../flamingo/tutorials/tutorialPype2.pdf</li>
+<li> <b>Eagle tools</b>: that's basically an addition, and shortcut, to the very professional <a rel="nofollow" class="external text" href="https://github.com/marmni/FreeCAD-PCB">FreeCAD-PCB</a> workbench (also available in the FreeCAD's add-on repository) to import position of objects from a .brd Eagle's file on a PCB drawn in FreeCAD with the a.m. workbench relating only on their names. It's also the origin, by extension, of the name of the entire workbench. .../flamingo/tutorials/tutorialEagle.pdf</li>
+<li> <b>Utilities</b> toolbar provides some functionality to query the objects in the model and their distance, to move/rotate the work plane and a little hack of the DWire creation dialog of Draft module, which allow to change the WP position on-the-fly.</li></ul></dd></dl>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul><li> Author: oddtopus</li>
+<li> Source code on github: <a rel="nofollow" class="external free" href="https://github.com/oddtopus/flamingo">https://github.com/oddtopus/flamingo</a></li></ul>
+<h2><span class="mw-headline" id="FRAME_TOOLS">FRAME TOOLS</span></h2>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Flamingos_frame2.jpg" class="image"><img alt="Flamingos frame2.jpg" src="Flamingos_frame2.jpg" width="581" height="38" /></a></div>
+<p><br />
+</p>
+<dl><dd>1) Place one-beam over one-edge (class frameIt)</dd></dl>
+<p>Given a beam object and an edge in the model, this tool lay down the beam over the edge by selecting them one after the other until ESC is pressed.
+</p>
+<dl><dd>2) Fill the frame (class fillFrame)</dd></dl>
+<p>Dialog to create over multiple edges selected in the viewport the beams of the type of that previously chosen among those present in the model.
+</p><p>With the button <b>Select</b> it's possible to change the type of beam.
+</p>
+<dl><dd>3) alignFlange (class alignFlange)</dd></dl>
+<p>Dialog to rotate beams so that their surfaces are  parallel to one reference plane.
+</p><p>It's possible to preselect the reference face before invoking the command.
+</p><p>The three <b>XY</b>, <b>XZ</b> and <b>YZ</b> buttons allow to choose directly the orientation of principal planes as the reference.
+</p><p>Finally it's possible to enter directly the new orientation of faces by the three coordinates of the normal and the button <b>Set normal</b>.
+</p>
+<dl><dd>4) Spin beams by 45 deg. (class spinSect)</dd></dl>
+<p>Tool to spin one object around the "Z" axis of its shape by 45 degrees.
+</p>
+<dl><dd>5) Reverse orientation (class reverseBeam)</dd></dl>
+<p>Tool to spin one object around the "X" axis of its shape by 180 degrees.
+Notes:  if one  edge of the object is selected, that is used as the pivot of rotation.
+</p>
+<dl><dd>6) pivotTheBeam (class pivotBeam)</dd></dl>
+<p>Dialog to rotate one beam or other object around one of its edges.
+</p><p><b>Angle</b> textbox to insert the degree of rotation.
+</p><p><b>Reverse</b> button to rotate in the opposite direction, if necessary.
+</p><p><b>OK</b> to perform the action and <b>Cancel</b> to close the dialog.
+</p>
+<dl><dd>7) Flush the surfaces (class levelBeam)</dd></dl>
+<p>Tool to flush the parallel faces of two objects.
+Actually the command takes to the same level, respect the position and orientation of the first face selected, the center-of-mass of all faces selected. Thus it translates the objects even if the faces are not parallel.
+</p>
+<dl><dd>8) Mate the Edges (class alignEdge)</dd></dl>
+<p>Tool to mate two parallel edges.
+Actually the command moves the objects along the minimum distance of their selected edge to the first one. Thus it translates the object even if edges are not parallel and it's a good way to place objects in desired position.
+It is also possible to select two edges of the same objects. With this method is possible to move quickly one object by steps defined on its own geometry.
+</p>
+<dl><dd>9) Rotate + mate the edges (class rotJoin)</dd></dl>
+<p>Tool to translate and rotate the beams to mate two edges. Same as above but it also makes the edges co-linear.
+</p>
+<dl><dd>10) Shift the beam (class shiftBeam)</dd></dl>
+<p>Dialog to translate and copy objects.
+</p><p><b>X</b>, <b>Y</b> and <b>Z</b> textboxes for direct input the amount of translation in each  direction.
+</p><p><b>Multiple</b> textbox is the multiple coefficient of the translation amount.
+</p><p><b>Steps</b> textbox is the denominator of the translation amount. It's used when the amount of translation is to be covered in some steps.
+</p><p><b>Get displacement</b> button to take the amount and direction of translation from the distance of selected entities (points, edges, faces) or even from a single edge. In the latter case, a green arrow is displayed to show the direction.
+</p><p><b>OK</b> to perform the action and <b>Cancel</b> to close the dialog.
+</p>
+<dl><dd>11) Stretch the beam (class stretchBeam)</dd></dl>
+<p>Dialog to change the length of beams.
+</p><p>In the textbox write the new length that will be applied to selected beams or pipes.
+Otherwise <b>Get Length</b> button takes the new length from the selected geometry (either the length of a beam or edge or the distance between geometric entities).
+</p><p>With the slider it's possible to change the length wirtten in the text-box from -100% to +100%.
+</p><p>Radio buttons <b>Head</b> and <b>Tail</b> allow to choose the side of the beam that will be changed.
+</p>
+<dl><dd>12) Extend the beam (class extend)</dd></dl>
+<p>Dialog to extend one beam to one selected target.
+</p><p>If entities are preselected before calling this command, the first entity is automatically taken as target and the object attached to it is removed from the selection set. In any case it's possible to change the target object with the push-button <b>Select</b>.
+</p>
+<dl><dd>13) Adjust frames' angle (class adjustFrameAngle)</dd></dl>
+<p>Tool to adjust the beams at square angles of frames. To understand at  best how it works, refer to the previous tutorial.
+</p>
+<dl><dd>14) Insert a path (class insertPath)</dd></dl>
+<p>Tool to create a continuous DWire over the path defined by the edges selected in the viewport, even if these are not touching or are intersecting in the middle or belongs to different objects. The only constraint is that exists the intersection between two subsequent edges, in the order that they were selected.
+Also the DWire is given the view-properties of a center-line, i.e. orange and dash-dotted.
+</p>
+<dl><dd>15) FrameLine manager (class FrameLineManager)</dd></dl>
+<p>Same as for "pype-line" objects, this is a dialog to create and change properties of "frame-line" objects.
+</p><p>Also similarly to what seen above, the frame-lines are objects that collects properties common to a set of beams (namely the beam's section) which are included in a common group in the tree of the model. 
+They also have an optional property ".Base", by default set to None, which is the centerline of the beams of the frame. After a path, alias .Base, is defined (a DWire or a Sketch) other beams can be added to the frame-line but they will be deleted when <b>Redraw</b> is invoked.
+The dialog provides the following features:
+</p>
+<ul><li> a list of beams' profiles previously included in the model  by "Insert Std. Sections" dialog (read further);</li>
+<li> a combo-box to select the active FrameLine among those already created or &lt;new&gt; to create a new one;</li>
+<li> a text-box where to write the name of the FrameLine that is going to be created; if nothing or "&lt;name&gt;", the FrameLined will be named as default "Telaio00n";</li>
+<li> <b>Insert</b> button: creates a new FrameLine object or adds new members to the one selected in the combo-box if edges are selected in the active viewport.</li>
+<li> <b>Redraw</b> button: creates new beams and places them over the selected path. New beams will be collected inside the group of the FrameLine. Does not create or update beams added to the FrameLine outside its defined path.</li>
+<li> <b>Clear</b> button: deletes all beams in the FrameLine group. It applies also to beams added to the FrameLine outside its defined path.</li>
+<li> <b>Get Path</b> button: assigns the Dwire selected to the attribute Path of the FrameLine object.</li>
+<li> <b>Get Profile</b> button: changes the Profile attribute of the FrameLine object to the one of the beam selected in the viewport or the one selected in the list.</li>
+<li> <b>Copy profile</b> checkbox: if checked generates a new profile object for each beam in order to avoid multiple references in the model.</li>
+<li> <b>Move to origin</b> checkbox: if checked, moves the center-of-mass of the profile to the origin of coordinates system: that makes the centerline of the beam coincide with the c.o.m. of the profile.</li></ul>
+<p>If the name of a FrameLine object is modified, also the name of the relevant group will change automatically but not viceversa
+</p>
+<dl><dd>16) Insert Std. Sections (class insertSection)</dd></dl>
+<p>Dialog to create the set of profiles to be used in the model for object FrameLine.
+</p>
+<ul><li> <b>Section</b> list: it includes all the sections defined in the .csv file corresponding to the selected section type.</li>
+<li> <b>Section types</b> list: the types of profiles defined with the .csv files included in the folder /tables</li>
+<li> <b>Insert</b> button: creates the group "Profiles_set", if not already existing, and adds to it the object of the selected profile.</li></ul>
+<p>Other profiles tables can be created by adding the relevant .csv file in the /tables folder. The rules to create or customize such tables are similar to those for pipe-lines.
+</p><p>Other profiles can be drafted in the model and dragged inside the group "Profiles_set". 
+</p><p>The orientation of the DWires may influence the rendering of beams.
+</p>
+<h2><span class="mw-headline" id="PYPE_TOOLS">PYPE TOOLS</span></h2>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Flamingos_pype2.jpg" class="image"><img alt="Flamingos pype2.jpg" src="Flamingos_pype2.jpg" width="590" height="38" /></a></div>
+<p><br />
+</p>
+<dl><dd>1) Insert a tube</dd></dl>
+<p>Opens a dialog to insert tubes.
+</p><p>The top-right combo is a common feature for all "Insert ..." dialogs: it lists the pype-line objects defined in the current document: with this it's possible to select to which pype-line to assign the newly created pipes. You can also leave it to &lt;none&gt; so that the object is created on the root line of the part model.
+In the top-left corner is printed the currently selected pipe rating, taken from the listbox in the right column. Pipes dimensions for each pipe-rating are defined in .csv files, which is possible to add or modify, with few simple naming rules, according needs. Curves, reductions etc. have the same rules for definition of their tables of dimensions: see files in ../Mod/flamingo/Tables. Read also "tutorialPype.pdf" to know how to customize or create them.
+</p><p>To define position and orientation of pipes, following selections are possible:
+</p>
+<ul><li> one or more straight edges</li>
+<li> one or more curved edges</li>
+<li> one or more vertexes </li>
+<li> nothing; in this case the tube will be placed at origin.</li></ul>
+<p>If no length is specified, the default is 200 units (just a convenient length, in mm).
+</p><p><b>Reverse</b> button allow to rotate by 180° the last tube created or those currently selected.
+</p><p><b>Apply</b> button allow to apply a different lenght or Nominal diameter to the tubes currently selected.
+</p>
+<dl><dd>2) Insert a curve</dd></dl>
+<p>Opens a dialog to insert one elbow.
+</p><p>Beside the common widgets with other "Insert..." dialogs, the <b>Trim/Extend</b> button allow to adjust the length of selected pipes to the selected edge of the curve.
+To define position and orientation following selections are possible:
+</p>
+<ul><li> one vertex, </li>
+<li> one circular edge </li>
+<li> one pipe at one of its ends; in this case the curve's diameter and thickness will automatically fit those of the selected pipe</li>
+<li> a pair of edges or pipes or beams, also not contiguous but intersecting; in this case curve's properties will automatically fit to connect the two selected objects; also selected pipes will be automatically trimmed or extended to the curve's edges</li>
+<li> nothing; in this case the curve will be placed at origin.</li></ul>
+<p>If no angle is specified the default is 90 degrees.
+</p>
+<dl><dd>3) Insert a reduction</dd></dl>
+<p>Opens a dialog to insert concentric reductions.
+</p><p>To define position and orientation following selections are possible:
+two pipes parallel (possibly co-linear)
+</p>
+<ul><li> one pipe at one of its ends</li>
+<li> one pipe</li>
+<li> one circular edge</li>
+<li> one straight edge</li>
+<li> one vertex</li>
+<li> nothing (created at origin)</li></ul>
+<p>In case one pipe is selected, its properties are applied to the reduction.
+</p><p>In case two pipes are selected, the tool will try automatically to connect them with the right major and minor diameter.
+</p>
+<dl><dd>4) Insert a cap</dd></dl>
+<p>Opens dialog to insert caps.
+</p><p>To define position and orientation following selections are possible:
+one or more curved edges (axis and origin across the center)
+one or more vertexes 
+nothing 
+If a pipe edge is selected the caps' properties will automatically fit to those of the pipe.
+</p>
+<dl><dd>5) Insert a flange</dd></dl>
+<p>Opens dialog to insert flanges.
+To define position and orientation following selections are possible:
+</p>
+<ul><li> one or more circular edges,</li>
+<li> one or more vertexes,</li>
+<li> nothing.</li></ul>
+<p>In case one pipe is selected, its properties are applied to the flange.
+</p>
+<dl><dd>6) Insert a U-bolt</dd></dl>
+<p>Opens dialog to insert U-bolts.
+</p><p>To define position and orientation following selections are possible:
+</p>
+<ul><li> one or more circular edges</li>
+<li> one or more pipes</li>
+<li> nothing.</li></ul>
+<p>In case one pipe is selected, its properties are aplied to the U-bolt. Moreover it's possible to choose to place the U-bolt at the <b>Head</b> or <b>Tail</b> ends or in the <b>Middle</b> of the pipes by checking the relevant box.
+</p><p>With <b>Ref. face</b> button it's possible to select the face of the support to which to orient the U-bolt axis.
+</p>
+<dl><dd>7) PypeLine Manager</dd></dl>
+<p>Before talking about the dialog it's worth to recall what the pype-line object is in the context of Flamingo workbench. 
+</p><p>This object represent a collection of objects "PType" that are updated with the methods defined in the Python class itself. At present time it creates, with the method "obj.Proxy.update(obj,[edges])", pipes and curves over the given edges and collect them in a group named according the object's obj.Label.
+A standard bending radius "3D" (i.e. 1.5xO.D.) is applied for curves. The Bend Radius is a common property of object pype-line, thus it can be changed and then redrawn.
+When the Label of the object pype-line is renamed, the name of its group is changed accordingly.
+</p><p>The class PypeLine2 has also the optional attribute ".Base", which namely represent the centerline of the piping: 
+</p>
+<ul><li> If Base is None, PypeLine2 behaves like a bare container of objects, with possibility to group them automatically, assign one color and extract the part-list.</li>
+<li> .Base can be a Wire or a Sketch or any object which has edges in its Shape.</li>
+<li> Running "obj.Proxy.update(obj)", without any [edges], the class attempts to render the pypeline (Pipe and Elbow objects) on the "obj.Base" edges: for well defined geometries  this usually leads to the desired result. If [edges] are given, pipes and curves will be drawn along them.</li>
+<li> Running "obj.Proxy.purge(obj)" deletes from the model all Pipes and Elbows that belongs to the pype-line.  </li>
+<li> Remember that the object created outside the .Base won't be updated when the .Base is changed and the pypeline is redrawn and (except pipe and curves) won't be deleted if the pype-line is purged.</li></ul>
+<p>This understood, the command opens the dialog to create or modify one pype-line.
+</p><p>The dialog is very similar to those for insert other objects seen before.
+</p><p>The pipe ratings tables, where the O.D. and thickness are defined, are the same of those for tubes (e.g. Pipe_SCH-STD.csv). 
+</p><p>When &lt;new&gt; is in the combo and <b>Insert</b> is pressed, a new pype-line object is created in the document with the relevant group.
+</p><p>It is possible to create one pypeline in  three ways, according to the objects selected in the viewport when Insert is pushed:
+</p>
+<ul><li> nothing is selected. One pype-line is created with property .Base = None and included in its group with the specified name and color (or default values). The piping objects to populate it can be created one-by-one with the commands seen above or alternatively a centerline can be selected afterwards with <b>Get Profile</b> and <b>Redraw</b> buttons.</li>
+<li> one DWire object is selected. It is automatically taken as Base and converted in a Path (orange, dash-dotted) and pipes and curves are drawn along it.</li>
+<li> a set of edges are selected (even not contiguous but anyway having intersections extending their ends). One Path is created connecting all the edges (see the Path tool in the Frame toolbar) and assigned as .Base to the newly created pype-line. Then pipes and curves are drawn on it as above.</li></ul>
+<p>After that it's still possible to add other objects (such as Flange, Reduct...) using the relevant insertion commands described above. When objects are created within a pype-line they are automatically included in the relevant group of the model and the common properties (i.e. O.D., thickness, color, bending radius etc.) are applied. 
+</p><p>If at least one pype-line is already in the model, that can be selected from the combo-box: in this case, pushing Insert creates the pipes and curves like described above but, instead of creating a new pype-line object, it adds them to the selected existing pype-line. Beware that the piping created in this way will be deleted at next <b>Redraw</b>.
+</p><p><b>Get Path</b>, Get Profile and Color allow to change the .Base property, the nominal size and color of the object respectively.
+</p><p><b>Redraw</b> re-create tubes and curves along the .Base (if defined) after any modification to the path or the properties of the pype-line.
+</p><p><b>Part list</b> generates a .csv file with the bill of material of the piping object included in the pype-line selected in the combo.
+</p>
+<dl><dd>8) Break the pipe</dd></dl>
+<p>Opens a dialog to break one pipe at a defined point, optionally making a gap between the ends of the two parts. Multiple selection is possible. 
+</p><p>Insert in the <b>Point</b> text-box the length where the pipe or pipes are going to break: this can be an absolute value or just a percentage of the length (a numeral followed by&#160;%). In some case it's quicker to use the slide-bar at the bottom to change this value. 
+</p><p>The <b>Length</b> button allow to measure the length of the selected pipe and use that as the reference of the slide-bar scale.
+</p><p>If it's needed just to break pipes in two, leave the <b>Gap</b> text-box to 0; otherwise define the length of the gap. If a reference length is choosen, also the gap can be defined as a percentage. As seen in the <a rel="nofollow" class="external text" href="https://github.com/oddtopus/flamingo/blob/master/tutorials">tutorial</a>, it's possible to measure the gap from geometries in the model with the <b>Get gap</b> button: that's the distance between any geometric entity or even the length of a single edge.
+</p><p>Pushing on <b>Break</b> performs the action.
+</p><p>The Pypeline combo, as usual, allow to choose the group to which to assign the new objects created.
+</p>
+<dl><dd>9) Rotate by axis</dd></dl>
+<p>Opens a dialog that allow to rotate one Part around the axis of its Shape.
+</p><p>The axis can be defined directly by input of its coordinates or by selecting one edge + the part to be rotated and pushing Get shape axis.
+</p><p><b>Move/Copy</b> radio buttons allow to choose the corresponding action. Notice that when is Copy is choosen, the original object is the one that is moved while the copy lies in the original position. That may be important in retrieving the object in the model tree.
+</p><p><b>Angle</b> text-box defines the amount of rotation.
+</p><p>Finally press <b>OK</b> once or more time to perform the action and <b>Cancel</b> to close the dialog.
+</p><p><b>Reverse</b> makes the rotation the opposite way round.
+</p>
+<dl><dd>10) Rotate by edge</dd></dl>
+<p>Opens a dialog to rotate any object around the axis of one of its circular edges.
+</p><p>The behaviour is similar to the command above but the dialog is simpler, since it's only necessary to select the circular edge of one object in the viewport and press <b>OK</b> to perform the action.
+</p>
+<dl><dd>11) Mate pipes edges.</dd></dl>
+<p>When two circular edges belonging to different objects are selected, pressing this button will make the second object move to make the edges concentric and coplanar.
+</p><p>This works not only with pipes.
+</p><p>It may happen that orientation of second object is not the desired one: in that case it's necessary to reverse it using other placing tools available in the workbench.
+</p>
+<dl><dd>12) Put in the plane</dd></dl>
+<p>(this is work-in-progress: at present time it places a curve at the intersection of two pipes)
+</p>
+<dl><dd>13) Extend pipes to intersection</dd></dl>
+<p>By selecting two pipes, this command extend them both to their intersection point, if exists.
+</p>
+<dl><dd>14) Extend pipe to intersection</dd></dl>
+<p>By selecting two pipes, this command extend the first to the intersection with the other, if exists.
+</p>
+<dl><dd>15) Lay-down the pipes</dd></dl>
+<p>By selecting one face and multiple pipes, this command translates the pipe along the normal of the face in order to make them lie on its plane.
+</p>
+<dl><dd>16) Raise-up the support</dd></dl>
+<p>Similar to the tool above but in this case is the support that is raised or lowered, so that the face is tangent to the pipe.
+</p>
+<h2><span class="mw-headline" id="UTILITIES">UTILITIES</span></h2>
+<div class="center" style="width: auto; margin-left: auto; margin-right: auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Flamingos_utils.jpg" class="image"><img alt="Flamingos utils.jpg" src="Flamingos_utils.jpg" width="412" height="44" /></a></div>
+<p><br />
+</p>
+<dl><dd>1) Make a polygon</dd></dl>
+<p>The first two tools of utils are part of a separate project which aims to create an automatic scanner of rooms with a stepper motor and an ultrasonic distance meter.
+This tool creates one regular polygon inside a sketch.
+</p>
+<dl><dd>2) Polygon from file</dd></dl>
+<p>Tool to create any polygon inside a sketch taking vertexes from a .csv file, where they are stored in polar coordinates.
+</p>
+<dl><dd>3) Query the model</dd></dl>
+<p>Tool to get various informations according to the object or objects selected. Beside length or distances, it is specifically suited to give informations related to beams and pipes (length, section, angle-between).
+</p>
+<dl><dd>4) Align workplane</dd></dl>
+<p>Tool to set the position and rotation of working plane according to the selected existing geometry. 
+</p><p>The normal of WP is defined scanning the elements in the following order:
+</p>
+<ol><li> the normal of a face</li>
+<li> the normal of the plane of a curve</li>
+<li> the normal of the plane containing two segments</li></ol>
+<p>The origin of WP is defined (in order) by
+</p>
+<ol><li> one vertex</li>
+<li> the center of curvature of a line</li>
+<li> the intersection of two lines</li>
+<li> the center of an edge</li></ol>
+<dl><dd>5) Offset workplane</dd></dl>
+<p>Shifts the WP along its normal vector. 
+To show the direction of offset, a temporary green arrow is displayed on the screen. Clearly also negative values are allowed.
+</p>
+<dl><dd>6) Rotate workplane</dd></dl>
+<p>Rotates the WP around one of its axis.
+Also in this case a green arrow is displayed in the viewport to identify the present orientation of the WP: the arrow is pointed in the Z direction and the long base of the arrow is layed over the X direction.
+</p>
+<dl><dd>7) Draw a DWire</dd></dl>
+<p>This tool works exactly like the corresponding tool of Draft workbench but with few additional options at the end of the dialog.
+As default, the origin of WP is redefined at each point added because this makes simpler to draw segments of known length and orientation using the snap-to-grid option.
+Then two push-buttons, invoked also with the short-key Ctrl+Shift+(), allow to rotate and offset the WP as seen above without breaking the DWire object.
+The last three buttons allow to quickly change the rotation of WP to be parallel to the principal planes.
+</p>
+<dl><dd>8) Quick move objects</dd></dl>
+<p>To move quickly any part, to access the underlying objects for instance, this tool provides a graphic handle (green arrow) by clicking on which it's possible to displace and rotate the selected objects.
+</p>
+<dl><dd>9) Pressure loss calculator</dd></dl>
+<p>Opens one dialog to calculate the pressure losses across the pype-parts selected in the viewport or across one PypeBranch.
+The friction coefficient is calculated for each straight tube and elbow. For other objects the concentrated pressure loss is calculated through the flow factor, provided that the attribute Kv is available and set to a positive value.
+</p>
+<h2><span class="mw-headline" id="Instalacija">Instalacija</span></h2>
+<h3><span class="mw-headline" id="Automatic_installation">Automatic installation</span></h3>
+<p>See <a href="Installing.html" title="Installing">Installing</a>
+</p>
+<h3><span class="mw-headline" id="From_GitHub">From GitHub</span></h3>
+<p>To install the workbenches, you may copy as usual the files of this repository in a subfolder of \Mod in you FreeCAD installation of your system or use the <b>addons-installer</b> macro.
+</p>
+<h2><span class="mw-headline" id="Links_to_Flamingo_WB">Links to Flamingo WB</span></h2>
+<ul><li> Flamingo Workbench Wiki: <a href="Flamingo_Workbench.html" title="Flamingo Workbench">Flamingo Workbench</a></li>
+<li> FreeCAD Forum: (<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=8&amp;t=17035">Announcement thread</a>)</li>
+<li> Tutorials: <a rel="nofollow" class="external free" href="https://github.com/oddtopus/flamingo/tree/master/tutorials">https://github.com/oddtopus/flamingo/tree/master/tutorials</a></li>
+<li> Videos:  </li>
+<li> Files: </li>
+<li> Report bugs: Please report bugs to the <a rel="nofollow" class="external text" href="https://github.com/oddtopus/flamingo/issues">Flamingo GH issue queue</a></li></ul>
+<h2><span class="mw-headline" id="Other_useful_links">Other useful links</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Template:DevWorkbenches" title="Template:DevWorkbenches">DevWorkbenches</a>: List of workbenches in development.</li>
+<li> <a href="Macros_recipes.html" title="Macros recipes">Macros recipes</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Flamingo_Workbench/hr&amp;oldid=286792">http://www.freecadweb.org/wiki/index.php?title=Flamingo_Workbench/hr&amp;oldid=286792</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

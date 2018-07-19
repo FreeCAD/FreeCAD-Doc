@@ -1,0 +1,151 @@
+<html><head><title>3Dconnexion input devices/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>3Dconnexion input devices/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpaceNavigator.jpg" class="image"><img alt="" src="200px-SpaceNavigator.jpg" width="200" height="133" class="thumbimage" srcset="/wiki/images/thumb/e/ea/SpaceNavigator.jpg/300px-SpaceNavigator.jpg 1.5x, /wiki/images/thumb/e/ea/SpaceNavigator.jpg/400px-SpaceNavigator.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpaceNavigator.jpg" class="internal" title="Enlarge"></a></div>3Dconnexion SpaceNavigator</div></div></div>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Instalace_driveru"><span class="tocnumber">1</span> <span class="toctext">Instalace driveru</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Linux"><span class="tocnumber">1.1</span> <span class="toctext">Linux</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Instalace_z_repozit.C3.A1.C5.99e"><span class="tocnumber">1.1.1</span> <span class="toctext">Instalace z repozitáře</span></a>
+<ul>
+<li class="toclevel-4 tocsection-4"><a href="#Ubuntu"><span class="tocnumber">1.1.1.1</span> <span class="toctext">Ubuntu</span></a></li>
+<li class="toclevel-4 tocsection-5"><a href="#Fedora"><span class="tocnumber">1.1.1.2</span> <span class="toctext">Fedora</span></a></li>
+<li class="toclevel-4 tocsection-6"><a href="#Debian"><span class="tocnumber">1.1.1.3</span> <span class="toctext">Debian</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-7"><a href="#Kompilace_Spacenav_ze_zdrojov.C3.BDch_k.C3.B3d.C5.AF"><span class="tocnumber">1.1.2</span> <span class="toctext">Kompilace Spacenav ze zdrojových kódů</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Restart"><span class="tocnumber">1.1.3</span> <span class="toctext">Restart</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#OSX"><span class="tocnumber">1.2</span> <span class="toctext">OSX</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Windows"><span class="tocnumber">1.3</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Nastaven.C3.AD_FreeCADu"><span class="tocnumber">2</span> <span class="toctext">Nastavení FreeCADu</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Spaceball_Motion_.28Pohyb.29"><span class="tocnumber">2.1</span> <span class="toctext">Spaceball Motion (Pohyb)</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Spaceball_Buttons_.28Tla.C4.8D.C3.ADtka.29"><span class="tocnumber">2.2</span> <span class="toctext">Spaceball Buttons (Tlačítka)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Instalace_driveru">Instalace driveru</span></h2>
+<h3><span class="mw-headline" id="Linux">Linux</span></h3>
+<p>FreeCAD podporuje drivery z projektu <a rel="nofollow" class="external text" href="http://spacenav.sourceforge.net/">Spacenav</a>. Tento projekt je zaměřen na vytvoření Open-source driveru který bude kompatibilní s patentovanými drivery z 3Dconnexion.
+</p>
+<h4><span class="mw-headline" id="Instalace_z_repozit.C3.A1.C5.99e">Instalace z repozitáře</span></h4>
+<h5><span class="mw-headline" id="Ubuntu">Ubuntu</span></h5>
+<pre>sudo apt-get install spacenavd </pre>
+<h5><span class="mw-headline" id="Fedora">Fedora</span></h5>
+<pre>sudo yum install spacenavd </pre>
+<h5><span class="mw-headline" id="Debian">Debian</span></h5>
+<pre>apt-get install spacenavd libspnav-dev </pre>
+<ul><li> spacenav needs these permissions</li></ul>
+<pre>cp ~/.Xauthority /root/ </pre>
+<ul><li> Restart spnavd and FreeCAD</li></ul>
+<pre>/usr/bin/spnavd_ctl x11 stop
+/usr/bin/spnavd_ctl x11 start </pre>
+<div class="mw-translate-fuzzy">
+<h4><span class="mw-headline" id="Kompilace_Spacenav_ze_zdrojov.C3.BDch_k.C3.B3d.C5.AF">Kompilace Spacenav ze zdrojových kódů</span></h4>
+<p>Tento způsob je doporučován pokud je ve Vaší distribuci starší verze tohoto software. Například repozitář Ubuntu poskytuje verzi 0.3.0 z 10.4.2011.
+</p>
+<ul><li>Stáhněte si následující soubory:
+<ul><li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20daemon/spacenavd%200.5/spacenavd-0.5.tar.gz/download">spacenavd-0.5.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20library%20%28SDK%29/libspnav%200.2.2/libspnav-0.2.2.tar.gz/download">libspnav-0.2.2.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenavd%20config%20gui/spnavcfg%200.2.1/spnavcfg-0.2.1.tar.gz/download">spnavcfg-0.2.1.tar.gz</a></li></ul></li>
+<li>Rozbalte archivy do složky ve Vašem domovském adresáři.</li>
+<li>Vytvořte adresář spacenavd-0.5 a spusťte následující příkaz: </li></ul>
+<p>&lt;syntaxhighlight&gt;
+</p>
+</div> 
+<ul><li>Download the following files:
+<ul><li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20daemon/spacenavd%200.5/spacenavd-0.5.tar.gz/download">spacenavd-0.5.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenav%20library%20%28SDK%29/libspnav%200.2.2/libspnav-0.2.2.tar.gz/download">libspnav-0.2.2.tar.gz</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/spacenav/files/spacenavd%20config%20gui/spnavcfg%200.2.1/spnavcfg-0.2.1.tar.gz/download">spnavcfg-0.2.1.tar.gz</a></li></ul></li>
+<li>Unpack the archives into a folder in your home directory.</li>
+<li>Enter the directory spacenavd-0.5 and run the following commands:</li></ul>
+<pre>./configure
+make </pre>
+<ul><li>Pokud vše proběhlo úspěšně, spusťte následující příkazy <b>jako root</b> (nebo s prefixem sudo.)</li></ul>
+<pre>make install
+./setup_init
+/etc/init.d/spacenavd start </pre>
+<ul><li>Tím nainstalujete spacenav démona, nakonfigurujete jej na automatické natažení při spuštění systému  a spustíte jej bez nutnosti rebootu systému.</li>
+<li>Nyní je čas na kontrolu jestli je Vaše zařízení správně detekováno. Bez připojení zařízení zadejte následující příkaz a potom zařízení připojte.</li></ul>
+<pre>tail -n100 -f /var/log/spnavd.log </pre>
+<ul><li>Jestliže výstup vypadá nějak takto, můžete pokračovat.</li></ul>
+<pre>Device detection, parsing /proc/bus/input/devices
+trying alternative detection, querying /dev/input/eventX device names...
+  trying "/dev/input/event1" ... Power Button
+  trying "/dev/input/event2" ... 3Dconnexion SpaceNavigator
+using device: /dev/input/event2
+device name: 3Dconnexion SpaceNavigator </pre>
+<ul><li>Teď přejděte do adresáře nazvaného libspnav-0.2.2 a spusťte následující příkaz:</li></ul>
+<pre>./configure
+make </pre>
+<ul><li>Jestliže make zhavaruje s následující chybou: ...</li></ul>
+<pre>fatal error: gtk/gtk.h: No such file or directory </pre>
+<ul><li> ... pak potřebujete nainstalovat libgtkmm-2.4-dev. Pod Ubuntu se to udělá takto:</li></ul>
+<pre>sudo apt-get install libgtkmm-2.4-dev </pre>
+<ul><li>Pokud make proběhne úspěšně, spusťte následující příkaz <b>jako root</b> (nebo s prefixem sudo.)</li></ul>
+<pre>make install </pre>
+<ul><li>Podívejte se do adresáře libspnav-0.2.2/examples/. Chcete-li otestovat Vaše zažízení zkompilujte a spusťte jeden ze dvou příkladů.</li></ul>
+<ul><li>Podle stejného vzoru zkompilujte a nainstalujte spnavcfg jako root jinak nebudou uložena žádná nastavení!</li></ul>
+<h4><span class="mw-headline" id="Restart">Restart</span></h4>
+<p>Pokud občas navigátor přestane pracovat, je vhodné restartovat driver. Uděláte to tak, že přejdete na Terminal a zadáte:
+</p>
+<pre>sudo xhost +
+sudo /etc/init.d/spacenavd restart </pre>
+<p>Po tom restartujte FreeCAD. V některých distribucích je to nutné po každém bootu.
+</p>
+<div class="mw-translate-fuzzy">
+<h3><span class="mw-headline" id="OSX">OSX</span></h3>
+<p>Jeden uživatel dokázal získat space navigator pracující pod OSX. Nicméně ještě to není dokonalé. Více informací na <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=10&amp;t=2576&amp;hilit=space+navigator+osx&amp;start=10#p19923">zde</a>
+</p>
+</div>
+<h3><span class="mw-headline" id="Windows">Windows</span></h3>
+<p>Od verze 0.13, je pod Windows podporována 3D myš. Musíte mít nainstalovány odpovídající drivery, ale protože podpora byla vyvíjena na nížší úrovni, přepíše to nastavení, která jste udělali v řídícím panelu 3D Connexion. Nicméně většina z těchto nastavení může být zadána v Tools&gt;&gt;Customize dialogovém okně, pod záložkou  Spaceball.
+</p>
+<h2><span class="mw-headline" id="Nastaven.C3.AD_FreeCADu">Nastavení FreeCADu</span></h2>
+<p>Podpora 3D myši byla vytvořena v projektu spnav na Linuxu a na velmi nízké úrovni ve Windowsech. To znamená, že zde není žádná kvalitní podpora pro zařízení, protože na Linuxu ta podpora není moc dobrá a na Windows je přepsána. To je důvod proč byly do dialogového okna "Customize" přidány další dvě stránky.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Spaceball_Motion.png" class="image"><img alt="Spaceball Motion.png" src="450px-Spaceball_Motion.png" width="450" height="459" srcset="/wiki/images/8/80/Spaceball_Motion.png 1.5x" /></a>
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spaceball_Buttons.png" class="image"><img alt="Spaceball Buttons.png" src="450px-Spaceball_Buttons.png" width="450" height="459" srcset="/wiki/images/9/93/Spaceball_Buttons.png 1.5x" /></a>
+</p>
+<h3><span class="mw-headline" id="Spaceball_Motion_.28Pohyb.29">Spaceball Motion (Pohyb)</span></h3>
+<p>To je záložka kde máte možnost zadat některé ze základních nastavní prostorové myši. Ty zahrnují:
+</p>
+<ul><li> Global Sensitivity - posuvník s možností nastavení globální citlivosti</li>
+<li> Dominant - povolíte-li dominant mód, bude brán ohled pouze na osy s "highest move"</li>
+<li> Flip YZ - tento výběr Vám umožní prohodit osy Y a Z na 3D myši</li>
+<li> Enable Translations - snadný způsob jak povolit/zakázat "translations" </li>
+<li> Enable Rotations - snadný způsob jak povolit/zakázat otáčení</li>
+<li> Calibrate - umožňuje kalibrovat space navigator. Stiskne se když se space navigator nepohybuje. </li>
+<li> Set To Default - vymaže všechny změny a nastaví defaultní hodnoty.</li></ul>
+<p>Mimo to, pro každou osu můžete nastavit:
+</p>
+<ul><li> Enabled - povolení/zakázání os</li>
+<li> Reverse - otočení směru pobybu po osách</li>
+<li> Sensitivity - posuvník s možností nastavení citlivosti</li></ul>
+<h3><span class="mw-headline" id="Spaceball_Buttons_.28Tla.C4.8D.C3.ADtka.29">Spaceball Buttons (Tlačítka)</span></h3>
+<p>Když otevřete tuto záložku poprvé, bude prázdná a nepřístupná. Abyste ji aktivovali, musíte stisknout některé z tlačítek na prostorové myši. Až to uděláte, na levé straně se zobrazí seznam tlačítek a na pravé straně bude dostupný seznam příkazů.
+</p><p>Abyste přiřadili určitý příkaz k tlačítku, stiskněte tlačítko na levé straně a příslušný příkaz na pravé straně.
+Příkaz z tlačítka odstraníte stisknutím "Clear".
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=3Dconnexion_input_devices/cs&amp;oldid=271110">http://www.freecadweb.org/wiki/index.php?title=3Dconnexion_input_devices/cs&amp;oldid=271110</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,138 @@
+<html><head><title>Path Post/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Path Post/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Post-Processeur"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_PostProcess.png" class="image"><img alt="Path PostProcess.png" src="32px-Path_PostProcess.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Path_PostProcess.png/48px-Path_PostProcess.png 1.5x, /wiki/images/3/39/Path_PostProcess.png 2x" /></a> Post-Processeur</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Path → Post Process
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Path_Workbench/fr" title="Path Workbench/fr">Path</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">P,P
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Post-Processeur"><span class="tocnumber">1</span> <span class="toctext">Post-Processeur</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette commande exporte le <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Job/fr" title="Path Job/fr">Travail (tâche)</a> sélectionné vers un fichier G-Code.
+</p><p>Chaque contrôleur CNC utilise un langage G-Code spécifique, nécessitant un Post-processeur correcteur de langage pour traduire la sortie finale du langage G-Code FreeCAD interne agnostique. 
+</p><p>Les fonctions typiques du Post-processeur incluent:
+</p>
+<ul><li> Utilisation d'une extension de fichier G-Code de sortie de travail correcte.</li>
+<li> Sélection des commandes G-Code. Les contrôleurs CNC prennent généralement en charge un sous-ensemble de commandes G-Code disponibles. Le super-ensemble de commandes G-Code contient des commandes puissantes et spécialisées qui, autrement, doivent être traitées en utilisant plusieurs commandes plus simples. Les post-processeurs sont écrits pour sélectionner le meilleur code G pour une opération, disponible sur la cible.</li>
+<li> Formatage de la syntaxe G-Code en réorganisant les entrées Feed (avance), X, Y, Z, A et B et la précision.</li>
+<li> Insertion d'un préambule pour régler les unités, le format des unités, le plan de travail, le système de coordonnées, etc ...</li>
+<li> Insérer un post-amble pour garer la machine, l'arrêter, traiter tous les arguments.</li>
+<li> Insérer des changements d'outil, ou les supprimer entre les opérations suivantes utilisant le même outil.</li>
+<li> Formatage des informations d'avance et de vitesse en tours par minute ou par seconde.</li>
+<li> Fonction de mise en forme du nom d'appel et appel.</li></ul>
+<p>Plusieurs Post-processeurs fournis génèrent un code approprié pour de nombreux contrôleurs CNC, ou peuvent être utilisés comme modèles pour la modification
+</p><p>Les post-processeurs contiennent des indicateurs de configuration et sont conçus pour être ajustés en ajoutant des G-codes et M-Codes aux définitions fournies pour:
+</p>
+<ul><li> Initialisation de la machine</li>
+<li> Finalisation de l'emploi</li>
+<li> Changements d'outils</li>
+<li> Refroidissement activé / désactivé</li>
+<li>Etc...</li></ul>
+<p><br />
+Les post-processeurs utilisent le <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/Path_scripting/fr#Format_G-Code_interne_de_FreeCAD">langage G-Code des opérations de travail Path de FreeCAD</a>, en conjonction avec les définitions de configuration du Post-processeur, pour générer le G-Code corrigé pour les machines cibles. Cela permet à l'atelier Path de générer un G-code correct pour cibler divers contrôleurs de machine CNC en appelant différents Post-processeurs.
+</p><p>Les types de contrôleur de machine CNC comprennent:
+</p>
+<ul><li> Fraiseuses CNC</li>
+<li> Tours CNC</li>
+<li> Imprimantes 3D</li>
+<li> Couteaux tractés</li>
+<li> Découpeurs laser</li>
+<li> Graveurs</li>
+<li> Découpeurs à torche plasma</li>
+<li> Cintreuses</li>
+<li> Coupeurs EDM</li>
+<li>Etc...</li></ul>
+<p>Si une seule machine CNC est utilisée ou si toutes les machines CNC partagent un Post-processeur commun, l'atelier Path ne doit inclure qu'un seul Post-processeur. Si un seul Post-processeur est insuffisant pour générer un G-code pour tous les contrôleurs CNC cibles, plusieurs Post-processeurs doivent être installés.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<ol><li> Sélectionnez le <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Job/fr" title="Path Job/fr">Travail</a> que vous voulez exporter</li>
+<li> Pressez le bouton <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Path_PostProcess.png" class="image"><img alt="Path PostProcess.png" src="32px-Path_PostProcess.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Path_PostProcess.png/48px-Path_PostProcess.png 1.5x, /wiki/images/3/39/Path_PostProcess.png 2x" /></a><a class="mw-selflink selflink">Post-Processeur</a></span></li>
+<li> Confirmez le nom et le répertoire <b>Output File</b></li></ol>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<p>Les propriétés du fichier de sortie et du post-processeur peuvent être définies dans le <a href="https://www.freecadweb.org/wiki/index.php?title=Path_Job/fr" title="Path Job/fr">Travail</a> à tout moment, avant d'appeler le Post-processeur.
+</p><p><br />
+Les post-processeurs fournis sont écrits avec des commentaires indiquant les zones contenant des Balises, des Variables de configuration et des Sections de G-codes et de M-codes qui doivent être utilisés par le post-processeur pour configurer la sortie.
+</p><p>Les indicateurs True/False de la configuration type incluent:
+</p>
+<ul><li> OUTPUT_COMMENTS (True=Autoriser, False=Supprimer), Utilisé pour insérer des commentaires texte dans le fichier G-Code de sortie.</li>
+<li> OUTPUT_HEADER (True=Autoriser, False=Supprimer), Utilisé pour insérer des en-têtes de texte dans le fichier G-Code de sortie.</li>
+<li> OUTPUT_LINE_NUMBERS (True=Autoriser, False=Supprimer), Utilisé pour insérer des numéros de ligne dans le fichier G-Code de sortie.</li>
+<li> SHOW_EDITOR (True=Autoriser, False=Supprimer), Utilisé pour afficher le G-code de sortie dans une fenêtre contextuelle lors de l'appel du Post-processeur.</li>
+<li> MODAL (True=Autoriser, False=Supprimer), Utilisé pour réduire le nombre de lignes G-Code en sortie en supprimant les informations de Mode lorsque le Mode ne change pas.</li></ul>
+<p>Les variables de configuration typiques incluent:
+</p>
+<ul><li> LINENR (numéro de ligne), utilisé pour définir l'index du numéro de ligne.</li>
+<li> UNITS (G20 ou G21), Utilisé pour communiquer explicitement au contrôleur CNC cible quelles unités utiliser pour interpréter le fichier de sortie final.</li>
+<li> MACHINE_NAME (nom de la fraiseuse CNC cible), utilisé pour insérer une étiquette de nom de machine dans le fichier de sortie final.</li>
+<li> PRECISION, Utilisé pour définir le nombre de chiffres à inclure après la décimale dans le fichier de sortie final</li></ul>
+<p>Les sections de configuration typiques incluent:
+</p>
+<ul><li> PREAMBULE (Configuration du code insérée au début du Travail)</li>
+<li> POSTAMBLE (Configuration du code annexée au Travail, permettant de stationner la machine, etc ...)</li>
+<li> TOOL_CHANGE (code inséré avec chaque changement d'outil dans le Travail)</li></ul>
+<p>L'onglet Édition-&gt; Préférences ...-&gt; Path-&gt; Onglet Préférences Travail, Defaults-&gt; Path est utilisé pour définir le Post-processeur par défaut sélectionné lors de la création du Travail. Ceci permet à l'atelier Path d'être configuré pour n'afficher que les Post-processeurs souhaités et de définir une valeur par défaut. 
+</p><p>Les post-processeurs inclus sont enregistrés dans le fichier FreeCAD.Mod.Path.Pathscripts.Post par défaut:
+</p>
+<ul><li> centroïde</li>
+<li> comparams</li>
+<li> Dynapath</li>
+<li> grbl</li>
+<li> <a rel="nofollow" class="external text" href="http://linuxcnc.org/docs/html/gcode/g-code.html#gcode:g17-g19.1">linuxcnc</a></li>
+<li> opensbp</li>
+<li> phillips</li>
+<li> rml</li>
+<li> smoothie</li></ul>
+<p><br />
+N'utilisez <b>pas</b> le menu <b>Fichier-&gt; Exporter</b> pour exporter vers le G-code, cela produirait un G-code endommagé!
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Path_Post/fr&amp;oldid=278603">http://www.freecadweb.org/wiki/index.php?title=Path_Post/fr&amp;oldid=278603</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

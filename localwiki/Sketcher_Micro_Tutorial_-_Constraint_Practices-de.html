@@ -1,0 +1,113 @@
+<html><head><title>Sketcher Micro Tutorial - Constraint Practices/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher Micro Tutorial - Constraint Practices/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutorial"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutorial</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Thema
+</th></tr>
+<tr>
+<td class="ctEven">Modellierung
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Anfänger
+</td></tr>
+<tr>
+<th class="ctOdd">Zeit zum Abschluss
+</th></tr>
+<tr>
+<td class="ctEven">weniger als 15 Minuten
+</td></tr>
+<tr>
+<th class="ctOdd">Autor
+</th></tr>
+<tr>
+<td class="ctEven">Mark Stephen (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Quick61" title="User:Quick61">Quick61</a>), holdi (<a href="https://www.freecadweb.org/wiki/index.php?title=User:Holdi&amp;action=edit&amp;redlink=1" class="new" title="User:Holdi (page does not exist)">holdi</a>)
+</td></tr>
+<tr>
+<th class="ctOdd">FreeCAD version
+</th></tr>
+<tr>
+<td class="ctEven">0.14.3700 or greater
+</td></tr>
+<tr>
+<th class="ctOdd">Beispieldatei(en)
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutorial"><span class="tocnumber">1</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Veranlassung"><span class="tocnumber">2</span> <span class="toctext">Veranlassung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Parametrisierung"><span class="tocnumber">3</span> <span class="toctext">Parametrisierung</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Erster_Ansatz"><span class="tocnumber">4</span> <span class="toctext">Erster Ansatz</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Ein_f.C3.BCr_die_Programmarbeit_besserer_Ansatz"><span class="tocnumber">5</span> <span class="toctext">Ein für die Programmarbeit besserer Ansatz</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Optimaler_Ansatz"><span class="tocnumber">6</span> <span class="toctext">Optimaler Ansatz</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Siehe_auch"><span class="tocnumber">7</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Veranlassung">Veranlassung</span></h2>
+<p>Diese Kurzanleitung ist die schriftliche Kurzdarstellung einer Diskussion im Freecad-Forum über die Parametrisierung einer Zeichnung.  Sie ist als ein erster, kurz gefasster Einstieg in die Eigenschaft von FreeCAD als <i>parametrisches</i> 3D-CAD-System gedacht.
+</p>
+<h2><span class="mw-headline" id="Parametrisierung">Parametrisierung</span></h2>
+<p>Parametrisieren in einem CAD-System heißt, die geometrischen Eigenschaften einer Figur oder eines Körpers verallgemeinert als variable Größen (Parameter) mit jeweiligem Namen und momentanen Wert getrennt von Figur/Körper zu erfassen und zu verwalten. Das Erstellen dieser Parameter wird als Be- oder Einschränken  (to constrain) der Eigenschaften verstanden. 
+</p><p>Vermaßen führt zu dimensionellem Beschränken (dimensional constrain), während der Bezug auf geometrische Grundformen und Zusammenhänge als geometrisches Beschränken  (geometric constrain) bezeichnet wird.
+</p><p>Die Behandlung der geometrischen Beschränkungen (geometric constraints) im FreeCAD-Programm ist einfacher als die der dimensionellen Beschränkungen (dimensional constraints).
+</p><p>Im folgenden werden unterschiedliche Parametrisierungen in einer Zeichnung mit einem  Quadrat vorgenommen und miteinander verglichen. Das Quadrat wurde mit dem Werkzeug <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_CreatePolyline/de&amp;action=edit&amp;redlink=1" class="new" title="Sketcher CreatePolyline/de (page does not exist)">Linienzug</a> (Polyline)  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="16px-Sketcher_CreatePolyline.png" width="16" height="16" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/24px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/32px-Sketcher_CreatePolyline.png 2x" /></a> gezeichnet.
+</p><p><small>Anmerkung: Mit dem Werkzeug  <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_CreateRectangle/de&amp;action=edit&amp;redlink=1" class="new" title="Sketcher CreateRectangle/de (page does not exist)">Rechteck</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="16px-Sketcher_CreateRectangle.png" width="16" height="16" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/24px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/32px-Sketcher_CreateRectangle.png 2x" /></a> könnte ein bereits "fertiges" Quadrat, dass bereits mehrere geometrische Beschränkungen enthält, gezeichnet werden.</small>
+</p>
+<h2><span class="mw-headline" id="Erster_Ansatz">Erster Ansatz</span></h2>
+<p>Das erste Bild  zeigt die vollständig beschränkte Zeichnung eines Quadrats, wobei ausschließlich dimensionelle Beschränkungen verwendet wurden:
+</p>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_HorizontalDistance/de" title="Constraint HorizontalDistance/de">horzontale Distanz</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="16px-Constraint_HorizontalDistance.png" width="16" height="16" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/24px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/32px-Constraint_HorizontalDistance.png 2x" /></a> </li>
+<li><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_VerticalDistance/de" title="Constraint VerticalDistance/de">vertikale Distanz</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="16px-Constraint_VerticalDistance.png" width="16" height="16" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/24px-Constraint_VerticalDistance.png 1.5x, /wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/32px-Constraint_VerticalDistance.png 2x" /></a> </li></ul>
+<p><small> Anmerkung: Außer den Abmessungen des Quadrats ist auch seine Lage relativ zum xy-Koordinatensystem (in Quadrat-Mitte) angegeben, denn eine FreeCAD-Zeichnung ist erst auf diese Weise vollständig bestimmt/beschränkt.</small>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constrain1.png" class="image"><img alt="Constrain1.png" src="Constrain1.png" width="362" height="385" /></a>
+</p>
+<h2><span class="mw-headline" id="Ein_f.C3.BCr_die_Programmarbeit_besserer_Ansatz">Ein für die Programmarbeit besserer Ansatz</span></h2>
+<p>Das nächste Bild zeigt das gleiche  Quadrat, wobei diesmal neben dimensionalen auch auch geometrische Beschränkungen angewendet wurden, nämlich 
+</p>
+<ul><li><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/de" title="Constraint Horizontal/de">Horizontalität</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="16px-Constraint_Horizontal.png" width="16" height="16" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/24px-Constraint_Horizontal.png 1.5x, /wiki/images/thumb/3/3f/Constraint_Horizontal.png/32px-Constraint_Horizontal.png 2x" /></a> und </li>
+<li><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Vertical/de" title="Constraint Vertical/de">Vertikalität</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="16px-Constraint_Vertical.png" width="16" height="16" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/24px-Constraint_Vertical.png 1.5x, /wiki/images/thumb/d/d6/Constraint_Vertical.png/32px-Constraint_Vertical.png 2x" /></a>.</li></ul>
+<p>Wie man sehen kann, wurde die Gesamtanzahl an dimensionalen  Beschränkungen durch den Einsatz  geometrischer Beschränkungen reduziert. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constrain2.png" class="image"><img alt="Constrain2.png" src="Constrain2.png" width="362" height="385" /></a>
+</p>
+<h2><span class="mw-headline" id="Optimaler_Ansatz">Optimaler Ansatz</span></h2>
+<p>Im letzten Bild ist nur noch eine dimensionelle Beschränkung vorhanden,  alle anderen Beschränkungen sind geometrisch. Dies ist der beste Weg, um eine zeichnung zu beschränken. Bei einfachen Beispielen, wie diesem macht das zwar keinen großen Unterschied, aber bei größeren und komplexeren Zeichnungen wird sich diese Vorgehensweise als sehr vorteilhaft erweisen. Die hier zusätzlich verwendeten geometrischen Beschränkungen sind
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_EqualLength/de" title="Constraint EqualLength/de">Gleichheit</a> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="16px-Constraint_EqualLength.png" width="16" height="16" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/24px-Constraint_EqualLength.png 1.5x, /wiki/images/thumb/b/bb/Constraint_EqualLength.png/32px-Constraint_EqualLength.png 2x" /></a> und </li>
+<li><a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Symmetric/de" title="Constraint Symmetric/de">Symmetrie</a>  <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="16px-Constraint_Symmetric.png" width="16" height="16" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/24px-Constraint_Symmetric.png 1.5x, /wiki/images/thumb/b/be/Constraint_Symmetric.png/32px-Constraint_Symmetric.png 2x" /></a>. </li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constrain3.png" class="image"><img alt="Constrain3.png" src="Constrain3.png" width="362" height="385" /></a>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<p>Arbeitsbereich <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/de" title="Sketcher Workbench/de">Zeichnen (sketcher)</a>
+</p><p>Arbeitsbereich <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Tutorial/de" title="Sketcher Tutorial/de">Zeichnen (sketcher): Übungen 1</a>
+</p><p>Arbeitsbereich <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_tutorial/de" title="Sketcher tutorial/de">Zeichnen (sketcher): Übung 2</a>
+</p><p><br />
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Micro_Tutorial_-_Constraint_Practices/de&amp;oldid=224534">http://www.freecadweb.org/wiki/index.php?title=Sketcher_Micro_Tutorial_-_Constraint_Practices/de&amp;oldid=224534</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

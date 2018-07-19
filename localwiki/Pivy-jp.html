@@ -1,0 +1,101 @@
+<html><head><title>Pivy/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Pivy/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a rel="nofollow" class="external text" href="http://pivy.coin3d.org/">Pivy</a>はFreeCADで使われている3Dレンダリングライブラリである<a rel="nofollow" class="external text" href="http://www.coin3d.org">Coin3d</a>用のPythonのバインディングライブラリです。実行中のPythonインタプリタにインポートするとFreeCADの3DビューアーなどのCoin3d<a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/jp" title="Scenegraph/jp">シーングラフ</a>と直に対話処理を行ったり、新しい3Dビューアーを作成することさえできます。Pivyは標準のFreeCADインストールに同梱されています。
+</p><p>Coinライブラリはいくつかに分割されています。Coin自体はシーングラフの操作を担い、Windowsといった複数のGUIシステム用のパッケージがありますが私たちの場合はQt用になります。これらの分割されたモジュールもシステム上に存在する場合にはPivyから利用することができます。Coinモジュールは常駐していて自由に利用することができます。既にFreeCADによって行われているので3D表示をどのインターフェイスに紐付けするのか気にする必要はありません。私たちがやらなければならないのは以下のコマンドを実行することだけです：
+</p>
+<pre>from pivy import coin
+</pre>
+<h2><span class="mw-headline" id=".E3.82.B7.E3.83.BC.E3.83.B3.E3.82.B0.E3.83.A9.E3.83.95.E3.81.B8.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.BB.E3.82.B9.E3.81.A8.E5.A4.89.E6.9B.B4">シーングラフへのアクセスと変更</span></h2>
+<p>典型的なCoinシーンがどの様に構成されているかは<a href="https://www.freecadweb.org/wiki/index.php?title=Scenegraph/jp" title="Scenegraph/jp">シーングラフ</a>ページで見ました。FreeCADの3Dビューに表示されているものは全てCoinシーングラフであり、同じやり方で構成されています。ルートのノードが一つあり、画面上のオブジェクトは全てその子ノードです。
+</p><p>FreeCADでは3Dビューシーングラフのルートノードに簡単にアクセスすることができます：
+</p>
+<pre>sg = FreeCADGui.ActiveDocument.ActiveView.getSceneGraph()
+print sg
+</pre>
+<p>こうするとルートノードが返されます。
+</p>
+<pre>&lt;pivy.coin.SoSelection; proxy of &lt;Swig Object of type 'SoSelection *' at 0x360cb60&gt; &gt; 
+</pre>
+<p>シーンの直下の子ノードを調べることもできます。
+</p>
+<pre>for node in sg.getChildren():
+    print node
+</pre>
+<p>SoSeparatorsやSoGroupsといったこれらノードは自身の子ノードを持ちます。利用可能なCoinオブジェクトの全リストは<a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">Coin公式ドキュメント</a>にあります。
+</p><p>今度はシーングラフに何か追加してみましょう。すてきな赤い立方体を追加してみることにしましょう：
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode)
+</pre>
+<p>（すてきな）赤い立方体ができました。以下を試してみてください：
+</p>
+<pre>col.rgb=(1,1,0)
+</pre>
+<p>わかったでしょうか？実行中であっても全てのものに対してアクセスと変更を行うことができるのです。再計算や再描画は必要ありません。Coinが全て面倒を見てくれます。物体のシーングラフへの追加、プロパティの変更、物体の非表示、一時的なオブジェクトの表示、何でもできます。もちろん3Dビューに関係したことだけですが。この表示はFreeCADがファイルを開いた時とオブジェクトが必要とした時に再計算されます。従って既存のFreeCADオブジェクトの外見を変更した場合、その変更はオブジェクトが再計算されるかファイルを再度開いた瞬間に失われます。
+</p><p>スクリプトでシーングラフを操作する場合の鍵となるのは必要な際に追加したノードの特定のプロパティにアクセスできるということなのです。例えば立方体を動かしたいとしましょう。自作のノードにSoTranslationノードを追加することになるでしょう。ちょうどこんな具合です：
+</p>
+<pre>col = coin.SoBaseColor()
+col.rgb=(1,0,0)
+trans = coin.SoTranslation()
+trans.translation.setValue([0,0,0])
+cub = coin.SoCube()
+myCustomNode = coin.SoSeparator()
+myCustomNode.addChild(col)
+mtCustomNode.addChild(trans)
+myCustomNode.addChild(cub)
+sg.addChild(myCustomNode)
+</pre>
+<p>OpenInventorのシーングラフではその順番が重要であるということを思い出してください。ノードは以降のノードに影響を与えます。color red、cube、color yellow、sphere とすれば赤い立方体と黄色い球が表示されます。もし今、既存の自作ノードに移動を追加すると移動は立方体の後になり、立方体に影響を与えません。上記のように作成時に挿入しておけば次のようにできます：
+</p>
+<pre>trans.translation.setValue([2,0,0])
+</pre>
+<p>こうすると立方体が2単位分、右に移動します。
+最後に何かを取り除くには次のようにします：
+</p>
+<pre>sg.removeChild(myCustomNode)
+</pre>
+<h2><span class="mw-headline" id=".E3.82.B3.E3.83.BC.E3.83.AB.E3.83.90.E3.83.83.E3.82.AF.E6.A9.9F.E8.83.BD.E3.81.AE.E4.BD.BF.E7.94.A8">コールバック機能の使用</span></h2>
+<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Callback_%28computer_science%29">コールバック機能</a>とはCoinライブラリの様な現在使用しているライブラリがコールバック、つまり現在実行中のPythonオブジェクトから特定の関数を呼び出すことを可能にするシステムのことです。これは非常に便利です。これを使うとシーンで何か特定のイベントが起きた場合にCoinからあなたへ通知することができるのです。Coinでは色々なものを監視することができます。マウスの位置、マウスボタンのクリック、キーボードのキーが押されたかどうか、まだまだ他にもあります。
+</p><p>FreeCADではそういったコールバックを簡単に使うための機能があります：
+</p>
+<pre>class ButtonTest:
+  def __init__(self):
+    self.view = FreeCADGui.ActiveDocument.ActiveView
+    self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getMouseClick) 
+  def getMouseClick(self,event_cb):
+    event = event_cb.getEvent()
+    if event.getState() == SoMouseButtonEvent.DOWN:
+      print "Alert!!! A mouse button has been improperly clicked!!!"
+      self.view.removeEventCallbackSWIG(SoMouseButtonEvent.getClassTypeId(),self.callback) 
+
+ButtonTest()
+</pre>
+<p>コールバックが起きた時にもオブジェクトは実行され続けなければならないのでコールバックはオブジェクトで初期化されなけれればなりません。
+利用可能なイベントとパラメータの<a href="/wiki/Code_snippets#Observing_mouse_events_in_the_3D_viewer_via_Python" title="Code snippets">全リスト</a>または<a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/classes.html">Coin公式ドキュメント</a>を参照してください。
+</p>
+<h2><span class="mw-headline" id=".E3.83.89.E3.82.AD.E3.83.A5.E3.83.A1.E3.83.B3.E3.83.88">ドキュメント</span></h2>
+<p>残念ながらPivy自体にはちゃんとしたドキュメントがまだありません。しかしPivyはCoinと正確に対応するのでC++スタイルをPythonスタイルに読み替えれば（例えばSoFile::getClassTypeId()はPivyではSoFile.getClassId()となるでしょう）Coinドキュメントをリファレンスとして安全に使用できます。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Pivy/jp&amp;oldid=211438">http://www.freecadweb.org/wiki/index.php?title=Pivy/jp&amp;oldid=211438</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

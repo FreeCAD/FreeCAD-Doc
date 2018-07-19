@@ -1,0 +1,162 @@
+<html><head><title>Spreadsheet Module/ro</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Spreadsheet Module/ro</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Module/ro&amp;redirect=no" class="mw-redirect" title="Spreadsheet Module/ro">Spreadsheet Module/ro</a>)</span></div>
+
+<div id="mw-content-text" lang="ro" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:x-small;"><a href="Release_notes_0.15.html" class="mw-redirect" title="Release notes 0.15">available in version 0.15</a></span>
+The spreadsheet workbench allows you to create and edit spreadsheets, perform calculations, and retrieve data from a model, and export its data to other spreadsheet applications such as LibreOffice or Microsoft Excel.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_screenshot.jpg" class="image"><img alt="Spreadsheet screenshot.jpg" src="Spreadsheet_screenshot.jpg" width="979" height="577" /></a>
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Supported_Functions"><span class="tocnumber">1</span> <span class="toctext">Supported Functions</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Reference_To_CAD-Data"><span class="tocnumber">2</span> <span class="toctext">Reference To CAD-Data</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Cell_Properties"><span class="tocnumber">3</span> <span class="toctext">Cell Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Expressions.html"><span class="tocnumber">4</span> <span class="toctext">Spreadsheet Data in Expressions</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Units"><span class="tocnumber">5</span> <span class="toctext">Units</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Importing_and_exporting"><span class="tocnumber">6</span> <span class="toctext">Importing and exporting</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Current_Limitations"><span class="tocnumber">7</span> <span class="toctext">Current Limitations</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Scripting_Basics"><span class="tocnumber">8</span> <span class="toctext">Scripting Basics</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Supported_Functions">Supported Functions</span></h2>
+<p>The spreadsheet provides the following functions taking one or two arguments: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh
+</p><p>Trigonometric functions use degrees as its default unit; supplying <b>rad</b> allows to use radians. 
+</p><p>The additional functions: <i>ceil</i>, <i>floor</i>, <i>trunc</i>, and <i>round</i> are available in FreeCAD <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span>
+</p><p><br />
+The following aggregate functions are supported: <i>average</i>, <i>count</i>, <i>max</i>, <i>min</i>, <i>stddev</i>, <i>sum</i>.
+</p><p>Aggregate functions can take one or more arguments, separated by comma or semicolon. Arguments may include ranges (two cells separated by a colon), e.g <i>=average(B1:B8)</i>
+</p><p>The constants <i>pi</i> and <i>e</i> are predefined.
+</p><p>The conditional statement works like this: <i>= condition&#160;? resultTrue&#160;: resultFalse</i>
+</p><p>The condition is defined as an expression that evaluates to either 0 (for false) or non-zero for true. The following comparison operators are defined: ==,&#160;!=, &gt;, &lt;, &gt;=, and &lt;=.
+</p><p>The conditional statement has actually a bug regarding nested conditional statements. Only the true-result may have another conditional statement. Parentheses are removed after confirming the expression. Trying to put a nested conditional statement in the false-result results in wrong set parentheses with a different result after a saving and reopening of the document. 
+</p><p>Formulas are written as follows: <i>=A2+A3</i>
+</p><p>Noteː Cell-references have to be written with capital letters.
+</p>
+<h2><span class="mw-headline" id="Reference_To_CAD-Data">Reference To CAD-Data</span></h2>
+<p>It is possible to use data from the construction in the spreadsheet. 
+The following table shows some examples assuming the model has a feature named "Cube" (note that this is the internal name of the feature, not the user assigned Label):
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>CAD-Data
+</th>
+<th>Call in Spreadsheet
+</th>
+<th>Result
+</th></tr>
+<tr>
+<td>Parametric Length of a Part-Workbench Cube
+</td>
+<td>=Cube.Length
+</td>
+<td>Length with units mm
+</td></tr>
+<tr>
+<td>Volume of the Cube
+</td>
+<td>=Cube.Shape.Volume
+</td>
+<td>Volume  in mm&#179; without units
+</td></tr>
+<tr>
+<td>Type of the Cube-shape
+</td>
+<td>=Cube.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>Label of the Cube
+</td>
+<td>=Cube.Label
+</td>
+<td>String: Cube
+</td></tr>
+<tr>
+<td>x-coordinate of center of mass of the Cube
+</td>
+<td>=Cube.Shape.CenterOfMass.x
+</td>
+<td>x-coordinate in mm without units
+</td></tr></table>
+<h2><span class="mw-headline" id="Cell_Properties">Cell Properties</span></h2>
+<p>The properties of a spreadsheet cell can be edited with a right-click on a cell. The following
+dialog pops up:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpreadsheetCellPropDialog.png" class="image"><img alt="SpreadsheetCellPropDialog.png" src="SpreadsheetCellPropDialog.png" width="428" height="275" /></a>
+</p><p>It has several tabs. The following properties can be changed:
+</p>
+<ul><li> Text color and background color</li>
+<li> Text horizontal and vertical alignment </li>
+<li> Text style: bold, italic, underline</li>
+<li> Display unit for this cell. Please read the section below.</li>
+<li> Define an alias-name for this cell. This alias-name can be used in cell formulas and also in FreeCADExpressions <span style="font-size:x-small;"><a href="Release_notes_0.16.html" title="Release notes 0.16">available in version 0.16</a></span></li></ul>
+<p><br />
+The expressions are explained here: <a href="Expressions.html" title="Expressions">Expressions</a>
+</p>
+<h2><span class="mw-headline" id="Spreadsheet_Data_in_Expressions">Spreadsheet Data in Expressions</span></h2>
+<p>The usage of spreadsheet data in other parts of FreeCAD requires a fully defined name. Because it is possible to have
+more than one spreadsheet in a document, the spreadsheet name together with the cell name or alias is required. 
+The following pictures showing the usage of an alias "number" from a spreadsheet "MySheet" in an expression
+in the PartDesign Workbench.
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage1.png" class="image"><img alt="Expression usage1.png" src="Expression_usage1.png" width="414" height="95" /></a>
+</p><p>Typing an "M" shows a list of available names. The arrow-buttons allow to select "MySheet".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage2.png" class="image"><img alt="Expression usage2.png" src="Expression_usage2.png" width="414" height="95" /></a>
+</p><p>Typing an "n" shows now the list of available alias names in MySheet starting with "n".
+The "number" can be selected with the down-arrow-button.
+Once a valid name with a usable content is given, the result field will present the calculated length.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage3.png" class="image"><img alt="Expression usage3.png" src="Expression_usage3.png" width="414" height="95" /></a>
+</p>
+<h2><span class="mw-headline" id="Units">Units</span></h2>
+<p>The Spreadsheet uses units. If a number has a unit, this unit will be used in all calculations.
+The multiplication of two length with the unit mm gives an area with the unit mm&#178;.
+</p><p>You can switch the length-unit from mm to inch in the dialog, you get with a right-click on a cell.
+The cell will now show the length in inches. The value used for calculations does not change.
+The results of a formula using this value do not change, when the shown unit of an input was changed. The result
+is still calculated from the length in mm. 
+</p><p>A number without a unit cannot be changed in a number with unit by the cell properties dialog. 
+One can put in a unit string, that will also be shown, but the cell still contains only a number without unit.
+</p><p>Sometime it is desirably to get rid of a unit. This can only to be done by multiplying with 1 with a reciprocal unit.
+</p>
+<h2><span class="mw-headline" id="Importing_and_exporting">Importing and exporting</span></h2>
+<p>Sheets can be imported and exported to the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Comma-separated_values">csv</a> format which can also be read and written by most other spreadsheet applications such as Microsoft Excel or LibreOffice Calc. When importing files into FreeCAD, the delimiter (the character that is used to separate columns) must be the TAB character (this can be set when exporting from other applications).
+</p><p>Spreadsheets in Excel-format "xlsx" can be imported into a FreeCAD document. Excel-spreadsheets can also be opened by FreeCAD. In this case
+a new document with a spreadsheet inside is created. Supported are the following features:
+</p>
+<ul><li> all functions that are also available in the FreeCAD spreadsheet. Other functions do give an error in the corresponding cell after the import.</li>
+<li> Alias names for cells</li>
+<li> More than one table in the Excel-sheet. In this case more FreeCAD spreadsheets are created.</li></ul>
+<p>Other functionality is not imported into the FreeCAD spreadsheet. The Excel-import is <span style="font-size:x-small;"><a href="Release_notes_0.17.html" title="Release notes 0.17">available in version 0.17</a></span>
+of FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Current_Limitations">Current Limitations</span></h2>
+<p>It is not possible providing data for a geometry, for example a length, in a spreadsheet and retrieving in the same spreadsheet the volume of the
+resulting shape. This will create a circular reference. This is a design decision. However, it is possible to use two different spreadsheets: one as data-source 
+for geometry and another for reporting geometry-data.
+</p><p>It is not possible to select and copy multiple cells. Only the content of a cell from the input field can be copied and paste into the input field of another cell.
+</p><p>For FreeCAD earlier versions see <a href="Spreadsheet_legacy.html" title="Spreadsheet legacy">Spreadsheet legacy</a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Scripting_Basics">Scripting Basics</span></h2>
+<pre>import Spreadsheet
+sheet = App.ActiveDocument.addObject("Spreadsheet::Sheet")
+sheet.Label = "Dimensions" </pre>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/ro&amp;oldid=282314">http://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/ro&amp;oldid=282314</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

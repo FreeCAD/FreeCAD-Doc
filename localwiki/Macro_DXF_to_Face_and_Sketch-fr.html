@@ -1,0 +1,156 @@
+<html><head><title>Macro DXF to Face and Sketch/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro DXF to Face and Sketch/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="DXF_en_Face_et_Sketch"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> DXF en Face et Sketch</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Cette macro crée une face et un sketch à partir d'un fichier DXF.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Shoogen,_easyw-fc&amp;action=edit&amp;redlink=1" class="new" title="User:Shoogen, easyw-fc (page does not exist)">shoogen,  easyw-fc</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">2.0
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2017-10-23
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#DXF_en_Face_et_Sketch"><span class="tocnumber">1</span> <span class="toctext">DXF en Face et Sketch</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Options"><span class="tocnumber">4</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Script"><span class="tocnumber">5</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Liens"><span class="tocnumber">6</span> <span class="toctext">Liens</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette macro crée une face et un sketch avec les éléments sélectionnés d'un fichier DXF.
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<ul><li> Importez un fichier DXF</li>
+<li> Sélectionnez les éléments à convertir</li>
+<li> Lancez la macro, les éléments sélectionnés sont analysés et convertis en faces et en sketch (pour obtenir une face le fil doit être fermé).</li></ul>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<ul><li> Modifiez <b>create_face=True</b> ou <b>create_sketch=True</b> en <b>False</b> pour généré un seul objet</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Macro  DXF to Face and Sketch.FCMacro
+</p>
+<pre>##    Select the items to be processed
+##    Launch the macro, all selected objects are analyzed and transformed into faces and sketches.
+##    change create_face=True or create_sketch=True to False to generate only one item
+## todo: fix closed curves for bsplines method
+
+import FreeCAD,Part
+
+import sys, os
+#sys.path.append('C:\Cad\Progetti_K\3D-FreeCad-tools/')
+import FreeCAD,Part,OpenSCAD2Dgeom
+import Draft
+import PySide
+from PySide import QtGui, QtCore
+
+
+import DraftGeomUtils
+import Draft
+
+create_face=True
+create_sketch=True
+
+def clear_console():
+    #clearing previous messages
+    mw=FreeCADGui.getMainWindow()
+    c=mw.findChild(QtGui.QPlainTextEdit, "Python console")
+    c.clear()
+    r=mw.findChild(QtGui.QTextEdit, "Report view")
+    r.clear()
+
+
+#creating face from dxf
+doc = App.ActiveDocument
+clear_console()
+
+if FreeCADGui.Selection.getSelection():
+
+    try:
+        edges=sum((obj.Shape.Edges for obj in \
+        FreeCADGui.Selection.getSelection() if hasattr(obj,'Shape')),[])
+        for edge in edges:
+            print "geomType ",DraftGeomUtils.geomType(edge)
+        #face = OpenSCAD2Dgeom.edgestofaces(edges)
+        face = OpenSCAD2Dgeom.edgestofaces(edges)
+        face.check() # reports errors
+        face.fix(0,0,0)
+        faceobj = doc.addObject('Part::Feature','face_%s'&#160;% "dxf")
+        faceobj.Label = 'face_%s'&#160;% "dxf"
+        faceobj.Shape = face
+        for obj in FreeCADGui.Selection.getSelection():
+            Gui.ActiveDocument.getObject(obj.Name).Visibility=False   
+        #creating sketch from face from dxf
+        #wires,_faces = Draft.downgrade(FreeCADGui.Selection.getSelection(),delete=False)
+        if create_sketch:
+            if create_face:
+                wires,_faces = Draft.downgrade(faceobj,delete=False)
+            else:
+                wires,_faces = Draft.downgrade(faceobj,delete=True)
+            sketch = Draft.makeSketch(wires[0:1])
+            sketch.Label = "Sketch_dxf"
+            for wire in wires[1:]:
+                Draft.makeSketch([wire],addTo=sketch)
+            for wire in wires:
+                FreeCAD.ActiveDocument.removeObject(wire.Name)
+    except Part.OCCError: # Exception: #
+        FreeCAD.Console.PrintError('Error in dxf&#160;%s (%s)'&#160;% (faceobj.Name,faceobj.Label)+"\n")
+else:
+    #FreeCAD.Console.PrintError("Select elements from dxf imported file\n")
+    FreeCAD.Console.PrintWarning("Select elements from dxf imported file\n") </pre>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<ul><li> Forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=28&amp;t=16686">Creare uno sketch partendo da un file dxf importato</a></li>
+<li> Macros_recipes <a rel="nofollow" class="external text" href="Macros_recipes.html">Macro Creating faces from a DXF file</a></li>
+<li> Macro originelle <a href="Macro_Creating_faces_from_a_DXF_file.html" title="Macro Creating faces from a DXF file">Macro Creating faces from a DXF file</a></li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_DXF_to_Face_and_Sketch/fr&amp;oldid=242157">http://www.freecadweb.org/wiki/index.php?title=Macro_DXF_to_Face_and_Sketch/fr&amp;oldid=242157</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

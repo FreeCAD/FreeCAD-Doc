@@ -1,0 +1,348 @@
+<html><head><title>Placement/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Placement/cs</h1></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Celkov.C3.BD_pohled"><span class="tocnumber">1</span> <span class="toctext">Celkový pohled</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#P.C5.99.C3.ADstup_k_atribut.C5.AFm_Um.C3.ADst.C4.9Bn.C3.AD"><span class="tocnumber">1.1</span> <span class="toctext">Přístup k atributům Umístění</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Tvary_zad.C3.A1n.C3.AD_um.C3.ADst.C4.9Bn.C3.AD"><span class="tocnumber">2</span> <span class="toctext">Tvary zadání umístění</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.C3.9Ahel.2C_Osa_a_Pozice"><span class="tocnumber">2.1</span> <span class="toctext">Úhel, Osa a Pozice</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Angle.2C_Axis_and_Position"><span class="tocnumber">2.2</span> <span class="toctext">Angle, Axis and Position</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Pozice_a_Yaw.2C_Pitch_a_Roll"><span class="tocnumber">2.3</span> <span class="toctext">Pozice a Yaw, Pitch a Roll</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Matrix_.28matice.29"><span class="tocnumber">2.4</span> <span class="toctext">Matrix (matice)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Dialogov.C3.A9_okno_um.C3.ADst.C4.9Bn.C3.AD"><span class="tocnumber">3</span> <span class="toctext">Dialogové okno umístění</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#P.C5.99.C3.ADklady"><span class="tocnumber">4</span> <span class="toctext">Příklady</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Examples"><span class="tocnumber">5</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Placement.Base_vs_Shape_Definition"><span class="tocnumber">6</span> <span class="toctext">Placement.Base vs Shape Definition</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Pou.C5.BEit.C3.AD_.22St.C5.99edu.22_pro_nastaven.C3.AD_.C5.99.C3.ADd.C3.ADc.C3.AD_osy_ot.C3.A1.C4.8Den.C3.AD"><span class="tocnumber">7</span> <span class="toctext">Použití "Středu" pro nastavení řídící osy otáčení</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Pozn.C3.A1mky"><span class="tocnumber">8</span> <span class="toctext">Poznámky</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Probl.C3.A9my"><span class="tocnumber">9</span> <span class="toctext">Problémy</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Dal.C5.A1.C3.AD"><span class="tocnumber">10</span> <span class="toctext">Další</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Issues"><span class="tocnumber">11</span> <span class="toctext">Issues</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#More"><span class="tocnumber">12</span> <span class="toctext">More</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Celkov.C3.BD_pohled">Celkový pohled</span></h2>
+<p><b>Umístění</b> je vlastnost FreeCADu, která specifikuje místo a orientaci objektu v prostoru.  Umístění může být specifikováno ve více formulářích a může být měněno pomocí <a href="/wiki/Python_scripting_tutorial#Vectors_and_Placements" title="Python scripting tutorial">skriptů</a> v poli vlastnosti nebo v dialogovém okně <b>Umístění</b> (menu <b>Úpravy</b>).
+</p>
+<h3><span class="mw-headline" id="P.C5.99.C3.ADstup_k_atribut.C5.AFm_Um.C3.ADst.C4.9Bn.C3.AD">Přístup k atributům Umístění</span></h3>
+<p>K atributům objektu Umístění lze přistupovat a modifikovat je 3 způsoby:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacementPropertiesv10-800x800.png" class="image"><img alt="" src="PlacementPropertiesv10-800x800.png" width="800" height="468" class="thumbimage" /></a>  <div class="thumbcaption">Umístění v panelu vlastností</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:904px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacePyConv10.png" class="image"><img alt="" src="PlacePyConv10.png" width="902" height="230" class="thumbimage" /></a>  <div class="thumbcaption">Skriptováním umístění jako y/p/r a Matrixu (matice) a jejího <a href="https://www.freecadweb.org/wiki/index.php?title=Placement_API/cs" title="Placement API/cs">API</a>.</div></div></div>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<div class="thumb tleft"><div class="thumbinner" style="width:451px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PlacementDialogv10.png" class="image"><img alt="" src="PlacementDialogv10.png" width="449" height="604" class="thumbimage" /></a>  <div class="thumbcaption">Dialogové okno umístění</div></div></div>
+<div style="clear:both"></div>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Tvary_zad.C3.A1n.C3.AD_um.C3.ADst.C4.9Bn.C3.AD">Tvary zadání umístění</span></h2>
+<h3><span class="mw-headline" id=".C3.9Ahel.2C_Osa_a_Pozice">Úhel, Osa a Pozice</span></h3>
+<p><b>Umístění = [Úhel, Osa, Pozice]</b>
+</p>
+</div>
+<h3><span class="mw-headline" id="Angle.2C_Axis_and_Position">Angle, Axis and Position</span></h3>
+<p><b>Placement = [Angle, Axis, Position]</b>
+</p>
+<div class="mw-translate-fuzzy">
+<p>První tvar zadání <b>Umístění</b> ustaví místo objektu v prostoru na Pozici a popíše jeho orientaci jako pootočení kolem osy. 
+</p><p><b>Úhel = r</b> je skalární hodnota udávající velikost pootočení objektu kolem osy. Zadává se ve stupních, ale interně je zaznamenán v radiánech.
+</p>
+</div>
+<p><b>Axis = (ax,ay,az)</b> is a vector describing an axis of rotation (See Note about axis of rotation). Examples are:
+</p>
+<pre>   (1,0,0)       ==&gt; about <b>X</b> axis
+   (0,1,0)       ==&gt; about <b>Y</b> axis
+   (0,0,1)       ==&gt; about <b>Z</b> axis
+   (0.71,0.71,0) ==&gt; about the line <b>y=x</b>
+                                        
+</pre>
+<p><b>Position = (x,y,z)</b> is a Vector describing the point from which the object's geometry will be calculated (in effect, a "local origin" for the object).  Note that in scripts, Placement.Base is used to denote the Position component of a placement. The Property Editor calls this value "Position" and the Placement dialog calls it "Translation".
+</p>
+<div class="mw-translate-fuzzy">
+<p><b>Osa = (ax,ay,az)</b> je vektor popisující osu otáčení (Přečtěte si poznámku o ose otáčení). Příklady:
+</p>
+<pre>   (1,0,0)       ==&gt; kolem osy <b>X</b>
+   (0,1,0)       ==&gt; kolem osy <b>Y</b>
+   (0,0,1)       ==&gt; kolem osy <b>Z</b>
+   (0.71,0.71,0) ==&gt; kolem přímky <b>y=x</b>
+                                        
+</pre>
+<p><b>Pozice = (x,y,z)</b> je vektor popisující souřadnice referenčního bodu objektu. Všimněte si, že ve skriptu Placement.Base je použit pro vyznačení komponenty pozice umístění.
+Editor vlastností zobrazuje tuto hodnotu jako "Pozice".
+</p>
+<h3><span class="mw-headline" id="Pozice_a_Yaw.2C_Pitch_a_Roll">Pozice a Yaw, Pitch a Roll</span></h3>
+<p><b>Umístění = [Pozice, Yaw-Pitch-Roll]</b>
+</p>
+</div>
+<p>Druhý tvar zadání <b>Umístění</b> ustaví místo objektu v prostoru pomocí Pozice (stejně jako předchozí tvar),ale popíše jeho orientaci použitím úhlů Yaw, Pitch a Roll (<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Yaw,_pitch,_and_roll">Yaw, Pitch, Roll</a>).  Tyto úhly jsou někdy také nazývány jako Eulerovy úhly nebo Tait-Bryanovy úhly (<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euler_angles">Eulerovy úhly</a>). Yaw, Pitch a Roll jsou běžně užívány v letecké terminologii pro orientaci (nebo polohu) tělesa. 
+</p>
+<div class="mw-translate-fuzzy">
+<p><b>Pozice = (x,y,z)</b> je vektor popisující souřadnice referenčního bodu objektu.
+</p>
+</div>
+<div class="mw-translate-fuzzy">
+<p><b>Yaw-Pitch-Roll = (y,p,r)</b> je set, který specifikuje polohu objektu. Hodnoty y,p,r udávají stupně pootočení kolem každé z os X,Y,Z (přečtěte si poznámku).  
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Lacet_fr_Mini.gif" class="image"><img alt="" src="277px-Tache_Placement_Lacet_fr_Mini.gif" width="277" height="200" srcset="/wiki/images/thumb/1/12/Tache_Placement_Lacet_fr_Mini.gif/416px-Tache_Placement_Lacet_fr_Mini.gif 1.5x, Tache_Placement_Lacet_fr_Mini.gif 2x" /></a></div></div>
+<div class="gallerytext">
+<p><b>Yaw</b> je pootočení kolem <b>osy Z</b>, to jest rotace zleva doprava. <br />(Úhel Yaw je <b>Psi ψ</b>).
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Tangage_fr_Mini.gif" class="image"><img alt="" src="251px-Tache_Placement_Tangage_fr_Mini.gif" width="251" height="200" srcset="/wiki/images/thumb/7/7a/Tache_Placement_Tangage_fr_Mini.gif/376px-Tache_Placement_Tangage_fr_Mini.gif 1.5x, Tache_Placement_Tangage_fr_Mini.gif 2x" /></a></div></div>
+<div class="gallerytext">
+<p><b>Pitch</b> je pootočení kolem <b>osy Y</b>, to jest rotace předkem nahoru a dolu. <br />(Úhel Pitch je <b>Phi φ</b>).
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Roulis_fr_Mini.gif" class="image"><img alt="" src="251px-Tache_Placement_Roulis_fr_Mini.gif" width="251" height="200" srcset="/wiki/images/thumb/c/c0/Tache_Placement_Roulis_fr_Mini.gif/376px-Tache_Placement_Roulis_fr_Mini.gif 1.5x, Tache_Placement_Roulis_fr_Mini.gif 2x" /></a></div></div>
+<div class="gallerytext">
+<p><b>Roll</b> je pootočení kolem <b>osy X</b>, to jest rotace křídlem nahoru a dolu. <br />(Úhel Roll je <b>Thêta θ</b>).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<div style="clear:both"></div>
+</div>
+<p>App.Rotation(10,20,30) = Euler Angle
+</p><p><b>Yaw</b> = 10 degrees (<b>Z</b>)
+</p><p><b>Pitch</b> = 20 degrees (<b>Y</b>)
+</p><p><b>Roll</b> = 30 degrees (<b>X</b>)
+</p><p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Lacet_fr_Mini.gif" class="image"><img alt="Tache Placement Lacet fr Mini.gif" src="Tache_Placement_Lacet_fr_Mini.gif" width="450" height="325" /></a></div><b>Yaw</b> is the rotation about the <b>Z axis</b>, that is to say a rotation from left to right. <br />(The yaw angle is the <b>Psi ψ</b>).
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Tangage_fr_Mini.gif" class="image"><img alt="Tache Placement Tangage fr Mini.gif" src="Tache_Placement_Tangage_fr_Mini.gif" width="445" height="355" /></a></div><b>Pitch</b> is rotation about the <b>Y axis</b>, that is to say nose-up and nose-down. <br />(The Pitch angle is the <b>Phi φ</b>).
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_Roulis_fr_Mini.gif" class="image"><img alt="Tache Placement Roulis fr Mini.gif" src="Tache_Placement_Roulis_fr_Mini.gif" width="445" height="355" /></a></div><b>Roll</b> is rotation about the <b>X axis</b>, that is to say wing up and down. <br />(The Roll angle is the <b>Thêta θ</b>).
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Matrix_.28matice.29">Matrix (matice)</span></h3>
+<p><b>Umístění = Matrix</b>
+</p><p>Třetí tvar zadání <b>Umístění</b> popisuje pozici a orientaci objektu pomocí 4x4 afinní transformační matice (<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Affine_transformation">Affine Transformation</a>).
+</p><p><b>Matrix (matice)</b> = 
+</p>
+<pre>  ((r11,r12,r13,t1),
+   (r21,r22,r23,t2),
+   (r31,r32,r33,t3),
+   (0,0,0,1)) , with rij specifying rotation and ti specifying translation. 
+</pre>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>((r11,r12,r13,t1),
+</p>
+<pre>   (r21,r22,r23,t2),
+   (r31,r32,r33,t3),
+   (0,0,0,1)) , kde rij specifikuje rotaci a ti specifikuje transformaci. 
+</pre>
+<div style="clear:both"></div>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Dialogov.C3.A9_okno_um.C3.ADst.C4.9Bn.C3.AD">Dialogové okno umístění</span></h2>
+<p>Dialogové okno umístění se spouští z menu <b>Úpravy</b>.  Je využíváno pro přesné pootočení a posunutí objektů. Je využíváno také když je potřeba vytvořit náčrt v "nestandardní" rovině nebo změnit orientaci náčrtu v nové rovině.
+</p><p>Sekce <b>Posunutí</b> určuje místo objektu v prostoru.
+Sekce <b>Střed</b> určuje umístění rotační osy bodem, který neprochází referenčním bodem objektu.
+Sekce <b>Otočení</b> určuje  úhel(úhly) otočení a metodu, která specifikuje tyto úhly.  
+Zakliknutí políčka <b>Použijte nárůstové změny na umístění objektu</b> je užitečné když posuny/rotace jsou prováděny relativně k aktuální pozici/poloze objektu než k původní pozici/poloze. Zakliknutí tohoto políčka resetuje vstupní pole okna na hodnotu nula, ale nezmění orientaci ani místo objektu. Následná zadání mění orientaci/místo, ale ta jsou aplikována vzhledem k aktuální pozici.  
+</p>
+<h2><span class="mw-headline" id="P.C5.99.C3.ADklady">Příklady</span></h2>
+<p>Otočení kolem jedné osy:
+</p>
+</div>  
+<p>PS: since version 0.17 introduce new object Part, this object have his placement, and the Placement object created in the Part object is incremented with the Part Placement. <span style="font-size:x-small;"><a href="Release_notes_0.17.html" title="Release notes 0.17">available in version 0.17</a></span>
+</p><p>For obtain the Part Placement use this code
+</p>
+<pre>import Draft, Part
+sel = FreeCADGui.Selection.getSelection()
+print sel[0].Placement
+print sel[0].getGlobalPlacement()   # return the GlobalPlacement
+print sel[0].getParentGeoFeatureGroup() # return the GeoFeatureGroup, ex:  Body or a Part.
+print  "____________________" </pre>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<p>Rotations about a single axis:
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutZBefore.png" class="image" title="Před otočením"><img alt="Před otočením" src="600px-RotationAboutZBefore.png" width="600" height="352" srcset="/wiki/images/thumb/9/96/RotationAboutZBefore.png/900px-RotationAboutZBefore.png 1.5x, /wiki/images/thumb/9/96/RotationAboutZBefore.png/1200px-RotationAboutZBefore.png 2x" /></a></div>  Před otočením (pohled shora) <div style="clear:both"></div>
+<p><br /> 
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutZAfter.png" class="image" title="Po otočení kolem osy Z"><img alt="Po otočení kolem osy Z" src="600px-RotationAboutZAfter.png" width="600" height="352" srcset="/wiki/images/thumb/e/e2/RotationAboutZAfter.png/900px-RotationAboutZAfter.png 1.5x, /wiki/images/thumb/e/e2/RotationAboutZAfter.png/1200px-RotationAboutZAfter.png 2x" /></a></div>  Po otočení kolem osy Z (pohled shora) <div style="clear:both"></div>
+<p><br /> 
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationAboutYXAfter.png" class="image" title="Po otočení když y=x"><img alt="Po otočení když y=x" src="600px-RotationAboutYXAfter.png" width="600" height="352" srcset="/wiki/images/thumb/b/bd/RotationAboutYXAfter.png/900px-RotationAboutYXAfter.png 1.5x, /wiki/images/thumb/b/bd/RotationAboutYXAfter.png/1200px-RotationAboutYXAfter.png 2x" /></a></div>  Po otočení když y=x (pohled zprava) <div style="clear:both"></div>
+<p><br /> 
+Otočení s posunutím středového bodu:
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationOffsetBefore.png" class="image" title="Před otočením"><img alt="Před otočením" src="600px-RotationOffsetBefore.png" width="600" height="352" srcset="/wiki/images/thumb/2/21/RotationOffsetBefore.png/900px-RotationOffsetBefore.png 1.5x, /wiki/images/thumb/2/21/RotationOffsetBefore.png/1200px-RotationOffsetBefore.png 2x" /></a></div> Před otočením (pohled shora) <div style="clear:both"></div>
+<p><br /> 
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationOffsetAfter.png" class="image" title="Po otočení kolem osy Z"><img alt="Po otočení kolem osy Z" src="600px-RotationOffsetAfter.png" width="600" height="352" srcset="/wiki/images/thumb/7/71/RotationOffsetAfter.png/900px-RotationOffsetAfter.png 1.5x, /wiki/images/thumb/7/71/RotationOffsetAfter.png/1200px-RotationOffsetAfter.png 2x" /></a></div> Po otočení kolem osy Z (pohled shora) <div style="clear:both"></div>
+<p><br /> 
+Otočení s použitím Eulerových úhlů:
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationEulerBefore.png" class="image" title="Před otočením"><img alt="Před otočením" src="600px-RotationEulerBefore.png" width="600" height="352" srcset="/wiki/images/thumb/c/c6/RotationEulerBefore.png/900px-RotationEulerBefore.png 1.5x, /wiki/images/thumb/c/c6/RotationEulerBefore.png/1200px-RotationEulerBefore.png 2x" /></a></div> Před otočením <div style="clear:both"></div>
+<p><br /> 
+</p>
+<div class="floatright"><a href="https://www.freecadweb.org/wiki/index.php?title=File:RotationEulerAfter.png" class="image" title="Po otočení"><img alt="Po otočení" src="600px-RotationEulerAfter.png" width="600" height="352" srcset="/wiki/images/thumb/c/c4/RotationEulerAfter.png/900px-RotationEulerAfter.png 1.5x, /wiki/images/thumb/c/c4/RotationEulerAfter.png/1200px-RotationEulerAfter.png 2x" /></a></div> Po otočení <div style="clear:both"></div>
+<p><br /> 
+</p>
+<h2><span class="mw-headline" id="Placement.Base_vs_Shape_Definition">Placement.Base vs Shape Definition</span></h2>
+<p>Umístění není jediný způsob pozicování objektů v prostoru.  Všimněte si Pythonovské konzoly na tomto obrázku: 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:802px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:2Placements800.png" class="image"><img alt="" src="2Placements800.png" width="800" height="468" class="thumbimage" /></a>  <div class="thumbcaption">2 tvary se stejným umístěním</div></div></div><div style="clear:both"></div>
+<p><br />
+</p>
+<div class="mw-translate-fuzzy">
+<p>Obě kostky mají stejné umístění, ale různé místo! Je to kvůli tomu, že oba tvary mají odlišné vrcholy. Pro  tvary výše pro ilustraci:
+</p>
+</div> 
+  <div class="mw-translate-fuzzy">
+<p>&gt;&gt;&gt; ev = App.ActiveDocument.Extrude.Shape.Vertexes
+</p>
+<pre> &gt;&gt;&gt; for v in ev: print v.X,",",v.Y,",",v.Z
+ ... 
+ 30.0,30.0,0.0
+ 30.0,30.0,10.0
+ 40.0,30.0,0.0
+ 40.0,30.0,10.0
+ 40.0,40.0,0.0
+ 40.0,40.0,10.0
+ 30.0,40.0,0.0
+ 30.0,40.0,10.0
+ &gt;&gt;&gt; e1v = App.ActiveDocument.Extrude001.Shape.Vertexes
+ &gt;&gt;&gt; for v in e1v: print v.X,",",v.Y,",",v.Z
+ ... 
+ 0.0,10.0,0.0
+ 0.0,10.0,10.0
+ 10.0,10.0,0.0
+ 10.0,10.0,10.0
+ 10.0,0.0,0.0
+ 10.0,0.0,10.0
+ 0.0,0.0,0.0
+ 0.0,0.0,10.0
+ &gt;&gt;&gt; 
+ 
+</pre>
+<p>Vrcholy (nebo Vektory), které definují objekt využívají atributy Placement.Base jako jejich počátek. Proto, když chcete posunout objekt o 10 jednotek podél osy <b>X</b>, můžete přidat 10 do souřadnic  <b>X</b> všech vrcholů nebo můžete nastavit pozici umístění Placement.Position
+na (10,0,0).
+</p>
+<h2><span class="mw-headline" id="Pou.C5.BEit.C3.AD_.22St.C5.99edu.22_pro_nastaven.C3.AD_.C5.99.C3.ADd.C3.ADc.C3.AD_osy_ot.C3.A1.C4.8Den.C3.AD">Použití "Středu" pro nastavení řídící osy otáčení</span></h2>
+<p>Standardně osa otáčení není ve skutečnosti osa X/Y/Z. Je to paralelní přímka k vybrané ose, která ale prochází referenčním bodem (Placement.Base) objektu, který se bude otáčet. Může to být změněno použitím pole Střed v dialogovém okně Umístění nebo ve skriptu použitím parametru Center (Střed) konstruktoru FreeCAD.Placement.
+</p>
+</div>
+<p>Například, představme si, že máme kostku (dále) pozicovanou na (20,20,10).  
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:503px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:LocalZBefore2.png" class="image"><img alt="" src="LocalZBefore2.png" width="501" height="356" class="thumbimage" /></a>  <div class="thumbcaption">Před otočením</div></div></div></div><div style="clear:both"></div>
+<p>Chceme otočit kostku kolem její svislé středové přímky (tj. místní osy Z) s udržením stejné pozice. Můžeme toho snadno dosáhnout zadáním hodnoty Středu rovné souřadnicím středu kostky (25,25,15).
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:503px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:LocalZAfter2.png" class="image"><img alt="" src="LocalZAfter2.png" width="501" height="356" class="thumbimage" /></a>  <div class="thumbcaption">Po otočení</div></div></div></div><div style="clear:both"></div>
+<p><br /> 
+Ve skriptu by to vypadalo následovně: 
+</p>
+<pre>import FreeCAD
+obj = App.ActiveDocument.Box                       # our box
+rot = FreeCAD.Rotation(FreeCAD.Vector(0,0,1),45)   # 45° about Z
+#rot = FreeCAD.Rotation(FreeCAD.Vector(1,0,1),45)   # 45° about X and 45° about Z
+#rot = FreeCAD.Rotation(10,20,30)                   # here example with Euler angle Yaw = 10 degrees (Z), Pitch = 20 degrees (Y), Roll = 30 degrees (X) 
+centre = FreeCAD.Vector(25,25,15)                  # central point of box 
+pos = obj.Placement.Base                           # position point of box
+newplace = FreeCAD.Placement(pos,rot,centre)       # make a new Placement object
+obj.Placement = newplace                           # spin the box </pre>  
+<p>Same script with the file example <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=1651">RotateCoG2.fcstd</a> (discussion on the <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=3950#p31052">forum</a>)
+</p>
+<pre>import FreeCAD
+obj = App.ActiveDocument.Extrude                    # our box
+rot = FreeCAD.Rotation(FreeCAD.Vector(0,0,1),45)    # 45 about Z
+#rot = FreeCAD.Rotation(FreeCAD.Vector(1,0,1),45)    # 45° about X and 45° about Z
+#rot = FreeCAD.Rotation(10,20,30)                    # here example with Euler angle Yaw = 10 degrees (Z), Pitch = 20 degrees (Y), Roll = 30 degrees (X) 
+centre = FreeCAD.Vector(25,25,0)                    # "centre" of rotation (where local Z cuts XY)
+pos = obj.Placement.Base                            # original placement of obj
+newplace = FreeCAD.Placement(pos,rot,centre)        # make a new Placement object
+obj.Placement = newplace                            # spin the box </pre>
+<div class="mw-translate-fuzzy">
+<h2><span class="mw-headline" id="Pozn.C3.A1mky">Poznámky</span></h2>
+<ul><li> Osy a úhly mohou být také vyjádřeny jako  <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">čtveřice</a>.</li>
+<li> Referenční bod objektu (FreeCAD.Placement.Base) se mění v závislosti na objektu. Některé příklady pro běžné objekty:</li></ul>
+<table class="wikitable" border="1">
+<tr>
+<th>Objekt</th>
+<th>Referenční bod
+</th></tr>
+<tr align="left">
+<td>Part.Box </td>
+<td>levý (minx), přední (miny), spodní (minz) vrchol
+</td></tr>
+<tr align="left">
+<td>Part.Sphere</td>
+<td>střed koule (tj střed ohraničující kostky)
+</td></tr>
+<tr align="left">
+<td>Part.Cylinder</td>
+<td>střed spodní plochy
+</td></tr>
+<tr align="left">
+<td>Part.Cone</td>
+<td>střed spodní plochy (nebo vrchol když spodní poloměr je 0)
+</td></tr>
+<tr align="left">
+<td>Part.Torus</td>
+<td>střed torusu
+</td></tr>
+<tr align="left">
+<td>Vlastnosti odvozené z Náčrtu</td>
+<td>objekt dědí pozici z podkladového náčrtu. Náčrt vždy začíná na pozici = (0,0,0).
+</td></tr></table>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Probl.C3.A9my">Problémy</span></h2>
+<ul><li> Od verze 0.13, byla aktualizace vlastností Umístění v záložce Data zablokována pro objekty vytvořené v Návrhu dílu, kromě původního náčrtu, ze kterého bylo těleso vytvořeno. Proto Umístění tělesa vytvořeného v Návrhu dílu může být změněno pouze nastavením parametrů umístění původního konstrukčního náčrtu (první náčrt), ze kterého bylo těleso vytvořeno. </li>
+<li> Funkcionalita Umístění může být dodatečně měněna v pracovní ploše Kompletace. </li></ul>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Dal.C5.A1.C3.AD">Další</span></h2>
+<ul><li> Tento výukový program: <a href="https://www.freecadweb.org/wiki/index.php?title=Aeroplane/cs" title="Aeroplane/cs">Aeroplán</a> široce pokrývá mechanismy změn umístění objektů.</li>
+<li> Popis dialogového okna Umístění krok za krokem naleznete zde <a href="https://www.freecadweb.org/wiki/index.php?title=Tasks_Placement/cs" title="Tasks Placement/cs">Úkoly umístění</a>.</li></ul>
+</div>
+<h2><span class="mw-headline" id="Issues">Issues</span></h2>
+<ul><li> As of version 0.13, update of Placement properties in the Data tab has been disabled for objects created with PartDesign, except for the initial sketch from which the solid will be created. Therefore the Placement of a solid created in PartDesign from a sketch can only be altered by adjusting Placement parameters of the initial construction sketch (the first sketch) from which the solid was created. </li>
+<li> Placement functionality will eventually be handled in the Assembly workbench. </li></ul>
+<h2><span class="mw-headline" id="More">More</span></h2>
+<ul><li>This tutorial: <a href="Aeroplane.html" title="Aeroplane">Aeroplane</a> covers the mechanics of changing an object's Placement extensively.</li>
+<li>A step-by-step explanation of the Placement Dialog can be found here <a href="Tasks_Placement.html" title="Tasks Placement">Tasks_Placement</a>.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Placement/cs&amp;oldid=282685">http://www.freecadweb.org/wiki/index.php?title=Placement/cs&amp;oldid=282685</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

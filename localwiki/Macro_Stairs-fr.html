@@ -1,0 +1,149 @@
+<html><head><title>Macro Stairs/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro Stairs/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Stairs"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Text-x-python.png" class="image"><img alt="Text-x-python.png" src="32px-Text-x-python.png" width="32" height="32" srcset="/wiki/images/2/2c/Text-x-python.png 1.5x" /></a> Macro Stairs</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Crée un escalier en suivant une hélice.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">00.03
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2015-03-01
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Stairs"><span class="tocnumber">1</span> <span class="toctext">Macro Stairs</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Lien"><span class="tocnumber">5</span> <span class="toctext">Lien</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Crée un escalier en suivant une hélice.
+</p>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_CircularStair.png" class="image"><img alt="Macro CircularStair.png" src="480px-Macro_CircularStair.png" width="480" height="360" srcset="/wiki/images/7/72/Macro_CircularStair.png 1.5x" /></a></div>
+<div style="clear:both"></div>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Créez une marche réglez les paramètres dans la macro sélectionnez votre marche et lancez la macro.
+</p>
+<ul><li><b>Hmarche</b> &#160;: hauteur entre les marches</li>
+<li><b>nombre</b>  &#160;: nombre de marches sur un tour d'hélice</li>
+<li><b>rayon</b>   &#160;: rayon central (de l'axe au bord intérieur de l'escalier)</li>
+<li><b>tours</b>   &#160;: nombre tours</li>
+<li><b>cloner</b>  &#160;: 1=crée un clone     0=crée une copie</li>
+<li><b>cylindre</b>&#160;: 1=crée un cylindre  0=ne crée pas de cylindre</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p><b>Macro_Stairs.FCMacro</b>
+</p>
+<pre># Select your object(s) give&#160;:
+#     head marche
+#     number objects for 1 turn
+#     radius (axe to object)
+#     number turns
+# the original object is not modify
+# Macro_Stairs.FCMacro
+
+import FreeCAD, Draft, Part
+
+__title__   = "CircularStair"
+__author__  = "Mario52"
+__date__    = "01/03/2015"
+__url__     = "http://www.freecadweb.org/index-fr.html"
+__version__ = "00.03"
+
+sel = FreeCADGui.Selection.getSelection()
+
+############## Modify here ####################
+Hmarche  = 10  # head marche
+nombre   = 18  # number objects for 1 turn
+rayon    = 20  # radius (axe to object)
+tours    = 5  # nomber turns pitch 
+cloner   = 1   # 1=clone    0=copy
+cylindre = 1   # 1=create cylinder  0=not cylinder
+###############################################
+
+vecligne=[FreeCAD.Vector(0.0,0.0,0.0),FreeCAD.Vector(rayon,0.0,0.0)]   # vector for line directrice
+ligne = Draft.makeWire(vecligne,closed=False,face=False,support=None)  # creation de la ligne de base
+coor_X = coor_Y = coor_Z = 0.0
+for i0 in range(tours):
+    for i in range(0,360,((360/nombre))):                                  # boucle principale 0 to 360 degrees
+        FreeCAD.ActiveDocument.getObject(ligne.Name).Placement=App.Placement(App.Vector(0,0,coor_Z), App.Rotation(App.Vector(0,0,1),i), App.Vector(0,0,0))
+        a = ligne.Shape.Edges[0].Vertexes[1]                               # fin de la ligne
+        coor_X = (a.Point.x)
+        coor_Y = (a.Point.y)
+
+        if cloner == 1:
+            obj=Draft.clone(sel)
+        else:
+            obj = Draft.scale(sel,delta=App.Vector(1, 1, 1),center=App.Vector(),copy=True,legacy=True)
+        try:
+            for io in range(len(obj)):
+                obj[io].Placement=App.Placement(App.Vector(coor_X,coor_Y,coor_Z), App.Rotation(i,0,0), App.Vector(0,0,0))
+        except Exception:
+            obj.Placement=App.Placement(App.Vector(coor_X,coor_Y,coor_Z), App.Rotation(i,0,0), App.Vector(0,0,0))
+
+        coor_Z += Hmarche
+App.ActiveDocument.removeObject(ligne.Name)                            # remove ligne de base directrice
+
+# create cylinder
+if cylindre == 1:
+    App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+    App.ActiveDocument.ActiveObject.Label = "Cylindre"
+    FreeCAD.ActiveDocument.ActiveObject.Height = (Hmarche * nombre * tours)    # heigth of cylinder
+    FreeCAD.ActiveDocument.ActiveObject.Radius = (rayon)                       # radius of cylinder
+
+FreeCAD.ActiveDocument.recompute() </pre>
+<h2><span class="mw-headline" id="Lien">Lien</span></h2>
+<p>La discussion sur le forum <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=9921">Newbie question - spiral staris reloaded</a>
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Stairs/fr&amp;oldid=241152">http://www.freecadweb.org/wiki/index.php?title=Macro_Stairs/fr&amp;oldid=241152</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

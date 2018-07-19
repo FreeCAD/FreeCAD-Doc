@@ -1,0 +1,248 @@
+<html><head><title>Material data model/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Material data model/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prop.C3.B3sito_y_principios"><span class="tocnumber">1</span> <span class="toctext">Propósito y principios</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Resultado"><span class="tocnumber">2</span> <span class="toctext">Resultado</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ideas"><span class="tocnumber">3</span> <span class="toctext">Ideas</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organizaci.C3.B3n"><span class="tocnumber">4</span> <span class="toctext">Organización</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Modelo_de_datos_de_materiales"><span class="tocnumber">4.1</span> <span class="toctext">Modelo de datos de materiales</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Nombre"><span class="tocnumber">4.1.1</span> <span class="toctext">Nombre</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Familia"><span class="tocnumber">4.1.2</span> <span class="toctext">Familia</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Fabricante"><span class="tocnumber">4.1.3</span> <span class="toctext">Fabricante</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#URL"><span class="tocnumber">4.1.4</span> <span class="toctext">URL</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Propiedades"><span class="tocnumber">4.1.5</span> <span class="toctext">Propiedades</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="#Descripci.C3.B3n"><span class="tocnumber">4.1.5.1</span> <span class="toctext">Descripción</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#Ejemplo_1:_Coste_por_tonelada"><span class="tocnumber">4.1.5.2</span> <span class="toctext">Ejemplo 1: Coste por tonelada</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="#Ejemplo_2:_L.C3.ADmite_de_elasticidad"><span class="tocnumber">4.1.5.3</span> <span class="toctext">Ejemplo 2: Límite de elasticidad</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="#Ejemplo_3:_Endurecimiento_por_acritud"><span class="tocnumber">4.1.5.4</span> <span class="toctext">Ejemplo 3: Endurecimiento por acritud</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-15"><a href="#Composici.C3.B3n_qu.C3.ADmica"><span class="tocnumber">4.1.6</span> <span class="toctext">Composición química</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Apariencia"><span class="tocnumber">4.1.7</span> <span class="toctext">Apariencia</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Notas"><span class="tocnumber">4.1.8</span> <span class="toctext">Notas</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#Aplicaciones_del_modelo_de_datos_de_materiales:_Algunos_ejemplos"><span class="tocnumber">4.2</span> <span class="toctext">Aplicaciones del modelo de datos de materiales: Algunos ejemplos</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Ejemplo_1:_Mamposter.C3.ADa_de_ladrillos"><span class="tocnumber">4.2.1</span> <span class="toctext">Ejemplo 1: Mampostería de ladrillos</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="#Nombre_2"><span class="tocnumber">4.2.1.1</span> <span class="toctext">Nombre</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="#Familia_2"><span class="tocnumber">4.2.1.2</span> <span class="toctext">Familia</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="#Propiedades_2"><span class="tocnumber">4.2.1.3</span> <span class="toctext">Propiedades</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="#Fabricante_2"><span class="tocnumber">4.2.1.4</span> <span class="toctext">Fabricante</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="#URL_2"><span class="tocnumber">4.2.1.5</span> <span class="toctext">URL</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="#Notas_2"><span class="tocnumber">4.2.1.6</span> <span class="toctext">Notas</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Siguientes_acciones"><span class="tocnumber">5</span> <span class="toctext">Siguientes acciones</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Prop.C3.B3sito_y_principios">Propósito y principios</span></h2>
+<p>Para almacenar propiedades de materiales en una estructura de datos unificada, una de las intenciones es facilitar la recuperación de datos que pueden llevarse en diferentes contextos:
+</p>
+<ul><li> Cuando se construye un modelo para elementos finitos</li>
+<li> Cuando se renderiza un modelo 3D</li>
+<li> Para permitir registrar cambios en un material de un <i>componente</i> creado en FreeCAD, para aplicaciones <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Data_Management">PDM</a>,</li>
+<li> Aplicación BIM (industria de arquitectura y construcción)</li></ul>
+<p>Para manejar propiedades de materiales, se ha propuesto crear un modelo de datos específico que será replicado cuando un nuevo material sea creado con FreeCAD.
+</p><p>Ello posibilitará crear un material ya sea definiendo manualmente sus propiedades a través del entorno de materiales, o leyendo las propiedades del material desde un archivo. El formato de dichos archivos está por definir (algunos ya existen, como MatML, STEP AP235 &amp; IGR45...).
+</p><p>También, será posible guardar las propiedades del material en una colección de archivos en un formato también aún pendiente de escoger. La colección de archivos que puede ser guardada en un directorio común formará la base de datos de materiales de FreeCAD.
+</p><p>A través de este modelo de datos, los materiales pueden ser definidos en FreeCAD sin la necesidad de definir un <i>componente</i>.
+</p><p>Un nuevo puntero se creará en el modelo de datos del <i>componente</i>, para vincularlo a un material que ha sido definido a través del modelo de datos de materiales.
+</p>
+<h2><span class="mw-headline" id="Resultado">Resultado</span></h2>
+<p>A través de este modelo de datos de materiales, se propone ofrecer una herramienta para manejar sencillamente datos de materiales con FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Ideas">Ideas</span></h2>
+<h2><span class="mw-headline" id="Organizaci.C3.B3n">Organización</span></h2>
+<p>Diferentes tipos de datos se necesitan manejar para describir un material. Un modelo de datos de materiales se propone más abajo. También se indican algunos ejemplos de los datos que se pueden almacenar con esta estructura.
+</p>
+<h3><span class="mw-headline" id="Modelo_de_datos_de_materiales">Modelo de datos de materiales</span></h3>
+<p>En adición al clásico atributo de "cadena de texto" como un nombre, y una familia, 3 diferentes tipos específicos de información se necesita manejar para describir un material en FreeCAD.
+</p>
+<ul><li> Propiedades: Estructura genérica para almacenar fatos describiendo las propiedades físicas del material</li>
+<li> Composición química: Composición química del material</li>
+<li> Apariencia: Información describiendo como se mostrará el material en FreeCAD (color, brillo...)</li></ul>
+<p>Todos estos tipos de información no es necesario que se definan para que el material exista.
+Finalmente, abajo se muestra la lista de atributos mantenidos para describir un material en FreeCAD.
+</p>
+<h4><span class="mw-headline" id="Nombre">Nombre</span></h4>
+<p>Una cadena de texto indicando el nombre del material. Es su designación.
+</p>
+<h4><span class="mw-headline" id="Familia">Familia</span></h4>
+<p>Una cadena de texto indicando la familia del material, como por ejemplo:
+</p>
+<ul><li> metal</li>
+<li> plástico</li>
+<li> ...</li></ul>
+<p>Adicionalmente, se ha propuesto crear un mapa entre las familias (por ejemplo almacenado en un archivo XML) de modo que permita navegar por la base de datos de materiales de FreeCAD. 
+</p><p>Dicho mapa podría por ejemplo contener un árbol presentando relaciones entre familias, como:
+</p>
+<ul><li> metal -&gt; acer -&gt; acero al carbono laminado -&gt; Acero avanzado de alta resistencia</li></ul>
+<ul><li> metal -&gt; aluminio -&gt; aluminio fundido</li></ul>
+<h4><span class="mw-headline" id="Fabricante">Fabricante</span></h4>
+<p>Una cadena de texto indicando el fabricante del material.
+</p>
+<h4><span class="mw-headline" id="URL">URL</span></h4>
+<p>Una cadena de texto indicando la página web presentando el material.
+</p>
+<h4><span class="mw-headline" id="Propiedades">Propiedades</span></h4>
+<h5><span class="mw-headline" id="Descripci.C3.B3n">Descripción</span></h5>
+<p>El modelo de datos de materiales incluye una colección de propiedades. El tamaño de dicha colección no es fijo y puede extenderse con propiedades definidas por el usuario.
+</p><p>Una propiedad contiene los siguientes atributos.
+</p>
+<ul><li> name: Cadena de texto</li>
+<li> symbol: Cadena de texto para escribir el símbolo de las propiedades (¿en formato matemático de Latex?)</li>
+<li> type: "escalar" o "matriz"</li>
+<li> value: escalar (si es un escalar)</li>
+<li> values: matriz (si es una matriz)</li>
+<li> parameterNames: matriz de cadenas de texto (para propiedades de tipo "matriz")</li>
+<li> parameterValues: matriz de escalares (para propiedades de tipo "matriz")</li>
+<li> unit &amp; unitMagnitude (objeto específico descrito en <a href="https://www.freecadweb.org/wiki/index.php?title=Units/es" title="Units/es">Unidades</a>)(Atención: Los ejemplos incluyen unitMagnitude, aunque no estoy completamente seguro de que deba estar definido en el nivel de las propiedades. El sistema de unidades debe estar definido en el nivel del material)</li>
+<li> direction: Un vector indicando en que dirección se encuentra para entender el valor de la propiedad. Los vectores son en si mismos objetos de FreeCAD expresados en el sistema de coordenadas global o en un sistema de coordenadas definido por el usuario.</li>
+<li> notes: Cadenas de texto que se pueden utilizar para describir algo más la propiedad como que significa, como se mide... También puede ayudar a entender el nombre de las propiedades</li></ul>
+<p>Las propiedades de los materiales serán identificadas gracias a su nombre para procesarlas, por ejemplo escribiendo el límite de elasticidad en un modelo de elementos finitos.
+Para facilitar la creación de datos de materiales con FreeCAD, una lista normalizada de nombres de propiedades con sus unidades por defecto será propuesta al usuario. Aunque el usuario es libre de crear nuevas propiedades, con nuevos nombres, nuevas unidades, etc.
+</p><p>Abajo está propuesto el diccionario de propiedades estándar. Eres libre de añadir otra nuevas.
+</p>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;MatPropDictionary LastUpdate="2011-10-24T09:00:00"&gt;
+   &lt;Property Name="Yield Stress" Symbol="YS" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Ultimate tensile strength" Symbol="UTS" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Mean Lankford coefficient" Symbol="r_{mean}" UnitSignature="0 0 0 0 0 0 0" /&gt;        
+   &lt;Property Name="Hardening coefficient" Symbol="n" UnitSignature="0 0 0 0 0 0 0" /&gt;     
+   &lt;Property Name="Strain hardening" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Elastic modulus" Symbol="E" UnitSignature="-1 1 -2 0 0 0 0" /&gt;
+   &lt;Property Name="Density" Symbol="\rho" UnitSignature="-3 1 0 0 0 0 0" /&gt;
+   &lt;Property Name="Poisson coefficient" Symbol="\nu" UnitSignature="0 0 0 0 0 0 0" /&gt;
+   &lt;Property Name="Uniform elongation" Symbol="UE" UnitSignature="0 0 0 0 0 0 0" /&gt;
+   &lt;Property Name="Total elongation" Symbol="TE" UnitSignature="0 0 0 0 0 0 0" /&gt;
+&lt;/MatPropDictionary&gt;
+</pre>
+<p>Notes: "Mean Lankford coefficient is representative of the anisotropy of a thin metal sheet." "The Hardening coefficient is representative of the hardening capacity of a metal. It appears in Hollomon formula that can relates cumulated plastic strain to stress."
+</p>
+<h5><span class="mw-headline" id="Ejemplo_1:_Coste_por_tonelada">Ejemplo 1: Coste por tonelada</span></h5>
+<p>A first example is given below to show how a <i>Cost per tonne</i> property can be stored.
+</p>
+<ul><li> name: Cost per tonne</li>
+<li> symbol: not applicable</li>
+<li> type: scalar</li>
+<li> value: 500</li>
+<li> values: not applicable (but could be: for instance different cost values per different countries)</li>
+<li> parameterNames: not applicable (but could be: for instance different cost values for different countries)</li>
+<li> parameterValues: not applicable (but could be: for instance different cost values for different countries)</li>
+<li> parameterUnits: not applicable</li>
+<li> unit &amp; unitMagnitude: [[ 0, -3, 0, 0, 0, 0, 0], 1]
+<ul><li> meaning m^(-3) (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: not applicable</li></ul>
+<h5><span class="mw-headline" id="Ejemplo_2:_L.C3.ADmite_de_elasticidad">Ejemplo 2: Límite de elasticidad</span></h5>
+<p>A second example is given below to show how the <i>Yield strength</i> property can be stored.
+</p>
+<ul><li> name: Yield stress</li>
+<li> symbol: YS</li>
+<li> type: scalar</li>
+<li> value: 450</li>
+<li> values: not applicable</li>
+<li> parameterNames: not applicable</li>
+<li> parameterValues: not applicable</li>
+<li> parameterUnits: not applicable</li>
+<li> unit &amp; unitMagnitude: [[ -1, 1, -2, 0, 0, 0, 0], 1]
+<ul><li> meaning Pa (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: [ 1, 0, 0] in global coordinate system
+<ul><li> given a steel sheet, this means that the <i>Yield strength</i> given is expressed in <i>x</i> direction, that can be for instance the rolling direction</li></ul></li></ul>
+<h5><span class="mw-headline" id="Ejemplo_3:_Endurecimiento_por_acritud">Ejemplo 3: Endurecimiento por acritud</span></h5>
+<p>A third example is given below to show how the <i>Strain hardening</i> property can be stored.
+This is a more complex example because <i>Strain hardening</i> is represented by a serie of curves.
+The curves represent the stress evolution with respect to plastic strain.
+3 curves have been obtained at different strain rates.
+All curves have been obtained at room temperature.
+</p>
+<ul><li> name: Strain hardening</li>
+<li> symbol: not applicable</li>
+<li> type: scalar</li>
+<li> value: not applicable</li>
+<li> values: [[0., 100, 150, 200], [ 0., 120, 180, 210], [ 0., 140, 190, 220]]</li>
+<li> parameterNames: [Plastic strain, Strain rate, Temperature]</li>
+<li> parameterValues:
+<ul><li> The 1st three arrays represents plastic strain evolutions</li>
+<li> The 2nd serie of three arrays represents the strain rate evolutions. A single value is given in each of the arrays, meaning that the strain rate doesn't change for each the corresponding stress evolutions.</li>
+<li> The last serie of a single array represents temperature evolutions. This time a single value is written in a single array, meaning that temperature doesn't change for a given array of stress, and this applies for all stress arrays.</li></ul></li></ul>
+<p>[[[0. , 0.4, 0.8, 1], [ 0, 0.4, 0.8, 1], [ 0, 0.4, 0.8, 1]],
+</p><p>[[0.]              , [100]            , [1000.]          ],
+</p><p>[[18.]                                                   ],]
+</p>
+<ul><li> parameterUnits  &amp; parameterUnitMagnitudes: [[[ 0, 0, 0, 0, 0, 0, 0], 1], [[ 0, 0, -1, 0, 0, 0, 0], 1], [[ 0, 0, 0, 0, 1, 0, 0], 1]]
+<ul><li> meaning none, s^(-1) and, K (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> unit &amp; unitMagnitude: [[ -1, 1, -2, 0, 0, 0, 0], 1]
+<ul><li> meaning Pa (more details about unit &amp; unit system specifications in <a href="Units.html" title="Units">Units</a> page)</li></ul></li>
+<li> direction: not applicable</li></ul>
+<h4><span class="mw-headline" id="Composici.C3.B3n_qu.C3.ADmica">Composición química</span></h4>
+<p>[Yet to be filled up]
+</p>
+<h4><span class="mw-headline" id="Apariencia">Apariencia</span></h4>
+<p>[Yet to be filled up]
+</p>
+<h4><span class="mw-headline" id="Notas">Notas</span></h4>
+<p>A string where the user can add its own comments about the material.
+</p>
+<h3><span class="mw-headline" id="Aplicaciones_del_modelo_de_datos_de_materiales:_Algunos_ejemplos">Aplicaciones del modelo de datos de materiales: Algunos ejemplos</span></h3>
+<h5><span class="mw-headline" id="Ejemplo_1:_Mamposter.C3.ADa_de_ladrillos">Ejemplo 1: Mampostería de ladrillos</span></h5>
+<h6><span class="mw-headline" id="Nombre_2">Nombre</span></h6>
+<p>Brick masonry
+</p>
+<h6><span class="mw-headline" id="Familia_2">Familia</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="Propiedades_2">Propiedades</span></h6>
+<ul><li><i>Weight</i>: 1kg/m³</li>
+<li><i>Cost per cubic meter</i>: 1€/m³</li>
+<li><i>Number of bricks por base unit</i>:&#160;?float?</li>
+<li><i>Volume of mortar por base unit</i>:&#160;?float?</li>
+<li><i>Mortar type</i>:&#160;?string?</li>
+<li><i>Brick type</i>:&#160;?string?</li>
+<li><i>Fire resistance class</i>:&#160;?string?</li>
+<li><i>Thermal conductivity</i>: 1 W/mK</li></ul>
+<h6><span class="mw-headline" id="Fabricante_2">Fabricante</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="URL_2">URL</span></h6>
+<p>?string?
+</p>
+<h6><span class="mw-headline" id="Notas_2">Notas</span></h6>
+<p>Notes about maintainance, special cares to be taken, etc...
+</p><p>CSI/MasterFormat code (as there are several systems used in the industry which give to all material a special code, I propose to enter it in the notes, because it doesn't appear to me relevant create a specific properties that we won't be able to name exactly).
+</p>
+<h2><span class="mw-headline" id="Siguientes_acciones">Siguientes acciones</span></h2>
+<ul><li> Define a set of names for classical properties, that we can define in a dictionary (FreeCAD configuration file). These properties will most notably be re-used in other contexts like the FEM module.</li></ul>
+<ul><li> Fill up <i>Chemical composition</i> section.</li>
+<li> Fill up <i>Appearance</i> section.</li></ul>
+<ul><li> Define a set of default chemical components.</li></ul>
+<ul><li> Review by other people.</li></ul>
+<ul><li> Implement in C++ data model and ability to write/read in a file (ISO 10303-45 through SCL?).</li>
+<li> Implement XML dictionaries to store default properties, with their units, that can be used by the user.</li>
+<li> Implement python GUI to handle this data.</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Material_data_model/es&amp;oldid=124257">http://www.freecadweb.org/wiki/index.php?title=Material_data_model/es&amp;oldid=124257</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

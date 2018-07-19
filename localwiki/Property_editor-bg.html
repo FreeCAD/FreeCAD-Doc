@@ -1,0 +1,136 @@
+<html><head><title>Property editor/bg</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Property editor/bg</h1></div>
+
+<div id="mw-content-text" lang="bg" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.D0.9E.D0.B1.D1.89_.D0.BF.D1.80.D0.B5.D0.B3.D0.BB.D0.B5.D0.B4"><span class="tocnumber">1</span> <span class="toctext">Общ преглед</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.94.D0.B5.D1.84.D0.B8.D0.BD.D0.B8.D1.86.D0.B8.D1.8F_.D0.BD.D0.B0_.D1.81.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.BE_.D0.BD.D0.B0_.D0.BE.D0.B1.D0.B5.D0.BA.D1.82"><span class="tocnumber">2</span> <span class="toctext">Дефиниция на свойство на обект</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.D0.A3.D0.BF.D1.80.D0.B0.D0.B2.D0.BB.D0.B5.D0.BD.D0.B8.D0.B5"><span class="tocnumber">3</span> <span class="toctext">Управление</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80_.D0.B7.D0.B0_.D1.80.D0.B5.D0.B4.D0.B0.D0.BA.D1.82.D0.BE.D1.80.D0.B0_.D0.BD.D0.B0_.D1.81.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.B0_.D0.BD.D0.B0_.D0.BE.D0.B1.D0.B5.D0.BA.D1.82"><span class="tocnumber">4</span> <span class="toctext">Пример за редактора на свойства на обект</span></a>
+<ul>
+<li class="toclevel-2"><a href="#.D0.A1.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.B0"><span class="tocnumber">4.1</span> <span class="toctext">Свойства</span></a></li>
+<li class="toclevel-2"><a href="#View"><span class="tocnumber">4.2</span> <span class="toctext">View</span></a></li>
+<li class="toclevel-2"><a href="#Data"><span class="tocnumber">4.3</span> <span class="toctext">Data</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".D0.9E.D0.B1.D1.89_.D0.BF.D1.80.D0.B5.D0.B3.D0.BB.D0.B5.D0.B4">Общ преглед</span></h2>
+<p>Редактора на свойствата на обектите е един от най-важните инструменти в FreeCAD. В него може да променяте всяко свойство (например размер, позиция, ориентация) на обект във вашия докумен.
+</p><p>Редактора ви показва свойствата само на избрания в момента обект, в активния в момента документ (внимавайте кои е в момента активния документ, ако имате няколко документа отворени). Ако не сте избрали обект (или няма обект), редактора на свойствата ще е празен.
+</p><p>Не всички свойства могат да бъдат променени във всеки един момент. В зависимост от контекста някои свойства няма да могат да се променят.
+</p><p>Свойствата са разделени на View свойства (отнасящи се до изобразяването на обекта - например цвят) и Data свойства (отнасящи се до физическите параметри на обекта - например размер и позиция). Всяка категория се намира в собствен таб.
+</p><p>Различни обекти могат да имат различни свойства. Някои свойства обаче (например позиция и ротация) присъстват за всички обекти.
+</p>
+<h2><span class="mw-headline" id=".D0.94.D0.B5.D1.84.D0.B8.D0.BD.D0.B8.D1.86.D0.B8.D1.8F_.D0.BD.D0.B0_.D1.81.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.BE_.D0.BD.D0.B0_.D0.BE.D0.B1.D0.B5.D0.BA.D1.82">Дефиниция на свойство на обект</span></h2>
+<p>"Свойство на обект" е информация (число, текст) свръзано с определен обект в документ на FreeCAD document or an object in a document. Свойствата могат да се виждат, и ако е разрешено в определния контекст, да се променят с <a class="mw-selflink selflink">редакторът на свойствата</a>.
+</p><p>Свойствата играят важна роля в FreeCAD, тъй като те са основния механизъм за променяне на параметрите на обектите. Свойствата определят точната форма на обектите.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=Scripted_objects/bg&amp;action=edit&amp;redlink=1" class="new" title="Scripted objects/bg (page does not exist)">Скриптираните обекти</a> в FreeCAD могат да имат свойства от следните типове:
+</p>
+<pre>Boolean
+Float
+FloatList
+FloatConstraint
+Angle
+Distance
+Integer
+IntegerConstraint
+Percent
+Enumeration
+IntegerList
+String
+StringList
+Link
+LinkList
+Matrix
+Vector
+VectorList
+Placement
+PlacementLink
+Color
+ColorList
+Material
+Path
+File
+FileIncluded
+PartShape
+FilletContour
+Circle
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".D0.A3.D0.BF.D1.80.D0.B0.D0.B2.D0.BB.D0.B5.D0.BD.D0.B8.D0.B5">Управление</span></h2>
+<p>Редкаторът на свойствата има 2 таба: View таб и Data таб.
+</p>
+<ul><li> View таба показва свойствата свързани с изобразяването на обект</li>
+<li> Data таба показва свойствата свързани с физическите параметри на обекта</li></ul>
+<h2><span class="mw-headline" id=".D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80_.D0.B7.D0.B0_.D1.80.D0.B5.D0.B4.D0.B0.D0.BA.D1.82.D0.BE.D1.80.D0.B0_.D0.BD.D0.B0_.D1.81.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.B0_.D0.BD.D0.B0_.D0.BE.D0.B1.D0.B5.D0.BA.D1.82">Пример за редактора на свойства на обект</span></h2>
+<h3><span class="mw-headline" id=".D0.A1.D0.B2.D0.BE.D0.B9.D1.81.D1.82.D0.B2.D0.B0">Свойства</span></h3>
+<p>Има 2 типа свойства, за всеки от които има отделен таб на дъното на прозореца "Редактор на Свойствата" (Property editor): 
+</p>
+<dl><dd> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>View</b>&#160;: свойства свързани с изгледа на обекта (например цвят)</dd></dl>
+<dl><dd> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Data</b>&#160;: свойства свързани с <i>физическите</i> параметри на обекта (например дължина, ширина, и т.н.)</dd></dl>
+<h3><span class="mw-headline" id="View">View</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution_en_03.png" class="image"><img alt="PartDesign Revolution en 03.png" src="300px-PartDesign_Revolution_en_03.png" width="300" height="479" srcset="/wiki/images/9/92/PartDesign_Revolution_en_03.png 1.5x" /></a></div>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Base</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Bounding Box</b>&#160;: To view the occupation, and, overall, of the object dimensions in space. Value False, or True (Default, False).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Control Point</b>&#160;: Value False, or True (Default, False).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Deviation</b>&#160;: Sets the accuracy of the polygonal representation of the model in 3d view (tessellation). Lower values = better quality. The value is in percent of object's size (deviation in mm = (w+h+d)/3*valueInPercent/100, where w,h,d are sizes of bounding box).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Display Mode</b>&#160;:Display mode of the form, <b>Flat lines, Shaded, Wireframe, Points</b> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Vue_DisplayModePartDesign_fr_00.png" class="image"><img alt="Vue DisplayModePartDesign fr 00.png" src="96px-Vue_DisplayModePartDesign_fr_00.png" width="96" height="46" srcset="/wiki/images/thumb/a/a1/Vue_DisplayModePartDesign_fr_00.png/144px-Vue_DisplayModePartDesign_fr_00.png 1.5x, /wiki/images/thumb/a/a1/Vue_DisplayModePartDesign_fr_00.png/192px-Vue_DisplayModePartDesign_fr_00.png 2x" /></a>. (Default, <b>Flat lines</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Lighting</b>&#160;: Lighting <b>One side, Two side</b> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Vue_Lighting_fr_00.png" class="image"><img alt="Vue Lighting fr 00.png" src="96px-Vue_Lighting_fr_00.png" width="96" height="26" srcset="/wiki/images/thumb/6/67/Vue_Lighting_fr_00.png/144px-Vue_Lighting_fr_00.png 1.5x, /wiki/images/thumb/6/67/Vue_Lighting_fr_00.png/192px-Vue_Lighting_fr_00.png 2x" /></a>.  (Default, <b>Two side</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Line Color</b>&#160;: Gives the color of the line (edges) (Default, <b>25, 25, 25</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Line Width</b>&#160;: Gives the thickness of the line (edges) (Default, <b>2</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Point Color</b>&#160;: Gives the color of the points (ends of the form) (Default, <b>25, 25, 25</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Point Size</b>&#160;: Gives the size of the points (Default, <b>2</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Selectable</b>&#160;: Allows the selection of the form. Value False, ou True (Default, True).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Shape Color</b>&#160;: Give the color shape (default, <b>204, 204, 204</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Transparency</b>&#160;: Sets the degree of transparency in the form of <b>0</b> to <b>100</b> (Default, <b>0</b>).</li></ul>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">VIEW</span><b>Visibility</b>&#160;: Determines the visibility of the form (like the bar <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">SPACE</span>). Value False, or True (Default, True).</li></ul>
+<div style="clear:both"></div>
+<p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Data">Data</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:PartDesign_Revolution_en_04.png" class="image"><img alt="PartDesign Revolution en 04.png" src="300px-PartDesign_Revolution_en_04.png" width="300" height="514" srcset="/wiki/images/6/65/PartDesign_Revolution_en_04.png 1.5x" /></a></div>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Base</span>
+<span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Angle</b>&#160;: The argument <b>Angle</b>, indicates the angle that will be used with the option <b>Axis</b> (below). Here, an angle is defined. The angle on the axis is set with the option <b>Axis</b>.<br />The object takes the specified angle around the specified axis.<br />An example, if you create an object with a required revolution should be rotate functionality of a certain amount, in order to enable it to take the same angle that another element existing.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Axis</b>&#160;: This option specifies the axis/axes to rotate the created object. The exact value of rotation comes from the angle (see above) option.<br />This option takes three arguments, these arguments, are transmitted in the form of numbers, <b>x, y</b> or <b>z</b>. Adding a value, more of an axis, will the rotation to each specified axis angle.<br />For example, with a <b>Angle of 15 °</b>&#160;: specifying, <b>1.0 for x</b> and <b>2.0 for y</b>, will rotate <b>15 ° and 30 °</b> in the y-axis and the x-axis (final position),
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>&#160;: This option specifies the offset in either axes <b>x, y, or z</b>, and accept any number as the argument for each field.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Label</b>&#160;: The Label is the name given to the operation, this name can be changed at convenience.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Placement</b>&#160;: <b>[(0.00 0.00 1.00);0.00;(0.00 0.00 0.00)]</b> Summary below data.
+Every feature has a placement that can be controlled through the Data Properties table. It controls the placement of the part with respect to the coordinate system. NOTE: The placement options do not affect the physical dimensions of the feature, but merely its position in space!<br />If you select the title <b>Placement</b> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Tache_Placement_01_fr_00.png" class="image" title="Options Placement"><img alt="Options Placement" src="256px-Tache_Placement_01_fr_00.png" width="256" height="15" srcset="/wiki/images/thumb/8/80/Tache_Placement_01_fr_00.png/384px-Tache_Placement_01_fr_00.png 1.5x, /wiki/images/8/80/Tache_Placement_01_fr_00.png 2x" /></a>, a button with <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;">three small points</span> appears, clicking this button <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"> <b>...</b></span>, you have access to the options window<b> <a href="Tasks_Placement.html" title="Tasks Placement">Tasks_Placement</a></b>.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Angle</b>&#160;: 
+The Angle argument specifies the angle to be used with the <a href="#Axis">axis</a> option (below). An angle is set here, and the axis that the angle acts upon is set with the axis option.
+The feature is rotated by the specified angle, about the specified axis.
+A usage example might be if you created a revolution feature as required, but then needed to rotate the whole feature by some amount, in order to allow it to line-up with another pre-existing feature.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Axis</b>&#160;: 
+This option specifies the axis/axes about which the created feature is to be rotated. The exact value of rotation comes from the angle option (above).
+This option takes three arguments, which are passed as numbers to either the x, y, or z boxes in the tool. Adding a value to more than one of the axes will cause the part to be rotated by the angle in each axis.
+For example, with an angle of 15° set, specifying a value of 1.0 for x, and 2.0 for y will cause the finished part to be rotated 15° in the x-axis AND 30° in the y-axis.
+</p><p><span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Position</b>&#160;: 
+This option specifies the base point to which all dimensions refer. This option takes three arguments, which are passed as numbers to either the x, y, or z boxes in the tool. Adding a value to more than one of the boxes will cause the part to be translated by the number of units along the corresponding axis.
+</p>
+<div style="clear:both"></div>
+<p><b>PS: The displayed properties can vary, depending on the tool used.</b>
+</p><p><br />
+</p>
+
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Property_editor/bg&amp;oldid=220243">http://www.freecadweb.org/wiki/index.php?title=Property_editor/bg&amp;oldid=220243</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

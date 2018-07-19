@@ -1,0 +1,271 @@
+<html><head><title>Drawing Module/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Module/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p>L'ambiente Disegno (Drawing) consente di trasferire su carta il lavoro realizzato in 3D.
+</p><p>Permette di produrre delle viste (proiezioni sul piano) del modello, di posizionarle in una finestra 2D e di inserire la finestra in una tavola, ad esempio, in un foglio con il bordo, il titolo e il logo e, infine, di stampare la tavola.
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Lo sviluppo del modulo Drawing è stato interrotto con il proposito di sostituirlo con il nuovo <a href="https://www.freecadweb.org/wiki/index.php?title=TechDraw_Module/it" title="TechDraw Module/it">Modulo TechDraw</a> che sarà introdotto nella versione 0.17. Nella versione 0.17 sono forniti entrambi i moduli, ma il modulo Drawing potrebbe essere rimosso nelle versioni future.</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Strumenti_dell.27interfaccia_grafica"><span class="tocnumber">1</span> <span class="toctext">Strumenti dell'interfaccia grafica</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Script"><span class="tocnumber">2</span> <span class="toctext">Script</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Esempio_semplice"><span class="tocnumber">2.1</span> <span class="toctext">Esempio semplice</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Il_metodo_parametrico"><span class="tocnumber">2.2</span> <span class="toctext">Il metodo parametrico</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Ottenere_porzioni_e_parti"><span class="tocnumber">2.3</span> <span class="toctext">Ottenere porzioni e parti</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Dimensionamento_generale_e_tolleranze_geometriche"><span class="tocnumber">2.4</span> <span class="toctext">Dimensionamento generale e tolleranze geometriche</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Modelli_di_squadrature"><span class="tocnumber">3</span> <span class="toctext">Modelli di squadrature</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Estendere_il_modulo_Drawing"><span class="tocnumber">4</span> <span class="toctext">Estendere il modulo Drawing</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Tutorial"><span class="tocnumber">5</span> <span class="toctext">Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Link_esterni"><span class="tocnumber">6</span> <span class="toctext">Link esterni</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Strumenti_dell.27interfaccia_grafica">Strumenti dell'interfaccia grafica</span></h3>
+<p>Questi strumenti permettono di creare, configurare e esportare le proiezioni dei solidi come disegni 2D.
+</p><p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Open_SVG/it" title="Drawing Open SVG/it">Apri SVG</a>: apre un foglio di disegno preventivamente salvato in un file SVG.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Landscape_A3/it" title="Drawing Landscape A3/it">Nuovo Disegno A3</a>: crea un nuovo disegno su un foglio di default A3 orizzontale di FreeCAD.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_View/it" title="Drawing View/it">Inserisci vista nel disegno</a>: inserisce nel foglio di lavoro attivo una vista in proiezione dell'oggetto selezionato.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Annotation.png" class="image"><img alt="Drawing Annotation.png" src="32px-Drawing_Annotation.png" width="32" height="32" srcset="/wiki/images/thumb/7/74/Drawing_Annotation.png/48px-Drawing_Annotation.png 1.5x, /wiki/images/7/74/Drawing_Annotation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Annotation/it" title="Drawing Annotation/it">Annotazione</a>: aggiunge una annotazione al foglio di disegno corrente.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Clip.png" class="image"><img alt="Drawing Clip.png" src="32px-Drawing_Clip.png" width="32" height="32" srcset="/wiki/images/thumb/b/b9/Drawing_Clip.png/48px-Drawing_Clip.png 1.5x, /wiki/images/b/b9/Drawing_Clip.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Clip/it" title="Drawing Clip/it">Clip</a>: aggiunge un gruppo di clip al foglio di disegno corrente.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Openbrowser.png" class="image"><img alt="Drawing Openbrowser.png" src="32px-Drawing_Openbrowser.png" width="32" height="32" srcset="/wiki/images/thumb/0/02/Drawing_Openbrowser.png/48px-Drawing_Openbrowser.png 1.5x, /wiki/images/0/02/Drawing_Openbrowser.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Openbrowser/it" title="Drawing Openbrowser/it">Apri finestra browser</a>: apre un'anteprima del foglio corrente nel browser</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Orthoviews.png" class="image"><img alt="Drawing Orthoviews.png" src="32px-Drawing_Orthoviews.png" width="32" height="32" srcset="/wiki/images/thumb/7/7f/Drawing_Orthoviews.png/48px-Drawing_Orthoviews.png 1.5x, /wiki/images/7/7f/Drawing_Orthoviews.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Orthoviews/it" title="Drawing Orthoviews/it">Inserisci viste ortogonali</a>: crea automaticamente le viste ortogonali di un oggetto nel foglio di disegno corrente</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Symbol.png" class="image"><img alt="Drawing Symbol.png" src="32px-Drawing_Symbol.png" width="32" height="32" srcset="/wiki/images/thumb/0/0a/Drawing_Symbol.png/48px-Drawing_Symbol.png 1.5x, /wiki/images/0/0a/Drawing_Symbol.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Symbol/it" title="Drawing Symbol/it">Simbolo</a>: aggiunge il contenuto di un file in formato SVG come un simbolo nel foglio di disegno corrente</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_DraftView.png" class="image"><img alt="Drawing DraftView.png" src="32px-Drawing_DraftView.png" width="32" height="32" srcset="/wiki/images/thumb/f/ff/Drawing_DraftView.png/48px-Drawing_DraftView.png 1.5x, /wiki/images/f/ff/Drawing_DraftView.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/it" title="Draft Drawing/it">Vista Draft</a>: Inserisce una speciale vista Draft dell'oggetto selezionato nel foglio del disegno corrente</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_SpreadsheetView.png" class="image"><img alt="Drawing SpreadsheetView.png" src="32px-Drawing_SpreadsheetView.png" width="32" height="32" srcset="/wiki/images/thumb/2/2f/Drawing_SpreadsheetView.png/48px-Drawing_SpreadsheetView.png 1.5x, /wiki/images/2/2f/Drawing_SpreadsheetView.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_SpreadsheetView/it" title="Drawing SpreadsheetView/it">Vista foglio di calcolo</a>: Inserisce una vista di un foglio di calcolo selezionato nel foglio del disegno corrente</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Save/it" title="Drawing Save/it">Esporta pagina</a>: salva il progetto o le sue modifiche in un file SVG.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_ProjectShape/it" title="Drawing ProjectShape/it">Proietta le forme</a>: proietta le forme su un piano, nella vista 3D.</li></ul>
+<p><b>Nota.</b>
+Lo strumento <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/it" title="Draft Drawing/it">Disegno</a> è utilizzato principalmente per posizionare gli oggetti Draft sulla carta. Possiede alcune funzionalità aggiuntive rispetto agli strumenti standard di Drawing, e supporta degli oggetti specifici come le <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/it" title="Draft Dimension/it">dimensioni di Draft</a>.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>Nella schermata precedente si vedono i componenti principali del modulo Drawing.
+Il documento contiene l'oggetto (Schenkel) da cui si vuole estrarre un disegno (una proiezione). Viene perciò creata una <b>Pagina</b>. La pagina viene creata tramite un <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/it" title="Drawing templates/it">modello</a>, in questo caso il modello è <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Landscape_A3/it" title="Drawing Landscape A3/it">A3_Landscape</a>.
+</p><p>Il modello della pagina è un documento SVG che può contenere la consueta cornice e un logo oppure conformarsi a una presentazione standard personalizzata.
+</p><p>I modelli, di default, nei sistemi Windows si trovano in <i>C:/Program Files/FreeCAD0.13/data/Mod/Drawing/Templates/A3_Landscape.svg</i>, e nei sistemi Linux in <i>/usr/share/freecad/Mod/Drawing/Templates/A3_Landscape.svg</i>. 
+</p><p>Nella pagina si possono inserire una o più viste.
+</p><p>Ogni vista ha una posizione nella pagina (Proprietà X, Y), un fattore di scala (proprietà di scala) e delle proprietà aggiuntive.
+</p><p>Ogni volta che la pagina, la vista o l'oggetto a cui si fa riferimento subiscono delle modifiche, la pagina viene rigenerata e viene anche aggiornata la sua visualizzazione.
+</p>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Per ora le funzioni offerte dall'interfaccia grafica (GUI) sono molto limitate, quindi gli script API sono più interessanti. Ecco alcuni esempi su come utilizzare gli script API del modulo Disegno.
+</p><p>Lo script <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_CartoucheFC/it" title="Macro CartoucheFC/it">Macro_CartoucheFC</a> permette di compilare agevolmente la tabella del modello di tavola FreeCAD A3_Landscape.
+</p>
+<h4><span class="mw-headline" id="Esempio_semplice">Esempio semplice</span></h4>
+<p>Prima di tutto è necessario caricare i moduli Part e Disegno:
+</p>
+<pre>import FreeCAD, Part, Drawing </pre>
+<p>Creare una Parte campione
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100))) </pre>
+<p>Proiezione diretta. G0 significa bordo rigido, G1 è una tangente continua.
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges) </pre>
+<p>Tutto viene proiettato sul piano Z:
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength </pre>
+<p>Proiezione con un vettore diverso
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1)) </pre>
+<p>Proiezione in SVG
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG </pre>
+<h4><span class="mw-headline" id="Il_metodo_parametrico">Il metodo parametrico</span></h4>
+<p>Creare il corpo
+</p>
+<pre>import FreeCAD
+import Part
+import Drawing
+
+# Create three boxes and a cylinder
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# Fuse two boxes and the cylinder
+App.ActiveDocument.addObject("Part::Fuse","Fusion")
+App.ActiveDocument.Fusion.Base = App.ActiveDocument.Cylinder
+App.ActiveDocument.Fusion.Tool = App.ActiveDocument.Box1
+
+App.ActiveDocument.addObject("Part::Fuse","Fusion1")
+App.ActiveDocument.Fusion1.Base = App.ActiveDocument.Box2
+App.ActiveDocument.Fusion1.Tool = App.ActiveDocument.Fusion
+# Cut the fused shapes from the first box
+App.ActiveDocument.addObject("Part::Cut","Shape")
+App.ActiveDocument.Shape.Base = App.ActiveDocument.Box 
+App.ActiveDocument.Shape.Tool = App.ActiveDocument.Fusion1
+# Hide all the intermediate shapes 
+Gui.ActiveDocument.Box.Visibility=False
+Gui.ActiveDocument.Box1.Visibility=False
+Gui.ActiveDocument.Box2.Visibility=False
+Gui.ActiveDocument.Cylinder.Visibility=False
+Gui.ActiveDocument.Fusion.Visibility=False
+Gui.ActiveDocument.Fusion1.Visibility=False </pre>
+<p>Inserire un oggetto Page e assegnargli un modello
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
+App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg' </pre>
+<p>Creare una vista dell'oggetto "Shape", definirne la posizione e la scala e assegnare la vista a una pagina
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','View')
+App.ActiveDocument.View.Source = App.ActiveDocument.Shape
+App.ActiveDocument.View.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.View.X = 10.0
+App.ActiveDocument.View.Y = 10.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.View) </pre>
+<p>Creare una seconda vista, ruotata di 90 gradi, dello stesso oggetto.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewRot')
+App.ActiveDocument.ViewRot.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewRot.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.ViewRot.X = 290.0
+App.ActiveDocument.ViewRot.Y = 30.0
+App.ActiveDocument.ViewRot.Scale = 1.0
+App.ActiveDocument.ViewRot.Rotation = 90.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewRot) </pre>
+<p>Creare una terza vista, con direzione isometrica, dello stesso oggetto. Anche le linee nascoste sono attivate.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewIso')
+App.ActiveDocument.ViewIso.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewIso.Direction = (1.0,1.0,1.0)
+App.ActiveDocument.ViewIso.X = 335.0
+App.ActiveDocument.ViewIso.Y = 140.0
+App.ActiveDocument.ViewIso.ShowHiddenLines = True
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewIso) </pre>
+<p>Modificare qualche parametro e aggiornare. Il processo di aggiornamento modifica la visualizzazione e aggiorna la pagina.
+</p>
+<pre>App.ActiveDocument.View.X = 30.0
+App.ActiveDocument.View.Y = 30.0
+App.ActiveDocument.View.Scale = 1.5
+App.ActiveDocument.recompute() </pre>
+<h4><span class="mw-headline" id="Ottenere_porzioni_e_parti">Ottenere porzioni e parti</span></h4>
+<p>Ottenere il frammento SVG di una singola vista
+</p>
+<pre>ViewSVG = App.ActiveDocument.View.ViewResult
+print ViewSVG </pre>
+<p>Ottenere l'intera pagina risultante (contenuta in un file nella directory temporanea del documento, con il permesso di sola lettura)
+</p>
+<pre>print "Resulting SVG document: ",App.ActiveDocument.Page.PageResult
+file = open(App.ActiveDocument.Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long" </pre>
+<p>Importante: liberare il file!
+</p>
+<pre>del file </pre>
+<p>Inserire una vista con un contenuto personalizzato:
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureView','ViewSelf')
+App.ActiveDocument.ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;"""
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewSelf)
+App.ActiveDocument.recompute()
+
+del ViewSVG </pre>
+<p>Si ottiene il seguente risultato:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h4><span class="mw-headline" id="Dimensionamento_generale_e_tolleranze_geometriche">Dimensionamento generale e tolleranze geometriche</span></h4>
+<p>Il disegno delle dimensioni e delle tolleranze sono ancora in fase di sviluppo, ma, con un po' di lavoro, è già possibile ottenere alcune funzionalità di base.
+</p><p>Prima di tutto bisogna scaricare il modulo gdtsvg python da 
+</p><p><a rel="nofollow" class="external free" href="https://github.com/jcc242/FreeCAD">https://github.com/jcc242/FreeCAD</a> (ATTENZIONE: Questo link potrebbe essere interrotto in qualsiasi momento)
+</p><p>Per ottenere un riquadro per l'indicazione delle caratteristiche (una griglia in cui inserire i parametri), provare quanto segue:
+</p>
+<pre>import gdtsvg as g # Import the module, I like to give it an easy handle
+ourFrame = g.ControlFrame("0","0", g.Perpendicularity(), ".5", g.Diameter(), g.ModifyingSymbols("M"), "A",  
+           g.ModifyingSymbols("F"), "B", g.ModifyingSymbols("L"), "C", g.ModifyingSymbols("I")) </pre>
+<p>Ecco un esempio di buona ripartizione del contenuto di una griglia di controllo della geometria: <a rel="nofollow" class="external autonumber" href="http://www.cadblog.net/adding-geometric-tolerances.htm">[1]</a>
+</p><p>I parametri da passare a ControlFrame sono: 
+</p>
+<ol><li>Coordinata X nel sistema di coordinate SVG (digitare stringa)</li>
+<li>Coordinata Y nel sistema di coordinate SVG (digitare stringa)</li>
+<li>Il simbolo grafico della caratteristica geometrica desiderata (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li>
+<li>La tolleranza (digitare stringa)</li>
+<li>(opzionale) Il simbolo di diametro (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li>
+<li>(optional) La condizione di tolleranza di materiale (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li>
+<li>(optional) Il primo dato (digitare stringa)</li>
+<li>(optional) La condizione di tolleranza del primo dato (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li>
+<li>(optional) Il secondo dato (digitare stringa)</li>
+<li>(optional) La condizione di tolleranza del secondo dato (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li>
+<li>(optional) Il terzo dato (digitare stringa)</li>
+<li>(optional) Il terzo dato per la condizione di materiale (tupla, la stringa svg per prima, la larghezza del simbolo per seconda e l'altezza del simbolo per terza)</li></ol>
+<p>La funzione ControlFrame restituisce un testo che contiene (stringa svg, larghezza totale del riquadro, altezza complessiva del riquadro)
+</p><p>Per ottenere una dimensione, provare quanto segue:
+</p>
+<pre>import gdtsvg
+ourDimension = linearDimension(point1, point2, textpoint, dimensiontext, linestyle=getStyle("visible"), 
+               arrowstyle=getStyle("filled"), textstyle=getStyle("text") </pre>
+<p>Gli input per ottenere una dimensione lineare sono:
+</p>
+<ol><li>point1, una tupla con le coordinate svg (x,y), questo è uno dei punti tra i quali si desidera la quota</li>
+<li>point2, una tupla con le coordinate svg (x,y), questo è il secondo dei punti tra i quali si desidera la quota</li>
+<li>textpoint, una tupla con le coordinate svg (x,y), questo è il punto dove viene posizionato il testo della quota</li>
+<li>dimensiontext, una stringa contenente il testo che si desidera per la dimensione</li>
+<li>linestyle, una stringa contenente lo stile svg (ad esempio css), utilizzando la funzione getStyle per recuperare una stringa predefinita, per definire lo stile con cui appaiono le linee</li>
+<li>arrowstyle, una stringa contenente lo stile svg (ad esempio css), utilizzando la funzione getStyle per recuperare una stringa predefinita, per definire lo stile con cui appaiono le frecce</li>
+<li>textstyle, una stringa contenente lo stile svg (ad esempio css), utilizzando la funzione getStyle per recuperare una stringa predefinita, per definire lo stile con cui appaiono i testi </li></ol>
+<p>Con la quotatura e l'indicazione delle tolleranze, si può procedere come sopra per visualizzarle nella pagina di disegno.
+</p><p>Questo modulo è provvisorio e può essere interrotto in qualsiasi momento, segnalazioni di bug per ora sono benvenute nella pagina github, oppure contattare jcc242 sul forum se si registra un bug da qualche altra parte.
+</p>
+<h3><span class="mw-headline" id="Modelli_di_squadrature">Modelli di squadrature</span></h3>
+<p>FreeCAD viene fornito con una serie di modelli di pagina predefiniti, ma si possono trovare altri modelli in <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/it" title="Drawing templates/it">Modelli di squadrature</a>.
+</p>
+<h3><span class="mw-headline" id="Estendere_il_modulo_Drawing">Estendere il modulo Drawing</span></h3>
+<p>Alcune ulteriori note sulla programmazione del Modulo Disegno sono contenute nella pagina <a href="Drawing_Documentation.html" title="Drawing Documentation">Drawing Documentation (en)</a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Documentation/it" title="Drawing Documentation/it">Drawing Documentation (it)</a>. Dette note aiutano a capire rapidamente come lavora questo modulo e permettono ai programmatori di avviare rapidamente la programmazione per esso.
+</p>
+<h2><span class="mw-headline" id="Tutorial">Tutorial</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_tutorial/it" title="Drawing tutorial/it">Drawing tutorial</a></li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Link_esterni">Link esterni</span></h2>
+<ul><li>  <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=1Hm5Zyjmjac">Intro to mechanical drawing on Youtube - by Normal Universe</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/it&amp;oldid=290052">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/it&amp;oldid=290052</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

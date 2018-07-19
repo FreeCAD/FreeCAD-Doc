@@ -1,0 +1,84 @@
+<html><head><title>Arch Remove/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Remove/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Rimuovi"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="32px-Arch_Remove.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/48px-Arch_Remove.png 1.5x, /wiki/images/d/dc/Arch_Remove.png 2x" /></a> Rimuovi</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">Arch → Rimuovi
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Module/it" title="Arch Module/it">Architettura</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/it" title="Arch Add/it">Aggiungi</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Rimuovi"><span class="tocnumber">1</span> <span class="toctext">Rimuovi</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilizzo"><span class="tocnumber">3</span> <span class="toctext">Utilizzo</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Descrizione">Descrizione</span></h3>
+<p>Lo strumento Rimuovi permette di eseguire 2 tipi di operazioni:
+</p>
+<ul><li> Rimuovere un sotto-componente di un oggetto Architettura, ad esempio rimuovere il cubo che è stato inserito in una parete per descrivere il comando <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Add/it" title="Arch Add/it">Aggiungi</a>.</li>
+<li> Rimuovere un oggetto basato su <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">forme</a>, tipo un <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Wall/it" title="Arch Wall/it">muro</a> o una <a href="https://www.freecadweb.org/wiki/index.php?title=Arch_Structure/it" title="Arch Structure/it">struttura</a>, da un oggetto Architettura</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove_example.jpg" class="image"><img alt="Arch Remove example.jpg" src="600px-Arch_Remove_example.jpg" width="600" height="200" srcset="/wiki/images/a/a3/Arch_Remove_example.jpg 1.5x" /></a>
+</p><p>Nell'immagine viene sottratto un parallelepipedo da un muro
+</p>
+<h3><span class="mw-headline" id="Utilizzo">Utilizzo</span></h3>
+<ol><li> Selezionare un sotto-componente all'interno di un oggetto Architettura, oppure selezionare prima l'oggetto (o gli oggetti) da sottrarre, poi il componente Architettura da cui va sottratto (il componente Architettura deve essere selezionato per ultimo)</li>
+<li> Premere il pulsante <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Remove.png" class="image"><img alt="Arch Remove.png" src="16px-Arch_Remove.png" width="16" height="16" srcset="/wiki/images/thumb/d/dc/Arch_Remove.png/24px-Arch_Remove.png 1.5x, 32px-Arch_Remove.png 2x" /></a> Rimuovi</span></li></ol>
+<h3><span class="mw-headline" id="Script">Script</span></h3>
+<p>Lo strumento Rimuovi può essere usato nelle <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/it" title="Macros/it">macro</a> e dalla console python utilizzando la seguente funzione:
+</p>
+<pre><b>removeComponents (objectsList,[hostObject])</b>
+</pre>
+<ul><li> Rimuove dal genitore il componente o i componenti della lista fornita. Se viene specificato un hostObject, questa funzione prova invece ad aggiungere i componenti all'hostObject, ad esempio i fori.</li></ul>
+<p>Esempio:
+</p>
+<pre>import FreeCAD, Arch, Draft, Part
+line = Draft.makeWire([FreeCAD.Vector(0,0,0),FreeCAD.Vector(2,2,0)])
+wall = Arch.makeWall(line)
+box = Part.makeBox(1,1,1)
+Arch.addComponents(box,wall)
+Arch.removeComponents(box) </pre>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Remove/it&amp;oldid=263281">http://www.freecadweb.org/wiki/index.php?title=Arch_Remove/it&amp;oldid=263281</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

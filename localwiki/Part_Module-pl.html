@@ -1,0 +1,138 @@
+<html><head><title>Part Module/pl</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Module/pl</h1></div>
+
+<div id="mw-content-text" lang="pl" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<p>Możliwości CAD FreeCADa wynikają z jądra <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Open_CASCADE">OpenCasCade</a>. Moduł Part pozwala FreeCADowi uzyskać dostęp do obiektów i funkcji OpenCasCade. OpenCascade jest profesjonalnym jądrem CAD, pozwalającym na zaawansowaną manipulację geometrią 3D i obiektami. Obiekty Części (Part), w przeciwieństwie do obiektów <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/pl" class="mw-redirect" title="Mesh Module/pl"> modułu Mesh</a>, są dużo bardziej skomplikowane, zatem pozwalają na znacznie bardziej zaawansowane operacje, jak spójne operacje Boole'a, modyfikacje historii i zachowanie parametryczne.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_example.jpg" class="image"><img alt="Part example.jpg" src="Part_example.jpg" width="634" height="406" /></a>
+</p><p>Przykład kształtu części we FreeCADzie
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Narz.C4.99dzia"><span class="tocnumber">1</span> <span class="toctext">Narzędzia</span></a></li>
+<li class="toclevel-1"><a href="#Prymitywy"><span class="tocnumber">2</span> <span class="toctext">Prymitywy</span></a></li>
+<li class="toclevel-1"><a href="#Modyfikacja_obiekt.C3.B3w"><span class="tocnumber">3</span> <span class="toctext">Modyfikacja obiektów</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Operacje_Boole.27a"><span class="tocnumber">4</span> <span class="toctext">Operacje Boole'a</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Obja.C5.9Bnienie_koncepcji"><span class="tocnumber">5</span> <span class="toctext">Objaśnienie koncepcji</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Skryptowanie"><span class="tocnumber">6</span> <span class="toctext">Skryptowanie</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Examples"><span class="tocnumber">7</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Tutorials"><span class="tocnumber">8</span> <span class="toctext">Tutorials</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Narz.C4.99dzia">Narzędzia</span></h3>
+<p>Narzędzia modułu zlokalizowane są w menu <b>Part</b>, które pojawia się po załadowaniu modułu. 
+</p>
+<h3><span class="mw-headline" id="Prymitywy">Prymitywy</span></h3>
+<p>Narzędzia do tworzenia prymitywów.
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Box.png" class="image"><img alt="Part Box.png" src="32px-Part_Box.png" width="32" height="32" srcset="/wiki/images/thumb/a/a5/Part_Box.png/48px-Part_Box.png 1.5x, /wiki/images/a/a5/Part_Box.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Box/pl" title="Part Box/pl">Sześcian</a>: Rysuje sześcian przez ustawienie jego wymiarów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cone.png" class="image"><img alt="Part Cone.png" src="32px-Part_Cone.png" width="32" height="32" srcset="/wiki/images/thumb/1/13/Part_Cone.png/48px-Part_Cone.png 1.5x, /wiki/images/1/13/Part_Cone.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cone/pl" title="Part Cone/pl">Stożek</a>: Rysuje stożek przez ustawienie jego wymiarów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cylinder.png" class="image"><img alt="Part Cylinder.png" src="32px-Part_Cylinder.png" width="32" height="32" srcset="/wiki/images/thumb/d/d4/Part_Cylinder.png/48px-Part_Cylinder.png 1.5x, /wiki/images/d/d4/Part_Cylinder.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cylinder/pl" title="Part Cylinder/pl">Walec</a>: Rysuje walec przez ustawienie jego wymiarów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Sphere.png" class="image"><img alt="Part Sphere.png" src="32px-Part_Sphere.png" width="32" height="32" srcset="/wiki/images/thumb/4/4b/Part_Sphere.png/48px-Part_Sphere.png 1.5x, /wiki/images/4/4b/Part_Sphere.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sphere/pl" title="Part Sphere/pl">Kula</a>: Rysuje kulę przez ustawienie jej wymiarów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Torus.png" class="image"><img alt="Part Torus.png" src="32px-Part_Torus.png" width="32" height="32" srcset="/wiki/images/thumb/8/8b/Part_Torus.png/48px-Part_Torus.png 1.5x, /wiki/images/8/8b/Part_Torus.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Torus/pl" title="Part Torus/pl">Torus</a>: Rysuje torus przez ustawienie jego wymiarów</li></ul>
+<h3><span class="mw-headline" id="Modyfikacja_obiekt.C3.B3w">Modyfikacja obiektów</span></h3>
+<p>Narzędzia do modyfikacji istniejących obiektów. 
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Booleans.png" class="image"><img alt="Part Booleans.png" src="32px-Part_Booleans.png" width="32" height="32" srcset="/wiki/images/thumb/8/89/Part_Booleans.png/48px-Part_Booleans.png 1.5x, /wiki/images/8/89/Part_Booleans.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/pl" title="Part Booleans/pl">Operacje Boole'a</a>: Umożliwia operacje Boole'a na obiektach</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Union.png" class="image"><img alt="Part Union.png" src="32px-Part_Union.png" width="32" height="32" srcset="/wiki/images/thumb/4/45/Part_Union.png/48px-Part_Union.png 1.5x, /wiki/images/4/45/Part_Union.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Union/pl" title="Part Union/pl">Łączenie</a>: Połączenia (suma) dwóch obiektów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Common.png" class="image"><img alt="Part Common.png" src="32px-Part_Common.png" width="32" height="32" srcset="/wiki/images/thumb/9/9a/Part_Common.png/48px-Part_Common.png 1.5x, /wiki/images/9/9a/Part_Common.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Common/pl" title="Part Common/pl">Część wspólna</a>: Wyciąga część wspólną (iloczyn) dwóch obiektów</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Cut.png" class="image"><img alt="Part Cut.png" src="32px-Part_Cut.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Cut.png/48px-Part_Cut.png 1.5x, /wiki/images/4/4a/Part_Cut.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Cut/pl" title="Part Cut/pl">Wycięcie</a>: Wycina (różnica) jeden obiekt z drugiego</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.png" class="image"><img alt="Part Extrude.png" src="32px-Part_Extrude.png" width="32" height="32" srcset="/wiki/images/thumb/d/df/Part_Extrude.png/48px-Part_Extrude.png 1.5x, /wiki/images/d/df/Part_Extrude.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Extrude/pl" title="Part Extrude/pl">Wyciągnięcie</a>: Wyciąga płaskie powierzchnie obiektu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Fillet.png" class="image"><img alt="Part Fillet.png" src="32px-Part_Fillet.png" width="32" height="32" srcset="/wiki/images/thumb/4/4a/Part_Fillet.png/48px-Part_Fillet.png 1.5x, /wiki/images/4/4a/Part_Fillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Fillet/pl" title="Part Fillet/pl">Zaokrąglenie</a>: Zaokrągla krawędzie obiektu</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Revolve.png" class="image"><img alt="Part Revolve.png" src="32px-Part_Revolve.png" width="32" height="32" srcset="/wiki/images/thumb/1/12/Part_Revolve.png/48px-Part_Revolve.png 1.5x, /wiki/images/1/12/Part_Revolve.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Revolve/pl" title="Part Revolve/pl">Obrót</a>: Tworzy obiekt przez obrót innego obiektu wokół osi</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Section.png" class="image"><img alt="Part Section.png" src="32px-Part_Section.png" width="32" height="32" srcset="/wiki/images/thumb/a/ab/Part_Section.png/48px-Part_Section.png 1.5x, /wiki/images/a/ab/Part_Section.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Section/pl" title="Part Section/pl">Przekrój</a>: Tworzy przekrój przez przecięcie obiektu płaszczyzną</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Operacje_Boole.27a">Operacje Boole'a</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanOperations.png" class="image" title="Przykład unii (Fuse), części wspólnej (Common) i różnicy (Cut)"><img alt="Przykład unii (Fuse), części wspólnej (Common) i różnicy (Cut)" src="500px-Part_BooleanOperations.png" width="500" height="384" srcset="/wiki/images/thumb/d/df/Part_BooleanOperations.png/750px-Part_BooleanOperations.png 1.5x, /wiki/images/thumb/d/df/Part_BooleanOperations.png/1000px-Part_BooleanOperations.png 2x" /></a></div>
+<div style="clear:both"></div>
+<p><br />
+Przykład unii (Union), części wspólnej (Intersection) i różnicy (Difference)
+</p>
+<h3><span class="mw-headline" id="Obja.C5.9Bnienie_koncepcji">Objaśnienie koncepcji</span></h3>
+<p>W terminologii OpenCasCade , rozróżniamy geometryczne prymitywy (primitives) i (topologiczne) kształty (shapes). Prymityw geometryczny może być punktem, prostą, okręgiem, płaszczyzną itp.  lub trochę bardziej skomplikowanym typem jak krzywa czy powierzchnia. B-Spline. Kształt może być wierzchołkiem, krawędzią, przewodem (wire), ścianą, bryłą lub składać się z innych kształtów. Prymitywy geometryczne nie są stworzone w celu bezpośredniego wyświetlania w scenie 3D, a raczej do budowania geometrii dla kształtów. Na przykład, krawędź może być skonstruowana z linii lub z kawałka okręgu.
+</p><p>W celu podsumowania, powinniśmy powiedzieć, że prymitywy są "bezkształtnymi" klockami budującymi, kształtu są rzeczywistą geometrią zbudowaną na nich.
+</p><p>By uzyskać pełną listę, zapoznaj się z <a rel="nofollow" class="external text" href="http://www.opencascade.org/org/doc/">dokumentacją OCC</a> i szukaj Geom_Geometry oraz TopoDS_Shape. Możesz tam także więcej przeczytać o różnicach pomiędzy obiektami geometrycznymi a kształtami. Proszę odnotować, że dokumentacja OCC niestety nie jest dostępna online (musisz ściągnąć archiwum) i celuje głównie w programistów, nie użytkowników końcowych. Ale miejmy nadzieję, że znajdziesz dość informacji by zacząć tutaj.
+</p><p>Typy geometryczne są aktualnie podzielone na dwie główne grupy: krzywe i powierzchnie. wychodząc z krzywych (prosta, okrąg, ...) możesz bezpośredni zbudować krawędź, wychodząc z powierzchni (płaszczyzna, walec, ...) może być zbudowana ściana. Np. geometryczny prymityw prostej jest nieograniczony, innymi słowy jest zdefiniowany przez wektor bazowy i wektor kierunku kiedy jego reprezentacja kształtu ograniczona jest przez punkty: początkowy o koncowy. i sześcian -- bryła -- może być stworzony z sześciu ograniczonych płaszczyzn.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Z krawędzi lub ściany  możesz wrócić do postaci prymitywu.
+</p>
+</div>
+<p>W ten sposób, z kształtów możesz zbudować bardzo skomplikowane części lub, innym razem zaokrąglić, wyciągnąć cały podkształt by uzyskać bardziej skomplikowany kształt.
+</p>
+<h3><span class="mw-headline" id="Skryptowanie">Skryptowanie</span></h3>
+<p>Główna sktuktura danych używana w module Part to <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Boundary_representation">BRep</a> pochodzące z OpenCascade.
+Wszelkie treści i typy obiektów modułu Part są aktualnie dostępne przez skryptowanie w pythonie. Zawiera ono prymitywy geometryczne, jak Linia lub Okrąg (lub Łuk) i cały zakres TopoKształtów (TopoShapes), jak Wierzchołki, Krawędzie, Przewody, Ściany, Bryły lite i Złożenia. Dla każdego z tych obiektów, istnieje kilka metod tworzeni. Niektóre z nich, szczególnie TopoKształty, zaawansowane operacje jak unie/różnice/wycięcia są także dostępne. Eksploracja treści modułu Part, jest opisana szerzej na stronie <a href="https://www.freecadweb.org/wiki/index.php?title=FreeCAD_Scripting_Basics/pl" title="FreeCAD Scripting Basics/pl"> Podstawy skryptowania we FreeCADzie</a>.
+</p>
+<h3><span class="mw-headline" id="Examples">Examples</span></h3>
+<p>By stworzyć prostą, włącz konsolę Pythona i wpisz:
+</p>
+<pre>import Part,PartGui 
+doc=App.newDocument()  
+l=Part.LineSegment()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0)
+doc.addObject("Part::Feature","Line").Shape=l.toShape() 
+doc.recompute() </pre>
+<p>Przejdźmy przez przykład pythona, krok po kroku:
+</p>
+<pre>import Part,PartGui
+doc=App.newDocument() </pre>
+<p>ładuje moduł Part i tworzy nowy dokument
+</p>
+<pre>l=Part.LineSegment()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0) </pre>
+<p>Prosta jest aktualnie odcinkiem, stąd punkt startowy i końcowy.
+</p>
+<pre>doc.addObject("Part::Feature","Line").Shape=l.toShape() </pre>
+<div class="mw-translate-fuzzy">
+<p>To dodaje do dokumentu obiekt typu Part i przypisuje reprezentację kształtu odcinka do właściwości 'Shape' dodanego obiektu. Ważne jest zrozumienie, że tutaj używamy geometrycznych prymitywów (Part.line) do stworzenia z nich TopoKształtu (metoda toShape()). Tylko Kształty mogą być dodane do dokumentu. We FreeCADzie, geometryczne prymitywy są "strukturami budującymi" dla Kształtów.
+</p>
+</div>
+<pre>doc.recompute() </pre>
+<p>Aktualizuje dokument. Także przygotowuje wizualizację nowej części.
+</p>
+<div class="mw-translate-fuzzy">
+<p>Zauważ, że Prosta (Line) może być stworzona przez sprecyzowanie punktu startowego i końcowego bezpośrednio. Dla przykładu Part.Line(point1,point2) lub możemy stworzyć domyślną prostą ustawić jej właściwości później, jak zrobiliśmy tutaj.
+</p>
+</div>
+<p>Okrąg może być stworzony w podobny sposób:
+</p>
+<pre>import Part
+doc = App.activeDocument()
+c = Part.Circle() 
+c.Radius=10.0  
+f = doc.addObject("Part::Feature", "Circle")
+f.Shape = c.toShape()
+doc.recompute() </pre>
+<p>Zauważ znów, użyliśmy okręgu (geometryczny prymitiw) do stworzenia kształtu z niego. Oczywiście później możemy uzyskać dostęp do naszej konstrukcji, przez zrobienie:
+</p>
+<pre>s = f.Shape
+e = s.Edges[0]
+c = e.Curve </pre>
+<p>Tutaj wzieliśmy kształt naszego obiektu f, następnie pobraliśmy listę krawędzi, w tym przypadku będzie tylko jedna, bo zrobiliśmy cały kształt tylko z jednego okręgu, więc bierzemy tylko pierwszy element z listy Krawędzi (Edges list), i bierzemy jego Krzywą (Curve). Każda Krawędź ma Krzywą, która jest bazą dla prymitywu.
+</p><p>Przejdź do <a href="https://www.freecadweb.org/wiki/index.php?title=Topological_data_scripting/pl" title="Topological data scripting/pl"> Topologicznego skryptowania danych</a> jeśli chcesz wiedzieć więcej.
+</p>
+<h3><span class="mw-headline" id="Tutorials">Tutorials</span></h3>
+<ul><li> <a href="Import_from_STL_or_OBJ.html" title="Import from STL or OBJ">Import from STL or OBJ</a>&#160;: How to import STL/OBJ files in FreeCAD</li>
+<li> <a href="Export_to_STL_or_OBJ.html" title="Export to STL or OBJ">Export to STL or OBJ</a>&#160;: How to export STL/OBJ files from FreeCAD</li>
+<li> <a href="Whiffle_Ball_tutorial.html" title="Whiffle Ball tutorial">Whiffle Ball tutorial</a>&#160;: How to use the Part Module</li></ul>
+<div class="mw-translate-fuzzy">
+
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/pl&amp;oldid=290003">http://www.freecadweb.org/wiki/index.php?title=Part_Module/pl&amp;oldid=290003</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

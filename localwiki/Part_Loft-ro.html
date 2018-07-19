@@ -1,0 +1,139 @@
+<html><head><title>Part Loft/ro</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part Loft/ro</h1></div>
+
+<div id="mw-content-text" lang="ro" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_Loft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft.png" class="image"><img alt="Part Loft.png" src="32px-Part_Loft.png" width="32" height="32" srcset="/wiki/images/thumb/e/ef/Part_Loft.png/48px-Part_Loft.png 1.5x, /wiki/images/e/ef/Part_Loft.png 2x" /></a> Part Loft</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">poziția meniului
+</th></tr>
+<tr>
+<td class="ctEven">Part → Loft...
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/ro" title="Part Module/ro">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">scurtătură
+</th></tr>
+<tr>
+<td class="ctEven">nici unul
+</td></tr>
+<tr>
+<th class="ctOdd">A se vedea, de asemenea,
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Sweep/ro" title="Part Sweep/ro">Part Sweep</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Part_Loft.html"><span class="tocnumber">1</span> <span class="toctext">Part Loft</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Limitations_and_complications"><span class="tocnumber">3</span> <span class="toctext">Limitations and complications</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#An_example_Loft"><span class="tocnumber">4</span> <span class="toctext">An example Loft</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Selection_of_the_elements"><span class="tocnumber">4.1</span> <span class="toctext">Selection of the elements</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Command_complete"><span class="tocnumber">4.2</span> <span class="toctext">Command complete</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Result"><span class="tocnumber">5</span> <span class="toctext">Result</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#FreeCAD_Version"><span class="tocnumber">6</span> <span class="toctext">FreeCAD Version</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>The FreeCAD Loft tool (Part Workbench), is used to create a face, shell or a solid shape from two or more profiles. The profiles can be a point (vertex), line (Edge), wire or face. Edges and wires may be either open or closed. There are various <a href="/wiki/Part_Loft#limitations_and_complications" title="Part Loft">limitations and complications</a>, see below, however the profiles may come from the Part Workbench primitives, Draft Workbench features and a Sketch. 
+</p><p>The Loft has three parameters, "Ruled","Solid" and "Closed" each with a value of either "true" or "false". 
+</p><p>If "Ruled" is "true" FreeCAD creates a face, faces or a solid from ruled surfaces. <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Ruled_surface">Ruled surface page on Wikipedia.</a>
+</p><p>If "Solid" is "true" FreeCAD creates a solid if the profiles are of closed geometry, if "false" FreeCAD creates a face or (if more than one face) a shell for either open or closed profiles.
+</p><p>If "Closed" is "true" FreeCAD attempts to loft the last profile to the first profile to create a closed figure.  
+</p><p>For more info on how the profiles are joined together, refer <a href="Part_Loft_Technical_Details.html" title="Part Loft Technical Details">Part Loft Technical Details</a> page.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:690px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_solid_ruled_from3profiles_example_FreeCAD_0_13.jpg" class="image"><img alt="" src="Part_Loft_solid_ruled_from3profiles_example_FreeCAD_0_13.jpg" width="688" height="741" class="thumbimage" /></a>  <div class="thumbcaption">Part_Loft. From three profiles which are two Part_Circles and one Part_Ellipse. Parameters are Solid "True" and Ruled "True"</div></div></div></div>
+<h2><span class="mw-headline" id="Limitations_and_complications">Limitations and complications</span></h2>
+<ul><li>A vertex or point 
+<ul><li> vertex or point may only be used as the first and/or last profile in the list of profiles. 
+<ul><li>For example 
+<ul><li>you cannot loft from a circle to a point, to an ellipse. </li>
+<li>However you could Loft from a point to a circle to an ellipse to another point.</li></ul></li></ul></li></ul></li>
+<li>Open or closed geometry profiles can not be mixed in one single Loft 
+<ul><li>In one Loft, all profiles (lines wires etc.) must be either open or closed. 
+<ul><li>For example 
+<ul><li>FreeCAD can not Loft between one Part Circle and one default Part Line.</li></ul></li></ul></li></ul></li>
+<li>Draft Workbench features
+<ul><li>Draft Workbench features can be directly used as a profile in FreeCAD 0.14 or later. 
+<ul><li>For example the following Draft features can be used as profiles in a Part Loft
+<ul><li>Draft Polygon. </li>
+<li>Draft Point, Line, wire, </li>
+<li>Draft B-spline, Bezier Curve</li>
+<li>Draft Circle, Ellipse, Rectangle </li></ul></li></ul></li></ul></li>
+<li>PartDesign Sketches
+<ul><li>The profile may be created with a sketch. However only a valid sketch will be shown in the list to be available for selection.</li>
+<li>The sketch must contain only one open or closed wire or line (can be multiple lines, if those lines are all connected as they are then a single wire)</li></ul></li>
+<li>Part Workbench
+<ul><li>the profile can be a valid Part geometric primitive which can be created with the <a href="Part_CreatePrimitives.html" title="Part CreatePrimitives">Part CreatePrimitives</a> tool
+<ul><li>For example the following Part geometric primitives can be a valid profile
+<ul><li>Point (Vertex), Line (Edge)  </li>
+<li>Helix, Spiral</li>
+<li>Circle, Ellipse</li>
+<li>Regular Polygon</li>
+<li>Plane (Face)</li></ul></li></ul></li></ul></li></ul>
+<ul><li>Closed Lofts
+<ul><li> The results of closed lofts may be unexpected - the loft may develop twists or kinks.  Lofting is very sensitive to the Placement of the profiles and the complexity of the curves required to connect the corresponding Vertices in all the profiles.</li></ul></li></ul>
+<h2><span class="mw-headline" id="An_example_Loft">An example Loft</span></h2>
+<p>The Loft tool is in the Part Workbench, menu Part -&gt; Loft... or via the icon in the tool bar.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_Ikon_Ballon_Hilfe.png" class="image"><img alt="Part Loft Ikon Ballon Hilfe.png" src="Part_Loft_Ikon_Ballon_Hilfe.png" width="397" height="224" /></a>
+</p><p>In the "Tasks" will be two lists: "node / wire" and "free form".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_Liste3.png" class="image"><img alt="Part Loft Liste3.png" src="Part_Loft_Liste3.png" width="800" height="480" /></a>
+</p>
+<h3><span class="mw-headline" id="Selection_of_the_elements">Selection of the elements</span></h3>
+<p>In the "node / wire" the available items are displayed. Two elements must be selected one after the first in this list.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_Liste_Auswahl_3b.png" class="image"><img alt="Part Loft Liste Auswahl 3b.png" src="Part_Loft_Liste_Auswahl_3b.png" width="800" height="480" /></a>
+</p><p><br />
+Thereafter, with the blue arrow that item is added to the list of "free form".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_Liste_Auswahl_3c.png" class="image"><img alt="Part Loft Liste Auswahl 3c.png" src="Part_Loft_Liste_Auswahl_3c.png" width="800" height="480" /></a>
+</p><p>The selected items must be of the same type.
+</p><p>Tip: the active / selected items in the list are displayed in the 3D area as active / selected.
+</p>
+<h3><span class="mw-headline" id="Command_complete">Command complete</span></h3>
+<p>If both elements are selected, the command can be completed with "OK".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_Liste_Auswahl_3d.png" class="image"><img alt="Part Loft Liste Auswahl 3d.png" src="Part_Loft_Liste_Auswahl_3d.png" width="800" height="480" /></a>
+</p>
+<h2><span class="mw-headline" id="Result">Result</span></h2>
+<p>From closed lines we get surfaces which might be taken as a superficial look for solids.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Loft_geschlossen.png" class="image"><img alt="Part Loft geschlossen.png" src="Part_Loft_geschlossen.png" width="800" height="480" /></a>
+</p><p>If indeed a solid needs to be created, used the button "Create Solid" or after creating the Loft switch to its <i> properties</i> tab<i> data</i> and set the switch "Solid" to true.
+</p><p>The procedure is the same as described above with open polylines.
+</p>
+<h2><span class="mw-headline" id="FreeCAD_Version">FreeCAD Version</span></h2>
+<ul><li>added Version 0.13</li>
+<li>"closed" property added Version 0.14</li>
+<li>Ability to use a face as a profile added Version 0.14</li></ul>
+<p><br />
+</p><p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_Loft/ro&amp;oldid=285335">http://www.freecadweb.org/wiki/index.php?title=Part_Loft/ro&amp;oldid=285335</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,105 @@
+<html><head><title>Part CompoundFilter</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part CompoundFilter</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+</p>
+<table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_Compound.E2.80.8F.E2.80.8EFilter"><a href="https://www.freecadweb.org/wiki/index.php?title=File:NoIconFound.png" class="image" title="Official icon not found"><img alt="Official icon not found" src="32px-NoIconFound.png" width="32" height="32" srcset="/wiki/images/thumb/a/a6/NoIconFound.png/48px-NoIconFound.png 1.5x, /wiki/images/a/a6/NoIconFound.png 2x" /></a> Part Compound‏‎Filter</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Part → Compound Filter
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Part_Workbench.html" class="mw-redirect" title="Part Workbench">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_Compound.E2.80.8F.E2.80.8EFilter"><span class="tocnumber">1</span> <span class="toctext">Part Compound‏‎Filter</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Notes"><span class="tocnumber">5</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:CompoundFilter.png" class="image"><img alt="CompoundFilter.png" src="CompoundFilter.png" width="600" height="133" /></a>
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>The CompoundFilter can be used to extract the individual pieces of the result of e.g. a <a href="Part_Slice.html" title="Part Slice">Part Slice</a> operation, with which you have split an object.
+</p><p>It can extract children by their indexes, test children for collisions with stencil shape, and filter children based on their properties, such as length, area, volume.
+</p><p>If there is only one child in the result, the output is the child. If there is more than one child to output, the output is a new compound.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Select the sliced object</li>
+<li> Apply Menu → Part → Compound → CompoundFilter</li>
+<li> Select the CompoundFilterObject in the tree</li>
+<li> In the properties tab set "Filter Type" to "specific items"</li>
+<li> Set items to the elements you want to extract
+<ol><li> For a single piece this is a number starting with 0, i.e. if you want to extract the first element enter 0 in this field, 1 for the next element ...</li>
+<li> If you want to extract more than one piece at a time separate the numbers with ";", e.g. a value of "0;2" will extract the first and the third element</li>
+<li> The general case - which covers the posibilities mentioned above as well - is a list of index ranges, specified in Python notation, but without brackets. Ranges can be chained with semicolon. For example:
+<ul><li>   <tt>7:10</tt> take children of indexes 7, 8 and 9 (indexes are zero-based; range-to index is excluded).</li>
+<li>   <tt>1;2 </tt> take children 1 and 2 (first range is child 1, second range is child 2, ranges joined by semicolon)</li>
+<li>   <tt>0;-1</tt> take first children (index 0) and last one (index -1 means last child, -2 - one but last, and so on)</li>
+<li>   <tt>1:  </tt> take all but first child (missing index means "all the way to the end").</li>
+<li>   <tt>::-1</tt> take all children in reversed order</li>
+<li>   <tt>::2 </tt> take all odd-indexed children, i.e. indexes, 1,3,5,..., which are the elments 2,4,6, ...</li>
+<li>   <tt>:;: </tt> repeat the input compound twice</li></ul></li></ol></li>
+<li> If you want to extract another piece select the sliced object again. It is now placed under the CompoundFilter in the tree</li>
+<li> Repeat the selection procedure from above. The slice and its subelements will be displayed under both CompoundFilters; they are, of course not repeated in the model. A very fast way to extract another piece is to copy the CompoundFilter. But <b>watch out</b>: You are asked if you want to copy the elements under the CompoundFilter too, which you must answer with <i>no</i>, you dont want to copy them, you only reference them.</li></ol>
+<h2><span class="mw-headline" id="Properties">Properties</span></h2>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Base</b>: Object to be filtered.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Filter Type</b> selectable options:
+<ul><li> bypass; no filter. The original compound is output, unchanged.</li>
+<li> specific items; extract the items listed in the "items" property</li>
+<li> collision-pass; extract pieces that touch or intersect with 'Stencil' shape.</li>
+<li> window-volume (default); extract all pieces which have a volume between "Window From" and "Window To" where 100% is the biggest piece - and not the unsliced object. The value of 100% is a reference value which can be overridden by "OverrideMaxVal".</li>
+<li> window-area; the same as window-volume where the sliced area determines the selection instead of the volume.</li>
+<li> window-length; the same as window-volume where the length of the edges determines the selection instead of the volume.</li>
+<li> window-distance; extract children whose distance to 'Stencil' shape is within value window, defined by properties "WindowFrom", "WindowTo", "OverrideMaxVal".</li></ul></li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Invert</b>: If set to true the list as described above is excluded instead of included.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Override Max Val</b>: Value window range is defined in percentages of maximum value. The maximum value is computed according to the following set of rules:
+<ul><li> if 'OverrideMaxVal' is nonzero - use it.</li>
+<li> otherwise, if 'Stencil' link is supplied - calculate the corresponding value of stencil shape (not applicable to window-distance 'FilterType')</li>
+<li> otherwise, take maximum value from children in compound to be filtered.</li></ul></li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Stencil</b>: Link to a stencil shape. For collision-pass and window-distance FilterType's, stencil is the object to test collision/distance against. For other "window-***" filter types, stencil is used to provide reference value for window percentages (maximum value override). In all other modes, 'Stencil' is ignored.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Window From</b>: Upper threshold percentage for selecting pieces, 100% is relative to the biggest piece.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Window To</b>: Lower threshold percentage for selecting pieces, 100% is relative to the biggest piece.</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>items</b>: List or range of elements to be selected if Filter Type is "specific items".</li></ul>
+<h2><span class="mw-headline" id="Notes">Notes</span></h2>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_CompoundFilter&amp;oldid=289686">http://www.freecadweb.org/wiki/index.php?title=Part_CompoundFilter&amp;oldid=289686</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

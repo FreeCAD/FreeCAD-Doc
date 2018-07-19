@@ -1,0 +1,69 @@
+<html><head><title>Raytracing Module/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Raytracing Module/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>光线追踪模块旨在将场景中的内容做外部<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Rendering_(computer_graphics)">渲染</a>处理，并生成作品的光真实感图像。此模块仍然处于早期阶段，所以目前还没有太多可用的选项。目前，仅仅只有一组基本工具可以用于将零件对象导出转换成<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/POV-Ray">POV-ray</a>文件。之后这些文件被载入到 POV-ray 进行渲染处理。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GUI_.E5.B7.A5.E5.85.B7"><span class="tocnumber">1</span> <span class="toctext">GUI 工具</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E8.A7.86.E5.9B.BE.E7.9A.84.E5.AF.BC.E5.87.BA"><span class="tocnumber">2</span> <span class="toctext">视图的导出</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E8.84.9A.E6.9C.AC.E7.BC.96.E7.A8.8B"><span class="tocnumber">3</span> <span class="toctext">脚本编程</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E9.93.BE.E6.8E.A5"><span class="tocnumber">4</span> <span class="toctext">链接</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="GUI_.E5.B7.A5.E5.85.B7">GUI 工具</span></h3>
+<p>下面这些工具可将你的三维设计成果面向外部渲染工具导出
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_New.png" class="image"><img alt="Raytracing New.png" src="32px-Raytracing_New.png" width="32" height="32" srcset="/wiki/images/thumb/5/59/Raytracing_New.png/48px-Raytracing_New.png 1.5x, /wiki/images/5/59/Raytracing_New.png 2x" /></a> <a href="Raytracing_New.html" title="Raytracing New">新建 PovRay 项目</a>：在文档中插入新的 PovRay 项目</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Export.png" class="image"><img alt="Raytracing Export.png" src="32px-Raytracing_Export.png" width="32" height="32" srcset="/wiki/images/thumb/0/00/Raytracing_Export.png/48px-Raytracing_Export.png 1.5x, /wiki/images/0/00/Raytracing_Export.png 2x" /></a> <a href="Raytracing_Export.html" title="Raytracing Export">导出 povray 视图</a>：将活动的三维视图（包含相机及其他信息）写入一份 povray 文件</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Camera.png" class="image"><img alt="Raytracing Camera.png" src="32px-Raytracing_Camera.png" width="32" height="32" srcset="/wiki/images/thumb/d/d0/Raytracing_Camera.png/48px-Raytracing_Camera.png 1.5x, /wiki/images/d/d0/Raytracing_Camera.png 2x" /></a> <a href="Raytracing_Camera.html" title="Raytracing Camera">将相机导出至 povray 文件</a>：将活动的三维视图对应的相机位置以 POV-Ray 格式写入一份文件</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Raytracing_Part.png" class="image"><img alt="Raytracing Part.png" src="32px-Raytracing_Part.png" width="32" height="32" srcset="/wiki/images/thumb/c/c7/Raytracing_Part.png/48px-Raytracing_Part.png 1.5x, /wiki/images/c/c7/Raytracing_Part.png 2x" /></a> <a href="Raytracing_Part.html" title="Raytracing Part">将零件导出至 povray 文件</a>：将所选零件（对象）信息写入一份 povray 文件</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id=".E8.A7.86.E5.9B.BE.E7.9A.84.E5.AF.BC.E5.87.BA">视图的导出</span></h3>
+<p>最简单方法是将当前的三维视图及它的全部内容导出转换成 <a rel="nofollow" class="external text" href="http://www.povray.org/">Povray</a> 文件。首先，必须加载或创建 CAD 数据，并按照所需适当调整三维视图的视图方向。然后在光线追踪菜单中选择“导出视图…”即可。
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:FreeCAD_Raytracing.jpg" class="image"><img alt="FreeCAD Raytracing.jpg" src="800px-FreeCAD_Raytracing.jpg" width="800" height="606" srcset="/wiki/images/8/80/FreeCAD_Raytracing.jpg 1.5x" /></a>
+</p><p>然后指定 *.poy 文件的保存位置。保存之后就可以在 <a rel="nofollow" class="external text" href="http://www.povray.org/">Povray</a> 程序中打开它并进行渲染处理：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Povray.jpg" class="image"><img alt="Povray.jpg" src="Povray.jpg" width="805" height="825" /></a>
+</p><p>通常通过渲染可以得到漂亮的大图片：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Scharniergreifer_render.jpg" class="image"><img alt="Scharniergreifer render.jpg" src="800px-Scharniergreifer_render.jpg" width="800" height="640" srcset="/wiki/images/thumb/2/2e/Scharniergreifer_render.jpg/1200px-Scharniergreifer_render.jpg 1.5x, /wiki/images/2/2e/Scharniergreifer_render.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id=".E8.84.9A.E6.9C.AC.E7.BC.96.E7.A8.8B">脚本编程</span></h3>
+<p>这里介绍如何使用 python 语言来利用这些功能：
+</p>
+<pre>import Raytracing,RaytracingGui
+OutFile = open('C:/Documents and Settings/jriegel/Desktop/test.pov','w')
+OutFile.write(open(App.getResourceDir()+'Mod/Raytracing/Templates/ProjectStd.pov').read())
+OutFile.write(RaytracingGui.povViewCamera())
+OutFile.write(Raytracing.getPartAsPovray('Box',App.activeDocument().Box.Shape,0.800000,0.800000,0.800000))
+OutFile.close()
+del OutFile
+</pre>
+<h3><span class="mw-headline" id=".E9.93.BE.E6.8E.A5">链接</span></h3>
+<p>关于 POV-Ray:
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.spiritone.com/~english/cyclopedia/">http://www.spiritone.com/~english/cyclopedia/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.povray.org/">http://www.povray.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://en.wikipedia.org/wiki/POV-Ray">http://en.wikipedia.org/wiki/POV-Ray</a></li></ul>
+<p>关于其它开源渲染程序：
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.yafaray.org/">http://www.yafaray.org/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.luxrender.net/">http://www.luxrender.net/</a></li></ul>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/cn&amp;oldid=174424">http://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/cn&amp;oldid=174424</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

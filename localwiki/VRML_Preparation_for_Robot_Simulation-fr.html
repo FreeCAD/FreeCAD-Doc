@@ -1,0 +1,596 @@
+<html><head><title>VRML Preparation for Robot Simulation/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>VRML Preparation for Robot Simulation/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><table class="fcinfobox wikitable ct" style="width: 230px; float: right; margin-left: 1em">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Tutoriel"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Base_ExampleCommandModel.png" class="image"><img alt="Base ExampleCommandModel.png" src="32px-Base_ExampleCommandModel.png" width="32" height="30" srcset="/wiki/images/thumb/9/93/Base_ExampleCommandModel.png/48px-Base_ExampleCommandModel.png 1.5x, /wiki/images/9/93/Base_ExampleCommandModel.png 2x" /></a> Tutoriel</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Tutoriel
+</th></tr>
+<tr>
+<td class="ctEven">Robot Workbench
+</td></tr>
+<tr>
+<th class="ctOdd">Niveau
+</th></tr>
+<tr>
+<td class="ctEven">Intermediate
+</td></tr>
+<tr>
+<th class="ctOdd">Temps d'exécution estimé
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Version de FreeCAD
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">Fichier(s) exemple(s)
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Tutoriel"><span class="tocnumber">1</span> <span class="toctext">Tutoriel</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Ouvrir_un_fichier.2C_ou_en_cr.C3.A9er_un_avec_FreeCAD"><span class="tocnumber">2</span> <span class="toctext">Ouvrir un fichier, ou en créer un avec FreeCAD</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Mesure_des_caract.C3.A9ristiques_g.C3.A9om.C3.A9triques"><span class="tocnumber">3</span> <span class="toctext">Mesure des caractéristiques géométriques</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Exporter_en_VRML"><span class="tocnumber">4</span> <span class="toctext">Exporter en VRML</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Pr.C3.A9paration_du_dossier_de_vrml"><span class="tocnumber">5</span> <span class="toctext">Préparation du dossier de vrml</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+Ce tutoriel explique comment utiliser FreeCAD et le <b>Workbench Simulation Robot</b> pour simuler les mouvements du robot sur <b>6 axes</b>.<br />
+Le tutoriel se concentre sur la création du fichier <b>VRML</b> utilisé pour la visualisation. La base du fichier <b>VRML</b> est un modèle FreeCAD. La version de FreeCAD utilisée est <b>0.11.4252ppa1</b> sur Ubuntu 32 bits.
+</p>
+<h2><span class="mw-headline" id="Ouvrir_un_fichier.2C_ou_en_cr.C3.A9er_un_avec_FreeCAD">Ouvrir un fichier, ou en créer un avec FreeCAD</span></h2>
+<p>Le tutoriel est basé sur un <b>fichier-STEP</b> d'un <b><a rel="nofollow" class="external text" href="http://www.staubli.com/fr/robotique/robots-4-et-6-axes/robots-petits-porteurs/tx40/">Stäubli TX40</a></b>, vous pouvez télécharger le fichier <a rel="nofollow" class="external text" href="https://secure.staubli.com/Intranet_Applications/Robotics/Group/RobDoc.nsf/ea05b3f4b301f597c1256d5f005665e8/bc3707ec036c9f6bc12576c700327958/$FILE/page.html">fichier TX40-HB.stp</a>, la méthode, devrait également s'appliquer à un modèle entièrement réalisé dans FreeCAD, cependant, je n'ai pas encore eu le temps de vérifier ce point.<br />
+Après l'ouverture du fichier, vous devriez obtenir ceci&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Staeubli_step_import.png" class="image"><img alt="Staeubli step import.png" src="1024px-Staeubli_step_import.png" width="1024" height="587" srcset="/wiki/images/f/f6/Staeubli_step_import.png 1.5x" /></a>
+</p><p>On notera que pour l'importation, le robot est composé de 8 formes, directement sur la racine de l'arbre du document.<br />
+La structure du fichier <b>VRML</b> exporté peut changer si des groupes sont utilisés. Les formes sont commandées à partir de la base de l'outil.<br />
+La dernière forme contient les axes de rotation de tous les axes du robot.<br />
+Le nom de forme de corrélation, le nom de la pièce est donné (pour l'instant (Mars 2011) par FreeCAD, FreeCAD n'importe pas encore les noms inclus dans les fichiers STEP)&#160;:
+</p>
+<table class="wikitable">
+
+<tr>
+<th> FreeCAD name
+</th>
+<th> STEP name
+</th></tr>
+<tr>
+<td> TX40_HB
+</td>
+<td>HORIZONTAL BASE CABLE OUTLET
+</td></tr>
+<tr>
+<td> TX40_HB001
+</td>
+<td> SHOULDER
+</td></tr>
+<tr>
+<td> TX40_HB002
+</td>
+<td> ARM
+</td></tr>
+<tr>
+<td> TX40_HB003
+</td>
+<td> ELBOW
+</td></tr>
+<tr>
+<td> TX40_HB004
+</td>
+<td> FOREARM
+</td></tr>
+<tr>
+<td> TX40_HB005
+</td>
+<td> WRIST
+</td></tr>
+<tr>
+<td> TX40_HB006
+</td>
+<td> TOOL FLANGE
+</td></tr>
+<tr>
+<td> TX40_HB007
+</td>
+<td>&#160;?
+</td></tr></table>
+<p>Pour cette importation, changez le "Mode d'affichage" de chaque forme, à l'exception <b>TX40_HB007</b>, de "<b>lisser</b>" les lignes en "<b>Ombrage</b>" pour l'exportation <b>VRML</b> pour faire bonne figure. J'ai aussi changé les couleurs de <b>[245, 196, 0]</b> et <b>[204, 204, 204]</b> afin de mieux correspondre au jaune Stäubli.<br />
+Masquer <b>TX40_HB007</b> car il contient les axes de tous les joints et ne peut pas être démonté.
+</p>
+<h2><span class="mw-headline" id="Mesure_des_caract.C3.A9ristiques_g.C3.A9om.C3.A9triques">Mesure des caractéristiques géométriques</span></h2>
+<p>Afin de construire la table <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Denavit-Hartenberg">Denavit-Hartenberg</a> (voir <a href="https://www.freecadweb.org/wiki/index.php?title=Robot_6-Axis/fr" title="Robot 6-Axis/fr">6-Axis_Robot</a> ) et de préparer le fichier <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Virtual_Reality_Markup_Language">VRML</a>, que vous avez besoin pour obtenir des caractéristiques du Robot. Pour l'instant, l'outil de mesure de FreeCAD n'est pas prêt, vous pouvez utiliser les axes inclus dans <b>TX40_HB007</b> (les coordonnées sont indiquées en bas à gauche lorsque vous pointez un objet avec la souris) ou vous devez utiliser la <a href="https://www.freecadweb.org/wiki/index.php?title=Introduction_to_Python/fr" title="Introduction to Python/fr">console Python</a> pour obtenir des informations sur la forme géométrique.<br />
+Notez que, le <b>DH-tableau</b> n'est nécessaire que si vous avez besoin d'utiliser la cinématique inverse, c'est à dire obtenir les coordonnées cartésiennes ou de commander le robot en coordonnées cartésiennes.<br />
+La <b>DH-table</b> pour ce robot est le suivant <b>(mm, degrés et deg/s)</b>&#160;:
+</p>
+<table class="wikitable">
+
+<tr>
+<th> i
+</th>
+<th> d
+</th>
+<th> θ
+</th>
+<th> r
+</th>
+<th> α
+</th>
+<th> θmin
+</th>
+<th> θmax
+</th>
+<th> Axis velocity
+</th></tr>
+<tr>
+<td> 1
+</td>
+<td> 320
+</td>
+<td> q1
+</td>
+<td> 0
+</td>
+<td> -90
+</td>
+<td> -180
+</td>
+<td> 180
+</td>
+<td> 555
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> 35
+</td>
+<td> q2 - 90
+</td>
+<td> 225
+</td>
+<td> 0
+</td>
+<td> -125
+</td>
+<td> 125
+</td>
+<td> 475
+</td></tr>
+<tr>
+<td> 3
+</td>
+<td> 0
+</td>
+<td> q3 + 90
+</td>
+<td> 0
+</td>
+<td> 90
+</td>
+<td> -138
+</td>
+<td> 138
+</td>
+<td> 585
+</td></tr>
+<tr>
+<td> 4
+</td>
+<td> 225
+</td>
+<td> q4
+</td>
+<td> 0
+</td>
+<td> -90
+</td>
+<td> -270
+</td>
+<td> 270
+</td>
+<td> 1035
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> 0
+</td>
+<td> q5
+</td>
+<td> 0
+</td>
+<td> 90
+</td>
+<td> -120
+</td>
+<td> 133.5
+</td>
+<td> 1135
+</td></tr>
+<tr>
+<td> 6
+</td>
+<td> 65
+</td>
+<td> q6
+</td>
+<td> 0
+</td>
+<td> 0
+</td>
+<td> -270
+</td>
+<td> 270
+</td>
+<td> 1575
+</td></tr></table>
+<p>Le fichier <b>csv</b> est&#160;:
+</p>
+<pre> a  , alpha, d  , theta, rotDir, maxAngle, minAngle, AxisVelocity
+0  ,   -90, 320,     0,      1,      180,     -180, 555
+225,     0,  35,   -90,      1,      125,     -125, 475
+0  ,    90,   0,    90,      1,      138,     -138, 585
+0  ,   -90, 225,     0,      1,      270,     -270, 1035
+0  ,    90,   0,     0,      1,    133.5,     -120, 1135
+0  ,     0,  65,     0,      1,      270,     -270, 1575
+</pre>
+<h2><span class="mw-headline" id="Exporter_en_VRML">Exporter en VRML</span></h2>
+<p>Exporter le document dans un fichier VRML.<br />
+La structure du fichier VRML est la suivante&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> #VRML V2.0 utf8
+ 
+ 
+ Group {
+   children 
+     Group {
+       children [ 
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         },
+           
+         Group {
+         …
+ 
+         } ]
+ 
+     }
+ 
+ }</pre></div>
+<p>Vous pouvez remarquer que nous avons 8 groupes indépendants, correspondants aux 8 formes.
+</p>
+<h2><span class="mw-headline" id="Pr.C3.A9paration_du_dossier_de_vrml">Préparation du dossier de vrml</span></h2>
+<p>Toutes les formes dans le fichier <b>vrml</b> sont exprimées dans le cadre de base, indépendamment les uns des autres. Pour le <b>Workbench Simulation Robot</b>, nous avons besoin de créer une structure où, un mouvement de formes induit un mouvement de toutes les formes qui se trouveront ensuite dans la structure. Le placement des formes sera relatif à la forme précédente, nous avons donc besoin d'inclure quelques modifications à partir du système de référence absolu vers le système relatif.<br />
+Les traductions sont décrites dans le tableau suivant&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Staeubli_important_points.png" class="image"><img alt="Staeubli important points.png" src="Staeubli_important_points.png" width="177" height="418" /></a>
+</p><p>With
+</p>
+<dl><dd> A=(0, 0, 168)</dd>
+<dd>B=(0, 107.8, 320)</dd>
+<dd>C=(0, 104.15, 545)</dd>
+<dd>D=(0, 35, 601)</dd>
+<dd>E=(0, 35, 770)</dd>
+<dd>F=(0, 35, 835).</dd></dl>
+<p>Prenons l'exemple de l'axe <b>4</b> entre le coude et avant-bras, située à <b>D = (xd, yd, zd)</b>.<br />
+Le point d'ancrage pour l'axe de FreeCAD est&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> "DEF FREECAD_AXIS4 Transform { rotation 0 1 0 0 children ["</pre></div>
+<p>Cela correspond à une rotation autour de l'axe <b>y</b>. Dans le modèle CAO, la rotation se fait sur l'axe <b>z</b>. Ainsi, nous avons besoin d'une rotation autour de l'axe <b>x</b> de <b>&lt;math&gt;\pi&lt;/math&gt;</b> avant la définition des axes de FreeCAD et de <b>-&lt;math&gt;\pi&lt;/math&gt;</b> après. En outre, une traduction de <b>(-xd, yd-,-zd)</b> est nécessaire juste avant le groupe correspondant à la définition de l'avant bras, et de l'exprimer dans le cadre de référence centré par rapport à <b>D</b>.<br />
+Cela signifie que la traduction de <b>(xd, yd, zd)</b> doit être insérée avant la première rotation.<br />
+A la fin, le <b>fichier vrml</b> à partir de la définition du <b>COUDE</b> (ELBOW) vers la définition de l'<b>avant bras</b> (FOREARM) ressemble à ceci&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>       # ELBOW
+       Group {
+         … here comes the unmodified definition of ELBOW
+   
+       },
+         
+       Transform {
+         translation 0 35 601
+         rotation 1 0 0 1.5707963
+         children
+           DEF FREECAD_AXIS4 Transform { rotation 0 1 0 0 children
+             Transform {
+               rotation 1 0 0 -1.5707963
+               children
+                 Transform {
+                   translation 0 -35 -601
+                   children [
+       # FOREARM  
+       Group {
+         ... here comes the unmodified definition of FOREARM
+   
+       },</pre></div>
+At the end of the document, the appropriate closing brackets must be inserted: <div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  ]}}}},</pre></div>  
+<p>for each of the 6 axes. Eventually, the document looks like this (I don't know if I can link the file here because of copyrights):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> #VRML V2.0 utf8
+   
+   
+ Group {
+   children
+   Group {
+     children [ 
+       # HORIZONTAL BASE CABLE OUTLET 
+       Group {
+           ... here comes the unmodified definition of HORIZONTAL BASE CABLE OUTLET
+    
+       },
+         
+       Transform {
+         translation 0 0 168
+         rotation 1 0 0 1.5707963
+         children
+           DEF FREECAD_AXIS1 Transform { rotation 0 1 0 0 children
+             Transform {
+               rotation 1 0 0 -1.5707963
+               children
+                 Transform {
+                   translation 0 0 -168
+                   children [
+       # SHOULDER
+       Group {
+           ... here comes the unmodified definition of SHOULDER 
+   
+       },
+         
+       Transform {
+         translation 0 107.8 320
+         #rotation 0 0 1 0
+         children
+           DEF FREECAD_AXIS2 Transform { rotation 0 1 0 0 children
+             Transform {
+               #rotation 0 0 1 0
+               children
+                 Transform {
+                   translation 0 -107.8 -320
+                   children [
+       # ARM  
+       Group {
+           ... here comes the unmodified definition of ARM 
+   
+       },
+         
+       Transform {
+         translation 0 104.15 545
+         #rotation 0 0 1 0
+         children
+           DEF FREECAD_AXIS3 Transform { rotation 0 1 0 0 children
+             Transform {
+               #rotation 0 0 1 0
+               children
+                 Transform {
+                   translation 0 -104.15 -545
+                   children [
+       # ELBOW
+       Group {
+           ... here comes the unmodified definition of ELBOW
+   
+       },
+         
+       Transform {
+         translation 0 35 601
+         rotation 1 0 0 1.5707963
+         children
+           DEF FREECAD_AXIS4 Transform { rotation 0 1 0 0 children
+             Transform {
+               rotation 1 0 0 -1.5707963
+               children
+                 Transform {
+                   translation 0 -35 -601
+                   children [
+       # FOREARM  
+       Group {
+           ... here comes the unmodified definition of FOREARM
+   
+       },
+         
+       Transform {
+         translation 0 35 770
+         #rotation 0 0 1 0
+         children
+           DEF FREECAD_AXIS5 Transform { rotation 0 1 0 0 children
+             Transform {
+               #rotation 0 0 1 0
+               children
+                 Transform {
+                   translation 0 -35 -770
+                   children [
+       # WRIST
+       Group {
+           ... here comes the unmodified definition of WRIST
+   
+       },
+         
+       Transform {
+         translation 0 35 835
+         rotation 1 0 0 1.5707963
+         children
+           DEF FREECAD_AXIS6 Transform { rotation 0 1 0 0 children
+             Transform {
+               rotation 1 0 0 -1.5707963
+               children
+                 Transform {
+                   translation 0 -35 -835
+                   children [
+       # TOOL FLANGE
+       Group {
+           ... here comes the unmodified definition of TOOL FRAME
+   
+       },
+         
+       Group {
+           ... here comes the unmodified definition of TX40_HB007
+   
+       } # "]" was deleted from this line
+     ]}}}},
+     ]}}}},
+     ]}}}},
+     ]}}}},
+     ]}}}},
+     ]}}}},
+     ] # this is the "]" deleted from the line above
+   }
+ }</pre></div>
+<p>Voici un <b>patch</b> pour obtenir un fichier <b>vrml</b> convenant à la simulation du robot&#160;:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> 7a8
+ >         # HORIZONTAL BASE CABLE OUTLET 
+ 95968a95970,95981
+ >         Transform {
+ >           translation 0 0 168
+ >           rotation 1 0 0 1.5707963
+ >           children
+ >             DEF FREECAD_AXIS1 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 rotation 1 0 0 -1.5707963
+ >                 children
+ >                   Transform {
+ >                     translation 0 0 -168
+ >                     children [
+ >         # SHOULDER
+ 128428a128442,128453
+ >         Transform {
+ >           translation 0 107.8 320
+ >           #rotation 0 0 1 0
+ >           children
+ >             DEF FREECAD_AXIS2 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 #rotation 0 0 1 0
+ >                 children
+ >                   Transform {
+ >                     translation 0 -107.8 -320
+ >                     children [
+ >         # ARM  
+ 206503a206529,206540
+ >         Transform {
+ >           translation 0 104.15 545
+ >           #rotation 0 0 1 0
+ >           children
+ >             DEF FREECAD_AXIS3 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 #rotation 0 0 1 0
+ >                 children
+ >                   Transform {
+ >                     translation 0 -104.15 -545
+ >                     children [
+ >         # ELBOW
+ 267111a267149,267160
+ >         Transform {
+ >           translation 0 35 601
+ >           rotation 1 0 0 1.5707963
+ >           children
+ >             DEF FREECAD_AXIS4 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 rotation 1 0 0 -1.5707963
+ >                 children
+ >                   Transform {
+ >                     translation 0 -35 -601
+ >                     children [
+ >         # FOREARM  
+ 417854a417904,417915
+ >         Transform {
+ >           translation 0 35 770
+ >           #rotation 0 0 1 0
+ >           children
+ >             DEF FREECAD_AXIS5 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 #rotation 0 0 1 0
+ >                 children
+ >                   Transform {
+ >                     translation 0 -35 -770
+ >                     children [
+ >         # WRIST
+ 422053a422115,422126
+ >         Transform {
+ >           translation 0 35 835
+ >           rotation 1 0 0 1.5707963
+ >           children
+ >             DEF FREECAD_AXIS6 Transform { rotation 0 1 0 0 children
+ >               Transform {
+ >                 rotation 1 0 0 -1.5707963
+ >                 children
+ >                   Transform {
+ >                     translation 0 -35 -835
+ >                     children [
+ >         # TOOL FLANGE
+ 435627c435700,435707
+ &lt;         } ]
+ ---
+ >         } 
+ >       ]}}}},
+ >       ]}}}},
+ >       ]}}}},
+ >       ]}}}},
+ >       ]}}}},
+ >       ]}}}},
+ >       ]</pre></div>
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/fr&amp;oldid=177701">http://www.freecadweb.org/wiki/index.php?title=VRML_Preparation_for_Robot_Simulation/fr&amp;oldid=177701</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

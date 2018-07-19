@@ -1,0 +1,317 @@
+<html><head><title>Macro FCTexture/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Macro FCTexture/fr</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_FCTexture/fr&amp;redirect=no" class="mw-redirect" title="Macro FCTexture/fr">Macro FCTexture/fr</a>)</span></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" width="100%" style="float: right; width: 230px; margin-left: 10px;">
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Macro_Texture"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture.png" class="image"><img alt="FCTexture.png" src="32px-FCTexture.png" width="32" height="32" srcset="/wiki/images/thumb/9/90/FCTexture.png/48px-FCTexture.png 1.5x, FCTexture.png 2x" /></a> Macro Texture</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Description
+</th></tr>
+<tr>
+<td class="ctEven left">Crée une image 3D à partir d'une image BMP.
+</td></tr>
+<tr>
+<th class="ctOdd">Auteur
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=User:Mario52" title="User:Mario52">Mario52</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Liens
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Macros_recipes/fr" title="Macros recipes/fr">Recettes macros</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=How_to_install_macros/fr" title="How to install macros/fr">Comment installer une macro</a><br /><a href="https://www.freecadweb.org/wiki/index.php?title=Customize_Toolbars/fr" title="Customize Toolbars/fr">Comment ajouter une barre d'outils</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Version
+</th></tr>
+<tr>
+<td class="ctEven macro-version">0.10
+</td></tr>
+<tr>
+<th class="ctOdd">Date dernière modification
+</th></tr>
+<tr>
+<td class="ctEven macro-date">2016-12-28
+</td></tr>
+<tr>
+<th class="ctOdd">
+</th></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Macro_Texture"><span class="tocnumber">1</span> <span class="toctext">Macro Texture</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Utilisation"><span class="tocnumber">3</span> <span class="toctext">Utilisation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#L.27interface"><span class="tocnumber">3.1</span> <span class="toctext">L'interface</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Script"><span class="tocnumber">4</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Exemples"><span class="tocnumber">5</span> <span class="toctext">Exemples</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Liens"><span class="tocnumber">6</span> <span class="toctext">Liens</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Revision"><span class="tocnumber">7</span> <span class="toctext">Revision</span></a></li>
+</ul>
+</div>
+
+</td></tr>
+</table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>Cette petite macro vous permet de construire un projet 3D très facilement à partir d'une image bitmap 256 niveaux de gris.
+</p><p>J'espère que cette macro va révolutionner la manière de penser la CAO et la CNC toute image quelle soit peut être convertie en objet 3D sans aucune intervention.
+</p><p>Tout devient possible quelle que soit la complexité de l'image&#160;!
+</p><p>La macro <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_Loft/fr" title="Macro Loft/fr">Macro Loft</a> pour automatiser le multi loft<br />
+</p>
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_004_Honda.png" class="image" title="Texture 004 Honda"><img alt="Texture 004 Honda" src="480px-Texture_004_Honda.png" width="480" height="231" srcset="/wiki/images/thumb/f/f0/Texture_004_Honda.png/720px-Texture_004_Honda.png 1.5x, /wiki/images/thumb/f/f0/Texture_004_Honda.png/960px-Texture_004_Honda.png 2x" /></a> <div style="clear:both"></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Utilisation">Utilisation</span></h2>
+<p>Cette macro nécessite une image en 256 niveaux de gris (0 à 255) (8 bits) donc avant d'utiliser la macro, convertissez votre image en niveaux de gris (noir et blanc). Le nombre de couleurs est détecté automatiquement. Chaque couleur (niveau de gris) est considéré comme une profondeur, blanc (255) le niveau le plus haut et noir (0) le niveau le plus bas (profond). Si l'image fait plus de 256 couleurs (32 bits) une fonction Plan est activée. (La durée d'exécution des fonctions affichant les points peut être très longue)
+</p><p>La configuration se fait avant l'ouverture du fichier, les valeurs par défaut sont les réglages prévu pour obtenir un projet de dimensions&#160;:
+</p>
+<ul><li> largeur de l'image en points dans la coordonnée <b>X</b>,</li>
+<li> hauteur de l'image en points dans la coordonnée <b>Y</b>,</li>
+<li> profondeur ou épaisseur du projet filtré sur 10 mm (en mode Brut, sur 256 mm) dans la coordonnée <b>Z</b>.</li></ul>
+<p>Le fichier image se déroule à la manière d'un scanner x1 x2 x3 .... par incrément de 1 mm dans FreeCAD de même pour la valeur y de 1 mm à la fois. La valeur de z est donnée par la valeur de la couleur. Ces valeurs sont paramétrables dans la macro.
+</p><p><b>Attention&#160;:</b> Suivant la dimension de l'image, le projet peut devenir très gros&#160;! pour mémoire une image de 100 px de large et 100 px de haut donne <b>100 x 100 = 10000 points</b> et comme chaque point correspond à une coordonnée, il y a donc <b>10000 cordonnées XYZ</b>. Les fonctions <b>Point</b> peuvent avoir un temps d'exécution très long.
+</p>
+<h3><span class="mw-headline" id="L.27interface">L'interface</span></h3>
+<div class="floatleft"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_002.png" class="image" title="Texture 002"><img alt="Texture 002" src="200px-Texture_002.png" width="200" height="460" srcset="/wiki/images/e/e5/Texture_002.png 1.5x" /></a></div>
+<ul><li> <b>Coordinate</b></li>
+<li> <b>Coordinate X&#160;:</b> Coordonnée X de position de l'objet, par défaut&#160;: 0.</li>
+<li> <b>Coordinate Y&#160;:</b> Coordonnée Y de position de l'objet, par défaut&#160;: 0.</li>
+<li> <b>Coordinate Z&#160;:</b> Coordonnée Z de position de l'objet, par défaut&#160;: 0.</li>
+<li></li>
+<li> <b>Stetching</b></li>
+<li> <b>Stetching X&#160;:</b> Rétrécissement ou élargissement de la longueur de l'objet,   par défaut&#160;: 0.</li>
+<li> <b>Stetching Y&#160;:</b> Rétrécissement ou élargissement de la hauteur de l'objet,    par défaut&#160;: 0.</li>
+<li> <b>Stetching Z&#160;:</b> Rétrécissement ou élargissement de la profondeur de l'objet, par défaut&#160;: 0.</li>
+<li></li>
+<li> <b>Inversion</b></li>
+<li> <b>Inversion X&#160;:</b> Inverse les coordonnées <b>X</b> de l'image.</li>
+<li> <b>Inversion Y&#160;:</b> Inverse les coordonnées <b>Y</b> de l'image.</li>
+<li> <b>Inversion Z&#160;:</b> Inverse les coordonnées <b>Z</b> de l'image.</li>
+<li></li>
+<li><b>Mode 8 Bits</b></li></ul>
+<p>La valeur de début de l'opération s'adapte automatiquement à la fonction choisie&#160;: 0 si le réglage est sur noir (<b>Black</b>) ou sur 255 si le réglage est sur blanc (<b>White</b>) ou 19 si le réglage est sur noir (<b>Black</b>)
+</p>
+<ul><li></li>
+<li> <b>Wire   &#160;:</b> Construit votre ligne (les vecteurs) sous forme de Wire.</li>
+<li> <b>Bspline&#160;:</b> Construit votre ligne (les vecteurs) sous forme de Bspline.</li>
+<li><b>Cloud&#160;:</b>  Crée un objet Point cloud avec les coordonnées de chaque points.</li>
+<li> <b>Point  &#160;:</b> Crée un point à chaque pixel (vecteur). (La procédure peut être longue)</li>
+<li> <b>Nuance &#160;:</b> Si l'option Nuance est activée, le point représenté prend la couleur originale du point.</li>
+<li></li>
+<li><b>Mode 32 Bits</b></li>
+<li> <b>Photo      &#160;:</b> Le mode photo est automatiquement activé si une image <b>32-bits</b> est détectée. (La procédure peut être longue)</li>
+<li> <b>Plan       &#160;:</b> Le mode plan vous permet d'importer une image <b>32 bits</b> et ignorer le fond du plan. Par défaut, le fond de l'image est noir et sera ignoré. L'intensité des couleurs sont réglables avec la fonction <b>Capping</b>. Si White est coché, le fond a ignorer sera le blanc. (La procédure peut être longue)</li>
+<li></li>
+<li> <b>Files</b></li>
+<li> <b>pcd:</b>  si cette option est cochée un fichier originalName.bmp.pcd est créé et sauvé dans le même répertoire que le fichier d'origine, le fichier créé est (pcd v0.7).</li>
+<li> <b>asc:</b>  si cette option est cochée un fichier originalName.bmp.asc est créé et sauvé dans le même répertoire que le fichier d'origine. Ce fichier peut être utilisé pour le format point cloud (format: X Y Z).</li>
+<li></li>
+<li> <b>Capping (10 mm)</b></li></ul>
+<p>La valeur de début de l'opération s'adapte automatiquement à la fonction choisie&#160;: 0 si le réglage est sur noir (<b>Black</b>) ou sur 255 si le réglage est sur blanc (<b>White</b>) ou 19 si le réglage est sur noir (<b>Black</b>)
+</p>
+<ul><li> <b>Slider  &#160;:</b> Donne une  hauteur particulière à la forme, la hauteur est affichée dans le titre de la fenêtre.</li>
+<li> <b>Raw mode&#160;:</b> Pour régler le nombre de couleurs (profondeur). Le mode par défaut est de 0 à 20 (qui constitue un filtre et permet d'obtenir plus de détails suivant la complexité de l'image) une fois la case cochée le mode se règle de 0 à 255 (toute la plage de couleurs).</li>
+<li> <b>CheckBox:</b> Cette case à cocher active le spinbox.</li>
+<li> <b>SpinBox:</b> Ce spinbox détermine la couleur qui doit être supprimée pour avoir un contour de l'objet (ex: 0 pour le fond).</li>
+<li> <b>Capping &#160;:</b> La fonction écrêtement peut être faite sur les couleurs au choix, Blanc (par défaut) ou Noir. Le degrés d'écrêtement se règle de 20 à 0 (ou 255 à 0) si la case à cocher est réglée sur <b>White</b> (non cochée) ou de 0 à 20 (ou 0 à 255) si la case à cocher est réglée sur <b>Black</b> (cochée).</li>
+<li> <b>SpinBox:</b> Ce spinbox détermine le degrés d'écrêtement.</li></ul>
+<ul><li></li>
+<li> <b>File and lauch&#160;:</b> Ouvre le fichier image et lance la conversion.</li>
+<li> <b>Quit&#160;:</b> Quitte la fonction.</li></ul>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Les icônes .png <a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture.png" class="image"><img alt="FCTexture.png" src="FCTexture.png" width="64" height="64" /></a> et .svg<a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture.svg" class="image"><img alt="FCTexture.svg" src="FCTexture.svg" width="64" height="64" /></a>
+</p><p><br />
+<b>Macro_Texture.FCMacro</b>
+</p><p>Téléchargez la macro sur Gist <a rel="nofollow" class="external text" href="https://gist.github.com/mario52a/262317bc7d8555885b0e">Macro FCTexture.FCMacro</a>
+</p>
+<h2><span class="mw-headline" id="Exemples">Exemples</span></h2>
+<p>Les images ont été inclinées pour accentuer l'effet 3D.
+</p>
+<center> 
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture_008.png" class="image"><img alt="" src="482px-FCTexture_008.png" width="482" height="300" srcset="/wiki/images/thumb/4/4a/FCTexture_008.png/723px-FCTexture_008.png 1.5x, /wiki/images/4/4a/FCTexture_008.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Honda<br />
+</p>
+</div>
+</div></li>
+</ul> 
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Macro_FCTexture_008b.png" class="image"><img alt="" src="400px-Macro_FCTexture_008b.png" width="400" height="300" srcset="/wiki/images/thumb/a/a9/Macro_FCTexture_008b.png/600px-Macro_FCTexture_008b.png 1.5x, /wiki/images/a/a9/Macro_FCTexture_008b.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Un exemple de réalisation avec l'option contour<br />
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_Nano_Photo.png" class="image"><img alt="" src="182px-Texture_Nano_Photo.png" width="182" height="200" srcset="/wiki/images/thumb/9/9a/Texture_Nano_Photo.png/273px-Texture_Nano_Photo.png 1.5x, /wiki/images/thumb/9/9a/Texture_Nano_Photo.png/364px-Texture_Nano_Photo.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Ici un exemple d'une image .bmp convertie en points et restaure l'image dans FreeCAD. La largeur de l'image est de 6.5 nm<br /><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=24&amp;t=5893#p47075">Merci à Yorik pour avoir donné son autorisation pour l'utilisation de son logo</a>
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_NanoDesign.png" class="image"><img alt="" src="158px-Texture_NanoDesign.png" width="158" height="200" srcset="/wiki/images/thumb/4/46/Texture_NanoDesign.png/237px-Texture_NanoDesign.png 1.5x, /wiki/images/thumb/4/46/Texture_NanoDesign.png/316px-Texture_NanoDesign.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Ici un exemple d'une image bmp convertie en objet 3D de 6.7 nm de large.<br /><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=24&amp;t=5893#p47075">Merci à Yorik pour avoir donné son autorisation pour l'utilisation de son logo</a>
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_001_Logo.png" class="image"><img alt="" src="232px-Texture_001_Logo.png" width="232" height="200" srcset="/wiki/images/thumb/5/5c/Texture_001_Logo.png/348px-Texture_001_Logo.png 1.5x, /wiki/images/thumb/5/5c/Texture_001_Logo.png/464px-Texture_001_Logo.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Le logo de FreCAD.
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:38px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_002_Fe_FC.png" class="image"><img alt="" src="300px-Texture_002_Fe_FC.png" width="300" height="154" srcset="/wiki/images/thumb/c/cd/Texture_002_Fe_FC.png/450px-Texture_002_Fe_FC.png 1.5x, /wiki/images/thumb/c/cd/Texture_002_Fe_FC.png/600px-Texture_002_Fe_FC.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Une partie du fond décran de FreeCAD (Le <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=4708&amp;start=10#p46353">fichier</a> sur le forum).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_003_napperon.png" class="image"><img alt="" src="299px-Texture_003_napperon.png" width="299" height="200" srcset="/wiki/images/thumb/5/54/Texture_003_napperon.png/449px-Texture_003_napperon.png 1.5x, /wiki/images/thumb/5/54/Texture_003_napperon.png/598px-Texture_003_napperon.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Une portion d'une nappe de table.
+</p>
+</div>
+</div></li>
+<li class="gallerybox" style="width: 335px"><div style="width: 335px">
+<div class="thumb" style="width: 330px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_005_larme.png" class="image"><img alt="" src="268px-Texture_005_larme.png" width="268" height="200" srcset="/wiki/images/thumb/6/65/Texture_005_larme.png/402px-Texture_005_larme.png 1.5x, /wiki/images/thumb/6/65/Texture_005_larme.png/536px-Texture_005_larme.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Une tôle larmée.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 435px"><div style="width: 435px">
+<div class="thumb" style="width: 430px;"><div style="margin:26px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture_006.png" class="image"><img alt="" src="400px-FCTexture_006.png" width="400" height="178" srcset="/wiki/images/thumb/4/4b/FCTexture_006.png/600px-FCTexture_006.png 1.5x, /wiki/images/thumb/4/4b/FCTexture_006.png/800px-FCTexture_006.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Mode Plan: Dans l'image de gauche le fond blanc a été ignoré et toutes les autres couleurs sont affichées, dans l'image de droite la couleur noire a été ignorée et toutes les autres couleurs sont affichées (le niveau peut être modifié avec l'option "Capping")(un <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=6123&amp;hilit=teobo&amp;start=10#p49024">exemple</a> sur le forum).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 435px"><div style="width: 435px">
+<div class="thumb" style="width: 430px;"><div style="margin:15px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Texture_Topographie.png" class="image"><img alt="" src="397px-Texture_Topographie.png" width="397" height="200" srcset="/wiki/images/thumb/7/73/Texture_Topographie.png/595px-Texture_Topographie.png 1.5x, /wiki/images/thumb/7/73/Texture_Topographie.png/793px-Texture_Topographie.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Exemple avec une image représentant la topographie d'un terril chaque gradin correspond à un degrés de couleur différent.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:15.5px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture_007_FreeCAD_ASCII_00.png" class="image"><img alt="" src="600px-FCTexture_007_FreeCAD_ASCII_00.png" width="600" height="299" srcset="/wiki/images/thumb/e/e2/FCTexture_007_FreeCAD_ASCII_00.png/900px-FCTexture_007_FreeCAD_ASCII_00.png 1.5x, /wiki/images/thumb/e/e2/FCTexture_007_FreeCAD_ASCII_00.png/1200px-FCTexture_007_FreeCAD_ASCII_00.png 2x" /></a></div></div>
+<div class="gallerytext">
+<p>Exemple d'image convertie en caractères ASCII (pas encore implémenté).
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:17.5px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture_Example.gif" class="image"><img alt="" src="FCTexture_Example.gif" width="600" height="595" /></a></div></div>
+<div class="gallerytext">
+<p>Procédure pour créer un solide:<br /> <b>1:</b> Créer les lofts avec l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_RuledSurface.svg" class="image"><img alt="Part RuledSurface.svg" src="Part_RuledSurface.svg" width="24" height="24" /></a>ou avec la <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_Loft/fr" title="Macro Loft/fr">Macro Loft</a><br /> <b>2:</b> Sélectionnez l'ensemble et faites une opération d'extrusion avec l'outil <a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_Extrude.svg" class="image"><img alt="Part Extrude.svg" src="Part_Extrude.svg" width="24" height="24" /></a> <br /> <b>3A:</b> Pour Linux téléchargez <a rel="nofollow" class="external text" href="https://github.com/psicofil/Macros_FreeCAD">GMSHMesh</a> (auteur psicofil) <a href="Macro_GMSH.html" title="Macro GMSH">Macro GMSH Wiki page</a> <br /> <b>3B:</b> Pour Windows téléchargez <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/download/file.php?id=15220">GmshMesh2.zip</a> dézippez le fichier et installez le dans votre répertoire Mod (author ulrich1a) <br /> <b>4:</b> Créez votre objet Mesh et utilisez le.
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<center>
+<ul class="gallery mw-gallery-traditional">
+<li class="gallerybox" style="width: 635px"><div style="width: 635px">
+<div class="thumb" style="width: 630px;"><div style="margin:17.5px auto;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FCTexture_Example_Mesh.png" class="image"><img alt="" src="FCTexture_Example_Mesh.png" width="600" height="595" /></a></div></div>
+<div class="gallerytext">
+<p>Votre objet converti en objet mesh avec <a href="Macro_GMSH.html" title="Macro GMSH">GmshMesh.</a>
+</p>
+</div>
+</div></li>
+</ul>
+</center>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Liens">Liens</span></h2>
+<p>La discussion sur <a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=24&amp;t=5893">le forum</a> pour donner vos impressions.
+</p><p>La macro <a href="Macro_Loft.html" title="Macro Loft">Macro Loft</a> pour automatiser le multi loft.
+</p><p><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=4708&amp;start=10#p46353">apply hair cell texture</a>
+</p><p><a rel="nofollow" class="external text" href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=6123&amp;hilit=teobo&amp;start=10#p49024">How to handle pdf import properly and feasibly?</a>
+</p>
+<h2><span class="mw-headline" id="Revision">Revision</span></h2>
+<ul><li>ver 0.10&#160;: 28/12/2016 ajout sauve les coordonnées des points en .pcd, .asc affichage en mode points cloud, auteur de la forme, contour</li>
+<li>ver 0.9&#160;: 12/12/2016 ajout d'une fonction de sauvegarde de fichier ascii .asc pour le point cloud</li>
+<li>ver 0.8&#160;: 16/03/2016 ajout d'une progressBar </li>
+<li>ver 0.7&#160;: 03/09/2014 Delete "<b>translate</b>" oubliés et correction des erreurs de dysfonctionnement causés par le passage de PyQt vers Pyside&#160;!</li>
+<li>ver 0.6&#160;: 26/08/2014 Delete all "<b>_translate</b>"</li>
+<li>ver 0.5&#160;: 25/08/2014 Delete "<b>_translate (" MainWindow ",</b>" Stretching X "<b>, None)</b>" qui empêchaient l'affichage des tooltip avec PySide (Windows Vista)</li></ul>
+<ul><li>ver 0.4&#160;: 08/08/2014 PyQt4 PySide</li></ul>
+<p>ver 0.3&#160;: 28/03/2014&#160;:commenté la ligne "<b># self.checkBox_5.setAccessibleName(_fromUtf8(""))</b>" qui a causé une erreur d'exécution à partir de la version FreeCAD&#160;: Version: 0.14.3343 (Git), Python version: 2.7.6, Qt version: 4.8.5
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Macro_Texture/fr&amp;oldid=240685">http://www.freecadweb.org/wiki/index.php?title=Macro_Texture/fr&amp;oldid=240685</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

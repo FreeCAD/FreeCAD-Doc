@@ -1,0 +1,47 @@
+<html><head><title>Sketcher helper constraint/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher helper constraint/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><h2><span class="mw-headline" id="Vue_d.27ensemble">Vue d'ensemble</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:502px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="image"><img alt="" src="500px-Sketcher_helper_constraint_example1.png" width="500" height="355" class="thumbimage" srcset="/wiki/images/a/ad/Sketcher_helper_constraint_example1.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_helper_constraint_example1.png" class="internal" title="Agrandir"></a></div>Exemple de contrainte d'aide (Constraint5 - point sur cercle) pour une contrainte tangente (Constraint6; en mode tangente-par-point).  Une seule contrainte d'aide est utilisée dans ce cas, puisque le point de tangence est l'extrémité du diamètre majeur de l'ellipse, qui repose intrinsèquement sur l'ellipse.</div></div></div>
+<p>La contrainte Helper est une contrainte d'esquisse régulière nécessaire dans le cadre d'une contrainte plus complexe, mais exposée dans l'interface utilisateur pour faciliter la redondance. Par exemple, pour la contrainte <a href="Constraint_SnellsLaw.html" title="Constraint SnellsLaw"> Snell's Law</a>, les deux lignes représentant les rayons lumineux doivent être connectées (<a href="Constraint_PointOnPoint.html" title="Constraint PointOnPoint"> contrainte coïncidente</a>), et l'articulation doit se trouver sur l'interface (<a href="https://www.freecadweb.org/wiki/index.php?title=Contrainte_PointOnObject&amp;action=edit&amp;redlink=1" class="new" title="Contrainte PointOnObject (page does not exist)"> Point sur Objet Contrainte</a>). 
+</p><p>Les contraintes d'aide sont ajoutées automatiquement lorsqu'elles sont nécessaires. La décision de savoir si elles sont nécessaires est actuellement prise en évaluant l'erreur de contrainte de l'assistant pour l'état actuel de la géométrie (cela peut changer dans les futures versions). Si l'erreur est suffisamment petite, la contrainte est considérée comme inutile et n'est pas ajoutée. Dans certains cas, cette logique peut entraîner des erreurs (la contrainte peut être satisfaite par accident, ce qui peut facilement se produire lorsque l'accrochage à la grille de Sketcher est activé). 
+</p><p>Si cela se produit (une contrainte d'assistance est manquante et les conditions requises ne sont pas satisfaites dans le cas contraire), la contrainte complexe sera rompue. Cela fera quelque chose, mais le comportement réel n'est pas défini. Une telle contrainte brisée peut être réparée en ajoutant manuellement la contrainte auxiliaire manquante.
+</p><p>Des contraintes d'aide sont actuellement requises pour
+</p>
+<ul><li> <a href="Constraint_Tangent.html" title="Constraint Tangent">Constraint Tangent</a> (en mode tangent-via-point, deux contraintes point-sur-objet sont nécessaires)</li>
+<li> <a href="Constraint_Perpendicular.html" title="Constraint Perpendicular">Constraint Perpendicular</a> (en mode perpendiculaire-via-point, deux contraintes point-sur-objet sont nécessaires)</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Contrainte_InternalAngle&amp;action=edit&amp;redlink=1" class="new" title="Contrainte InternalAngle (page does not exist)">Contrainte InternalAngle</a> (en mode angle-par-point, deux contraintes point-sur-objet sont nécessaires)</li>
+<li> <a href="Constraint_SnellsLaw.html" title="Constraint SnellsLaw">Constraint SnellsLaw</a> (contrainte coïncidente et contrainte point-sur-objet)</li></ul>
+<h2><span class="mw-headline" id="Scripting">Scripting</span></h2>
+<p>Lorsque des contraintes nécessitant des aides sont ajoutées à partir de Python, aucune contrainte d'aide n'est automatiquement ajoutée. On peut répliquer la prise de décision automatique des commandes de l'interface utilisateur dans un script en testant les fonctions suivantes, spécifiquement ajoutées dans le but et utilisées dans les routines de l'interface utilisateur:
+</p>
+<pre>Sketch.isPointOnCurve(icurve,x,y) </pre>
+<p>isPointOnCurve teste si un point virtuel, donné par les coordonnées d'esquisse <tt> x, y &lt;/ tt&gt; (valeurs flottantes), satisfait une contrainte point-sur-objet virtuelle - ie se trouve sur la courbe spécifiée par l'index de courbe &lt;tt&gt;icurve</tt>.
+</p>
+<pre>Renvoie True si le point est sur la courbe et False si ce n'est pas le cas.
+</pre>
+<pre>Sketch.calculateConstraintError(iconstr) </pre>
+<p>calculateConstraintError évalue une fonction d'erreur d'une contrainte spécifiée par son index <tt> iconstr &lt;/ tt&gt; dans l'esquisse. 
+</p><p>S'il n'y a qu'une seule fonction d'erreur dans la contrainte, la valeur de retour est la valeur de retour signée de la fonction d'erreur.
+ndex &lt;tt&gt; iconstr &lt;/ tt&gt; dans l'esquisse. 
+</p><p>S'il n'y a qu'une seule fonction d'erreur dans la contrainte, la valeur de retour est la valeur de retour signée de la fonction d'erreur. 
+</p><p>S'il y a plus d'une fonction d'erreur associée à la contrainte (c'est-à-dire que la contrainte supprime plus d'un degré de liberté), la valeur de retour est le RMS de toutes les fonctions d'erreur (toujours positif).
+</p>
+<h2><span class="mw-headline" id="Version">Version</span></h2>
+<p>Les contraintes d'aide ont été introduites dans v0.15.4387
+</p>
+<div style="clear:both"></div>
+</div></tt>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr&amp;oldid=252272">http://www.freecadweb.org/wiki/index.php?title=Sketcher_helper_constraint/fr&amp;oldid=252272</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

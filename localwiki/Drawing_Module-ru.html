@@ -1,0 +1,266 @@
+<html><head><title>Drawing Module/ru</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Module/ru</h1></div>
+
+<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<div class="mw-translate-fuzzy">
+<p>Модуль Черчения позволяет поместить ваши 3D наработки на бумагу. То есть, поместить проекции ваших моделей в 2D окно и вставить это окно в рисунок, например на лист с рамкой, вашим заголовком и логотипом и наконец распечатать всё это. Модуль черчения находится в стадии разработки и приблизительного технологического тестирования!
+</p>
+</div>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Development of the Drawing Module has stopped, and a new <a href="TechDraw_Module.html" title="TechDraw Module">TechDraw Module</a> aiming to replace it will be introduced in version 0.17. Both modules will be provided in v0.17, but the Drawing module may be removed in future releases.</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GUI_.D0.98.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D1.8B"><span class="tocnumber">1</span> <span class="toctext">GUI Инструменты</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2"><span class="tocnumber">2</span> <span class="toctext">Написание сценариев</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.D0.9F.D1.80.D0.BE.D1.81.D1.82.D0.B5.D0.B9.D1.88.D0.B8.D0.B5_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80.D1.8B"><span class="tocnumber">2.1</span> <span class="toctext">Простейшие примеры</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.D0.9F.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B9_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4"><span class="tocnumber">2.2</span> <span class="toctext">Параметрический метод</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.D0.9F.D0.BE.D0.BB.D1.83.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D0.BE.D1.81.D1.82.D1.83.D0.BF.D0.B0_.D0.BA_.D0.B1.D0.B8.D1.82.D0.B0.D0.BC_.D0.B8_.D0.B4.D0.B5.D1.82.D0.B0.D0.BB.D1.8F.D0.BC"><span class="tocnumber">2.3</span> <span class="toctext">Получение доступа к битам и деталям</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.D0.A0.D0.B0.D0.B7.D0.BC.D0.B5.D1.80.D1.8B_.D0.B8_.D0.B4.D0.BE.D0.BF.D1.83.D1.81.D0.BA.D0.B0"><span class="tocnumber">2.4</span> <span class="toctext">Размеры и допуска</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#.D0.A8.D0.B0.D0.B1.D0.BB.D0.BE.D0.BD.D1.8B"><span class="tocnumber">3</span> <span class="toctext">Шаблоны</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.D0.A0.D0.B0.D1.81.D1.88.D0.B8.D1.80.D0.B5.D0.BD.D0.B8.D0.B5_.D0.BC.D0.BE.D0.B4.D1.83.D0.BB.D1.8F_Drawing"><span class="tocnumber">4</span> <span class="toctext">Расширение модуля Drawing</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8"><span class="tocnumber">5</span> <span class="toctext">Учебники</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#.D0.92.D0.BD.D0.B5.D1.88.D0.BD.D0.B8.D0.B5_.D1.81.D1.81.D1.8B.D0.BB.D0.BA.D0.B8"><span class="tocnumber">6</span> <span class="toctext">Внешние ссылки</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="GUI_.D0.98.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D1.8B">GUI Инструменты</span></h2>
+<p>Это инструменты для создания, настройки и экспортирования 2D чертежных листов
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Open_SVG/ru" title="Drawing Open SVG/ru">Открыть SVG</a>: Открывает чертеж, ранее сохранённый в формате SVG</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Landscape_A3/ru" title="Drawing Landscape A3/ru">Новый чертеж A3</a>: Создает чертёж формата A3 c шаблоном FreeCAD по умолчанию</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_View/ru" title="Drawing View/ru">Вставить вид в чертёж</a>: Помещает вид выделенного объекта на активный лист чертежа.</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Annotation.png" class="image"><img alt="Drawing Annotation.png" src="32px-Drawing_Annotation.png" width="32" height="32" srcset="/wiki/images/thumb/7/74/Drawing_Annotation.png/48px-Drawing_Annotation.png 1.5x, /wiki/images/7/74/Drawing_Annotation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Annotation/ru" title="Drawing Annotation/ru">Аннотация</a>: Добавляет аннотацию на текущий чертёжный лист</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Clip.png" class="image"><img alt="Drawing Clip.png" src="32px-Drawing_Clip.png" width="32" height="32" srcset="/wiki/images/thumb/b/b9/Drawing_Clip.png/48px-Drawing_Clip.png 1.5x, /wiki/images/b/b9/Drawing_Clip.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Clip/ru" title="Drawing Clip/ru">Клип</a>: Добавляет группу клипов на текущий чертёжный лист</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Openbrowser.png" class="image"><img alt="Drawing Openbrowser.png" src="32px-Drawing_Openbrowser.png" width="32" height="32" srcset="/wiki/images/thumb/0/02/Drawing_Openbrowser.png/48px-Drawing_Openbrowser.png 1.5x, /wiki/images/0/02/Drawing_Openbrowser.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Openbrowser/ru" title="Drawing Openbrowser/ru">Открыть в браузере</a>: Открывает предварительный просмотр текущего чертёжного листа в браузере</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Orthoviews.png" class="image"><img alt="Drawing Orthoviews.png" src="32px-Drawing_Orthoviews.png" width="32" height="32" srcset="/wiki/images/thumb/7/7f/Drawing_Orthoviews.png/48px-Drawing_Orthoviews.png 1.5x, /wiki/images/7/7f/Drawing_Orthoviews.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Orthoviews/ru" title="Drawing Orthoviews/ru">Вставить ортографические виды</a>: Автоматически создаёт ортографические виды объекта на текущем чертёжном листе</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Symbol.png" class="image"><img alt="Drawing Symbol.png" src="32px-Drawing_Symbol.png" width="32" height="32" srcset="/wiki/images/thumb/0/0a/Drawing_Symbol.png/48px-Drawing_Symbol.png 1.5x, /wiki/images/0/0a/Drawing_Symbol.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Symbol/ru" title="Drawing Symbol/ru">Символ</a>: Добавляет содержимое файла SVG как символ на текущий чертёжный лист</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_DraftView.png" class="image"><img alt="Drawing DraftView.png" src="32px-Drawing_DraftView.png" width="32" height="32" srcset="/wiki/images/thumb/f/ff/Drawing_DraftView.png/48px-Drawing_DraftView.png 1.5x, /wiki/images/f/ff/Drawing_DraftView.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/ru" title="Draft Drawing/ru">Draft View</a>: Вставляет специальный вид выбранного объекта на текущий чертёжный лист</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_SpreadsheetView.png" class="image"><img alt="Drawing SpreadsheetView.png" src="32px-Drawing_SpreadsheetView.png" width="32" height="32" srcset="/wiki/images/thumb/2/2f/Drawing_SpreadsheetView.png/48px-Drawing_SpreadsheetView.png 1.5x, /wiki/images/2/2f/Drawing_SpreadsheetView.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_SpreadsheetView/ru" title="Drawing SpreadsheetView/ru">Spreadsheet View</a>: Вставляет вид выбранного листа электронной таблицы на текущий чертёжный лист</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Save/ru" title="Drawing Save/ru">Экспортировать страницу</a>: Сохраняет указанный лист в SVG формате</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_ProjectShape/ru" title="Drawing ProjectShape/ru">Проекция фигуры</a>: Создаёт проекцию выбранного объекта (источинка) в трёхмерном виде.</li></ul>
+<p><b>Примечание</b>
+Инструмент <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/ru" title="Draft Drawing/ru">Draft View</a> главным образом используется, чтобы поместить чертёжные объекты на бумагу. Он имеет множество дополнительных возможностей кроме стандартных чертёжных инструментов, и поддерживает специффические объекты вроде <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/ru" title="Draft Dimension/ru">размеров на чертеже</a>.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>На картинке вы видите, основные концепции модуля Черчения. Документ содержит объект-форму (Schenkel) который мы хотим извлечь для черчения. Поэтому создается "Лист". Лист автоматически получает шаблон, в данном случае шаблон "A3_Landscape". Этот шаблон представляет собой документ SVG и может содержать обычную чертежную рамку, ваш логотип или же соответствовать вашим собственным стандартам. 
+</p><p>На этот лист вы можете поместить один и более видов. Каждый вид обладает своей позицией на странице (свойства X,Y), и коэффициентом масштабирования (свойство scale) и другие дополнительные свойства. Каждый раз когда лист или вид или объект на который они ссылаются, изменяются лист перерисовывается, и отображение листа обновляется.
+</p>
+<h2><span class="mw-headline" id=".D0.9D.D0.B0.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D1.81.D1.86.D0.B5.D0.BD.D0.B0.D1.80.D0.B8.D0.B5.D0.B2">Написание сценариев</span></h2>
+<p>На данный момент рабочий процес для конечного пользователя(GUI) очень ограничен, поэтому интересней писать сценарии для API. Ниже следуют примеры о том как сценариев API чертежного модуля.
+</p><p>Это скрипт, с помощью которого можно легко заполнить лист <a href="https://www.freecadweb.org/wiki/index.php?title=Macro_CartoucheFC/ru&amp;action=edit&amp;redlink=1" class="new" title="Macro CartoucheFC/ru (page does not exist)">Macro_CartoucheFC</a> FreeCAD A3_Landscape.
+</p>
+<h3><span class="mw-headline" id=".D0.9F.D1.80.D0.BE.D1.81.D1.82.D0.B5.D0.B9.D1.88.D0.B8.D0.B5_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80.D1.8B">Простейшие примеры</span></h3>
+<p>Прежде всего нам нужны модули Part и Drawing:
+</p>
+<pre>import FreeCAD, Part, Drawing </pre>
+<p>Создадим простую маленькую деталь
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100))) </pre>
+<p>Прямая проекция. G0 будет жесткой гранью, а G1 непрерывно касается.
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges) </pre>
+<p>Всё помещено в проекцию на плоскость Z:
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength </pre>
+<p>Различные вектора проекции
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1)) </pre>
+<p>Спроецировать в SVG
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG </pre>
+<h3><span class="mw-headline" id=".D0.9F.D0.B0.D1.80.D0.B0.D0.BC.D0.B5.D1.82.D1.80.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B9_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4">Параметрический метод</span></h3>
+<p>Создадим новое тело
+</p>
+<pre>import FreeCAD
+import Part
+import Drawing
+
+# Create three boxes and a cylinder
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# Fuse two boxes and the cylinder
+App.ActiveDocument.addObject("Part::Fuse","Fusion")
+App.ActiveDocument.Fusion.Base = App.ActiveDocument.Cylinder
+App.ActiveDocument.Fusion.Tool = App.ActiveDocument.Box1
+
+App.ActiveDocument.addObject("Part::Fuse","Fusion1")
+App.ActiveDocument.Fusion1.Base = App.ActiveDocument.Box2
+App.ActiveDocument.Fusion1.Tool = App.ActiveDocument.Fusion
+# Cut the fused shapes from the first box
+App.ActiveDocument.addObject("Part::Cut","Shape")
+App.ActiveDocument.Shape.Base = App.ActiveDocument.Box 
+App.ActiveDocument.Shape.Tool = App.ActiveDocument.Fusion1
+# Hide all the intermediate shapes 
+Gui.ActiveDocument.Box.Visibility=False
+Gui.ActiveDocument.Box1.Visibility=False
+Gui.ActiveDocument.Box2.Visibility=False
+Gui.ActiveDocument.Cylinder.Visibility=False
+Gui.ActiveDocument.Fusion.Visibility=False
+Gui.ActiveDocument.Fusion1.Visibility=False </pre>
+<p>вставляем на лист и добавляем шаблон
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
+App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg' </pre>
+<p>Создает вид на "Форму" объекта,определяем положение и масштаб и помещаем его на лист
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','View')
+App.ActiveDocument.View.Source = App.ActiveDocument.Shape
+App.ActiveDocument.View.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.View.X = 10.0
+App.ActiveDocument.View.Y = 10.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.View) </pre>
+<p>Создать второй вид на тот же объект, но на этот раз вид представление объекта будет повернуто на 90 градусов.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewRot')
+App.ActiveDocument.ViewRot.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewRot.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.ViewRot.X = 290.0
+App.ActiveDocument.ViewRot.Y = 30.0
+App.ActiveDocument.ViewRot.Scale = 1.0
+App.ActiveDocument.ViewRot.Rotation = 90.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewRot) </pre>
+<p>Создание третьего вида на данный объект , но с изометрической точки зрения. Также активируем скрытые линии.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewIso')
+App.ActiveDocument.ViewIso.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewIso.Direction = (1.0,1.0,1.0)
+App.ActiveDocument.ViewIso.X = 335.0
+App.ActiveDocument.ViewIso.Y = 140.0
+App.ActiveDocument.ViewIso.ShowHiddenLines = True
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewIso) </pre>
+<p>Изменим кое-что и обновим. В процессе обновления, изменится отображение и лист.
+</p>
+<pre>App.ActiveDocument.View.X = 30.0
+App.ActiveDocument.View.Y = 30.0
+App.ActiveDocument.View.Scale = 1.5
+App.ActiveDocument.recompute() </pre>
+<h3><span class="mw-headline" id=".D0.9F.D0.BE.D0.BB.D1.83.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B4.D0.BE.D1.81.D1.82.D1.83.D0.BF.D0.B0_.D0.BA_.D0.B1.D0.B8.D1.82.D0.B0.D0.BC_.D0.B8_.D0.B4.D0.B5.D1.82.D0.B0.D0.BB.D1.8F.D0.BC">Получение доступа к битам и деталям</span></h3>
+<p>Получить SVG фрагмент первого вида
+</p>
+<pre>ViewSVG = App.ActiveDocument.View.ViewResult
+print ViewSVG </pre>
+<p>Получить весь лист (это файл в во временном каталоге документа, доступный только для чтения)
+</p>
+<pre>print "Resulting SVG document: ",App.ActiveDocument.Page.PageResult
+file = open(App.ActiveDocument.Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long" </pre>
+<p>Важно&#160;: освобождаем файл!
+</p>
+<pre>del file </pre>
+<p>Вставить вид с вашим собственным содержанием:
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureView','ViewSelf')
+App.ActiveDocument.ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;"""
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewSelf)
+App.ActiveDocument.recompute()
+
+del ViewSVG </pre>
+<p>Это приводит к следующим результатам:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id=".D0.A0.D0.B0.D0.B7.D0.BC.D0.B5.D1.80.D1.8B_.D0.B8_.D0.B4.D0.BE.D0.BF.D1.83.D1.81.D0.BA.D0.B0">Размеры и допуска</span></h3>
+<p>Чертёжные размеры и допуска еще в стадии проектирования, но Вы можете получить некоторую базовую функциональность при помощи небольшой работы.
+</p><p>Сначала Вам нужно взять отсюда модуль python под названием gdtsvg (ВНИМАНИЕ: Он может оказаться испорченным в любой момент!): 
+</p><p><a rel="nofollow" class="external free" href="https://github.com/jcc242/FreeCAD">https://github.com/jcc242/FreeCAD</a>
+</p><p>Чтобы получить контрольную рамку, попробуйте следующее:
+</p>
+<pre>import gdtsvg as g # Import the module, I like to give it an easy handle
+ourFrame = g.ControlFrame("0","0", g.Perpendicularity(), ".5", g.Diameter(), g.ModifyingSymbols("M"), "A",  
+           g.ModifyingSymbols("F"), "B", g.ModifyingSymbols("L"), "C", g.ModifyingSymbols("I")) </pre>
+<p>Here is a good breakdown of the contents of a feature control frame: <a rel="nofollow" class="external free" href="http://www.cadblog.net/adding-geometric-tolerances.htm">http://www.cadblog.net/adding-geometric-tolerances.htm</a>
+</p><p>Параметры, отправляемые в кадр управления, следующие: 
+</p>
+<ol><li>Координата X в координатной системе SVG (строковый тип)</li>
+<li>Координата Y в координатной системе SVG (строковый тип)</li>
+<li>Требуемый символ геометрической характеристики (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li>
+<li>Допуск (тип string)</li>
+<li>(опционально) символ диаметра (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li>
+<li>(опционально) Условия изменения материала (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li>
+<li>(опционально) The first datum (строковый тип)</li>
+<li>(опционально) The first datum's modifying condition (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li>
+<li>(опционально) The second datum (строковый тип)</li>
+<li>(опционально) The second datum's modifying condition (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li>
+<li>(опционально) The third datum (строковый тип)</li>
+<li>(опционально) The third datum's material condition (кортеж, сначала строка SVG, затем ширина символа, затем высота символа)</li></ol>
+<p>The ControlFrame function returns a type containing (svg string, overall width of control frame, overall height of control frame)
+</p><p>Чтобы получить размер, попробуйте следующее:
+</p>
+<pre>import gdtsvg
+ourDimension = linearDimension(point1, point2, textpoint, dimensiontext, linestyle=getStyle("visible"), 
+               arrowstyle=getStyle("filled"), textstyle=getStyle("text") </pre>
+<p>Inputs for linear dimension are:
+</p>
+<ol><li>point1, an (x,y) tuple with svg-coordinates, this is one of the points you would like to dimension between</li>
+<li>point2, an (x,y) tuple with svg-coordinates, this is the second point you would like to dimension between</li>
+<li>textpoint, an (x,y) tuple of svg-coordinates, this is where the text of your dimension will be</li>
+<li>dimensiontext, a string containing the text you want the dimension to say</li>
+<li>linestyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling the how the lines look</li>
+<li>arrowstyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling how the arrows look</li>
+<li>textstyle, a string containing svg (i.e. css) styles, using the getStyle function to retrieve a preset string, for styling how the text looks </li></ol>
+<p>With those two, you can proceed as above for displaying them on the drawing page. This module is very buggy and can be broken at any given moment, bug reports are welcome on the github page for now, or contact jcc242 on the forums if you post a bug somewhere else.
+</p>
+<h2><span class="mw-headline" id=".D0.A8.D0.B0.D0.B1.D0.BB.D0.BE.D0.BD.D1.8B">Шаблоны</span></h2>
+<p>FreeCAD поставляется вместе с набором стандартных шаблонов, но вы также можете найти больше на странице <a href="Drawing_templates.html" title="Drawing templates">Чертежных шаблонов</a> .
+</p>
+<h2><span class="mw-headline" id=".D0.A0.D0.B0.D1.81.D1.88.D0.B8.D1.80.D0.B5.D0.BD.D0.B8.D0.B5_.D0.BC.D0.BE.D0.B4.D1.83.D0.BB.D1.8F_Drawing">Расширение модуля Drawing</span></h2>
+<p>Некоторые примечания по программной стороне модуля были добавлены на страницу <a href="Drawing_Documentation.html" title="Drawing Documentation">Drawing Documentation</a>. Это для быстрого понимания, как работает модуль Drawing, позволяя программистам быстро начать программирование для него.
+</p>
+<h2><span class="mw-headline" id=".D0.A3.D1.87.D0.B5.D0.B1.D0.BD.D0.B8.D0.BA.D0.B8">Учебники</span></h2>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_tutorial/ru" title="Drawing tutorial/ru">Учебник по модулю Drawing</a></li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".D0.92.D0.BD.D0.B5.D1.88.D0.BD.D0.B8.D0.B5_.D1.81.D1.81.D1.8B.D0.BB.D0.BA.D0.B8">Внешние ссылки</span></h2>
+<ul><li>  <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=1Hm5Zyjmjac">Intro to mechanical drawing on Youtube - by Normal Universe</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/ru&amp;oldid=290048">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/ru&amp;oldid=290048</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

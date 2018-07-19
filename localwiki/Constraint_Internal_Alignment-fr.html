@@ -1,0 +1,89 @@
+<html><head><title>Constraint Internal Alignment/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Constraint Internal Alignment/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Contrainte_d.27Alignement_Interne"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAlignment.png" class="image"><img alt="Constraint InternalAlignment.png" src="32px-Constraint_InternalAlignment.png" width="32" height="32" srcset="/wiki/images/thumb/3/33/Constraint_InternalAlignment.png/48px-Constraint_InternalAlignment.png 1.5x, /wiki/images/3/33/Constraint_InternalAlignment.png 2x" /></a> Contrainte d'Alignement Interne</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Emplacement du menu
+</th></tr>
+<tr>
+<td class="ctEven">Sketch → Sketcher contraintes → Contrainte d'alignement Interne
+</td></tr>
+<tr>
+<th class="ctOdd">Ateliers
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/fr" title="Sketcher Workbench/fr">Sketcher</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/fr" title="PartDesign Workbench/fr">PartDesign</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Raccourci par défaut
+</th></tr>
+<tr>
+<td class="ctEven">Ctrl+A
+</td></tr>
+<tr>
+<th class="ctOdd">Voir aussi
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Show_Hide_Internal_Geometry/fr" title="Sketcher Show Hide Internal Geometry/fr">Montrer/Cacher Géométrie Interne</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Ellipse/fr" title="Sketcher Ellipse/fr">Ellipse</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Contrainte_d.27Alignement_Interne"><span class="tocnumber">1</span> <span class="toctext">Contrainte d'Alignement Interne</span></a>
+<ul>
+<li class="toclevel-2 tocsection-1"><a href="#Description"><span class="tocnumber">1.1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Fonctionnement_sur_Ellipse"><span class="tocnumber">1.2</span> <span class="toctext">Fonctionnement sur Ellipse</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Script"><span class="tocnumber">1.3</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Version"><span class="tocnumber">1.4</span> <span class="toctext">Version</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p>
+<h4><span class="mw-headline" id="Description">Description</span></h4>
+<p>Cette contrainte aligne les lignes et les points à des endroits particuliers d'un élément d'esquisse complexe (il y a juste un élément "complexe" jusqu'à présent, l' <a href="Sketcher_Ellipse.html" title="Sketcher Ellipse"> Ellipse</a>).
+</p><p>Pour l'<a href="Sketcher_Ellipse.html" title="Sketcher Ellipse">Ellipse</a> et son <a href="Sketcher_Arc_of_Ellipse.html" title="Sketcher Arc of Ellipse">Arc</a>, il prend en charge la contrainte des lignes pour devenir diamètres majeurs et mineurs, et contraignant les <a href="Sketcher_Point.html" title="Sketcher Point">Points</a> aux positions des foyers de l'ellipse.
+</p><p>La contrainte nécessite beaucoup d'efforts pour utiliser  la façon dont les autres contraintes le sont. Elle est cachée dans le menu, et non exposée sur les barres d'outils par défaut. Il est un outil d'aide appelé <a href="Sketcher_Show_Hide_Internal_Geometry.html" title="Sketcher Show Hide Internal Geometry">Afficher/Masquer géométrie interne</a> qui est exposée sur les barres d'outils des ateliers et visait à supprimer complètement la nécessité d'invoquer la contrainte manuellement.
+</p>
+<h4><span class="mw-headline" id="Fonctionnement_sur_Ellipse">Fonctionnement sur Ellipse</span></h4>
+<ol><li> Sélectionnez les éléments devant être alignés et une ellipse. L'ellipse doit être sélectionné en dernier. Sont accepté  jusqu'à deux lignes et jusqu'à deux points. </li>
+<li> Appelez la contrainte en choisissant l'option de menu (Sketch/Part Design  →Sketcher contraintes → Sketcher Contraindre alignement interne).</li></ol>
+<p>La première ligne qui a été sélectionnée s'aligne pour devenir le diamètre majeur de l'ellipse (mais si ce n'est pas déjà occupé par une autre ligne, sinon il deviendra le diamètre mineur). La deuxième ligne est aligné pour devenir le rayon mineur. Les lignes sont automatiquement passés en mode <a href="Sketcher_ConstructionMode.html" title="Sketcher ConstructionMode">construction</a>.
+</p><p>De même, le premier point est contraint à devenir le premier foyer inoccupé, et le second point va à l'autre foyer.
+</p>
+<div style="clear:both"></div>
+<p><br />
+</p>
+<h4><span class="mw-headline" id="Script">Script</span></h4>
+<pre>Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseMajorDiameter', index_of_line, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseMinorDiameter', index_of_line, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseFocus1', index_of_point, 1, index_of_ellipse))
+Sketch.addConstraint(Sketcher.Constraint('InternalAlignment:EllipseFocus2', index_of_point, 1, index_of_ellipse)) </pre>
+<p>Remarques:
+</p>
+<dl><dd> <tt>Sketch</tt> est un objet esquisse. </dd>
+<dd> Nombre <tt>1</tt> dans les appels de discussion est le point de départ d'un élément (il est ignoré).</dd></dl>
+<h4><span class="mw-headline" id="Version">Version</span></h4>
+<p>Introduite dans FreeCAD v0.15.4309
+</p>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Internal_Alignment/fr&amp;oldid=153106">http://www.freecadweb.org/wiki/index.php?title=Constraint_Internal_Alignment/fr&amp;oldid=153106</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,270 @@
+<html><head><title>Drawing Workbench/cs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Workbench/cs</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Workbench/cs&amp;redirect=no" class="mw-redirect" title="Drawing Workbench/cs">Drawing Workbench/cs</a>)</span></div>
+
+<div id="mw-content-text" lang="cs" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"></div>
+<p>Modul Výkres umožňuje dostat Vaši 3D práci na papír. To znamená dát pohledy na Vaše modely do 2D okna a vložit toto okno do výkresu, např. list s okraji, hlavička a logo a nakonec tento list vytisknout.
+</p>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">Development of the Drawing Module has stopped, and a new <a href="TechDraw_Module.html" title="TechDraw Module">TechDraw Module</a> aiming to replace it will be introduced in version 0.17. Both modules will be provided in v0.17, but the Drawing module may be removed in future releases.</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GUI_N.C3.A1stroje"><span class="tocnumber">1</span> <span class="toctext">GUI Nástroje</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Skriptov.C3.A1n.C3.AD"><span class="tocnumber">2</span> <span class="toctext">Skriptování</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Jednoduch.C3.BD_p.C5.99.C3.ADklad"><span class="tocnumber">2.1</span> <span class="toctext">Jednoduchý příklad</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Parametrick.C3.BD_zp.C5.AFsob"><span class="tocnumber">2.2</span> <span class="toctext">Parametrický způsob</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Accessing_the_bits_and_pieces"><span class="tocnumber">2.3</span> <span class="toctext">Accessing the bits and pieces</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#K.C3.B3tov.C3.A1n.C3.AD_a_Odchylky_obecn.C4.9B"><span class="tocnumber">2.4</span> <span class="toctext">Kótování a Odchylky obecně</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#.C5.A0ablony"><span class="tocnumber">3</span> <span class="toctext">Šablony</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Roz.C5.A1.C3.AD.C5.99en.C3.AD_modulu_V.C3.BDkres"><span class="tocnumber">4</span> <span class="toctext">Rozšíření modulu Výkres</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Tutorials"><span class="tocnumber">5</span> <span class="toctext">Tutorials</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="GUI_N.C3.A1stroje">GUI Nástroje</span></h2>
+<p>These are tools for creating, configuring and exporting 2D drawing sheets
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Open_SVG/cs" title="Drawing Open SVG/cs">Open scalable vector graphic</a>: Opens a drawing sheet previously saved as an SVG file</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Landscape_A3/cs" title="Drawing Landscape A3/cs">New A3 landscape drawing</a>: Creates a new drawing sheet from FreeCAD's default A3 template</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_View/cs" title="Drawing View/cs">Insert a view</a>: Inserts a view of the selected object in the active drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Annotation.png" class="image"><img alt="Drawing Annotation.png" src="32px-Drawing_Annotation.png" width="32" height="32" srcset="/wiki/images/thumb/7/74/Drawing_Annotation.png/48px-Drawing_Annotation.png 1.5x, /wiki/images/7/74/Drawing_Annotation.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Annotation/cs" title="Drawing Annotation/cs">Annotation</a>: Adds an annotation to the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Clip.png" class="image"><img alt="Drawing Clip.png" src="32px-Drawing_Clip.png" width="32" height="32" srcset="/wiki/images/thumb/b/b9/Drawing_Clip.png/48px-Drawing_Clip.png 1.5x, /wiki/images/b/b9/Drawing_Clip.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Clip/cs" title="Drawing Clip/cs">Clip</a>: Adds a clip group to the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Openbrowser.png" class="image"><img alt="Drawing Openbrowser.png" src="32px-Drawing_Openbrowser.png" width="32" height="32" srcset="/wiki/images/thumb/0/02/Drawing_Openbrowser.png/48px-Drawing_Openbrowser.png 1.5x, /wiki/images/0/02/Drawing_Openbrowser.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Openbrowser/cs" title="Drawing Openbrowser/cs">Open Browser</a>: Opens a preview of the current sheet in the browser</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Orthoviews.png" class="image"><img alt="Drawing Orthoviews.png" src="32px-Drawing_Orthoviews.png" width="32" height="32" srcset="/wiki/images/thumb/7/7f/Drawing_Orthoviews.png/48px-Drawing_Orthoviews.png 1.5x, /wiki/images/7/7f/Drawing_Orthoviews.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Orthoviews/cs" title="Drawing Orthoviews/cs">Ortho Views</a>: Automatically creates orthographic views of an object on the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Symbol.png" class="image"><img alt="Drawing Symbol.png" src="32px-Drawing_Symbol.png" width="32" height="32" srcset="/wiki/images/thumb/0/0a/Drawing_Symbol.png/48px-Drawing_Symbol.png 1.5x, /wiki/images/0/0a/Drawing_Symbol.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Symbol/cs" title="Drawing Symbol/cs">Symbol</a>: Adds the contents of a SVG file as a symbol on the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_DraftView.png" class="image"><img alt="Drawing DraftView.png" src="32px-Drawing_DraftView.png" width="32" height="32" srcset="/wiki/images/thumb/f/ff/Drawing_DraftView.png/48px-Drawing_DraftView.png 1.5x, /wiki/images/f/ff/Drawing_DraftView.png 2x" /></a> <a href="Draft_Drawing.html" title="Draft Drawing">Draft View</a>: Inserts a special Draft view of the selected object in the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_SpreadsheetView.png" class="image"><img alt="Drawing SpreadsheetView.png" src="32px-Drawing_SpreadsheetView.png" width="32" height="32" srcset="/wiki/images/thumb/2/2f/Drawing_SpreadsheetView.png/48px-Drawing_SpreadsheetView.png 1.5x, /wiki/images/2/2f/Drawing_SpreadsheetView.png 2x" /></a> <a href="Drawing_SpreadsheetView.html" title="Drawing SpreadsheetView">Spreadsheet View</a>: Inserts a view of a selected spreadsheet in the current drawing sheet</li></ul>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Save/cs" title="Drawing Save/cs">Save sheet</a>: Saves the current sheet as a SVG file</li></ul>
+<ul><li> <a href="Drawing_ProjectShape.html" title="Drawing ProjectShape">Project Shape</a>: Creates a projection of the selected object (Source) in the 3D view.</li></ul>
+<div class="mw-translate-fuzzy">
+<p><b>Poznámka</b>
+<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/cs" title="Draft Module/cs">Kreslicí modul</a> má také svůj vlastní <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Drawing/cs" title="Draft Drawing/cs">Výkres</a> pro umístění Kreslených objektů na papír. Má pár zvláštních možností nad standardními nástroji Výkresu a podporuje specifické objekty jako je <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Dimension/cs" title="Draft Dimension/cs">Kótování</a>.
+</p>
+</div>
+<p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>Na obrázku vidíte koncept modulu Výkresu. Dokument obsahuje konstrukční objekt, který chceme vyjmout do výkresu. Proto je vytvořena "Stránka (Page)". Stránka je realizována pomocí šablony, v tomto případě přes šablonu "A3_Landscape". Šablona je SVG dokument, který může obsahovat Váš běžný rámeček stránky, Vaše logo nebo dodržuje Vaše prezentační standardy. 
+</p><p>Do stránky můžeme vložit jeden nebo více pohledů. Každý pohled má svoji pozici na stránce (Vlastnosti X,Y), měřítko (Vlastnost měřítko) a další vlastnosti. Pokaždé když se stránka, pohled nebo odkazovaný objekt změní, stránka změny zachytí a zobrazení se aktualizuje.
+</p>
+<h2><span class="mw-headline" id="Skriptov.C3.A1n.C3.AD">Skriptování</span></h2>
+<p>V současnosti je uživatelské rozhraní (GUI) velmi omezené, proto je skriptovací API mnohem zajímavější. Následují příklady ukazují jak použít skriptovací API modulu Výkresu.
+</p><p>Tento skript může snadno vyplnit <a href="Macro_CartoucheFC.html" title="Macro CartoucheFC">Macro_CartoucheFC</a> stránku FreeCAD A3_Landscape.
+</p>
+<h3><span class="mw-headline" id="Jednoduch.C3.BD_p.C5.99.C3.ADklad">Jednoduchý příklad</span></h3>
+<p>Nejdřív potřebujete moduly Část a Výkres:
+</p>
+<pre>import FreeCAD, Part, Drawing </pre>
+<p>Vytvoří nějakou malou část
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100))) </pre>
+<p>Přímá projekce. G0 znamená hard edge, the G1 is tangent continuous.
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges) </pre>
+<p>Vše je promítnuto v rovině Z:
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength </pre>
+<p>Odlišný projekční vektor
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1)) </pre>
+<p>Projekce do SVG
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG </pre>
+<h3><span class="mw-headline" id="Parametrick.C3.BD_zp.C5.AFsob">Parametrický způsob</span></h3>
+<p>Vytvoří tělo
+</p>
+<pre>import FreeCAD
+import Part
+import Drawing
+
+# Create three boxes and a cylinder
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# Fuse two boxes and the cylinder
+App.ActiveDocument.addObject("Part::Fuse","Fusion")
+App.ActiveDocument.Fusion.Base = App.ActiveDocument.Cylinder
+App.ActiveDocument.Fusion.Tool = App.ActiveDocument.Box1
+
+App.ActiveDocument.addObject("Part::Fuse","Fusion1")
+App.ActiveDocument.Fusion1.Base = App.ActiveDocument.Box2
+App.ActiveDocument.Fusion1.Tool = App.ActiveDocument.Fusion
+# Cut the fused shapes from the first box
+App.ActiveDocument.addObject("Part::Cut","Shape")
+App.ActiveDocument.Shape.Base = App.ActiveDocument.Box 
+App.ActiveDocument.Shape.Tool = App.ActiveDocument.Fusion1
+# Hide all the intermediate shapes 
+Gui.ActiveDocument.Box.Visibility=False
+Gui.ActiveDocument.Box1.Visibility=False
+Gui.ActiveDocument.Box2.Visibility=False
+Gui.ActiveDocument.Cylinder.Visibility=False
+Gui.ActiveDocument.Fusion.Visibility=False
+Gui.ActiveDocument.Fusion1.Visibility=False </pre>
+<p>Vloží objekt Stránka a přiřadí šablonu
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
+App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg' </pre>
+<p>Vytvoří pohled na objekt "Tvar", definuje pozici a měřítko a vloží to na Stránku
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','View')
+App.ActiveDocument.View.Source = App.ActiveDocument.Shape
+App.ActiveDocument.View.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.View.X = 10.0
+App.ActiveDocument.View.Y = 10.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.View) </pre>
+<p>Vytvoří druhý pohled na stejný objekt, ale tentokrát bude pohled otočen o 90 stupňů
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewRot')
+App.ActiveDocument.ViewRot.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewRot.Direction = (0.0,0.0,1.0)
+App.ActiveDocument.ViewRot.X = 290.0
+App.ActiveDocument.ViewRot.Y = 30.0
+App.ActiveDocument.ViewRot.Scale = 1.0
+App.ActiveDocument.ViewRot.Rotation = 90.0
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewRot) </pre>
+<p>Vytvoří třetí pohled na stejný objekt, ale s izometrickým pohledem. Jsou aktivovány i skryté čáry.
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewIso')
+App.ActiveDocument.ViewIso.Source = App.ActiveDocument.Shape
+App.ActiveDocument.ViewIso.Direction = (1.0,1.0,1.0)
+App.ActiveDocument.ViewIso.X = 335.0
+App.ActiveDocument.ViewIso.Y = 140.0
+App.ActiveDocument.ViewIso.ShowHiddenLines = True
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewIso) </pre>
+<p>Něco změní a aktualizuje. Proces aktualizace změní pohled a stránku.
+</p>
+<pre>App.ActiveDocument.View.X = 30.0
+App.ActiveDocument.View.Y = 30.0
+App.ActiveDocument.View.Scale = 1.5
+App.ActiveDocument.recompute() </pre>
+<h3><span class="mw-headline" id="Accessing_the_bits_and_pieces">Accessing the bits and pieces</span></h3>
+<p>Získá SVG fragment jednoduchého pohledu
+</p>
+<pre>ViewSVG = App.ActiveDocument.View.ViewResult
+print ViewSVG </pre>
+<p>Dostane celou výslednou stránku (je to soubor v dočasném adresáři dokumentů s přístupem pouze na čtení)
+</p>
+<pre>print "Resulting SVG document: ",App.ActiveDocument.Page.PageResult
+file = open(App.ActiveDocument.Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long" </pre>
+<p>Důležité: uvolněte ten soubor!
+</p>
+<pre>del file </pre>
+<p>Vloží pohled s Vašim vlastním obsahem:
+</p>
+<pre>App.ActiveDocument.addObject('Drawing::FeatureView','ViewSelf')
+App.ActiveDocument.ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;"""
+App.ActiveDocument.Page.addObject(App.ActiveDocument.ViewSelf)
+App.ActiveDocument.recompute()
+
+del ViewSVG </pre>
+<p>Vede to k následujícímu výsledku:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="K.C3.B3tov.C3.A1n.C3.AD_a_Odchylky_obecn.C4.9B">Kótování a Odchylky obecně</span></h3>
+<div class="mw-translate-fuzzy">
+<p>Kreslení kót a odchylek je zatím ještě ve vývoji, ale s trochou práce můžete už mít nějakou základní funkcionalitu.
+</p>
+</div>
+<p>Nejdříve musíte mít modul gdtsvg python odtud: (POZOR: Může kdykoliv zhavarovat!): 
+</p><p><a rel="nofollow" class="external free" href="https://github.com/jcc242/FreeCAD">https://github.com/jcc242/FreeCAD</a>
+</p><p>Pro získání rámečku geometrických tolerancí, vyzkoušejte následující:
+</p>
+<pre>import gdtsvg as g # Import the module, I like to give it an easy handle
+ourFrame = g.ControlFrame("0","0", g.Perpendicularity(), ".5", g.Diameter(), g.ModifyingSymbols("M"), "A",  
+           g.ModifyingSymbols("F"), "B", g.ModifyingSymbols("L"), "C", g.ModifyingSymbols("I")) </pre>
+<p>Zde je dobrá analýza obsahu rámečku geometrických tolerancí: <a rel="nofollow" class="external free" href="http://www.cadblog.net/adding-geometric-tolerances.htm">http://www.cadblog.net/adding-geometric-tolerances.htm</a>
+</p><p>Parametry předávané do řídícího rámečku jsou: 
+</p>
+<ol><li>Souřadnice-X v SVG-souřadnicovém systému (typ text)</li>
+<li>Souřadnice-Y v SVG-souřadnicovém systému (typ text)</li>
+<li>Požadovaný charakteristický symbol (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li>
+<li>Tolerance (typ text)</li>
+<li>(volitelně) Symbol průměru (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li>
+<li>(volitelně) Podminka modifikující materiál (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li>
+<li>(volitelně) První bod (typ text)</li>
+<li>(volitelně) Podmínka modifikující první bod (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li>
+<li>(volitelně) Druhý bod (type string)</li>
+<li>(volitelně) Podmínka modifikující druhý bod  (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li>
+<li>(volitelně) Třetí bod (type string)</li>
+<li>(volitelně) Podmínka modifikující třetí bod (sada tří údajů, svg text jako první, šířka symbolu jako druhý, výška symbolu jako třetí)</li></ol>
+<p>Funkce řídícího rámečku tolerance vrací  typ obsahující (svg text, celkovou šířku řídícího rámečku, celkovou výšku řídícího rámečku)
+</p><p>Pro získání kóty zkuste následující:
+</p>
+<pre>import gdtsvg
+ourDimension = linearDimension(point1, point2, textpoint, dimensiontext, linestyle=getStyle("visible"), 
+               arrowstyle=getStyle("filled"), textstyle=getStyle("text") </pre>
+<p>Vstupy pro přímou kótu jsou:
+</p>
+<ol><li>point1,  sada (x,y) se souřadnicemi SVG, je to jeden z bodů, mezi kterými chcete kótu</li>
+<li>point2, sada (x,y) se souřadnicemi SVG, je to druhý z bodů, mezi kterými chcete kótu</li>
+<li>textpoint, sada (x,y) se souřadnicemi SVG, kde bude text kóty</li>
+<li>dimensiontext, text kóty</li>
+<li>linestyle, text obsahující svg styly (i.e. css), pro stylování vzhledu linky. Použití funkce getStyle vrací předvolený text</li>
+<li>arrowstyle, text obsahující svg styly (i.e. css), pro stylování vzhledu šipek. Použití funkce getStyle vrací předvolený text</li>
+<li>textstyle, text obsahující svg styly (i.e. css), pro stylování vzhledu textu kóty. Použití funkce getStyle vrací předvolený text </li></ol>
+<p>S těmito dvěma můžete pracovat jak je uvedeno výše pro jejich zobrazení na stránce výkresu. V tomto modulu je ještě mnoho chyb a může kdykoliv zhavarovat, hlášení chyb je vítáno na stránce github nebo kontaktujte jcc242 na fóru, pokud jste chybu poslali někam jinam.
+</p>
+<h2><span class="mw-headline" id=".C5.A0ablony">Šablony</span></h2>
+<p>FreeCAD dostáváte zabalený se sadou základních šablon, ale další ještě můžete najít na stránce <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/cs" title="Drawing templates/cs">Šablony výkresů</a>.
+</p>
+<h2><span class="mw-headline" id="Roz.C5.A1.C3.AD.C5.99en.C3.AD_modulu_V.C3.BDkres">Rozšíření modulu Výkres</span></h2>
+<p>Některé poznámky k programovací stránce vykreslovacího modulu budou přidány na stránku <a href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Documentation/cs" title="Drawing Documentation/cs">Dokumentace výkresu</a>. Je to příspěvek k rychlejšímu porozumění jak funguje modul výkresu, aby programátorům umožnily rychle začít s jejich programováním.
+</p>
+<h2><span class="mw-headline" id="Tutorials">Tutorials</span></h2>
+<ul><li> <a href="Drawing_tutorial.html" title="Drawing tutorial">Drawing tutorial</a></li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li>  <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=1Hm5Zyjmjac">Intro to mechanical drawing on Youtube - by Normal Universe</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/cs&amp;oldid=290049">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/cs&amp;oldid=290049</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

@@ -1,0 +1,199 @@
+<html><head><title>Drawing templates/pl</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing templates/pl</h1></div>
+
+<div id="mw-content-text" lang="pl" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#SVG_templates_creation"><span class="tocnumber">1</span> <span class="toctext">SVG templates creation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Base_rules"><span class="tocnumber">1.1</span> <span class="toctext">Base rules</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Namespace"><span class="tocnumber">1.2</span> <span class="toctext">Namespace</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Title_block"><span class="tocnumber">1.3</span> <span class="toctext">Title block</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#DXF_templates"><span class="tocnumber">2</span> <span class="toctext">DXF templates</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#A3_templates"><span class="tocnumber">3</span> <span class="toctext">A3 templates</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#A3_Classic:"><span class="tocnumber">3.1</span> <span class="toctext">A3 Classic:</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#A3_Clean:"><span class="tocnumber">3.2</span> <span class="toctext">A3 Clean:</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#A3_Modern:"><span class="tocnumber">3.3</span> <span class="toctext">A3 Modern:</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#A3_Showcase:"><span class="tocnumber">3.4</span> <span class="toctext">A3 Showcase:</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#A3_Landscape_english:"><span class="tocnumber">3.5</span> <span class="toctext">A3 Landscape english:</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#A4_Templates"><span class="tocnumber">4</span> <span class="toctext">A4 Templates</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#A4_Landscape_english:"><span class="tocnumber">4.1</span> <span class="toctext">A4 Landscape english:</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#A4_Portrait_1_english:"><span class="tocnumber">4.2</span> <span class="toctext">A4 Portrait 1 english:</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#US_Letter_Templates"><span class="tocnumber">5</span> <span class="toctext">US Letter Templates</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#US_Letter_landscape:"><span class="tocnumber">5.1</span> <span class="toctext">US Letter landscape:</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#US_Letter_portrait:"><span class="tocnumber">5.2</span> <span class="toctext">US Letter portrait:</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#US_Letter_ds_Landscape:"><span class="tocnumber">5.3</span> <span class="toctext">US Letter ds Landscape:</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#US_Legal_ds_Landscape:"><span class="tocnumber">5.4</span> <span class="toctext">US Legal ds Landscape:</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#US_Ledger_ds_Landscape:"><span class="tocnumber">5.5</span> <span class="toctext">US Ledger ds Landscape:</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Other_standards_available"><span class="tocnumber">6</span> <span class="toctext">Other standards available</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="SVG_templates_creation">SVG templates creation</span></h2>
+<p>Creating templates for the Drawing module is very easy. See also the tutorial <a href="Drawing_Template_HowTo.html" title="Drawing Template HowTo">Drawing_Template_HowTo</a>. Templates are svg files, created with any application capable of exporting svg files, such as <a rel="nofollow" class="external text" href="http://www.inkscape.org">Inkscape</a>. However, you will often need to open the svg file in a text editor afterwards, to comply with the following rules. Only two rules must be followed:
+</p>
+<h3><span class="mw-headline" id="Base_rules">Base rules</span></h3>
+<ul><li> One pixel = one millimeter. You can have the page size specified inside the opening &lt;svg&gt; tag, either without units or with "mm". For example, these two forms are valid:</li></ul>
+<pre>width="1067mm"
+height="762mm"
+</pre>
+<p>or
+</p>
+<pre>width="1067"
+height = "762"
+</pre>
+<p>Although svg supports inches ("42 in"), these are currently not supported by FreeCAD, so it's always better to have your svg page size specified in millimeters. The "viewBox" attribute must have the same value, for example:
+</p>
+<pre>viewBox="0 0 1067 762"
+</pre>
+<ul><li> You must insert, somewhere inside your svg code, where you want the contents of the drawing to appear (for example at the end of the file, just before the last &lt;/svg&gt; tag), the following line:</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre> &lt;!-- DrawingContent --></pre></div>
+<p>This text above (which is actually an XML comment) must be on a separate line, and not embedded in the middle of other pieces of text. Beware that if you reopen and resave your template in inkscape, after adding the above line, inkscape will keep the line, but will add other xml elements on the same line, causing the template to not work anymore. You will need to edit it with a text editor and isolate the comment above on its own line again.
+</p>
+<h3><span class="mw-headline" id="Namespace">Namespace</span></h3>
+<ul><li> Several objects (specifically those created with the <a href="Draft_Drawing.html" title="Draft Drawing">Draft_Drawing</a> command and if your template has editable texts) use a special <a href="Svg_Namespace.html" title="Svg Namespace">Svg Namespace</a> specific to FreeCAD. This makes FreeCAD able to detect specific items inside svg files, that other applications will just ignore. If you plan to use any of these, you must add this line inside the opening &lt;svg&gt; tag, for example together with the other xmlns lines added by inkscape:</li></ul>
+<pre>xmlns:freecad="<a rel="nofollow" class="external free" href="Svg_Namespace.html">http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace</a>"
+</pre>
+<h3><span class="mw-headline" id="Title_block">Title block</span></h3>
+<p>In addition to these rules, since FreeCAD 0.14, information about the Border and Title block can be added to the template for use by the orthographic projection tool. This information defines where FreeCAD can, and can not place the projections.
+</p><p>To define the Border, the following line must appear before the &lt;metadata&gt; tag in the svg file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;!-- Working space X1 Y1 X2 Y2 --></pre></div>
+<p>Where X1, Y1, X2, Y2 are defined as:
+</p>
+<ul><li> X1 is the X axis distance from the left edge of the page to the left side of the Border.</li>
+<li> Y1 is the Y axis distance from the top edge of the page to the top of the Border.</li>
+<li> X2 is the X axis distance from the left edge of the page to the right side of the Border.</li>
+<li> Y2 is the Y axis distance from the top edge of the page to the bottom of the Border.</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:XY_Working_v2.svg" class="image"><img alt="XY Working v2.svg" src="XY_Working_v2.svg" width="300" height="250" /></a>
+</p><p>To define the Title block the following line must be inserted before the &lt;metadata&gt; tag and after the Working space tag.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;!-- Title block X1a Y1a X2a Y2a --></pre></div>
+<p>Where X1a, Y1a, X2a, Y2a are defined as:
+</p>
+<ul><li> X1a is the X axis distance from the left edge of the page to the left side of the Title block</li>
+<li> Y1a is the Y axis distance from the top edge of the page to the top of the Title block</li>
+<li> X2a is the X Axis distance from the left edge of the page to the right side of the Title block</li>
+<li> Y2a is the Y axis distance from the top edge of the page to the bottom of the Title block</li>
+<li> X1a &lt;= X1 or X2a &gt;= X2</li>
+<li> Y1a &lt;= Y1 or Y2a &gt;= Y2</li></ul>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:XY_Title_v2.svg" class="image"><img alt="XY Title v2.svg" src="XY_Title_v2.svg" width="300" height="250" /></a>
+</p><p>The following is an example of the code that defines the Working space and Title block areas that are to be inserted before the &lt;metadata&gt; tag. You needn't specify a title block, but if you do it must be defined on the next line immediately following the Working space:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;!-- Working space X1 Y1 X2 Y2 -->
+&lt;!-- Title block X1a Y1a X2a Y2a --></pre></div>
+<p>In order to enable up to scale printing, the real word size has to be given in the width and height attributes of the SVG-Tag. The size of the document in user units, (px), has to be given in the viewBox attribute.
+</p><p>The following is to be formatted like the example below where:
+</p>
+<ul><li> xxx = pixel width</li>
+<li> yyy = pixel height</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>width="xxxmm"
+height="yyymm"
+viewBox="0 0 xxx yyy"</pre></div>
+<ul><li> Several custom attributes can be placed in templates. The list of currently supported attributes is available on the <a href="Svg_Namespace.html" title="Svg Namespace">Svg Namespace</a> page.</li></ul>
+<h2><span class="mw-headline" id="DXF_templates">DXF templates</span></h2>
+<p>Since version 0.15, FreeCAD can reliably export a <a href="Drawing_Module.html" title="Drawing Module">Drawing</a> page to the DXF format. This system also uses templates. If a dxf file with the same name is found in the same folder as the SVG template used for a page, it will be used for export. If not, a default empty template is created on the fly.
+</p><p>Consequently, if you create your own SVG templates, and wish to be able to export the Drawing pages that you create with it to DXF, you just need to create a corresponding DXF template, and save it with the same name in the same folder.
+</p><p>DXF templates can be created with any application that produces DXF files, such as LibreCAD. You then need to edit them with a text editor, and add two additional lines, one at the beginning or end of the BLOCKS section, and another at the beginning or end of the ENTITIES section, which are where FreeCAD will add its own blocks and entities.
+</p><p>A very simple template looks like this:
+</p>
+<pre>999
+FreeCAD DXF exporter v0.15
+0
+SECTION
+2
+HEADER
+9
+$ACADVER
+1
+AC1009
+0
+ENDSEC
+0
+SECTION
+2
+BLOCKS
+$blocks
+0
+ENDSEC
+0
+SECTION
+2
+ENTITIES
+$entities
+0
+ENDSEC
+0
+EOF
+</pre>
+<p>The above template doesn't contain any entity. If you create your DXF file with a CAD application, there will likely be much more content inside the HEADER, BLOCKS and ENTITIES sections.
+</p><p>The two lines that FreeCAD will be looking for are "$blocks" and "$entities". They must exist in the template, and they must be placed on their own line. You can choose to place them right after the BLOCKS or ENTITIES line, which is easier (just use the "search" function of your text editor to find them), or at the end, just before the "0 ENDSEC" lines (beware that there is one for each SECTION, make sure to use the ones relative to BLOCKS and ENTITIES). The latter method will place the FreeCAD objects after the objects defined in the template, which might be more logical.
+</p>
+<h2><span class="mw-headline" id="A3_templates">A3 templates</span></h2>
+<h3><span class="mw-headline" id="A3_Classic:">A3 Classic:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A3_Classic.svg" class="image"><img alt="A3 Classic.svg" src="A3_Classic.svg" width="800" height="566" /></a>
+</p>
+<h3><span class="mw-headline" id="A3_Clean:">A3 Clean:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A3_Clean.svg" class="image"><img alt="A3 Clean.svg" src="A3_Clean.svg" width="800" height="566" /></a>
+</p>
+<h3><span class="mw-headline" id="A3_Modern:">A3 Modern:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A3_Modern.svg" class="image"><img alt="A3 Modern.svg" src="A3_Modern.svg" width="800" height="566" /></a>
+</p>
+<h3><span class="mw-headline" id="A3_Showcase:">A3 Showcase:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A3_Showcase.svg" class="image"><img alt="A3 Showcase.svg" src="A3_Showcase.svg" width="800" height="566" /></a>
+</p>
+<h3><span class="mw-headline" id="A3_Landscape_english:">A3 Landscape english:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A3_Landscape_english.svg" class="image"><img alt="A3 Landscape english.svg" src="A3_Landscape_english.svg" width="800" height="566" /></a>
+</p>
+<h2><span class="mw-headline" id="A4_Templates">A4 Templates</span></h2>
+<h3><span class="mw-headline" id="A4_Landscape_english:">A4 Landscape english:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A4_Landscape_english.svg" class="image"><img alt="A4 Landscape english.svg" src="A4_Landscape_english.svg" width="800" height="566" /></a>
+</p>
+<h3><span class="mw-headline" id="A4_Portrait_1_english:">A4 Portrait 1 english:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:A4_Portrait_1_english.svg" class="image"><img alt="A4 Portrait 1 english.svg" src="A4_Portrait_1_english.svg" width="400" height="566" /></a>
+</p>
+<h2><span class="mw-headline" id="US_Letter_Templates">US Letter Templates</span></h2>
+<h3><span class="mw-headline" id="US_Letter_landscape:">US Letter landscape:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:US_Letter_landscape.svg" class="image"><img alt="US Letter landscape.svg" src="US_Letter_landscape.svg" width="800" height="619" /></a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="US_Letter_portrait:">US Letter portrait:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:US_Letter_portrait.svg" class="image"><img alt="US Letter portrait.svg" src="US_Letter_portrait.svg" width="400" height="517" /></a>
+</p>
+<h3><span class="mw-headline" id="US_Letter_ds_Landscape:">US Letter ds Landscape:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:US_Letter_ds_Landscape.svg" class="image"><img alt="US Letter ds Landscape.svg" src="US_Letter_ds_Landscape.svg" width="800" height="619" /></a>
+</p>
+<h3><span class="mw-headline" id="US_Legal_ds_Landscape:">US Legal ds Landscape:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:US_Legal_ds_Landscape.svg" class="image"><img alt="US Legal ds Landscape.svg" src="US_Legal_ds_Landscape.svg" width="800" height="485" /></a>
+</p>
+<h3><span class="mw-headline" id="US_Ledger_ds_Landscape:">US Ledger ds Landscape:</span></h3>
+<p><a href="https://www.freecadweb.org/wiki/index.php?title=File:US_Ledger_ds_Landscape.svg" class="image"><img alt="US Ledger ds Landscape.svg" src="US_Ledger_ds_Landscape.svg" width="800" height="550" /></a>
+</p>
+<h2><span class="mw-headline" id="Other_standards_available">Other standards available</span></h2>
+<ul><li> <a href="ANSI_templates.html" title="ANSI templates">ANSI templates</a>: according to American National Standards Institute <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/American_National_Standards_Institute">ANSI</a> standard</li>
+<li> <a href="Arch_templates.html" title="Arch templates">Arch templates</a>: according to American National Standards Institute <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/American_National_Standards_Institute">Arch</a> standard </li>
+<li> <a href="Misc_templates.html" title="Misc templates">Misc templates</a>: mixed templates</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_templates/pl&amp;oldid=207141">http://www.freecadweb.org/wiki/index.php?title=Drawing_templates/pl&amp;oldid=207141</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

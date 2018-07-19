@@ -1,0 +1,334 @@
+<html><head><title>Code snippets/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Code snippets/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このページにはフォーラムでユーザーが作成したり議論した中から集めたFreeCAD用Pythonコードのサンプル、コード片、コードの一部を集めて載せています。あなたのスクリプトの参考にしてください・・・
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.85.B8.E5.9E.8B.E7.9A.84.E3.81.AAInitGui.py.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB"><span class="tocnumber">1</span> <span class="toctext">典型的なInitGui.pyファイル</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.85.B8.E5.9E.8B.E7.9A.84.E3.81.AA.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB"><span class="tocnumber">2</span> <span class="toctext">典型的なモジュールファイル</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E6.96.B0.E3.81.97.E3.81.84.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.82.BF.E3.82.A4.E3.83.97.E3.82.92.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88"><span class="tocnumber">3</span> <span class="toctext">新しいファイルタイプをインポート</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E3.83.A9.E3.82.A4.E3.83.B3.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">4</span> <span class="toctext">ラインの追加</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E3.83.9D.E3.83.AA.E3.82.B4.E3.83.B3.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">5</span> <span class="toctext">ポリゴンの追加</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E3.82.B0.E3.83.AB.E3.83.BC.E3.83.97.E3.81.AB.E5.AF.BE.E3.81.99.E3.82.8B.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0.E3.81.A8.E5.89.8A.E9.99.A4"><span class="tocnumber">6</span> <span class="toctext">グループに対するオブジェクトの追加と削除</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E3.83.A1.E3.83.83.E3.82.B7.E3.83.A5.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">7</span> <span class="toctext">メッシュの追加</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E5.86.86.E5.BC.A7.E3.81.BE.E3.81.9F.E3.81.AF.E5.86.86.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">8</span> <span class="toctext">円弧または円の追加</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E8.A1.A8.E7.8F.BE.E3.81.B8.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.BB.E3.82.B9.E3.81.A8.E5.A4.89.E6.9B.B4"><span class="tocnumber">9</span> <span class="toctext">オブジェクト表現へのアクセスと変更</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Python.E3.81.8B.E3.82.893D.E3.83.93.E3.83.A5.E3.83.BC.E3.82.A2.E3.83.BC.E3.81.AE.E3.83.9E.E3.82.A6.E3.82.B9.E3.82.A4.E3.83.99.E3.83.B3.E3.83.88.E3.82.92.E7.9B.A3.E8.A6.96"><span class="tocnumber">10</span> <span class="toctext">Pythonから3Dビューアーのマウスイベントを監視</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Python.E3.81.A7.E3.81.AE.E3.82.B7.E3.83.BC.E3.83.B3.E3.82.B0.E3.83.A9.E3.83.95.E6.93.8D.E4.BD.9C"><span class="tocnumber">11</span> <span class="toctext">Pythonでのシーングラフ操作</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#.E3.82.B7.E3.83.BC.E3.83.B3.E3.82.B0.E3.83.A9.E3.83.95.E3.81.AB.E5.AF.BE.E3.81.99.E3.82.8B.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0.E3.81.A8.E5.89.8A.E9.99.A4"><span class="tocnumber">12</span> <span class="toctext">シーングラフに対するオブジェクトの追加と削除</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.B8.E3.81.AE.E8.87.AA.E4.BD.9C.E3.82.A6.E3.82.A3.E3.82.B8.E3.83.83.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">13</span> <span class="toctext">インターフェイスへの自作ウィジットの追加</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#.E3.82.B3.E3.83.B3.E3.83.9C.E3.83.93.E3.83.A5.E3.83.BC.E3.81.B8.E3.81.AE.E3.82.BF.E3.83.96.E3.81.AE.E8.BF.BD.E5.8A.A0"><span class="tocnumber">14</span> <span class="toctext">コンボビューへのタブの追加</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#.E8.87.AA.E4.BD.9C.E3.82.A6.E3.82.A7.E3.83.96.E3.83.9A.E3.83.BC.E3.82.B8.E3.82.92.E9.96.8B.E3.81.8F"><span class="tocnumber">15</span> <span class="toctext">自作ウェブページを開く</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#.E9.96.8B.E3.81.84.E3.81.9F.E3.82.A6.E3.82.A7.E3.83.96.E3.83.9A.E3.83.BC.E3.82.B8.E3.81.AEHTML.E3.82.B3.E3.83.B3.E3.83.86.E3.83.B3.E3.83.84.E3.82.92.E5.8F.96.E5.BE.97"><span class="tocnumber">16</span> <span class="toctext">開いたウェブページのHTMLコンテンツを取得</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E5.85.B8.E5.9E.8B.E7.9A.84.E3.81.AAInitGui.py.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB">典型的なInitGui.pyファイル</span></h3>
+<p>全てのモジュールにはメインモジュールファイルに加えてメインGUIにモジュールを挿入するためのInitGui.pyファイルが含まれていなければなりません。これはその単純な例です。
+</p>
+<pre>class ScriptWorkbench (Workbench): 
+    MenuText = "Scripts"
+    def Initialize(self):
+        import Scripts # Scripts.pyがあなたのモジュールとします
+        list = ["Script_Cmd"] # このリストにはScripts.pyで定義されているであろうコマンドの名前が代入されていなければなりません
+        self.appendToolbar("My Scripts",list) 
+        
+Gui.addWorkbench(ScriptWorkbench())
+</pre>
+<h3><span class="mw-headline" id=".E5.85.B8.E5.9E.8B.E7.9A.84.E3.81.AA.E3.83.A2.E3.82.B8.E3.83.A5.E3.83.BC.E3.83.AB.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB">典型的なモジュールファイル</span></h3>
+<p>モジュールが行う処理の全てが記載されているメインモジュールファイルの例です。前の例で呼び出されるScripts.pyファイルです。自作のコマンドの全てをここに記載します。
+</p>
+<pre>import FreeCAD, FreeCADGui 
+
+class ScriptCmd: 
+   def Activated(self): 
+       # ここにあなたのScriptCmdが行うことを書きます・・・
+       FreeCAD.Console.PrintMessage('Hello, World!')
+   def GetResources(self): 
+       return {'Pixmap'&#160;: 'path_to_an_icon/myicon.png', 'MenuText': 'Short text', 'ToolTip': 'More detailed text'} 
+      
+FreeCADGui.addCommand('Script_Cmd', ScriptCmd())
+</pre>
+<h3><span class="mw-headline" id=".E6.96.B0.E3.81.97.E3.81.84.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.82.BF.E3.82.A4.E3.83.97.E3.82.92.E3.82.A4.E3.83.B3.E3.83.9D.E3.83.BC.E3.83.88">新しいファイルタイプをインポート</span></h3>
+<p>FreeCADでは簡単に新しいファイルタイプ用のインポート処理を作成することができます。FreeCADはデータを開かれているドキュメントからインポートするか、たんに直接新しいファイルタイプを開くかを区別しません。やらなければならないのは新しいファイル拡張子を FreeCADのリストに追加し、そのファイルを読み込んで欲しいFreeCADオブジェクトを作成するコードを書くことだけです：
+</p><p>リストに新しいファイル拡張子を追加するためには以下の行をInitGui.pyに追加しなければなりません：
+</p>
+<pre># .extファイルを開いて読み込むためのコードがあるファイルをImport_Ext.pyとします
+FreeCAD.addImportType("Your new File Type (*.ext)","Import_Ext") 
+</pre>
+<p>Import_Ext.pyファイルには以下のように書きます：
+</p>
+<pre>def open(filename): 
+   doc=App.newDocument()
+   # 読み込み、データの識別、対応するFreeCADオブジェクトの作成などfilenameを使って行う必要のある全てをここで行います
+   doc.recompute()
+</pre>
+<p>新しいファイルタイプへのドキュメントのエクスポートも以下の行を使用する以外は同様にして行います：
+</p>
+<pre>FreeCAD.addExportType("Your new File Type (*.ext)","Export_Ext") 
+</pre>
+<h3><span class="mw-headline" id=".E3.83.A9.E3.82.A4.E3.83.B3.E3.81.AE.E8.BF.BD.E5.8A.A0">ラインの追加</span></h3>
+<p>ラインは2点を持ちます：
+</p>
+<pre>import Part,PartGui 
+doc=App.activeDocument() 
+# ライン要素をドキュメントに追加し、その点を設定
+l=Part.Line()
+l.StartPoint=(0.0,0.0,0.0)
+l.EndPoint=(1.0,1.0,1.0)
+doc.addObject("Part::Feature","Line").Shape=l.toShape() 
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E3.83.9D.E3.83.AA.E3.82.B4.E3.83.B3.E3.81.AE.E8.BF.BD.E5.8A.A0">ポリゴンの追加</span></h3>
+<p>ポリゴンはつながった線分の集合（AutoCADでいうポリライン）です。線分の集合が閉じている必要はありません。
+</p>
+<pre>import Part,PartGui 
+doc=App.activeDocument()
+n=list() 
+# 3Dベクトルを作成し、座標を設定してリストに追加
+v=App.Vector(0,0,0) 
+n.append(v) 
+v=App.Vector(10,0,0) 
+n.append(v) 
+#・・・全ての節点に対して繰り返します
+# ポリゴンオブジェクトを作成し、その節点を設定
+p=doc.addObject("Part::Polygon","Polygon") 
+p.Nodes=n 
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E3.82.B0.E3.83.AB.E3.83.BC.E3.83.97.E3.81.AB.E5.AF.BE.E3.81.99.E3.82.8B.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0.E3.81.A8.E5.89.8A.E9.99.A4">グループに対するオブジェクトの追加と削除</span></h3>
+<pre>doc=App.activeDocument() 
+grp=doc.addObject("App::DocumentObjectGroup", "Group") 
+lin=doc.addObject("Part::Feature", "Line")
+grp.addObject(lin) # linオブジェクトをグループgrpに追加
+grp.removeObject(lin) # linオブジェクトをグループgrpから削除
+</pre>
+<p>注意：　グループにグループを追加することも可能です・・・
+</p>
+<h3><span class="mw-headline" id=".E3.83.A1.E3.83.83.E3.82.B7.E3.83.A5.E3.81.AE.E8.BF.BD.E5.8A.A0">メッシュの追加</span></h3>
+<pre>import Mesh
+doc=App.activeDocument()
+# 新しい空のメッシュを作成
+m = Mesh.Mesh()
+# 12のファセットからボックスを作成
+m.addFacet(0.0,0.0,0.0, 0.0,0.0,1.0, 0.0,1.0,1.0)
+m.addFacet(0.0,0.0,0.0, 0.0,1.0,1.0, 0.0,1.0,0.0)
+m.addFacet(0.0,0.0,0.0, 1.0,0.0,0.0, 1.0,0.0,1.0)
+m.addFacet(0.0,0.0,0.0, 1.0,0.0,1.0, 0.0,0.0,1.0)
+m.addFacet(0.0,0.0,0.0, 0.0,1.0,0.0, 1.0,1.0,0.0)
+m.addFacet(0.0,0.0,0.0, 1.0,1.0,0.0, 1.0,0.0,0.0)
+m.addFacet(0.0,1.0,0.0, 0.0,1.0,1.0, 1.0,1.0,1.0)
+m.addFacet(0.0,1.0,0.0, 1.0,1.0,1.0, 1.0,1.0,0.0)
+m.addFacet(0.0,1.0,1.0, 0.0,0.0,1.0, 1.0,0.0,1.0)
+m.addFacet(0.0,1.0,1.0, 1.0,0.0,1.0, 1.0,1.0,1.0)
+m.addFacet(1.0,1.0,0.0, 1.0,1.0,1.0, 1.0,0.0,1.0)
+m.addFacet(1.0,1.0,0.0, 1.0,0.0,1.0, 1.0,0.0,0.0)
+# エッジの長さを100倍にする
+m.scale(100.0)
+# アクティブなドキュメントにメッシュを追加
+me=doc.addObject("Mesh::Feature","Cube")
+me.Mesh=m
+</pre>
+<h3><span class="mw-headline" id=".E5.86.86.E5.BC.A7.E3.81.BE.E3.81.9F.E3.81.AF.E5.86.86.E3.81.AE.E8.BF.BD.E5.8A.A0">円弧または円の追加</span></h3>
+<pre>import Part
+doc = App.activeDocument()
+c = Part.Circle() 
+c.Radius=10.0  
+f = doc.addObject("Part::Feature", "Circle") # 円フィーチャーを持つドキュメントを作成
+f.Shape = c.toShape() # 円シェイプをシェイププロパティに代入
+doc.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E8.A1.A8.E7.8F.BE.E3.81.B8.E3.81.AE.E3.82.A2.E3.82.AF.E3.82.BB.E3.82.B9.E3.81.A8.E5.A4.89.E6.9B.B4">オブジェクト表現へのアクセスと変更</span></h3>
+<p>FreeCADドキュメント内の各オブジェクトは関連付けられたビュー表現オブジェクトを持ち、そのビュー表現オブジェクトはそのオブジェクトがどのように表示されるかを定義する色、ライン幅などの全てのプロパティを保持しています。
+</p>
+<pre>gad=Gui.activeDocument()   # 対応するAppドキュメント内のフィーチャーと
+                          # 対応する全てのビュー表現を保持した
+                          # アクティブなドキュメントにアクセス
+
+v=gad.getObject("Cube")    # フィーチャー'Cube' のビュー表現にアクセス
+v.ShapeColor               # 色をコンソールに表示
+v.ShapeColor=(1.0,1.0,1.0) # シェイプの色を白に設定
+</pre>
+<h3><span class="mw-headline" id="Python.E3.81.8B.E3.82.893D.E3.83.93.E3.83.A5.E3.83.BC.E3.82.A2.E3.83.BC.E3.81.AE.E3.83.9E.E3.82.A6.E3.82.B9.E3.82.A4.E3.83.99.E3.83.B3.E3.83.88.E3.82.92.E7.9B.A3.E8.A6.96">Pythonから3Dビューアーのマウスイベントを監視</span></h3>
+<p>Inventorフレームワークでは　複数のコールバック用ノードをビューアーへのシーングラフへ追加することができます。デフォルトではFreeCADはビューアーごとに一つのコールバック用ノードがインストールされており、それを使うとグローバルまたはスタティックなC++関数を追加することができます。適切なPythonバインディングではこのテクニックをPythonコードから利用するためのメソッドが提供されています。
+</p>
+<pre>App.newDocument()
+v=Gui.activeDocument().activeView()
+
+# このクラスは全てのマウスボタンイベントを記録します。登録されたコールバック関数は'down'イベントと'up'イベントで
+# 二回、ファイヤーします。これをハンドリングするためのブール値フラグが必要です。
+class ViewObserver:
+   def logPosition(self, info):
+       down = (info["State"] == "DOWN")
+       pos = info["Position"]
+       if (down):
+           FreeCAD.Console.PrintMessage("Clicked on position: ("+str(pos[0])+", "+str(pos[1])+")\n")
+      
+o = ViewObserver()
+c = v.addEventCallback("SoMouseButtonEvent",o.logPosition)
+</pre>
+<p>さあ、3Dビューアーの領域のどこかをピックして出力ウィンドウにメッセージが表示されるのを見てください。監視を終了するには次のようにします。
+</p>
+<pre>v.removeEventCallback("SoMouseButtonEvent",c)
+</pre>
+<p>次のイベント型がサポートされています。
+</p>
+<ul><li> SoEvent -- 全ての種類のイベント</li>
+<li> SoButtonEvent -- 全てのマウスボタンイベントとキーイベント</li>
+<li> SoLocation2Event -- 2D動作イベント（通常はマウス動作）</li>
+<li> SoMotion3Event -- 3D動作イベント（通常はスペースボール）</li>
+<li> SoKeyboardEvent -- キーダウンイベントとキーアップイベント</li>
+<li> SoMouseButtonEvent -- マウスのボタンダウンイベントとボタンアップイベント</li>
+<li> SoSpaceballButtonEvent -- スペースボールのボタンダウンイベントとボタンアップイベント</li></ul>
+<p>addEventCallback()によって登録されるPython関数は辞書を要求します。検知されたイベントに従って辞書には様々なキーが保持されます。
+</p><p>全てのイベントは次のキーを持ちます：
+</p>
+<ul><li> Type -- イベント型の名前、つまりSoMouseEvent、SoLocation2Event、・・・などです。</li>
+<li> Time -- 文字列形式での現在時刻</li>
+<li> Position -- マウス位置を表す二つの整数のタプル</li>
+<li> ShiftDown -- ブール値。Shiftが押されている場合はtrue、それ以外の場合はfalse。</li>
+<li> CtrlDown -- ブール値。Ctrlが押されている場合はtrue、それ以外の場合はfalse。</li>
+<li> AltDown -- ブール値。Altが押されている場合はtrue、それ以外の場合はfalse。</li></ul>
+<p>全てのボタンイベント、つまりキーボードイベント、マウスイベント、スペースボールイベントの場合：
+</p>
+<ul><li> State -- ボタンが離された場合は'UP'、押された場合は'DOWN'、それ以外の場合は'UNKNOWN'の文字列</li></ul>
+<p>キーボードイベントの場合：
+</p>
+<ul><li> Key -- 押されたキーの文字</li></ul>
+<p>マウスボタンイベントの場合：
+</p>
+<ul><li> Button -- 押されたボタン。BUTTON1、・・・、BUTTON5など。</li></ul>
+<p>スペースボールイベントの場合：
+</p>
+<ul><li> Button -- 押されたボタン。BUTTON1、・・・、BUTTON7など。</li></ul>
+<p>そして最後にモーションイベントの場合：
+</p>
+<ul><li> Translation -- 三つの浮動小数点数のタプル</li>
+<li> Rotation -- 回転のクォータニオン、つまり四つの浮動小数点数のタプル</li></ul>
+<h3><span class="mw-headline" id="Python.E3.81.A7.E3.81.AE.E3.82.B7.E3.83.BC.E3.83.B3.E3.82.B0.E3.83.A9.E3.83.95.E6.93.8D.E4.BD.9C">Pythonでのシーングラフ操作</span></h3>
+<p>Coin用のPythonバインディングである'pivy'モジュールを使ってPythonでシーングラフを取得して変更することも可能です。
+</p>
+<pre>from pivy.coin import *                # pivyモジュールをロード
+view = Gui.ActiveDocument.ActiveView   # アクティブなビューアーを取得
+root = view.getSceneGraph()            # ルートはSoSeparatorノード
+root.addChild(SoCube())
+view.fitAll()
+</pre>
+<p>pivyのPythonAPIはSWIGというツールを使って作られています。FreeCADで使用する場合、自作ノードをPythonで直接作成することはできません。
+ただし、内部的な名称を使ってノードを作成することはできます。'SoFCSelection'型のインスタンスは次のようにして作成することが可能です：
+</p>
+<pre>type = SoType.fromName("SoFCSelection")
+node = type.createInstance()
+</pre>
+<h3><span class="mw-headline" id=".E3.82.B7.E3.83.BC.E3.83.B3.E3.82.B0.E3.83.A9.E3.83.95.E3.81.AB.E5.AF.BE.E3.81.99.E3.82.8B.E3.82.AA.E3.83.96.E3.82.B8.E3.82.A7.E3.82.AF.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0.E3.81.A8.E5.89.8A.E9.99.A4">シーングラフに対するオブジェクトの追加と削除</span></h3>
+<p>シーングラフへの新しいノードの追加は以下のようにして行うことができます。オブジェクトのジオメトリー、座標、マテリアルの情報の追加のためには常にSoSeparatorの追加が必要なことに注意してください。次の例では (0,0,0)から(10,0,0):に引かれた赤いラインを追加しています。
+</p>
+<pre>from pivy import coin
+sg = Gui.ActiveDocument.ActiveView.getSceneGraph()
+co = coin.SoCoordinate3()
+pts = [[0,0,0],[10,0,0]]
+co.point.setValues(0,len(pts),pts)
+ma = coin.SoBaseColor()
+ma.rgb = (1,0,0)
+li = coin.SoLineSet()
+li.numVertices.setValue(2)
+no = coin.SoSeparator()
+no.addChild(co)
+no.addChild(ma)
+no.addChild(li)
+sg.addChild(no)
+</pre>
+<p>削除は次の様にします：
+</p>
+<pre>sg.removeChild(no)
+</pre>
+<h3><span class="mw-headline" id=".E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.B8.E3.81.AE.E8.87.AA.E4.BD.9C.E3.82.A6.E3.82.A3.E3.82.B8.E3.83.83.E3.83.88.E3.81.AE.E8.BF.BD.E5.8A.A0">インターフェイスへの自作ウィジットの追加</span></h3>
+<p>Qtデザイナーを使って自作のウィジットを作成し、それをPythonスクリプトに変換し、PyQt4を使ってFreeCADインターフェイスへ読み込むことが可能です。
+</p><p>UI Pthonコンパイラ（Qtデザイナーの.uiファイルをPythonコードに変換するツール）を使って作成されたPythonコードは一般的に次の様になります（簡単なものです。直接Pythonで書くこともできます）：
+</p>
+<pre>class myWidget_Ui(object):
+ def setupUi(self, myWidget):
+   myWidget.setObjectName("my Nice New Widget")
+   myWidget.resize(QtCore.QSize(QtCore.QRect(0,0,300,100).size()).expandedTo(myWidget.minimumSizeHint())) # ウィジットのサイズを設定
+
+   self.label = QtGui.QLabel(myWidget) # ラベルを作成
+   self.label.setGeometry(QtCore.QRect(50,50,200,24)) # サイズを設定
+   self.label.setObjectName("label") # 名前を設定。これによって名前での検索が可能になります。
+
+ def retranslateUi(self, draftToolbar): # ウィジットの翻訳を管理する組み込みのQt関数
+   myWidget.setWindowTitle(QtGui.QApplication.translate("myWidget", "My Widget", None, QtGui.QApplication.UnicodeUTF8))
+   self.label.setText(QtGui.QApplication.translate("myWidget", "Welcome to my new widget!", None, QtGui.QApplication.UnicodeUTF8))
+</pre>
+<p>次に必要なことはFreeCADのQtウィンドウへの参照を作成し、そこに自作のウィジットを挿入して、このウィジットを作成したUIコードで"作り変える"ことだけです：
+</p>
+<pre> app = QtGui.qApp
+ FCmw = app.activeWindow() # アクティブなQtウィンドウ。その内部にいるのでFreeCADウィンドウです。
+ myNewFreeCADWidget = QtGui.QDockWidget() # 新しい dockwidget を作成
+ myNewFreeCADWidget.ui = myWidget_Ui() # UIスクリプトを読み込み
+ myNewFreeCADWidget.ui.setupUi(myNewFreeCADWidget) # UIをセットアップ
+ FCmw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myNewFreeCADWidget) # メインウィンドウにウィジットを追加
+</pre>
+<h3><span class="mw-headline" id=".E3.82.B3.E3.83.B3.E3.83.9C.E3.83.93.E3.83.A5.E3.83.BC.E3.81.B8.E3.81.AE.E3.82.BF.E3.83.96.E3.81.AE.E8.BF.BD.E5.8A.A0">コンボビューへのタブの追加</span></h3>
+<p>次のコードを使うとFreeCADのコンボビューの"Project"タブ、"Tasks"タブの隣にタブを追加することができます。またuiファイルを直接そのタブに読み込むためにuicモジュールを使用しています。
+</p>
+<pre>from PyQt4 import QtGui,QtCore
+from PyQt4 import uic
+#from PySide import QtGui,QtCore
+
+def getMainWindow():
+   "returns the main window"
+   # QtGui.qApp.activeWindow()の使用は信頼性が高くありません。
+   # これはメインウィンドウではなく別のウィジット（例えばダイアログ）が
+   # アクティブな場合に間違ったウィジットが返されるためです
+   toplevel = QtGui.qApp.topLevelWidgets()
+   for i in toplevel:
+       if i.metaObject().className() == "Gui::MainWindow":
+           return i
+   raise Exception("No main window found")
+
+def getComboView(mw):
+   dw=mw.findChildren(QtGui.QDockWidget)
+   for i in dw:
+       if str(i.objectName()) == "Combo View":
+           return i.findChild(QtGui.QTabWidget)
+   raise Exception("No tab widget found")
+
+mw = getMainWindow()
+tab = getComboView(getMainWindow())
+tab2=QtGui.QDialog()
+tab.addTab(tab2,"A Special Tab")
+uic.loadUi("/myTaskPanelforTabs.ui",tab2)
+tab2.show()
+
+#tab.removeTab(2)
+</pre>
+<h3><span class="mw-headline" id=".E8.87.AA.E4.BD.9C.E3.82.A6.E3.82.A7.E3.83.96.E3.83.9A.E3.83.BC.E3.82.B8.E3.82.92.E9.96.8B.E3.81.8F">自作ウェブページを開く</span></h3>
+<pre>import WebGui
+WebGui.openBrowser("<a rel="nofollow" class="external free" href="http://www.example.com">http://www.example.com</a>")
+</pre>
+<h3><span class="mw-headline" id=".E9.96.8B.E3.81.84.E3.81.9F.E3.82.A6.E3.82.A7.E3.83.96.E3.83.9A.E3.83.BC.E3.82.B8.E3.81.AEHTML.E3.82.B3.E3.83.B3.E3.83.86.E3.83.B3.E3.83.84.E3.82.92.E5.8F.96.E5.BE.97">開いたウェブページのHTMLコンテンツを取得</span></h3>
+<pre>from PyQt4 import QtGui,QtWebKit
+a = QtGui.qApp
+mw = a.activeWindow()
+v = mw.findChild(QtWebKit.QWebFrame)
+html = unicode(v.toHtml())
+print html
+</pre>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Code_snippets/jp&amp;oldid=211454">http://www.freecadweb.org/wiki/index.php?title=Code_snippets/jp&amp;oldid=211454</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

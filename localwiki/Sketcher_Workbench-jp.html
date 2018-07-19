@@ -1,0 +1,119 @@
+<html><head><title>Sketcher Workbench/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Sketcher Workbench/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="thumb tleft"><div class="thumbinner" style="width:302px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FC_ConstrainedSketch.png" class="image"><img alt="" src="300px-FC_ConstrainedSketch.png" width="300" height="219" class="thumbimage" srcset="/wiki/images/thumb/7/71/FC_ConstrainedSketch.png/450px-FC_ConstrainedSketch.png 1.5x, /wiki/images/thumb/7/71/FC_ConstrainedSketch.png/600px-FC_ConstrainedSketch.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="https://www.freecadweb.org/wiki/index.php?title=File:FC_ConstrainedSketch.png" class="internal" title="Enlarge"></a></div>A basic, fully-constrained sketch‎</div></div></div>
+<p><b>スケッチャーワークベンチ</b>は<b><a href="https://www.freecadweb.org/wiki/index.php?title=PartDesign_Workbench/jp" title="PartDesign Workbench/jp">パートデザインワークベンチ</a></b>やその他のワークベンチで使用するための2次元形状を作成するために使われます。
+ほとんどのCADモデルでは2次元形状が開始点となることが普通です・・まず簡単な2次元スケッチを'押し出して'3次元形状を作り、その形状の表面に穴を開けるための2次元スケッチを追加したり、スケッチで'突起'（押し出し形状）を定義したりします。
+スケッチャーは<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">ブーリアン演算</a>と並んで3次元形状デザイン作成の中核を成す機能なのです。
+</p><p>スケッチャーワークベンチの特徴はなんといっても拘束です・・これによって2次元形状を厳密な幾何定義に従って拘束することが可能です。また拘束用ソルバーによって2次元形状の拘束範囲を計算したり、スケッチの自由度を対話的に検査したりすることが可能です。
+</p>
+<div style="clear:both"></div>
+<div id="itsfree" style="text-align:center;color:black;background:#FDE0A8;margin:1em 7em;padding:0.5em 2em;border:2px solid #FF5706;">このWIKIはFreeCADの<b>バージョンv0.12</b>に基いて書かれています。それ以前のバージョンではスケッチャーツールの多くが存在しません。現在のスケッチャー機能を全てを使うには<a href="Download.html" title="Download">ダウンロード</a>ページに行ってFreeCADを更新してください。</div>
+<p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E6.8B.98.E6.9D.9F.E3.81.AE.E5.9F.BA.E6.9C.AC"><span class="tocnumber">1</span> <span class="toctext">スケッチ拘束の基本</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E5.BE.93.E6.9D.A5.E3.81.AE.E8.A3.BD.E5.9B.B3"><span class="tocnumber">1.1</span> <span class="toctext">従来の製図</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#.E6.8B.98.E6.9D.9F.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81"><span class="tocnumber">1.2</span> <span class="toctext">拘束スケッチ</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E6.8B.98.E6.9D.9F.E3.81.A8.E3.81.AF.E4.BD.95.E3.81.AA.E3.81.AE.E3.81.8B.EF.BC.9F"><span class="tocnumber">1.3</span> <span class="toctext">拘束とは何なのか？</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E5.90.91.E3.81.8B.E3.81.AA.E3.81.84.E3.82.82.E3.81.AE"><span class="tocnumber">2</span> <span class="toctext">スケッチャーに向かないもの</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.A7.E3.81.AE.E4.BD.9C.E6.A5.AD.E6.89.8B.E9.A0.86"><span class="tocnumber">3</span> <span class="toctext">スケッチャーでの作業手順</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E8.89.AF.E3.81.84.E3.82.84.E3.82.8A.E6.96.B9"><span class="tocnumber">4</span> <span class="toctext">良いやり方</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E3.83.84.E3.83.BC.E3.83.AB"><span class="tocnumber">5</span> <span class="toctext">ツール</span></a>
+<ul>
+<li class="toclevel-2"><a href="#.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E5.BD.A2.E7.8A.B6.E4.BD.9C.E6.88.90"><span class="tocnumber">5.1</span> <span class="toctext">スケッチャーによる形状作成</span></a></li>
+<li class="toclevel-2"><a href="#.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E6.8B.98.E6.9D.9F"><span class="tocnumber">5.2</span> <span class="toctext">スケッチャーによる拘束</span></a></li>
+<li class="toclevel-2"><a href="#.E3.81.9D.E3.81.AE.E4.BB.96"><span class="tocnumber">5.3</span> <span class="toctext">その他</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E6.8B.98.E6.9D.9F.E3.81.AE.E5.9F.BA.E6.9C.AC">スケッチ拘束の基本</span></h3>
+<p>スケッチャーがどのように動作するか説明するには"従来"の製図方法と比較するとわかりやすいでしょう。
+</p>
+<h4><span class="mw-headline" id=".E5.BE.93.E6.9D.A5.E3.81.AE.E8.A3.BD.E5.9B.B3">従来の製図</span></h4>
+<p>"従来"のCAD製図方法は過去の<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Drawing_board">製図板</a>を用いた方法を受け継いでいます。<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Multiview_orthographic_projection">（2次元）正射影図</a>を手書きすることで製図（いわゆる青写真）を作成します。物体は意図したサイズ、寸法に合わせて正確に描画されます。もし点(0, 0)から伸びる100mmの水平線を描きたければまずラインツールを選択し、画面をクリックするか座標(0, 0)と入力して始点を設定した後、終点をクリックするか座標を(100,0)を入力します。あるいは位置を気にせずに線を描き、後から位置を調整します。形状を描き終わったらそれらに寸法を追加します。
+</p>
+<h4><span class="mw-headline" id=".E6.8B.98.E6.9D.9F.E3.82.B9.E3.82.B1.E3.83.83.E3.83.81">拘束スケッチ</span></h4>
+<p><b>スケッチャー</b>の方法は全く異なります。物体を厳密に描く必要はありません。なぜなら物体は後で拘束をかけることによって定義されるからです。物体はおおまかに描けばよく、拘束をかける前であれば変更も可能です。実際の所、物体は"流動的"で動かしたり、伸ばしたり、回転させたり、拡大縮小させたりといったことが可能です。これによってデザイン作業がとても柔軟なものになります。
+</p>
+<h4><span class="mw-headline" id=".E6.8B.98.E6.9D.9F.E3.81.A8.E3.81.AF.E4.BD.95.E3.81.AA.E3.81.AE.E3.81.8B.EF.BC.9F">拘束とは何なのか？</span></h4>
+<p>拘束は物体の自由度を制限するために使用されます。例えばラインは拘束がない場合は4つの自由度を持ちます。つまり水平方向、垂直方向への移動と拡大縮小と回転が可能です。
+</p><p>水平拘束、垂直拘束、あるいは（他のラインか座標軸の一つに対する）角度拘束を適用すると回転が制限され自由度は3つに減ります。片方の短点を原点に対してロックすることでさらに2つの自由度が減ります。最後にサイズ拘束を適用すれば最後の自由度が無くなります。こうしてラインは<b>完全拘束</b>状態になります。
+</p><p>複数のオブジェクトがある場合は相互に拘束が可能です。二本のラインがあった場合、点一致拘束を使用することでそれぞれの端点をつなぎ合わせることができます。また二本のラインの間の角度を設定したり、二本のラインが垂直になるよう設定することも可能です。ラインに対しては円弧や円の接線となるように拘束することもできます。
+</p><p>拘束には二種類あります。幾何拘束と寸法拘束です。これらについては下の<a href="#The_tools">'ツール'</a>セクションで詳しく説明します。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E5.90.91.E3.81.8B.E3.81.AA.E3.81.84.E3.82.82.E3.81.AE">スケッチャーに向かないもの</span></h3>
+<p>スケッチャーは2次元図面を作成するためのものではありません。ソリッド形状を作成するとスケッチは自動的に非表示になります。寸法はスケッチ編集モード時のみ表示されます。
+</p><p>もし印刷用の2次元表示を作成するだけで3次元モデルが必要ないのであれば<a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Module/jp" title="Draft Module/jp">製図ワークベンチ</a>をチェックしてください（製図ワークベンチでも2次元形状が作れることを記憶に留めておいてください。今のところスケッチャーでは使用できない機能、例えばB-スプラインなどを使うこともできます）。
+</p>
+<h3><span class="mw-headline" id=".E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.A7.E3.81.AE.E4.BD.9C.E6.A5.AD.E6.89.8B.E9.A0.86">スケッチャーでの作業手順</span></h3>
+<p>追加予定
+</p>
+<h3><span class="mw-headline" id=".E8.89.AF.E3.81.84.E3.82.84.E3.82.8A.E6.96.B9">良いやり方</span></h3>
+<p>CADのユーザーであれば誰しも自分なりの作業のやり方を作り上げているものですが、以下にあげるような便利な一般的原則がいくつかあります。
+</p>
+<ul><li> 簡単なスケッチをたくさん作るほうが複雑なものを一つ作るより簡単です。例えばベースとなる3次元形状（押し出したものか、回転させたもの）用に一つ目のスケッチを作成できたとし、一方で二つ目のスケッチに穴や切り抜き（くぼみ）があったとしましょう。その場合には細かい形状は取り除いておいて、それらは後で3次元形状上で実現した方がいいでしょう。フィレットがたくさんある場合にはスケッチ上では取り除いておいて3次元形状上で追加するといった具合です。</li>
+<li> 常に輪郭線は閉じた状態で作成します。そうしなければスケッチからソリッドを作成するつもりが開いた面の集合ができてしまいます。もしソリッド作成に含めたくないオブジェクトがある場合は構築モードツールを使ってそれらを構築要素にしてください。</li>
+<li> 自動拘束機能を使って手作業で追加しなければならない拘束の数を減らしてください。</li>
+<li> 一般的なルールとしてまず幾何拘束を適用し、次に寸法拘束を適用し、最後にスケッチをロックします。しかしルールは破るためにあるということも忘れないでください。もしスケッチの操作で困ったら、輪郭線を描き終わる前にいくつかオブジェクトを拘束するといいでしょう。</li>
+<li> 可能な場合にはロック拘束を使ってスケッチの中心が原点(0,0)にくるようにしましょう。スケッチが対象でない場合はスケッチ上の一点を原点に置くか、適当な数値で距離をロックしてください。v0.12では外部拘束（スケッチをエッジや他のスケッチといった既存の3次元形状に対して拘束する機能）が実装されていません。つまり後から追加したスケッチを最初のスケッチに対して配置するには最初のスケッチに対する相対距離を手動で設定する必要があるのです。原点から(25,75)で拘束とした方が(23.47,73.02)で拘束とするよりも憶えやすいでしょう。</li>
+<li> もし長さによる拘束と水平距離拘束、垂直距離拘束のどちらでも同じことができる状況であれば後の方を使うようにしましょう。水平距離拘束、垂直距離拘束の方が計算コストが安価です。</li></ul>
+<h3><span class="mw-headline" id=".E3.83.84.E3.83.BC.E3.83.AB">ツール</span></h3>
+<p>スケッチャーワークベンチのツールはスケッチャーワークベンチをロードすると表示されるSketcherメニューに配置されています。
+</p>
+<h4><span class="mw-headline" id=".E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E5.BD.A2.E7.8A.B6.E4.BD.9C.E6.88.90">スケッチャーによる形状作成</span></h4>
+<p>オブジェクト作成のためのツールです。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePoint.png" class="image"><img alt="Sketcher CreatePoint.png" src="32px-Sketcher_CreatePoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e9/Sketcher_CreatePoint.png/48px-Sketcher_CreatePoint.png 1.5x, /wiki/images/e/e9/Sketcher_CreatePoint.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Point/jp" title="Sketcher Point/jp">点</a>: 点を描きます</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Arc.png" class="image"><img alt="Sketcher Arc.png" src="32px-Sketcher_Arc.png" width="32" height="32" srcset="/wiki/images/thumb/1/15/Sketcher_Arc.png/48px-Sketcher_Arc.png 1.5x, /wiki/images/1/15/Sketcher_Arc.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Arc/jp" title="Sketcher Arc/jp">円弧</a>: 中心、半径、開始角度と終了角度から円弧を描きます </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Circle.png" class="image"><img alt="Sketcher Circle.png" src="32px-Sketcher_Circle.png" width="32" height="32" srcset="/wiki/images/thumb/d/da/Sketcher_Circle.png/48px-Sketcher_Circle.png 1.5x, /wiki/images/d/da/Sketcher_Circle.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Circle/jp" title="Sketcher Circle/jp">円</a>: 中心と半径から円を描きます </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Line.png" class="image"><img alt="Sketcher Line.png" src="32px-Sketcher_Line.png" width="32" height="32" srcset="/wiki/images/thumb/7/72/Sketcher_Line.png/48px-Sketcher_Line.png 1.5x, /wiki/images/7/72/Sketcher_Line.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Line/jp" title="Sketcher Line/jp">2点線部ん</a>: 2点からなる線分を描きます </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreatePolyline.png" class="image"><img alt="Sketcher CreatePolyline.png" src="32px-Sketcher_CreatePolyline.png" width="32" height="32" srcset="/wiki/images/thumb/a/aa/Sketcher_CreatePolyline.png/48px-Sketcher_CreatePolyline.png 1.5x, /wiki/images/a/aa/Sketcher_CreatePolyline.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Polyline/jp" title="Sketcher Polyline/jp">ポリライン（複数の点から鳴る線分）</a>: 複数点の線分で作られる線を描きます </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateRectangle.png" class="image"><img alt="Sketcher CreateRectangle.png" src="32px-Sketcher_CreateRectangle.png" width="32" height="32" srcset="/wiki/images/thumb/a/ad/Sketcher_CreateRectangle.png/48px-Sketcher_CreateRectangle.png 1.5x, /wiki/images/a/ad/Sketcher_CreateRectangle.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Rectangle/jp" title="Sketcher Rectangle/jp">四角形</a>: 2つの対点から四角形を描きます </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_CreateFillet.png" class="image"><img alt="Sketcher CreateFillet.png" src="32px-Sketcher_CreateFillet.png" width="32" height="32" srcset="/wiki/images/thumb/f/f0/Sketcher_CreateFillet.png/48px-Sketcher_CreateFillet.png 1.5x, /wiki/images/f/f0/Sketcher_CreateFillet.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Fillet/jp" title="Sketcher Fillet/jp">フィレット</a>: 一つの点でつながる二本のライン間にフィレットを作成します。両方のライン選ぶか、節点をクリックしてからこのツールを実行してください。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_Trimming.png" class="image"><img alt="Sketcher Trimming.png" src="32px-Sketcher_Trimming.png" width="32" height="32" srcset="/wiki/images/thumb/2/2c/Sketcher_Trimming.png/48px-Sketcher_Trimming.png 1.5x, /wiki/images/2/2c/Sketcher_Trimming.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Trimming/jp" title="Sketcher Trimming/jp">トリム</a>: クリックした点に応じてライン、円、円弧をトリムします</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_External.png" class="image"><img alt="Sketcher External.png" src="32px-Sketcher_External.png" width="32" height="32" srcset="/wiki/images/thumb/b/b5/Sketcher_External.png/48px-Sketcher_External.png 1.5x, /wiki/images/b/b5/Sketcher_External.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_External/jp&amp;action=edit&amp;redlink=1" class="new" title="Sketcher External/jp (page does not exist)">外部形状</a>: 外部形状につながるエッジを作成します</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_AlterConstruction.png" class="image"><img alt="Sketcher AlterConstruction.png" src="32px-Sketcher_AlterConstruction.png" width="32" height="32" srcset="/wiki/images/thumb/2/2a/Sketcher_AlterConstruction.png/48px-Sketcher_AlterConstruction.png 1.5x, /wiki/images/2/2a/Sketcher_AlterConstruction.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_ConstructionMode/jp" title="Sketcher ConstructionMode/jp">作成モード</a>: 作成モードを切り替えます。作成したオブジェクトは3D形状操作では使用することはできません。</li></ul>
+<h4><span class="mw-headline" id=".E3.82.B9.E3.82.B1.E3.83.83.E3.83.81.E3.83.A3.E3.83.BC.E3.81.AB.E3.82.88.E3.82.8B.E6.8B.98.E6.9D.9F">スケッチャーによる拘束</span></h4>
+<p>拘束はスケッチ要素間にルールを設定したり、垂直軸や水平軸に従ってスケッチをロックしたりする場合に使用されます。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_ConstrainLock.png" class="image"><img alt="Sketcher ConstrainLock.png" src="32px-Sketcher_ConstrainLock.png" width="32" height="32" srcset="/wiki/images/thumb/6/6c/Sketcher_ConstrainLock.png/48px-Sketcher_ConstrainLock.png 1.5x, /wiki/images/6/6c/Sketcher_ConstrainLock.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Lock/jp" title="Constraint Lock/jp">ロック</a>: 原点に対して垂直方向または水平方向の寸法を設定することで選択されたアイテムにロックをかけます（寸法は後で編集できます）。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnPoint.png" class="image"><img alt="Constraint PointOnPoint.png" src="32px-Constraint_PointOnPoint.png" width="32" height="32" srcset="/wiki/images/thumb/e/e3/Constraint_PointOnPoint.png/48px-Constraint_PointOnPoint.png 1.5x, /wiki/images/e/e3/Constraint_PointOnPoint.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnPoint/jp" title="Constraint PointOnPoint/jp">一致</a>: 選択された二点間に一致拘束（点ごと）をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_PointOnObject.png" class="image"><img alt="Constraint PointOnObject.png" src="32px-Constraint_PointOnObject.png" width="32" height="32" srcset="/wiki/images/thumb/7/7d/Constraint_PointOnObject.png/48px-Constraint_PointOnObject.png 1.5x, /wiki/images/7/7d/Constraint_PointOnObject.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_PointOnObject/jp" title="Constraint PointOnObject/jp">オブジェクト上の点</a>: 選択されたアイテムに対してオブジェクト上の点の拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_HorizontalDistance.png" class="image"><img alt="Constraint HorizontalDistance.png" src="32px-Constraint_HorizontalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/5/57/Constraint_HorizontalDistance.png/48px-Constraint_HorizontalDistance.png 1.5x, /wiki/images/5/57/Constraint_HorizontalDistance.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_HorizontalDistance/jp" title="Constraint HorizontalDistance/jp">水平距離</a>: 2点またはライン終端間の水平距離を固定します。選択されているアイテムがひとつの場合、原点に対する距離が固定されます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_VerticalDistance.png" class="image"><img alt="Constraint VerticalDistance.png" src="32px-Constraint_VerticalDistance.png" width="32" height="32" srcset="/wiki/images/thumb/b/ba/Constraint_VerticalDistance.png/48px-Constraint_VerticalDistance.png 1.5x, /wiki/images/b/ba/Constraint_VerticalDistance.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_VerticalDistance/jp" title="Constraint VerticalDistance/jp">垂直距離</a>: 2点またはライン終端間の垂直距離を固定します。選択されているアイテムがひとつの場合、原点に対する距離が固定されます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Vertical.png" class="image"><img alt="Constraint Vertical.png" src="32px-Constraint_Vertical.png" width="32" height="32" srcset="/wiki/images/thumb/d/d6/Constraint_Vertical.png/48px-Constraint_Vertical.png 1.5x, /wiki/images/d/d6/Constraint_Vertical.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Vertical/jp" title="Constraint Vertical/jp">垂直</a>: 選択されたラインまたはポリライン要素に対して垂直方向の拘束をかけます。一つ以上のオブジェクトが選択可能でなければなりません。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Horizontal.png" class="image"><img alt="Constraint Horizontal.png" src="32px-Constraint_Horizontal.png" width="32" height="32" srcset="/wiki/images/thumb/3/3f/Constraint_Horizontal.png/48px-Constraint_Horizontal.png 1.5x, /wiki/images/3/3f/Constraint_Horizontal.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Horizontal/jp" title="Constraint Horizontal/jp">水平</a>: 選択されたラインまたはポリライン要素に対して水平方向の拘束をかけます。一つ以上のオブジェクトが選択可能でなければなりません。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Length.png" class="image"><img alt="Constraint Length.png" src="32px-Constraint_Length.png" width="32" height="32" srcset="/wiki/images/thumb/a/a3/Constraint_Length.png/48px-Constraint_Length.png 1.5x, /wiki/images/a/a3/Constraint_Length.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Length/jp" title="Constraint Length/jp">長さ</a>: 選択されたラインに長さ拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Radius.png" class="image"><img alt="Constraint Radius.png" src="32px-Constraint_Radius.png" width="32" height="32" srcset="/wiki/images/thumb/5/58/Constraint_Radius.png/48px-Constraint_Radius.png 1.5x, /wiki/images/5/58/Constraint_Radius.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Radius/jp" title="Constraint Radius/jp">半径</a>: 選択された円弧、円に半径の拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Parallel.png" class="image"><img alt="Constraint Parallel.png" src="32px-Constraint_Parallel.png" width="32" height="32" srcset="/wiki/images/thumb/0/0b/Constraint_Parallel.png/48px-Constraint_Parallel.png 1.5x, /wiki/images/0/0b/Constraint_Parallel.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Parallel/jp" title="Constraint Parallel/jp">平行</a>: 二本の選択されたラインが常に平行となるよう拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Perpendicular.png" class="image"><img alt="Constraint Perpendicular.png" src="32px-Constraint_Perpendicular.png" width="32" height="32" srcset="/wiki/images/thumb/3/39/Constraint_Perpendicular.png/48px-Constraint_Perpendicular.png 1.5x, /wiki/images/3/39/Constraint_Perpendicular.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Perpendicular/jp" title="Constraint Perpendicular/jp">直交</a>:  二本の選択されたラインが常に直交するよう拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_InternalAngle.png" class="image"><img alt="Constraint InternalAngle.png" src="32px-Constraint_InternalAngle.png" width="32" height="32" srcset="/wiki/images/thumb/7/75/Constraint_InternalAngle.png/48px-Constraint_InternalAngle.png 1.5x, /wiki/images/7/75/Constraint_InternalAngle.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_InternalAngle/jp" title="Constraint InternalAngle/jp">内角</a>: 二本の選択されたラインの内角が常に同じとなるよう拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Tangent.png" class="image"><img alt="Constraint Tangent.png" src="32px-Constraint_Tangent.png" width="32" height="32" srcset="/wiki/images/thumb/1/1a/Constraint_Tangent.png/48px-Constraint_Tangent.png 1.5x, /wiki/images/1/1a/Constraint_Tangent.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Tangent/jp" title="Constraint Tangent/jp">正接</a>: 選択された要素に対して正接拘束をかけます。あるいは二本の線分に対して共線拘束をかけます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_EqualLength.png" class="image"><img alt="Constraint EqualLength.png" src="32px-Constraint_EqualLength.png" width="32" height="32" srcset="/wiki/images/thumb/b/bb/Constraint_EqualLength.png/48px-Constraint_EqualLength.png 1.5x, /wiki/images/b/bb/Constraint_EqualLength.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_EqualLength/jp" title="Constraint EqualLength/jp">等しい長さ</a>: 二つの選択された要素に対して等しくなるよう拘束をかけます。円または円弧に対して使用した場合、その半径が等しくなるように設定されます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Constraint_Symmetric.png" class="image"><img alt="Constraint Symmetric.png" src="32px-Constraint_Symmetric.png" width="32" height="32" srcset="/wiki/images/thumb/b/be/Constraint_Symmetric.png/48px-Constraint_Symmetric.png 1.5x, /wiki/images/b/be/Constraint_Symmetric.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Constraint_Symmetric/jp" title="Constraint Symmetric/jp">対称</a>: 二点とそれが形作るラインが対称となるように拘束をかけます。</li></ul>
+<h4><span class="mw-headline" id=".E3.81.9D.E3.81.AE.E4.BB.96">その他</span></h4>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_NewSketch.png" class="image"><img alt="Sketcher NewSketch.png" src="32px-Sketcher_NewSketch.png" width="32" height="32" srcset="/wiki/images/thumb/4/46/Sketcher_NewSketch.png/48px-Sketcher_NewSketch.png 1.5x, /wiki/images/4/46/Sketcher_NewSketch.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_NewSketch/jp" title="Sketcher NewSketch/jp">新しいスケッチ</a>: 選択された面または平面上に新しいスケッチを作成します。デフォルトの動作ではXY面が使用されます。</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Sketcher_LeaveSketch.png" class="image"><img alt="Sketcher LeaveSketch.png" src="32px-Sketcher_LeaveSketch.png" width="32" height="32" srcset="/wiki/images/thumb/c/ce/Sketcher_LeaveSketch.png/48px-Sketcher_LeaveSketch.png 1.5x, /wiki/images/c/ce/Sketcher_LeaveSketch.png 2x" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_LeaveSketch/jp" title="Sketcher LeaveSketch/jp">スケッチの解除</a>: スケッチ編集モードを解除します。</li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/jp&amp;oldid=88925">http://www.freecadweb.org/wiki/index.php?title=Sketcher_Workbench/jp&amp;oldid=88925</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

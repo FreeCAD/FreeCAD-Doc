@@ -1,0 +1,215 @@
+<html><head><title>Drawing Module/cn</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Drawing Module/cn</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>绘图模块允许将你的 3D 工作放到图纸上。也就是，将你的模型视图放入一个 2D 窗口，并将绘图嵌入窗口中。比如，一张有边界、标题和图标的图纸，最终可将图纸打印出来。绘图模块目前正在设计当中，现在或多或少只是个技术概览。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GUI_.E5.B7.A5.E5.85.B7"><span class="tocnumber">1</span> <span class="toctext">GUI 工具</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E8.84.9A.E6.9C.AC.E7.BC.96.E7.A8.8B"><span class="tocnumber">2</span> <span class="toctext">脚本编程</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E7.AE.80.E5.8D.95.E7.A4.BA.E4.BE.8B"><span class="tocnumber">2.1</span> <span class="toctext">简单示例</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#.E5.8F.82.E6.95.B0.E5.8C.96.E6.96.B9.E6.B3.95"><span class="tocnumber">2.2</span> <span class="toctext">参数化方法</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E8.AE.BF.E9.97.AE.E5.85.B6.E4.BB.96.E7.BB.86.E8.8A.82"><span class="tocnumber">2.3</span> <span class="toctext">访问其他细节</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#.E6.A8.A1.E6.9D.BF"><span class="tocnumber">3</span> <span class="toctext">模板</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="GUI_.E5.B7.A5.E5.85.B7">GUI 工具</span></h3>
+<p>下面是一组用于创建、配置与工程图纸导出的工具。
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_New.png" class="image"><img alt="Drawing New.png" src="32px-Drawing_New.png" width="32" height="32" srcset="/wiki/images/thumb/d/dc/Drawing_New.png/48px-Drawing_New.png 1.5x, /wiki/images/d/dc/Drawing_New.png 2x" /></a> <a href="Drawing_Open_SVG.html" title="Drawing Open SVG">Open scalable vector graphic</a>: Opens a drawing sheet previously saved as an SVG file</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Landscape_A3.png" class="image"><img alt="Drawing Landscape A3.png" src="32px-Drawing_Landscape_A3.png" width="32" height="32" srcset="/wiki/images/thumb/2/27/Drawing_Landscape_A3.png/48px-Drawing_Landscape_A3.png 1.5x, /wiki/images/2/27/Drawing_Landscape_A3.png 2x" /></a> <a href="Drawing_Landscape_A3.html" title="Drawing Landscape A3">新建 A3 横向图纸</a>：从 FreeCAD 默认的 A3 模板创建一份新的工程图纸</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_View.png" class="image"><img alt="Drawing View.png" src="32px-Drawing_View.png" width="32" height="32" srcset="/wiki/images/thumb/0/03/Drawing_View.png/48px-Drawing_View.png 1.5x, /wiki/images/0/03/Drawing_View.png 2x" /></a> <a href="Drawing_View.html" title="Drawing View">插入视图</a>：在工作图纸中插入所选对象的一个视图</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_Save.png" class="image"><img alt="Drawing Save.png" src="32px-Drawing_Save.png" width="32" height="32" srcset="/wiki/images/4/43/Drawing_Save.png 1.5x" /></a> <a href="Drawing_Save.html" title="Drawing Save">保存图纸</a>：将当前图纸保存为 SVG 文件</li></ul>
+<p><br />
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Drawing_extraction.png" class="image"><img alt="Drawing extraction.png" src="800px-Drawing_extraction.png" width="800" height="428" srcset="/wiki/images/thumb/f/f4/Drawing_extraction.png/1200px-Drawing_extraction.png 1.5x, /wiki/images/f/f4/Drawing_extraction.png 2x" /></a>
+</p><p>图片中呈现出了绘图模块的主要概念。该文档中包含了一个形状对象（Schenkel），将其解压可以得到一幅制图。因此，我们创建了一个“页面”。通过模板来示例这个页面，在这个例子中，模板为“横版A3”版面。这个模板是一个包含了一般页面框架、图标或者遵循了显示标准的 SVG（可伸缩向量图形）文件。
+</p><p>在这个页面中我们可以插入一个或多个视图。每个视图在页面中都具有一个位置（X、Y 属性）、一个比例因素（比例属性）和其他的属性。每次页面、视图、或者引用的对象发生改变，页面将会重新生成，其显示将会更新。
+</p>
+<h3><span class="mw-headline" id=".E8.84.9A.E6.9C.AC.E7.BC.96.E7.A8.8B">脚本编程</span></h3>
+<p>由于终端用户（GUI）可实现的操作有限，所以脚本 API 将更加有趣。下面我们将通过例子来了解如何使用绘图模块的脚本 API 功能。
+</p>
+<h4><span class="mw-headline" id=".E7.AE.80.E5.8D.95.E7.A4.BA.E4.BE.8B">简单示例</span></h4>
+<p>首先，你需要零件和绘图模块：
+</p>
+<pre>import FreeCAD, Part, Drawing
+
+</pre>
+<p>创建一个小的样本零件
+</p>
+<pre>Part.show(Part.makeBox(100,100,100).cut(Part.makeCylinder(80,100)).cut(Part.makeBox(90,40,100)).cut(Part.makeBox(20,85,100)))
+</pre>
+<p>方向投影。G0 表示轮廓鲜明的边，G1 表示切线连续。
+</p>
+<pre>Shape = App.ActiveDocument.Shape.Shape
+[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape)
+print "visible edges:", len(visibleG0.Edges)
+print "hidden edges:", len(hiddenG0.Edges)
+</pre>
+<p>所有的都被投影到 Z 平面上：
+</p>
+<pre>print "Bnd Box shape: X=",Shape.BoundBox.XLength," Y=",Shape.BoundBox.YLength," Z=",Shape.BoundBox.ZLength
+print "Bnd Box project: X=",visibleG0.BoundBox.XLength," Y=",visibleG0.BoundBox.YLength," Z=",visibleG0.BoundBox.ZLength
+
+</pre>
+<p>不同的投影向量
+</p>
+<pre>[visibleG0,visibleG1,hiddenG0,hiddenG1] = Drawing.project(Shape,App.Vector(1,1,1))
+
+</pre>
+<p>投影成可伸缩向量的图形
+</p>
+<pre>resultSVG = Drawing.projectToSVG(Shape,App.Vector(1,1,1))
+print resultSVG
+</pre>
+<h4><span class="mw-headline" id=".E5.8F.82.E6.95.B0.E5.8C.96.E6.96.B9.E6.B3.95">参数化方法</span></h4>
+<p>创建主体
+</p>
+<pre># Create three boxes and a cylinder
+App.ActiveDocument.addObject("Part::Box","Box")
+App.ActiveDocument.Box.Length=100.00
+App.ActiveDocument.Box.Width=100.00
+App.ActiveDocument.Box.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box1")
+App.ActiveDocument.Box1.Length=90.00
+App.ActiveDocument.Box1.Width=40.00
+App.ActiveDocument.Box1.Height=100.00
+
+App.ActiveDocument.addObject("Part::Box","Box2")
+App.ActiveDocument.Box2.Length=20.00
+App.ActiveDocument.Box2.Width=85.00
+App.ActiveDocument.Box2.Height=100.00
+
+App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+App.ActiveDocument.Cylinder.Radius=80.00
+App.ActiveDocument.Cylinder.Height=100.00
+App.ActiveDocument.Cylinder.Angle=360.00
+# Fuse two boxes and the cylinder
+App.activeDocument().addObject("Part::Fuse","Fusion")
+App.activeDocument().Fusion.Base = App.activeDocument().Cylinder
+App.activeDocument().Fusion.Tool = App.activeDocument().Box1
+
+App.activeDocument().addObject("Part::Fuse","Fusion1")
+App.activeDocument().Fusion1.Base = App.activeDocument().Box2
+App.activeDocument().Fusion1.Tool = App.activeDocument().Fusion
+# Cut the fused shapes from the first box
+App.activeDocument().addObject("Part::Cut","Shape")
+App.activeDocument().Shape.Base = App.activeDocument().Box
+App.activeDocument().Shape.Tool = App.activeDocument().Fusion1
+# Hide all the intermediate shapes 
+Gui.activeDocument().Box.Visibility=False
+Gui.activeDocument().Box1.Visibility=False
+Gui.activeDocument().Box2.Visibility=False
+Gui.activeDocument().Cylinder.Visibility=False
+Gui.activeDocument().Fusion.Visibility=False
+Gui.activeDocument().Fusion1.Visibility=False
+</pre>
+<p>插入一个页面对象并指定一个模板
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeaturePage','Page')
+App.activeDocument().Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg'
+</pre>
+<p>创建“Shape”对象的一个视图，定义其位置、比例并将其指定到一个页面
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','View')
+App.activeDocument().View.Source = App.activeDocument().Shape
+App.activeDocument().View.Direction = (0.0,0.0,1.0)
+App.activeDocument().View.X = 10.0
+App.activeDocument().View.Y = 10.0
+App.activeDocument().Page.addObject(App.activeDocument().View)
+</pre>
+<p>创建同一对象的第二个视图，但是要将该视图旋转90度。
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','ViewRot')
+App.activeDocument().ViewRot.Source = App.activeDocument().Shape
+App.activeDocument().ViewRot.Direction = (0.0,0.0,1.0)
+App.activeDocument().ViewRot.X = 290.0
+App.activeDocument().ViewRot.Y = 30.0
+App.activeDocument().ViewRot.Scale = 1.0
+App.activeDocument().ViewRot.Rotation = 90.0
+App.activeDocument().Page.addObject(App.activeDocument().ViewRot) 
+</pre>
+<p>创建同一对象的第三个视图，但是要在等距方向创建。并将隐藏线激活显示。
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureViewPart','ViewIso')
+App.activeDocument().ViewIso.Source = App.activeDocument().Shape
+App.activeDocument().ViewIso.Direction = (1.0,1.0,1.0)
+App.activeDocument().ViewIso.X = 335.0
+App.activeDocument().ViewIso.Y = 140.0
+App.activeDocument().ViewIso.ShowHiddenLines = True
+App.activeDocument().Page.addObject(App.activeDocument().ViewIso) 
+
+</pre>
+<p>改动一些地方并更新。更新过程改变了视图和页面。
+</p>
+<pre>App.activeDocument().View.X = 30.0
+App.activeDocument().View.Y = 30.0
+App.activeDocument().View.Scale = 1.5
+App.activeDocument().recompute()
+</pre>
+<h4><span class="mw-headline" id=".E8.AE.BF.E9.97.AE.E5.85.B6.E4.BB.96.E7.BB.86.E8.8A.82">访问其他细节</span></h4>
+<p>得到单个视图的 SVG 部分
+</p>
+<pre>ViewSVG = App.activeDocument().View.ViewResult
+print ViewSVG
+
+</pre>
+<p>得到整个最终页面（这是文档中临时文件夹中的一个只读文件）
+</p>
+<pre>print "Resulting SVG document: ",App.activeDocument().Page.PageResult
+file = open(App.activeDocument().Page.PageResult,"r")
+print "Result page is ",len(file.readlines())," lines long"
+</pre>
+<p>注意：释放文件！
+</p>
+<pre>del file
+
+</pre>
+<p>向视图中插入你自己的内容：
+</p>
+<pre>App.activeDocument().addObject('Drawing::FeatureView','ViewSelf')
+App.activeDocument().ViewSelf.ViewResult = """&lt;g id="ViewSelf"
+  stroke="rgb(0, 0, 0)"
+  stroke-width="0.35"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  transform="translate(30,30)"
+  fill="#00cc00"
+  &gt;
+
+  &lt;ellipse cx="40" cy="40" rx="30" ry="15"/&gt;
+  &lt;/g&gt;
+"""
+App.activeDocument().Page.addObject(App.activeDocument().ViewSelf)
+App.activeDocument().recompute()
+
+del Shape,ViewSVG, resultSVG
+
+</pre>
+<p>会出现以下结果：
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:DrawingScriptResult.jpg" class="image"><img alt="DrawingScriptResult.jpg" src="800px-DrawingScriptResult.jpg" width="800" height="481" srcset="/wiki/images/thumb/2/2e/DrawingScriptResult.jpg/1200px-DrawingScriptResult.jpg 1.5x, /wiki/images/2/2e/DrawingScriptResult.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id=".E6.A8.A1.E6.9D.BF">模板</span></h3>
+<p>FreeCAD自带一些预设的模板，想得到更多模板可以前往 <a href="Drawing_templates.html" title="Drawing templates">Drawing templates</a> 页面。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Drawing_Module/cn&amp;oldid=211344">http://www.freecadweb.org/wiki/index.php?title=Drawing_Module/cn&amp;oldid=211344</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

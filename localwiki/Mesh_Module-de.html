@@ -1,0 +1,82 @@
+<html><head><title>Mesh Module/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Module/de</h1><span class="mw-redirectedfrom">(Redirected from <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Module/de&amp;redirect=no" class="mw-redirect" title="Mesh Module/de">Mesh Module/de</a>)</span></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"></div>
+<p>Der Arbeitsbereich <b>Mesh</b> behandelt <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Triangle_mesh">Dreiecksnetze</a>. Meshes sind eine spezielle Art von 3D-Objekten, von Dreiecken, die durch ihre Kanten und Ecken verbunden sind.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_example.jpg" class="image" title="An example of a mesh object"><img alt="An example of a mesh object" src="Mesh_example.jpg" width="640" height="400" /></a>
+</p><p>Beispiel eines Mesh-Objekts
+</p><p>Viele 3D-Anwendungen verwenden Netze, als wichtigsten Bestandteil von 3D-Objekten, z.B.: <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/SketchUp_%28Software%29">Sketchup</a>, <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/Blender_%28Software%29">blender</a>, <a rel="nofollow" class="external autonumber" href="http://de.wikipedia.org/wiki/Maya_%28Software%29%7CMaya">[1]</a> oder <a rel="nofollow" class="external text" href="http://de.wikipedia.org/wiki/3D-Studio_MAX">3d studio max</a>. Da Netze sehr einfache Objekte sind, die nur aus Knoten (Punkten), Kanten und (dreieckigen) Flächen bestehen, sind sie sehr einfach zu erstellen, zu modifizieren, zu unterteilen und zu dehnen und können leicht von einer Anwendung zur anderen ohne Verlust übertragen werden. Außerdem, können 3D-Anwendungen in der Regel  sehr große Mengen davon ohne Probleme verwalten, da sie sehr einfache Daten enthalten. Aus diesen Gründen sind Netze oft das 3D-Objekt der Wahl, insbesondere bei Anwendungen im Umgang mit Filmen, Animationen und Image-Erstellung.
+</p><p>Im Bereich der Technik, gibt es für Netze jedoch eine große Einschränkung: Sie sind sehr dumme Objekte, nur zusammengesetzt aus Punkten, Linien und Flächen. Sie bestehen nur als reine Oberflächen, enthalten keinerlei Masse-Information, so dass sie sich nicht als Festkörper verhalten. In einem Netz gibt es keine automatische Möglichkeit zu erkennen, ob ein Punkt innerhalb oder außerhalb des Objekts liegt. Dies bedeutet, dass alle Festkörper-Operationen wie Addition oder Subtraktion, immer etwas schwierig auf Netze anzuwenden sind und so oft Fehler zu Folge haben.
+</p><p>In FreeCAD, als eine Konstruktions-Anwendung, ziehen wir vor, mit einer intelligenteren Art von 3D-Objekten zu arbeiten, die weit mehr Informationen enthalten können, wie Masse, Festigkeits-Verhalten oder sogar benutzerdefinierte Parameter. Das Netz-Modul wurde geschaffen, um als Testumgebung zu dienen, aber trotzdem in der Lage zu sein, Netze zu lesen, zu bearbeiten und auch konvertieren ist sehr wichtig für FreeCAD. Sehr oft in Ihrem Arbeitsalltag, erhalten Sie 3D-Daten im Netz-Format. Sie müssen die Daten verarbeiten und analysieren, um Fehler oder andere Probleme zu erkennen, die verhindern, dass die Umwandlung in intelligentere Objekte und schließlich, diese intelligenten Objekte vom <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/de" title="Part Module/de">Part Modul</a> behandelt werden können.
+</p>
+<h3><span class="mw-headline" id="Benutzung_des_Mesh_Moduls">Benutzung des Mesh Moduls</span></h3>
+<p>Das Mesh-Modul verfügt derzeit über ein sehr einfaches Interface, alle seine Funktionen sind im <b>Netze</b> Menü-Eintrag gruppiert. Die wichtigsten Operationen, die Sie derzeit mit Netzen machen kann:
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Import_Mesh.svg" class="image"><img alt="Mesh Import Mesh.svg" src="Mesh_Import_Mesh.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Import/de" title="Mesh Import/de">Importiere Netz</a>: Importiere Netze in verschiedenen Formaten</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Export_Mesh.svg" class="image"><img alt="Mesh Export Mesh.svg" src="Mesh_Export_Mesh.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Export/de" title="Mesh Export/de">Netz Exportieren</a>: Exportiere Netze in verschiedenen Formaten</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Mesh_from_Shape.svg" class="image"><img alt="Mesh Mesh from Shape.svg" src="Mesh_Mesh_from_Shape.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_MeshFromShape/de" title="Mesh MeshFromShape/de">Netz aus Form erstellen</a>: Konvertiere <a href="Part_Module.html" title="Part Module">Part</a> Objekte in Netze</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Harmonize_Normals.svg" class="image"><img alt="Mesh Harmonize Normals.svg" src="Mesh_Harmonize_Normals.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_HarmonizeNormals/de" title="Mesh HarmonizeNormals/de">Normalen ausrichten</a>: Normalen ausrichten</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Flip_Normals.svg" class="image"><img alt="Mesh Flip Normals.svg" src="Mesh_Flip_Normals.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FlipNormals/de" title="Mesh FlipNormals/de">Normalen umdrehen</a>: Normalen <a rel="nofollow" class="external autonumber" href="http://en.wikipedia.org/wiki/Surface_normal">[2]</a> umdrehen
+<ul><li>    <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FillHoles/de" title="Mesh FillHoles/de">Löcher schließen...</a>: Löcher schließen</li></ul></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_boundary.svg" class="image"><img alt="Mesh boundary.svg" src="Mesh_boundary.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_FillInteractiveHole/de" title="Mesh FillInteractiveHole/de">Loch schließen</a>: Loch schließen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Remove_Components.svg" class="image"><img alt="Mesh Remove Components.svg" src="Mesh_Remove_Components.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_RemoveComponents/de" title="Mesh RemoveComponents/de">Komponenten entfernen...</a>: Komponenten entfernen
+<ul><li>    <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_RemoveCompByHand/de" title="Mesh RemoveCompByHand/de">Komponente von Hand entfernen...</a>: Einzelne Komponente von Hand entfernen</li></ul></li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_AddTriangle/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh AddTriangle/de (page does not exist)">Dreieck hinzufügen</a>: Dreieck hinzufügen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Smooth/de" title="Mesh Smooth/de">Glätten...</a>: Glätten</li></ul>
+<p><br />
+</p>
+<ul><li> <b>Analysieren</b> der Krümmung und Flächen , Prüfen der Konvertierbarkeit in ein Solid
+<ul><li> <a href="Mesh_EvaluateRepair.html" title="Mesh EvaluateRepair">Untersuche un repariere das Netz...</a>: Überprüft und Repariert Netze</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_EvaluateFacet.png" class="image"><img alt="Mesh EvaluateFacet.png" src="32px-Mesh_EvaluateFacet.png" width="32" height="32" srcset="/wiki/images/thumb/9/96/Mesh_EvaluateFacet.png/48px-Mesh_EvaluateFacet.png 1.5x, /wiki/images/9/96/Mesh_EvaluateFacet.png 2x" /></a> <a href="Mesh_EvaluateFacet.html" title="Mesh EvaluateFacet">Dreiecksinformation</a>: zeigt Informationen zum Dreieck</li>
+<li> <a href="Mesh_EvaluateCurvature.html" title="Mesh EvaluateCurvature">Krümmungsinformation</a>: zeigt Informationen zur Krümmung</li>
+<li> <a href="Mesh_EvaluateSolid.html" title="Mesh EvaluateSolid">Netz auf Solid überprüfen</a>: Prüf ob das Netz in ein Solid ( Körper ) konvertiert werden kann</li>
+<li> <a href="Mesh_BoundingBox.html" title="Mesh BoundingBox">Abmessungen...</a>: Zeigt die Abmessungen des Netzes</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Regular_Solid.svg" class="image"><img alt="Mesh Regular Solid.svg" src="Mesh_Regular_Solid.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_BuildRegularSolid/de" title="Mesh BuildRegularSolid/de">Regelgeometrie...</a> Erzeuge Netzprimitive wie Quader, Zylinder, Konusse , oder Sphären:
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cube.svg" class="image"><img alt="Mesh Cube.svg" src="Mesh_Cube.svg" width="32" height="32" /></a> Erzeuge einen Quader</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cylinder.svg" class="image"><img alt="Mesh Cylinder.svg" src="Mesh_Cylinder.svg" width="32" height="32" /></a> Erzeuge einen Zylinder</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Cone.svg" class="image"><img alt="Mesh Cone.svg" src="Mesh_Cone.svg" width="32" height="32" /></a> Erzeuge einen Konus</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Sphere.svg" class="image"><img alt="Mesh Sphere.svg" src="Mesh_Sphere.svg" width="32" height="32" /></a> Erzeuge eine Sphäre</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Ellipsoid.svg" class="image"><img alt="Mesh Ellipsoid.svg" src="Mesh_Ellipsoid.svg" width="32" height="32" /></a> Erzeuge ein Ellipsoid</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Torus.svg" class="image"><img alt="Mesh Torus.svg" src="Mesh_Torus.svg" width="32" height="32" /></a> Erzeuge einen Torus</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> Führe <b>Bool´sche</b> operationen mit Netzen aus
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Union/de" title="Mesh Union/de">Vereinigung</a>: Führt Netze zusammen </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Intersection/de" title="Mesh Intersection/de">Schnitt</a>: Überschneidet Netze </li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Difference/de" title="Mesh Difference/de">Differenz</a>: Verschneidet Netze</li></ul></li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Merge/de" title="Mesh Merge/de">Zusammenführen</a>: Führe Netze zusammen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_SelectMesh/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh SelectMesh/de (page does not exist)">Netz Auswählen</a>: Netz auswählen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_cut.svg" class="image"><img alt="Mesh cut.svg" src="Mesh_cut.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Cut/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh Cut/de (page does not exist)">Netz schneiden</a>: Schneide ein Netz entlang einer Linie</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_SplitMesh/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh SplitMesh/de (page does not exist)">Netz auftrennen</a>: Trenne Netze auf</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:PolygonPick.svg" class="image"><img alt="PolygonPick.svg" src="PolygonPick.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_MakeSegment/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh MakeSegment/de (page does not exist)">Segment erzeugen</a>: Segment erzeugen</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_TrimMesh/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh TrimMesh/de (page does not exist)">Netz trimmen</a>: Trimmt Netze</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_TrimMeshWithPlane/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh TrimMeshWithPlane/de (page does not exist)">Netz mit Ebene trimmen</a>: Trimmt Netz an einer Ebene</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_CreateMeshSegment/de&amp;action=edit&amp;redlink=1" class="new" title="Mesh CreateMeshSegment/de (page does not exist)">Netzsegmente erstellen...</a>: Erstellt Segmente eines Netzes</li>
+<li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Mesh_Curvature_Plot.svg" class="image"><img alt="Mesh Curvature Plot.svg" src="Mesh_Curvature_Plot.svg" width="32" height="32" /></a> <a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_CurvaturePlot/de" title="Mesh CurvaturePlot/de">Krümmungsplot</a>: Erzeuge einen Krümmungsplot</li></ul>
+<p><br />
+</p>
+<ul><li> <a href="https://www.freecadweb.org/wiki/index.php?title=File:Preferences-import-export.svg" class="image"><img alt="Preferences-import-export.svg" src="Preferences-import-export.svg" width="32" height="32" /></a> <a href="Import_Export_Preference.html" title="Import Export Preference">Preference ...</a> Import Export</li></ul>
+<p>Dies sind nur einige der grundlegenden Operationen, die momentan im Netz-Modul enthalten sind. Aber die FreeCAD Netze können auch noch auf vielen anderen Wegen bearbeitet werden z.B. durch<a href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/de" title="Mesh Scripting/de"> Scripting</a>.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li> <a href="FreeCAD_and_Mesh_Import.html" title="FreeCAD and Mesh Import">FreeCAD and Mesh Import</a></li></ul>
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/de&amp;oldid=289994">http://www.freecadweb.org/wiki/index.php?title=Mesh_Workbench/de&amp;oldid=289994</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

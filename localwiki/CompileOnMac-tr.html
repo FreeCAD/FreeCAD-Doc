@@ -1,0 +1,160 @@
+<html><head><title>CompileOnMac/tr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>CompileOnMac/tr</h1></div>
+
+<div id="mw-content-text" lang="tr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>This page explains how to compile the latest FreeCAD source code on Mac OS X.  It is meant as a starting point for developing on FreeCAD; if you instead want to try using the latest pre-release version of FreeCAD, downloads are available from our continuous integration system at <a rel="nofollow" class="external free" href="https://github.com/FreeCAD/FreeCAD/releases">https://github.com/FreeCAD/FreeCAD/releases</a> . 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Package_Manager"><span class="tocnumber">1.1</span> <span class="toctext">Package Manager</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#CMake"><span class="tocnumber">1.2</span> <span class="toctext">CMake</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Installing_the_Dependencies"><span class="tocnumber">2</span> <span class="toctext">Installing the Dependencies</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Getting_the_source"><span class="tocnumber">3</span> <span class="toctext">Getting the source</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Building_FreeCAD"><span class="tocnumber">4</span> <span class="toctext">Building FreeCAD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#CMake_Options"><span class="tocnumber">4.1</span> <span class="toctext">CMake Options</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#CMake_GUI"><span class="tocnumber">4.2</span> <span class="toctext">CMake GUI</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#CMake_command_line"><span class="tocnumber">4.3</span> <span class="toctext">CMake command line</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Make"><span class="tocnumber">4.4</span> <span class="toctext">Make</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Updating"><span class="tocnumber">5</span> <span class="toctext">Updating</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Troubleshooting"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Fortran"><span class="tocnumber">6.1</span> <span class="toctext">Fortran</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#OpenGL"><span class="tocnumber">6.2</span> <span class="toctext">OpenGL</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#FreeType"><span class="tocnumber">6.3</span> <span class="toctext">FreeType</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<p>First of all, you will need to install the following software.
+</p>
+<h3><span class="mw-headline" id="Package_Manager">Package Manager</span></h3>
+<p>For FreeCAD, we usually use <a rel="nofollow" class="external text" href="https://brew.sh/">Homebrew</a>, though MacPorts was used previously.
+</p>
+<h3><span class="mw-headline" id="CMake">CMake</span></h3>
+<p>FreeCAD uses <a rel="nofollow" class="external text" href="http://www.cmake.org/">CMake</a> to build the source.  CMake comes in two versions, command-line and GUI. Use whichever you prefer.
+</p><p>The command-line version of CMake will be automatically installed by Homebrew in the prerequisites step, or the GUI version can be downloaded directly from <a rel="nofollow" class="external free" href="https://www.cmake.org/download">https://www.cmake.org/download</a> .
+</p>
+<h2><span class="mw-headline" id="Installing_the_Dependencies">Installing the Dependencies</span></h2>
+<p>All of the needed libraries can be installed using Homebrew.  We maintain a "tap" including a formula for FreeCAD, it can be used to get the relevant dependencies.
+</p><p>We are currently transitioning FreeCAD from Qt 4 to Qt 5; the Homebrew formula will default to installing Qt5.6 unless --with-qt4 is specified along with --only-dependencies. 
+</p><p><i>Note that there is currently a bug where the dependencies aren't all installed on the first run of brew install... - the duplicate line below is intentional</i>
+</p>
+<pre>
+brew tap homebrew/science
+brew tap freecad/freecad
+brew install --only-dependencies freecad
+brew install --only-dependencies freecad
+</pre>
+<h2><span class="mw-headline" id="Getting_the_source">Getting the source</span></h2>
+<p>In this guide, the source and build folders are created in <b>/Users/username/FreeCAD</b>, but you can of course use whatever folder you want.
+</p>
+<pre>
+mkdir ~/FreeCAD
+cd ~/FreeCAD
+</pre>
+<p>To get the FreeCAD source code, this command will create a "clone" of the FreeCAD git repository in to a new directory called FreeCAD-git:
+</p>
+<pre>
+git clone https://github.com/FreeCAD/FreeCAD FreeCAD-git
+</pre>
+<h2><span class="mw-headline" id="Building_FreeCAD">Building FreeCAD</span></h2>
+<p>Create a new folder for the build:
+</p>
+<pre>
+mkdir ~/FreeCAD/build
+</pre>
+<p>Now you will need to run CMake to generate the build files.  Several options will need to be given to CMake, which can be accomplished either with the CMake GUI application, or via the command line.
+</p>
+<h3><span class="mw-headline" id="CMake_Options">CMake Options</span></h3>
+<table class="wikitable" style="text-align:left">
+
+<tr>
+<th> Name </th>
+<th> Value  </th>
+<th> Notes
+</th></tr>
+<tr>
+<td> BUILD_QT5 </td>
+<td> 1 (checked) </td>
+<td> Set 0 (unchecked) if building with Qt4.
+</td></tr>
+<tr>
+<td> FREECAD_USE_EXTERNAL_KDL </td>
+<td> 1 (checked) </td>
+<td>
+</td></tr>
+<tr>
+<td> CMAKE_BUILD_TYPE </td>
+<td> Debug </td>
+<td> Can be Debug or Release.  Debug is generally used for development
+</td></tr>
+<tr>
+<td> BUILD_FEM_NETGEN </td>
+<td> 1 (checked) </td>
+<td>
+</td></tr>
+<tr>
+<td> FREECAD_CREATE_MAC_APP </td>
+<td> 1 (checked) </td>
+<td> If you want to make a FreeCAD.app , this CMake option will cause "make install" to create a FreeCAD.app bundle in CMAKE_INSTALL_PREFIX .
+</td></tr></table>
+<h3><span class="mw-headline" id="CMake_GUI">CMake GUI</span></h3>
+<p>Open the CMake app, and fill in the source and build folder fields. In this case, it would be <b>/Users/username/FreeCAD/FreeCAD-git</b> for the source, and <b>/Users/username/FreeCAD/build</b> for the build folder. 
+</p><p>Next, click the <b>Configure</b> button to populate the list of configuration options. This will display a dialog asking you to specify what generator to use. Leave it at the default <b>Unix Makefiles.</b> Configuring will fail the first time because there are some options that need to be changed. Note: You will need to check the <b>Advanced</b> checkbox to get all of the options.
+</p><p>Set options from the table above, then click <b>Configure</b> again and then <b>Generate</b>.
+</p>
+<h3><span class="mw-headline" id="CMake_command_line">CMake command line</span></h3>
+<p>Open a terminal, cd in to the build directory that was created above.  Run cmake with options from the table above, following the formula -D(Name)="(Value)", and the path to your FreeCAD source directory as the final argument.
+</p>
+<pre>
+$cd ~/FreeCAD/build
+$cmake -DFREECAD_USE_EXTERNAL_KDL="1" ...options continue... -DFREECAD_CREATE_MAC_APP ="1" ../FreeCAD-git
+</pre>
+<h3><span class="mw-headline" id="Make">Make</span></h3>
+<p>Finally, from a terminal run <b>make</b> to compile FreeCAD.
+</p>
+<pre>
+cd ~/FreeCAD/build
+make –j3
+</pre>
+<p>The -j option specifies how many make processes to run at once. One plus the number of CPU cores is usually a good number to use. However, if compiling fails for some reason, it is useful to rerun make without the -j option, so that you can see exactly where the error occurred.
+</p><p>See also <a href="/wiki/Compiling_(Speeding_up)" title="Compiling (Speeding up)">Compiling - Speeding up</a>.
+</p><p>If make finishes without any errors, you can now launch FreeCAD, either from Terminal with <b>./bin/FreeCAD</b>, or by double clicking the executable in Finder.
+</p>
+<h2><span class="mw-headline" id="Updating">Updating</span></h2>
+<p>FreeCAD development happens fast; every day or so there are bug fixes or new features.  To get the latest changes, use git to update the source directory (see <a href="Source_code_management.html" title="Source code management">Source code management</a>), then re-run the CMake and make steps above.  It is not usually necessary to start with a clean build directory in this case, and subsequent compiles will generally go much faster than the first one.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Fortran">Fortran</span></h3>
+<p><i>"No CMAKE_Fortran_COMPILER could be found."</i> during configuration - Older versions of FreeCAD will need a fortran compiler installed.  With Homebrew, do "brew install gcc" and try configuring again, giving cmake the path to Fortran ie -DCMAKE_Fortran_COMPILER=/opt/local/bin/gfortran-mp-4.9 .  Or, preferably use a more current version of FreeCAD source!
+</p>
+<h3><span class="mw-headline" id="OpenGL">OpenGL</span></h3>
+<p>See <a href="OpenGL_on_MacOS.html" title="OpenGL on MacOS">OpenGL on MacOS</a> for OpenGL issues when Qt 4.8 and earlier are used on MacOS.
+</p>
+<h3><span class="mw-headline" id="FreeType">FreeType</span></h3>
+<p>When using CMake versions older than 3.1.0, it's necessary to set CMake variable FREETYPE_INCLUDE_DIR_freetype2 manually, eg /usr/local/include/freetype2
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=CompileOnMac/tr&amp;oldid=223758">http://www.freecadweb.org/wiki/index.php?title=CompileOnMac/tr&amp;oldid=223758</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

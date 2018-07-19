@@ -1,0 +1,103 @@
+<html><head><title>Arch Schedule/en</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Arch Schedule/en</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id=".7B.7B.7BName.2Fen.7D.7D.7D"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Schedule.png" class="image"><img alt="Arch Schedule.png" src="32px-Arch_Schedule.png" width="32" height="32" srcset="/wiki/images/thumb/1/11/Arch_Schedule.png/48px-Arch_Schedule.png 1.5x, /wiki/images/1/11/Arch_Schedule.png 2x" /></a> {{{Name/en}}}</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Menu location
+</th></tr>
+<tr>
+<td class="ctEven">Arch → Create schedule...
+</td></tr>
+<tr>
+<th class="ctOdd">Workbenches
+</th></tr>
+<tr>
+<td class="ctEven"><a href="Arch_Module.html" title="Arch Module">Arch</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Default shortcut
+</th></tr>
+<tr>
+<td class="ctEven">
+</td></tr>
+<tr>
+<th class="ctOdd">See also
+</th></tr>
+<tr>
+<td class="ctEven">None
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.7B.7B.7BName.2Fen.7D.7D.7D"><span class="tocnumber">1</span> <span class="toctext">{{{Name/en}}}</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_to_use"><span class="tocnumber">3</span> <span class="toctext">How to use</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Workflow"><span class="tocnumber">4</span> <span class="toctext">Workflow</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Filters"><span class="tocnumber">5</span> <span class="toctext">Filters</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br /> 
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
+<p>The Schedule tool allows you to create and automatically populate a <a href="Spreadsheet_Module.html" class="mw-redirect" title="Spreadsheet Module">spreadsheet</a> with contents gathered from the model.
+</p><p><b>Note</b>: This tool has been rewritten in FreeCAD 0.17 and differs in previous versions.
+</p>
+<h2><span class="mw-headline" id="How_to_use">How to use</span></h2>
+<ol><li> Open or create a FreeCAD document which contains some objects</li>
+<li> Press the <span style="background: #DDDDDD; border: 1px solid #888888; padding: 0px 5px 1px 5px;"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_Schedule.png" class="image"><img alt="Arch Schedule.png" src="16px-Arch_Schedule.png" width="16" height="16" srcset="/wiki/images/thumb/1/11/Arch_Schedule.png/24px-Arch_Schedule.png 1.5x, 32px-Arch_Schedule.png 2x" /></a> <a href="Arch_Schedule.html" title="Arch Schedule">Schedule</a></span> button</li>
+<li> Adjust the desired options</li>
+<li> Press <b>OK</b></li></ol>
+<h2><span class="mw-headline" id="Workflow">Workflow</span></h2>
+<p>First you need to have a model. For example, here is a document with a couple of objects. I did Arch stuff here, but it doesn't need to be Arch, it can be anything.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_schedule_example01.jpg" class="image"><img alt="Arch schedule example01.jpg" src="Arch_schedule_example01.jpg" width="1136" height="682" /></a>
+</p><p>Then you press the Arch Schedule button. You get a task panel like this. It is pretty wide, so you'll need to widen the task panel to be comfortable.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_schedule_example02.jpg" class="image"><img alt="Arch schedule example02.jpg" src="Arch_schedule_example02.jpg" width="858" height="555" /></a>
+</p><p>Then you can fill line by line. Each line is a "query" and will render one line in the spreadsheet. Press the <b>Add</b> button to add a new line, and double-click each cell from that line to fill in the values. The <b>Del</b> button will delete the line which contains a currently selected cell, and <b>Clear</b> will delete all the lines. Possible values to put in columns are:
+</p>
+<ul><li> <b>Description</b>: A description for this query. The Description column will be the first column of the resulting spreadsheet. The description is mandatory to have a query performed. If you leave the description cell empty, the whole line will be skipped and left blank in the spreadsheet. This allows you to add "separator" lines.</li>
+<li> <b>Value</b>: This is the real query that you want to perform on all the objects selected by this query. It can be two kinds of things: either the word <b>count</b> (or Count or COUNT, it's case-insensitive), which will simply count objects, or retrieve ans sum a property, for example <b>object.Shape.Volume</b> or <b>object.Length</b> or even <b>object.Label</b>. The name you use before the first dot (object) can be anything, you could also write x.Shape.Volume. The rule is: what comes after the first dot will be retrieved from each object selected by this query, if possible (object that don't have the required property will be skipped), and the result will be added together. For example, if you use object.Shape.Volume, you will get the sum of all volumes of all objects selected by this query.</li>
+<li> <b>Unit</b>: An optional unit to express the results in. It's up to you to give a unit that matches the query you are doing, for example, if you are retrieving volumes, you should use a volume unit, such as m^3. If you use a wrong unit, for ex. cm, you'll get wrong results.</li>
+<li> <b>Objects</b>: You can leave this empty, then all the objects of the document will be considered by this query, or give a semicolon (;)-separated list of object names (not labels). If any of the objects in this list is a group, its children will be selected as well. So the easiest way to use this feature is to group your objects meaningfully in the document, and just give a group name here. You can also use the <b>Selection</b> button to add objects currently selected in the document.</li>
+<li> <b>Filter</b>: Here you can add a semicolon(;)-separated list of filters. Each filter is written in the form: filter:value, where filter can be (it's case-insensitive too): Name, Label, Type, or Role (see full list below). For example: name:door;type:window will filter the objects we got from the step above, and retain only those whose name contains "door" AND the type (returned by Draft.getType) is "wall". Everything is case-insensitive. Filters that begins with&#160;! are inverted. For example,&#160;!name:wall will retain only objects that DON'T have "wall" in their name. "Role" is a property that all Arch objects have.</li></ul>
+<p>The <b>Import</b> button allows you to build this list in another spreadsheet application, and import that as a csv file here.
+</p><p>So we can build a list of queries like this:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_schedule_example03.jpg" class="image"><img alt="Arch schedule example03.jpg" src="Arch_schedule_example03.jpg" width="858" height="555" /></a>
+</p><p>After that, press OK and a new Schedule object is added to the document, which contains a result spreadsheet:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_schedule_example04.jpg" class="image"><img alt="Arch schedule example04.jpg" src="Arch_schedule_example04.jpg" width="746" height="552" /></a>
+</p><p>By double-clicking the Schedule object, you get back to the task panel and change the values. By double-clicking the spreadsheet itself, you get the results in 3 columns: description, value, unit (if applicable):
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Arch_schedule_example05.jpg" class="image"><img alt="Arch schedule example05.jpg" src="Arch_schedule_example05.jpg" width="840" height="504" /></a>
+</p><p>The spreadsheet can then be exported to csv normally, from the Spreadsheet workbench.
+</p>
+<h2><span class="mw-headline" id="Filters">Filters</span></h2>
+<p>Currently available filters:
+</p>
+<ul><li> <b>name:something</b>: Will retain only objects that have "something" in their name (case-insensitive)</li>
+<li> <b>!name:something</b>: Will retain only objects that don't have "something" in their name</li>
+<li> <b>label:something</b>: Will retain only objects that have "something" in their label (case-insensitive)</li>
+<li> <b>!label:something</b>: Will retain only objects that don't have "something" in their label</li>
+<li> <b>type:something</b>: Will retain only objects where the Draft.getType() function returns "something"</li>
+<li> <b>!type:something</b>: Will retain only objects where the Draft.getType() function does not return "something"</li>
+<li> <b>role:something</b>: Will retain only objects that have a Role property set to "something"</li>
+<li> <b>!role:something</b>: Will retain only objects that don't have a Role property, or where the Role property is not set to "something"</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Arch_Schedule/en&amp;oldid=208838">http://www.freecadweb.org/wiki/index.php?title=Arch_Schedule/en&amp;oldid=208838</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

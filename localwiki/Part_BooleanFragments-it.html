@@ -1,0 +1,116 @@
+<html><head><title>Part BooleanFragments/it</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Part BooleanFragments/it</h1></div>
+
+<div id="mw-content-text" lang="it" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><table class="fcinfobox wikitable ct" >
+<tr>
+<td class="ctTitle">
+<h3><span class="mw-headline" id="Part_BooleanFragments"><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanFragments.png" class="image"><img alt="Part BooleanFragments.png" src="32px-Part_BooleanFragments.png" width="32" height="32" srcset="/wiki/images/thumb/f/fc/Part_BooleanFragments.png/48px-Part_BooleanFragments.png 1.5x, /wiki/images/f/fc/Part_BooleanFragments.png 2x" /></a> Part BooleanFragments</span></h3>
+</td></tr>
+<tr>
+<th class="ctOdd">Posizione nel menu
+</th></tr>
+<tr>
+<td class="ctEven">Part → Split → Boolean Fragments
+</td></tr>
+<tr>
+<th class="ctOdd">Ambiente
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/it" title="Part Module/it">Part</a>
+</td></tr>
+<tr>
+<th class="ctOdd">Avvio veloce
+</th></tr>
+<tr>
+<td class="ctEven">Nessuno
+</td></tr>
+<tr>
+<th class="ctOdd">Vedere anche
+</th></tr>
+<tr>
+<td class="ctEven"><a href="https://www.freecadweb.org/wiki/index.php?title=Part_Slice/it" title="Part Slice/it">Part Slice</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_XOR/it&amp;action=edit&amp;redlink=1" class="new" title="Part XOR/it (page does not exist)">Part XOR</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_CompJoinFeatures/it" title="Part CompJoinFeatures/it">Join</a>, <a href="https://www.freecadweb.org/wiki/index.php?title=Part_Booleans/it" title="Part Booleans/it">Booleana</a>
+</td></tr>
+<tr>
+<td class="ctToc"><br /><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Part_BooleanFragments"><span class="tocnumber">1</span> <span class="toctext">Part BooleanFragments</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Descrizione"><span class="tocnumber">2</span> <span class="toctext">Descrizione</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Uso"><span class="tocnumber">3</span> <span class="toctext">Uso</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Propriet.C3.A0"><span class="tocnumber">4</span> <span class="toctext">Proprietà</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Dettagli_dell.27implementazione"><span class="tocnumber">5</span> <span class="toctext">Dettagli dell'implementazione</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Script"><span class="tocnumber">6</span> <span class="toctext">Script</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Versioni"><span class="tocnumber">7</span> <span class="toctext">Versioni</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Descrizione">Descrizione</span></h2>
+<p>Strumento per calcolare tutti i frammenti che possono derivare dall'applicazione delle operazioni booleane tra le forme in ingresso. Ad esempio, per due sfere intersecanti, vengono generati tre solidi non sovrapposti, ma a contatto. 
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Part_BooleanFragments_Demo.png" class="image"><img alt="Part BooleanFragments Demo.png" src="600px-Part_BooleanFragments_Demo.png" width="600" height="334" srcset="/wiki/images/thumb/c/cf/Part_BooleanFragments_Demo.png/900px-Part_BooleanFragments_Demo.png 1.5x, /wiki/images/c/cf/Part_BooleanFragments_Demo.png 2x" /></a>
+</p><p>(Nella figura sopra, i pezzi sono stati separati manualmente dopo l'operazione, per rendere visibili le singole parti)
+</p><p>La forma in uscita è sempre un composto. Il contenuto del composto dipende dai tipi di forme di ingresso e dalla modalità in cui l'operazione viene eseguita. Ciò significa che non si ottiene immediatamente l'accesso ai singoli pezzi del risultato, ma i pezzi rimangono raggruppati insieme. I singoli pezzi possono essere estratti dividendo il composto con <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Downgrade/it" title="Draft Downgrade/it">Scomponi</a>.
+</p><p>Lo strumento dispone di tre modalità: "Standard", "Split", e "CompSolid".
+</p><p>Le modalità "Standard" e "Split" differiscono per l'azione dello strumento su wire, shell e compsolid: se si usa "Split", essi sono separati; se si usa "Standard", essi sono mantenuti insieme (si ottengono dei segmenti in più).
+</p><p>La struttura del composto nelle modalità "Split" e "Standard" segue la struttura dei composti in ingresso. Cioè, se si forniscono due composti, ciascuno contenente una sfera come su nell'esempio precedente, anche il risultato contiene due composti, ciascuno contenente i pezzi della sfera originariamente contenuta. Ciò significa che nel risultato il pezzo comune è ripetuto due volte. Solo se le sfere in ingresso sono entrambi dei non composti, il risultato contiene il pezzo comune una volta sola.
+</p><p>In modalità  "CompSolid", i solidi vengono uniti in un compsolid (il compsolid è formato da un gruppo di solidi collegati dalle facce, esse si rapportano ai solidi come le polilinee (wire) si rapportano ai bordi (edge), e i gusci (shell) si rapportano alle facce, il nome è probabilmente l'abbreviazione di "solido composito"). L'output è un composto non-annidato di compsolidi
+</p>
+<h2><span class="mw-headline" id="Uso">Uso</span></h2>
+<ol><li> Selezionare gli oggetti da intersecare. <br /> L'ordine di selezione non è importante, poiché l'azione dello strumento è simmetrica. È sufficiente selezionare un sotto-forma di ogni oggetto (ad esempio una faccia). Inoltre, è possibile selezionare un composto contenente diverse forme collegate, ad es. una <a href="https://www.freecadweb.org/wiki/index.php?title=Draft_Array/it" title="Draft Array/it">Schiera</a>.</li>
+<li> Avviare il comando Frammenti booleani di Part.</li></ol>
+<p>Viene creato un oggetto parametrico Boolean Fragments. Vengono nascosti gli oggetti originali , e nella vista 3D viene mostrato il risultato dell'intersezione.
+</p>
+<h2><span class="mw-headline" id="Propriet.C3.A0">Proprietà</span></h2>
+<p><span style="color: #ffffff; background-color: #a0a0a0; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">Boolean Fragments</span>
+</p>
+<ul><li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Objects</b>: Elenco degli oggetti da intersecare. Generalmente, sono necessari almeno due oggetti, ma va anche bene un unico composto contenente le forme di intersecare. (da FreeCAD v0.17.8053, questa proprietà non viene visualizzata nell'editor delle proprietà, e si può accedere solo tramite Python).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Mode</b>: "Standard", "Split", o "CompSolid". "Standard" è il default. Standard e Split differiscono per l'azione dello strumento sull'aggregazione delle forme; se "Split", essi sono separati; se "Standard", essi sono mantenuti insieme (si ottengono dei segmenti in più).</li>
+<li> <span style="font-size: 0.6em;padding-right:10px;">DATA</span><b>Tolerance</b>: valore di "confusione". Questa è una tolleranza supplementare da applicare durante la ricerca delle intersezioni, oltre alle tolleranze memorizzate nelle forme in ingresso.</li></ul>
+<h2><span class="mw-headline" id="Dettagli_dell.27implementazione">Dettagli dell'implementazione</span></h2>
+<p>Lo strumento Boolean Fragments in "Modalità Standard" è un General Fuse Operator (GFA) di OpenCascade. Esso accetta una combinazione di tutti tipi di forme probabili, e la logica dell'output è piuttosto complicata. Vedere <a rel="nofollow" class="external text" href="https://www.opencascade.com/doc/occt-7.0.0/overview/html/occt_user_guides__boolean_operations.html">OpenCascade user guide: Boolean operations</a>.
+</p><p>Per le modalità "Split" e "CompSolid", la post-elaborazione in più è fatta da FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Script">Script</span></h2>
+<p>Lo strumento può essere utilizzato nelle <a href="https://www.freecadweb.org/wiki/index.php?title=Macros/it" title="Macros/it">macro</a> e dalla console python utilizzando la seguente funzione:
+</p>
+<pre><b>BOPTools.SplitFeatures.makeBooleanFragments(name)</b>
+</pre>
+<ul><li> Crea una funzione BooleanFragments vuota. Le proprietà 'Objects' devono essere assegnate in modo esplicito, in seguito.</li>
+<li> Restituisce l'oggetto appena creato.</li></ul>
+<p>BooleanFragments può essere applicato anche a forme piane, senza la necessità di avere un document object, attraverso:
+</p>
+<pre>Part.BOPTools.SplitAPI.booleanFragments(list_of_shapes, mode, tolerance = 0.0)
+
+# OR, for Standard mode:
+
+list_of_shapes = [App.ActiveDocument.Sphere.Shape, App.ActiveDocument.Sphere001.Shape]
+pieces, map = list_of_shapes[0].generalFuse(list_of_shapes[1:], tolerance)
+# pieces receives a compound of shapes; map receives a list of lists of shapes, defining list_of_shapes &lt;--&gt; pieces correspondence </pre>
+<p>Questo può essere utile per creare delle funzioni personalizzate con script Python.
+</p><p><br />
+Esempio:
+</p>
+<pre>import Part
+j = Part.BOPTools.SplitFeatures.makeBooleanFragments(name= 'BooleanFragments')
+j.Objects = FreeCADGui.Selection.getSelection() </pre>
+<p>Lo strumento stesso è implementato in Python, vedere /Mod/Part/BOPTools/SplitFeatures.py nell'installazione di FreeCAD.
+</p>
+<h2><span class="mw-headline" id="Versioni">Versioni</span></h2>
+<p>Lo strumento è stato introdotto in FreeCAD v0.17.8053. FreeCAD deve essere compilato con OCC 6.9.0 o superiore; altrimenti lo strumento non è disponibile.
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Part_BooleanFragments/it&amp;oldid=214838">http://www.freecadweb.org/wiki/index.php?title=Part_BooleanFragments/it&amp;oldid=214838</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

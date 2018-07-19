@@ -1,0 +1,113 @@
+<html><head><title>Mesh Scripting/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Scripting/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.81.AF.E3.81.98.E3.82.81.E3.81.AB"><span class="tocnumber">1</span> <span class="toctext">はじめに</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E4.BD.9C.E6.88.90.E3.81.A8.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF"><span class="tocnumber">2</span> <span class="toctext">作成と読み込み</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0"><span class="tocnumber">3</span> <span class="toctext">モデリング</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E8.AA.BF.E6.9F.BB.E3.81.A8.E3.83.86.E3.82.B9.E3.83.88"><span class="tocnumber">4</span> <span class="toctext">調査とテスト</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E7.8B.AC.E8.87.AA.E3.81.AE.E3.82.A2.E3.83.AB.E3.82.B4.E3.83.AA.E3.82.BA.E3.83.A0.E3.82.92.E6.9B.B8.E3.81.8F"><span class="tocnumber">5</span> <span class="toctext">独自のアルゴリズムを書く</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E3.82.A8.E3.82.AF.E3.82.B9.E3.83.9D.E3.83.BC.E3.83.88"><span class="tocnumber">6</span> <span class="toctext">エクスポート</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#GUI.E9.96.A2.E9.80.A3"><span class="tocnumber">7</span> <span class="toctext">GUI関連</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E9.9B.91.E8.A8.98"><span class="tocnumber">8</span> <span class="toctext">雑記</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E3.81.AF.E3.81.98.E3.82.81.E3.81.AB">はじめに</span></h3>
+<p>まず、メッシュモジュールをインポートする必要があります:
+</p>
+<pre>import Mesh
+</pre>
+<p>これで、FreeCADのC++ Meshカーネルの関数を容易に使うことができるMeshモジュールとMeshクラスへのアクセス権限があります。
+</p>
+<h3><span class="mw-headline" id=".E4.BD.9C.E6.88.90.E3.81.A8.E8.AA.AD.E3.81.BF.E8.BE.BC.E3.81.BF">作成と読み込み</span></h3>
+<p>空のメッシュオブジェクトを作成するには、標準のコンストラクタを使用します。
+</p>
+<pre>mesh = Mesh.Mesh()
+</pre>
+<p>また、ファイルからオブジェクトを作成することができます
+</p>
+<pre>mesh = Mesh.Mesh('D:/temp/Something.stl')
+</pre>
+<p>（互換性のあるファイルタイプのリストは'Meshes'で見ることができます。<a href="/wiki/Feature_list/jp#IO" title="Feature list/jp">ここ</a>）
+または頂点座標で記述された三角形の集合体から作成します。
+</p>
+<pre>planarMesh = [
+# triangle 1
+[-0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],[-0.5000,0.5000,0.0000],
+#triangle 2
+[-0.5000,-0.5000,0.0000],[0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],
+]
+planarMeshObject = Mesh.Mesh(planarMesh)
+</pre>
+<p>メッシュカーネルは、一致する点やエッジをソートすることによってトポロジー的に正しいデータ構造を作成する手助けをします。
+</p><p>後でメッシュデータを表示してテストし、メッシュデータを調べることができます。
+</p>
+<h3><span class="mw-headline" id=".E3.83.A2.E3.83.87.E3.83.AA.E3.83.B3.E3.82.B0">モデリング</span></h3>
+<p>PythonスクリプトのBuildRegularGeoms.pyを使用すると、正常なジオメトリを作成することができます。
+</p>
+<pre>import BuildRegularGeoms
+</pre>
+<p>このスクリプトは、球・楕円・円柱・ドーナツ形・円錐と同様にシンプルな回転体を定義するためのメソッドを提供します。そしてそれはまた、単純な立方体を作成するためのメソッドを持っています。
+ドーナツ形状を作成するには、例えば以下のように行うことができます。
+</p>
+<pre>t = BuildRegularGeoms.Toroid(8.0, 2.0, 50) # list with several thousands triangles
+m = Mesh.Mesh(t)
+</pre>
+<p>最初の2つのパラメータはドーナツ形の半径を定義し、3番目のパラメータは形状を構成する三角形状のサブサンプリング係数です。この値が高いほど、より滑らかになり、低いと粗くなります。
+Meshクラスは、モデリングの目的で使用できるブール関数のセットを提供します。それは、和・積と2つのメッシュオブジェクトの差を提供します。
+</p>
+<pre>m1, m2              # are the input mesh objects
+m3 = Mesh.Mesh(m1)  # create a copy of m1
+m3.unite(m2)        # union of m1 and m2, the result is stored in m3
+m4 = Mesh.Mesh(m1)
+m4.intersect(m2)    # intersection of m1 and m2
+m5 = Mesh.Mesh(m1)
+m5.difference(m2)   # the difference of m1 and m2
+m6 = Mesh.Mesh(m2)
+m6.difference(m1)   # the difference of m2 and m1, usually the result is different to m5
+</pre>
+<p>最後に、その完全な例は、球とシリンダの交点を計算します。
+</p>
+<pre>import Mesh, BuildRegularGeoms
+sphere = Mesh.Mesh( BuildRegularGeoms.Sphere(5.0, 50) )
+cylinder = Mesh.Mesh( BuildRegularGeoms.Cylinder(2.0, 10.0, True, 1.0, 50) )
+diff = sphere
+diff.difference(cylinder)
+d = FreeCAD.newDocument()
+d.addObject("Mesh::Feature","Diff_Sphere_Cylinder").Mesh=diff
+d.recompute()
+</pre>
+<h3><span class="mw-headline" id=".E8.AA.BF.E6.9F.BB.E3.81.A8.E3.83.86.E3.82.B9.E3.83.88">調査とテスト</span></h3>
+<h3><span class="mw-headline" id=".E7.8B.AC.E8.87.AA.E3.81.AE.E3.82.A2.E3.83.AB.E3.82.B4.E3.83.AA.E3.82.BA.E3.83.A0.E3.82.92.E6.9B.B8.E3.81.8F">独自のアルゴリズムを書く</span></h3>
+<h3><span class="mw-headline" id=".E3.82.A8.E3.82.AF.E3.82.B9.E3.83.9D.E3.83.BC.E3.83.88">エクスポート</span></h3>
+<p>Pythonのモジュールにメッシュを書くことができます：
+</p>
+<pre>m.write("D:/Develop/Projekte/FreeCAD/FreeCAD_0.7/Mod/Mesh/SavedMesh.py")
+import SavedMesh
+m2 = Mesh.Mesh(SavedMesh.faces)
+</pre>
+<h3><span class="mw-headline" id="GUI.E9.96.A2.E9.80.A3">GUI関連</span></h3>
+<h3><span class="mw-headline" id=".E9.9B.91.E8.A8.98">雑記</span></h3>
+<p>メッシュ関連スクリプトの広範な（ハードな使い方）のソースは、メッシュモジュールのユニットテストスクリプトです。
+このユニットテストでは文字通りすべてのメソッドが呼び出され、すべてのプロパティ/属性が微調整されています。
+そして十分な情報がほしいときは、<a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Mesh/App/MeshTestsApp.py?view=markup">Unit Test module</a>を見てください。
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp&amp;oldid=211360">http://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/jp&amp;oldid=211360</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

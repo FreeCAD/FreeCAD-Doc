@@ -1,0 +1,457 @@
+<html><head><title>Extra python modules/es</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Extra python modules/es</h1></div>
+
+<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>El interprete de Python dentro de FreeCAD puede extenderse fácilmente añadiendo nuevos módulos a tu instalación de Python. Esos módulos se detectarán automáticamente y utilizarán por FreeCAD.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#PySide_.28previously_PyQt4.29"><span class="tocnumber">1</span> <span class="toctext">PySide (previously PyQt4)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Installation"><span class="tocnumber">1.1</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Linux"><span class="tocnumber">1.1.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Windows"><span class="tocnumber">1.1.2</span> <span class="toctext">Windows</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#MacOSX"><span class="tocnumber">1.1.3</span> <span class="toctext">MacOSX</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Usage"><span class="tocnumber">1.2</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Example_of_transition_from_PyQt4_and_PySide"><span class="tocnumber">1.3</span> <span class="toctext">Example of transition from PyQt4 and PySide</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Documentaci.C3.B3n"><span class="tocnumber">1.4</span> <span class="toctext">Documentación</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Pivy"><span class="tocnumber">2</span> <span class="toctext">Pivy</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Instalaci.C3.B3n"><span class="tocnumber">2.1</span> <span class="toctext">Instalación</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Requisitos_previos"><span class="tocnumber">2.1.1</span> <span class="toctext">Requisitos previos</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Debian_.26_Ubuntu"><span class="tocnumber">2.1.2</span> <span class="toctext">Debian &amp; Ubuntu</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Otras_distribuciones_Linux"><span class="tocnumber">2.1.3</span> <span class="toctext">Otras distribuciones Linux</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Mac_OS"><span class="tocnumber">2.1.4</span> <span class="toctext">Mac OS</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Windows_2"><span class="tocnumber">2.1.5</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#Utilizaci.C3.B3n"><span class="tocnumber">2.2</span> <span class="toctext">Utilización</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Documentaci.C3.B3n_2"><span class="tocnumber">2.3</span> <span class="toctext">Documentación</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#pyCollada"><span class="tocnumber">3</span> <span class="toctext">pyCollada</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Instalaci.C3.B3n_2"><span class="tocnumber">3.1</span> <span class="toctext">Instalación</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Linux_2"><span class="tocnumber">3.1.1</span> <span class="toctext">Linux</span></a>
+<ul>
+<li class="toclevel-4 tocsection-21"><a href="#Desde_el_repositorio_de_Git"><span class="tocnumber">3.1.1.1</span> <span class="toctext">Desde el repositorio de Git</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="#Con_easy_install"><span class="tocnumber">3.1.1.2</span> <span class="toctext">Con easy_install</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-23"><a href="#Windows_3"><span class="tocnumber">3.1.2</span> <span class="toctext">Windows</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Mac_OS_2"><span class="tocnumber">3.1.3</span> <span class="toctext">Mac OS</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="#IfcOpenShell"><span class="tocnumber">4</span> <span class="toctext">IfcOpenShell</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="#Installation_2"><span class="tocnumber">4.1</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#Linux_3"><span class="tocnumber">4.1.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Windows_4"><span class="tocnumber">4.1.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29"><a href="#Links"><span class="tocnumber">4.2</span> <span class="toctext">Links</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="#Teigha_Converter"><span class="tocnumber">5</span> <span class="toctext">Teigha Converter</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="#Installation_3"><span class="tocnumber">5.1</span> <span class="toctext">Installation</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="PySide_.28previously_PyQt4.29">PySide (previously PyQt4)</span></h2>
+<ul><li> homepage (PySide): <a rel="nofollow" class="external free" href="http://qt-project.org/wiki/PySide">http://qt-project.org/wiki/PySide</a></li>
+<li> license: LGPL  </li>
+<li> optional, but needed by several modules: Draft, Arch, Ship, Plot, OpenSCAD, Spreadsheet</li></ul>
+<p>PySide (previously PyQt) is required by several modules of FreeCAD to access FreeCAD's Qt interface. It is already bundled in the windows verison of FreeCAD, and is usually installed automatically by FreeCAD on Linux, when installing from official repositories. If those modules (Draft, Arch, etc) are enabled after FreeCAD is installed, it means PySide (previously PyQt) is already there, and you don't need to do anything more.
+</p><p><b>Note:</b> FreeCAD progressively moved away from PyQt after version 0.13, in favour of <a rel="nofollow" class="external text" href="http://qt-project.org/wiki/PySide">PySide</a>, which does exactly the same job but has a license (LGPL) more compatible with FreeCAD.
+</p>
+<h3><span class="mw-headline" id="Installation">Installation</span></h3>
+<h4><span class="mw-headline" id="Linux">Linux</span></h4>
+<p>The simplest way to install PySide is through your distribution's package manager. On Debian/Ubuntu systems, the package name is generally <i>python-PySide</i>, while on RPM-based systems it is named <i>pyside</i>. The necessary dependencies (Qt and SIP) will be taken care of automatically.
+</p>
+<h4><span class="mw-headline" id="Windows">Windows</span></h4>
+<p>The program can be downloaded from <a rel="nofollow" class="external free" href="http://qt-project.org/wiki/Category:LanguageBindings::PySide::Downloads">http://qt-project.org/wiki/Category:LanguageBindings::PySide::Downloads</a> . You'll need to install the Qt and SIP libraries before installing PySide (to be documented).
+</p>
+<h4><span class="mw-headline" id="MacOSX">MacOSX</span></h4>
+<p>PyQt on Mac can be installed via homebrew or port. See <a href="/wiki/CompileOnMac#Install_Dependencies" title="CompileOnMac">CompileOnMac#Install_Dependencies</a> for more information.  
+</p>
+<h3><span class="mw-headline" id="Usage">Usage</span></h3>
+<p>Once it is installed, you can check that everything is working by typing in FreeCAD python console:
+</p>
+<pre>import PySide </pre>
+<p>To access the FreeCAD interface, type&#160;:
+</p>
+<pre>from PySide import QtCore,QtGui
+FreeCADWindow = FreeCADGui.getMainWindow() </pre>
+<p>Now you can start to explore the interface with the dir() command. You can add new elements, like a custom widget, with commands like&#160;:
+</p>
+<pre>FreeCADWindow.addDockWidget(QtCore.Qt.RghtDockWidgetArea,my_custom_widget) </pre>
+<p>Working with Unicode&#160;:
+</p>
+<pre>text = text.encode('utf-8') </pre>
+<p>Working with QFileDialog and OpenFileName&#160;:
+</p>
+<pre>path = FreeCAD.ConfigGet("AppHomePath")
+#path = FreeCAD.ConfigGet("UserAppData")
+OpenName, Filter = PySide.QtGui.QFileDialog.getOpenFileName(None, "Read a txt file", path, "*.txt") </pre>
+<p>Working with QFileDialog and SaveFileName&#160;:
+</p>
+<pre>path = FreeCAD.ConfigGet("AppHomePath")
+#path = FreeCAD.ConfigGet("UserAppData")
+SaveName, Filter = PySide.QtGui.QFileDialog.getSaveFileName(None, "Save a file txt", path, "*.txt") </pre>
+<h3><span class="mw-headline" id="Example_of_transition_from_PyQt4_and_PySide">Example of transition from PyQt4 and PySide</span></h3>
+<p>PS: these examples of errors were found in the transition PyQt4 to PySide and these corrections were made, other solutions are certainly available with the examples above
+</p>
+<pre>try:
+    import PyQt4                                        # PyQt4
+    from PyQt4 import QtGui ,QtCore                     # PyQt4
+    from PyQt4.QtGui import QComboBox                   # PyQt4
+    from PyQt4.QtGui import QMessageBox                 # PyQt4
+    from PyQt4.QtGui import QTableWidget, QApplication  # PyQt4
+    from PyQt4.QtGui import *                           # PyQt4
+    from PyQt4.QtCore import *                          # PyQt4
+except Exception:
+    import PySide                                       # PySide
+    from PySide import QtGui ,QtCore                    # PySide
+    from PySide.QtGui import QComboBox                  # PySide
+    from PySide.QtGui import QMessageBox                # PySide
+    from PySide.QtGui import QTableWidget, QApplication # PySide
+    from PySide.QtGui import *                          # PySide
+    from PySide.QtCore import *                         # PySide </pre>
+<p>To access the FreeCAD interface, type&#160;:
+You can add new elements, like a custom widget, with commands like&#160;:
+</p>
+<pre>myNewFreeCADWidget = QtGui.QDockWidget()          # create a new dockwidget
+myNewFreeCADWidget.ui = Ui_MainWindow()           # myWidget_Ui()             # load the Ui script
+myNewFreeCADWidget.ui.setupUi(myNewFreeCADWidget) # setup the ui
+try:
+    app = QtGui.qApp                              # PyQt4 # the active qt window, = the freecad window since we are inside it
+    FCmw = app.activeWindow()                     # PyQt4 # the active qt window, = the freecad window since we are inside it
+    FCmw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myNewFreeCADWidget) # add the widget to the main window
+except Exception:
+    FCmw = FreeCADGui.getMainWindow()             # PySide # the active qt window, = the freecad window since we are inside it 
+    FCmw.addDockWidget(QtCore.Qt.RightDockWidgetArea,myNewFreeCADWidget) # add the widget to the main window </pre>
+<p>Working with Unicode&#160;: 
+</p>
+<pre>try:
+    text = unicode(text, 'ISO-8859-1').encode('UTF-8')  # PyQt4
+except Exception:
+    text = text.encode('utf-8')                         # PySide </pre>
+<p>Working with QFileDialog and OpenFileName&#160;:
+</p>
+<pre>OpenName = ""
+try:
+    OpenName = QFileDialog.getOpenFileName(None,QString.fromLocal8Bit("Lire un fichier FCInfo ou txt"),path,"*.FCInfo *.txt") # PyQt4
+except Exception:
+    OpenName, Filter = PySide.QtGui.QFileDialog.getOpenFileName(None, "Lire un fichier FCInfo ou txt", path, "*.FCInfo *.txt")#PySide </pre>
+<p>Working with QFileDialog and SaveFileName&#160;:
+</p>
+<pre>SaveName = ""
+try:
+    SaveName = QFileDialog.getSaveFileName(None,QString.fromLocal8Bit("Sauver un fichier FCInfo"),path,"*.FCInfo") # PyQt4
+except Exception:
+    SaveName, Filter = PySide.QtGui.QFileDialog.getSaveFileName(None, "Sauver un fichier FCInfo", path, "*.FCInfo")# PySide </pre>
+<p>The MessageBox:
+</p>
+<pre>def errorDialog(msg):
+    diag = QtGui.QMessageBox(QtGui.QMessageBox.Critical,u"Error Message",msg )
+    try:
+        diag.setWindowFlags(PyQt4.QtCore.Qt.WindowStaysOnTopHint) # PyQt4 # this function sets the window before
+    except Exception:    
+        diag.setWindowFlags(PySide.QtCore.Qt.WindowStaysOnTopHint)# PySide # this function sets the window before
+#    diag.setWindowModality(QtCore.Qt.ApplicationModal)       # function has been disabled to promote "WindowStaysOnTopHint"
+    diag.exec_() </pre>
+<p>Working with setProperty (PyQt4) and setValue (PySide)
+</p>
+<pre>self.doubleSpinBox.setProperty("value", 10.0)  # PyQt4 </pre>
+<p>replace to&#160;:
+</p>
+<pre>self.doubleSpinBox.setValue(10.0)  # PySide </pre>
+<p>Working with setToolTip
+</p>
+<pre>self.doubleSpinBox.setToolTip(_translate("MainWindow", "Coordinate placement Axis Y", None))  # PyQt4 </pre>
+<p>replace to&#160;:
+</p>
+<pre>self.doubleSpinBox.setToolTip(_fromUtf8("Coordinate placement Axis Y"))  # PySide </pre>
+<p>or&#160;:
+</p>
+<pre>self.doubleSpinBox.setToolTip(u"Coordinate placement Axis Y.")# PySide </pre>
+<h3><span class="mw-headline" id="Documentaci.C3.B3n">Documentación</span></h3>
+<p>Más tutoriales de pyQt4 (incluyendo cómo construir interfaces con Qt Designer para utilizar con Python):
+</p><p><a rel="nofollow" class="external free" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html">http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html</a> - la referencia oficial del API de PyQt4
+</p><p><a rel="nofollow" class="external free" href="http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/">http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/</a> - una simple introducción
+</p><p><a rel="nofollow" class="external free" href="http://www.zetcode.com/tutorials/pyqt4/">http://www.zetcode.com/tutorials/pyqt4/</a> - un tutorial en profundidad muy completo
+</p>
+<h2><span class="mw-headline" id="Pivy">Pivy</span></h2>
+<ul><li> homepage: <a rel="nofollow" class="external free" href="https://bitbucket.org/Coin3D/coin/wiki/Home">https://bitbucket.org/Coin3D/coin/wiki/Home</a></li>
+<li> license: BSD</li>
+<li> optional, but needed by several modules of FreeCAD: Draft, Arch</li></ul>
+<p>Pivy is a needed by several modules to access the 3D view of FreeCAD. On windows, Pivy is already bundled inside the FreeCAD installer, and on Linux it is usually automatically installed when you install FreeCAD from an official repository. On MacOSX, unfortunately, you will need to compile pivy yourself.
+</p>
+<h3><span class="mw-headline" id="Instalaci.C3.B3n">Instalación</span></h3>
+<h4><span class="mw-headline" id="Requisitos_previos">Requisitos previos</span></h4>
+<p>Creo que antes de compilar Pivy querrás tener Coin y SoQt instalados.
+</p><p>Para construirlo en Mac es suficiente instalar el <a rel="nofollow" class="external text" href="http://www.coin3d.org/lib/plonesoftwarecenter_view">paquete binario de Coin3</a>.  Intentar instalar Coin desde MacPorts es problemático: añadir un montón de paquetes de X Windows y finalmente se cuelga con un error de script.
+</p><p>Para Fedora encontré un RPM con Coin3.
+</p><p>SoQt compilado desde <a rel="nofollow" class="external text" href="http://www.coin3d.org/lib/soqt/releases/1.5.0">código fuente</a> funciona bien en Mac y Linux.
+</p>
+<h4><span class="mw-headline" id="Debian_.26_Ubuntu">Debian &amp; Ubuntu</span></h4>
+<p>Empezando con Debian Squeeze y Ubuntu Lucid, pivy está disponible directamente desde los repositorios oficiales, ahorrándonos un montón de dificultades.  Mientras tanto, puedes descargar uno de los paquetes que hemos creado (para Debian y Ubuntu karmic) disponibles en la página de <a href="https://www.freecadweb.org/wiki/index.php?title=Download/es" title="Download/es">Descargas</a>, o compilarlo tu mismo.
+</p><p>El mejor modo de compilar pivy siomplemente es aprovechar el paquete de código fuente de Debian para pivy y crear un paquete con debuild. Es el mismo código fuente desde la web oficial de pivy, pero la gente de Debian han creado varios parches adicionales. También se compila bien en Ubuntu karmic: <a rel="nofollow" class="external free" href="http://packages.debian.org/squeeze/python-pivy">http://packages.debian.org/squeeze/python-pivy</a>, descarga los archivos .orig.gz y .diff.gz, luego descomprimelos, y aplica .diff al código fuente: ve a las carpetas del código fuente descomprimido de pivy, y aplica el parche .diff:
+</p>
+<pre>patch -p1 &lt; ../pivy_0.5.0~svn765-2.diff </pre>
+<p>luego
+</p>
+<pre>debuild </pre>
+<p>para tener pivy correctamente construido en un paquete oficial de instalación. A continuación, simplemente instala el paquete con gdebi.
+</p>
+<h4><span class="mw-headline" id="Otras_distribuciones_Linux">Otras distribuciones Linux</span></h4>
+<p>Primero consigue la última versión del código fuente de  <a rel="nofollow" class="external text" href="http://pivy.coin3d.org/mercurial/">los repositorios del proyecto</a>:
+</p>
+<pre>hg clone http://hg.sim.no/Pivy/default Pivy </pre>
+<p>En marzo de 2012, la última versión es Pivy-0.5
+</p><p>Luego necesitas una herramienta llamada SWIG para generar el código C++ para la vinculación de Python. Pivy-0.5 informa que sólo ha sido comprobado con SWIG 1.3.31, 1.3.33, 1.3.35, y 1.3.40. Así que puedes descargar  el código fuente en un tarball para una de dichas versiones anteriores desde <a rel="nofollow" class="external free" href="http://www.swig.org">http://www.swig.org</a>. Luego descomprimelo y  desde la línea de comandos haz lo siguiente (como root):
+</p>
+<pre>./configure
+make
+make install (or checkinstall if you use it) </pre>
+<p>Esto tardará unos segundos en construirse. 
+</p><p>Como alternativa, puedes tratar de construir con un SWIG más reciente. En marzo de 2012, una versión típica del repositorio es la 2.0.4. Pivy tiene un problema menor de compilación con SWIG 2.0.4 en Mac OS (mira más abajo) pero parece construirse bien en Fedora Core 15.
+</p><p>Después de eso ve al archivo que va a los recursos de pivy y ejecuta 
+</p>
+<pre>python setup.py build </pre>
+<p>lo que creará los archivos fuente. Ten en cuenta que la construcción puede producir miles de advertencias, pero afortunadamente no hay errores.
+</p><p>Es posible que esto esté obsoleto, pero puedes llegar a un error de compilación donde una constante de tipo caracter (char) no puede ser convertida en una 'char*'. Para solucionarlo sólo necesitas escribir una constante antes  de las líneas apropiadas. Hay 6 líneas que corregir. 
+</p><p>Después de eso, instalar por publicación (como root):
+</p>
+<pre>python setup.py install (or checkinstall python setup.py install) </pre>
+<p>Eso es todo, pivy está instalado.
+</p>
+<h4><span class="mw-headline" id="Mac_OS">Mac OS</span></h4>
+<p>Estas instrucciones puede que no estén completas. Algo parecido funciona para OS 10.7 en marzo de 2012. He utilizado MacPorts para los repositorios, pero también deberían funcionar otras opciones.
+</p><p>Para Linux, consigue la última vcersión del código fuente:
+</p>
+<pre>hg clone http://hg.sim.no/Pivy/default Pivy </pre>
+<p>Si no tienes hg, puedes conseguirlo desde MacPorts:
+</p>
+<pre>port install mercurial </pre>
+<p>Luego, como se indica arriba, necesitas SWIG. Debería ser cuestión de hacer:
+</p>
+<pre>port install swig </pre>
+<p>He encontrado que también necesitaba:
+</p>
+<pre>port install swig-python </pre>
+<p>En marzo de 2012, la versión de SWIG en MacPorts es la 2.0.4. Como se ha indicado arriba para Linux, podría ser mejor que descargaras una versión más antigua. SWIG 2.0.4 parece tener un error que detiene la construcción de Pivy. Mira el primer mensaje en este enlace: <a rel="nofollow" class="external free" href="https://sourceforge.net/mailarchive/message.php?msg_id=28114815">https://sourceforge.net/mailarchive/message.php?msg_id=28114815</a>
+</p><p>Esto se puede corregir editando las dos ubicaciones de código fuente para añadir: *arg4, *arg5 en lugar de arg4, arg5. Ahora Pivy debería construirse:
+</p>
+<pre>python setup.py build
+sudo python setup.py install </pre>
+<h4><span class="mw-headline" id="Windows_2">Windows</span></h4>
+<p>Asumiendo que utilizas Visual Studio 2005 o superior deberías abrir una ventana de comandos con  'Visual Studio 2005 Command prompt' desde el menú Herramientas. Si el interprete aún no está en el sistema, haz
+</p>
+<pre>set PATH=path_to_python_2.5;%PATH% </pre>
+<p>Para tener pivy funcionando deberías conseguir las últimas fuentes desde los repositorios del proyect:
+</p>
+<pre>svn co https://svn.coin3d.org/repos/Pivy/trunk Pivy </pre>
+<p>Luego necesitas una herramienta denominada SWIG para generar el ódigo C++ para la vinculación con Python. Es recomendable utilizar la versión 1.3.25 de SWIG, no la última versión, porque de momento pivy sólo funciona correctamente con con la versión with 1.3.25. Descarga los binarios para 1.3.25 desde <a rel="nofollow" class="external free" href="http://www.swig.org">http://www.swig.org</a>. Luego descomprimelo y desde la línea de comandos añádelo al sistema path
+</p>
+<pre>set PATH=path_to_swig_1.3.25;%PATH% </pre>
+<p>y establece COINDIR a la ruta aproviada
+</p>
+<pre>set COINDIR=path_to_coin </pre>
+<p>En Windows el archivo de configuración de pivyespera SoWin en lugar de SoQt por defecto. No he encontrado una manera obvia para construirlo con SoQt, así que he modificado el arhivo setup.py directamente.
+En la línea 200 simplemente elimina la parte 'sowin'&#160;: ('gui._sowin', 'sowin-config', 'pivy.gui.') (no elimines los paréntesis de cierre).
+</p><p>Después de esto ve a las fuentes de pivy y ejecuta 
+</p>
+<pre>python setup.py build </pre>
+<p>lo cual crea los archivos de fuente. Puedes llegar a un error de compilación de 'Varios archivos de cabecera no se han encontrado'. En este caso ajusta la variable INCLUDE
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_coin_include_dir </pre>
+<p>y si las cabeceras de SoQt no están en el mismo sitio que las cabeceras de Coin también
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_soqt_include_dir </pre>
+<p>y finalmente las cabeceras de Qt
+</p>
+<pre>set INCLUDE=%INCLUDE%;path_to_qt4\include\Qt </pre>
+<p>Si estas utilizando la versión Express Edition de Visual Studio puedes tener una excepción de error de clave de Python.
+En este caso tendrás que modificar unas cuantas cosas en msvccompiler.py situado en la instalación de Python.
+</p><p>Ve a la línea 122 y reemplaza la línea
+</p>
+<pre>vsbase = r"Software\Microsoft\VisualStudio\%0.1f"&#160;% version </pre>
+<p>con
+</p>
+<pre>vsbase = r"Software\Microsoft\VCExpress\%0.1f"&#160;% version </pre>
+<p>Luego prueba de nuevo.
+Si te da un segundo error como 
+</p>
+<pre>error: Python was built with Visual Studio 2003;... </pre>
+<p>debes reemplazar también la línea 128
+</p>
+<pre>self.set_macro("FrameworkSDKDir", net, "sdkinstallrootv1.1") </pre>
+<p>con
+</p>
+<pre>self.set_macro("FrameworkSDKDir", net, "sdkinstallrootv2.0") </pre>
+<p>Intenta de nuevo. Si tienes un nuevo error como
+</p>
+<pre>error: Python was built with Visual Studio version 8.0, and extensions need to be built with the same version of the compiler, but it isn't installed. </pre>
+<p>entonces deberías comprobar las variables de entorno DISTUTILS_USE_SDK y MSSDK con
+</p>
+<pre>echo&#160;%DISTUTILS_USE_SDK%
+echo&#160;%MSSDK% </pre>
+<p>If not yet set then just set it e.g. to 1
+</p>
+<pre>set DISTUTILS_USE_SDK=1
+set MSSDK=1 </pre>
+<p>Ahora, debes encontrar un error de compilación donde una constante de tipo char no se puede convertir en char. Para solucionarlo necesitas escribir una constante antes de las líneas apropiadas. Hay 6 líneas que corregir. 
+Después copia el directorio de pivy generado a un lugar donde el interprete de Python de FreeCAD lo pueda encontrar.
+</p>
+<h3><span class="mw-headline" id="Utilizaci.C3.B3n">Utilización</span></h3>
+<p>To check if Pivy is correctly installed:
+</p>
+<pre>import pivy </pre>
+<p>Para tener Pivy acceso a la escena gráfica de FreeCAD haz lo siguiente: 
+</p>
+<pre>from pivy import coin
+App.newDocument() # Open a document and a view 
+view = Gui.ActiveDocument.ActiveView 
+FCSceneGraph = view.getSceneGraph() # returns a pivy Python object that holds a SoSeparator, the main "container" of the Coin scenegraph
+FCSceneGraph.addChild(coin.SoCube()) # add a box to scene </pre>
+<p>Ahora puedes explorar FCSceneGraph con el comando dir().
+</p>
+<h3><span class="mw-headline" id="Documentaci.C3.B3n_2">Documentación</span></h3>
+<p>Desafortunadamente la documentación sobre pivy es casi inexistente en la redt. Pero podrías encontrar la documentación de Coin útil, ya que pivy simplemente traduce las funciones de Coin, los nodos y métodos en Python, todo mantiene el mismo nombre y propiedades, teniendo en cuenta la diferencia de sintaxis entre C y Python:
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://doc.coin3d.org/Coin/classes.html">http://doc.coin3d.org/Coin/classes.html</a> - Referencia del API de Coin3D</li></ul>
+<ul><li> <a rel="nofollow" class="external free" href="http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html">http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/index.html</a> - The Inventor Mentor - La "biblia" del lenguaje de descripción de escena de Inventor.</li></ul>
+<p>También puedes echar un vistazo al archivo Draft.py en el directorio de FreeCAD Mod/Draft, ya que hace un uso importante de pivy.
+</p>
+<h2><span class="mw-headline" id="pyCollada">pyCollada</span></h2>
+<ul><li> homepage: <a rel="nofollow" class="external free" href="http://pycollada.github.com">http://pycollada.github.com</a></li>
+<li> license: BSD</li>
+<li> optional, needed to enable import and export of Collada (.DAE) files</li></ul>
+<p><a rel="nofollow" class="external text" href="http://pycollada.github.com">pyCollada</a> es una biblioteca de Python que permite a los programas leer y escribir <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/COLLADA">archivos de Collada (*.DAE)</a>. Cuando pyCollada está instalado en tu sistema, FreeCAD (<span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.13/es" class="mw-redirect" title="Release notes 0.13/es">Disponible en la versión 0.13</a></span>
+</p><p>) lo detectará y añadirá opciones de importación y exportación para manejar la apertura y guardado en el formato de archivos de Collada.
+</p>
+<h3><span class="mw-headline" id="Instalaci.C3.B3n_2">Instalación</span></h3>
+<p>Pycollada no está normalmente disponible en los repositorios de las distribuciones de Linux, pero ya que está creado únicamente por archivos de Python, no es necesaria su compilación, y es sencillo de instalar. Tienes dos métodos, o directamente desde el repositorio ofician en Git de pycollada, o con la herramienta easy_install.
+</p>
+<h4><span class="mw-headline" id="Linux_2">Linux</span></h4>
+<p>En ambos casos, necesitaras tener los siguientes paquetes ya instalados en tu sistema:
+</p>
+<pre>python-lxml 
+python-numpy
+python-dateutil </pre>
+<h5><span class="mw-headline" id="Desde_el_repositorio_de_Git">Desde el repositorio de Git</span></h5>
+<pre>git clone git://github.com/pycollada/pycollada.git pycollada
+cd pycollada
+sudo python setup.py install </pre>
+<h5><span class="mw-headline" id="Con_easy_install">Con easy_install</span></h5>
+<p>Asumiendo que ya tienes una instalación completa de Python, la utilidad easy_install ya debería estar presente:
+</p>
+<pre>easy_install pycollada </pre>
+<p>You can check if pycollada was correctly installed by issuing in a python console:
+</p>
+<pre>import collada </pre>
+<p>If it returns nothing (no error message), then all is OK
+</p>
+<h4><span class="mw-headline" id="Windows_3">Windows</span></h4>
+<p>On Windows since 0.15 pycollada is included in both the FreeCAD release and developer builds so no additional steps are necessary.
+</p>
+<h4><span class="mw-headline" id="Mac_OS_2">Mac OS</span></h4>
+<p>If you are using the Homebrew build of FreeCAD you can install pycollada into your system Python using pip.
+</p><p>If you need to install pip:
+</p>
+<pre>$ sudo easy_install pip </pre>
+<p>Install pycollada:
+</p>
+<pre>$ sudo pip install pycollada </pre>
+<p>If you are using a binary version of FreeCAD, you can tell pip to install pycollada into the site-packages inside FreeCAD.app:
+</p>
+<pre>$ pip install --target="/Applications/FreeCAD.app/Contents/lib/python2.7/site-packages" pycollada </pre>
+<p>or after downloading the pycollada code
+</p>
+<pre>$ export PYTHONPATH=/Applications/FreeCAD\ 0.16.6706.app/Contents/lib/python2.7/site-packages:$PYTHONPATH
+$ python setup.py install --prefix=/Applications/FreeCAD\ 0.16.6706.app/Contents </pre>
+<h2><span class="mw-headline" id="IfcOpenShell">IfcOpenShell</span></h2>
+<ul><li> homepage: <a rel="nofollow" class="external free" href="http://www.ifcopenshell.org">http://www.ifcopenshell.org</a></li>
+<li> license: LGPL</li>
+<li> optional, needed to extend import abilities of IFC files</li></ul>
+<p>IFCOpenShell is a library currently in development, that allows to import (and soon export) <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Industry_Foundation_Classes">Industry foundation Classes (*.IFC)</a> files. IFC is an extension to the STEP format, and is becoming the standard in <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Building_information_modeling">BIM</a> workflows. When ifcopenshell is correctly installed on your system, the FreeCAD <a href="Arch_Module.html" title="Arch Module">Arch Module</a> will detect it and use it to import IFC files, instead of its built-in rudimentary importer. Since ifcopenshell is based on OpenCasCade, like FreeCAD, the quality of the import is very high, producing high-quality solid geometry.
+</p>
+<h3><span class="mw-headline" id="Installation_2">Installation</span></h3>
+<p>Since ifcopenshell is pretty new, you'll likely need to compile it yourself.
+</p>
+<h4><span class="mw-headline" id="Linux_3">Linux</span></h4>
+<p>You will need a couple of development packages installed on your system in order to compile ifcopenshell:
+</p>
+<pre>liboce-*-dev
+python-dev
+swig </pre>
+<p>but since FreeCAD requires all of them too, if you can compile FreeCAD, you won't need any extra dependency to compile IfcOpenShell.
+</p><p>Grab the latest source code from here:
+</p>
+<pre>git clone https://github.com/IfcOpenShell/IfcOpenShell.git </pre>
+<p>The build process is very easy:
+</p>
+<pre>mkdir ifcopenshell-build
+cd ifcopenshell-build
+cmake ../IfcOpenShell/cmake </pre>
+<p>or, if you are using oce instead of opencascade:
+</p>
+<pre>cmake -DOCC_INCLUDE_DIR=/usr/include/oce ../ifcopenshell/cmake </pre>
+<p>Since ifcopenshell is made primarily for Blender, it uses python3 by default. To use it inside FreeCAD, you need to compile it against the same version of python that is used by FreeCAD. So you might need to force the python version with additional cmake parameters (adjust the python version to yours): 
+</p>
+<pre>cmake -DOCC_INCLUDE_DIR=/usr/include/oce -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/python2.7.so ../ifcopenshell/cmake </pre>
+<p>Then:
+</p>
+<pre>make
+sudo make install </pre>
+<p>You can check that ifcopenshell was correctly installed by issuing in a python console:
+</p>
+<pre>import ifcopenshell </pre>
+<p>If it returns nothing (no error message), then all is OK
+</p>
+<h4><span class="mw-headline" id="Windows_4">Windows</span></h4>
+<p><i>Copied from the IfcOpenShell README file</i>
+</p><p>Users are advised to use the Visual Studio .sln file in the win/ folder. For Windows users a prebuilt Open CASCADE version is available from the <a rel="nofollow" class="external free" href="http://opencascade.org">http://opencascade.org</a> website. Download and install this version and provide the paths to the Open CASCADE header and library files to MS Visual Studio C++.
+</p><p>For building the IfcPython wrapper, SWIG needs to be installed. Please download the latest swigwin version from <a rel="nofollow" class="external free" href="http://www.swig.org/download.html">http://www.swig.org/download.html</a> . After extracting the .zip file, please add the extracted folder to the PATH environment variable. Python needs to be installed, please provide the include and library paths to Visual Studio.
+</p>
+<h3><span class="mw-headline" id="Links">Links</span></h3>
+<p>Tutorial <a href="https://www.freecadweb.org/wiki/index.php?title=Import/Export_IFC_-_compiling_IfcOpenShell" title="Import/Export IFC - compiling IfcOpenShell">Import/Export IFC - compiling IfcOpenShell</a>
+</p>
+<h2><span class="mw-headline" id="Teigha_Converter">Teigha Converter</span></h2>
+<ul><li> homepage: <a rel="nofollow" class="external free" href="http://www.opendesign.com/guestfiles/Teigha_File_Converter">http://www.opendesign.com/guestfiles/Teigha_File_Converter</a></li>
+<li> license: freeware</li>
+<li> optional, used to enable import and export of DWG files</li></ul>
+<p>The Teigha Converter is a small freely available utility that allows to convert between several versions of DWG and DXF files. FreeCAD can use it to offer DWG import and export, by converting DWG files to the DXF format under the hood,then using its standard DXF importer to import the file contents. The restrictions of the <a href="Draft_DXF.html" title="Draft DXF">DXF importer</a> apply.
+</p>
+<h3><span class="mw-headline" id="Installation_3">Installation</span></h3>
+<p>On all platforms, only by installing the appropriate package from <a rel="nofollow" class="external free" href="http://www.opendesign.com/guestfiles/Teigha_File_Converter">http://www.opendesign.com/guestfiles/Teigha_File_Converter</a> . After installation, if the utility is not found automatically by FreeCAD, you might need to set the path to the converter executable manually, Change workbench to "Draft", than in the menu Edit -&gt; Preferences -&gt; Import/Export -&gt; DWG and fill "Path to Teigha File Converter" appropriately. 
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/es&amp;oldid=277139">http://www.freecadweb.org/wiki/index.php?title=Extra_python_modules/es&amp;oldid=277139</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

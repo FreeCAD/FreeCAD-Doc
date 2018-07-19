@@ -1,0 +1,85 @@
+<html><head><title>Draft DXF/pt-br</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Draft DXF/pt-br</h1></div>
+
+<div id="mw-content-text" lang="pt-BR" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Screenshot_qcad.jpg" class="image"><img alt="Screenshot qcad.jpg" src="Screenshot_qcad.jpg" width="800" height="443" /></a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Opening"><span class="tocnumber">1</span> <span class="toctext">Opening</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing"><span class="tocnumber">2</span> <span class="toctext">Installing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Automatically"><span class="tocnumber">2.1</span> <span class="toctext">Automatically</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Manually"><span class="tocnumber">2.2</span> <span class="toctext">Manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Importing"><span class="tocnumber">3</span> <span class="toctext">Importing</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exporting"><span class="tocnumber">4</span> <span class="toctext">Exporting</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Preferences"><span class="tocnumber">5</span> <span class="toctext">Preferences</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Opening">Opening</span></h3>
+<p>This function opens a DXF file (any version from 12 to 2007) in a new drawing.
+The following DXF object types are currently supported:
+</p>
+<ul><li> lines</li>
+<li> polylines and lwpolylines</li>
+<li> circles</li>
+<li> arcs</li>
+<li> layers (layers containing objects are conveted to FreeCAD Groups)</li>
+<li> texts and mtexts</li>
+<li> dimensions</li>
+<li> blocks (only geometry. texts, dims and attributes inside blocks will be skipped)</li>
+<li> points <span style="font-size:x-small;"><a href="Release_notes_0.13.html" class="mw-redirect" title="Release notes 0.13">available in version 0.13</a></span></li></ul>
+<ul><li> leaders <span style="font-size:x-small;"><a href="Release_notes_0.13.html" class="mw-redirect" title="Release notes 0.13">available in version 0.13</a></span></li></ul>
+<p>Other DXF entities are currently not imported because there is no corresponding FreeCAD object. As new functionality gets implemented, it will be possible to import more entity types.
+</p>
+<h3><span class="mw-headline" id="Installing">Installing</span></h3>
+<p><b>Warning</b>:  For license reasons, the dxf import/export libraries are not part of the FreeCAD source code anymore. For that reason, they must be installed by you, the user, after you install FreeCAD. There is a way to allow FreeCAD to do that automatically, or you can do it manually.
+</p>
+<h4><span class="mw-headline" id="Automatically">Automatically</span></h4>
+<p>Starting from version 0.15, you only need to mark the Edit-&gt; Preferences -&gt; Import/Export -&gt; DXF/DWG -&gt; "Allow FreeCAD to automatically download the DXF libraries" option to have FreeCAD take automatically care of doenloading and installing these libraries. For older versions, you will need to do it manually.
+</p>
+<h4><span class="mw-headline" id="Manually">Manually</span></h4>
+<p>Libraries must be downloaded from <a rel="nofollow" class="external free" href="https://github.com/yorikvanhavre/Draft-dxf-importer">https://github.com/yorikvanhavre/Draft-dxf-importer</a>
+There is a very complete step-by-step <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">tutorial</a> that will explain you the necessary steps.
+</p>
+<h3><span class="mw-headline" id="Importing">Importing</span></h3>
+<p>This works the same way as opening, but it will add the contents of the dxf file in the active documento instead of creating a new document.
+</p><p>Tutorial: <a href="Dxf_Importer_Install.html" title="Dxf Importer Install">Dxf Importer Install</a>
+</p>
+<h3><span class="mw-headline" id="Exporting">Exporting</span></h3>
+<p>The exported DXF is compatible with Autocad version 12 and up, so it should open in about any application that supports dxf format.
+Currently the following FreeCAD objects get exported:
+</p>
+<ul><li> lines and wires (polylines)</li>
+<li> arcs and circles</li>
+<li> texts</li>
+<li> colors are mapped from objects RGB colors to autocad color index (ACI). Black will always be "by layer"</li>
+<li> layers are mapped from group names. When groups are nested, the deepest group gives the layer name.</li>
+<li> dimensions, which are exported with "Standard" dimstyle</li></ul>
+<h3><span class="mw-headline" id="Preferences">Preferences</span></h3>
+<p>The following parameters can be specified in the <a href="Draft_Preferences.html" title="Draft Preferences">Draft Preferences</a> tab (menu Edit -&gt; Preferences -&gt; Draft):
+</p>
+<ul><li> Import style: This lets you choose the way objects from the dxf file will be drawn in FreeCAD. You can choose between:
+<ul><li> None: this is the faster way, there is no conversion, all objects will be black with 2px width (FreeCAD default)</li>
+<li> Use default color and linewidth: All imported dxf objects will take current linewidth/color from the draft command bar</li>
+<li> Original color and linewidth: Objects will keep the color and linewidth (if specified) they have in the dxf file</li>
+<li> Colors mapped to linewidth: If this option is selected, the mapping file option below is used.</li></ul></li>
+<li> Color mapping file: This allows you to specify a mapping file to be used for translating dxf colors to color and linewidth, the same way as a plot style works in Autocad. The mapping file must be a tab-separated text file. There is a nice free utility called <a rel="nofollow" class="external text" href="http://www.noliturbare.com/TablePrintGUI.php">Plot style viewer</a> that can convert Autocad CTB or STB (plot styles) files to tab-separated mapping files ready to use in FreeCAD. Alternatively, we have a couple of <a href="Draft_mapping_files.html" title="Draft mapping files">home-made mapping files</a> availables here.</li>
+<li> Import texts: This allows you to specify if you want to import dxf texts and dimensions or not. Many texts might make your work in FreeCAD very heavy, so you might want to use this option some time.</li>
+<li> Import layout objects: Turn this on if you want to import paper space object. They will be merged in the same document than model space objects.</li></ul>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Draft_DXF/pt-br&amp;oldid=141316">http://www.freecadweb.org/wiki/index.php?title=Draft_DXF/pt-br&amp;oldid=141316</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

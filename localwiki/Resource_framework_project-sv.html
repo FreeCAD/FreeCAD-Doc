@@ -1,0 +1,130 @@
+<html><head><title>Resource framework project/sv</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Resource framework project/sv</h1></div>
+
+<div id="mw-content-text" lang="sv" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>This is the project plan for the FreeCAD resource framework as part of the <a href="Development_roadmap.html" title="Development roadmap">Development roadmap</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Purpose_and_principles"><span class="tocnumber">1</span> <span class="toctext">Purpose and principles</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Outcome"><span class="tocnumber">2</span> <span class="toctext">Outcome</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Brainstorming"><span class="tocnumber">3</span> <span class="toctext">Brainstorming</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#What_the_others_do"><span class="tocnumber">3.1</span> <span class="toctext">What the others do</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Use_Cases"><span class="tocnumber">3.2</span> <span class="toctext">Use Cases</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#The_Blendswap_website"><span class="tocnumber">3.2.1</span> <span class="toctext">The Blendswap website</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#Possible_revision_control_systems"><span class="tocnumber">3.3</span> <span class="toctext">Possible revision control systems</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Licensing"><span class="tocnumber">3.4</span> <span class="toctext">Licensing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Creative_Commons"><span class="tocnumber">3.4.1</span> <span class="toctext">Creative Commons</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#ISO_16016"><span class="tocnumber">3.4.2</span> <span class="toctext">ISO 16016</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Design"><span class="tocnumber">3.5</span> <span class="toctext">Design</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Architecture"><span class="tocnumber">3.6</span> <span class="toctext">Architecture</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Organizing"><span class="tocnumber">4</span> <span class="toctext">Organizing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Research"><span class="tocnumber">4.1</span> <span class="toctext">Research</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Design_2"><span class="tocnumber">4.2</span> <span class="toctext">Design</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Next_actions"><span class="tocnumber">5</span> <span class="toctext">Next actions</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Purpose_and_principles">Purpose and principles</span></h2>
+<p>This is a software development project aimed to implement <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Product_Data_Management">Product Data Management (PDM)</a> capabilities. It's about implementing the bits and pieces needed.
+</p><p>The development steps are planned here and tracked in the Mantis issue tracking system to get a well formed change log: <a rel="nofollow" class="external free" href="http://www.freecadweb.org/tracker/change_log.php">http://www.freecadweb.org/tracker/change_log.php</a>
+</p>
+<h2><span class="mw-headline" id="Outcome">Outcome</span></h2>
+<ul><li> Revision control for large design projects.</li>
+<li> share work with others over the internet/intranet(s): <b>Collaboration</b></li>
+<li> Online and offline catalogs with <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Interchangeable_parts">standard parts</a>.</li></ul>
+<h2><span class="mw-headline" id="Brainstorming">Brainstorming</span></h2>
+<h3><span class="mw-headline" id="What_the_others_do">What the others do</span></h3>
+<p>Here some links on comparable commercial products:
+</p>
+<ul><li> PTC's <a rel="nofollow" class="external text" href="http://www.ptc.com/product/windchill/pdmlink">PDMLink</a> - <i>"...when all product stakeholders are accessing a single, trusted, central data repository, manufacturers have the power to expertly manage all forms of digital product development data ... PDMLink is the ideal solution. Web-based for easy enterprise-wide access, this industry-proven product data management (PDM) system supports geographically dispersed teams while managing critical processes such as change/configuration management, and detailed design."</i></li>
+<li> Aras Corp. <a rel="nofollow" class="external text" href="http://www.aras.com/">Aras PLM Software</a> - They appear to offer Open Source solutions, this may be worth investigating further...</li></ul>
+<h3><span class="mw-headline" id="Use_Cases">Use Cases</span></h3>
+<p><i>Provided by Charles:</i>
+</p><p>Of course there will different sorts of people using this software for different reasons, and they may need different PDM solutions perhaps, but it would be good to investigate solutions that could be universal. I see the following different methods of development (there must be others too):
+</p>
+<ul><li> Individual users - they will probably be a significant percentage of people working this way and they may be fairly self-contained, but revision control and branching still useful. Many of these people may be working in parts of the world where internet access is flaky or expensive, so they maybe working offline for long periods. Would be nice to make these individual projects very easily replicable by other people if it is a good piece of work - so the design can be evolved in multiple directions at once - lots of Darwinian evolution and faster exporing of the solution space</li></ul>
+<ul><li> Small teams of people working together - perhaps from the same education institution - but each individual may want the freedom to explore all aspects of the project rather than rigidly assigned a particular part of the project. We find it generally allows more options to be easily explored and gives greater flexibility.</li></ul>
+<ul><li> Wider open-source design projects - more members and geographically dispersed. The mirror of open-source software projects - where there does seem to be a general trend towards distributed systems (in fact Python <a rel="nofollow" class="external text" href="http://mail.python.org/pipermail/python-dev/2009-March/087931.html">Moved</a> over to a DVCS last month). I see design and engineering going the same way for the same reasons. So I think there is all the more reason for us to think hard about how a distributed system could work in CAD - and if we solve this will have a big advantage over the commercial CAD vendors! I am convinced there is a solution (if we don't work it out, some other CAD system developer will!)</li></ul>
+<ul><li> More rigid hierarchical project - there may be some projects where the teams prefer this arrangement but I can only see this as being popular within companies.</li></ul>
+<h4><span class="mw-headline" id="The_Blendswap_website">The Blendswap website</span></h4>
+<p><a rel="nofollow" class="external text" href="http://www.blendswap.com/">Blendswap</a> - in thier own words - is <i>"...the place to find and share blends with the entire world. You make awesome blends, share them in the biggest repository of open source 3D models made with the awesome Open Source 3D suite Blender."</i>
+</p><p><a rel="nofollow" class="external text" href="http://www.blender.org/">Blender</a> is a very popular open source '3D content creation suite'.
+</p><p>Whilst not a CAD program, there are many parallels to be drawn and lessons to be learnt from the way Blender and it's community has gone about doing things.
+</p><p>Blendswap is an excellent example of an <b>online</b> repository. It's key features that I beleive we can learn from are:
+</p>
+<ul><li> Provides detailed thumbnail images on the website. This allows people to freely browse and find content quickly.</li>
+<li> The models (blend files) come with clear license details (these details are also quicky viewable at a glance from the thumbnail, via a Creative Commons logo).</li></ul>
+<h3><span class="mw-headline" id="Possible_revision_control_systems">Possible revision control systems</span></h3>
+<p>It's only a small step to think of revision control the same way it's used in modern software development. There are basicly two different approaches to that matter:
+</p>
+<ul><li> Structured, server centric (<a rel="nofollow" class="external text" href="http://subversion.tigris.org/">Subversion</a> or <a rel="nofollow" class="external text" href="http://www.nongnu.org/cvs/">CVS</a>)</li>
+<li> Structured, distributed (<a rel="nofollow" class="external text" href="http://www.selenic.com/mercurial/wiki/">Mercurial</a>, <a rel="nofollow" class="external text" href="http://bazaar-vcs.org/">Bazaar</a> and  <a rel="nofollow" class="external text" href="http://git-scm.com/">Git</a>)</li></ul>
+<p>Although the Use Cases demand a distributed revision control system, all the named has a major drawback. If you clone a repository all the previous versions will replicated to your computer. Which can, in the case of CAD data, be a very large Mb count. In contrast do the server centric systems only check out the head revision and therefore transfer relativly small amount of data. 
+</p>
+<h3><span class="mw-headline" id="Licensing">Licensing</span></h3>
+<p>In a distributed internet project its needed that every document carries a clear license. Its even more importand if you think of catalogs. Catalog parts get used in projects (free and non free) and need there fore a clear license to make it usage clear. Since there different licensing systems out there, here a set of possible licenses for CAD files:
+</p>
+<h4><span class="mw-headline" id="Creative_Commons">Creative Commons</span></h4>
+<p>The CC licenses are very popular for creative material, you can find the description here: <a rel="nofollow" class="external free" href="http://creativecommons.org">http://creativecommons.org</a>
+</p>
+<h4><span class="mw-headline" id="ISO_16016">ISO 16016</span></h4>
+<p>fraganaut01 give us a plug to another licensing system for CAD:
+</p>
+<ul><li> Copyright by Provider (no more restrictions)</li>
+<li> Refer to protection notice ISO16016 (no special restriction)</li>
+<li> Confidential, for internal use only. Use only with confidentiality obligation. Refer to protection notice ISO16016</li>
+<li> Confidential, for internal use only. Refer to protection notice ISO16016</li>
+<li> Any dissemination only with the express approval of the originator</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Design">Design</span></h3>
+<p>All the revision controlled data, catalogs, tutorials and so on, have to have some kind of representation in FreeCAD. All this can be summarized under the name <b>Resource</b>. There have to be a class design to hold this kind of resource information and distinguish the different cases.
+</p>
+<h3><span class="mw-headline" id="Architecture">Architecture</span></h3>
+<p>This kine of service is per definition not only local to the user's machine. Its more up in the <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Cloud_computing">Cloud</a> and implemented on different services on different servers. There is to distinguish four kind of servers:
+</p>
+<ul><li> Cheap Server - <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a></li>
+<li> Full Server (e.g. Ubuntu/Debian server)</li>
+<li> Download server - e.g. sf.net</li>
+<li> <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/BitTorrent_(protocol)">BitTorrent</a> tracker </li></ul>
+<p>Thad leads to following scenario:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:ResourceFramework.png" class="image"><img alt="ResourceFramework.png" src="1000px-ResourceFramework.png" width="1000" height="613" srcset="/wiki/images/thumb/e/e5/ResourceFramework.png/1500px-ResourceFramework.png 1.5x, /wiki/images/e/e5/ResourceFramework.png 2x" /></a>
+</p>
+<h2><span class="mw-headline" id="Organizing">Organizing</span></h2>
+<h3><span class="mw-headline" id="Research">Research</span></h3>
+<p>First of all the different alternatives of revision control systems have to be tested. To get hard numbers on how they behave on CAD data.
+</p>
+<h3><span class="mw-headline" id="Design_2">Design</span></h3>
+<p>A class design for the Resource framwork.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Next_actions">Next actions</span></h2>
+<ul><li> Build up test repositories on the Server and two local machines</li>
+<li> Test different use cases</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Resource_framework_project/sv&amp;oldid=212041">http://www.freecadweb.org/wiki/index.php?title=Resource_framework_project/sv&amp;oldid=212041</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

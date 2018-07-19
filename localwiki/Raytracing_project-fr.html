@@ -1,0 +1,87 @@
+<html><head><title>Raytracing project/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Raytracing project/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p>Ce projet est le développement de <b>FreeCAD Raytracing</b>. Il suit les règles de la <a rel="nofollow" class="external text" href="http://fr.wikipedia.org/wiki/Getting_Things_Done">Getting things done</a> processus. Les projets sont collectées dans le feuille <a href="https://www.freecadweb.org/wiki/index.php?title=Development_roadmap/fr" title="Development roadmap/fr">de route de développement</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Buts_et_principes"><span class="tocnumber">1</span> <span class="toctext">Buts et principes</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A9sultat"><span class="tocnumber">2</span> <span class="toctext">Résultat</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#R.C3.A9flexions"><span class="tocnumber">3</span> <span class="toctext">Réflexions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Organisation"><span class="tocnumber">4</span> <span class="toctext">Organisation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Actions_suivantes"><span class="tocnumber">5</span> <span class="toctext">Actions suivantes</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Buts_et_principes">Buts et principes</span></h2>
+<p>Ce projet vise à mettre à jour le <a href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_Module/fr" title="Raytracing Module/fr">module de rendu</a> en cours, qui est actuellement utilisé par <a rel="nofollow" class="external text" href="http://www.povray.org/">povray</a>, un moteur de rendu partiel qui donne des résultats satisfaisants, et, permettre l'utilisation d'un moteur de rendu plus moderne tel que <a rel="nofollow" class="external text" href="http://www.luxrender.net/en_GB/index">Lux Render</a>, <a rel="nofollow" class="external text" href="http://www.yafaray.org/">Yafaray</a>, <a rel="nofollow" class="external text" href="http://www.indigorenderer.com/">Indigo</a>.
+</p><p>Également fournir une interface générique, pour permettre des rendus de fonds (profondeur de champ) multiples, pour être utilisé, pour la visualisation des caractéristiques au sein de FreeCAD. Fournir une interface de programmation plus générique, pour permettre une création de plugins de rendu plus facile. 
+</p><p>L'interface permettra à la fois l'exécution de rendus extérieurs, <b>open source</b> et <b>propriétaires</b>, qui seront utilisés, par la génération d'un fichier de scène compatible, et, le lancement d'un processus distinct en arrière-plan. La sortie peut alors être visualisée directement à l'intérieur FreeCAD, en ouvrant le fichier de sortie temporaire (si disponible).
+</p><p>Chaque moteur de rendu, sera un plugin dans une interface générique, et, fournira des matériaux compatibles, des modes de rendu.
+</p>
+<h2><span class="mw-headline" id="R.C3.A9sultat">Résultat</span></h2>
+<p>Affichages visuels réalistes&#160;!!! Produire des résultats de haute qualité, des objets affichés dans le document de FreeCAD, et, fournir une interface très simple, avec des préréglages pour permettre une initialisation rapide pour le rendu et les prévisualisations.
+</p><p>L'interface utilisateur devrait permettre la création de situations plus complexes, et, peut-être donner un aperçu des changements, ou des modifications, tels que l'éclairage, la position. Toutefois, l'objectif n'est pas de fournir une suite de rendu très complet.
+</p>
+<h2><span class="mw-headline" id="R.C3.A9flexions">Réflexions</span></h2>
+<p>Une bibliothèque de documents <b>"doit"</b> être créée pour chaque plug-in de rendu, avec ses préréglages. Les propriétés des matériaux peuvent être modifiées. Les préréglages de scène devraient permettre aux utilisateurs inexpérimentés au Rendu, de produire des visuels de haute qualité en peu de temps.
+</p>
+<h2><span class="mw-headline" id="Organisation">Organisation</span></h2>
+<p>L'intégration de rendu <a rel="nofollow" class="external text" href="http://www.luxrender.net/en_GB/index">Lux render</a> dans l'inteface générique, est en cours de création et test, un moteur de rendu non <a rel="nofollow" class="external text" href="http://www.larousse.fr/dictionnaires/francais/biaisé_biaisé/9022">biaisé</a> sera d'abord mis en œuvre. Les travaux en cours sont complétés par <a rel="nofollow" class="external text" href="https://github.com/mrlukeparry/freecad/tree/render">Github Render Branch</a>. 
+</p><p><b>Actuellement, il est possible de faire des rendu d'objets avec Lux Render&#160;:</b>
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:LuxRenderOutput.png" class="image"><img alt="LuxRenderOutput.png" src="LuxRenderOutput.png" width="800" height="600" /></a>
+</p><p>Ici en vedette, une pièce qui a été créée à l'aide <b>PartDesign/Sketcher</b>, rendu à l'aide du nouveau <b>render workbench</b>, en cours d'élaboration dans <b>Lux Render</b>.
+Lux Render permet des effets sympas, comme la création de la profondeur de champ <a rel="nofollow" class="external text" href="http://wiki.blender.org/index.php/Doc:FR/2.4/Manual/Render/Camera/Depth_Of_Field">DOF (Depth of Field)</a>, pour améliorer le réalisme.
+</p>
+<h2><span class="mw-headline" id="Actions_suivantes">Actions suivantes</span></h2>
+<ul><li> Créer l'abstraction pour assurer l'interface entre les moteurs de rendu (Terminé)</li></ul>
+<ul><li> Mettre en place une interface pour la description des documents génériques et la collecte de ces documents (Terminé)</li></ul>
+<ul><li> Mettre en place une interface décrivant les presets de rendu (Terminé)</li></ul>
+<ul><li> Mettre en place une interface décrivant les modèles (Terminé)</li></ul>
+<ul><li> Mettre en place une fonctionnalité permettant de stocker toutes ces informations de façon permanente</li></ul>
+<ul><li> Mettre en œuvre l'enregistrement des propriétés des matériaux</li></ul>
+<ul><li> Créer un environnement de postes de travail pour la sortie de l'affichage (Terminé)</li></ul>
+<ul><li> Créer des boîtes à outils pour modifier les propriétés de rendu (Terminé)</li></ul>
+<ul><li> Créer des boîtes à outils pour naviguer, modifier et appliquer des matériaux aux caractéristiques des pièces (Terminé)</li></ul>
+<ul><li> Création de scripts automake  (WIP)</li></ul>
+<ul><li> Supprimer les dépendances GUI de Raytracing/App</li></ul>
+<p>¬ Structure de données d'e boîtes englobantes
+</p><p>¬ ne devrait pas utiliser coin3d SbBox3f
+</p><p>¬ QWidget inclus dans QProcess pour une raison quelconque&#160;?
+</p>
+<ul><li> Supprimer les dépendances GUI de Raytracing/App</li></ul>
+<p>¬Structure de données boîte englobante 
+</p><p>¬ ne devrait pas utiliser coin3d SbBox3f
+</p><p>¬ QWidget inclus dans QProcess pour une raison quelconque&#160;?
+</p>
+<ul><li> Test de compatibilité avec Windows (en cours)</li></ul>
+<p>¬ Mise à jour de Libpack pour inclure QT 4.7 - QT 4.8
+</p><p>¬ supprimer les Erreurs et avertissements du compilateur 
+</p>
+<ul><li> Mise en œuvre permettant d'économiser des propriétés matérielles</li></ul>
+<ul><li> Nettoyage de l'interface QML</li></ul>
+<ul><li> Création de Templates de rendu, rendu matériel, rendu Presets</li></ul>
+<ul><li> Créer une scène blender à convertisseur de template lux</li></ul>
+<ul><li> Convertir en matériels LuxBlender .lbm (<a rel="nofollow" class="external text" href="http://www.luxrender.net/lrmdb/en/material/">LuxBlender</a>) matériaux utiles</li></ul>
+<ul><li> Créer Python bindings pour le rendu de matériaux, caméras, lumières</li></ul>
+<ul><li> Créer un document objet de RenderCamera</li></ul>
+<ul><li> Permettre l'importer de modèle de rendu de la scène dans la fonctionnalité.</li></ul>
+<ul><li> Répertoires de préréglage/matériel/template défini par l'utilisateur</li></ul>
+<ul><li> Améliorer le View Provider</li></ul>
+<ul><li> Convertir Povray/Yafaray pour utiliser la nouvelle Infrastructure du Module de rendu</li></ul>
+<ul><li> Tests</li></ul>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Raytracing_project/fr&amp;oldid=123502">http://www.freecadweb.org/wiki/index.php?title=Raytracing_project/fr&amp;oldid=123502</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

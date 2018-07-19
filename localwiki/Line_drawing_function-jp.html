@@ -1,0 +1,195 @@
+<html><head><title>Line drawing function/jp</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Line drawing function/jp</h1></div>
+
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>このページでは高度な機能を簡単にPythonで構築する方法を説明しています。このエクササイズではラインを描画する新しいツールを作ることにします。このツールはFreeCADコマンドに関連付けすることが可能で、そのコマンドはメニューアイテムやツールバーボタンなどのインターフェイスの任意の要素から呼び出すことができます。
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E3.83.A1.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88"><span class="tocnumber">1</span> <span class="toctext">メインスクリプト</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E8.A9.B3.E3.81.97.E3.81.84.E8.AA.AC.E6.98.8E"><span class="tocnumber">2</span> <span class="toctext">詳しい説明</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E3.81.AE.E3.83.86.E3.82.B9.E3.83.88.E3.81.A8.E4.BD.BF.E7.94.A8"><span class="tocnumber">3</span> <span class="toctext">スクリプトのテストと使用</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#FreeCAD.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.A7.E3.81.AE.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E3.81.AE.E7.99.BB.E9.8C.B2"><span class="tocnumber">4</span> <span class="toctext">FreeCADインターフェイスでのスクリプトの登録</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E3.82.82.E3.81.A3.E3.81.A8.E7.9F.A5.E3.82.8A.E3.81.9F.E3.81.84.E3.81.A7.E3.81.99.E3.81.8B.EF.BC.9F"><span class="tocnumber">5</span> <span class="toctext">もっと知りたいですか？</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E3.83.A1.E3.82.A4.E3.83.B3.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88">メインスクリプト</span></h2>
+<p>まず必要な機能を全て持つスクリプトを書きましょう。それをファイルに保存してFreeCADでインポートすると書いたクラスと関数の全てをFreeCADで利用できるようになります。あなたのおこのみのテキストエディタを起動して次の様に入力してください：
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+
+class line:
+    "this class will create a line after the user clicked 2 points on the screen"
+    def __init__(self):
+        self.view = FreeCADGui.ActiveDocument.ActiveView
+        self.stack = []
+        self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint)  
+
+    def getpoint(self,event_cb):
+        event = event_cb.getEvent()
+        if event.getState() == SoMouseButtonEvent.DOWN:
+            pos = event.getPosition()
+            point = self.view.getPoint(pos[0],pos[1])
+            self.stack.append(point)
+            if len(self.stack) == 2:
+                l = Part.Line(self.stack[0],self.stack[1])
+                shape = l.toShape()
+                Part.show(shape)
+                self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+</pre>
+<h2><span class="mw-headline" id=".E8.A9.B3.E3.81.97.E3.81.84.E8.AA.AC.E6.98.8E">詳しい説明</span></h2>
+<pre>import Part, FreeCADGui
+from pivy.coin import *
+</pre>
+<p>Pythonでは別のモジュールの関数を使いたい場合にはそれをインポートする必要があります。今回はラインを作るための<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Partモジュール</a>の関数と3DビューにアクセスするためのGUIモジュール（FreeCADGui）の関数が必要になります。またSoMouseButtonEventなどのCoinオブジェクト全てを直接使用するのでCoinライブラリの全機能も必要になります。
+</p>
+<pre>class line:
+</pre>
+<p>ここでメインクラスを定義しています。なぜ関数でなくクラスを使うのでしょうか？それは私たちのツールはユーザーが画面をクリックするの待つ間、"生きて"いなければならないからです。関数はその処理が終わると終了してしまいますがオブジェクト（クラスによってオブジェクトが定義されます）は破棄されるまで生き続けます。
+</p>
+<pre>"this class will create a line after the user clicked 2 points on the screen"
+</pre>
+<p>Pythonでは全てのクラス、関数に説明文を設定することができます。これはFreeCADでは特に便利です。クラスをインタプリタで呼ぶとその説明文がツールチップ表示されるからです。
+</p>
+<pre>def __init__(self):
+</pre>
+<p>Pythonのクラスはいつでも__init__を持つことができます。__init__はオブジェクトを作成するためにクラスが呼ばれた時に実行されます。従って私たちのラインツールが開始された時にやりたいことは全てここに書きます。
+</p>
+<pre>self.view = FreeCADGui.ActiveDocument.ActiveView
+</pre>
+<p>クラスの中では通常は変数名の前に<i>self.</i>と付けた方がいいでしょう。そうすることでクラスの内外の全関数がわかりやすくなります。ここではself.viewを使ってアクティブな3Dビューへのアクセスと操作を行います。
+</p>
+<pre>self.stack = []
+</pre>
+<p>ここではgetpoint関数によって送信される3D上の点を入れる空のリストを作成しています。
+</p>
+<pre>self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint)
+</pre>
+<p>重要な部分です。実際の<a rel="nofollow" class="external text" href="http://www.coin3d.org/">Coin3D</a>シーンだからです。FreeCADは特定のシーンイベントが起きるたびに関数を呼び出すためのCoinのコールバックの仕組みを使っています。今回は<a rel="nofollow" class="external text" href="http://doc.coin3d.org/Coin/group__events.html">SoMouseButtonイベント</a>用のコールバックを作成し、それをgetpoint関数と関連付けています。これによってマウスボタンが押されたり離されたりするたびにgetpoint関数が実行されます。
+</p><p>またaddEventCallbackPivy()の代わりにaddEventCallback()を呼べばpivyを利用しなくとも済みます。ただしpivyはCoinシーンの任意の部分にアクセスする非常に効率的で自然な方法なので、できるだけ使った方がいいでしょう！
+</p>
+<pre>def getpoint(self,event_cb):
+</pre>
+<p>次に3Dビューでマウスボタンが押されるたびに実行されるgetpoint関数を定義します。この関数はevent_cbと呼ばれる引数を受け取ります。このイベントコールバックから複数の情報が格納されているイベントオブジェクトにアクセスすることが可能です（モード情報は<a href="/wiki/Code_snippets/jp#Python.E3.81.8B.E3.82.893D.E3.83.93.E3.83.A5.E3.83.BC.E3.82.A2.E3.83.BC.E3.81.AE.E3.83.9E.E3.82.A6.E3.82.B9.E3.82.A4.E3.83.99.E3.83.B3.E3.83.88.E3.82.92.E7.9B.A3.E8.A6.96" title="Code snippets/jp">こちら</a>）。
+</p>
+<pre>if event.getState() == SoMouseButtonEvent.DOWN:
+</pre>
+<p>getpoint関数はマウスボタンが押されるか離される時に呼ばれます。しかし私たちは押された時にだけ3D上の点をピックしたいのです（そうしないと互いに非常に近い二つの3D上の点を取得してしまうことになります）。そこでそれをチェックしなければなりません。
+</p>
+<pre>pos = event.getPosition()
+</pre>
+<p>ここではマウスカーソルのスクリーン座標を取得しています。
+</p>
+<pre>point = self.view.getPoint(pos[0],pos[1])
+</pre>
+<p>この関数はマウスカーソル下の焦点面の上にある3D上の点が格納されたFreeCADのVector (x,y,z)を返します。カメラ視点で言うとカメラから伸びる光線とマウスカーソル位置を通過し焦点面にぶつかるところを想像してください。それが取得される3D上の点です。正射影表示の場合にはその光線は視線方向と平行になります。
+</p>
+<pre>self.stack.append(point)
+</pre>
+<p>新しい点をスタックに追加しています。
+</p>
+<pre>if len(self.stack) == 2:
+</pre>
+<p>必要なだけの点はありますか？もしあればラインを描画しましょう！
+</p>
+<pre>l = Part.Line(self.stack[0],self.stack[1])
+</pre>
+<p>ここではFreeCADのVectro二つからラインを作成する関数である<a href="https://www.freecadweb.org/wiki/index.php?title=Part_Module/jp" title="Part Module/jp">Partモジュール</a>のLine()関数を使用しています。Partモジュールの中で作ったり変更したりしたものは全てPartモジュールが保持します。ここまでで私たちはラインパートを作成しました。しかしまだアクティブなドキュメント上のオブジェクトに結び付けられていないので画面上には何も表示されません。
+</p>
+<pre>shape = l.toShape()
+</pre>
+<p>FreeCADドキュメントはPartモジュールから作成されたシェイプだけを受け取ることができます。シェイプはPartモジュールの最も一般的な型です。従って私たちはドキュメントに追加する前にラインをシェイプに変換しなければなりません。
+</p>
+<pre>Part.show(shape)
+</pre>
+<p>Partモジュールには非常に便利なshow()関数があり、それを使ってドキュメントに新しいオブジェクトを作ってそこにシェイプを結びつけることができます。あるいはまずドキュメントに新しいオブジェクトを作った後、手作業でシェイプを結びつけることもできます。
+</p>
+<pre>self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+</pre>
+<p>ラインを使った作業が終わったので貴重なCPUサイクルを消費してしまうコールバックのための仕組みを取り除きましょう。
+</p>
+<h2><span class="mw-headline" id=".E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E3.81.AE.E3.83.86.E3.82.B9.E3.83.88.E3.81.A8.E4.BD.BF.E7.94.A8">スクリプトのテストと使用</span></h2>
+<p>さて、それではスクリプトをFreeCADのPythonインタプリタが見える場所に保存しましょう。モジュールインポート時にインタプリタは次の場所を検索します：Pythonのインストールパス、FreeCADのbinディレクトリ、FreeCADモジュールディレクトリの全て。最もいい方法はFreeCADの<a href="https://www.freecadweb.org/wiki/index.php?title=Installing_more_workbenches/jp&amp;action=edit&amp;redlink=1" class="new" title="Installing more workbenches/jp (page does not exist)">Modディレクトリ</a>の一つに新しいディレクトリを作成してそこにスクリプトを保存するというものです。例えば"MyScripts"ディレクトリをを作成してスクリプトを"exercise.py"として保存してみましょう。
+</p><p>これで準備万端です。FreeCADを起動して新しいドキュメントを作りPythonインタプリタで次のコマンドを実行しましょう：
+</p>
+<pre>import exercise
+</pre>
+<p>エラーメッセージが表示されなければ私たちの練習用スクリプトがロードされているはずです。次の様にしてその内容を調べて見ることができます：
+</p>
+<pre>dir(exercise)
+</pre>
+<p>dir()コマンドは組み込みのPythonコマンドでモジュールの内容をリスト表示することができます。私たちのline()クラスが待機しているのが確認できるはずです。それではテストしてみましょう：
+</p>
+<pre>exercise.line()
+</pre>
+<p>さらに3Dビューを二回クリックしてみると・・・ビンゴ。ラインが表示されます！もう一度行うには再度exercise.line()と入力します。何度でも繰り返せます・・・すごいと思いませんか？
+</p>
+<h2><span class="mw-headline" id="FreeCAD.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.BC.E3.83.95.E3.82.A7.E3.82.A4.E3.82.B9.E3.81.A7.E3.81.AE.E3.82.B9.E3.82.AF.E3.83.AA.E3.83.97.E3.83.88.E3.81.AE.E7.99.BB.E9.8C.B2">FreeCADインターフェイスでのスクリプトの登録</span></h2>
+<p>さて私たちの新しいラインツールをもっとクールにするためにはインターフェイス上にボタンを付けるべきです。そうすれば毎回、キー入力を行う必要がなくなります。最も簡単な方法は新しく作ったMyScriptsディレクトリをちゃんとしたFreeCADワークベンチに作り変えるというものです。簡単にできます。必要なのは<b>InitGui.py</b>というファイルをMyScriptsディレクトリの中に置くことだけです。InitGui.pyには新しいワークベンチを作り、そこに私たちの新しいツールを追加しろ、という命令を書きます。それから私たちの練習用コードをほんの少しだけ書き換えてline() ツールが公式なFreeCADコマンドとして認識されるようにする必要もあります。それではInitGui.pyファイルの作成からはじめましょう。次のコードをInitGui.pyファイルに書き込んでください：
+</p>
+<pre>class MyWorkbench (Workbench): 
+   MenuText = "MyScripts"
+   def Initialize(self):
+       import exercise
+       commandslist = ["line"]
+       self.appendToolbar("My Scripts",commandslist)
+Gui.addWorkbench(MyWorkbench())
+</pre>
+<p>もうあなたも上記のスクリプトが理解できるのではないかと思います。MyWorkbenchという名前の新しいクラスを作成してそこにタイトル（MenuText）を指定し、ワークベンチがFreeCADに読み込まれた時に実行されるInitialize()関数を定義しています。またその関数の中で私たちの練習用ファイルの内容を読み込み、内部で見つけたFreeCADコマンドをコマンドリストに追加します。それが終わったら"My Scripts"という名前のツールバーを作成し、コマンドリストをそこに代入するのです。もちろん今のところはツールは一つだけなので、コマンドリストに入っている要素は一つだけです。ワークベンチの用意が整ったらそれをメインインターフェイスに追加します。
+</p><p>ただしまだ動作を行うことはできません。FreeCADコマンドを動作されるためには特定のやり方でフォーマットする必要があるからです。つまり私たちのline()ツールを少しだけ変更する必要があるのです。新しいexercise.pyは次のようになります：
+</p>
+<pre>import FreeCADGui, Part
+from pivy.coin import *
+class line:
+ "this class will create a line after the user clicked 2 points on the screen"
+ def Activated(self):
+   self.view = FreeCADGui.ActiveDocument.ActiveView
+   self.stack = []
+   self.callback = self.view.addEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.getpoint) 
+ def getpoint(self,event_cb):
+   event = event_cb.getEvent()
+   if event.getState() == SoMouseButtonEvent.DOWN:
+     pos = event.getPosition()
+     point = self.view.getPoint(pos[0],pos[1])
+     self.stack.append(point)
+     if len(self.stack) == 2:
+       l = Part.Line(self.stack[0],self.stack[1])
+       shape = l.toShape()
+       Part.show(shape)
+       self.view.removeEventCallbackPivy(SoMouseButtonEvent.getClassTypeId(),self.callback)
+ def GetResources(self): 
+     return {'Pixmap'&#160;: 'path_to_an_icon/line_icon.png', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
+FreeCADGui.addCommand('line', line())
+</pre>
+<p>ここでは__init__()関数をActivated()関数に変更しています。FreeCADコマンドが実行されるときには自動でActivated()関数が実行されるためです。またGetResources()を追加しています。この関数はFreeCADにどこにツールのアイコンがあるのかとその名前、そして私たちのツールのツールチップを通知します。アイコンには任意のサイズのjpg、png、svgの画像が使用できますが最終的な外観に近い16x16、24x24、32x32といったサイズを使用するのが最も好ましいです。
+最後にaddCommand()メソッドを使ってline()クラスを公式なFreeCADコマンドとして追加しています。
+</p><p>これで終わりです。FreeCADを再起動すれば真新しいラインツールのついたすてきな新しいワークベンチが使えます！
+</p>
+<h2><span class="mw-headline" id=".E3.82.82.E3.81.A3.E3.81.A8.E7.9F.A5.E3.82.8A.E3.81.9F.E3.81.84.E3.81.A7.E3.81.99.E3.81.8B.EF.BC.9F">もっと知りたいですか？</span></h2>
+<p>このエクササイズが気にいったらこの小さなツールを改良してみましょう。できることはたくさんあります。例えば次のようなものがあります：
+</p>
+<ul><li> ユーザーフィードバックの追加：今まで作ってきたのはとても原始的なツールです。ユーザーは恐らく使う時に少し迷うでしょう。ユーザーに次にどうしたら良いかを教えるフィードバックを何か追加してみましょう。例えばFreeCADのコンソールにメッセージを表示することができます。FreeCAD.Consoleモジュールを見てください。</li>
+<li> 手入力で3D上の点の座標を入力できるようにする。Pythonのinput()関数を参考にしてみてください。</li>
+<li> 2点以上の点を追加できるようにする。</li>
+<li> 他のイベントも追加してみる：今のところはマウスボタンイベントだけしかチェックしていませんがマウスが移動した時にも何か行なってみてはどうでしょう？例えば現在の座標を表示したりできるでしょう。</li>
+<li> 作成したオブジェクトに名前を付けてみる</li></ul>
+<p>疑問やアイデアがあれば遠慮せずに<a rel="nofollow" class="external text" href="http://forum.freecadweb.org/">forum</a>に書き込んでください！
+</p>
+
+<p><br />
+</p>
+
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/jp&amp;oldid=211455">http://www.freecadweb.org/wiki/index.php?title=Line_drawing_function/jp&amp;oldid=211455</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

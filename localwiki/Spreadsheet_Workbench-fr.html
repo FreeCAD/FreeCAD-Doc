@@ -1,0 +1,159 @@
+<html><head><title>Spreadsheet Workbench/fr</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Spreadsheet Workbench/fr</h1></div>
+
+<div id="mw-content-text" lang="fr" dir="ltr" class="mw-content-ltr"><hr/><div class="mw-parser-output"><p><span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_015/fr" title="Release notes 015/fr">Disponible dans la version 015</a></span>
+L'atelier tableur vous permet de créer et éditer des feuilles de calculs, lancer des calculs, récupérer des informations depuis le modèle et d'exporter ces données pour d'autres applications de tableur comme LibreOffice ou Microsoft Excel.
+</p><p><br />
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Spreadsheet_screenshot.jpg" class="image"><img alt="Spreadsheet screenshot.jpg" src="Spreadsheet_screenshot.jpg" width="979" height="577" /></a>
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Fonctions_Support.C3.A9es"><span class="tocnumber">1</span> <span class="toctext">Fonctions Supportées</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#R.C3.A9f.C3.A9rence_aux_donn.C3.A9es_CAO"><span class="tocnumber">2</span> <span class="toctext">Référence aux données CAO</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Propri.C3.A9t.C3.A9s_de_la_Cellule"><span class="tocnumber">3</span> <span class="toctext">Propriétés de la Cellule</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Donn.C3.A9es_de_la_feuille_de_calcul_dans_les_Expressions"><span class="tocnumber">4</span> <span class="toctext">Données de la feuille de calcul dans les Expressions</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Unit.C3.A9s"><span class="tocnumber">5</span> <span class="toctext">Unités</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Importation_et_exportation"><span class="tocnumber">6</span> <span class="toctext">Importation et exportation</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Limitations_Courantes"><span class="tocnumber">7</span> <span class="toctext">Limitations Courantes</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Scripts_Basiques"><span class="tocnumber">8</span> <span class="toctext">Scripts Basiques</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Fonctions_Support.C3.A9es">Fonctions Supportées</span></h2>
+<p>Le tableur met à disposition les fonctions suivantes, elles prennent un ou deux arguments&#160;: abs, acos, asin, atan, atan2, cos, cosh, exp, log, log10, mod, pow, sin, sinh, sqrt, tan, tanh
+</p><p>Les fonctions trigonométriques utilisent les degrés par défaut; vous devez spécifier <b>rad</b> si vous voulez que les fonctions utilisent le radian. 
+</p><p>Les fonctions supplémentaires&#160;: "ceil", "floor", "trunc" et "round" sont disponibles dans la <span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.16/fr" title="Release notes 0.16/fr">Disponible dans la version 0.16</a></span>
+</p>
+<pre>de FreeCAD
+</pre>
+<p>L'ensemble des fonctions suivantes est supporté&#160;: "average", "count", "max", "min", "stddev", "sum".
+</p><p>Les fonctions Statistiques peuvent prendre un ou plusieurs arguments, séparés par une virgule ou un point virgule. Les arguments peuvent contenir des plages (2 cellules séparées par 2 points), par exemple "=moyenne(B1:B8)"
+</p><p>Les constantes "pi" et "e" sont prédéfinies.
+</p><p>L'instruction conditionnelle  fonctionne comme cela&#160;: "= condition&#160;? résultatVrai&#160;: résultatFaux"
+</p><p>La condition est définie comme une expression qui donnera soit 0 (pour faux) ou différent de 0 pour vrai. Les opérateurs de comparaison sont les suivants&#160;: ==,&#160;!=, &gt;, &lt;, &gt;= et &lt;=.
+</p><p>L'instruction conditionnelle a en fait un bogue concernant les instructions conditionnelles imbriquées. Seul le vrai-résultat peut avoir une autre déclaration conditionnelle. Les parenthèses sont supprimées après confirmation de l'expression. Essayer de mettre une instruction conditionnelle imbriquée dans le faux-résultat entraîne des parenthèses incorrectes avec un résultat différent après l'enregistrement et la réouverture du document. 
+</p><p>Les formules sont écrites comme cela&#160;: "=A2+A3"
+</p><p>Noteː Les références à la cellule doivent être écrites avec des lettres majuscules.
+</p>
+<h2><span class="mw-headline" id="R.C3.A9f.C3.A9rence_aux_donn.C3.A9es_CAO">Référence aux données CAO</span></h2>
+<p>Il est possible d'utiliser des données de la construction dans la feuille de calcul.
+Le tableau suivant montre quelques exemples en supposant que le modèle a une fonctionnalité nommée "Cube" (notez qu'il s'agit du nom interne de la fonctionnalité, pas de l'étiquette affectée par l'utilisateur):
+</p>
+<table border="2" cellspacing="0" cellpadding="4" rules="all" class="hintergrundfarbe1 rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show;">
+<tr>
+<th>Donnée CAO
+</th>
+<th>Appel dans la feuille de calcul
+</th>
+<th>Résultat
+</th></tr>
+<tr>
+<td>Longueur paramétrique d'un Cube dans l'Atelier Part
+</td>
+<td>=Cube.Length
+</td>
+<td>Length en mm
+</td></tr>
+<tr>
+<td>Volume du Cube
+</td>
+<td>=Cube.Shape.Volume
+</td>
+<td>Volume  en mm&#179; sans unité
+</td></tr>
+<tr>
+<td>Type de la forme du Cube
+</td>
+<td>=Cube.Shape.ShapeType
+</td>
+<td>String: Solid
+</td></tr>
+<tr>
+<td>Nom du Cube
+</td>
+<td>=Cube.Label
+</td>
+<td>String: Cube
+</td></tr>
+<tr>
+<td>Coordonnée x du centre de gravité du Cube
+</td>
+<td>=Cube.Shape.CenterOfMass.x
+</td>
+<td>Coordonnée x en mm sans unité
+</td></tr></table>
+<h2><span class="mw-headline" id="Propri.C3.A9t.C3.A9s_de_la_Cellule">Propriétés de la Cellule</span></h2>
+<p>Les propriétés de la cellule peuvent être éditées avec un clic-droit dans la cellule. La boîte de dialogue suivante apparaît&#160;:
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:SpreadsheetCellPropDialog.png" class="image"><img alt="SpreadsheetCellPropDialog.png" src="SpreadsheetCellPropDialog.png" width="428" height="275" /></a>
+</p><p>Elle contient plusieurs onglets. Les propriétés suivantes peuvent être changées&#160;:
+</p>
+<ul><li> Couleur du texte et couleur d'arrière-plan</li>
+<li> Alignement horizontal et vertical du texte </li>
+<li> Style du texte&#160;: gras, italique, souligné</li>
+<li> Affichage de l'unité pour cette cellule. Veuillez lire la section ci-dessous.</li>
+<li> Définir un nom pour cette cellule. Ce nom peut être utilisé dans les formules des cellules ainsi que dans les expressions dans Freecad <span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.16/fr" title="Release notes 0.16/fr">Disponible dans la version 0.16</a></span></li></ul>
+<p>. 
+</p><p>Les expressions sont expliquées ici&#160;: <a href="https://www.freecadweb.org/wiki/index.php?title=Expressions/fr" title="Expressions/fr">Expressions</a>
+</p>
+<h2><span class="mw-headline" id="Donn.C3.A9es_de_la_feuille_de_calcul_dans_les_Expressions">Données de la feuille de calcul dans les Expressions</span></h2>
+<p>L'utilisation des données de la feuille de calcul dans d'autres objets de FreeCAD nécessite un nom complètement défini. Parce qu'il est possible d'avoir plus d'une feuille de calcul dans un document, le nom de la feuille ainsi que celui de la cellule (coordonnées ou alias) sont obligatoires.
+L'image suivante illustre l'utilisation de l'alias "number" dans la feuille "MySheet" dans une expression dans l'atelier Part-Design.
+<a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage1.png" class="image"><img alt="Expression usage1.png" src="Expression_usage1.png" width="414" height="95" /></a>
+</p><p>En tapant un "M", apparaît une liste des noms disponibles. Les touches fléchées permettent de sélectionner "MySheet".
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage2.png" class="image"><img alt="Expression usage2.png" src="Expression_usage2.png" width="414" height="95" /></a>
+</p><p>En tapant un "n", on voit apparaître la liste des noms disponibles dans MySheet commençant par "n".
+L'alias "number" peut être sélectionné avec la touche flèche vers le bas.
+Une fois qu'un nom valide ainsi qu'un contenu correct seront saisis, le champ résultat affichera la longueur calculée.
+</p><p><a href="https://www.freecadweb.org/wiki/index.php?title=File:Expression_usage3.png" class="image"><img alt="Expression usage3.png" src="Expression_usage3.png" width="414" height="95" /></a>
+</p>
+<h2><span class="mw-headline" id="Unit.C3.A9s">Unités</span></h2>
+<p>Les feuilles de calculs utilisent les unités. Si un nombre a une unité, cette unité sera utilisée dans les calculs.
+La multiplication de deux longueurs avec l'unité mm donne une surface en mm&#178;.
+</p><p>On peut basculer l'unité de longueur des mm vers les pouces dans la boîte de dialogue obtenue par un clic-droit dans la cellule.
+La cellule montrera alors la longueur en pouces. La valeur utilisée pour les calculs ne change pas.
+Les résultats d'une formule utilisant cette valeur ne changent pas, quand l'unité affichée d'une entrée a été changée. Le résultat est toujours calculé à partir de la longueur en mm. 
+</p><p>Un nombre sans unité ne peut pas être modifié en un nombre avec unité via la boite de propriétés des cellules.
+On peut saisir un texte indiquant l'unité, qui sera aussi affiché, mais la cellule ne contiendra toujours qu'un nombre sans unité.
+</p><p>Parfois il peut être préférable de se débarrasser de l'unité. Cela peut seulement être réalisé en multipliant par 1 avec une unité inverse.
+</p>
+<h2><span class="mw-headline" id="Importation_et_exportation">Importation et exportation</span></h2>
+<p>Les feuilles de calculs peuvent être importées et exportées au format <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Comma-separated_values">​​csv</a> qui peut également être lu et écrit par la plupart des tableurs tels que Microsoft Excel ou LibreOffice Calc. Lors de l'importation de fichiers dans FreeCAD, le délimiteur (le caractère utilisé pour séparer les colonnes) doit être le caractère TAB (ceci peut être défini lors de l'exportation à partir d'autres applications).
+</p><p>Les feuilles de calculs au format Excel "xlsx" peuvent être importées dans un document FreeCAD. Les feuilles de calculs Excel peuvent également être ouvertes par FreeCAD. Dans ce cas
+un nouveau document avec une feuille de calcul à l'intérieur est créé. Les fonctionnalités suivantes sont prises en charge&#160;:
+</p>
+<ul><li> toutes les fonctions qui sont également disponibles dans la feuille de calcul FreeCAD. D'autres fonctions donnent une erreur dans la cellule correspondante après l'importation.</li>
+<li> Noms d'alias pour les cellules</li>
+<li> Plusieurs tableaux dans la feuille Excel&#160;: Dans ce cas, plusieurs feuilles de calculs FreeCAD sont créées.</li></ul>
+<p>Les autres fonctionnalités ne sont pas importées dans la feuille de calcul FreeCAD. L'importation Excel est possible à partir de la <span style="font-size:8px;"><a href="https://www.freecadweb.org/wiki/index.php?title=Release_notes_0.17/fr" title="Release notes 0.17/fr">Disponible dans la version 0.17</a></span>
+</p>
+<pre>de FreeCAD.
+</pre>
+<h2><span class="mw-headline" id="Limitations_Courantes">Limitations Courantes</span></h2>
+<p>Il n'est pas possible de fournir des données pour une géométrie, par exemple une longueur, dans une feuille de calcul et récupérer dans la même feuille le volume de la forme résultante. Ceci crée une référence circulaire. C'est une choix dans la conception. Cependant, il est possible d'utiliser deux feuilles différentes&#160;: une pour les données source de la géométrie et une autre pour reporter les données de la géométrie.
+</p><p>Il n'est pas possible de copier et de sélectionner plusieurs cellules. Seul le contenu d'une cellule d'un champ de saisie peut être copié et collé dans le champ de saisie d'une autre cellule.
+</p><p>Pour des anciennes versions de FreeCAD voir <a href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_legacy/fr" title="Spreadsheet legacy/fr">Spreadsheet legacy</a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Scripts_Basiques">Scripts Basiques</span></h2>
+<pre>import Spreadsheet
+sheet = App.ActiveDocument.addObject("Spreadsheet::Sheet")
+sheet.Label = "Dimensions" </pre>
+
+<p><br />
+</p>
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/fr&amp;oldid=282312">http://www.freecadweb.org/wiki/index.php?title=Spreadsheet_Workbench/fr&amp;oldid=282312</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

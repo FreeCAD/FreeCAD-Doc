@@ -1,0 +1,106 @@
+<html><head><title>Mesh Scripting/de</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type='text/css' href='wiki.css' rel='stylesheet'></head><body><h1>Mesh Scripting/de</h1></div>
+
+<div id="mw-content-text" lang="de" dir="ltr" class="mw-content-ltr"><hr/>
+<div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einf.C3.BChrung"><span class="tocnumber">1</span> <span class="toctext">Einführung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Erstellen_und_Laden"><span class="tocnumber">2</span> <span class="toctext">Erstellen und Laden</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Modellieren"><span class="tocnumber">3</span> <span class="toctext">Modellieren</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Untersuchen_and_Testen"><span class="tocnumber">4</span> <span class="toctext">Untersuchen and Testen</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Schreiben_Sie_Ihre_eigenen_Algorithmen"><span class="tocnumber">5</span> <span class="toctext">Schreiben Sie Ihre eigenen Algorithmen</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Exportieren"><span class="tocnumber">6</span> <span class="toctext">Exportieren</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Gui_verwandte_Themen"><span class="tocnumber">7</span> <span class="toctext">Gui verwandte Themen</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Krimskrams"><span class="tocnumber">8</span> <span class="toctext">Krimskrams</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Einf.C3.BChrung">Einführung</span></h3>
+<p>Zunächst einmal müssen Sie das Mesh-Modul importieren:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Mesh</pre></div>
+<p>Danach haben Sie Zugriff auf das Mesh-Modul und die Mesh-Klasse, die die Funktionen des FreeCAD C++ Mesh-Kernel erleichtern.
+</p>
+<h3><span class="mw-headline" id="Erstellen_und_Laden">Erstellen und Laden</span></h3>
+<p>Um ein leeres Mesh-Objekt zu erstellen, benutzen Sie einfach den Standard-Konstruktor:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mesh = Mesh.Mesh()</pre></div>
+<p>Sie können auch ein Objekt aus einer Datei erstellen
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mesh = Mesh.Mesh('D:/temp/Something.stl')</pre></div>
+<p>(Eine Liste der kompatiblen Dateitypen finden Sie unter 'Meshes'  <a href="/wiki/Feature_list#IO" title="Feature list">hier</a>.)
+</p><p>Oder erstellen Sie es aus einer Reihe von durch ihre Eckpunkte beschriebenen Dreiecken:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>planarMesh = [
+# triangle 1
+[-0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],[-0.5000,0.5000,0.0000],
+#triangle 2
+[-0.5000,-0.5000,0.0000],[0.5000,-0.5000,0.0000],[0.5000,0.5000,0.0000],
+]
+planarMeshObject = Mesh.Mesh(planarMesh)
+Mesh.show(planarMeshObject)</pre></div>
+<p>Der Mesh-Kernel kümmert sich um die Schaffung einer topologischen richtigen Datenstruktur, durch Sortieren zusammenfallender Punkte und Kanten. 
+</p><p>Später werden Sie sehen, wie Sie Netzdaten testen und untersuchen können.
+</p>
+<h3><span class="mw-headline" id="Modellieren">Modellieren</span></h3>
+<p>Um regelmäßige Geometrien zu erstellen, können Sie das Python-Skript BuildRegularGeoms.py verwenden.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import BuildRegularGeoms</pre></div>
+<p>Dieses Skript stellt Methoden zur Verfügung, einfache gedrehte Körper wie Kugel, Ellipsoid, Zylinder, Kegel und Ringe zu definieren. Und es hat auch eine Methode, um einen einfachen Würfel erstellen.
+Um einen Toroid(Ring) zu erstellen, kann man zum Beispiel wie folgt vorgehen:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>t = BuildRegularGeoms.Toroid(8.0, 2.0, 50) # list with several thousands triangles
+m = Mesh.Mesh(t)</pre></div>
+<p>Die ersten beiden Parameter definieren die Radien des Torus und der dritte Parameter ist ein Sub-Sampling-Faktor für wie viele Dreiecke entstehen sollen. Je höher dieser Wert, desto glatter und je niedriger desto gröber ist der Körper.
+Die Mesh-Klasse stellt eine Reihe von booleschen Funktionen bereit, die für das Modelliereng verwendet werden können. Es stellt Vereinigung, Durchschnitt und Differenz zweier Mesh-Objekte zur Verfügung.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>m1, m2              # are the input mesh objects
+m3 = Mesh.Mesh(m1)  # create a copy of m1
+m3.unite(m2)        # union of m1 and m2, the result is stored in m3
+m4 = Mesh.Mesh(m1)
+m4.intersect(m2)    # intersection of m1 and m2
+m5 = Mesh.Mesh(m1)
+m5.difference(m2)   # the difference of m1 and m2
+m6 = Mesh.Mesh(m2)
+m6.difference(m1)   # the difference of m2 and m1, usually the result is different to m5</pre></div>
+<p>Schließlich ein vollständiges Beispiel, das die Schnittmenge zwischen einer Kugel und einem Zylinder, der die Kugel schneidet berechnet.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>import Mesh, BuildRegularGeoms
+sphere = Mesh.Mesh( BuildRegularGeoms.Sphere(5.0, 50) )
+cylinder = Mesh.Mesh( BuildRegularGeoms.Cylinder(2.0, 10.0, True, 1.0, 50) )
+diff = sphere
+diff = diff.difference(cylinder)
+d = FreeCAD.newDocument()
+d.addObject("Mesh::Feature","Diff_Sphere_Cylinder").Mesh=diff
+d.recompute()</pre></div>
+<h3><span class="mw-headline" id="Untersuchen_and_Testen">Untersuchen and Testen</span></h3>
+<h3><span class="mw-headline" id="Schreiben_Sie_Ihre_eigenen_Algorithmen">Schreiben Sie Ihre eigenen Algorithmen</span></h3>
+<h3><span class="mw-headline" id="Exportieren">Exportieren</span></h3>
+<p>Sie können sogar das Netz(Mesh) in ein Python-Modul schreiben:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>m.write("D:/Develop/Projekte/FreeCAD/FreeCAD_0.7/Mod/Mesh/SavedMesh.py")
+import SavedMesh
+m2 = Mesh.Mesh(SavedMesh.faces)</pre></div>
+<h3><span class="mw-headline" id="Gui_verwandte_Themen">Gui verwandte Themen</span></h3>
+<h3><span class="mw-headline" id="Krimskrams">Krimskrams</span></h3>
+<p>Eine umfangreiche Quelle (allerdings schwer zu bedienen) für Mesh-verwandtes Scripting sind die Unit-Test-Skripte des Mesh-Modul.
+In diesen Unit-Tests werden buchstäblich alle Methoden aufgerufen, und alle Eigenschaften/Attribute werden gezwickt.
+Also, wenn Sie mutig genug sind, lohnt ein Blick in <a rel="nofollow" class="external text" href="http://free-cad.svn.sourceforge.net/viewvc/free-cad/trunk/src/Mod/Mesh/App/MeshTestsApp.py?view=markup">Unit Test module</a>.
+</p><p>See also <a href="Mesh_API.html" title="Mesh API">Mesh API</a>
+</p>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+</div>
+
+</div><div class="printfooter">
+Online version: "<a dir="ltr" href="https://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/de&amp;oldid=143818">http://www.freecadweb.org/wiki/index.php?title=Mesh_Scripting/de&amp;oldid=143818</a>"</div>
+<div id="catlinks" class="catlinks" data-mw="interface"></div><div class="visualClear"></div>
+</div>
+</div>
+<div id="mw-navigation">
+<h2>Navigation menu</h2>
+
+</body></html>

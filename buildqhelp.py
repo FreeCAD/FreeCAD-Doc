@@ -2,7 +2,7 @@
 
 #***************************************************************************
 #*                                                                         *
-#*   Copyright (c) 2009 Yorik van Havre <yorik@uncreated.net>              *  
+#*   Copyright (c) 2009 Yorik van Havre <yorik@uncreated.net>              *
 #*                                                                         *
 #*   This program is free software; you can redistribute it and/or modify  *
 #*   it under the terms of the GNU Lesser General Public License (LGPL)    *
@@ -25,10 +25,10 @@
 from __future__ import print_function
 __title__="wiki2qhelp"
 __author__ = "Yorik van Havre <yorik@uncreated.net>"
-__url__ = "http://www.freecadweb.org"
+__url__ = "https://www.freecadweb.org"
 
 """
-This script builds qhrlp files from a local copy of the wiki
+This script builds qhelp files from a local copy of the wiki
 """
 
 import sys, os, re, tempfile, getopt, shutil
@@ -51,7 +51,7 @@ def crawl():
     "downloads an entire wiki site"
 
     # tests ###############################################
-    
+
     if os.system(QHELPCOMPILER +' -v'):
         print("Error: QAssistant not fully installed, exiting.")
         return 1
@@ -75,7 +75,7 @@ def crawl():
     else:
         print('Files are in localwiki. Test with "assistant -collectionFile localwiki/freecad.qhc"')
     return 0
-    
+
 def compile(qhpfile):
     "compiles the whole html doc with qassistant"
     qchfile = FOLDER + os.sep + "freecad.qch"
@@ -145,7 +145,7 @@ def buildtoc():
     gets the table of contents page and parses its
     contents into a clean lists structure
     '''
-    
+
     qhelpfile = '''<?xml version="1.0" encoding="UTF-8"?>
 <QtHelpProject version="1.0">
     <namespace>org.freecad.usermanual</namespace>
@@ -171,7 +171,7 @@ def buildtoc():
     </filterSection>
 </QtHelpProject>
 '''
-    
+
     def getname(line):
         line = re.compile('<li>').sub('',line)
         line = re.compile('</li>').sub('',line)
@@ -232,7 +232,7 @@ def buildtoc():
     f.close()
     if VERBOSE: print("Done writing qhp file",qfilename)
     return qfilename
-    
+
 if __name__ == "__main__":
 	crawl()
-      
+
